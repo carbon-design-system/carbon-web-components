@@ -1,0 +1,75 @@
+<div id="bx-loading-demo">
+  <bx-loading></bx-loading>
+  <fieldset class="bx--fieldset">
+    <legend class="bx--label">Spinner type</legend>
+    <div class="bx--form-item">
+      <div class="bx--radio-button-group">
+        <input id="radio-button-regular" class="bx--radio-button"
+          type="radio" value="regular" name="radio-button" tabindex="0" checked>
+        <label for="radio-button-regular" class="bx--radio-button__label">
+          <span class="bx--radio-button__appearance"></span>
+          Regular
+        </label>
+        <input id="radio-button-small" class="bx--radio-button" type="radio" value="small" name="radio-button" tabindex="0">
+        <label for="radio-button-small" class="bx--radio-button__label">
+          <span class="bx--radio-button__appearance"></span>
+          Small
+        </label>
+        <input id="radio-button-overlay" class="bx--radio-button" type="radio" value="overlay" name="radio-button" tabindex="0">
+        <label for="radio-button-overlay" class="bx--radio-button__label">
+          <span class="bx--radio-button__appearance"></span>
+          Overlay
+        </label>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="bx--fieldset">
+    <legend class="bx--label">Spinner state</legend>
+    <div class="bx--form-item bx--checkbox-wrapper">
+      <input id="bx--checkbox-active" class="bx--checkbox" type="checkbox" value="active" name="checkbox" checked>
+      <label for="bx--checkbox-active" class="bx--checkbox-label">
+        <span class="bx--checkbox-appearance">
+          <svg class="bx--checkbox-checkmark" width="12" height="9" viewBox="0 0 12 9" fill-rule="evenodd">
+            <path d="M4.1 6.1L1.4 3.4 0 4.9 4.1 9l7.6-7.6L10.3 0z"></path>
+          </svg>
+        </span>
+        Active
+      </label>
+    </div>
+  </fieldset>
+</div>
+<script type="text/javascript">
+  var timeoutOverlay;
+  var container = document.getElementById('bx-loading-demo');
+  var loading = container.querySelector('bx-loading');
+  var checbox = container.querySelector('input[type="checkbox"]');
+
+  function handleActiveOverlay() {
+    if (loading.getAttribute('type') === 'overlay' && !loading.hasAttribute('inactive')) {
+      if (!timeoutOverlay) {
+        timeoutOverlay = setTimeout(function () {
+          loading.setAttribute('inactive', '');
+          checbox.checked = false;
+          timeoutOverlay = null;
+        }, 1000);
+      }
+    } else {
+      if (timeoutOverlay) {
+        clearTimeout(timeoutOverlay);
+        timeoutOverlay = null;
+      }
+    }
+  }
+
+  Array.prototype.forEach.call(container.querySelectorAll('input[type="radio"]'), function (elem) {
+    elem.addEventListener('change', function (evt) {
+      var type = evt.target.value;
+      loading.setAttribute('type', type);
+      handleActiveOverlay();
+    });
+  });
+  checbox.addEventListener('change', function (evt) {
+    loading.inactive = !evt.target.checked;
+    handleActiveOverlay();
+  });
+</script>

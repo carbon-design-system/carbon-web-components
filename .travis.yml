@@ -1,0 +1,30 @@
+language: node_js
+
+node_js: "6"
+
+dist: trusty
+
+addons:
+  apt:
+    packages:
+      - google-chrome-stable
+  firefox: "latest-esr"
+
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  - tar -xjf /tmp/firefox-latest-esr.tar.bz2 --directory /tmp
+  - export PATH="/tmp/firefox:$PATH"
+  - export CHROME_BIN=google-chrome
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
+install:
+  - npm prune
+  - npm install || (cat npm-debug.log; false)
+
+script:
+  - npm run lint
+  - npm run test:unit -- -b ChromeHeadless -b Firefox

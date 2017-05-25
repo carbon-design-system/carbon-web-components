@@ -1,0 +1,4 @@
+docs/js
+node_modules
+public
+tests/coverage

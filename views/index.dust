@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/carbon-components.css">
+    <style type="text/css">
+      .offleft {
+        position: absolute;
+        top: 0;
+        left: -10000px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+
+      /* https://github.com/carbon-design-system/carbon-components/issues/144 */
+      .bx--loading-overlay--stop {
+        display: none;
+      }
+
+      .bx--body {
+        margin: 1rem 2rem;
+      }
+    </style>
+    <script type="text/javascript" src="/carbon-custom-elements-with-polyfills.js"></script>
+  </head>
+  <body class="bx--body">
+    <a class="offleft" href="#maincontent">Skip to main content</a>
+    <a name="maincontent"></a>
+
+    {content|s}
+  </body>
+</html>
