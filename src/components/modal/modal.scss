@@ -1,0 +1,42 @@
+@import 'carbon-components/scss/components/modal/modal';
+
+:host(#{$prefix}-modal) {
+  @extend .#{$prefix}--modal;
+}
+
+:host(#{$prefix}-modal[open]) {
+  @extend .#{$prefix}--modal.is-visible;
+}
+
+:host(#{$prefix}-modal[danger]) {
+  @extend .#{$prefix}--modal--danger;
+}
+
+:host(#{$prefix}-modal-header) {
+  @extend .#{$prefix}--modal-header;
+}
+
+:host(#{$prefix}-modal-close-button) {
+  @extend .#{$prefix}--modal-close;
+}
+
+:host(#{$prefix}-modal-heading),
+:host(#{$prefix}-modal-label) {
+  display: block;
+}
+
+:host(#{$prefix}-modal-heading) {
+  @extend .#{$prefix}--modal-header__heading;
+}
+
+:host(#{$prefix}-modal-label) {
+  @extend .#{$prefix}--modal-header__label;
+}
+
+:host(#{$prefix}-modal-body) {
+  @extend .#{$prefix}--modal-content;
+}
+
+:host(#{$prefix}-modal-footer) {
+  @extend .#{$prefix}--modal-footer;
+}

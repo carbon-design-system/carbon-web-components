@@ -6,6 +6,7 @@ const build = require('./gulp-tasks/build');
 const jsdoc = require('./gulp-tasks/jsdoc');
 const test = require('./gulp-tasks/test');
 
+gulp.task('build:sass', build.sass);
 gulp.task('build:scripts', build.scripts);
 gulp.task('build', ['build:scripts']);
 
