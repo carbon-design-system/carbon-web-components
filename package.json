@@ -61,10 +61,12 @@
   },
   "dependencies": {
     "@webcomponents/custom-elements": "^1.0.0",
-    "carbon-components": "^7.4.0",
+    "carbon-components": "^8.0.0",
+    "classnames": "^2.2.0",
     "core-js": "^2.4.0",
     "custom-event": "^1.0.0",
-    "es6-promise": "^4.1.0"
+    "es6-promise": "^4.1.0",
+    "lit-html": "^1.0.0"
   },
   "config": {
     "validate-commit-msg": {

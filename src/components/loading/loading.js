@@ -1,54 +1,12 @@
-import htmlRegular from 'carbon-components/html/loading/loading--without-overlay.html';
-import htmlSmall from 'carbon-components/html/loading/loading--small.html';
-import htmlWithOverlay from 'carbon-components/html/loading/loading.html';
-
-import Loading from 'carbon-components/es/components/loading/loading.js';
-
-const templateStrings = {
-  regular: htmlRegular.trim(),
-  small: htmlSmall.trim(),
-  overlay: htmlWithOverlay.trim(),
-};
+import settings from 'carbon-components/es/globals/js/settings';
+import classnames from 'classnames';
+import { html, render } from 'lit-html';
 
 /**
  * Spinner indicating loading state.
  * @extends HTMLElement
  */
 class BXLoading extends HTMLElement {
-  /**
-   * Stamps out the template.
-   * @private
-   */
-  _stamp() {
-    if (!this.querySelector(this.constructor.constants.selectorTemplateContent)) {
-      const template = this.ownerDocument.importNode(this.template, true);
-      this.appendChild(template);
-    }
-  }
-
-  /**
-   * Creates carbon-components `Loading` instance.
-   * @private
-   */
-  _create() {
-    // eslint-disable-next-line no-unused-vars
-    const { selectorInit, defaultType, ...remainder } = this.constructor.constants;
-    const options = {
-      ...remainder,
-      active: !this.inactive,
-      selectorInit,
-    };
-    if (!this.loading) {
-      this.loading = Loading.create(this.querySelector(selectorInit), options);
-    }
-  }
-
-  /**
-   * carbon-components `Loading` instance.
-   * @type {Loading}
-   */
-  loading;
-
   /**
    * Spinner type. Corresponds to the attribute with the same name. Choices are:
    *
@@ -83,58 +41,58 @@ class BXLoading extends HTMLElement {
   }
 
   /**
-   * The template being used.
-   * @type {DocumentFragment}
+   * @param {Object} props The properties used to render the template.
+   * @params {string} [props.type]
+   *   Spinner type. Corresponds to the attribute with the same name. Choices are:
+   *
+   *   * `regular`: Regular spinner.
+   *   * `small`: Small spinner.
+   *   * `overlay`: Spinner covering up the whole page.
+   *
+   * @params {boolean} [props.inactive] `true` if the spinner should be stopped.
+   * @returns {TemplateResult} The `lit-html` template with the given properties.
    */
-  get template() {
-    const found = this.constructor._templates[this.type];
-    if (found) {
-      return found;
-    }
-    const templateString = templateStrings[this.type] || templateStrings[this.constructor.constants.defaultType];
-    return (this.constructor._templates[this.type] = this.ownerDocument.createRange().createContextualFragment(templateString));
+  static template({ type, inactive }) {
+    const { prefix } = settings;
+    const classes = classnames(`${prefix}--loading`, {
+      [`${prefix}--loading--small`]: type === 'small',
+      [`${prefix}--loading--stop`]: inactive,
+    });
+    const overlayClasses = classnames(`${prefix}--loading-overlay`, {
+      [`${prefix}--loading-overlay--stop`]: inactive,
+    });
+    const template = html`<div data-loading class="${classes}">
+      <svg class="${prefix}--loading__svg" viewBox="-75 -75 150 150">
+        <title>Loading</title>
+        <circle cx="0" cy="0" r="37.5" />
+      </svg>
+    </div>`;
+    return type !== 'overlay' ? template : html`<div class="${overlayClasses}">${template}</div>`;
   }
 
   connectedCallback() {
-    this._stamp();
-    this._create();
-  }
-
-  disconnectedCallback() {
-    if (this.loading) {
-      this.loading = this.loading.release();
-    }
+    this.render();
   }
 
   attributeChangedCallback(name, old, current) {
     if (old !== current) {
-      if (name === 'type') {
-        if (this.loading) {
-          this.loading = this.loading.release();
-        }
-        while (this.firstChild) {
-          this.removeChild(this.firstChild);
-        }
-        this._stamp();
-        this._create();
-      } else if (name === 'inactive') {
-        this.loading.set(current === null);
-      }
+      this.render();
     }
   }
 
   /**
-   * The templates associated with spinner types.
-   * @type {Object.<string, DocumentFragment>}
-   * @private
+   * Renders the template.
    */
-  static _templates = {};
+  render() {
+    const props = {
+      type: this.type,
+      inactive: this.inactive,
+    };
+    render(this.constructor.template(props), this);
+  }
 
   static get observedAttributes() {
-    return [
-      'type',
-      'inactive',
-    ];
+    return ['type', 'inactive'];
   }
 
   /**
@@ -142,19 +100,8 @@ class BXLoading extends HTMLElement {
    * @type {string}
    */
   static get is() {
-    return 'bx-loading';
-  }
-
-  /**
-   * Component constants.
-   * @type {Object}
-   * @property {string} [defaultType] The default spinner type.
-   */
-  static get constants() {
-    return Object.assign({}, Loading.options, {
-      selectorTemplateContent: 'data-loading',
-      defaultType: 'regular',
-    });
+    const { prefix } = settings;
+    return `${prefix}-loading`;
   }
 }
 
