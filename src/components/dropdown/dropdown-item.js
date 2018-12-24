@@ -54,7 +54,7 @@ class BXDropdownItem extends HTMLElement {
    * @private
    */
   _stamp() {
-    const selectorSlot = this.constructor.constants.selectorSlot;
+    const { selectorSlot } = this.constructor.constants;
     if (!this.querySelector(this.constructor.constants.selectorTemplateContent)) {
       const template = this.ownerDocument.importNode(this.template, true);
       if (selectorSlot) {
@@ -72,10 +72,10 @@ class BXDropdownItem extends HTMLElement {
     // TODO: Consider defining our own style
     link.classList.toggle(this.constructor.constants.classLinkSelected, this.__selected);
     if (selectorSlot && !this._childListObserver) {
-      const slot = this.slot;
-      this._childListObserver = new MutationObserver((records) => {
-        records.forEach((record) => {
-          Array.prototype.forEach.call(record.addedNodes, (node) => {
+      const { slot } = this;
+      this._childListObserver = new MutationObserver(records => {
+        records.forEach(record => {
+          Array.prototype.forEach.call(record.addedNodes, node => {
             slot.appendChild(node);
           });
         });
@@ -110,8 +110,10 @@ class BXDropdownItem extends HTMLElement {
    * @type {DocumentFragment}
    */
   get template() {
-    return this.constructor._template
-      || (this.constructor._template = this.ownerDocument.createRange().createContextualFragment(htmlDropdownItem.trim()));
+    if (!this.constructor._template) {
+      this.constructor._template = this.ownerDocument.createRange().createContextualFragment(htmlDropdownItem.trim());
+    }
+    return this.constructor._template;
   }
 
   connectedCallback() {
@@ -119,7 +121,7 @@ class BXDropdownItem extends HTMLElement {
       this.setAttribute('role', 'listitem');
       this.classList.add(this.constructor.constants.classElement); // TODO: Consider defining our own style
       this._stamp();
-      this._hClick = on(this, 'click', (evt) => {
+      this._hClick = on(this, 'click', evt => {
         if (eventMatches(evt, this.constructor.constants.selectorLink)) {
           evt.preventDefault();
         }

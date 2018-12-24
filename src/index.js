@@ -8,7 +8,4 @@ customElements.define(Dropdown.is, Dropdown);
 customElements.define(DropdownItem.is, DropdownItem);
 customElements.define(Loading.is, Loading);
 
-export {
-  Dropdown,
-  Loading,
-};
+export { Dropdown, Loading };

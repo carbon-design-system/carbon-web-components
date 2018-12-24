@@ -1,16 +1,7 @@
 {
-  "parser": "babel-eslint",
-  "parserOptions" : {
-    "ecmaVersion": 6,
-    "sourceType": "module"
-  },
   "extends": [
-    "airbnb-base"
+    "../../src/.eslintrc"
   ],
-  "env": {
-    "browser": true,
-    "es6": true
-  },
   "globals": {
     "describe": true,
     "before": true,
@@ -23,11 +14,9 @@
   },
   "rules": {
     "func-names": 0,
-    "max-len": [2, 130, 2],
     "no-new": 0,
     "no-underscore-dangle": 0,
     "no-unused-expressions": 0,
-    "prefer-arrow-callback": 0,
-    "import/extensions": 0
+    "prefer-arrow-callback": 0
   }
 }

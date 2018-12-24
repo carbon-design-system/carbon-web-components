@@ -61,13 +61,19 @@ class BXLoading extends HTMLElement {
     const overlayClasses = classnames(`${prefix}--loading-overlay`, {
       [`${prefix}--loading-overlay--stop`]: inactive,
     });
-    const template = html`<div data-loading class="${classes}">
-      <svg class="${prefix}--loading__svg" viewBox="-75 -75 150 150">
-        <title>Loading</title>
-        <circle cx="0" cy="0" r="37.5" />
-      </svg>
-    </div>`;
-    return type !== 'overlay' ? template : html`<div class="${overlayClasses}">${template}</div>`;
+    const template = html`
+      <div data-loading class="${classes}">
+        <svg class="${prefix}--loading__svg" viewBox="-75 -75 150 150">
+          <title>Loading</title>
+          <circle cx="0" cy="0" r="37.5" />
+        </svg>
+      </div>
+    `;
+    return type !== 'overlay'
+      ? template
+      : html`
+          <div class="${overlayClasses}">${template}</div>
+        `;
   }
 
   connectedCallback() {

@@ -8,12 +8,14 @@ const commonjs = require('rollup-plugin-commonjs');
 const rollupConfig = require('../rollup.config.dev');
 
 function normalizeBrowser(browser) {
-  return {
-    chrome: `Chrome${process.env.TRAVIS ? '_Travis' : ''}`,
-    firefox: 'Firefox',
-    safari: 'Safari',
-    ie: 'IE',
-  }[browser.toLowerCase()] || browser;
+  return (
+    {
+      chrome: `Chrome${process.env.TRAVIS ? '_Travis' : ''}`,
+      firefox: 'Firefox',
+      safari: 'Safari',
+      ie: 'IE',
+    }[browser.toLowerCase()] || browser
+  );
 }
 
 module.exports = function setupKarma(config) {
@@ -25,9 +27,7 @@ module.exports = function setupKarma(config) {
         require.resolve('../babel-plugin-supercall'),
         'external-helpers',
         ['transform-runtime', { helpers: false, polyfill: false }],
-      ].concat(!config.customCollectCoverage ? [] : [
-        ['istanbul', { include: ['src/**/*.js'] }],
-      ]),
+      ].concat(!config.customCollectCoverage ? [] : [['istanbul', { include: ['src/**/*.js'] }]]),
     }),
     commonjs({
       namedExports: {
@@ -43,10 +43,12 @@ module.exports = function setupKarma(config) {
 
     frameworks: ['mocha', 'sinon-chai'],
 
-    files: ['src/polyfills/index.js'].concat(config.customFiles || [
-      'src/components/**/*.js', // For generatoring coverage report for untested files
-      'tests/spec/**/*.js',
-    ]),
+    files: ['src/polyfills/index.js'].concat(
+      config.customFiles || [
+        'src/components/**/*.js', // For generatoring coverage report for untested files
+        'tests/spec/**/*.js',
+      ]
+    ),
 
     preprocessors: {
       'src/**/*.js': ['rollup', 'sourcemap'], // For generatoring coverage report for untested files
@@ -88,25 +90,25 @@ module.exports = function setupKarma(config) {
       return reporters;
     })(),
 
-    coverageReporter: Object.assign({
-      dir: 'tests/coverage',
-      reporters: [
-        { type: 'html' },
-        { type: 'text' },
-      ],
-    }, config.customFiles ? {} : {
-      check: {
-        each: {
-          statements: 90,
-          branches: 70,
-          functions: 90,
-          lines: 90,
-          excludes: [
-            'src/polyfills/**',
-          ],
-        },
+    coverageReporter: Object.assign(
+      {
+        dir: 'tests/coverage',
+        reporters: [{ type: 'html' }, { type: 'text' }],
       },
-    }),
+      config.customFiles
+        ? {}
+        : {
+            check: {
+              each: {
+                statements: 90,
+                branches: 70,
+                functions: 90,
+                lines: 90,
+                excludes: ['src/polyfills/**'],
+              },
+            },
+          }
+    ),
 
     port: 9876,
 
@@ -120,4 +122,3 @@ module.exports = function setupKarma(config) {
     concurrency: Infinity,
   });
 };
-

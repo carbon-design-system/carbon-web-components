@@ -35,12 +35,7 @@ const KEYCODE = {
  * @readonly
  * @private
  */
-const KEYCODES_FOR_ITEMS_FIRST = [
-  KEYCODE.ENTER,
-  KEYCODE.SPACE,
-  KEYCODE.ARROWUP,
-  KEYCODE.ARROWDOWN,
-];
+const KEYCODES_FOR_ITEMS_FIRST = [KEYCODE.ENTER, KEYCODE.SPACE, KEYCODE.ARROWUP, KEYCODE.ARROWDOWN];
 
 /**
  * Calls `forEach` for array-like.
@@ -133,7 +128,7 @@ class BXDropdown extends HTMLElement {
    * @private
    */
   _stamp() {
-    const selectorSlot = this.constructor.constants.selectorSlot;
+    const { selectorSlot } = this.constructor.constants;
     if (!this.querySelector(this.constructor.constants.selectorTemplateContent)) {
       const template = this.ownerDocument.importNode(this.template, true);
       if (selectorSlot) {
@@ -145,11 +140,11 @@ class BXDropdown extends HTMLElement {
       this.appendChild(template);
     }
     if (selectorSlot) {
-      const slot = this.slot;
+      const { slot } = this;
       if (!this._childListObserver) {
-        this._childListObserver = new MutationObserver((records) => {
-          records.forEach((record) => {
-            forEach(record.addedNodes, (node) => {
+        this._childListObserver = new MutationObserver(records => {
+          records.forEach(record => {
+            forEach(record.addedNodes, node => {
               if (node.nodeType === Node.ELEMENT_NODE && node.matches(this.constructor.Child.is)) {
                 slot.appendChild(node);
                 this.addedChild(node);
@@ -160,9 +155,9 @@ class BXDropdown extends HTMLElement {
         this._childListObserver.observe(this, { childList: true });
       }
       if (!this._slotChildListObserver) {
-        this._slotChildListObserver = new MutationObserver((records) => {
-          records.forEach((record) => {
-            forEach(record.removedNodes, (node) => {
+        this._slotChildListObserver = new MutationObserver(records => {
+          records.forEach(record => {
+            forEach(record.removedNodes, node => {
               if (node.nodeType === Node.ELEMENT_NODE && node.matches(this.constructor.Child.is)) {
                 this.removedChild(node);
               }
@@ -179,7 +174,7 @@ class BXDropdown extends HTMLElement {
    * @param {Event} event The event triggering this method.
    * @private
    */
-  _handleKeydown = (event) => {
+  _handleKeydown = event => {
     const direction = {
       [KEYCODE.ARROWUP]: NAVIGATE.BACKWARD,
       [KEYCODE.ARROWDOWN]: NAVIGATE.FORWARD,
@@ -197,10 +192,12 @@ class BXDropdown extends HTMLElement {
    * @param {Event} [event] The event triggering this method.
    * @private
    */
-  _toggle = (event) => {
-    if ((KEYCODES_FOR_ITEMS_FIRST.indexOf(event.which) >= 0 && !eventMatches(event, this.constructor.Child.is))
-      || event.which === KEYCODE.ESCAPE
-      || event.type === 'click') {
+  _toggle = event => {
+    if (
+      (KEYCODES_FOR_ITEMS_FIRST.indexOf(event.which) >= 0 && !eventMatches(event, this.constructor.Child.is)) ||
+      event.which === KEYCODE.ESCAPE ||
+      event.type === 'click'
+    ) {
       const isOfSelf = this.contains(event.target);
       if (isOfSelf && event.which === KEYCODE.ARROWDOWN && !this.open) {
         this.focus();
@@ -225,7 +222,7 @@ class BXDropdown extends HTMLElement {
     while (text.firstChild) {
       text.removeChild(text.firstChild);
     }
-    forEach(item.slot.childNodes, (elem) => {
+    forEach(item.slot.childNodes, elem => {
       text.appendChild(this.ownerDocument.importNode(elem, true));
     });
   }
@@ -237,7 +234,7 @@ class BXDropdown extends HTMLElement {
    */
   _updateChildLinks(item) {
     item._selected = true; // eslint-disable-line no-param-reassign
-    forEach(this.getElementsByTagName(this.constructor.Child.is), (elem) => {
+    forEach(this.getElementsByTagName(this.constructor.Child.is), elem => {
       if (elem !== item) {
         elem._selected = false; // eslint-disable-line no-param-reassign
       }
@@ -263,15 +260,20 @@ class BXDropdown extends HTMLElement {
     this._hDocumentClick = on(this.ownerDocument, 'click', this._toggle);
 
     const hasFocusin = 'onfocusin' in window;
-    this._hFocusIn = on(this.ownerDocument, hasFocusin ? 'focusin' : 'focus', (event) => {
-      if (!this.contains(event.target)) {
-        this.open = false;
-      }
-    }, !hasFocusin);
+    this._hFocusIn = on(
+      this.ownerDocument,
+      hasFocusin ? 'focusin' : 'focus',
+      event => {
+        if (!this.contains(event.target)) {
+          this.open = false;
+        }
+      },
+      !hasFocusin
+    );
 
     this._hKeydown = on(this, 'keydown', this._handleKeydown);
 
-    this._hClick = on(this, 'click', (event) => {
+    this._hClick = on(this, 'click', event => {
       const item = eventMatches(event, this.constructor.Child.is);
       if (item) {
         this.selectedItem = item;
@@ -349,7 +351,7 @@ class BXDropdown extends HTMLElement {
   navigate(direction) {
     const items = this.getElementsByTagName(this.constructor.Child.is);
     const start = this.currentNavigation || this.selectedItem;
-    const getNextItem = (old) => {
+    const getNextItem = old => {
       const handleUnderflow = (i, l) => i + (i >= 0 ? 0 : l);
       const handleOverflow = (i, l) => i - (i < l ? 0 : l);
       // `items.indexOf(old)` may be -1 (Scenario of no previous focus)
@@ -414,11 +416,13 @@ class BXDropdown extends HTMLElement {
         this.setAttribute('value', item.value);
       }
 
-      this.dispatchEvent(new CustomEvent(this.constructor.constants.eventAfterSelected, {
-        bubbles: true,
-        cancelable: true,
-        detail: { item },
-      }));
+      this.dispatchEvent(
+        new CustomEvent(this.constructor.constants.eventAfterSelected, {
+          bubbles: true,
+          cancelable: true,
+          detail: { item },
+        })
+      );
     }
   }
 
@@ -434,7 +438,8 @@ class BXDropdown extends HTMLElement {
     const item = find(this.getElementsByTagName(this.constructor.Child.is), elem => elem.value === String(value));
     if (item) {
       this.selectedItem = item;
-    } else if (value == null) { // eslint-disable-line eqeqeq
+    } else if (value == null) {
+      // eslint-disable-line eqeqeq
       this.removeAttribute('value');
     } else {
       this.setAttribute('value', String(value));
@@ -466,8 +471,10 @@ class BXDropdown extends HTMLElement {
    * @type {DocumentFragment}
    */
   get template() {
-    return this.constructor._template
-      || (this.constructor._template = this.ownerDocument.createRange().createContextualFragment(htmlDropdown.trim()));
+    if (!this.constructor._template) {
+      this.constructor._template = this.ownerDocument.createRange().createContextualFragment(htmlDropdown.trim());
+    }
+    return this.constructor._template;
   }
 
   /**
@@ -478,10 +485,7 @@ class BXDropdown extends HTMLElement {
   static _template;
 
   static get observedAttributes() {
-    return [
-      'open',
-      'value',
-    ];
+    return ['open', 'value'];
   }
 
   /**

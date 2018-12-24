@@ -18,10 +18,7 @@ module.exports = {
     }),
     babel({
       exclude: 'node_modules/**',
-      plugins: [
-        require.resolve('./babel-plugin-supercall'),
-        'external-helpers',
-      ],
+      plugins: [require.resolve('./babel-plugin-supercall'), 'external-helpers'],
     }),
     commonjs(),
     uglify(),
