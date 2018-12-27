@@ -27,6 +27,7 @@
     "@storybook/addon-storysource": "^5.0.0",
     "@storybook/polymer": "^5.0.0",
     "@webcomponents/custom-elements": "^1.0.0",
+    "@webcomponents/shadydom": "^1.0.0",
     "autoprefixer": "^9.4.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.0",
@@ -86,10 +87,12 @@
     "sinon-chai": "^2.10.0",
     "style-loader": "^0.23.0",
     "terser-webpack-plugin": "^1.2.0",
+    "to-string-loader": "^1.1.0",
     "webpack": "^4.28.0"
   },
   "peerDependencies": {
     "@webcomponents/custom-elements": "^1.0.0",
+    "@webcomponents/shadydom": "^1.0.0",
     "carbon-components": "^9.0.0",
     "classnames": "^2.2.0",
     "lit-html": "^1.0.0"

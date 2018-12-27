@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import { storiesOf } from '@storybook/polymer';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
-import BXLoading from './loading';
+import './loading';
 
 const types = {
   'Regular (regular)': 'regular',
@@ -13,8 +13,6 @@ const createProps = () => ({
   inactive: boolean('Inactive (inactive)', false),
   type: select('The spinner type (type)', types),
 });
-
-window.customElements.define(BXLoading.is, BXLoading);
 
 storiesOf('Loading', module)
   .addDecorator(withKnobs)

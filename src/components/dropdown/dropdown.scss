@@ -1,0 +1,37 @@
+$css--plex: true !default;
+
+@import 'carbon-components/scss/components/dropdown/dropdown';
+
+:host(#{$prefix}-dropdown) {
+  @extend .#{$prefix}--dropdown;
+
+  ::slotted(.#{$prefix}--dropdown--selected) {
+    // Usage of `@extend .#{$prefix}--dropdown--selected` here seems to generate a wrong selector
+    display: none;
+  }
+}
+
+:host(#{$prefix}-dropdown[open]) {
+  @extend .#{$prefix}--dropdown--open;
+
+  ::slotted(#{$prefix}-dropdown-item) {
+    opacity: 1;
+  }
+}
+
+:host(#{$prefix}-dropdown[disabled]) {
+  @extend .#{$prefix}--dropdown--disabled;
+}
+
+:host(#{$prefix}-dropdown[light]) {
+  @extend .#{$prefix}--dropdown--light;
+}
+
+:host(#{$prefix}-dropdown[up]) {
+  @extend .#{$prefix}--dropdown--up;
+}
+
+:host(#{$prefix}-dropdown-item) {
+  @extend .#{$prefix}--dropdown-item;
+  @extend li;
+}

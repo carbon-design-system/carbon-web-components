@@ -1,6 +1,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { html, render } from 'lit-html';
+import styles from 'carbon-components/scss/globals/scss/styles.scss';
 
 /**
  * Spinner indicating loading state.
@@ -40,6 +41,26 @@ class BXLoading extends HTMLElement {
     }
   }
 
+  connectedCallback() {
+    this.attachShadow({ mode: 'open' });
+    this.render();
+  }
+
+  attributeChangedCallback(name, old, current) {
+    if (old !== current) {
+      this.render();
+    }
+  }
+
+  /**
+   * Renders the template.
+   */
+  render() {
+    if (this.shadowRoot) {
+      render(this.constructor.template(this), this.shadowRoot);
+    }
+  }
+
   /**
    * @param {Object} props The properties used to render the template.
    * @params {string} [props.type]
@@ -62,7 +83,10 @@ class BXLoading extends HTMLElement {
       [`${prefix}--loading-overlay--stop`]: inactive,
     });
     const template = html`
-      <div data-loading class="${classes}">
+      <style>
+        ${styles}
+      </style>
+      <div class="${classes}">
         <svg class="${prefix}--loading__svg" viewBox="-75 -75 150 150">
           <title>Loading</title>
           <circle cx="0" cy="0" r="37.5" />
@@ -74,27 +98,6 @@ class BXLoading extends HTMLElement {
       : html`
           <div class="${overlayClasses}">${template}</div>
         `;
-  }
-
-  connectedCallback() {
-    this.render();
-  }
-
-  attributeChangedCallback(name, old, current) {
-    if (old !== current) {
-      this.render();
-    }
-  }
-
-  /**
-   * Renders the template.
-   */
-  render() {
-    const props = {
-      type: this.type,
-      inactive: this.inactive,
-    };
-    render(this.constructor.template(props), this);
   }
 
   static get observedAttributes() {
@@ -110,5 +113,7 @@ class BXLoading extends HTMLElement {
     return `${prefix}-loading`;
   }
 }
+
+window.customElements.define(BXLoading.is, BXLoading);
 
 export default BXLoading;

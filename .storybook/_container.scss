@@ -1,4 +1,16 @@
-$css--font-face: true;
-$css--reset: true;
+@import 'carbon-components/scss/globals/scss/css--plex-core';
 
-@import '~carbon-components/scss/globals/scss/styles.scss';
+@include plex-font-face;
+
+.bx--visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  visibility: visible;
+  white-space: nowrap;
+}

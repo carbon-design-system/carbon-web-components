@@ -1,8 +1,8 @@
-import eventMatches from 'carbon-components/es/globals/js/misc/event-matches';
-import on from 'carbon-components/es/globals/js/misc/on';
-import BXDropdown from './dropdown.js';
+import settings from 'carbon-components/es/globals/js/settings';
+import { html, render } from 'lit-html';
+import styles from './dropdown.scss';
 
-import htmlDropdownItem from './dropdown-item.html';
+const { prefix } = settings;
 
 /**
  * Dropdown menu item.
@@ -10,158 +10,68 @@ import htmlDropdownItem from './dropdown-item.html';
  */
 class BXDropdownItem extends HTMLElement {
   /**
-   * The mutation observer for child nodes.
-   * @type {MutationObserver}
-   * @private
+   * The link href of the dropdown item. Corresponds to the attribute with the same name.
+   * @type {string}
    */
-  _childListObserver;
-
-  /**
-   * The handle of `onclick` event listener.
-   * @type {Handle}
-   * @private
-   */
-  _hClick;
-
-  /**
-   * `true` if this dropdown item should be selected.
-   * @type {boolean}
-   * @private
-   */
-  __selected;
-
-  /**
-   * Internal selected status.
-   * @type {boolean}
-   * @private
-   */
-  get _selected() {
-    return this.__selected;
+  get href() {
+    return this.getAttribute('href');
   }
 
-  set _selected(selected) {
-    this.__selected = selected;
-    const link = this.querySelector(this.constructor.constants.selectorLink);
-    // The template may not have been stamped out yet, so cannot rely on link being existent
-    if (link) {
-      // TODO: Consider defining our own style
-      link.classList.toggle(this.constructor.constants.classLinkSelected, selected);
-    }
+  set href(current) {
+    this.setAttribute('href', current);
   }
 
   /**
-   * Stamps out the template.
-   * @private
-   */
-  _stamp() {
-    const { selectorSlot } = this.constructor.constants;
-    if (!this.querySelector(this.constructor.constants.selectorTemplateContent)) {
-      const template = this.ownerDocument.importNode(this.template, true);
-      if (selectorSlot) {
-        const slotInTemplate = template.querySelector(selectorSlot);
-        while (this.firstChild) {
-          slotInTemplate.appendChild(this.firstChild);
-        }
-      }
-      this.appendChild(template);
-    }
-    const link = this.querySelector(this.constructor.constants.selectorLink);
-    if (!link) {
-      throw new TypeError('The template should contain the link.');
-    }
-    // TODO: Consider defining our own style
-    link.classList.toggle(this.constructor.constants.classLinkSelected, this.__selected);
-    if (selectorSlot && !this._childListObserver) {
-      const { slot } = this;
-      this._childListObserver = new MutationObserver(records => {
-        records.forEach(record => {
-          Array.prototype.forEach.call(record.addedNodes, node => {
-            slot.appendChild(node);
-          });
-        });
-      });
-      this._childListObserver.observe(this, { childList: true });
-    }
-  }
-
-  /**
-   * The value associated with this dropdown item.
+   * The value of the dropdown item. Corresponds to the attribute with the same name.
    * @type {string}
    */
   get value() {
     return this.getAttribute('value');
   }
 
-  set value(value) {
-    this.setAttribute('value', value);
-  }
-
-  /**
-   * The container for the content.
-   * @type {Element}
-   * @readonly
-   */
-  get slot() {
-    return this.querySelector(this.constructor.constants.selectorSlot) || this;
-  }
-
-  /**
-   * The template being used.
-   * @type {DocumentFragment}
-   */
-  get template() {
-    if (!this.constructor._template) {
-      this.constructor._template = this.ownerDocument.createRange().createContextualFragment(htmlDropdownItem.trim());
-    }
-    return this.constructor._template;
+  set value(current) {
+    this.setAttribute('value', current);
   }
 
   connectedCallback() {
-    if (this.parentNode.matches(this.constructor.Parent.constants.selectorSlot)) {
-      this.setAttribute('role', 'listitem');
-      this.classList.add(this.constructor.constants.classElement); // TODO: Consider defining our own style
-      this._stamp();
-      this._hClick = on(this, 'click', evt => {
-        if (eventMatches(evt, this.constructor.constants.selectorLink)) {
-          evt.preventDefault();
-        }
-      });
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'option');
     }
+    this.attachShadow({ mode: 'open' });
+    this.render();
   }
 
-  disconnectedCallback() {
-    if (this._hClick) {
-      this._hClick = this._hClick.release();
-    }
-    if (this._childListObserver) {
-      this._childListObserver.disconnect();
-      this._childListObserver = null;
+  attributeChangedCallback(name, old, current) {
+    if (old !== current) {
+      this.render();
     }
   }
 
   /**
-   * Focuses on the primary focusable element.
+   * Renders the template.
    */
-  focusInner() {
-    const link = this.querySelector(this.constructor.constants.selectorLink);
-    if (link) {
-      link.focus();
+  render() {
+    if (this.shadowRoot) {
+      render(this.template(), this.shadowRoot);
     }
   }
 
   /**
-   * The cache of parsed template.
-   * @type {DocumentFragment}
-   * @private
+   * @returns {TemplateResult} The `lit-html` template with the given properties.
    */
-  static _template;
+  template() {
+    /* eslint-disable no-script-url */
+    return html`
+      <style>
+        ${styles}
+      </style>
+      <a href=${this.href || 'javascript:void 0'} class=${`${prefix}--dropdown-link`}><slot></slot></a>
+    `;
+    /* eslint-enable no-script-url */
+  }
 
-  /**
-   * The custom element containing this custom element, which is, `<bx-dropdown>`.
-   * @type {BXDropdown}
-   */
-  static get Parent() {
-    return BXDropdown;
+  static get observedAttributes() {
+    return ['href', 'value'];
   }
 
   /**
@@ -169,29 +79,16 @@ class BXDropdownItem extends HTMLElement {
    * @type {string}
    */
   static get is() {
-    return 'bx-dropdown-item';
+    return `${prefix}-dropdown-item`;
   }
 
   /**
-   * Component constants.
-   * @type {Object}
-   * @property {string} [selectorTmplateContent] The CSS selector to find the stamped out template.
-   * @property {string} [selectorSlot] The CSS selector to find the element where child nodes should be in.
-   * @property {string} [selectorLink] The CSS selector to find the primary focusable/clickable node.
-   * @property {string} [classElement] The CSS class for this custom element.
-   * @property {string} [classLink] The CSS class for the primary focusable/clickable node.
-   * @property {string} [classLinkSelected] The CSS class for indicating that this dropdown item is selected.
+   * The CSS class for the selected item.
+   * @type {string}
    */
-  static get constants() {
-    return {
-      selectorTemplateContent: '.bx--dropdown-link',
-      selectorSlot: '.bx--dropdown-link',
-      selectorLink: '.bx--dropdown-link',
-      classElement: 'bx--dropdown-item',
-      classLink: 'bx--dropdown-link',
-      classLinkSelected: 'bx--dropdown--selected',
-    };
-  }
+  static classSelected = `${prefix}--dropdown--selected`;
 }
+
+window.customElements.define(BXDropdownItem.is, BXDropdownItem);
 
 export default BXDropdownItem;
