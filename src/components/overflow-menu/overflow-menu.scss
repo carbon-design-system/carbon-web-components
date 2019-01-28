@@ -1,0 +1,40 @@
+$css--plex: true !default;
+
+@import 'carbon-components/scss/components/overflow-menu/overflow-menu';
+
+:host(#{$prefix}-overflow-menu) {
+  @extend .#{$prefix}--overflow-menu;
+}
+
+:host(#{$prefix}-overflow-menu-body) {
+  @extend .#{$prefix}--overflow-menu-options;
+
+  &:after {
+    @extend .#{$prefix}--overflow-menu-options[data-floating-menu-direction='bottom']::after;
+  }
+}
+
+:host(#{$prefix}-overflow-menu-body[direction='top']) {
+  margin-top: 0;
+  margin-bottom: $spacing-2xs;
+
+  &:after {
+    @extend .#{$prefix}--overflow-menu-options[data-floating-menu-direction='top']::after;
+  }
+}
+
+:host(#{$prefix}-overflow-menu-body[open]) {
+  @extend .#{$prefix}--overflow-menu-options--open;
+}
+
+:host(#{$prefix}-overflow-menu-item) {
+  @extend .#{$prefix}--overflow-menu-options__option;
+}
+
+:host(#{$prefix}-overflow-menu-item[danger]) {
+  @extend .#{$prefix}--overflow-menu-options__option--danger;
+}
+
+:host(#{$prefix}-overflow-menu-item[disabled]) {
+  @extend .#{$prefix}--overflow-menu-options__option--disabled;
+}

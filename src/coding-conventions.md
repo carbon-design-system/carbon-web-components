@@ -1,5 +1,9 @@
 # Coding conventions
 
+## Creating shadow root
+
+Calling `HTMLElement.attachShadow()` on an element with shadow root already created causes `Shadow root cannot be created on a host which already hosts a shadow tree` error. Therefore we detect shadow root before calling `HTMLElement.attachShadow()`.
+
 ## Component options
 
 Like `carbon-components` library does, `carbon-custom-elements` ensures components are written in a flexible manner enough to support use cases different applications have.

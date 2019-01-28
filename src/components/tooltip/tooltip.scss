@@ -1,0 +1,58 @@
+$css--plex: true !default;
+
+@import 'carbon-components/scss/globals/scss/layout';
+@import 'carbon-components/scss/components/tooltip/tooltip';
+
+:host(#{$prefix}-tooltip) {
+  @extend .#{$prefix}--tooltip__trigger;
+}
+
+:host(#{$prefix}-tooltip-body) {
+  @extend .#{$prefix}--tooltip;
+
+  ::slotted(#{$prefix}-tooltip-footer) {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 1rem;
+  }
+}
+
+:host(#{$prefix}-tooltip-body[direction='left']) {
+  margin-top: 0;
+  margin-right: $spacing-2xs;
+
+  .#{$prefix}--tooltip__caret {
+    left: auto;
+    top: 50%;
+    right: rem(-5px);
+    transform: translateY(2px) rotate(-45deg) translate(50%, -50%); // Adjust for change in Y position as caret rotates
+  }
+}
+
+:host(#{$prefix}-tooltip-body[direction='top']) {
+  margin-top: 0;
+  margin-bottom: $spacing-2xs;
+
+  .#{$prefix}--tooltip__caret {
+    top: auto;
+    bottom: rem(-6px);
+    transform: rotate(45deg);
+  }
+}
+
+:host(#{$prefix}-tooltip-body[direction='right']) {
+  margin-top: 0;
+  margin-left: $spacing-2xs;
+
+  .#{$prefix}--tooltip__caret {
+    left: rem(-5px);
+    top: 50%;
+    right: auto;
+    transform: translateY(2px) rotate(135deg) translate(-50%, 50%); // Adjust for change in Y position as caret rotates
+  }
+}
+
+:host(#{$prefix}-tooltip-body[open]) {
+  @extend .#{$prefix}--tooltip--shown;
+}
