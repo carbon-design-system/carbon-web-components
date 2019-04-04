@@ -1,10 +1,9 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 
-const useExperimentalFeatures = process.env.CARBON_USE_EXPERIMENTAL_FEATURES === 'true';
+const useExperimentalFeatures = process.env.CARBON_USE_EXPERIMENTAL_FEATURES !== 'false';
 
-const useStyleSourceMap =
-  process.env.CARBON_REACT_STORYBOOK_USE_STYLE_SOURCEMAP === 'true';
+const useStyleSourceMap = process.env.CARBON_REACT_STORYBOOK_USE_STYLE_SOURCEMAP === 'true';
 
 module.exports = ({ config }) => {
   config.devtool = useStyleSourceMap ? 'source-map' : '';
@@ -48,48 +47,51 @@ module.exports = ({ config }) => {
     enforce: 'pre',
   });
 
-  config.module.rules.push({
-    test: /\.html$/,
-    use: 'raw-loader',
-  }, {
-    test: /\.scss$/,
-    sideEffects: true,
-    use: [
-      'to-string-loader',
-      {
-        loader: 'css-loader',
-        options: {
-          importLoaders: 2,
-          sourceMap: useStyleSourceMap,
+  config.module.rules.push(
+    {
+      test: /\.html$/,
+      use: 'raw-loader',
+    },
+    {
+      test: /\.scss$/,
+      sideEffects: true,
+      use: [
+        'to-string-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2,
+            sourceMap: useStyleSourceMap,
+          },
         },
-      },
-      {
-        loader: 'postcss-loader',
-        options: {
-          plugins: () => [
-            require('autoprefixer')({
-              browsers: ['last 1 version', 'ie >= 11'],
-            }),
-          ],
-          sourceMap: useStyleSourceMap,
+        {
+          loader: 'postcss-loader',
+          options: {
+            plugins: () => [
+              require('autoprefixer')({
+                browsers: ['last 1 version', 'ie >= 11'],
+              }),
+            ],
+            sourceMap: useStyleSourceMap,
+          },
         },
-      },
-      {
-        loader: 'sass-loader',
-        options: {
-          includePaths: [path.resolve(__dirname, '..', 'node_modules')],
-          data: `
+        {
+          loader: 'sass-loader',
+          options: {
+            includePaths: [path.resolve(__dirname, '..', 'node_modules')],
+            data: `
             $feature-flags: (
               components-x: ${useExperimentalFeatures},
               grid: ${useExperimentalFeatures},
               ui-shell: true,
             );
           `,
-          sourceMap: useStyleSourceMap,
+            sourceMap: useStyleSourceMap,
+          },
         },
-      },
-    ],
-  });
+      ],
+    }
+  );
 
   return config;
 };

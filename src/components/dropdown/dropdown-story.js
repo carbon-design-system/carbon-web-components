@@ -8,6 +8,8 @@ import './dropdown-item';
 const createProps = () => ({
   open: boolean('Open (open)', false),
   disabled: boolean('Disabled (disabled)', false),
+  helperText: text('Helper text (helper-text)', ''),
+  labelText: text('Label text (label-text)', ''),
   light: boolean('Light variant (light)', false),
   value: text('The value of the selected item (value)', ''),
   triggerContent: text('The default content of the trigger button (trigger-content)', 'Select an item'),
@@ -20,7 +22,7 @@ const createProps = () => ({
 storiesOf('Dropdown', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const { open, disabled, light, value, triggerContent, disableSelection } = createProps();
+    const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection } = createProps();
     const beforeSelectedAction = action('bx-dropdown-beingselected');
     const handleBeforeSelected = evt => {
       beforeSelectedAction(evt);
@@ -33,6 +35,8 @@ storiesOf('Dropdown', module)
         ?open=${open}
         ?disabled=${disabled}
         ?light=${light}
+        helper-text=${helperText}
+        label-text=${labelText}
         value=${value}
         trigger-content=${triggerContent}
         @bx-dropdown-beingselected=${handleBeforeSelected}

@@ -34,7 +34,7 @@
     "babel-loader": "^8.0.0",
     "babel-plugin-istanbul": "^4.1.0",
     "bluebird": "^3.5.0",
-    "carbon-components": "^9.0.0",
+    "carbon-components": "^10.0.0",
     "chai": "^4.0.0",
     "classnames": "^2.2.0",
     "core-js": "^2.4.0",
@@ -93,7 +93,7 @@
   "peerDependencies": {
     "@webcomponents/custom-elements": "^1.0.0",
     "@webcomponents/shadydom": "^1.0.0",
-    "carbon-components": "^9.0.0",
+    "carbon-components": "^10.0.0",
     "classnames": "^2.2.0",
     "lit-html": "^1.0.0"
   },

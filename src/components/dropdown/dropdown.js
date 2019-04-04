@@ -1,5 +1,5 @@
 import settings from 'carbon-components/es/globals/js/settings';
-import on from 'carbon-components/es/globals/js/misc/on';
+import classnames from 'classnames';
 import { html, render } from 'lit-html';
 import BXDropdownItem from './dropdown-item';
 import styles from './dropdown.scss';
@@ -14,18 +14,20 @@ const forEach = (a, predicate) => Array.prototype.forEach.call(a, predicate);
  */
 class BXDropdown extends HTMLElement {
   /**
-   * The handle for the `click` event handler of the shadow root.
-   * @type {Handle}
-   * @private
-   */
-  #hClickShadowRoot;
-
-  /**
    * The content of the selected item.
    * @type {DocumentFragment}
    * @private
    */
   #selectedContent;
+
+  /**
+   * An internal unique ID for this dropdown. Used if `id` attribute is not given.
+   * @type {string}
+   * @private
+   */
+  #uniqueId = `__carbon-dropdown__${Math.random()
+    .toString(36)
+    .substr(2)}`;
 
   /**
    * Handles `click` event on a dropdown item.
@@ -39,7 +41,7 @@ class BXDropdown extends HTMLElement {
     }
   };
 
-  #handleClickShadowRoot = evt => {
+  #handleClickInner = evt => {
     if (this.shadowRoot.contains(evt.target)) {
       this.open = !this.open;
     }
@@ -83,6 +85,38 @@ class BXDropdown extends HTMLElement {
     } else {
       this.removeAttribute('disabled');
     }
+  }
+
+  /**
+   * The helper text. Corresponds to the attribute with the same name.
+   * @type {string}
+   */
+  get helperText() {
+    return this.getAttribute('helper-text');
+  }
+
+  set helperText(current) {
+    this.setAttribute('helper-text', current);
+  }
+
+  /**
+   * The unique ID for this dropdown.
+   * @return {string}
+   */
+  get id() {
+    return !this.hasAttribute('id') ? this.#uniqueId : this.getAttribute('id');
+  }
+
+  /**
+   * The label text. Corresponds to the attribute with the same name.
+   * @type {string}
+   */
+  get labelText() {
+    return this.getAttribute('label-text');
+  }
+
+  set labelText(current) {
+    this.setAttribute('label-text', current);
   }
 
   /**
@@ -142,18 +176,8 @@ class BXDropdown extends HTMLElement {
   }
 
   connectedCallback() {
-    if (!this.hasAttribute('role')) {
-      this.setAttribute('role', 'combobox');
-    }
     this.attachShadow({ mode: 'open' });
-    this.#hClickShadowRoot = on(this.shadowRoot, 'click', this.#handleClickShadowRoot);
     this.render();
-  }
-
-  disconnectedCallback() {
-    if (this.#hClickShadowRoot) {
-      this.#hClickShadowRoot = this.#hClickShadowRoot.release();
-    }
   }
 
   attributeChangedCallback(name, old, current) {
@@ -188,26 +212,45 @@ class BXDropdown extends HTMLElement {
    * @returns {TemplateResult} The `lit-html` template with the given properties.
    */
   template() {
+    const innerClasses = classnames(`${prefix}--dropdown`, {
+      [`${prefix}--dropdown--disabled`]: this.disabled,
+      [`${prefix}--dropdown--light`]: this.light,
+      [`${prefix}--dropdown--open`]: this.open,
+    });
     return html`
       <style>
         ${styles}
       </style>
-      <li class=${`${prefix}--dropdown-text`}>${this.#selectedContent || this.triggerContent}</li>
-      <li>
-        <svg class=${`${prefix}--dropdown__arrow`} width="10" height="5" viewBox="0 0 10 5" fill-rule="evenodd">
-          <path d="M10 0L5 5 0 0z"></path>
-        </svg>
-      </li>
-      <li>
-        <ul role="listbox" class=${`${prefix}--dropdown-list`} aria-label="inner dropdown menu" @click=${this.#handleClickItem}>
-          <slot></slot>
-        </ul>
-      </li>
+      <label for=${`${this.id}-inner`} class=${`${prefix}--label`}>${this.labelText}</label>
+      <div class=${`${prefix}--form__helper-text`}>${this.helperText}</div>
+      <ul id=${`${this.id}-inner`} class=${innerClasses} role="combobox" tabindex="0" @click=${this.#handleClickInner}>
+        <li class=${`${prefix}--dropdown-text`}>${this.#selectedContent || this.triggerContent}</li>
+        <li class=${`${prefix}--dropdown__arrow-container`}>
+          <svg
+            class=${`${prefix}--dropdown__arrow`}
+            focusable="false"
+            preserveAspectRatio="xMidYMid meet"
+            style="will-change: transform;"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            aria-hidden="true"
+          >
+            <path d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"></path>
+          </svg>
+        </li>
+        <li>
+          <ul role="listbox" class=${`${prefix}--dropdown-list`} @click=${this.#handleClickItem}>
+            <slot></slot>
+          </ul>
+        </li>
+      </ul>
     `;
   }
 
   static get observedAttributes() {
-    return ['disabled', 'light', 'open', 'value', 'trigger-content'];
+    return ['disabled', 'helper-text', 'id', 'label-text', 'light', 'open', 'value', 'trigger-content'];
   }
 
   /**

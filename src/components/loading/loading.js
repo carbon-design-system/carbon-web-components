@@ -82,6 +82,11 @@ class BXLoading extends HTMLElement {
     const overlayClasses = classnames(`${prefix}--loading-overlay`, {
       [`${prefix}--loading-overlay--stop`]: inactive,
     });
+    const backgroundTemplate = !this.small
+      ? null
+      : html`
+          <circle class=${`${prefix}--loading__background`} cx="0" cy="0" r="37.5" />
+        `;
     const template = html`
       <style>
         ${styles}
@@ -89,7 +94,8 @@ class BXLoading extends HTMLElement {
       <div class="${classes}">
         <svg class="${prefix}--loading__svg" viewBox="-75 -75 150 150">
           <title>Loading</title>
-          <circle cx="0" cy="0" r="37.5" />
+          ${backgroundTemplate}
+          <circle class=${`${prefix}--loading__stroke`} cx="0" cy="0" r="37.5" />
         </svg>
       </div>
     `;
