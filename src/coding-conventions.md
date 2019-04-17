@@ -34,3 +34,13 @@ This library registers custom elements to global `window` as soon as modules con
 
 - You can manually register them to different windows
 - Custom elements derived from ones in this library should use different custom element names for registration
+
+## Propagating misc attributes from shadow host to an element in shadow DOM
+
+Some components e.g. `<bx-btn>` simply represent the content in shadow DOM, e.g. `<button>` in it.
+For such components, we try to propagate attributes in `<bx-btn>` to `<button>`.
+
+It automatically happens at initialization, by iterating through attributes and copying attributes over to `<button>`, for every attribute but one in `explicitAttributes`.
+`explicitAttributes` should list attributes that are rendered by `lit-html` template.
+
+Reflecting updates of those misc attributes to `<button>` can be done by subclassing `<bx-btn>` and overriding `observedAttributes` static property, so `attributeChangedCallback()` can take care of the updates.
