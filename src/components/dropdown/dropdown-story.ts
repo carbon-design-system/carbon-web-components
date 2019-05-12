@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit-element';
 import { storiesOf } from '@storybook/polymer';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
@@ -24,10 +24,10 @@ storiesOf('Dropdown', module)
   .add('Default', () => {
     const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection } = createProps();
     const beforeSelectedAction = action('bx-dropdown-beingselected');
-    const handleBeforeSelected = evt => {
-      beforeSelectedAction(evt);
+    const handleBeforeSelected = event => {
+      beforeSelectedAction(event);
       if (disableSelection) {
-        evt.preventDefault();
+        event.preventDefault();
       }
     };
     return html`

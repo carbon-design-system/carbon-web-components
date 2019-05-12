@@ -1,20 +1,23 @@
-import { html } from 'lit-html';
+import { html } from 'lit-element';
 import { storiesOf } from '@storybook/polymer';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
+import '../button/button';
 import './tooltip';
-import BXTooltipBody from './tooltip-body';
+import { FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
+import './tooltip-body';
 import './tooltip-footer';
+import styles from './tooltip-story.scss';
 
 const directions = {
-  [`Bottom (${BXTooltipBody.DIRECTION_BOTTOM})`]: BXTooltipBody.DIRECTION_BOTTOM,
-  [`Left (${BXTooltipBody.DIRECTION_LEFT})`]: BXTooltipBody.DIRECTION_LEFT,
-  [`Top (${BXTooltipBody.DIRECTION_TOP})`]: BXTooltipBody.DIRECTION_TOP,
-  [`Right (${BXTooltipBody.DIRECTION_RIGHT})`]: BXTooltipBody.DIRECTION_RIGHT,
+  [`Bottom (${FLOATING_MENU_DIRECTION.BOTTOM})`]: FLOATING_MENU_DIRECTION.BOTTOM,
+  [`Left (${FLOATING_MENU_DIRECTION.LEFT})`]: FLOATING_MENU_DIRECTION.LEFT,
+  [`Top (${FLOATING_MENU_DIRECTION.TOP})`]: FLOATING_MENU_DIRECTION.TOP,
+  [`Right (${FLOATING_MENU_DIRECTION.RIGHT})`]: FLOATING_MENU_DIRECTION.RIGHT,
 };
 
 const createProps = () => ({
   open: boolean('Open (open)', false),
-  direction: select('Direction (direction in <bx-tooltip-body>)', directions, BXTooltipBody.DIRECTION_BOTTOM),
+  direction: select('Direction (direction in <bx-tooltip-body>)', directions, FLOATING_MENU_DIRECTION.BOTTOM),
 });
 
 storiesOf('Tooltip', module)
@@ -22,6 +25,9 @@ storiesOf('Tooltip', module)
   .add('Default', () => {
     const { open, direction } = createProps();
     return html`
+      <style>
+        ${styles}
+      </style>
       <bx-tooltip ?open="${open}">
         <bx-tooltip-body direction="${direction}">
           <p>
@@ -29,7 +35,7 @@ storiesOf('Tooltip', module)
             please use a modal instead.
           </p>
           <bx-tooltip-footer>
-            <a href="#" class="bx--link">Learn More</a><button class="bx--btn bx--btn--primary" type="button">Create</button>
+            <a href="#" class="bx--link">Learn More</a><bx-btn kind="primary">Create</bx-btn>
           </bx-tooltip-footer>
         </bx-tooltip-body>
       </bx-tooltip>

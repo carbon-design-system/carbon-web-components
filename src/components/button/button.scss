@@ -1,3 +1,13 @@
 $css--plex: true !default;
 
 @import 'carbon-components/scss/components/button/button';
+
+:host(#{$prefix}-btn) {
+  display: inline-flex;
+  max-width: rem(320px);
+
+  .#{$prefix}--btn {
+    flex-grow: 1;
+    max-width: none;
+  }
+}

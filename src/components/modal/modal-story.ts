@@ -1,7 +1,8 @@
-import { html } from 'lit-html';
+import { html } from 'lit-element';
 import { storiesOf } from '@storybook/polymer';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
+import '../button/button';
 import './modal';
 import './modal-header';
 import './modal-close-button';
@@ -21,10 +22,10 @@ storiesOf('Modal', module)
   .add('Default', () => {
     const { danger, open, disableClose } = createProps();
     const beforeSelectedAction = action('bx-modal-beingclosed');
-    const handleBeforeClose = evt => {
-      beforeSelectedAction(evt);
+    const handleBeforeClose = event => {
+      beforeSelectedAction(event);
       if (disableClose) {
-        evt.preventDefault();
+        event.preventDefault();
       }
     };
     return html`
@@ -41,8 +42,8 @@ storiesOf('Modal', module)
         </bx-modal-header>
         <bx-modal-body><p>Modal text description</p></bx-modal-body>
         <bx-modal-footer>
-          <button class="bx--btn bx--btn--secondary" type="button" data-modal-close>Cancel</button>
-          <button class="bx--btn bx--btn--primary" type="button">Save</button>
+          <bx-btn kind="secondary" data-modal-close>Cancel</bx-btn>
+          <bx-btn kind="primary">Save</bx-btn>
         </bx-modal-footer>
       </bx-modal>
     `;

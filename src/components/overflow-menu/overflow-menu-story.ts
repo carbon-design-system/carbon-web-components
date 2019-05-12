@@ -1,19 +1,20 @@
-import { html } from 'lit-html';
+import { html } from 'lit-element';
 import { storiesOf } from '@storybook/polymer';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
+import { FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
 import './overflow-menu';
-import BXOverflowMenuBody from './overflow-menu-body';
+import './overflow-menu-body';
 import './overflow-menu-item';
 
 const directions = {
-  [`Bottom (${BXOverflowMenuBody.DIRECTION_BOTTOM})`]: BXOverflowMenuBody.DIRECTION_BOTTOM,
-  [`Top (${BXOverflowMenuBody.DIRECTION_TOP})`]: BXOverflowMenuBody.DIRECTION_TOP,
+  [`Bottom (${FLOATING_MENU_DIRECTION.BOTTOM})`]: FLOATING_MENU_DIRECTION.BOTTOM,
+  [`Top (${FLOATING_MENU_DIRECTION.TOP})`]: FLOATING_MENU_DIRECTION.TOP,
 };
 
 const createProps = () => ({
   open: boolean('Open (open)', false),
   disabled: boolean('Disabled (disabled)', false),
-  direction: select('Direction (direction in <bx-overflow-menu-body>)', directions, BXOverflowMenuBody.DIRECTION_BOTTOM),
+  direction: select('Direction (direction in <bx-overflow-menu-body>)', directions, FLOATING_MENU_DIRECTION.BOTTOM),
 });
 
 storiesOf('Overflow menu', module)
