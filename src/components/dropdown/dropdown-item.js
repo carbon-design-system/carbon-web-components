@@ -4,11 +4,61 @@ import styles from './dropdown.scss';
 
 const { prefix } = settings;
 
+// helper function to get the next immediate non-selected sibling dropdown item
+const getSibling = (element, direction) => {
+  let next = element[direction];
+  if (next) {
+    while (next.classList.contains('bx--dropdown--selected')) {
+      next = next[direction];
+    }
+    return next;
+  }
+  return null;
+};
+
+// borrowed from carbon-angular. tabbable === focusable
+const tabbableSelector =
+  "a[href], area[href], input:not([disabled]):not([tabindex='-1']), " +
+  "button:not([disabled]):not([tabindex='-1']),select:not([disabled]):not([tabindex='-1']), " +
+  "textarea:not([disabled]):not([tabindex='-1']), " +
+  "iframe, object, embed, *[tabindex]:not([tabindex='-1']), *[contenteditable=true]";
+
+// mixin to polyfill delegatesFocus
+const focusMixin = classToMix => {
+  const mix = {
+    focus() {
+      if (this.shadowRoot.delegatesFocus) {
+        super.focus();
+      } else {
+        this.shadowRoot.querySelector(tabbableSelector).focus();
+      }
+    },
+  };
+
+  return Object.assign(classToMix.prototype, mix);
+};
+
 /**
  * Dropdown menu item.
  * @extends HTMLElement
  */
 class BXDropdownItem extends HTMLElement {
+  #handleKeydown = event => {
+    if (event.key === 'ArrowDown') {
+      const next = getSibling(this, 'nextElementSibling');
+      if (next) {
+        next.focus();
+      }
+    }
+
+    if (event.key === 'ArrowUp') {
+      const prev = getSibling(this, 'previousElementSibling');
+      if (prev) {
+        prev.focus();
+      }
+    }
+  };
+
   /**
    * The link href of the dropdown item. Corresponds to the attribute with the same name.
    * @type {string}
@@ -37,14 +87,22 @@ class BXDropdownItem extends HTMLElement {
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'option');
     }
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: 'open', delegatesFocus: true });
     this.render();
+
+    // listen to keydowns on the host element
+    // that way we can find and focus siblings easier
+    this.addEventListener('keydown', this.#handleKeydown);
   }
 
   attributeChangedCallback(name, old, current) {
     if (old !== current) {
       this.render();
     }
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener('keydown', this.#handleKeydown);
   }
 
   /**
@@ -88,6 +146,8 @@ class BXDropdownItem extends HTMLElement {
    */
   static classSelected = `${prefix}--dropdown--selected`;
 }
+
+focusMixin(BXDropdownItem);
 
 window.customElements.define(BXDropdownItem.is, BXDropdownItem);
 

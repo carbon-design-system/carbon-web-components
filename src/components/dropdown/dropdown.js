@@ -8,6 +8,23 @@ const { prefix } = settings;
 const find = (a, predicate) => Array.prototype.find.call(a, predicate);
 const forEach = (a, predicate) => Array.prototype.forEach.call(a, predicate);
 
+// qick prototype of more functional icons
+const dropdownArrow = classNames => html`
+  <svg
+    class=${classNames}
+    focusable="false"
+    preserveAspectRatio="xMidYMid meet"
+    style="will-change: transform;"
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    aria-hidden="true"
+  >
+    <path d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"></path>
+  </svg>
+`;
+
 /**
  * Dropdown menu.
  * @extends HTMLElement
@@ -41,9 +58,40 @@ class BXDropdown extends HTMLElement {
     }
   };
 
-  #handleClickInner = evt => {
-    if (this.shadowRoot.contains(evt.target)) {
-      this.open = !this.open;
+  #handleClickInner = event => {
+    if (this.shadowRoot.contains(event.target)) {
+      this.#toggle();
+    }
+  };
+
+  #handleClickOuter = event => {
+    if (!this.contains(event.target)) {
+      this.open = false;
+    }
+  };
+
+  #handleKeydownInner = event => {
+    if (this.shadowRoot.contains(event.target) && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.#toggle();
+    }
+
+    if (['Tab', 'Escape'].includes(event.key)) {
+      this.open = false;
+    }
+
+    if (event.key === 'Escape') {
+      // focus the dropdown trigger
+      this.shadowRoot.querySelector(`.${prefix}--dropdown`).focus();
+    }
+  };
+
+  #toggle = () => {
+    this.open = !this.open;
+    if (this.open) {
+      const item = this.querySelector(`${BXDropdownItem.is}:not(.bx--dropdown--selected)`);
+      item.focus();
     }
   };
 
@@ -69,6 +117,8 @@ class BXDropdown extends HTMLElement {
         this.open = false;
       }
     }
+
+    this.shadowRoot.querySelector(`.${prefix}--dropdown`).focus();
   };
 
   /**
@@ -178,6 +228,9 @@ class BXDropdown extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     this.render();
+
+    // listen for clicks on the body so we can close the dropdown
+    this.ownerDocument.addEventListener('click', this.#handleClickOuter);
   }
 
   attributeChangedCallback(name, old, current) {
@@ -197,6 +250,11 @@ class BXDropdown extends HTMLElement {
       }
       this.render();
     }
+  }
+
+  disconnectedCallback() {
+    // clean up our listener
+    this.ownerDocument.removeEventListener('click', this.#handleClickOuter);
   }
 
   /**
@@ -223,23 +281,16 @@ class BXDropdown extends HTMLElement {
       </style>
       <label for=${`${this.id}-inner`} class=${`${prefix}--label`}>${this.labelText}</label>
       <div class=${`${prefix}--form__helper-text`}>${this.helperText}</div>
-      <ul id=${`${this.id}-inner`} class=${innerClasses} role="combobox" tabindex="0" @click=${this.#handleClickInner}>
+      <ul
+        id=${`${this.id}-inner`}
+        class=${innerClasses}
+        role="combobox"
+        tabindex="0"
+        @click=${this.#handleClickInner}
+        @keydown=${this.#handleKeydownInner}
+      >
         <li class=${`${prefix}--dropdown-text`}>${this.#selectedContent || this.triggerContent}</li>
-        <li class=${`${prefix}--dropdown__arrow-container`}>
-          <svg
-            class=${`${prefix}--dropdown__arrow`}
-            focusable="false"
-            preserveAspectRatio="xMidYMid meet"
-            style="will-change: transform;"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            aria-hidden="true"
-          >
-            <path d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"></path>
-          </svg>
-        </li>
+        <li class=${`${prefix}--dropdown__arrow-container`}>${dropdownArrow(`${prefix}--dropdown__arrow`)}</li>
         <li>
           <ul role="listbox" class=${`${prefix}--dropdown-list`} @click=${this.#handleClickItem}>
             <slot></slot>
