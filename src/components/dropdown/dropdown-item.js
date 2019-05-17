@@ -102,7 +102,7 @@ class BXDropdownItem extends focusMixin(HTMLElement) {
       <style>
         ${styles}
       </style>
-      <a href=${this.href || 'javascript:void 0'} class=${`${prefix}--dropdown-link`}><slot></slot></a>
+      <a href=${this.href || 'javascript:void 0'} class=${`${prefix}--dropdown-link`} tabindex="-1"><slot></slot></a>
     `;
     /* eslint-enable no-script-url */
   }
@@ -137,8 +137,6 @@ class BXDropdownItem extends focusMixin(HTMLElement) {
    */
   static classSelected = `${prefix}--dropdown--selected`;
 }
-
-focusMixin(BXDropdownItem);
 
 window.customElements.define(BXDropdownItem.is, BXDropdownItem);
 

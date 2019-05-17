@@ -64,9 +64,9 @@ class BXDropdown extends HTMLElement {
     }
   };
 
-  #handleFocusIn = event => {
-    if (!this.contains(event.target)) {
-      this.open = false;
+  #handleFocusOut = event => {
+    if (!this.contains(event.relatedTarget)) {
+      this.#toggle(false);
     }
   };
 
@@ -77,20 +77,18 @@ class BXDropdown extends HTMLElement {
       this.#toggle();
     }
 
-    if (['Tab', 'Escape'].includes(event.key)) {
-      this.open = false;
-    }
-
     if (event.key === 'Escape') {
-      // focus the dropdown trigger
-      this.shadowRoot.querySelector(`.${prefix}--dropdown`).focus();
+      // ensure the dropdown is closed
+      this.#toggle(false);
+      // focus the dropdown trigger - we only want to force focus back on the trigger when the user presses `Escape`
+      this.shadowRoot.querySelector(BXDropdown.triggerSelector).focus();
     }
   };
 
-  #toggle = () => {
-    this.open = !this.open;
+  #toggle = (force = !this.open) => {
+    this.open = force;
     if (this.open) {
-      const item = this.querySelector(`${BXDropdownItem.is}:not(.bx--dropdown--selected)`);
+      const item = this.querySelector(BXDropdown.nonSelectedItemSelector);
       item.focus();
     }
   };
@@ -118,7 +116,7 @@ class BXDropdown extends HTMLElement {
       }
     }
 
-    this.shadowRoot.querySelector(`.${prefix}--dropdown`).focus();
+    this.shadowRoot.querySelector(BXDropdown.triggerSelector).focus();
   };
 
   /**
@@ -229,8 +227,11 @@ class BXDropdown extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     this.render();
 
-    // listen for clicks on the body so we can close the dropdown
-    this.ownerDocument.addEventListener('click', this.#handleFocusIn);
+    // Detect IE/Edge which have bubbling `window.onfocusout`
+    const hasFocusOut = 'onfocusout' in this.ownerDocument.defaultView;
+    const focusoutEventName = hasFocusOut ? 'focusout' : 'blur';
+    // Use `focusout` if it's there, otherwise use "capture" mode which has similar-to-bubbling effect
+    this.ownerDocument.addEventListener(focusoutEventName, this.#handleFocusOut, !hasFocusOut);
   }
 
   attributeChangedCallback(name, old, current) {
@@ -254,7 +255,7 @@ class BXDropdown extends HTMLElement {
 
   disconnectedCallback() {
     // clean up our listener
-    this.ownerDocument.removeEventListener('click', this.#handleFocusIn);
+    this.ownerDocument.removeEventListener('blur', this.#handleFocusOut, true);
   }
 
   /**
@@ -327,6 +328,20 @@ class BXDropdown extends HTMLElement {
    */
   static get eventAfterSelect() {
     return `${this.is.toLowerCase()}-selected`;
+  }
+
+  /**
+   * The selector for the trigger element
+   */
+  static get triggerSelector() {
+    return `.${prefix}--dropdown`;
+  }
+
+  /**
+   * A selector that will return non-selected items
+   */
+  static get nonSelectedItemSelector() {
+    return `${BXDropdownItem.is}:not(.bx--dropdown--selected)`;
   }
 }
 
