@@ -1,7 +1,20 @@
 import { svg } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 
-import { toString, getAttributes } from '@carbon/icon-helpers';
+import { getAttributes, formatAttributes } from '@carbon/icon-helpers';
+
+// TODO: update @carbon/icon-helpers with this version of toString
+const toString = descriptor => {
+  if (typeof descriptor === 'string') {
+    return descriptor;
+  }
+  const { elem = 'svg', attrs = {}, content = [] } = descriptor;
+  const children = content.map(toString).join('');
+  if (elem !== 'svg') {
+    return `<${elem} ${formatAttributes(attrs)}>${children}</${elem}>`;
+  }
+  return `<${elem} ${formatAttributes(getAttributes(attrs))}>${children}</${elem}>`;
+};
 
 /**
  * Function that takes a valid @carbon/icons style icon descriptor and returns a lit-html svg instance
@@ -10,6 +23,19 @@ import { toString, getAttributes } from '@carbon/icon-helpers';
  */
 export const icon = (descriptor, attributes = {}) => {
   descriptor.attrs = getAttributes(Object.assign(descriptor.attrs, attributes));
+  if (descriptor.attrs.title) {
+    const id = `__carbon-icon__${Math.random()
+      .toString(36)
+      .substr(2)}`;
+    descriptor.content.push({
+      elem: 'title',
+      attrs: {
+        id,
+      },
+      content: [descriptor.attrs.title],
+    });
+    descriptor.attrs['aria-describedby'] = id;
+  }
   return svg`
     ${unsafeHTML(toString(descriptor))}
   `;
