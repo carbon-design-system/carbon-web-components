@@ -9,7 +9,7 @@ const find = (a, predicate) => Array.prototype.find.call(a, predicate);
 const forEach = (a, predicate) => Array.prototype.forEach.call(a, predicate);
 
 // qick prototype of more functional icons
-const dropdownArrow = classNames => html`
+const dropdownArrow = ({ classNames }) => html`
   <svg
     class=${classNames}
     focusable="false"
@@ -64,7 +64,7 @@ class BXDropdown extends HTMLElement {
     }
   };
 
-  #handleClickOuter = event => {
+  #handleFocusIn = event => {
     if (!this.contains(event.target)) {
       this.open = false;
     }
@@ -230,7 +230,7 @@ class BXDropdown extends HTMLElement {
     this.render();
 
     // listen for clicks on the body so we can close the dropdown
-    this.ownerDocument.addEventListener('click', this.#handleClickOuter);
+    this.ownerDocument.addEventListener('click', this.#handleFocusIn);
   }
 
   attributeChangedCallback(name, old, current) {
@@ -254,7 +254,7 @@ class BXDropdown extends HTMLElement {
 
   disconnectedCallback() {
     // clean up our listener
-    this.ownerDocument.removeEventListener('click', this.#handleClickOuter);
+    this.ownerDocument.removeEventListener('click', this.#handleFocusIn);
   }
 
   /**
@@ -290,7 +290,7 @@ class BXDropdown extends HTMLElement {
         @keydown=${this.#handleKeydownInner}
       >
         <li class=${`${prefix}--dropdown-text`}>${this.#selectedContent || this.triggerContent}</li>
-        <li class=${`${prefix}--dropdown__arrow-container`}>${dropdownArrow(`${prefix}--dropdown__arrow`)}</li>
+        <li class=${`${prefix}--dropdown__arrow-container`}>${dropdownArrow({ classNames: `${prefix}--dropdown__arrow` })}</li>
         <li>
           <ul role="listbox" class=${`${prefix}--dropdown-list`} @click=${this.#handleClickItem}>
             <slot></slot>

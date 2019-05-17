@@ -1,58 +1,37 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, render } from 'lit-html';
+import { tabbableSelector } from '../../settings';
 import styles from './dropdown.scss';
 
 const { prefix } = settings;
 
-// helper function to get the next immediate non-selected sibling dropdown item
-const getSibling = (element, direction) => {
-  let next = element[direction];
-  if (next) {
-    while (next.classList.contains('bx--dropdown--selected')) {
-      next = next[direction];
-    }
-    return next;
-  }
-  return null;
-};
-
-// borrowed from carbon-angular. tabbable === focusable
-const tabbableSelector =
-  "a[href], area[href], input:not([disabled]):not([tabindex='-1']), " +
-  "button:not([disabled]):not([tabindex='-1']),select:not([disabled]):not([tabindex='-1']), " +
-  "textarea:not([disabled]):not([tabindex='-1']), " +
-  "iframe, object, embed, *[tabindex]:not([tabindex='-1']), *[contenteditable=true]";
-
 // mixin to polyfill delegatesFocus
-const focusMixin = classToMix => {
-  const mix = {
+const focusMixin = Parent =>
+  class extends Parent {
     focus() {
       if (this.shadowRoot.delegatesFocus) {
         super.focus();
       } else {
         this.shadowRoot.querySelector(tabbableSelector).focus();
       }
-    },
+    }
   };
-
-  return Object.assign(classToMix.prototype, mix);
-};
 
 /**
  * Dropdown menu item.
  * @extends HTMLElement
  */
-class BXDropdownItem extends HTMLElement {
+class BXDropdownItem extends focusMixin(HTMLElement) {
   #handleKeydown = event => {
     if (event.key === 'ArrowDown') {
-      const next = getSibling(this, 'nextElementSibling');
+      const next = BXDropdownItem.getSibling(this, 'nextElementSibling');
       if (next) {
         next.focus();
       }
     }
 
     if (event.key === 'ArrowUp') {
-      const prev = getSibling(this, 'previousElementSibling');
+      const prev = BXDropdownItem.getSibling(this, 'previousElementSibling');
       if (prev) {
         prev.focus();
       }
@@ -138,6 +117,18 @@ class BXDropdownItem extends HTMLElement {
    */
   static get is() {
     return `${prefix}-dropdown-item`;
+  }
+
+  // static helper method to get the next immediate non-selected sibling dropdown item
+  static getSibling(element, direction) {
+    let next = element[direction];
+    if (next) {
+      while (next.classList.contains(BXDropdownItem.classSelected)) {
+        next = next[direction];
+      }
+      return next;
+    }
+    return null;
   }
 
   /**
