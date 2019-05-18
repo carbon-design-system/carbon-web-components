@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
-export { default as BXButton } from './components/dropdown/dropdown';
+export { default as BXButton } from './components/button/button';
 export { default as BXDropdown } from './components/dropdown/dropdown';
 export { default as BXDropdownItem } from './components/dropdown/dropdown-item';
 export { default as BXLoading } from './components/loading/loading';
