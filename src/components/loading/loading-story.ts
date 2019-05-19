@@ -1,17 +1,17 @@
-import { html } from 'lit-html';
+import { html } from 'lit-element';
 import { storiesOf } from '@storybook/polymer';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
-import './loading';
+import { LOADING_TYPE } from './loading';
 
 const types = {
-  'Regular (regular)': 'regular',
-  'Small (small)': 'small',
-  'With overlay (overlay)': 'overlay',
+  [`Regular (${LOADING_TYPE.REGULAR})`]: LOADING_TYPE.REGULAR,
+  [`Small (${LOADING_TYPE.SMALL})`]: LOADING_TYPE.SMALL,
+  [`With overlay (${LOADING_TYPE.OVERLAY})`]: LOADING_TYPE.OVERLAY,
 };
 
 const createProps = () => ({
   inactive: boolean('Inactive (inactive)', false),
-  type: select('The spinner type (type)', types),
+  type: select('The spinner type (type)', types, LOADING_TYPE.REGULAR),
 });
 
 storiesOf('Loading', module)
