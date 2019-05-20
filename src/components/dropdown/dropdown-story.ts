@@ -24,7 +24,7 @@ storiesOf('Dropdown', module)
   .add('Default', () => {
     const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection } = createProps();
     const beforeSelectedAction = action('bx-dropdown-beingselected');
-    const handleBeforeSelected = event => {
+    const handleBeforeSelected = (event: CustomEvent) => {
       beforeSelectedAction(event);
       if (disableSelection) {
         event.preventDefault();

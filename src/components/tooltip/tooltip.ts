@@ -74,6 +74,7 @@ class BXTooltip extends LitElement implements BXFloatingMenuTrigger {
     if (this._hClick) {
       this._hClick = this._hClick.release();
     }
+    super.disconnectedCallback();
   }
 
   attributeChangedCallback(name, old, current) {
