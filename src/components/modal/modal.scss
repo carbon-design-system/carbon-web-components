@@ -40,3 +40,10 @@
 :host(#{$prefix}-modal-footer) {
   @extend .#{$prefix}--modal-footer;
 }
+
+:host(#{$prefix}-modal-footer) ::slotted(#{$prefix}-btn) {
+  max-width: none;
+  width: 50%;
+  height: 4rem;
+  margin: 0;
+}

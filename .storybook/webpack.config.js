@@ -27,43 +27,35 @@ module.exports = ({ config }) => {
     config.module.rules.splice(htmlRuleIndex, 1);
   }
 
-  config.module.rules.push({
-    test: /-story\.jsx?$/,
-    loaders: [
-      {
-        loader: require.resolve('@storybook/addon-storysource/loader'),
-        options: {
-          prettierConfig: {
-            parser: 'babylon',
-            printWidth: 80,
-            tabWidth: 2,
-            bracketSpacing: true,
-            trailingComma: 'es5',
-            singleQuote: true,
-          },
-        },
-      },
-    ],
-    enforce: 'pre',
-  });
-
   config.module.rules.push(
     {
-      test: /\.html$/,
-      use: 'raw-loader',
+      test: /-story\.jsx?$/,
+      loaders: [
+        {
+          loader: require.resolve('@storybook/addon-storysource/loader'),
+          options: {
+            prettierConfig: {
+              parser: 'babylon',
+              printWidth: 80,
+              tabWidth: 2,
+              bracketSpacing: true,
+              trailingComma: 'es5',
+              singleQuote: true,
+            },
+          },
+        },
+      ],
+      enforce: 'pre',
+    },
+    {
+      test: /\.ts$/,
+      use: 'ts-loader',
     },
     {
       test: /\.scss$/,
       sideEffects: true,
       use: [
-        'to-string-loader',
-        {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 2,
-            sourceMap: useStyleSourceMap,
-          },
-        },
+        require.resolve('../css-result-loader'),
         {
           loader: 'postcss-loader',
           options: {
@@ -92,6 +84,9 @@ module.exports = ({ config }) => {
       ],
     }
   );
+
+  // TODO: Do we really need this?
+  config.resolve.extensions.push('.ts');
 
   return config;
 };

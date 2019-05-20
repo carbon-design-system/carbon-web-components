@@ -25,4 +25,22 @@ module.exports = {
       },
     ],
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.ts'],
+      },
+    },
+  },
+  overrides: [
+    {
+      files: ['**/*.ts'],
+      parser: '@typescript-eslint/parser',
+      plugins: ['@typescript-eslint'],
+      rules: {
+        'no-unused-vars': 0,
+        '@typescript-eslint/no-unused-vars': 2,
+      },
+    },
+  ],
 };
