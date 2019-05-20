@@ -1,11 +1,12 @@
 {
   "name": "carbon-custom-elements",
   "version": "0.1.0",
-  "author": "asudoh@jp.ibm.com",
   "scripts": {
     "build": "gulp build",
+    "ci-check": "yarn format:diff && yarn lint",
     "clean": "gulp clean",
     "format": "prettier --write \"**/*.{css,js,md,scss}\"",
+    "format:diff": "prettier --check \"**/*.{css,js,md,scss}\"",
     "format:staged": "prettier --write",
     "lint": "eslint .",
     "lint:staged": "eslint",
@@ -83,7 +84,7 @@
     "node-sass": "^4.11.0",
     "polymer-webpack-loader": "^2.0.0",
     "postcss-loader": "^3.0.0",
-    "prettier": "^1.15.0",
+    "prettier": "^1.17.0",
     "rollup": "^0.41.0",
     "rollup-plugin-babel": "^2.7.0",
     "rollup-plugin-commonjs": "^8.0.0",

@@ -1,4 +1,4 @@
-import Loading from '../../src/components/loading/loading.js';
+import Loading from '../../src/components/loading/loading.ts';
 
 customElements.define(Loading.is, Loading);
 
