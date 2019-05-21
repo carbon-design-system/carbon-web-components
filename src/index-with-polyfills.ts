@@ -1,3 +1,3 @@
 import './polyfills/index.js';
 
-export * from './index.ts';
+export * from './index';

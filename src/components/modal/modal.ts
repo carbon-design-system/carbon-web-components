@@ -18,8 +18,8 @@ class BXModal extends LitElement {
    * Handles `click` event on this element.
    * @param event The event.
    */
-  private _handleClick = event => {
-    if (event.composedPath().indexOf(this.shadowRoot) < 0) {
+  private _handleClick = (event: MouseEvent) => {
+    if (event.composedPath().indexOf(this.shadowRoot!) < 0) {
       this._handleUserInitiatedClose(event.target);
     }
   };
@@ -83,14 +83,15 @@ class BXModal extends LitElement {
   }
 
   connectedCallback() {
-    this._hClick = on(this, 'click', this._handleClick);
     super.connectedCallback();
+    this._hClick = on(this, 'click', this._handleClick);
   }
 
   disconnectedCallback() {
     if (this._hClick) {
       this._hClick = this._hClick.release();
     }
+    super.disconnectedCallback();
   }
 
   /**

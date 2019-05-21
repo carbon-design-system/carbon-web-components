@@ -28,10 +28,10 @@ declare module 'carbon-components/es/globals/js/misc/on' {
    * @param options An options object that specifies characteristics about the event listener.
    * @returns The handle to release the event listener. Its `release()` method removes the event listener.
    */
-  function on(
+  function on<K extends keyof HTMLElementEventMap>(
     element: Element,
-    type: string,
-    listener: EventListenerOrEventListenerObject,
+    type: K,
+    listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
     options?: boolean | AddEventListenerOptions
   ): Handle;
   export default on;

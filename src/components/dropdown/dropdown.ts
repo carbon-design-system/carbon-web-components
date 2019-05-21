@@ -24,9 +24,9 @@ class BXDropdown extends LitElement {
    * @param event The event.
    */
   private _handleClickItem = (event: MouseEvent) => {
-    const item = event.target as BXDropdownItem;
+    const item = event.target as HTMLElement;
     if (item.tagName === (this.constructor as typeof BXDropdown).itemTagName.toUpperCase()) {
-      this._handleUserInitiatedSelectItem(item);
+      this._handleUserInitiatedSelectItem(item as BXDropdownItem);
     }
   };
 
@@ -34,7 +34,7 @@ class BXDropdown extends LitElement {
    * Handles `click` event on the top-level element in the shadow DOM.
    * @param event The event.
    */
-  _handleClickInner = (event: MouseEvent) => {
+  private _handleClickInner = (event: MouseEvent) => {
     if (this.shadowRoot!.contains(event.target as Node)) {
       this.open = !this.open;
     }

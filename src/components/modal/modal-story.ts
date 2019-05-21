@@ -22,7 +22,7 @@ storiesOf('Modal', module)
   .add('Default', () => {
     const { danger, open, disableClose } = createProps();
     const beforeSelectedAction = action('bx-modal-beingclosed');
-    const handleBeforeClose = event => {
+    const handleBeforeClose = (event: CustomEvent) => {
       beforeSelectedAction(event);
       if (disableClose) {
         event.preventDefault();

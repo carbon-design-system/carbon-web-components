@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "build": "gulp build",
-    "ci-check": "yarn format:diff && yarn lint",
+    "ci-check": "yarn format:diff && yarn lint && yarn typecheck",
     "clean": "gulp clean",
     "format": "prettier --write \"**/*.{css,js,md,scss}\"",
     "format:diff": "prettier --check \"**/*.{css,js,md,scss}\"",
@@ -12,6 +12,7 @@
     "lint:staged": "eslint",
     "test": "gulp test",
     "test:unit": "gulp test:unit",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "start": "yarn storybook",
     "storybook": "start-storybook -p 9000"
   },
