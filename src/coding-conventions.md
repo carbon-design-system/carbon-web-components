@@ -73,7 +73,7 @@ class BXModal extends LitElement {
 
 Carbon core CSS uses BEM modifier like `bx--btn--danger` to style different states/variants of a component.
 
-OTOH `carbon-custom-elements` uses attributes to represent different states/variants (e.g. `<bx-btn type="danger">`), in a similar mannaer as how attributes influence states/variants of native elements (e.g. `<input type="hidden">`).
+OTOH `carbon-custom-elements` uses attributes to represent different states/variants (e.g. `<bx-btn type="danger">`), in a similar manner as how attributes influence states/variants of native elements (e.g. `<input type="hidden">`).
 
 If such states/variants should affect the style of custom element (shadow host), we define attribute styles.
 
