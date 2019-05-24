@@ -1,6 +1,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
-import on from 'carbon-components/es/globals/js/misc/on';
 import { html, property, customElement, LitElement } from 'lit-element';
+import HostListener from '../../globals/decorators/HostListener';
+import HostListenerMixin from '../../globals/mixins/HostListener';
 import BXFloatingMenu from '../floating-menu/floating-menu';
 import BXFloatingMenuTrigger from '../floating-menu/floating-menu-trigger';
 import styles from './tooltip.scss';
@@ -12,12 +13,7 @@ const find = (a: NodeListOf<Node>, predicate: (search: Node) => boolean) => Arra
  * Trigger button of tooltip.
  */
 @customElement(`${prefix}-tooltip` as any)
-class BXTooltip extends LitElement implements BXFloatingMenuTrigger {
-  /**
-   * The handle for `click` event listener on this element.
-   */
-  private _hClick: Handle | null = null;
-
+class BXTooltip extends HostListenerMixin(LitElement) implements BXFloatingMenuTrigger {
   /**
    * The menu body.
    */
@@ -26,6 +22,8 @@ class BXTooltip extends LitElement implements BXFloatingMenuTrigger {
   /**
    * Handles `click` event on this element.
    */
+  @HostListener('click')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleClick = () => {
     this.open = !this.open;
   };
@@ -64,17 +62,7 @@ class BXTooltip extends LitElement implements BXFloatingMenuTrigger {
     if (!this.shadowRoot) {
       this.attachShadow({ mode: 'open' });
     }
-    if (!this._hClick) {
-      this._hClick = on(this, 'click', this._handleClick);
-    }
     super.connectedCallback();
-  }
-
-  disconnectedCallback() {
-    if (this._hClick) {
-      this._hClick = this._hClick.release();
-    }
-    super.disconnectedCallback();
   }
 
   attributeChangedCallback(name, old, current) {
