@@ -1,23 +1,22 @@
 import settings from 'carbon-components/es/globals/js/settings';
-import on from 'carbon-components/es/globals/js/misc/on';
 import classnames from 'classnames';
 import { html, property, customElement, LitElement } from 'lit-element';
+import HostListener from '../../globals/decorators/HostListener';
+import HostListenerMixin from '../../globals/mixins/HostListener';
 import styles from './modal.scss';
 import BXModalCloseButton from './modal-close-button';
 
 const { prefix } = settings;
 
 @customElement(`${prefix}-modal` as any)
-class BXModal extends LitElement {
-  /**
-   * The handle for the `click` event handler on this element.
-   */
-  private _hClick: Handle | null = null;
-
+class BXModal extends HostListenerMixin(LitElement) {
   /**
    * Handles `click` event on this element.
    * @param event The event.
+   * @private
    */
+  @HostListener('click')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleClick = (event: MouseEvent) => {
     if (event.composedPath().indexOf(this.shadowRoot!) < 0) {
       this._handleUserInitiatedClose(event.target);
@@ -80,18 +79,6 @@ class BXModal extends LitElement {
     return html`
       <div class=${containerClasses} role="dialog" tabidnex="-1" @click=${this._handleClickContainer}><slot></slot></div>
     `;
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    this._hClick = on(this, 'click', this._handleClick);
-  }
-
-  disconnectedCallback() {
-    if (this._hClick) {
-      this._hClick = this._hClick.release();
-    }
-    super.disconnectedCallback();
   }
 
   /**
