@@ -38,32 +38,25 @@ For that purpose, we add TSDoc comments to the following:
 
 To avoid memory leaks and zombie event listeners, we ensure the event listeners on custom elements themselves (hosts) and ones on `document`, etc. are released when they get out of render tree.
 
-For that purpose, `carbon-custom-elements` uses [`on()` API from `carbon-components`](https://github.com/carbon-design-system/carbon/blob/v10.2.0/src/globals/js/misc/on.js), a thin sugar layer of `.addEventListener()`.
-
-[`on(element, type, listener, options)`](<(https://github.com/carbon-design-system/carbon/blob/v10.2.0/src/globals/js/misc/on.js)>) calls `element.addEventListener(type, listener, options)` and returns a ["handle" object with `.release()` method](https://github.com/carbon-design-system/carbon-custom-elements/blob/8d7dee3/src/typings/vendor.d.ts#L1-L10). `.release()` method releases the event listener.
+For that purpose, `carbon-custom-elements` uses `@HostListener(type, options)` decorator. `@HostListener(type, options)` decorator works with a custom element class inheriting `HostListenerMixin()` and attaches an event listener using the target method as the listener. The `type` argument can be something like `document:click` so the `click` event listener is attached to `document`.
 
 Here's an example seen in `<bx-modal>` code:
 
 ```typescript
-import on from 'carbon-components/es/globals/js/misc/on';
-
+...
+import HostListener from '../../globals/decorators/HostListener';
+import HostListenerMixin from '../../globals/mixins/HostListener';
 ...
 
 @customElement(`${prefix}-modal` as any)
-class BXModal extends LitElement {
+class BXModal extends HostListenerMixin(LitElement) {
   ...
 
-  connectedCallback() {
-    super.connectedCallback();
-    this._hClick = on(this, 'click', this._handleClick);
-  }
-
-  disconnectedCallback() {
-    if (this._hClick) {
-      this._hClick = this._hClick.release();
-    }
-    super.disconnectedCallback();
-  }
+  @HostListener('click')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleClick = (event: MouseEvent) => {
+    ...
+  };
 
   ...
 }
@@ -75,7 +68,10 @@ Carbon core CSS uses BEM modifier like `bx--btn--danger` to style different stat
 
 OTOH `carbon-custom-elements` uses attributes to represent different states/variants (e.g. `<bx-btn type="danger">`), in a similar manner as how attributes influence states/variants of native elements (e.g. `<input type="hidden">`).
 
-If such states/variants should affect the style of custom element (shadow host), we define attribute styles.
+If such states/variants should affect the style of custom element (shadow host), we define attribute styles from the following reasons:
+
+- Taking a cue from native elements with user agent shadow DOM (e.g. UA stylesheet for `<input type="hidden">`)
+- [Adding CSS classes on our custom elements by ourselves may conflict with CSS classes set by consumers](https://developers.google.com/web/fundamentals/web-components/best-practices#do-not-self-apply-classes)
 
 ## Customizing components
 
