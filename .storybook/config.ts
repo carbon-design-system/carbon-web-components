@@ -1,8 +1,7 @@
-import '@webcomponents/custom-elements';
-import '@webcomponents/shadydom';
-import { html } from 'lit-html';
-import { configure, addDecorator } from '@storybook/polymer';
-import containerStyles from './_container.scss';
+import '../src/polyfills';
+import { html } from 'lit-html'; // eslint-disable-line import/first
+import { configure, addDecorator } from '@storybook/polymer'; // eslint-disable-line import/first
+import containerStyles from './_container.scss'; // eslint-disable-line import/first
 
 addDecorator(
   story => html`
