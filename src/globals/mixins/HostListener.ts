@@ -26,18 +26,57 @@ const HostListenerMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
       const hostListeners = (this.constructor as typeof HostListenerMixinImpl)._hostListeners;
       Object.keys(hostListeners).forEach(listenerName => {
         Object.keys(hostListeners[listenerName]).forEach(type => {
-          const { options = false } = hostListeners[listenerName][type];
+          // Parses `document:click`/`window:click` format
           const tokens = EVENT_NAME_FORMAT.exec(type);
           if (!tokens) {
             throw new Error(`Could not parse the event name: ${listenerName}`);
           }
           const [, , targetName, unprefixedType] = tokens;
-          const target =
+          const target: EventTarget =
             {
               document: this.ownerDocument,
               window: this.ownerDocument!.defaultView,
             }[targetName] || this;
-          this._handles.add(on(target, unprefixedType as keyof HTMLElementEventMap, this[listenerName], options));
+
+          // Determines the event type for delegated `focus`/`blur` event
+          const hasFocusin = 'onfocusin' in this.ownerDocument!.defaultView!;
+          const delegatedType: string = {
+            focusin: hasFocusin ? 'focusin' : 'focus',
+            focus: hasFocusin ? 'focusin' : 'focus',
+            focusout: hasFocusin ? 'focusout' : 'blur',
+            blur: hasFocusin ? 'focusout' : 'blur',
+          }[unprefixedType];
+
+          // Sees if `capture` option of event listener conflicts with `capture` option to use for delegated `focus`/`blur` event
+          const { options } = hostListeners[listenerName][type];
+          // Despite https://dom.spec.whatwg.org/#concept-flatten-options, primitive type to boolean type coercion seems to happen
+          const isCaptureGiven =
+            Object(options) === options
+              ? typeof (options as AddEventListenerOptions).capture !== 'undefined'
+              : typeof options !== 'undefined';
+          if (delegatedType && isCaptureGiven) {
+            throw new Error(
+              '`capture` event listener option with `@HostListener()` cannot be used ' +
+                'for `focusin`, `focus`, `focusout` and `blur` events.'
+            );
+          }
+
+          // Modifies event listener options with `capture` option to use for delegated `focus`/`blur` event
+          let massagedOptions: boolean | AddEventListenerOptions = typeof options === 'undefined' ? false : options;
+          if (delegatedType) {
+            if (Object(options) === options) {
+              massagedOptions = {
+                ...Object(options),
+                capture: !hasFocusin,
+              };
+            } else {
+              massagedOptions = !hasFocusin;
+            }
+          }
+
+          this._handles.add(
+            on(target, (delegatedType || unprefixedType) as keyof HTMLElementEventMap, this[listenerName], massagedOptions)
+          );
         });
       });
     }
