@@ -1,8 +1,8 @@
 import { delay } from 'bluebird';
 import EventManager from '../utils/event-manager.js';
 
-import Dropdown from '../../src/components/dropdown/dropdown.js';
-import DropdownItem from '../../src/components/dropdown/dropdown-item.js';
+import Dropdown from '../../src/components/dropdown/dropdown.ts';
+import DropdownItem from '../../src/components/dropdown/dropdown-item.ts';
 
 customElements.define(Dropdown.is, Dropdown);
 customElements.define(DropdownItem.is, DropdownItem);
