@@ -128,11 +128,20 @@ abstract class BXFloatingMenu extends LitElement {
       throw new TypeError('Missing information of trigger button position.');
     }
 
+    const { container } = this;
     const { left: refLeft = 0, top: refTop = 0, right: refRight = 0, bottom: refBottom = 0 } = triggerPosition;
     const { width, height } = this.getBoundingClientRect();
-    const { scrollLeft, scrollTop } = this.container;
+    const { scrollLeft, scrollTop } = container;
+    const { left: containerLeft = 0, top: containerTop = 0 } = container.getBoundingClientRect();
     const refCenterHorizontal = (refLeft + refRight) / 2;
     const refCenterVertical = (refTop + refBottom) / 2;
+
+    if (
+      (container !== this.ownerDocument!.body || containerLeft !== 0 || containerTop !== 0) &&
+      container.ownerDocument!.defaultView!.getComputedStyle(container).getPropertyValue('position') === 'static'
+    ) {
+      throw new Error('Floating menu container must not have `position:static`.');
+    }
 
     const { alignment, alignmentDirection, direction } = this;
     if (Object.values(FLOATING_MENU_ALIGNMENT).indexOf(alignment) < 0) {
@@ -155,7 +164,7 @@ abstract class BXFloatingMenu extends LitElement {
       },
     }[alignmentDirection][alignment]();
 
-    return {
+    const { left, top } = {
       [FLOATING_MENU_DIRECTION.LEFT]: () => ({
         left: refLeft - width + scrollLeft,
         top: alignmentStart + scrollTop,
@@ -173,6 +182,11 @@ abstract class BXFloatingMenu extends LitElement {
         top: refBottom + scrollTop,
       }),
     }[direction]();
+
+    return {
+      left: left - containerLeft,
+      top: top - containerTop,
+    };
   }
 
   attributeChangedCallback(name, old, current) {
