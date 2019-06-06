@@ -1,7 +1,28 @@
 @import 'carbon-components/scss/components/modal/modal';
 
 :host(#{$prefix}-modal) {
-  @extend .#{$prefix}--modal;
+  // `@extend .#{$prefix}--modal` seems to cause `&.is-visible` style to be brought into `:host(#{$prefix}-modal)` with ShadyCSS
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: z('hidden');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  content: '';
+  background-color: transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: background-color $duration--slow-02 motion(exit, expressive),
+    opacity $duration--moderate-02 motion(exit, expressive), z-index $duration--slow-02 motion(exit, expressive),
+    visibility $duration--moderate-02 motion(exit, expressive);
+
+  .#{$prefix}--text-input,
+  .#{$prefix}--select-input {
+    background-color: $field-02;
+  }
 }
 
 :host(#{$prefix}-modal[open]) {
