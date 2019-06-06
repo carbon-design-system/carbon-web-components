@@ -142,6 +142,12 @@ class BXDropdown extends LitElement {
       [`${prefix}--dropdown--light`]: this.light,
       [`${prefix}--dropdown--open`]: this.open,
     });
+    const listClasses = classnames(`${prefix}--dropdown-list`, {
+      // `carbon-custom-elements`-only class as an alternative approach
+      // to `:host(bx-dropdown[open]) ::slotted(bx-dropdown-item)` that doesn't work with ShadyCSS
+      // https://github.com/webcomponents/shadycss/issues/5#issuecomment-257351096
+      [`${prefix}-ce--dropdown-list--open`]: this.open,
+    });
     return html`
       <label for=${`${this.id}-inner`} class=${`${prefix}--label`}>${this.labelText}</label>
       <div class=${`${prefix}--form__helper-text`}>${this.helperText}</div>
@@ -163,7 +169,7 @@ class BXDropdown extends LitElement {
           </svg>
         </li>
         <li>
-          <ul role="listbox" class=${`${prefix}--dropdown-list`} @click=${this._handleClickItem}>
+          <ul role="listbox" class=${listClasses} @click=${this._handleClickItem}>
             <slot></slot>
           </ul>
         </li>
