@@ -1,6 +1,8 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, customElement, LitElement } from 'lit-element';
+import CheckmarkFilled16 from '@carbon/icons/es/checkmark--filled/16';
+import icon from '../icon/icon';
 import HostListener from '../../globals/decorators/HostListener';
 import HostListenerMixin from '../../globals/mixins/HostListener';
 import RadioGroupManager, { NAVIGATION_DIRECTION, ManagedRadioButtonDelegate } from '../../globals/internal/radio-group-manager';
@@ -128,6 +130,12 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
   @property({ attribute: 'selection-value' })
   selectionValue = '';
 
+  /**
+   * The content to put into the `<title>` attribute of the selection icon.
+   */
+  @property({ attribute: 'selection-icon-title' })
+  selectionIconTitle = '';
+
   connectedCallback() {
     super.connectedCallback();
     if (!this._manager) {
@@ -164,7 +172,7 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
   }
 
   render() {
-    const { selected, selectionName, selectionValue } = this;
+    const { selected, selectionName, selectionValue, selectionIconTitle } = this;
     if (selectionName) {
       // "Selected" style with `.bx--structured-list-td` does not work somehow - Need investigation
       return html`
@@ -178,22 +186,10 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
           value=${ifDefined(selectionValue)}
         />
         <div class="${prefix}--structured-list-td ${prefix}--structured-list-cell">
-          <svg
-            focusable="false"
-            preserveAspectRatio="xMidYMid meet"
-            aria-label="select an option"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            role="img"
-            class="${prefix}--structured-list-svg"
-            style="will-change: transform;"
-          >
-            <title>select an option</title>
-            <path d="M8 1C4.1 1 1 4.1 1 8s3.1 7 7 7 7-3.1 7-7-3.1-7-7-7zM7 11L4.3 8.3l.9-.8L7 9.3l4-3.9.9.8L7 11z"></path>
-            <path d="M7 11L4.3 8.3l.9-.8L7 9.3l4-3.9.9.8L7 11z" opacity="0"></path>
-          </svg>
+          ${icon(CheckmarkFilled16, {
+            class: `${prefix}--structured-list-svg`,
+            title: selectionIconTitle,
+          })}
         </div>
       `;
     }
