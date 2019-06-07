@@ -40,9 +40,9 @@ module.exports = ({ config, mode }) => {
         path.dirname(require.resolve('lit-html')),
         path.dirname(require.resolve('lit-element')),
         path.dirname(require.resolve('@webcomponents/custom-elements')),
+        // `ShadyCSS` NPM package is missing its entry point file
         path.dirname(require.resolve('@webcomponents/shadycss/scoping-shim.min.js')),
         path.dirname(require.resolve('@webcomponents/shadydom')),
-        path.dirname(require.resolve('@webcomponents/webcomponentsjs')),
       ],
     });
   }
