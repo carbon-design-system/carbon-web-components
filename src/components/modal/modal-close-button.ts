@@ -18,9 +18,6 @@ class BXModalCloseButton extends LitElement {
 
   render() {
     return html`
-      <style>
-        ${styles}
-      </style>
       ${icon(Close20, {
         class: `${prefix}--modal-close__icon`,
       })}
