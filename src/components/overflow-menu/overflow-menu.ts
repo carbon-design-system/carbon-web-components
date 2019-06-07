@@ -1,5 +1,9 @@
 import settings from 'carbon-components/es/globals/js/settings';
-import { html, property, customElement, LitElement } from 'lit-element';
+import { property, customElement, LitElement } from 'lit-element';
+import OverflowMenuVertical16 from '@carbon/icons/es/overflow-menu--vertical/16';
+import HostListener from '../../globals/decorators/HostListener';
+import HostListenerMixin from '../../globals/mixins/HostListener';
+import icon from '../icon/icon';
 import BXFloatingMenu from '../floating-menu/floating-menu';
 import BXFloatingMenuTrigger from '../floating-menu/floating-menu-trigger';
 import styles from './overflow-menu.scss';
@@ -11,7 +15,7 @@ const find = (a: NodeListOf<Node>, predicate: (search: Node) => boolean) => Arra
  * Overflow menu.
  */
 @customElement(`${prefix}-overflow-menu` as any)
-class BXOverflowMenu extends LitElement implements BXFloatingMenuTrigger {
+class BXOverflowMenu extends HostListenerMixin(LitElement) implements BXFloatingMenuTrigger {
   /**
    * The menu body.
    */
@@ -20,8 +24,12 @@ class BXOverflowMenu extends LitElement implements BXFloatingMenuTrigger {
   /**
    * Handles `click` event on the trigger button.
    */
-  private _handleClickTrigger = () => {
-    this.open = !this.open;
+  @HostListener('click')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleClickTrigger = (event: MouseEvent) => {
+    if (event.composedPath().indexOf(this.shadowRoot!) >= 0) {
+      this.open = !this.open;
+    }
   };
 
   /**
@@ -71,23 +79,9 @@ class BXOverflowMenu extends LitElement implements BXFloatingMenuTrigger {
   }
 
   render() {
-    return html`
-      <svg
-        id="trigger"
-        aria-hidden="true"
-        class="${prefix}--overflow-menu__icon"
-        width="3"
-        height="15"
-        viewBox="0 0 3 15"
-        @click=${this._handleClickTrigger}
-      >
-        <g fill-rule="evenodd">
-          <circle cx="1.5" cy="1.5" r="1.5" />
-          <circle cx="1.5" cy="7.5" r="1.5" />
-          <circle cx="1.5" cy="13.5" r="1.5" />
-        </g>
-      </svg>
-    `;
+    return icon(OverflowMenuVertical16, {
+      class: `${prefix}--overflow-menu__icon`,
+    });
   }
 
   /**

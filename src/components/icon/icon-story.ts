@@ -6,7 +6,7 @@ import Add20 from '@carbon/icons/lib/add/20';
 import Add24 from '@carbon/icons/lib/add/24';
 import Add32 from '@carbon/icons/lib/add/32';
 
-import { icon } from './icon';
+import icon from './icon';
 
 storiesOf('Icon', module)
   .add(
