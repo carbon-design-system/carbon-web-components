@@ -54,7 +54,7 @@ module.exports = ({ config, mode }) => {
       use: 'null-loader',
     },
     {
-      test: /-story\.jsx?$/,
+      test: /-story\.[jt]sx?$/,
       use: [
         {
           loader: require.resolve('@storybook/addon-storysource/loader'),
