@@ -8,12 +8,7 @@ addDecorator(
     <style>
       ${containerStyles}
     </style>
-    <div
-      data-floating-menu-container
-      role="main"
-      class="bx--body"
-      style="padding: 3em; display: flex; flex-direction: column; align-items: center"
-    >
+    <div data-floating-menu-container role="main" class="bx--body bx-ce-devenv--container">
       ${story()}
     </div>
     <input aria-label="input-text-offleft" type="text" class="bx--visually-hidden" />
