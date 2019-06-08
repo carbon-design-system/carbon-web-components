@@ -34,6 +34,22 @@ For that purpose, we add TSDoc comments to the following:
 - All properties/methods (including private properties), only exception here is one being overriden
 - All type definitions (e.g. `interface`, `enum`)
 
+## No kitchen-sink "base" class and using mix-in
+
+We strive to avoid kitchen-sink "base" class, for the sake of maintenability and avoiding code bloat.
+Toward that goal, we use mix-in classes. Instead of manipulating prototype, we simply use ECMAScript class feature ([Subclass Factory Pattern](https://github.com/justinfagnani/proposal-mixins#subclass-factory-pattern)), which is, something like:
+
+```typescript
+const Mixin = <T extends Constructor<SomeClass>>(Base: T) => class extends Base {
+  ...
+
+  someProperty = someValue;
+  someMethod() { ... }
+
+  ...
+};
+```
+
 ## Lifecycle management
 
 To avoid memory leaks and zombie event listeners, we ensure the event listeners on custom elements themselves (hosts) and ones on `document`, etc. are released when they get out of render tree.
@@ -123,6 +139,33 @@ Wherever it makes sense, `carbon-custom-elements` translates user-initiated even
 `bx-modal-beingclosed` is cancelable in a similar manner as how `click` event on `<a href="...">` is cancelable; If `bx-modal-beingclosed` is canceled, `<bx-modal>` stops closing itself.
 
 We define custom event names as static properties so derived classes can customize them.
+
+## Globalization
+
+### Translation
+
+Like what most of native elements do, the primary means to handle translatable strings is let user put them in DOM, e.g. in attributes, child (text) nodes.
+
+The only exception would be date picker (though this repository hasn't got one yet), where there are huge amount of translatable stings.
+
+### Collation
+
+To avoid problems with collation, the primary means for user to determine order in list item is ordering them in DOM, for example:
+
+```html
+<bx-dropdown>
+  <bx-dropdown-item value="all">Option 1</bx-dropdown-item>
+  <bx-dropdown-item value="cloudFoundry">Option 2</bx-dropdown-item>
+  <bx-dropdown-item value="staging">Option 3</bx-dropdown-item>
+</bx-dropdown>
+```
+
+## Null checks
+
+If you get TypeScript "may be null" errors, think twice to see if there is such edge case:
+
+- If so, do such check to throw more reasonable exception or to make it no-op if the condition is not met.
+- If not, you can now add non-null assertion operator (`!`) - But again, don't do that blindly.
 
 ## Custom element registration
 
