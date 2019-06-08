@@ -21,6 +21,8 @@
 
 Experimental at this moment, with enthusiasm.
 
+The effort stems from https://github.com/carbon-design-system/issue-tracking/issues/121. If you are interested in this project, adding 👍 to the description of that GH issue, or even contributing, will be greatly appreciated!
+
 ## Getting started with development
 
 1. Fork this repository and clone it
