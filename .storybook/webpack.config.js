@@ -110,7 +110,6 @@ module.exports = ({ config, mode }) => {
     }
   );
 
-  // TODO: Do we really need this?
   config.resolve.extensions.push('.ts');
 
   return config;
