@@ -43,15 +43,16 @@ class BXLoading extends LitElement {
   inactive = false;
 
   render() {
+    const { inactive, type } = this;
     const classes = classnames(`${prefix}--loading`, {
-      [`${prefix}--loading--small`]: this.type === 'small',
-      [`${prefix}--loading--stop`]: this.inactive,
+      [`${prefix}--loading--small`]: type === LOADING_TYPE.SMALL,
+      [`${prefix}--loading--stop`]: inactive,
     });
     const overlayClasses = classnames(`${prefix}--loading-overlay`, {
-      [`${prefix}--loading-overlay--stop`]: this.inactive,
+      [`${prefix}--loading-overlay--stop`]: inactive,
     });
     const backgroundTemplate =
-      this.type !== 'small'
+      type !== LOADING_TYPE.SMALL
         ? null
         : html`
             <circle class=${`${prefix}--loading__background`} cx="0" cy="0" r="37.5" />
@@ -65,7 +66,7 @@ class BXLoading extends LitElement {
         </svg>
       </div>
     `;
-    return this.type !== 'overlay'
+    return type !== LOADING_TYPE.OVERLAY
       ? template
       : html`
           <div class="${overlayClasses}">${template}</div>
