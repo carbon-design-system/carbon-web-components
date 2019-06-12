@@ -1,9 +1,9 @@
 // NOTE: `Array.from()` and `Object.assign()` and event constructor are covered by `@webcomponents/webcomponents-platform`
-import 'core-js/modules/es6.array.find.js';
-import 'core-js/modules/es6.math.sign.js';
-import 'core-js/modules/es6.symbol.js';
-import 'core-js/modules/es7.array.includes.js';
-import 'core-js/modules/es7.object.values.js';
+import 'core-js/modules/es.array.find.js';
+import 'core-js/modules/es.math.sign.js';
+import 'core-js/modules/es.symbol.js';
+import 'core-js/modules/es.array.includes.js';
+import 'core-js/modules/es.object.values.js';
 
 import './element-closest.js';
 import './element-matches.js';
