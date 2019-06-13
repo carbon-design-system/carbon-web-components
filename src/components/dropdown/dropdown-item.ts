@@ -1,5 +1,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
+import on from 'carbon-components/es/globals/js/misc/on';
 import { html, property, customElement, LitElement } from 'lit-element';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './dropdown.scss';
 
 const { prefix } = settings;
@@ -8,7 +10,31 @@ const { prefix } = settings;
  * Dropdown menu item.
  */
 @customElement(`${prefix}-dropdown-item` as any)
-class BXDropdownItem extends LitElement {
+class BXDropdownItem extends FocusMixin(LitElement) {
+  /**
+   * The handle for the `keydown` event on this element.
+   */
+  private _hKeydown: Handle | null = null;
+
+  /**
+   * Handles `keydown` event on this element.
+   */
+  private _handleKeydown = event => {
+    if (event.key === 'ArrowDown') {
+      const next = (this.constructor as typeof BXDropdownItem).getSibling(this, 'nextElementSibling');
+      if (next) {
+        next.focus();
+      }
+    }
+
+    if (event.key === 'ArrowUp') {
+      const prev = (this.constructor as typeof BXDropdownItem).getSibling(this, 'previousElementSibling');
+      if (prev) {
+        prev.focus();
+      }
+    }
+  };
+
   /**
    * The link href of the dropdown item. Corresponds to the attribute with the same name.
    */
@@ -25,15 +51,43 @@ class BXDropdownItem extends LitElement {
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'option');
     }
+    this._hKeydown = on(this, 'keydown', this._handleKeydown);
     super.connectedCallback();
+  }
+
+  disconnectedCallback() {
+    if (this._hKeydown) {
+      this._hKeydown = this._hKeydown.release();
+    }
+    super.disconnectedCallback();
+  }
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
 
   render() {
     /* eslint-disable no-script-url */
     return html`
-      <a href=${this.href || 'javascript:void 0'} class=${`${prefix}--dropdown-link`}><slot></slot></a>
+      <a href=${this.href || 'javascript:void 0'} class=${`${prefix}--dropdown-link`} tabindex="-1"><slot></slot></a>
     `;
     /* eslint-enable no-script-url */
+  }
+
+  /**
+   * Static helper method to get the next immediate non-selected sibling dropdown item.
+   * @param element The element to navigate from.
+   * @param direction `previousSibling`/`nextSibling` indicating the navigation direction.
+   */
+  static getSibling(element: HTMLElement, direction: string): HTMLElement | null {
+    let next = element[direction];
+    if (next) {
+      while (next.classList.contains(BXDropdownItem.classSelected)) {
+        next = next[direction];
+      }
+      return next;
+    }
+    return null;
   }
 
   /**

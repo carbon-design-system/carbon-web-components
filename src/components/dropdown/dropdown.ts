@@ -1,8 +1,10 @@
 import settings from 'carbon-components/es/globals/js/settings';
+import on from 'carbon-components/es/globals/js/misc/on';
 import classnames from 'classnames';
 import { html, property, LitElement, customElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/es/chevron--down/16';
 import icon from '../icon/icon';
+import FocusMixin from '../../globals/mixins/focus';
 import BXDropdownItem from './dropdown-item';
 import styles from './dropdown.scss';
 
@@ -15,7 +17,12 @@ const forEach = (a: HTMLCollectionOf<Element>, predicate: (search: Element) => v
  * Dropdown menu.
  */
 @customElement(`${prefix}-dropdown` as any)
-class BXDropdown extends LitElement {
+class BXDropdown extends FocusMixin(LitElement) {
+  /**
+   * The handle for the `focusout`/`blur` event handler on the document this element is in.on this element.
+   */
+  private _hFocusOut: Handle | null = null;
+
   /**
    * The content of the selected item.
    */
@@ -38,7 +45,47 @@ class BXDropdown extends LitElement {
    */
   private _handleClickInner = (event: MouseEvent) => {
     if (this.shadowRoot!.contains(event.target as Node)) {
-      this.open = !this.open;
+      this._toggle();
+    }
+  };
+
+  /**
+   * Handles `focusont`/`blur` event handler on the document this element is in.
+   */
+  private _handleFocusOut = event => {
+    if (!this.contains(event.relatedTarget)) {
+      this._toggle(false);
+    }
+  };
+
+  /**
+   * Handler for the `keydown` event on the top-level element in the shadow DOM.
+   */
+  private _handleKeydownInner = (event: KeyboardEvent) => {
+    if (this.shadowRoot!.contains(event.target as Node) && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      event.stopPropagation();
+      this._toggle();
+    }
+
+    if (event.key === 'Escape') {
+      // ensure the dropdown is closed
+      this._toggle(false);
+      // focus the dropdown trigger - we only want to force focus back on the trigger when the user presses `Escape`
+      (this.shadowRoot!.querySelector((this.constructor as typeof BXDropdown).triggerSelector) as HTMLElement)!.focus();
+    }
+  };
+
+  /**
+   * Handles user-initiated toggling the open state.
+   */
+  private _toggle = (force: boolean = !this.open) => {
+    this.open = force;
+    if (this.open) {
+      const item = this.querySelector((this.constructor as typeof BXDropdown).nonSelectedItemSelector) as HTMLElement;
+      if (item) {
+        item.focus();
+      }
     }
   };
 
@@ -61,6 +108,7 @@ class BXDropdown extends LitElement {
         this.value = item.value;
         this.dispatchEvent(new CustomEvent((this.constructor as typeof BXDropdown).eventAfterSelect, init));
         this.open = false;
+        (this.shadowRoot!.querySelector((this.constructor as typeof BXDropdown).triggerSelector) as HTMLElement)!.focus();
       }
     }
   };
@@ -115,6 +163,22 @@ class BXDropdown extends LitElement {
   @property({ attribute: 'trigger-content' })
   triggerContent = '';
 
+  connectedCallback() {
+    super.connectedCallback();
+    // Detect IE/Edge which have bubbling `window.onfocusout`
+    const hasFocusOut = 'onfocusout' in this.ownerDocument!.defaultView!;
+    const focusoutEventName = hasFocusOut ? 'focusout' : 'blur';
+    // Use `focusout` if it's there, otherwise use "capture" mode which has similar-to-bubbling effect
+    this._hFocusOut = on(this.ownerDocument!, focusoutEventName, this._handleFocusOut, !hasFocusOut);
+  }
+
+  disconnectedCallback() {
+    if (this._hFocusOut) {
+      this._hFocusOut = this._hFocusOut.release();
+    }
+    super.disconnectedCallback();
+  }
+
   attributeChangedCallback(name, old, current) {
     if (old !== current) {
       if (name === 'value') {
@@ -153,7 +217,14 @@ class BXDropdown extends LitElement {
     return html`
       <label for=${`${this.id}-inner`} class=${`${prefix}--label`}>${this.labelText}</label>
       <div class=${`${prefix}--form__helper-text`}>${this.helperText}</div>
-      <ul id=${`${this.id}-inner`} class=${innerClasses} role="combobox" tabindex="0" @click=${this._handleClickInner}>
+      <ul
+        id=${`${this.id}-inner`}
+        class=${innerClasses}
+        role="combobox"
+        tabindex="0"
+        @click=${this._handleClickInner}
+        @keydown=${this._handleKeydownInner}
+      >
         <li class=${`${prefix}--dropdown-text`}>${this._selectedContent || this.triggerContent}</li>
         <li class=${`${prefix}--dropdown__arrow-container`}>
           ${icon(ChevronDown16, {
@@ -174,6 +245,20 @@ class BXDropdown extends LitElement {
    */
   static get itemTagName() {
     return `${prefix}-dropdown-item`;
+  }
+
+  /**
+   * The selector for the trigger element.
+   */
+  static get triggerSelector() {
+    return `.${prefix}--dropdown`;
+  }
+
+  /**
+   * A selector that will return non-selected items.
+   */
+  static get nonSelectedItemSelector() {
+    return `${prefix}-dropdown-item:not([selected])`;
   }
 
   /**
