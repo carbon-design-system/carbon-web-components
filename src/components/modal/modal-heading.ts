@@ -11,9 +11,6 @@ const { prefix } = settings;
 class BXModalHeading extends LitElement {
   render() {
     return html`
-      <style>
-        ${styles}
-      </style>
       <slot></slot>
     `;
   }
