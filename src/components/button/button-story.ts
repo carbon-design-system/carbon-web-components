@@ -1,4 +1,5 @@
 import { html } from 'lit-element';
+import { ifDefined } from 'lit-html/directives/if-defined';
 import { storiesOf } from '@storybook/polymer';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
@@ -23,11 +24,7 @@ storiesOf('Button', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
     const { kind, disabled, small, href } = createProps();
-    return !href
-      ? html`
-          <bx-btn kind=${kind} ?disabled=${disabled} ?small=${small}>Button</bx-btn>
-        `
-      : html`
-          <bx-btn kind=${kind} ?disabled=${disabled} ?small=${small} href=${href}>Button</bx-btn>
-        `;
+    return html`
+      <bx-btn kind=${kind} ?disabled=${disabled} ?small=${small} href=${ifDefined(href || undefined)}>Button</bx-btn>
+    `;
   });

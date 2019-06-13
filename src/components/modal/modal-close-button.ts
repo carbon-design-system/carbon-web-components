@@ -1,5 +1,7 @@
 import { html, customElement, LitElement } from 'lit-element';
+import Close20 from '@carbon/icons/es/close/20';
 import settings from 'carbon-components/es/globals/js/settings';
+import icon from '../icon/icon';
 import styles from './modal.scss';
 
 const { prefix } = settings;
@@ -16,23 +18,9 @@ class BXModalCloseButton extends LitElement {
 
   render() {
     return html`
-      <style>
-        ${styles}
-      </style>
-      <svg
-        focusable="false"
-        preserveAspectRatio="xMidYMid meet"
-        aria-label="Close the modal"
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 32 32"
-        role="img"
-        class="bx--modal-close__icon"
-        style="will-change: transform;"
-      >
-        <path d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"></path>
-      </svg>
+      ${icon(Close20, {
+        class: `${prefix}--modal-close__icon`,
+      })}
     `;
   }
 

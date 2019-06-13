@@ -7,7 +7,7 @@
 function cssResultLoader(fileContent) {
   return `
     import { css } from 'lit-element';
-    export default css\`${fileContent}\`;
+    export default css([${JSON.stringify(fileContent)}]);
   `;
 }
 

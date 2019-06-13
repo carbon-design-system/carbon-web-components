@@ -5,19 +5,22 @@ const useExperimentalFeatures = process.env.CARBON_USE_EXPERIMENTAL_FEATURES !==
 
 const useStyleSourceMap = process.env.CARBON_REACT_STORYBOOK_USE_STYLE_SOURCEMAP === 'true';
 
-module.exports = ({ config }) => {
+module.exports = ({ config, mode }) => {
   config.devtool = useStyleSourceMap ? 'source-map' : '';
-  config.optimization = {
-    ...config.optimization,
-    minimizer: [
-      new TerserPlugin({
-        sourceMap: true,
-        terserOptions: {
-          mangle: false,
-        },
-      }),
-    ],
-  };
+
+  if (mode === 'PRODUCTION') {
+    config.optimization = {
+      ...config.optimization,
+      minimizer: [
+        new TerserPlugin({
+          sourceMap: true,
+          terserOptions: {
+            mangle: false,
+          },
+        }),
+      ],
+    };
+  }
 
   // `carbon-custom-elements` does not use `polymer-webpack-loader` as it does not use full-blown Polymer
   const htmlRuleIndex = config.module.rules.findIndex(
@@ -27,10 +30,32 @@ module.exports = ({ config }) => {
     config.module.rules.splice(htmlRuleIndex, 1);
   }
 
+  const babelLoaderRule = config.module.rules.find(
+    item => item.use && item.use.some && item.use.some(use => /babel-loader/i.test(use.loader))
+  );
+  if (babelLoaderRule) {
+    config.module.rules.unshift({
+      use: babelLoaderRule.use,
+      include: [
+        path.dirname(require.resolve('lit-html')),
+        path.dirname(require.resolve('lit-element')),
+        path.dirname(require.resolve('@webcomponents/custom-elements')),
+        // `ShadyCSS` NPM package is missing its entry point file
+        path.dirname(require.resolve('@webcomponents/shadycss/scoping-shim.min.js')),
+        path.dirname(require.resolve('@webcomponents/shadydom')),
+      ],
+    });
+  }
+
   config.module.rules.push(
     {
-      test: /-story\.jsx?$/,
-      loaders: [
+      // We load Web Components polyfills by our own (See `src/polyfills/index.js`)
+      test: /@webcomponents[\\/]webcomponentsjs[\\/]webcomponents-lite/i,
+      use: 'null-loader',
+    },
+    {
+      test: /-story\.[jt]sx?$/,
+      use: [
         {
           loader: require.resolve('@storybook/addon-storysource/loader'),
           options: {
@@ -49,7 +74,7 @@ module.exports = ({ config }) => {
     },
     {
       test: /\.ts$/,
-      use: 'ts-loader',
+      use: ['babel-loader', 'ts-loader'],
     },
     {
       test: /\.scss$/,

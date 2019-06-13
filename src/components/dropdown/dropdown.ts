@@ -1,6 +1,8 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { html, property, LitElement, customElement } from 'lit-element';
+import ChevronDown16 from '@carbon/icons/es/chevron--down/16';
+import icon from '../icon/icon';
 import BXDropdownItem from './dropdown-item';
 import styles from './dropdown.scss';
 
@@ -142,28 +144,24 @@ class BXDropdown extends LitElement {
       [`${prefix}--dropdown--light`]: this.light,
       [`${prefix}--dropdown--open`]: this.open,
     });
+    const listClasses = classnames(`${prefix}--dropdown-list`, {
+      // `carbon-custom-elements`-only class as an alternative approach
+      // to `:host(bx-dropdown[open]) ::slotted(bx-dropdown-item)` that doesn't work with ShadyCSS
+      // https://github.com/webcomponents/shadycss/issues/5#issuecomment-257351096
+      [`${prefix}-ce--dropdown-list--open`]: this.open,
+    });
     return html`
       <label for=${`${this.id}-inner`} class=${`${prefix}--label`}>${this.labelText}</label>
       <div class=${`${prefix}--form__helper-text`}>${this.helperText}</div>
       <ul id=${`${this.id}-inner`} class=${innerClasses} role="combobox" tabindex="0" @click=${this._handleClickInner}>
         <li class=${`${prefix}--dropdown-text`}>${this._selectedContent || this.triggerContent}</li>
         <li class=${`${prefix}--dropdown__arrow-container`}>
-          <svg
-            class=${`${prefix}--dropdown__arrow`}
-            focusable="false"
-            preserveAspectRatio="xMidYMid meet"
-            style="will-change: transform;"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            aria-hidden="true"
-          >
-            <path d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"></path>
-          </svg>
+          ${icon(ChevronDown16, {
+            class: `${prefix}--dropdown__arrow`,
+          })}
         </li>
         <li>
-          <ul role="listbox" class=${`${prefix}--dropdown-list`} @click=${this._handleClickItem}>
+          <ul role="listbox" class=${listClasses} @click=${this._handleClickItem}>
             <slot></slot>
           </ul>
         </li>
