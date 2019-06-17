@@ -138,6 +138,10 @@ class BXDropdown extends LitElement {
     super.attributeChangedCallback(name, old, current);
   }
 
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
+
   render() {
     const innerClasses = classnames(`${prefix}--dropdown`, {
       [`${prefix}--dropdown--disabled`]: this.disabled,

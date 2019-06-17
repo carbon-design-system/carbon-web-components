@@ -1,5 +1,5 @@
 @import 'carbon-components/scss/globals/scss/css--helpers';
 
-:host(#{$prefix}-focus-trap) {
+:host(#{$prefix}-ce-focus-trap) {
   @extend .#{$prefix}--visually-hidden;
 }

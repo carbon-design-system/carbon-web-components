@@ -85,6 +85,7 @@
     "lint-staged": "^8.1.0",
     "lit-element": "^2.1.0",
     "lit-html": "~1.0.0",
+    "lodash.findlast": "^4.6.0",
     "mini-css-extract-plugin": "^0.5.0",
     "minimist": "^1.2.0",
     "mocha": "^2.4.0",
@@ -115,7 +116,8 @@
     "carbon-components": "^10.0.0",
     "classnames": "^2.2.0",
     "lit-element": "^2.1.0",
-    "lit-html": "~1.0.0"
+    "lit-html": "~1.0.0",
+    "lodash.findlast": "^4.6.0"
   },
   "commitlint": {
     "extends": [

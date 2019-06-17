@@ -22,6 +22,10 @@ class BXStructuredList extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'has-selection' })
   hasSelection = false;
 
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
+
   render() {
     const { border, hasSelection } = this;
     const classes = classnames(`${prefix}--structured-list`, {
