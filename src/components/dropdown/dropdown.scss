@@ -4,8 +4,7 @@ $css--plex: true !default;
 @import 'carbon-components/scss/components/form/form';
 
 .#{$prefix}--dropdown-list ::slotted(.#{$prefix}--dropdown--selected) {
-  // Usage of `@extend .#{$prefix}--dropdown--selected` here seems to generate a wrong selector
-  display: none;
+  @extend .#{$prefix}--dropdown--selected;
 }
 
 .#{$prefix}-ce--dropdown-list--open ::slotted(#{$prefix}-dropdown-item) {
