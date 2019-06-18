@@ -2,10 +2,7 @@
 
 /* eslint-disable global-require */
 
-const babel = require('rollup-plugin-babel');
-const commonjs = require('rollup-plugin-commonjs');
-
-const rollupConfig = require('../rollup.config.dev');
+const path = require('path');
 
 function normalizeBrowser(browser) {
   return (
@@ -19,48 +16,126 @@ function normalizeBrowser(browser) {
 }
 
 module.exports = function setupKarma(config) {
-  const altRollupPlugins = [
-    babel({
-      exclude: 'node_modules/**',
-      runtimeHelpers: true,
-      plugins: [
-        require.resolve('../babel-plugin-supercall'),
-        'external-helpers',
-        ['transform-runtime', { helpers: false, polyfill: false }],
-      ].concat(!config.customCollectCoverage ? [] : [['istanbul', { include: ['src/**/*.js'] }]]),
-    }),
-    commonjs({
-      namedExports: {
-        'node_modules/bluebird/js/browser/bluebird.js': ['delay'],
-      },
-    }),
-  ];
+  const { browsers, collectCoverage, specs, random, useExperimentalFeatures, verbose } = config.customConfig;
 
   config.set({
     basePath: '..',
 
-    browsers: (config.browsers.length > 0 ? config.browsers : ['ChromeHeadless']).map(normalizeBrowser),
+    browsers: (browsers.length > 0 ? browsers : ['ChromeHeadless']).map(normalizeBrowser),
 
-    frameworks: ['mocha', 'sinon-chai'],
+    frameworks: ['jasmine'],
 
-    files: ['src/polyfills/index.js'].concat(
-      config.customFiles || [
-        'src/components/**/*.js', // For generatoring coverage report for untested files
-        'tests/spec/**/*.js',
-      ]
-    ),
-
-    preprocessors: {
-      'src/**/*.js': ['rollup', 'sourcemap'], // For generatoring coverage report for untested files
-      'tests/spec/**/*.js': ['rollup', 'sourcemap'],
+    client: {
+      jasmine: {
+        random: !!random,
+      },
     },
 
-    rollupPreprocessor: Object.assign({}, rollupConfig, {
-      plugins: rollupConfig.plugins.map(plugin => altRollupPlugins.find(altPlugin => altPlugin.name === plugin.name) || plugin),
-      format: 'iife',
-      moduleName: 'test',
-      sourceMap: 'inline',
-    }),
+    files: ['src/polyfills/index.js'].concat(specs.length > 0 ? specs : ['tests/karma-test-shim.js']),
+
+    preprocessors: {
+      'src/**/*.[jt]s': ['webpack'], // For generatoring coverage report for untested files
+      'tests/karma-test-shim.js': ['webpack'],
+      'tests/spec/**/*.ts': ['webpack'],
+    },
+
+    webpack: {
+      mode: 'development',
+      devtool: 'inline-source-maps',
+      resolve: {
+        extensions: ['.js', '.ts'],
+      },
+      module: {
+        rules: [
+          {
+            test: /\.ts$/,
+            use: [
+              {
+                loader: 'babel-loader',
+                options: {
+                  configFile: path.resolve(__dirname, '..', '.babelrc'),
+                },
+              },
+              {
+                loader: 'ts-loader',
+                options: {
+                  ignoreDiagnostics: [6133],
+                  compilerOptions: {
+                    sourceMap: false,
+                    inlineSourceMap: true,
+                  },
+                },
+              },
+            ],
+          },
+          !collectCoverage
+            ? {}
+            : {
+                test: /\.[jt]s$/,
+                exclude: [__dirname, path.resolve(__dirname, '../node_modules')],
+                enforce: 'post',
+                use: {
+                  loader: 'istanbul-instrumenter-loader',
+                  options: {
+                    esModules: true,
+                  },
+                },
+              },
+          {
+            test: /\.js$/,
+            include: [
+              __dirname,
+              path.dirname(require.resolve('lit-html')),
+              path.dirname(require.resolve('lit-element')),
+              path.dirname(require.resolve('@webcomponents/custom-elements')),
+              // `ShadyCSS` NPM package is missing its entry point file
+              path.dirname(require.resolve('@webcomponents/shadycss/scoping-shim.min.js')),
+              path.dirname(require.resolve('@webcomponents/shadydom')),
+              path.resolve(__dirname, '..', 'src/polyfills'),
+            ],
+            use: {
+              loader: 'babel-loader',
+              options: {
+                configFile: path.resolve(__dirname, '..', '.babelrc'),
+              },
+            },
+          },
+          {
+            test: /\.scss$/,
+            sideEffects: true,
+            use: [
+              require.resolve('../css-result-loader'),
+              {
+                loader: 'postcss-loader',
+                options: {
+                  plugins: () => [
+                    require('autoprefixer')({
+                      browsers: ['last 1 version', 'ie >= 11'],
+                    }),
+                  ],
+                },
+              },
+              {
+                loader: 'sass-loader',
+                options: {
+                  includePaths: [path.resolve(__dirname, '..', 'node_modules')],
+                  data: `
+                  $feature-flags: (
+                    grid: ${useExperimentalFeatures},
+                    ui-shell: true,
+                  );
+                `,
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+
+    webpackMiddleware: {
+      noInfo: !verbose,
+    },
 
     customLaunchers: {
       Chrome_Travis: {
@@ -70,54 +145,36 @@ module.exports = function setupKarma(config) {
     },
 
     plugins: [
-      require('karma-mocha'),
-      require('karma-sinon-chai'),
-      require('karma-sourcemap-loader'),
-      require('karma-mocha-reporter'),
-      require('karma-coverage'),
-      require('karma-rollup-plugin'),
+      require('karma-jasmine'),
+      require('karma-spec-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('karma-webpack'),
       require('karma-chrome-launcher'),
       require('karma-firefox-launcher'),
       require('karma-safari-launcher'),
       require('karma-ie-launcher'),
     ],
 
-    reporters: (() => {
-      const reporters = ['mocha'];
-      if (config.customCollectCoverage) {
-        reporters.push('coverage');
-      }
-      return reporters;
-    })(),
+    reporters: ['spec', ...(!collectCoverage ? [] : ['coverage-istanbul'])],
 
-    coverageReporter: Object.assign(
-      {
-        dir: 'tests/coverage',
-        reporters: [{ type: 'html' }, { type: 'text' }],
-      },
-      config.customFiles
-        ? {}
-        : {
-            check: {
-              each: {
-                statements: 90,
-                branches: 70,
-                functions: 90,
-                lines: 90,
-                excludes: ['src/polyfills/**'],
-              },
-            },
-          }
-    ),
+    coverageIstanbulReporter: {
+      reports: ['html', 'text'],
+      dir: path.join(__dirname, 'coverage'),
+      combineBrowserReports: true,
+      fixWebpackSourcePaths: true,
+      verbose,
+    },
 
     port: 9876,
 
     colors: true,
 
-    logLevel: config.LOG_INFO,
+    browserNoActivityTimeout: 60000,
 
     autoWatch: true,
     autoWatchBatchDelay: 400,
+
+    logLevel: verbose ? config.LOG_DEBUG : config.LOG_INFO,
 
     concurrency: Infinity,
   });

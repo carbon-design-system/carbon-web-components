@@ -4,13 +4,13 @@
   ],
   "globals": {
     "describe": true,
-    "before": true,
+    "beforeAll": true,
     "beforeEach": true,
-    "after": true,
+    "afterAll": true,
     "afterEach": true,
     "it": true,
     "expect": true,
-    "sinon": true
+    "spyOn": true
   },
   "rules": {
     "func-names": 0,
