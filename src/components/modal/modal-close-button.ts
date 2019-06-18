@@ -25,6 +25,9 @@ class BXModalCloseButton extends LitElement {
   }
 
   connectedCallback() {
+    if (!this.hasAttribute('tabindex')) {
+      this.setAttribute('tabindex', '0');
+    }
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'button');
     }

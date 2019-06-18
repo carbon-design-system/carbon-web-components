@@ -1,23 +1,31 @@
 import settings from 'carbon-components/es/globals/js/settings';
-import { html, customElement, LitElement } from 'lit-element';
+import { html, property, customElement, LitElement } from 'lit-element';
 import styles from './focus-trap.scss';
 
 const { prefix } = settings;
 
-@customElement(`${prefix}-focus-trap` as any)
+@customElement(`${prefix}-ce-focus-trap` as any)
 class BXFocusTrap extends LitElement {
   /**
-   * A property that tells our a11y engine that this element is put off-screen and thus hidden.
+   * The skip link href.
    */
-  PT_NODE_HIDDEN = true;
+  @property()
+  href;
 
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
 
+  connectedCallback() {
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'navigation');
+    }
+    super.connectedCallback();
+  }
+
   render() {
     return html`
-      <input type="text" />
+      <a href="${this.href}"><slot></slot></a>
     `;
   }
 
