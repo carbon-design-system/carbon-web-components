@@ -1,7 +1,6 @@
 import { html, customElement, LitElement } from 'lit-element';
 import Close20 from '@carbon/icons/es/close/20';
 import settings from 'carbon-components/es/globals/js/settings';
-import icon from '../icon/icon';
 import styles from './modal.scss';
 
 const { prefix } = settings;
@@ -18,7 +17,7 @@ class BXModalCloseButton extends LitElement {
 
   render() {
     return html`
-      ${icon(Close20, {
+      ${Close20({
         class: `${prefix}--modal-close__icon`,
       })}
     `;

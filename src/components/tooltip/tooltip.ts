@@ -1,7 +1,6 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
 import Information16 from '@carbon/icons/es/information/16';
-import icon from '../icon/icon';
 import HostListener from '../../globals/decorators/HostListener';
 import HostListenerMixin from '../../globals/mixins/HostListener';
 import BXFloatingMenu from '../floating-menu/floating-menu';
@@ -82,7 +81,7 @@ class BXTooltip extends HostListenerMixin(LitElement) implements BXFloatingMenuT
 
   render() {
     return html`
-      ${icon(Information16, { id: 'trigger' })}
+      ${Information16({ id: 'trigger' })}
       <slot></slot>
     `;
   }

@@ -2,7 +2,6 @@ import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { html, property, LitElement, customElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/es/chevron--down/16';
-import icon from '../icon/icon';
 import BXDropdownItem from './dropdown-item';
 import styles from './dropdown.scss';
 
@@ -160,7 +159,7 @@ class BXDropdown extends LitElement {
       <ul id=${`${this.id}-inner`} class=${innerClasses} role="combobox" tabindex="0" @click=${this._handleClickInner}>
         <li class=${`${prefix}--dropdown-text`}>${this._selectedContent || this.triggerContent}</li>
         <li class=${`${prefix}--dropdown__arrow-container`}>
-          ${icon(ChevronDown16, {
+          ${ChevronDown16({
             class: `${prefix}--dropdown__arrow`,
           })}
         </li>

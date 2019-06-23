@@ -1,18 +1,18 @@
-import { html } from 'lit-html';
+import { html, svg } from 'lit-html';
 import { storiesOf } from '@storybook/polymer';
+import { withKnobs } from '@storybook/addon-knobs';
 
 import Add16 from '@carbon/icons/lib/add/16';
 import Add20 from '@carbon/icons/lib/add/20';
 import Add24 from '@carbon/icons/lib/add/24';
 import Add32 from '@carbon/icons/lib/add/32';
 
-import icon from './icon';
-
 storiesOf('Icon', module)
+  .addDecorator(withKnobs)
   .add(
     'Default',
     () => html`
-      ${icon(Add16)} ${icon(Add20)} ${icon(Add24)} ${icon(Add32)}
+      ${Add16()} ${Add20()} ${Add24()} ${Add32()}
     `
   )
   .add(
@@ -23,21 +23,35 @@ storiesOf('Icon', module)
           fill: #0062ff;
         }
       </style>
-      ${icon(Add16, { class: 'test-class' })} ${icon(Add20, { class: 'test-class' })} ${icon(Add24, { class: 'test-class' })}
-      ${icon(Add32, { class: 'test-class' })}
+      ${Add16({ class: 'test-class' })} ${Add20({ class: 'test-class' })} ${Add24({ class: 'test-class' })}
+      ${Add32({ class: 'test-class' })}
     `
   )
   .add(
     'With aria-label',
     () => html`
-      ${icon(Add16, { 'aria-label': 'add' })} ${icon(Add20, { 'aria-label': 'add' })} ${icon(Add24, { 'aria-label': 'add' })}
-      ${icon(Add32, { 'aria-label': 'add' })}
+      ${Add16({ 'aria-label': 'add' })} ${Add20({ 'aria-label': 'add' })} ${Add24({ 'aria-label': 'add' })}
+      ${Add32({ 'aria-label': 'add' })}
     `
   )
   .add(
     'With title',
     () => html`
-      ${icon(Add16, { title: 'add' })} ${icon(Add20, { title: 'add' })} ${icon(Add24, { title: 'add' })}
-      ${icon(Add32, { title: 'add' })}
+      ${Add16({
+        'aria-describedby': 'id-title-1',
+        children: svg`<title id="id-title-1">add</title>`,
+      })}
+      ${Add20({
+        'aria-describedby': 'id-title-2',
+        children: svg`<title id="id-title-2">add</title>`,
+      })}
+      ${Add24({
+        'aria-describedby': 'id-title-3',
+        children: svg`<title id="id-title-3">add</title>`,
+      })}
+      ${Add32({
+        'aria-describedby': 'id-title-4',
+        children: svg`<title id="id-title-4">add</title>`,
+      })}
     `
   );
