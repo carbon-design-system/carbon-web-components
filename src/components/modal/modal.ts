@@ -77,20 +77,20 @@ class BXModal extends HostListenerMixin(LitElement) {
    * Handles `click` event on the modal container.
    * @param event The event.
    */
-  private _handleClickContainer = (event: MouseEvent) => {
+  private _handleClickContainer(event: MouseEvent) {
     if (
       (event.target as BXModalCloseButton)!.isModalCloseButton ||
       (event.target as HTMLElement)!.hasAttribute('data-modal-close')
     ) {
       this._handleUserInitiatedClose(event.target);
     }
-  };
+  }
 
   /**
    * Handles user-initiated close request of this modal.
    * @param triggeredBy The element that triggered this close request.
    */
-  private _handleUserInitiatedClose = (triggeredBy: EventTarget | null) => {
+  private _handleUserInitiatedClose(triggeredBy: EventTarget | null) {
     const init = {
       bubbles: true,
       cancelable: true,
@@ -102,7 +102,7 @@ class BXModal extends HostListenerMixin(LitElement) {
       this.open = false;
       this.dispatchEvent(new CustomEvent((this.constructor as typeof BXModal).eventAfterClose, init));
     }
-  };
+  }
 
   /**
    * The additional CSS class names for the container <div> of the element. Corresponds to `container-class` attribute.

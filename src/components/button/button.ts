@@ -44,12 +44,12 @@ class BXButton extends LitElement {
    * Handles `click` event on the `<a>.
    * @param event The event.
    */
-  private _handleClickLink = (event: MouseEvent) => {
+  private _handleClickLink(event: MouseEvent) {
     if (this.disabled) {
       event.preventDefault(); // Stop following the link
       event.stopPropagation(); // Stop firing `onClick`
     }
-  };
+  }
 
   /**
    * `true` if the button should be disabled. Corresponds to the attribute with the same name.

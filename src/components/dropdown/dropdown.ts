@@ -25,28 +25,28 @@ class BXDropdown extends LitElement {
    * Handles `click` event on a dropdown item.
    * @param event The event.
    */
-  private _handleClickItem = (event: MouseEvent) => {
+  private _handleClickItem(event: MouseEvent) {
     const item = event.target as HTMLElement;
     if (item.tagName === (this.constructor as typeof BXDropdown).itemTagName.toUpperCase()) {
       this._handleUserInitiatedSelectItem(item as BXDropdownItem);
     }
-  };
+  }
 
   /**
    * Handles `click` event on the top-level element in the shadow DOM.
    * @param event The event.
    */
-  private _handleClickInner = (event: MouseEvent) => {
+  private _handleClickInner(event: MouseEvent) {
     if (this.shadowRoot!.contains(event.target as Node)) {
       this.open = !this.open;
     }
-  };
+  }
 
   /**
    * Handles user-initiated selection of a dropdown item.
    * @param item The dropdown item user wants to select.
    */
-  private _handleUserInitiatedSelectItem = (item: BXDropdownItem) => {
+  private _handleUserInitiatedSelectItem(item: BXDropdownItem) {
     // Defining this method as private field due to:
     // https://github.com/babel/eslint-plugin-babel/issues/166
     if (item.value !== this.value) {
@@ -63,7 +63,7 @@ class BXDropdown extends LitElement {
         this.open = false;
       }
     }
-  };
+  }
 
   /**
    * `true` if the dropdown should be disabled. Corresponds to the attribute with the same name.
