@@ -1,10 +1,12 @@
 import settings from 'carbon-components/es/globals/js/settings';
-import on from 'carbon-components/es/globals/js/misc/on';
+// import on from 'carbon-components/es/globals/js/misc/on';
 import classnames from 'classnames';
 import { html, property, LitElement, customElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/es/chevron--down/16';
 import icon from '../icon/icon';
 import FocusMixin from '../../globals/mixins/focus';
+import HostListenerMixin from '../../globals/mixins/host-listener';
+import HostListener from '../../globals/decorators/host-listener';
 import BXDropdownItem from './dropdown-item';
 import styles from './dropdown.scss';
 
@@ -17,12 +19,7 @@ const forEach = (a: HTMLCollectionOf<Element>, predicate: (search: Element) => v
  * Dropdown menu.
  */
 @customElement(`${prefix}-dropdown` as any)
-class BXDropdown extends FocusMixin(LitElement) {
-  /**
-   * The handle for the `focusout`/`blur` event handler on the document this element is in.on this element.
-   */
-  private _hFocusOut: Handle | null = null;
-
+class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * The content of the selected item.
    */
@@ -50,11 +47,13 @@ class BXDropdown extends FocusMixin(LitElement) {
   };
 
   /**
-   * Handles `focusont`/`blur` event handler on the document this element is in.
+   * Handles `blur` event handler on the document this element is in.
    */
-  private _handleFocusOut = event => {
+  @HostListener('blur')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleFocusOut = (event) => {
     if (!this.contains(event.relatedTarget)) {
-      this._toggle(false);
+      this.open = false;
     }
   };
 
@@ -68,11 +67,16 @@ class BXDropdown extends FocusMixin(LitElement) {
       this._toggle();
     }
 
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' || event.key === 'Esc') {
       // ensure the dropdown is closed
-      this._toggle(false);
+      this.open = false;
       // focus the dropdown trigger - we only want to force focus back on the trigger when the user presses `Escape`
       (this.shadowRoot!.querySelector((this.constructor as typeof BXDropdown).triggerSelector) as HTMLElement)!.focus();
+    }
+
+    // this works together with the blur behaviour to ensure that the list is closed when focus leaves
+    if (event.key === 'Tab') {
+      this.open = false;
     }
   };
 
@@ -82,7 +86,8 @@ class BXDropdown extends FocusMixin(LitElement) {
   private _toggle = (force: boolean = !this.open) => {
     this.open = force;
     if (this.open) {
-      const item = this.querySelector((this.constructor as typeof BXDropdown).nonSelectedItemSelector) as HTMLElement;
+      const selector = (this.constructor as typeof BXDropdown).nonSelectedItemSelector;
+      const item = this.querySelector(selector) as HTMLElement;
       if (item) {
         item.focus();
       }
@@ -104,11 +109,14 @@ class BXDropdown extends FocusMixin(LitElement) {
           item,
         },
       };
-      if (this.dispatchEvent(new CustomEvent((this.constructor as typeof BXDropdown).eventBeforeSelect, init))) {
+      const constructor = this.constructor as typeof BXDropdown;
+      const beforeSelectEvent = new CustomEvent(constructor.eventBeforeSelect, init);
+      if (this.dispatchEvent(beforeSelectEvent)) {
         this.value = item.value;
-        this.dispatchEvent(new CustomEvent((this.constructor as typeof BXDropdown).eventAfterSelect, init));
+        const afterSelectEvent = new CustomEvent(constructor.eventAfterSelect, init)
+        this.dispatchEvent(afterSelectEvent);
         this.open = false;
-        (this.shadowRoot!.querySelector((this.constructor as typeof BXDropdown).triggerSelector) as HTMLElement)!.focus();
+        (this.shadowRoot!.querySelector(constructor.triggerSelector) as HTMLElement)!.focus();
       }
     }
   };
@@ -162,22 +170,6 @@ class BXDropdown extends FocusMixin(LitElement) {
    */
   @property({ attribute: 'trigger-content' })
   triggerContent = '';
-
-  connectedCallback() {
-    super.connectedCallback();
-    // Detect IE/Edge which have bubbling `window.onfocusout`
-    const hasFocusOut = 'onfocusout' in this.ownerDocument!.defaultView!;
-    const focusoutEventName = hasFocusOut ? 'focusout' : 'blur';
-    // Use `focusout` if it's there, otherwise use "capture" mode which has similar-to-bubbling effect
-    this._hFocusOut = on(this.ownerDocument!, focusoutEventName, this._handleFocusOut, !hasFocusOut);
-  }
-
-  disconnectedCallback() {
-    if (this._hFocusOut) {
-      this._hFocusOut = this._hFocusOut.release();
-    }
-    super.disconnectedCallback();
-  }
 
   attributeChangedCallback(name, old, current) {
     if (old !== current) {
@@ -262,7 +254,7 @@ class BXDropdown extends FocusMixin(LitElement) {
    * A selector that will return non-selected items.
    */
   static get nonSelectedItemSelector() {
-    return `${prefix}-dropdown-item:not([selected])`;
+    return `${prefix}-dropdown-item:not(.${prefix}--dropdown--selected)`;
   }
 
   /**

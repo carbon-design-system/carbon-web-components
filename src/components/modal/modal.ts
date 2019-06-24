@@ -2,9 +2,8 @@ import settings from 'carbon-components/es/globals/js/settings';
 import findLast from 'lodash.findlast';
 import classnames from 'classnames';
 import { html, property, customElement, LitElement } from 'lit-element';
-import { selectorTabbable } from '../../globals/settings';
-import HostListener from '../../globals/decorators/HostListener';
-import HostListenerMixin from '../../globals/mixins/HostListener';
+import HostListener from '../../globals/decorators/host-listener';
+import HostListenerMixin from '../../globals/mixins/host-listener';
 import styles from './modal.scss';
 import BXModalCloseButton from './modal-close-button';
 

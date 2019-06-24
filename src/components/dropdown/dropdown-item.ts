@@ -20,14 +20,14 @@ class BXDropdownItem extends FocusMixin(LitElement) {
    * Handles `keydown` event on this element.
    */
   private _handleKeydown = event => {
-    if (event.key === 'ArrowDown') {
+    if (event.key === 'ArrowDown' || event.key === 'Down') {
       const next = (this.constructor as typeof BXDropdownItem).getSibling(this, 'nextElementSibling');
       if (next) {
         next.focus();
       }
     }
 
-    if (event.key === 'ArrowUp') {
+    if (event.key === 'ArrowUp' || event.key === 'Up') {
       const prev = (this.constructor as typeof BXDropdownItem).getSibling(this, 'previousElementSibling');
       if (prev) {
         prev.focus();

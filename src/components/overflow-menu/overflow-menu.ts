@@ -1,8 +1,8 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { property, customElement, LitElement } from 'lit-element';
 import OverflowMenuVertical16 from '@carbon/icons/es/overflow-menu--vertical/16';
-import HostListener from '../../globals/decorators/HostListener';
-import HostListenerMixin from '../../globals/mixins/HostListener';
+import HostListener from '../../globals/decorators/host-listener';
+import HostListenerMixin from '../../globals/mixins/host-listener';
 import icon from '../icon/icon';
 import BXFloatingMenu from '../floating-menu/floating-menu';
 import BXFloatingMenuTrigger from '../floating-menu/floating-menu-trigger';
