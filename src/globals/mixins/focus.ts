@@ -1,4 +1,4 @@
-import { tabbableSelector } from '../settings';
+import { selectorTabbable } from '../settings';
 
 /**
  * @param Base The base class.
@@ -14,7 +14,7 @@ const FocusMixin = <T extends Constructor<HTMLElement>>(Base: T) =>
       if (this.shadowRoot!.delegatesFocus) {
         super.focus();
       } else {
-        (this.shadowRoot!.querySelector(tabbableSelector) as HTMLElement).focus();
+        (this.shadowRoot!.querySelector(selectorTabbable) as HTMLElement).focus();
       }
     }
   };

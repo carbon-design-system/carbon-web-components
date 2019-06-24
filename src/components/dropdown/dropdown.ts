@@ -29,38 +29,38 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    * Handles `click` event on a dropdown item.
    * @param event The event.
    */
-  private _handleClickItem = (event: MouseEvent) => {
+  private _handleClickItem(event: MouseEvent) {
     const item = event.target as HTMLElement;
     if (item.tagName === (this.constructor as typeof BXDropdown).itemTagName.toUpperCase()) {
       this._handleUserInitiatedSelectItem(item as BXDropdownItem);
     }
-  };
+  }
 
   /**
    * Handles `click` event on the top-level element in the shadow DOM.
    * @param event The event.
    */
-  private _handleClickInner = (event: MouseEvent) => {
+  private _handleClickInner(event: MouseEvent) {
     if (this.shadowRoot!.contains(event.target as Node)) {
       this._toggle();
     }
-  };
+  }
 
   /**
    * Handles `blur` event handler on the document this element is in.
    */
   @HostListener('blur')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
-  private _handleFocusOut = (event) => {
+  private _handleFocusOut(event) {
     if (!this.contains(event.relatedTarget)) {
       this.open = false;
     }
-  };
+  }
 
   /**
    * Handler for the `keydown` event on the top-level element in the shadow DOM.
    */
-  private _handleKeydownInner = (event: KeyboardEvent) => {
+  private _handleKeydownInner(event: KeyboardEvent) {
     if (this.shadowRoot!.contains(event.target as Node) && (event.key === 'Enter' || event.key === ' ')) {
       event.preventDefault();
       event.stopPropagation();
@@ -71,34 +71,34 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       // ensure the dropdown is closed
       this.open = false;
       // focus the dropdown trigger - we only want to force focus back on the trigger when the user presses `Escape`
-      (this.shadowRoot!.querySelector((this.constructor as typeof BXDropdown).triggerSelector) as HTMLElement)!.focus();
+      (this.shadowRoot!.querySelector((this.constructor as typeof BXDropdown).selectorTrigger) as HTMLElement)!.focus();
     }
 
     // this works together with the blur behaviour to ensure that the list is closed when focus leaves
     if (event.key === 'Tab') {
       this.open = false;
     }
-  };
+  }
 
   /**
    * Handles user-initiated toggling the open state.
    */
-  private _toggle = (force: boolean = !this.open) => {
+  private _toggle(force: boolean = !this.open) {
     this.open = force;
     if (this.open) {
-      const selector = (this.constructor as typeof BXDropdown).nonSelectedItemSelector;
+      const selector = (this.constructor as typeof BXDropdown).selectorNonSelectedItem;
       const item = this.querySelector(selector) as HTMLElement;
       if (item) {
         item.focus();
       }
     }
-  };
+  }
 
   /**
    * Handles user-initiated selection of a dropdown item.
    * @param item The dropdown item user wants to select.
    */
-  private _handleUserInitiatedSelectItem = (item: BXDropdownItem) => {
+  private _handleUserInitiatedSelectItem(item: BXDropdownItem) {
     // Defining this method as private field due to:
     // https://github.com/babel/eslint-plugin-babel/issues/166
     if (item.value !== this.value) {
@@ -113,13 +113,13 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       const beforeSelectEvent = new CustomEvent(constructor.eventBeforeSelect, init);
       if (this.dispatchEvent(beforeSelectEvent)) {
         this.value = item.value;
-        const afterSelectEvent = new CustomEvent(constructor.eventAfterSelect, init)
+        const afterSelectEvent = new CustomEvent(constructor.eventAfterSelect, init);
         this.dispatchEvent(afterSelectEvent);
         this.open = false;
-        (this.shadowRoot!.querySelector(constructor.triggerSelector) as HTMLElement)!.focus();
+        (this.shadowRoot!.querySelector(constructor.selectorTrigger) as HTMLElement)!.focus();
       }
     }
-  };
+  }
 
   /**
    * `true` if the dropdown should be disabled. Corresponds to the attribute with the same name.
@@ -246,14 +246,14 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * The selector for the trigger element.
    */
-  static get triggerSelector() {
+  static get selectorTrigger() {
     return `.${prefix}--dropdown`;
   }
 
   /**
    * A selector that will return non-selected items.
    */
-  static get nonSelectedItemSelector() {
+  static get selectorNonSelectedItem() {
     return `${prefix}-dropdown-item:not(.${prefix}--dropdown--selected)`;
   }
 
