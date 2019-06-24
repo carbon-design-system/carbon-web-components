@@ -78,6 +78,10 @@ class BXOverflowMenu extends HostListenerMixin(LitElement) implements BXFloating
     super.attributeChangedCallback(name, old, current);
   }
 
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
+
   render() {
     return icon(OverflowMenuVertical16, {
       class: `${prefix}--overflow-menu__icon`,

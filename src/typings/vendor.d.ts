@@ -34,5 +34,11 @@ declare module 'carbon-components/es/globals/js/misc/on' {
     listener: (this: EventTarget, ev: HTMLElementEventMap[K]) => any,
     options?: boolean | AddEventListenerOptions
   ): Handle;
+  function on(
+    target: EventTarget,
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions
+  ): Handle;
   export default on;
 }

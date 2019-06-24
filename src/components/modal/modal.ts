@@ -1,12 +1,20 @@
 import settings from 'carbon-components/es/globals/js/settings';
+import findLast from 'lodash.findlast';
 import classnames from 'classnames';
 import { html, property, customElement, LitElement } from 'lit-element';
+import { selectorTabbable } from '../../globals/settings';
 import HostListener from '../../globals/decorators/HostListener';
 import HostListenerMixin from '../../globals/mixins/HostListener';
 import styles from './modal.scss';
 import BXModalCloseButton from './modal-close-button';
 
 const { prefix } = settings;
+const find = (a: NodeListOf<Node>, predicate: (search: Node) => boolean) => Array.prototype.find.call(a, predicate);
+
+// eslint-disable-next-line no-bitwise
+const PRECEDING = Node.DOCUMENT_POSITION_PRECEDING | Node.DOCUMENT_POSITION_CONTAINS;
+// eslint-disable-next-line no-bitwise
+const FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING | Node.DOCUMENT_POSITION_CONTAINED_BY;
 
 @customElement(`${prefix}-modal` as any)
 class BXModal extends HostListenerMixin(LitElement) {
@@ -20,6 +28,48 @@ class BXModal extends HostListenerMixin(LitElement) {
   private _handleClick = (event: MouseEvent) => {
     if (event.composedPath().indexOf(this.shadowRoot!) < 0) {
       this._handleUserInitiatedClose(event.target);
+    }
+  };
+
+  /**
+   * Handles `blur` event on this element.
+   * @param event The event.
+   * @private
+   */
+  @HostListener('blur')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleBlur = ({ target, relatedTarget }: FocusEvent) => {
+    const oldContains = target !== this && this.contains(target as Node);
+    const currentContains = relatedTarget !== this && this.contains(relatedTarget as Node);
+
+    // Performs focus wrapping if _all_ of the following is met:
+    // * This modal is open
+    // * The viewport still has focus
+    // * Modal body used to have focus but no longer has focus
+    if (this.open && relatedTarget && oldContains && !currentContains) {
+      const comparisonResult = (target as Node).compareDocumentPosition(relatedTarget as Node);
+      // eslint-disable-next-line no-bitwise
+      if (comparisonResult & PRECEDING) {
+        const tabbable = findLast(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), elem =>
+          Boolean((elem as HTMLElement).offsetParent)
+        );
+        if (tabbable) {
+          (tabbable as HTMLElement).focus();
+        } else if (relatedTarget !== this) {
+          this.focus();
+        }
+      }
+      // eslint-disable-next-line no-bitwise
+      if (comparisonResult & FOLLOWING) {
+        const tabbable = find(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), elem =>
+          Boolean((elem as HTMLElement).offsetParent)
+        );
+        if (tabbable) {
+          (tabbable as HTMLElement).focus();
+        } else {
+          this.focus();
+        }
+      }
     }
   };
 
@@ -80,6 +130,42 @@ class BXModal extends HostListenerMixin(LitElement) {
       <div class=${containerClasses} role="dialog" tabidnex="-1" @click=${this._handleClickContainer}><slot></slot></div>
     `;
   }
+
+  connectedCallback() {
+    if (!this.hasAttribute('tabindex')) {
+      this.setAttribute('tabindex', '0');
+    }
+    super.connectedCallback();
+  }
+
+  attributeChangedCallback(name, old, current) {
+    super.attributeChangedCallback(name, old, current);
+    if (name === 'open' && old == null && current != null) {
+      const primaryFocusNode = this.querySelector((this.constructor as typeof BXModal).selectorPrimaryFocus);
+      if (primaryFocusNode) {
+        (primaryFocusNode as HTMLElement).focus();
+      } else {
+        const tabbable = find(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), elem =>
+          Boolean((elem as HTMLElement).offsetParent)
+        );
+        if (tabbable) {
+          (tabbable as HTMLElement).focus();
+        } else {
+          this.focus();
+        }
+      }
+    }
+  }
+
+  /**
+   * A selector selecting tabbable nodes.
+   */
+  static selectorTabbable = selectorTabbable;
+
+  /**
+   * A selector selecting the nodes that should be focused when modal gets open.
+   */
+  static selectorPrimaryFocus = `[data-modal-primary-focus],${prefix}-modal-footer ${prefix}-btn[kind="primary"]`;
 
   /**
    * The name of the custom event fired before this modal is being closed upon a user gesture.
