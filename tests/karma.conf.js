@@ -48,6 +48,10 @@ module.exports = function setupKarma(config) {
       module: {
         rules: [
           {
+            test: /@carbon[\\/]icons/i,
+            use: [require.resolve('../svg-result-carbon-icon-loader')],
+          },
+          {
             test: /\.ts$/,
             use: [
               {
