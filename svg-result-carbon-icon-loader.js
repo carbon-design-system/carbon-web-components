@@ -53,7 +53,7 @@ const icon = descriptor => {
 };
 
 /**
- * A WebPack loader to generate `lit-element`'s `CSSResult` from CSS string.
+ * A WebPack loader to generate `lit-html`'s `SVGResult` from an icon descriptor from `@carbon/icons`.
  * @returns {string} The massaged module content.
  */
 function svgResultCarbonIconLoader(fileContent) {
