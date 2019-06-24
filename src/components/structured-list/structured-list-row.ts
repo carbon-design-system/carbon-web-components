@@ -15,7 +15,9 @@ const { prefix } = settings;
  */
 const navigationDirectionForKey = {
   ArrowUp: NAVIGATION_DIRECTION.BACKWARD,
+  Up: NAVIGATION_DIRECTION.BACKWARD, // IE
   ArrowDown: NAVIGATION_DIRECTION.FORWARD,
+  Down: NAVIGATION_DIRECTION.FORWARD, // IE
 };
 
 /**
@@ -181,7 +183,7 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
           id="input"
           type="radio"
           class="${prefix}--structured-list-input"
-          ?checked=${selected}
+          .checked=${selected}
           name=${selectionName}
           value=${ifDefined(selectionValue)}
         />
