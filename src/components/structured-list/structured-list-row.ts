@@ -2,8 +2,8 @@ import settings from 'carbon-components/es/globals/js/settings';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, customElement, LitElement } from 'lit-element';
 import CheckmarkFilled16 from '@carbon/icons/es/checkmark--filled/16';
-import HostListener from '../../globals/decorators/HostListener';
-import HostListenerMixin from '../../globals/mixins/HostListener';
+import HostListener from '../../globals/decorators/host-listener';
+import HostListenerMixin from '../../globals/mixins/host-listener';
 import RadioGroupManager, { NAVIGATION_DIRECTION, ManagedRadioButtonDelegate } from '../../globals/internal/radio-group-manager';
 import styles from './structured-list.scss';
 
@@ -14,7 +14,9 @@ const { prefix } = settings;
  */
 const navigationDirectionForKey = {
   ArrowUp: NAVIGATION_DIRECTION.BACKWARD,
+  Up: NAVIGATION_DIRECTION.BACKWARD, // IE
   ArrowDown: NAVIGATION_DIRECTION.FORWARD,
+  Down: NAVIGATION_DIRECTION.FORWARD, // IE
 };
 
 /**
@@ -180,7 +182,7 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
           id="input"
           type="radio"
           class="${prefix}--structured-list-input"
-          ?checked=${selected}
+          .checked=${selected}
           name=${selectionName}
           value=${ifDefined(selectionValue)}
         />

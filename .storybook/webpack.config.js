@@ -89,6 +89,7 @@ module.exports = ({ config, mode }) => {
           loader: 'postcss-loader',
           options: {
             plugins: () => [
+              require('../postcss-fix-host-pseudo')(),
               require('autoprefixer')({
                 browsers: ['last 1 version', 'ie >= 11'],
               }),
