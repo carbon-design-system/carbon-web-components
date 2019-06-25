@@ -3,7 +3,6 @@ import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { html, property, LitElement, customElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/es/chevron--down/16';
-import icon from '../icon/icon';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
@@ -215,7 +214,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       >
         <li class=${`${prefix}--dropdown-text`}>${this._selectedContent || this.triggerContent}</li>
         <li class=${`${prefix}--dropdown__arrow-container`}>
-          ${icon(ChevronDown16, {
+          ${ChevronDown16({
             class: `${prefix}--dropdown__arrow`,
           })}
         </li>

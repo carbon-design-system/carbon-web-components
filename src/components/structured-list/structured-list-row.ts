@@ -2,7 +2,6 @@ import settings from 'carbon-components/es/globals/js/settings';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, customElement, LitElement } from 'lit-element';
 import CheckmarkFilled16 from '@carbon/icons/es/checkmark--filled/16';
-import icon from '../icon/icon';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import RadioGroupManager, { NAVIGATION_DIRECTION, ManagedRadioButtonDelegate } from '../../globals/internal/radio-group-manager';
@@ -188,7 +187,7 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
           value=${ifDefined(selectionValue)}
         />
         <div class="${prefix}--structured-list-td ${prefix}--structured-list-cell">
-          ${icon(CheckmarkFilled16, {
+          ${CheckmarkFilled16({
             class: `${prefix}--structured-list-svg`,
             title: selectionIconTitle,
           })}

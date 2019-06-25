@@ -3,7 +3,6 @@ import { property, customElement, LitElement } from 'lit-element';
 import OverflowMenuVertical16 from '@carbon/icons/es/overflow-menu--vertical/16';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
-import icon from '../icon/icon';
 import BXFloatingMenu from '../floating-menu/floating-menu';
 import BXFloatingMenuTrigger from '../floating-menu/floating-menu-trigger';
 import styles from './overflow-menu.scss';
@@ -83,7 +82,7 @@ class BXOverflowMenu extends HostListenerMixin(LitElement) implements BXFloating
   }
 
   render() {
-    return icon(OverflowMenuVertical16, {
+    return OverflowMenuVertical16({
       class: `${prefix}--overflow-menu__icon`,
     });
   }

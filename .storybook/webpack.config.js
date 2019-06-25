@@ -54,6 +54,10 @@ module.exports = ({ config, mode }) => {
       use: 'null-loader',
     },
     {
+      test: /@carbon[\\/]icons/i,
+      use: [require.resolve('../svg-result-carbon-icon-loader')],
+    },
+    {
       test: /-story\.[jt]sx?$/,
       use: [
         {
