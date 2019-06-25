@@ -23,7 +23,7 @@ describe('bx-dropdown', function() {
     });
 
     it('should add "open" stateful modifier class', async function() {
-      const inner = elem.shadowRoot!.getElementById(`${elem.id}-inner`);
+      const inner = elem.shadowRoot!.getElementById('inner');
       inner!.click();
       await Promise.resolve();
       expect(inner!.classList.contains('bx--dropdown--open')).toBe(true);

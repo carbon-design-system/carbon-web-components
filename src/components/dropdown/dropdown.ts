@@ -134,14 +134,6 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   helperText = '';
 
   /**
-   * The unique ID for this dropdown.
-   */
-  @property()
-  id = `__carbon-dropdown__${Math.random()
-    .toString(36)
-    .substr(2)}`;
-
-  /**
    * The label text. Corresponds to the attribute with the same name.
    */
   @property({ attribute: 'label-text' })
@@ -211,10 +203,10 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       [`${prefix}-ce--dropdown-list--open`]: this.open,
     });
     return html`
-      <label for=${`${this.id}-inner`} class=${`${prefix}--label`}>${this.labelText}</label>
+      <label for="inner" class=${`${prefix}--label`}>${this.labelText}</label>
       <div class=${`${prefix}--form__helper-text`}>${this.helperText}</div>
       <ul
-        id=${`${this.id}-inner`}
+        id="inner"
         class=${innerClasses}
         role="combobox"
         tabindex="0"
