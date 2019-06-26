@@ -4,7 +4,7 @@ import styles from './focus-trap.scss';
 
 const { prefix } = settings;
 
-@customElement(`${prefix}-ce-focus-trap` as any)
+@customElement(`${prefix}-ce-demo-focus-trap` as any)
 class BXFocusTrap extends LitElement {
   /**
    * The skip link href.
