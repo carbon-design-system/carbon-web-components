@@ -105,8 +105,10 @@ A component variant with different options can be created by creating a derived 
 
 #### Areas to make them configurable as component options
 
-- CSS selectors/classes used in imperative DOM API calls (Doing so allows overriding `.render()` method)
-- [Custom event](#custom-events) names
+| Area                                                                                                   | Example of component option (static property) name |
+| ------------------------------------------------------------------------------------------------------ | -------------------------------------------------- |
+| CSS selectors/classes used in imperative DOM API calls (Doing so allows overriding `.render()` method) | `selectorNonSelectedItem`                          |
+| [Custom event](#custom-events) names                                                                   | `eventBeforeSelect`                                |
 
 #### Areas where component optinos are _not_ applied
 
@@ -166,6 +168,12 @@ If you get TypeScript "may be null" errors, think twice to see if there is such 
 
 - If so, do such check to throw more reasonable exception or to make it no-op if the condition is not met.
 - If not, you can now add non-null assertion operator (`!`) - But again, don't do that blindly.
+
+## CSS considerations with IE11
+
+We use ShadyCSS shim as the emulation of scoped CSS in shadow DOM in IE11. There is one notable limitation with that; It appears that `:host(bx-foo) ::slotted(bx-bar)` selector does not work in ShadyCSS unless `<slot>` is a direct child of the shadow root. There was an issue in ShadyCSS repo (https://github.com/webcomponents/shadycss/issues/5) that seems to have explained that in detail, but the repository has been deleted somehow.
+
+To make such case work for ShadyCSS, we add a CSS class to an ancestor of `<slot>` in shadow DOM, and use `.bx-ce--some-class ::slotted(bx-bar)` selector.
 
 ## Custom element registration
 
