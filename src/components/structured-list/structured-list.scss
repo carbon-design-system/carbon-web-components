@@ -2,7 +2,7 @@ $css--plex: true !default;
 
 @import 'carbon-components/scss/components/structured-list/structured-list';
 
-.#{$prefix}-structured-list ::slotted(#{$prefix}-structured-list-head) {
+.#{$prefix}--structured-list ::slotted(#{$prefix}-structured-list-head) {
   @extend .#{$prefix}--structured-list-thead;
 }
 
@@ -15,11 +15,11 @@ $css--plex: true !default;
   @extend .#{$prefix}--structured-list-th;
 }
 
-.#{$prefix}-structured-list ::slotted(#{$prefix}-structured-list-header[nowrap]) {
+.#{$prefix}--structured-list ::slotted(#{$prefix}-structured-list-header[nowrap]) {
   @extend .#{$prefix}--structured-list-content--nowrap;
 }
 
-.#{$prefix}-structured-list ::slotted(#{$prefix}-structured-list-body) {
+.#{$prefix}--structured-list ::slotted(#{$prefix}-structured-list-body) {
   @extend .#{$prefix}--structured-list-tbody;
 }
 
