@@ -2,10 +2,10 @@ import { html, svg } from 'lit-html';
 import { storiesOf } from '@storybook/polymer';
 import { withKnobs } from '@storybook/addon-knobs';
 
-import Add16 from '@carbon/icons/lib/add/16';
-import Add20 from '@carbon/icons/lib/add/20';
-import Add24 from '@carbon/icons/lib/add/24';
-import Add32 from '@carbon/icons/lib/add/32';
+import Add16 from '@carbon/icons/es/add/16';
+import Add20 from '@carbon/icons/es/add/20';
+import Add24 from '@carbon/icons/es/add/24';
+import Add32 from '@carbon/icons/es/add/32';
 
 storiesOf('Icon', module)
   .addDecorator(withKnobs)

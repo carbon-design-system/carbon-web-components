@@ -72,7 +72,7 @@ function svgResultCarbonIconLoader(fileContent) {
     const result = `
       import { svg } from 'lit-html';
       import spread from '${path.resolve(__dirname, 'src/globals/directives/spread')}';
-      const svgResultCarbonIcon = ({ children, ...attrs }) => svg\`${icon(descriptor)}\`;
+      const svgResultCarbonIcon = ({ children, ...attrs } = {}) => svg\`${icon(descriptor)}\`;
       export default svgResultCarbonIcon;
     `;
     callback(null, result);
