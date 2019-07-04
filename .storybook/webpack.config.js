@@ -63,8 +63,8 @@ module.exports = ({ config, mode }) => {
         {
           loader: require.resolve('@storybook/addon-storysource/loader'),
           options: {
+            parser: 'typescript',
             prettierConfig: {
-              parser: 'babylon',
               printWidth: 80,
               tabWidth: 2,
               bracketSpacing: true,
