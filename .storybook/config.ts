@@ -1,8 +1,15 @@
 import '../src/polyfills';
 import { html } from 'lit-html'; // eslint-disable-line import/first
-import { configure, addDecorator } from '@storybook/polymer'; // eslint-disable-line import/first
+import { configure, addDecorator, addParameters } from '@storybook/polymer'; // eslint-disable-line import/first
 import './components/focus-trap/focus-trap';
+import theme from './theme';
 import containerStyles from './_container.scss'; // eslint-disable-line import/first
+
+addParameters({
+  options: {
+    theme: theme,
+  },
+});
 
 addDecorator(
   story => html`
