@@ -94,6 +94,7 @@ class BXModal extends HostListenerMixin(LitElement) {
     const init = {
       bubbles: true,
       cancelable: true,
+      composed: true,
       detail: {
         triggeredBy,
       },
