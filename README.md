@@ -49,6 +49,8 @@ Can be found at [here](./src/coding-conventions.md).
 ## Iteration plans
 
 - [i0 (prototype)](./plans/i0.md)
+- [i1 (July 2019)](./plans/i1.md)
+- [i2 (August 2019)](./plans/i2.md)
 
 ## Running unit test
 
