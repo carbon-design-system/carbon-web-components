@@ -104,6 +104,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       const init = {
         bubbles: true,
         cancelable: true,
+        composed: true,
         detail: {
           item,
         },
