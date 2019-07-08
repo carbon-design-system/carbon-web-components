@@ -1,0 +1,5 @@
+$storybook--carbon--theme-name: 'white' !default;
+
+@import './carbon-theme';
+
+$carbon--theme: map-get($carbon--theme--list, $storybook--carbon--theme-name);

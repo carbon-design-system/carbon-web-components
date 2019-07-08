@@ -1,5 +1,32 @@
 @import 'carbon-components/scss/globals/scss/css--helpers';
 
+@if mixin-exists(carbon--theme--custom-properties) {
+  :root {
+    @include carbon--theme--custom-properties($carbon--theme--white);
+  }
+
+  :root[storybook-carbon-theme='g10'] {
+    @include carbon--theme--custom-properties($carbon--theme--g10);
+  }
+
+  :root[storybook-carbon-theme='g90'] {
+    @include carbon--theme--custom-properties($carbon--theme--g90);
+  }
+
+  :root[storybook-carbon-theme='g100'] {
+    @include carbon--theme--custom-properties($carbon--theme--g100);
+  }
+}
+
+html,
+body,
+#root,
+#root-inner,
+[name='main-content'] {
+  position: relative;
+  height: 100%;
+}
+
 .bx-ce-demo-devenv--container {
   padding: 3em;
   display: flex;
