@@ -126,7 +126,6 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
 
   /**
    * The `value` attribute for the `<input>` for selection. Corresponds to `selection-value` attribute.
-   * If present, this structured list row will be a selectable one.
    */
   @property({ attribute: 'selection-value' })
   selectionValue = '';

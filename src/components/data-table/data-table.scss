@@ -1,0 +1,15 @@
+$css--plex: true !default;
+
+@import 'carbon-components/scss/globals/scss/vendor/@carbon/elements/scss/type/font-family';
+@import 'carbon-components/scss/components/checkbox/checkbox';
+
+@import 'carbon-components/scss/components/data-table/data-table-action';
+@import 'carbon-components/scss/components/data-table/data-table-core';
+@import 'carbon-components/scss/components/data-table/data-table-expandable';
+@import 'carbon-components/scss/components/data-table/data-table-inline-edit';
+@import 'carbon-components/scss/components/data-table/data-table-skeleton';
+
+@import 'table-core';
+@import 'table-sizes';
+@import 'table-selection';
+@import 'table-sort';
