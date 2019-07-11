@@ -1,5 +1,6 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
+import { TemplateResult } from 'lit-html';
 import { html, property, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
@@ -91,17 +92,17 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * The latest status of this dropdown, for screen reader to accounce.
    */
-  private _assistiveStatusText?: string;
+  protected _assistiveStatusText?: string;
 
   /**
    * The content of the selected item.
    */
-  private _selectedItemContent: DocumentFragment | null = null;
+  protected _selectedItemContent: DocumentFragment | null = null;
 
   /**
    * Unique ID used for ID refs.
    */
-  private _uniqueId = Math.random()
+  protected _uniqueId = Math.random()
     .toString(36)
     .slice(2);
 
@@ -230,7 +231,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    * Handles user-initiated toggling the open state.
    * @param [force] If specified, forces the open state to the given one.
    */
-  private _handleUserInitiatedToggle(force: boolean = !this.open) {
+  protected _handleUserInitiatedToggle(force: boolean = !this.open) {
     this.open = force;
     if (this.open) {
       this._assistiveStatusText = this.selectingItemsAssistiveText;
@@ -298,7 +299,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * @returns The content preceding the trigger button.
    */
-  protected _renderPrecedingTriggerContent() {
+  protected _renderPrecedingTriggerContent(): TemplateResult | void {
     return undefined;
   }
   /* eslint-enable class-methods-use-this */
