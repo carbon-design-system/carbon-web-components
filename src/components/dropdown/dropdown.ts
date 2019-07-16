@@ -2,7 +2,7 @@ import settings from 'carbon-components/es/globals/js/settings';
 // import on from 'carbon-components/es/globals/js/misc/on';
 import classnames from 'classnames';
 import { html, property, LitElement, customElement } from 'lit-element';
-import ChevronDown16 from '@carbon/icons/es/chevron--down/16';
+import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';

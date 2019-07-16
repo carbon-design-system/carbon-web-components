@@ -1,7 +1,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
-import Arrows16 from '@carbon/icons/es/arrows/16';
-import ArrowDown16 from '@carbon/icons/es/arrow--down/16';
+import Arrows16 from '@carbon/icons/lib/arrows/16';
+import ArrowDown16 from '@carbon/icons/lib/arrow--down/16';
 import styles from './data-table.scss';
 
 const { prefix } = settings;
