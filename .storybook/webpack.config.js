@@ -66,7 +66,7 @@ module.exports = ({ config, mode }) => {
     },
     {
       test: /@carbon[\\/]icons/i,
-      use: [require.resolve('../svg-result-carbon-icon-loader')],
+      use: [...babelLoaderRule.use, require.resolve('../svg-result-carbon-icon-loader')],
     },
     {
       test: /-story\.[jt]sx?$/,
