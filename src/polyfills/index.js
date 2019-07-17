@@ -7,6 +7,7 @@ import 'core-js/modules/es.object.values.js';
 
 import './element-closest.js';
 import './element-matches.js';
+import './toggle-attribute.js';
 import './toggle-class.js';
 
 import 'es6-promise/auto'; // eslint-disable-line import/first

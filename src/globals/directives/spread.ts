@@ -36,13 +36,15 @@ const spread = directive((attributesInfo: AttributesInfo) => (part: Part) => {
     });
   }
 
-  // Adds new classes
+  // Adds new attributes
   Object.keys(attributesInfo).forEach(name => {
     const value = attributesInfo[name];
-    if (!oldAttributesInfo || !Object.is(value, oldAttributesInfo[name])) {
+    if ((!oldAttributesInfo || !Object.is(value, oldAttributesInfo[name])) && typeof value !== 'undefined') {
       element.setAttribute(name, value);
     }
   });
+
+  // Updates the cache
   attributesMapCache.set(part, attributesInfo);
 });
 

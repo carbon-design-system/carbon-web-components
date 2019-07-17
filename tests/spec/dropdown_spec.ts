@@ -23,31 +23,31 @@ describe('bx-dropdown', function() {
     });
 
     it('should add "open" stateful modifier class', async function() {
-      const inner = elem.shadowRoot!.getElementById('inner');
-      inner!.click();
+      const inner = elem.shadowRoot!.querySelector('div[role="listbox"]');
+      (inner as HTMLElement).click();
       await Promise.resolve();
-      expect(inner!.classList.contains('bx--dropdown--open')).toBe(true);
+      expect(inner!.classList.contains('bx--list-box--expanded')).toBe(true);
     });
 
     it('should remove "open" stateful modifier class (closed default state)', async function() {
       (elem as BXDropdown).open = true;
       await Promise.resolve();
       elem.click();
-      expect(elem.classList.contains('bx--dropdown--open')).toBe(false);
+      expect(elem.classList.contains('bx--list-box--expanded')).toBe(false);
     });
 
     it('should always close dropdown when clicking document', async function() {
       (elem as BXDropdown).open = true;
       await Promise.resolve();
       document.documentElement.click();
-      expect(elem.classList.contains('bx--dropdown--open')).toBe(false);
+      expect(elem.classList.contains('bx--list-box--expanded')).toBe(false);
     });
 
     it('should close dropdown when clicking on an item', async function() {
       (elem as BXDropdown).open = true;
       await Promise.resolve();
       itemNode.click();
-      expect(elem.classList.contains('bx--dropdown--open')).toBe(false);
+      expect(elem.classList.contains('bx--list-box--expanded')).toBe(false);
     });
 
     afterEach(async function() {
@@ -72,7 +72,7 @@ describe('bx-dropdown', function() {
         ...[...new Array(2)].map((item, i) => {
           const itemNode = document.createElement('bx-dropdown-item');
           itemNode.textContent = String(i);
-          (itemNode as BXDropdownItem).value = `value-${i}`;
+          ((itemNode as unknown) as BXDropdownItem).value = `value-${i}`;
           return elem.appendChild(itemNode);
         })
       );
@@ -80,17 +80,22 @@ describe('bx-dropdown', function() {
       document.body.appendChild(elem);
     });
 
+    beforeEach(async function() {
+      (elem as BXDropdown).open = true;
+      await Promise.resolve();
+    });
+
     it('should add/remove "selected" modifier class', async function() {
       itemNodes[1].click();
       await Promise.resolve();
-      expect(itemNodes[0].classList.contains('bx--dropdown--selected')).toBe(false);
-      expect(itemNodes[1].classList.contains('bx--dropdown--selected')).toBe(true);
+      expect(itemNodes[0].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[1].hasAttribute('selected')).toBe(true);
     });
 
     it('should update text', async function() {
       itemNodes[1].click();
       await Promise.resolve();
-      expect(elem.shadowRoot!.querySelector('.bx--dropdown-text')!.textContent).toBe('1');
+      expect(elem.shadowRoot!.querySelector('.bx--list-box__label')!.textContent).toBe('1');
     });
 
     it('should update value', async function() {
@@ -102,8 +107,8 @@ describe('bx-dropdown', function() {
     it('should provide a way to switch item with a value', async function() {
       (elem as BXDropdown).value = 'value-1';
       await Promise.resolve();
-      expect(itemNodes[0].classList.contains('bx--dropdown--selected')).toBe(false);
-      expect(itemNodes[1].classList.contains('bx--dropdown--selected')).toBe(true);
+      expect(itemNodes[0].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[1].hasAttribute('selected')).toBe(true);
     });
 
     it('should provide a way to cancel switching item', async function() {
@@ -113,20 +118,20 @@ describe('bx-dropdown', function() {
       });
       itemNodes[1].click();
       await Promise.resolve();
-      expect(itemNodes[0].classList.contains('bx--dropdown--selected')).toBe(true);
-      expect(itemNodes[1].classList.contains('bx--dropdown--selected')).toBe(false);
-      expect(elem.shadowRoot!.querySelector('.bx--dropdown-text')!.textContent).toBe('0');
+      expect(itemNodes[0].hasAttribute('selected')).toBe(true);
+      expect(itemNodes[1].hasAttribute('selected')).toBe(false);
+      expect(elem.shadowRoot!.querySelector('.bx--list-box__label')!.textContent).toBe('0');
     });
 
     it('should reflect the added child to the selection', async function() {
       const itemNode = document.createElement('bx-dropdown-item');
       itemNode.textContent = '2';
-      (itemNode as BXDropdownItem).value = 'value-2';
+      ((itemNode as unknown) as BXDropdownItem).value = 'value-2';
       elem.appendChild(itemNode);
       (elem as BXDropdown).value = 'value-2';
       await delay(0); // Workaround for IE MutationObserver scheduling bug for moving elements to slot
       try {
-        expect(elem.shadowRoot!.querySelector('.bx--dropdown-text')!.textContent).toBe('2');
+        expect(elem.shadowRoot!.querySelector('.bx--list-box__label')!.textContent).toBe('2');
       } finally {
         itemNode.parentNode!.removeChild(itemNode);
       }

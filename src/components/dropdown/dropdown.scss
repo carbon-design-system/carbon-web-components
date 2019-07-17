@@ -1,17 +1,43 @@
 $css--plex: true !default;
 
-@import 'carbon-components/scss/components/dropdown/dropdown';
+@import 'carbon-components/scss/components/list-box/list-box';
 @import 'carbon-components/scss/components/form/form';
+@import 'carbon-components/scss/components/checkbox/checkbox';
+@import 'carbon-components/scss/components/tag/tag';
 
-.#{$prefix}--dropdown-list ::slotted(.#{$prefix}--dropdown--selected) {
-  @extend .#{$prefix}--dropdown--selected;
+:host(#{$prefix}-dropdown) {
+  outline: none;
+
+  .#{$prefix}--assistive-text {
+    // Hides screen reader cursor
+    left: -100%;
+    top: -100%;
+  }
 }
 
-.#{$prefix}-ce--dropdown-list--open ::slotted(#{$prefix}-dropdown-item) {
-  opacity: 1;
+:host(#{$prefix}-dropdown[type='inline']) {
+  @extend .#{$prefix}--list-box__wrapper--inline;
 }
 
 :host(#{$prefix}-dropdown-item) {
-  @extend .#{$prefix}--dropdown-item;
-  @extend li;
+  @extend .#{$prefix}--list-box__menu-item;
+  display: block;
+}
+
+:host(#{$prefix}-dropdown-item[disabled]) {
+  color: $disabled-02;
+  text-decoration: none;
+}
+
+:host(#{$prefix}-dropdown-item[highlighted]) {
+  @extend .#{$prefix}--list-box__menu-item--highlighted;
+}
+
+:host(#{$prefix}-dropdown-item[selected]) {
+  @extend .#{$prefix}--list-box__menu-item--active;
+  @extend .#{$prefix}--list-box__menu-item--highlighted;
+
+  .#{$prefix}--list-box__menu-item__option {
+    color: $text-01;
+  }
 }
