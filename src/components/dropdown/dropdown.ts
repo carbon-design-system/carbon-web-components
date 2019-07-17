@@ -6,13 +6,11 @@ import ChevronDown16 from '@carbon/icons/es/chevron--down/16';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
+import { find, forEach } from '../../globals/internal/collection-helpers';
 import BXDropdownItem from './dropdown-item';
 import styles from './dropdown.scss';
 
 const { prefix } = settings;
-const find = (a: HTMLCollectionOf<Element>, predicate: (search: Element) => boolean) => Array.prototype.find.call(a, predicate);
-const forEach = (a: HTMLCollectionOf<Element>, predicate: (search: Element) => void) =>
-  Array.prototype.forEach.call(a, predicate);
 
 /**
  * Dropdown menu.

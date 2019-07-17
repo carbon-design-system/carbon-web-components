@@ -7,9 +7,9 @@ import HostListenerMixin from '../../globals/mixins/host-listener';
 import styles from './modal.scss';
 import BXModalCloseButton from './modal-close-button';
 import { selectorTabbable } from '../../globals/settings';
+import { find } from '../../globals/internal/collection-helpers';
 
 const { prefix } = settings;
-const find = (a: NodeListOf<Node>, predicate: (search: Node) => boolean) => Array.prototype.find.call(a, predicate);
 
 // eslint-disable-next-line no-bitwise
 const PRECEDING = Node.DOCUMENT_POSITION_PRECEDING | Node.DOCUMENT_POSITION_CONTAINS;

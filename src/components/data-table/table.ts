@@ -1,5 +1,6 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
+import { forEach } from '../../globals/internal/collection-helpers';
 import styles from './data-table.scss';
 
 const { prefix } = settings;
@@ -56,7 +57,7 @@ class BXTable extends LitElement {
   attributeChangedCallback(name, old, current) {
     if (name === 'size') {
       // Propagate `size` attribute to descendants until `:host-context()` gets supported in all major browsers
-      Array.prototype.forEach.call(this.querySelectorAll((this.constructor as typeof BXTable).selectorRowsWithHeader), elem => {
+      forEach(this.querySelectorAll((this.constructor as typeof BXTable).selectorRowsWithHeader), elem => {
         elem.setAttribute('size', current);
       });
     }
