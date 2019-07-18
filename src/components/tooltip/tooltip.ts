@@ -3,12 +3,12 @@ import { html, property, customElement, LitElement } from 'lit-element';
 import Information16 from '@carbon/icons/es/information/16';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
+import { find } from '../../globals/internal/collection-helpers';
 import BXFloatingMenu from '../floating-menu/floating-menu';
 import BXFloatingMenuTrigger from '../floating-menu/floating-menu-trigger';
 import styles from './tooltip.scss';
 
 const { prefix } = settings;
-const find = (a: NodeListOf<Node>, predicate: (search: Node) => boolean) => Array.prototype.find.call(a, predicate);
 
 /**
  * Trigger button of tooltip.
