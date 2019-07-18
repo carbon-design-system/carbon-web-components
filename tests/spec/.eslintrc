@@ -10,6 +10,7 @@
     "afterEach": true,
     "it": true,
     "expect": true,
+    "jasmine": true,
     "spyOn": true
   },
   "rules": {

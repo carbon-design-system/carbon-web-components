@@ -10,11 +10,6 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-modal-close-button` as any)
 class BXModalCloseButton extends LitElement {
-  /**
-   * A boolean value to indicate that this element is a modal close button.
-   */
-  isModalCloseButton = true;
-
   render() {
     return html`
       ${Close20({

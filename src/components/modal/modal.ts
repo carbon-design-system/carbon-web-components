@@ -5,7 +5,6 @@ import { html, property, customElement, LitElement } from 'lit-element';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import styles from './modal.scss';
-import BXModalCloseButton from './modal-close-button';
 import { selectorTabbable } from '../../globals/settings';
 import { find } from '../../globals/internal/collection-helpers';
 
@@ -73,15 +72,20 @@ class BXModal extends HostListenerMixin(LitElement) {
     }
   };
 
+  @HostListener('document:keydown')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleKeydown = ({ key, target }: KeyboardEvent) => {
+    if (key === 'Esc' || key === 'Escape') {
+      this._handleUserInitiatedClose(target);
+    }
+  };
+
   /**
    * Handles `click` event on the modal container.
    * @param event The event.
    */
   private _handleClickContainer(event: MouseEvent) {
-    if (
-      (event.target as BXModalCloseButton)!.isModalCloseButton ||
-      (event.target as HTMLElement)!.hasAttribute('data-modal-close')
-    ) {
+    if ((event.target as Element).matches((this.constructor as typeof BXModal).selectorCloseButton)) {
       this._handleUserInitiatedClose(event.target);
     }
   }
@@ -91,17 +95,19 @@ class BXModal extends HostListenerMixin(LitElement) {
    * @param triggeredBy The element that triggered this close request.
    */
   private _handleUserInitiatedClose(triggeredBy: EventTarget | null) {
-    const init = {
-      bubbles: true,
-      cancelable: true,
-      composed: true,
-      detail: {
-        triggeredBy,
-      },
-    };
-    if (this.dispatchEvent(new CustomEvent((this.constructor as typeof BXModal).eventBeforeClose, init))) {
-      this.open = false;
-      this.dispatchEvent(new CustomEvent((this.constructor as typeof BXModal).eventAfterClose, init));
+    if (this.open) {
+      const init = {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+        detail: {
+          triggeredBy,
+        },
+      };
+      if (this.dispatchEvent(new CustomEvent((this.constructor as typeof BXModal).eventBeforeClose, init))) {
+        this.open = false;
+        this.dispatchEvent(new CustomEvent((this.constructor as typeof BXModal).eventAfterClose, init));
+      }
     }
   }
 
@@ -157,6 +163,11 @@ class BXModal extends HostListenerMixin(LitElement) {
       }
     }
   }
+
+  /**
+   * A selector selecting buttons that should close this modal.
+   */
+  static selectorCloseButton = `[data-modal-close],${prefix}-modal-close-button`;
 
   /**
    * A selector selecting tabbable nodes.
