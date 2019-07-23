@@ -1,4 +1,5 @@
 *.d.ts
 docs/js
+es
 public
 tests/coverage

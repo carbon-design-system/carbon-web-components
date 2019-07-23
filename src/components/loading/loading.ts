@@ -1,7 +1,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { html, property, customElement, LitElement } from 'lit-element';
-import styles from 'carbon-components/scss/components/loading/_loading.scss';
+import styles from './loading.scss';
 
 const { prefix } = settings;
 

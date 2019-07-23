@@ -1,7 +1,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, customElement, LitElement } from 'lit-element';
-import CheckmarkFilled16 from '@carbon/icons/es/checkmark--filled/16';
+import CheckmarkFilled16 from '@carbon/icons/lib/checkmark--filled/16';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import RadioGroupManager, { NAVIGATION_DIRECTION, ManagedRadioButtonDelegate } from '../../globals/internal/radio-group-manager';
