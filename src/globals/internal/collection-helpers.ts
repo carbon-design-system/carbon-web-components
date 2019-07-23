@@ -3,7 +3,7 @@
  * @param predicate The callback function.
  * @returns The first item in the given collection where `predicate` returns `true`. `null` if no such item is found.
  */
-export const find = (a: NodeListOf<Node> | HTMLCollectionOf<Element>, predicate: (search: Node) => boolean) =>
+export const find = (a: NodeListOf<Node> | HTMLCollectionOf<Element>, predicate: (search: Node, index?: number) => boolean) =>
   Array.prototype.find.call(a, predicate);
 
 /**
@@ -11,5 +11,12 @@ export const find = (a: NodeListOf<Node> | HTMLCollectionOf<Element>, predicate:
  * @param a A DOM collection.
  * @param predicate The callback function.
  */
-export const forEach = (a: NodeListOf<Node> | HTMLCollectionOf<Element>, predicate: (search: Element) => void) =>
+export const forEach = (a: NodeListOf<Node> | HTMLCollectionOf<Element>, predicate: (search: Element, index?: number) => void) =>
   Array.prototype.forEach.call(a, predicate);
+
+/**
+ * @param a A DOM collection.
+ * @param item An item in the DOM collection.
+ * @returns The index of the first occurence of the given item in the given collection. `-1` if no such item is found.
+ */
+export const indexOf = (a: NodeListOf<Node> | HTMLCollectionOf<Element>, item: Node) => Array.prototype.indexOf.call(a, item);
