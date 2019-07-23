@@ -69,7 +69,7 @@ describe('bx-dropdown', function() {
       elem = document.createElement('bx-dropdown');
 
       itemNodes.push(
-        ...[...new Array(2)].map((item, i) => {
+        ...[...new Array(2)].map((_item, i) => {
           const itemNode = document.createElement('bx-dropdown-item');
           itemNode.textContent = String(i);
           (itemNode as BXDropdownItem).value = `value-${i}`;
