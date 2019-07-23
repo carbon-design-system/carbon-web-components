@@ -1,5 +1,5 @@
 import { html, customElement, LitElement } from 'lit-element';
-import Close20 from '@carbon/icons/es/close/20';
+import Close20 from '@carbon/icons/lib/close/20';
 import settings from 'carbon-components/es/globals/js/settings';
 import styles from './modal.scss';
 

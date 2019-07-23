@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const commander = require('commander');
 
 const collect = (v, a) => a.add(v);
@@ -21,7 +22,9 @@ module.exports = {
   ENV_PRODUCTION: 'production',
   cloptions,
   srcDir: 'src',
+  iconsDir: path.dirname(require.resolve('@carbon/icons/lib')),
   destDir: 'public',
+  jsDestDir: 'es',
   viewsDir: 'views',
   testsDir: 'tests',
   jsDocDir: 'docs/js',

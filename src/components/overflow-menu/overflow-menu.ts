@@ -1,6 +1,6 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { property, customElement, LitElement } from 'lit-element';
-import OverflowMenuVertical16 from '@carbon/icons/es/overflow-menu--vertical/16';
+import OverflowMenuVertical16 from '@carbon/icons/lib/overflow-menu--vertical/16';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import { find } from '../../globals/internal/collection-helpers';

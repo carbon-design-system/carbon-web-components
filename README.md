@@ -52,6 +52,17 @@ Can be found at [here](./src/coding-conventions.md).
 - [i1 (July 2019)](./plans/i1.md)
 - [i2 (August 2019)](./plans/i2.md)
 
+## Creating build
+
+(Only per-module ESM build is available as of now)
+
+```
+> gulp clean
+> gulp build:modules
+```
+
+You'll see the build artifacts in `/path/to/carbon-custom-elements/es` directory.
+
 ## Running unit test
 
 You can run unit test by:

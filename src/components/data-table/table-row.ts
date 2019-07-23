@@ -1,6 +1,6 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
-import ChevronRight16 from '@carbon/icons/es/chevron--right/16';
+import ChevronRight16 from '@carbon/icons/lib/chevron--right/16';
 import styles from './data-table.scss';
 
 const { prefix } = settings;

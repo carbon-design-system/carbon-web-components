@@ -8,7 +8,14 @@ const test = require('./gulp-tasks/test');
 
 gulp.task('build:sass', build.sass);
 gulp.task('build:scripts', build.scripts);
-gulp.task('build', gulp.task('build:scripts'));
+gulp.task('build:modules:icons', build.modules.icons);
+gulp.task('build:modules:sass', build.modules.sass);
+gulp.task('build:modules:scripts', build.modules.scripts);
+gulp.task(
+  'build:modules',
+  gulp.parallel(gulp.task('build:modules:icons'), gulp.task('build:modules:sass'), gulp.task('build:modules:scripts'))
+);
+gulp.task('build', gulp.parallel(gulp.task('build:sass'), gulp.task('build:scripts')));
 
 gulp.task('clean', clean);
 
