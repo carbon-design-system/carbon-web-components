@@ -1,0 +1,46 @@
+$css--plex: true !default;
+
+@import 'carbon-components/scss/components/multi-select/multi-select';
+@import 'carbon-components/scss/components/form/form';
+@import 'carbon-components/scss/components/checkbox/checkbox';
+@import 'carbon-components/scss/components/tag/tag';
+
+:host(#{$prefix}-multi-select) {
+  outline: none;
+}
+
+:host(#{$prefix}-multi-select[type='inline']) {
+  @extend .#{$prefix}--list-box__wrapper--inline;
+}
+
+:host(#{$prefix}-multi-select-item) {
+  @extend .#{$prefix}--list-box__menu-item;
+  display: block;
+
+  .#{$prefix}--checkbox:checked ~ .#{$prefix}--checkbox-label-text {
+    color: $text-01;
+  }
+
+  .#{$prefix}--list-box__menu-item__option {
+    .#{$prefix}--checkbox-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    > .#{$prefix}--form-item {
+      margin: 0;
+      flex-direction: row;
+    }
+  }
+}
+
+:host(#{$prefix}-multi-select-item[disabled]) {
+  color: $disabled-02;
+  text-decoration: none;
+}
+
+:host(#{$prefix}-multi-select-item[highlighted]) {
+  @extend .#{$prefix}--list-box__menu-item--highlighted;
+}
