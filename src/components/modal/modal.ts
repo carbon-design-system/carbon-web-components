@@ -18,6 +18,11 @@ const FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING | Node.DOCUMENT_POSITION_CONT
 @customElement(`${prefix}-modal` as any)
 class BXModal extends HostListenerMixin(LitElement) {
   /**
+   * The element that had focus before this modal gets open.
+   */
+  private _launcher: Element | null = null;
+
+  /**
    * Handles `click` event on this element.
    * @param event The event.
    * @private
@@ -35,7 +40,7 @@ class BXModal extends HostListenerMixin(LitElement) {
    * @param event The event.
    * @private
    */
-  @HostListener('blur')
+  @HostListener('shadowRoot:blur')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleBlur = ({ target, relatedTarget }: FocusEvent) => {
     const oldContains = target !== this && this.contains(target as Node);
@@ -48,7 +53,7 @@ class BXModal extends HostListenerMixin(LitElement) {
     if (this.open && relatedTarget && oldContains && !currentContains) {
       const comparisonResult = (target as Node).compareDocumentPosition(relatedTarget as Node);
       // eslint-disable-next-line no-bitwise
-      if (comparisonResult & PRECEDING) {
+      if (relatedTarget === this.shadowRoot!.getElementById('pre-trap') || comparisonResult & PRECEDING) {
         const tabbable = findLast(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), elem =>
           Boolean((elem as HTMLElement).offsetParent)
         );
@@ -59,7 +64,7 @@ class BXModal extends HostListenerMixin(LitElement) {
         }
       }
       // eslint-disable-next-line no-bitwise
-      if (comparisonResult & FOLLOWING) {
+      else if (relatedTarget === this.shadowRoot!.getElementById('post-trap') || comparisonResult & FOLLOWING) {
         const tabbable = find(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), elem =>
           Boolean((elem as HTMLElement).offsetParent)
         );
@@ -134,7 +139,11 @@ class BXModal extends HostListenerMixin(LitElement) {
       [this.containerClass]: this.containerClass,
     });
     return html`
-      <div class=${containerClasses} role="dialog" tabidnex="-1" @click=${this._handleClickContainer}><slot></slot></div>
+      <a id="pre-trap" class="${prefix}--visually-hidden" href="javascript:void 0" role="navigation"></a>
+      <div class=${containerClasses} role="dialog" tabidnex="-1" @click=${this._handleClickContainer}>
+        <slot></slot>
+      </div>
+      <a id="post-trap" class="${prefix}--visually-hidden" href="javascript:void 0" role="navigation"></a>
     `;
   }
 
@@ -147,18 +156,26 @@ class BXModal extends HostListenerMixin(LitElement) {
 
   attributeChangedCallback(name, old, current) {
     super.attributeChangedCallback(name, old, current);
-    if (name === 'open' && old == null && current != null) {
-      const primaryFocusNode = this.querySelector((this.constructor as typeof BXModal).selectorPrimaryFocus);
-      if (primaryFocusNode) {
-        (primaryFocusNode as HTMLElement).focus();
-      } else {
-        const tabbable = find(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), elem =>
-          Boolean((elem as HTMLElement).offsetParent)
-        );
-        if (tabbable) {
-          (tabbable as HTMLElement).focus();
+    if (name === 'open') {
+      if (old == null && current != null) {
+        this._launcher = this.ownerDocument!.activeElement;
+        const primaryFocusNode = this.querySelector((this.constructor as typeof BXModal).selectorPrimaryFocus);
+        if (primaryFocusNode) {
+          (primaryFocusNode as HTMLElement).focus();
         } else {
-          this.focus();
+          const tabbable = find(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), elem =>
+            Boolean((elem as HTMLElement).offsetParent)
+          );
+          if (tabbable) {
+            (tabbable as HTMLElement).focus();
+          } else {
+            this.focus();
+          }
+        }
+      } else if (old != null && current == null) {
+        if (this._launcher && typeof (this._launcher as HTMLElement).focus === 'function') {
+          (this._launcher as HTMLElement).focus();
+          this._launcher = null;
         }
       }
     }
