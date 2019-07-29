@@ -11,7 +11,7 @@ const { prefix } = settings;
 /**
  * Multi select.
  */
-@customElement(`${prefix}-multi-select` as any)
+@customElement(`${prefix}-multi-select`)
 class BXMultiSelect extends BXDropdown {
   protected _selectionShouldChange(itemToSelect?: BXMultiSelectItem) {
     // If we are selecting an item, assumes we always toggle

@@ -8,7 +8,7 @@ const { prefix } = settings;
 /**
  * Overflow menu body.
  */
-@customElement(`${prefix}-overflow-menu-body` as any)
+@customElement(`${prefix}-overflow-menu-body`)
 class BXOverflowMenuBody extends BXFloatingMenu {
   /**
    * How the menu is aligned to the trigger button. Corresponds to the attribute with the same name.
