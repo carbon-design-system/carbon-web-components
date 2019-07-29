@@ -8,7 +8,7 @@ const { prefix } = settings;
 /**
  * Check box.
  */
-@customElement(`${prefix}-checkbox` as any)
+@customElement(`${prefix}-checkbox`)
 class BXCheckbox extends LitElement {
   /**
    * Unique ID used for ID refs.
