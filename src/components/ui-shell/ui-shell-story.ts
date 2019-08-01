@@ -14,9 +14,9 @@ const StoryContent = () => html`
     ${contentStyles.cssText}
   </style>
   <main class="bx--content bx-ce-demo-devenv--ui-shell-content">
-    <div className="bx--grid">
-      <div className="bx--row">
-        <div className="bx--offset-lg-3 bx--col-lg-13">
+    <div class="bx--grid">
+      <div class="bx--row">
+        <div class="bx--offset-lg-3 bx--col-lg-13">
           <h2>
             Purpose and function
           </h2>
