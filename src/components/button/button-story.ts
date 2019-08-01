@@ -17,14 +17,16 @@ const createProps = () => ({
   disabled: boolean('Disabled (disabled)', false),
   small: boolean('Small (small)', false),
   href: text('Link href (href)', ''),
-  onClick: action('onClick'),
+  onClick: action('click'),
 });
 
 storiesOf('Button', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const { kind, disabled, small, href } = createProps();
+    const { kind, disabled, small, href, onClick } = createProps();
     return html`
-      <bx-btn kind=${kind} ?disabled=${disabled} ?small=${small} href=${ifDefined(href || undefined)}>Button</bx-btn>
+      <bx-btn kind=${kind} ?disabled=${disabled} ?small=${small} href=${ifDefined(href || undefined)} @click=${onClick}>
+        Button
+      </bx-btn>
     `;
   });
