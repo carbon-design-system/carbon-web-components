@@ -1,0 +1,61 @@
+$css--plex: true !default;
+
+@import 'carbon-components/scss/components/ui-shell/header';
+
+:host(#{$prefix}-header) {
+  @extend .#{$prefix}--header;
+}
+
+:host(#{$prefix}-header-nav) {
+  @extend .#{$prefix}--header__nav;
+
+  .#{$prefix}-ce--header__divider {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: rem(24px);
+    width: rem(1px);
+    background-color: $shell-header-border-01;
+  }
+}
+
+:host(#{$prefix}-header-nav-item) {
+  outline: none;
+}
+
+:host(#{$prefix}-header-menu) {
+  @extend .#{$prefix}--header__submenu;
+
+  outline: none;
+}
+
+:host(#{$prefix}-header-menu-item) {
+  outline: none;
+
+  a.#{$prefix}--header__menu-item[role='menuitem'] {
+    height: mini-units(6);
+
+    &:hover {
+      background-color: $shell-header-bg-04;
+      color: $shell-header-text-01;
+    }
+
+    &:active {
+      background-color: $shell-header-bg-03;
+    }
+  }
+}
+
+:host(#{$prefix}-header-menu-button) {
+  display: inline-block;
+  display: content;
+}
+
+:host(#{$prefix}-header-name) {
+  display: inline;
+  display: content;
+  height: 100%;
+}
