@@ -1,5 +1,6 @@
 import classnames from 'classnames';
-import { html, property, customElement, LitElement } from 'lit-element';
+import { ifDefined } from 'lit-html/directives/if-defined';
+import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import styles from './checkbox.scss';
 
@@ -10,6 +11,9 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-checkbox`)
 class BXCheckbox extends LitElement {
+  @query('input')
+  _checkboxNode!: HTMLInputElement;
+
   /**
    * Unique ID used for ID refs.
    */
@@ -18,13 +22,18 @@ class BXCheckbox extends LitElement {
     .slice(2);
 
   /**
+   * The element ID for the check box.
+   */
+  protected get _checkboxId() {
+    const { id: elementId, _uniqueId: uniqueId } = this;
+    return `__bx-ce-selectable-tile_${elementId || uniqueId}`;
+  }
+
+  /**
    * Handles `click` event on the `<input>` in the shadow DOM.
    */
   protected _handleChange() {
-    const { id: elementId } = this;
-    const { checked, indeterminate } = this.shadowRoot!.getElementById(
-      `__bx-ce-checkbox_${elementId || this._uniqueId}`
-    ) as HTMLInputElement;
+    const { checked, indeterminate } = this._checkboxNode;
     this.checked = checked;
     this.indeterminate = indeterminate;
   }
@@ -60,32 +69,48 @@ class BXCheckbox extends LitElement {
   labelText = '';
 
   /**
+   * The form name. Corresponds to the attribute with the same name.
+   */
+  @property()
+  name!: string;
+
+  /**
    * The value. Corresponds to the attribute with the same name.
    */
   @property({ type: String })
-  value = '';
+  value!: string;
 
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
 
   render() {
-    const { id: elementId, checked, disabled, hideLabel, indeterminate, labelText, value, _handleChange: handleChange } = this;
+    const {
+      checked,
+      disabled,
+      hideLabel,
+      indeterminate,
+      labelText,
+      name,
+      value,
+      _checkboxId: checkboxId,
+      _handleChange: handleChange,
+    } = this;
     const labelClasses = classnames(`${prefix}--checkbox-label`, {
       [`${prefix}--visually-hidden`]: hideLabel,
     });
-    const checkboxId = `__bx-ce-checkbox_${elementId || this._uniqueId}`;
     return html`
       <input
         id="${checkboxId}"
         type="checkbox"
         class="${`${prefix}--checkbox`}"
         aria-checked="${indeterminate ? 'mixed' : String(Boolean(checked))}"
-        .checked=${checked}
-        ?disabled=${disabled}
-        .indeterminate=${indeterminate}
-        .value="${value}"
-        @change=${handleChange}
+        .checked="${checked}"
+        ?disabled="${disabled}"
+        .indeterminate="${indeterminate}"
+        name="${ifDefined(name == null ? undefined : name)}"
+        value="${ifDefined(value == null ? undefined : value)}"
+        @change="${handleChange}"
       />
       <label for="${checkboxId}" class="${labelClasses}">${labelText}</label>
     `;
