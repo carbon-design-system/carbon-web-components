@@ -8,7 +8,7 @@ const { prefix } = settings;
 /**
  * Data table row.
  */
-@customElement(`${prefix}-table-row` as any)
+@customElement(`${prefix}-table-row`)
 class BXTableRow extends LitElement {
   /**
    * Handles `click` event on the check box.

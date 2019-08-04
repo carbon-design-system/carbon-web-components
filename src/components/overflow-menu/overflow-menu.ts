@@ -13,7 +13,7 @@ const { prefix } = settings;
 /**
  * Overflow menu.
  */
-@customElement(`${prefix}-overflow-menu` as any)
+@customElement(`${prefix}-overflow-menu`)
 class BXOverflowMenu extends HostListenerMixin(LitElement) implements BXFloatingMenuTrigger {
   /**
    * The menu body.

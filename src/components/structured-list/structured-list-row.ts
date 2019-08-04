@@ -65,7 +65,7 @@ class StructuredListRowRadioButtonDelegate implements ManagedRadioButtonDelegate
 /**
  * Structured list row.
  */
-@customElement(`${prefix}-structured-list-row` as any)
+@customElement(`${prefix}-structured-list-row`)
 class BXStructuredListRow extends HostListenerMixin(LitElement) {
   /**
    * The radio group manager associated with the radio button.

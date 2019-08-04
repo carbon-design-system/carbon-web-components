@@ -57,7 +57,7 @@ export const TABLE_SORT_CYCLES = {
 /**
  * Data table header cell.
  */
-@customElement(`${prefix}-table-header-cell` as any)
+@customElement(`${prefix}-table-header-cell`)
 class BXTableHeaderCell extends LitElement {
   /**
    * Handles `click` event on the sort button.

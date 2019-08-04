@@ -7,7 +7,7 @@ const { prefix } = settings;
 /**
  * Data table cell.
  */
-@customElement(`${prefix}-table-cell` as any)
+@customElement(`${prefix}-table-cell`)
 class BXTableCell extends LitElement {
   connectedCallback() {
     if (!this.hasAttribute('role')) {

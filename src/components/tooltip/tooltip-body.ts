@@ -8,7 +8,7 @@ const { prefix } = settings;
 /**
  * Tooltip body.
  */
-@customElement(`${prefix}-tooltip-body` as any)
+@customElement(`${prefix}-tooltip-body`)
 class BXTooltipBody extends BXFloatingMenu {
   /**
    * How the menu is aligned to the trigger button. Corresponds to the attribute with the same name.

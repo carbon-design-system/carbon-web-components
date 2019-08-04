@@ -7,7 +7,7 @@ const { prefix } = settings;
 /**
  * Structured list header.
  */
-@customElement(`${prefix}-structured-list-head` as any)
+@customElement(`${prefix}-structured-list-head`)
 class BXStructuredListHeader extends LitElement {
   render() {
     return html`
