@@ -60,16 +60,6 @@ module.exports = function setupKarma(config) {
                   configFile: path.resolve(__dirname, '..', '.babelrc'),
                 },
               },
-              {
-                loader: 'ts-loader',
-                options: {
-                  ignoreDiagnostics: [6133],
-                  compilerOptions: {
-                    sourceMap: false,
-                    inlineSourceMap: true,
-                  },
-                },
-              },
             ],
           },
           !collectCoverage
