@@ -1,3 +1,5 @@
+import 'core-js/modules/es.array.flat.js';
+import 'core-js/modules/es.string.pad-start.js';
 import { TABLE_SORT_DIRECTION } from '../table-header-cell';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './types';
 
@@ -60,6 +62,16 @@ export const rows: TDemoTableRow[] = [
     status: 'Active',
   },
 ];
+
+export const rowsMany: TDemoTableRow[] = Array.from(new Array(50))
+  .map((_item, i) =>
+    rows.map((row, j) => ({
+      ...row,
+      id: i * 3 + j,
+      name: `Load Balancer ${String(i * 3 + j + 1).padStart(3, '0')}`,
+    }))
+  )
+  .flat();
 
 export const sortInfo: TDemoSortInfo = {
   columnId: 'name',
