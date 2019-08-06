@@ -87,7 +87,7 @@ export const getAction = (key: string) => {
 /**
  * Dropdown.
  */
-@customElement(`${prefix}-dropdown` as any)
+@customElement(`${prefix}-dropdown`)
 class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * The latest status of this dropdown, for screen reader to accounce.

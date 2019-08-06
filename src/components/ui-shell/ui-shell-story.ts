@@ -8,6 +8,13 @@ import './side-nav-items';
 import './side-nav-link';
 import './side-nav-menu';
 import './side-nav-menu-item';
+import './header';
+import './header-nav';
+import './header-nav-item';
+import './header-menu';
+import './header-menu-item';
+import './header-menu-button';
+import './header-name';
 
 const StoryContent = () => html`
   <style type="text/css">
@@ -160,6 +167,27 @@ storiesOf('UI Shell', module)
           <bx-side-nav-link href="javascript:void(0)">${Fade16({ slot: 'title-icon' })}L0 link</bx-side-nav-link>
         </bx-side-nav-items>
       </bx-side-nav>
+      ${StoryContent()}
+    `;
+    (result as any).hasMainTag = true;
+    return result;
+  })
+  .add('Header', () => {
+    const result = html`
+      <bx-header aria-label="IBM Platform Name">
+        <bx-header-menu-button button-label-active="Close menu" button-label-inactive="Open menu"></bx-header-menu-button>
+        <bx-header-name href="javascript:void 0" prefix="IBM">[Platform]</bx-header-name>
+        <bx-header-nav menu-bar-label="IBM [Platform]">
+          <bx-header-nav-item href="javascript:void 0">Link 1</bx-header-nav-item>
+          <bx-header-nav-item href="javascript:void 0">Link 2</bx-header-nav-item>
+          <bx-header-nav-item href="javascript:void 0">Link 3</bx-header-nav-item>
+          <bx-header-menu menu-label="Link 4" trigger-content="Link 4">
+            <bx-header-menu-item href="javascript:void 0">Sub-link 1</bx-header-menu-item>
+            <bx-header-menu-item href="javascript:void 0">Sub-link 2</bx-header-menu-item>
+            <bx-header-menu-item href="javascript:void 0">Sub-link 3</bx-header-menu-item>
+          </bx-header-menu>
+        </bx-header-nav>
+      </bx-header>
       ${StoryContent()}
     `;
     (result as any).hasMainTag = true;

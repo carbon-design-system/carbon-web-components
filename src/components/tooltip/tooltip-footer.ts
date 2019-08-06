@@ -7,7 +7,7 @@ const { prefix } = settings;
 /**
  * Tooltip footer.
  */
-@customElement(`${prefix}-tooltip-footer` as any)
+@customElement(`${prefix}-tooltip-footer`)
 class BXTooltipFooter extends LitElement {
   render() {
     return html`

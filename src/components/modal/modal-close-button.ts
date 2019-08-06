@@ -8,7 +8,7 @@ const { prefix } = settings;
 /**
  * Modal close button.
  */
-@customElement(`${prefix}-modal-close-button` as any)
+@customElement(`${prefix}-modal-close-button`)
 class BXModalCloseButton extends LitElement {
   render() {
     return html`

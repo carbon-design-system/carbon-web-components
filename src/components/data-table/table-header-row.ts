@@ -7,7 +7,7 @@ const { prefix } = settings;
 /**
  * Data table header row.
  */
-@customElement(`${prefix}-table-header-row` as any)
+@customElement(`${prefix}-table-header-row`)
 class BXTableHeaderRow extends BXTableRow {
   /**
    * The name of the custom event fired before this row is selected/unselected upon a user gesture.

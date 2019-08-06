@@ -7,7 +7,7 @@ const { prefix } = settings;
 /**
  * Modal header.
  */
-@customElement(`${prefix}-modal-header` as any)
+@customElement(`${prefix}-modal-header`)
 class BXModalHeader extends LitElement {
   render() {
     return html`

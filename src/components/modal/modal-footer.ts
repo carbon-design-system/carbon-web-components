@@ -7,7 +7,7 @@ const { prefix } = settings;
 /**
  * Modal footer.
  */
-@customElement(`${prefix}-modal-footer` as any)
+@customElement(`${prefix}-modal-footer`)
 class BXModalFooter extends LitElement {
   render() {
     return html`
