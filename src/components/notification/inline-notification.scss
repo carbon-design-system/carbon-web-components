@@ -1,0 +1,35 @@
+$css--plex: true !default;
+
+@import 'carbon-components/scss/components/notification/inline-notification';
+@import 'carbon-components/scss/components/button/button';
+
+:host(#{$prefix}-inline-notification) {
+  @extend .#{$prefix}--inline-notification;
+
+  display: none;
+  outline: none;
+}
+
+:host(#{$prefix}-inline-notification[open]) {
+  display: flex;
+}
+
+:host(#{$prefix}-inline-notification[hide-close-button]) .#{$prefix}--inline-notification__close-button {
+  display: none;
+}
+
+:host(#{$prefix}-inline-notification[kind='success']) {
+  @extend .#{$prefix}--inline-notification--success;
+}
+
+:host(#{$prefix}-inline-notification[kind='info']) {
+  @extend .#{$prefix}--inline-notification--info;
+}
+
+:host(#{$prefix}-inline-notification[kind='warning']) {
+  @extend .#{$prefix}--inline-notification--warning;
+}
+
+:host(#{$prefix}-inline-notification[kind='error']) {
+  @extend .#{$prefix}--inline-notification--error;
+}
