@@ -1,7 +1,13 @@
 import { html } from 'lit-element';
 import { storiesOf } from '@storybook/polymer';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text } from '@storybook/addon-knobs';
+import Fade16 from '@carbon/icons/lib/fade/16';
 import contentStyles from 'carbon-components/scss/components/ui-shell/_content.scss';
+import './side-nav';
+import './side-nav-items';
+import './side-nav-link';
+import './side-nav-menu';
+import './side-nav-menu-item';
 import './header';
 import './header-nav';
 import './header-nav-item';
@@ -61,8 +67,111 @@ const StoryContent = () => html`
   </main>
 `;
 
+const createProps = () => ({
+  expanded: boolean('Expanded (expanded)', true),
+  fixed: boolean('Fixed (fixed)', false),
+  href: text('Link href (href)', 'javascript:void 0'), // eslint-disable-line no-script-url
+});
+
 storiesOf('UI Shell', module)
   .addDecorator(withKnobs)
+  .add('Side nav', () => {
+    const { expanded, fixed, href } = createProps();
+    const result = html`
+      <bx-side-nav aria-label="Side navigation" ?expanded=${expanded} ?fixed=${fixed}>
+        <bx-side-nav-items>
+          <bx-side-nav-menu title="L0 menu">
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+          </bx-side-nav-menu>
+          <bx-side-nav-menu title="L0 menu">
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+            <bx-side-nav-menu-item active aria-current="page" href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+          </bx-side-nav-menu>
+          <bx-side-nav-menu title="L0 menu">
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+          </bx-side-nav-menu>
+          <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
+          <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
+        </bx-side-nav-items>
+      </bx-side-nav>
+      ${StoryContent()}
+    `;
+    (result as any).hasMainTag = true;
+    return result;
+  })
+  .add('Side nav with icons', () => {
+    const { expanded, fixed, href } = createProps();
+    const result = html`
+      <bx-side-nav aria-label="Side navigation" ?expanded=${expanded} ?fixed=${fixed}>
+        <bx-side-nav-items>
+          <bx-side-nav-menu title="L0 menu">
+            ${Fade16({ slot: 'title-icon' })}
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+          </bx-side-nav-menu>
+          <bx-side-nav-menu title="L0 menu">
+            ${Fade16({ slot: 'title-icon' })}
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+            <bx-side-nav-menu-item active aria-current="page" href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+          </bx-side-nav-menu>
+          <bx-side-nav-menu title="L0 menu">
+            ${Fade16({ slot: 'title-icon' })}
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+            <bx-side-nav-menu-item href="${href}">
+              L0 menu item
+            </bx-side-nav-menu-item>
+          </bx-side-nav-menu>
+          <bx-side-nav-link href="javascript:void(0)">${Fade16({ slot: 'title-icon' })}L0 link</bx-side-nav-link>
+          <bx-side-nav-link href="javascript:void(0)">${Fade16({ slot: 'title-icon' })}L0 link</bx-side-nav-link>
+        </bx-side-nav-items>
+      </bx-side-nav>
+      ${StoryContent()}
+    `;
+    (result as any).hasMainTag = true;
+    return result;
+  })
   .add('Header', () => {
     const result = html`
       <bx-header aria-label="IBM Platform Name">
