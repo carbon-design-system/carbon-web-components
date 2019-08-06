@@ -7,7 +7,7 @@ const { prefix } = settings;
 /**
  * Structured list header row.
  */
-@customElement(`${prefix}-structured-list-header-row` as any)
+@customElement(`${prefix}-structured-list-header-row`)
 class BXStructuredListHeaderRow extends LitElement {
   /**
    * `true` if parent structured list supports selection. Corresponds to `has-selection` attribute.

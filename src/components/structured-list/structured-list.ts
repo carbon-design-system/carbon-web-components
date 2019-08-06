@@ -8,7 +8,7 @@ const { prefix } = settings;
 /**
  * Structured list wrapper.
  */
-@customElement(`${prefix}-structured-list` as any)
+@customElement(`${prefix}-structured-list`)
 class BXStructuredList extends LitElement {
   /**
    * `true` if border should be used. Corresponds to the attribute with the same name.

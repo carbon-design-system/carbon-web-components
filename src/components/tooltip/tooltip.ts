@@ -13,7 +13,7 @@ const { prefix } = settings;
 /**
  * Trigger button of tooltip.
  */
-@customElement(`${prefix}-tooltip` as any)
+@customElement(`${prefix}-tooltip`)
 class BXTooltip extends HostListenerMixin(LitElement) implements BXFloatingMenuTrigger {
   /**
    * The menu body.

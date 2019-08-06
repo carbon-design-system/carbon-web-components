@@ -7,7 +7,7 @@ const { prefix } = settings;
 /**
  * Data table container.
  */
-@customElement(`${prefix}-data-table` as any)
+@customElement(`${prefix}-data-table`)
 class BXDataTable extends LitElement {
   render() {
     return html`

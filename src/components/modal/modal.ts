@@ -15,7 +15,7 @@ const PRECEDING = Node.DOCUMENT_POSITION_PRECEDING | Node.DOCUMENT_POSITION_CONT
 // eslint-disable-next-line no-bitwise
 const FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING | Node.DOCUMENT_POSITION_CONTAINED_BY;
 
-@customElement(`${prefix}-modal` as any)
+@customElement(`${prefix}-modal`)
 class BXModal extends HostListenerMixin(LitElement) {
   /**
    * Handles `click` event on this element.

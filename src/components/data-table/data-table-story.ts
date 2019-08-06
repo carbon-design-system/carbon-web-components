@@ -22,7 +22,7 @@ import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types'
  * and thus abstracting everything in a library won't be a good return on investment
  * vs. letting users copy code here and implement features that fit their needs.
  */
-@customElement('bx-ce-demo-data-table' as any)
+@customElement('bx-ce-demo-data-table')
 // @ts-ignore `BXCEDemoDataTable` is used (only) for type reference
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class BXCEDemoDataTable extends LitElement {
