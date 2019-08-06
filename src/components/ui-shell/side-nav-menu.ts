@@ -11,6 +11,10 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-side-nav-menu`)
 class BXSideNavMenu extends LitElement {
+  /**
+   * @param item A menu item.
+   * @returns `true` if the given menu item is active.
+   */
   private isMenuItemActive(item: Node) {
     return (
       typeof (item as Element).matches === 'function' &&
@@ -21,19 +25,19 @@ class BXSideNavMenu extends LitElement {
   /**
    * `true` if this menu has an icon.
    */
-  protected _hasIcon = false;
+  private _hasIcon = false;
 
   /**
    * Handles `click` event on the expando button.
    */
-  protected _handleClickExpando() {
+  private _handleClickExpando() {
     this.expanded = !this.expanded;
   }
 
   /**
    * Handles `slotchange` event on the non-named `<slot>`.
    */
-  protected _handleSlotChange({ target }) {
+  private _handleSlotChange({ target }) {
     const { _hasIcon: hasIcon } = this;
     forEach(target.assignedNodes(), item => {
       item.toggleAttribute((this.constructor as typeof BXSideNavMenu).attribItemHasIcon, hasIcon);
@@ -44,7 +48,7 @@ class BXSideNavMenu extends LitElement {
   /**
    * Handles `slotchange` event on the `<slot>` for the title icon.
    */
-  protected _handleSlotChangeTitleIcon({ target }) {
+  private _handleSlotChangeTitleIcon({ target }) {
     const constructor = this.constructor as typeof BXSideNavMenu;
     const hasIcon = target.assignedNodes().length > 0;
     this._hasIcon = hasIcon;

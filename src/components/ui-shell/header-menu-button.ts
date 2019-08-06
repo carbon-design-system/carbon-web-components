@@ -14,7 +14,7 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-header-menu-button` as any)
 class BXHeaderMenuButton extends LitElement {
-  protected _handleClick() {
+  private _handleClick() {
     const active = !this.active;
     this.active = !active;
     forEach(this.querySelectorAll((this.constructor as typeof BXHeaderMenuButton).selectorNav), nav => {

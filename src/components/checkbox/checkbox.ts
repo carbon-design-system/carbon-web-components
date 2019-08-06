@@ -32,7 +32,7 @@ class BXCheckbox extends LitElement {
   /**
    * Handles `click` event on the `<input>` in the shadow DOM.
    */
-  protected _handleChange() {
+  private _handleChange() {
     const { checked, indeterminate } = this._checkboxNode;
     this.checked = checked;
     this.indeterminate = indeterminate;

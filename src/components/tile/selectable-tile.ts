@@ -33,7 +33,7 @@ class BXSelectableTile extends LitElement {
   /**
    * Handles `change` event on the `<input>` in the shadow DOM.
    */
-  protected _handleChange() {
+  private _handleChange() {
     this.selected = this._checkboxNode.checked;
   }
 
