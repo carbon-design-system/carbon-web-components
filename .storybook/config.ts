@@ -13,18 +13,25 @@ addParameters({
   },
 });
 
-addDecorator(
-  story => html`
+addDecorator(story => {
+  const result = story();
+  const { hasMainTag } = result as any;
+  return html`
     <style>
       ${containerStyles}
     </style>
     <bx-ce-demo-focus-trap href="#main-content" aria-label="Skip to main content">Skip to main content</bx-ce-demo-focus-trap>
-    <div id="main-content" data-floating-menu-container role="main" class="bx--body bx-ce-demo-devenv--container">
-      ${story()}
+    <div
+      name="main-content"
+      data-floating-menu-container
+      role="${hasMainTag ? 'none' : 'main'}"
+      class="bx--body bx-ce-demo-devenv--container"
+    >
+      ${result}
     </div>
     <bx-ce-demo-focus-trap href="#main-content" aria-label="End of content">End of content</bx-ce-demo-focus-trap>
-  `
-);
+  `;
+});
 
 addons.getChannel().on(CURRENT_THEME, theme => {
   document.documentElement.setAttribute('storybook-carbon-theme', theme);
