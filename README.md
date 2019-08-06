@@ -31,8 +31,8 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 
 ## Running React/Angular demo
 
-- React: `yarn storybook:react`
-- Angular: `yarn storybook:angular`
+- React: `yarn storybook:react` (Live demo: https://carbon-custom-elements-react.netlify.com/)
+- Angular: `yarn storybook:angular` (Live demo: https://carbon-custom-elements-angular.netlify.com/)
 
 ## List of available components
 
