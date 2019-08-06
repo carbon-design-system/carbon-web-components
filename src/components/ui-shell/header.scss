@@ -10,8 +10,6 @@ $css--plex: true !default;
   @extend .#{$prefix}--header__nav;
 
   .#{$prefix}-ce--header__divider {
-    content: '';
-    display: block;
     position: absolute;
     left: 0;
     top: 50%;

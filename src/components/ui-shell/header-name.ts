@@ -34,7 +34,7 @@ class BXHeaderName extends LitElement {
           <span class="${prefix}--header__name--prefix">${namePrefix}</span>
         `;
     return html`
-      <a class="${prefix}--header__name" href="${ifDefined(href)}">${namePrefixPart}&nbsp;<slot></slot> </a>
+      <a class="${prefix}--header__name" href="${ifDefined(href)}">${namePrefixPart}&nbsp;<slot></slot></a>
     `;
   }
 
