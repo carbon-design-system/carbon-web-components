@@ -1,3 +1,4 @@
+import { ifDefined } from 'lit-html/directives/if-defined';
 import { html } from 'lit-element';
 import { storiesOf } from '@storybook/polymer';
 import { action } from '@storybook/addon-actions';
@@ -10,23 +11,25 @@ const createProps = () => ({
   hideLabel: boolean('Hide label (hide-label)', false),
   indeterminate: boolean('Indeterminate state (indeterminate)', false),
   labelText: text('Label text (label-text)', 'Checkbox'),
-  value: text('Value (value)', 'on'),
+  name: text('Name (name)', ''),
+  value: text('Value (value)', ''),
   onInput: action('input'),
 });
 
 storiesOf('Checkbox', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const { checked, disabled, hideLabel, indeterminate, labelText, value, onInput } = createProps();
+    const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onInput } = createProps();
     return html`
       <bx-checkbox
-        ?checked=${checked}
-        ?disabled=${disabled}
-        ?hide-label=${hideLabel}
-        ?indeterminate=${indeterminate}
+        ?checked="${checked}"
+        ?disabled="${disabled}"
+        ?hide-label="${hideLabel}"
+        ?indeterminate="${indeterminate}"
         label-text="${labelText}"
-        .value="${value}"
-        @input=${onInput}
-      />
+        name="${ifDefined(!name ? undefined : name)}"
+        value="${ifDefined(!value ? undefined : value)}"
+        @input="${onInput}"
+      ></bx-checkbox>
     `;
   });
