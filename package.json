@@ -39,6 +39,7 @@
     "@babel/preset-react": "^7.0.0",
     "@carbon/icon-helpers": "^10.2.0",
     "@carbon/icons": "^10.3.0",
+    "@carbon/icons-react": "^10.3.0",
     "@commitlint/cli": "^7.5.0",
     "@commitlint/config-conventional": "^7.5.0",
     "@storybook/addon-actions": "^5.1.0",

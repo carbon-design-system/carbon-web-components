@@ -44,6 +44,7 @@ module.exports = {
     },
     {
       files: ['**/*-react.tsx'],
+      parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint', 'react'],
       rules: {
         'no-unused-vars': 0,

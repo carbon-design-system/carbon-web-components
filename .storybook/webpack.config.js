@@ -65,7 +65,7 @@ module.exports = ({ config, mode }) => {
       use: 'null-loader',
     },
     {
-      test: /@carbon[\\/]icons/i,
+      test: /@carbon[\\/]icons[\\/]/i,
       use: [...babelLoaderRule.use, require.resolve('../svg-result-carbon-icon-loader')],
     },
     {

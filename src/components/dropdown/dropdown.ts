@@ -481,9 +481,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       : html`
           <div class=${`${prefix}--form-requirement`}>${validityMessage}</div>
         `;
-    const validityIcon = !hasValidity
-      ? undefined
-      : WarningFilled16({ class: `${prefix}--list-box__invalid-icon`, 'aria-label': toggleLabel });
+    const validityIcon = !hasValidity ? undefined : WarningFilled16({ class: `${prefix}--list-box__invalid-icon` });
     const menuBodyId = `__bx-ce-dropdown_menu_${elementId || this._uniqueId}`;
     const menuBody = !open
       ? undefined
