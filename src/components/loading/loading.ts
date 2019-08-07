@@ -28,7 +28,7 @@ export enum LOADING_TYPE {
 /**
  * Spinner indicating loading state.
  */
-@customElement(`${prefix}-loading` as any)
+@customElement(`${prefix}-loading`)
 class BXLoading extends LitElement {
   /**
    * Spinner type. Corresponds to the attribute with the same name.

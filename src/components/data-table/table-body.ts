@@ -7,7 +7,7 @@ const { prefix } = settings;
 /**
  * Data table header.
  */
-@customElement(`${prefix}-table-body` as any)
+@customElement(`${prefix}-table-body`)
 class BXTableBody extends LitElement {
   connectedCallback() {
     if (!this.hasAttribute('role')) {

@@ -9,7 +9,7 @@ const { prefix } = settings;
 /**
  * Multi select item.
  */
-@customElement(`${prefix}-multi-select-item` as any)
+@customElement(`${prefix}-multi-select-item`)
 class BXMultiSelectItem extends BXDropdownItem {
   /**
    * Unique ID used for form elements.

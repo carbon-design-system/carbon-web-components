@@ -38,7 +38,7 @@ export enum BUTTON_KIND {
 /**
  * Button.
  */
-@customElement(`${prefix}-btn` as any)
+@customElement(`${prefix}-btn`)
 class BXButton extends LitElement {
   /**
    * Handles `click` event on the `<a>.

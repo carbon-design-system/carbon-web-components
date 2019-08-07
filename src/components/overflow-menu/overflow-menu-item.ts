@@ -7,7 +7,7 @@ const { prefix } = settings;
 /**
  * Overflow menu item.
  */
-@customElement(`${prefix}-overflow-menu-item` as any)
+@customElement(`${prefix}-overflow-menu-item`)
 class BXOverflowMenuItem extends LitElement {
   /**
    * `true` if the action is danger. Corresponds to the attribute with the same name.

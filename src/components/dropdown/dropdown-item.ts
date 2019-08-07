@@ -7,7 +7,7 @@ const { prefix } = settings;
 /**
  * Dropdown item.
  */
-@customElement(`${prefix}-dropdown-item` as any)
+@customElement(`${prefix}-dropdown-item`)
 class BXDropdownItem extends LitElement {
   /**
    * `true` if this dropdown item should be highlighted. Corresponds to the attribute with the same name.

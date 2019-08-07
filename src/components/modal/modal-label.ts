@@ -7,7 +7,7 @@ const { prefix } = settings;
 /**
  * Modal label.
  */
-@customElement(`${prefix}-modal-label` as any)
+@customElement(`${prefix}-modal-label`)
 class BXModalLabel extends LitElement {
   render() {
     return html`

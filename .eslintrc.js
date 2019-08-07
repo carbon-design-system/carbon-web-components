@@ -42,5 +42,15 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 2,
       },
     },
+    {
+      files: ['**/*-react.tsx'],
+      plugins: ['@typescript-eslint', 'react'],
+      rules: {
+        'no-unused-vars': 0,
+        '@typescript-eslint/no-unused-vars': 2,
+        'react/jsx-uses-react': 2,
+        'react/jsx-uses-vars': 2,
+      },
+    },
   ],
 };
