@@ -3,7 +3,7 @@ import { TemplateResult } from 'lit-html';
 import { html, property, query, customElement } from 'lit-element';
 import Close16 from '@carbon/icons/lib/close/16';
 import { findIndex, forEach } from '../../globals/internal/collection-helpers';
-import BXDropdown, { TRIGGER_KEYS } from '../dropdown/dropdown';
+import BXDropdown, { DROPDOWN_KEYBOARD_ACTION, getAction } from '../dropdown/dropdown';
 import BXComboBoxItem from './combo-box-item';
 import styles from './combo-box.scss';
 
@@ -52,7 +52,7 @@ class BXComboBox extends BXDropdown {
    */
   protected _handleInput() {
     const items = this.querySelectorAll((this.constructor as typeof BXComboBox).selectorItem);
-    const index = findIndex(items, this._testItemWithQueryText, this);
+    const index = !this._filterInput.value ? -1 : findIndex(items, this._testItemWithQueryText, this);
     if (index >= 0) {
       forEach(items, (item, i) => {
         (item as BXComboBoxItem).highlighted = i === index;
@@ -61,6 +61,7 @@ class BXComboBox extends BXDropdown {
     const { _filterInput: filterInput } = this;
     this._filterInputValue = !filterInput ? '' : filterInput.value;
     this.open = true;
+    this.requestUpdate(); // If the only change is to `_filterInputValue`, auto-update doesn't happen
   }
 
   protected _handleClickInner(event: MouseEvent) {
@@ -73,13 +74,18 @@ class BXComboBox extends BXDropdown {
 
   protected _handleKeydownInner(event: KeyboardEvent) {
     const { key } = event;
+    const action = getAction(key);
+    const { NAVIGATING, TRIGGERING } = DROPDOWN_KEYBOARD_ACTION;
     if (
       (event.target as Element).closest((this.constructor as typeof BXComboBox).selectorSelectionButton) &&
-      TRIGGER_KEYS.has(key)
+      action === TRIGGERING
     ) {
       this._handleUserInitiatedClearInput();
     } else {
       super._handleKeydownInner(event);
+      if (action === NAVIGATING) {
+        event.preventDefault(); // Prevents default behavior in `<input>`
+      }
     }
   }
 
