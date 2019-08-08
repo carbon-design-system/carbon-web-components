@@ -25,7 +25,6 @@ class BXModal extends HostListenerMixin(LitElement) {
   /**
    * Handles `click` event on this element.
    * @param event The event.
-   * @private
    */
   @HostListener('click')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
@@ -38,7 +37,6 @@ class BXModal extends HostListenerMixin(LitElement) {
   /**
    * Handles `blur` event on this element.
    * @param event The event.
-   * @private
    */
   @HostListener('shadowRoot:blur')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to

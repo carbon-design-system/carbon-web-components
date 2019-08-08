@@ -4,6 +4,7 @@
 - [Coding conventions](#coding-conventions)
   - [Linters/formatters](#lintersformatters)
   - [TSDoc comments](#tsdoc-comments)
+  - [No kitchen-sink "base" class and using mix-in](#no-kitchen-sink-base-class-and-using-mix-in)
   - [Lifecycle management](#lifecycle-management)
   - [Component styles for different component states/variants](#component-styles-for-different-component-statesvariants)
   - [Customizing components](#customizing-components)
@@ -11,11 +12,18 @@
     - [Component variants with different options](#component-variants-with-different-options)
       - [Areas to make them configurable as component options](#areas-to-make-them-configurable-as-component-options)
       - [Areas where component optinos are _not_ applied](#areas-where-component-optinos-are-_not_-applied)
+    - [Creating inherited components](#creating-inherited-components)
   - [Polymorphism with static properties](#polymorphism-with-static-properties)
   - [Custom events](#custom-events)
+  - [Globalization](#globalization)
+    - [Translation](#translation)
+    - [Collation](#collation)
+  - [Null checks](#null-checks)
+  - [CSS considerations with IE11](#css-considerations-with-ie11)
   - [Custom element registration](#custom-element-registration)
   - [Propagating misc attributes from shadow host to an element in shadow DOM](#propagating-misc-attributes-from-shadow-host-to-an-element-in-shadow-dom)
-    <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Coding conventions
 
@@ -113,6 +121,14 @@ A component variant with different options can be created by creating a derived 
 #### Areas where component optinos are _not_ applied
 
 - CSS classes used in template (Should be done by overriding `.render()` method)
+
+### Creating inherited components
+
+This codebase intends to support the components being inherited, to some extent. e.g. Compoennts with different options described above. To support that, it's easier for all properties/methods exposed as `protected`, but it exposes a risk of the component internals being poked around. The current guideline for using `protected` is the following:
+
+- Ones where override happens within this component library (e.g. `<bx-multi-select>` inheriting `<bx-dropdown>`)
+- Element ID's auto-generation logic
+- (Possibly some more, e.g. ones whose API are stable enough)
 
 ## Polymorphism with static properties
 

@@ -17,19 +17,19 @@ class BXHeaderMenu extends HostListenerMixin(LitElement) {
    * The trigger button.
    */
   @query('a')
-  protected _trigger!: HTMLElement;
+  private _trigger!: HTMLElement;
 
   /**
    * Handles `click` event handler on this element.
    */
-  protected _handleClick() {
+  private _handleClick() {
     this._handleUserInitiatedToggle();
   }
 
   /**
    * Handler for the `keydown` event on the trigger button.
    */
-  protected _handleKeydownTrigger({ key }: KeyboardEvent) {
+  private _handleKeydownTrigger({ key }: KeyboardEvent) {
     if (key === 'Esc' || key === 'Escape') {
       this._handleUserInitiatedToggle(false);
     }
@@ -39,7 +39,7 @@ class BXHeaderMenu extends HostListenerMixin(LitElement) {
    * Handles user-initiated toggling the open state.
    * @param [force] If specified, forces the open state to the given one.
    */
-  protected _handleUserInitiatedToggle(force: boolean = !this.expanded) {
+  private _handleUserInitiatedToggle(force: boolean = !this.expanded) {
     this.expanded = force;
     if (!force) {
       this._trigger.focus();
@@ -50,7 +50,8 @@ class BXHeaderMenu extends HostListenerMixin(LitElement) {
    * Handles `blur` event handler on this element.
    */
   @HostListener('blur')
-  protected _handleBlur({ relatedTarget }: FocusEvent) {
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleBlur({ relatedTarget }: FocusEvent) {
     if (!this.contains(relatedTarget as Node)) {
       this.expanded = false;
     }
