@@ -89,7 +89,7 @@ module.exports = ({ config, mode }) => {
     },
     {
       test: /\.ts$/,
-      use: ['babel-loader', 'ts-loader'],
+      use: ['babel-loader'],
     },
     {
       test: /\.scss$/,
