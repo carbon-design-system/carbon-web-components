@@ -25,11 +25,6 @@ export const NAVIGATION_DIRECTION = {
 };
 
 /**
- * Symbols of keys that triggers opening/closing menu and selecting/deselecting menu item.
- */
-export const TRIGGER_KEYS = new Set([' ', 'Enter']);
-
-/**
  * The keyboard action categories for multi select.
  */
 export enum DROPDOWN_KEYBOARD_ACTION {
@@ -68,22 +63,6 @@ export enum DROPDOWN_TYPE {
    */
   INLINE = 'inline',
 }
-
-/**
- * @returns A action for multi select for the given key symbol.
- */
-export const getAction = (key: string) => {
-  if (key === 'Escape') {
-    return DROPDOWN_KEYBOARD_ACTION.CLOSING;
-  }
-  if (key in NAVIGATION_DIRECTION) {
-    return DROPDOWN_KEYBOARD_ACTION.NAVIGATING;
-  }
-  if (TRIGGER_KEYS.has(key)) {
-    return DROPDOWN_KEYBOARD_ACTION.TRIGGERING;
-  }
-  return DROPDOWN_KEYBOARD_ACTION.NONE;
-};
 
 /**
  * Dropdown.
@@ -175,8 +154,9 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    */
   protected _handleKeydownInner(event: KeyboardEvent) {
     const { key } = event;
+    const action = (this.constructor as typeof BXDropdown).getAction(key);
     if (!this.open) {
-      switch (getAction(key)) {
+      switch (action) {
         case DROPDOWN_KEYBOARD_ACTION.NAVIGATING:
           this._handleUserInitiatedToggle(true);
           // If this menu gets open with an arrow key, reset the highlight
@@ -189,7 +169,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
           break;
       }
     } else {
-      switch (getAction(key)) {
+      switch (action) {
         case DROPDOWN_KEYBOARD_ACTION.CLOSING:
           this._handleUserInitiatedToggle(false);
           break;
@@ -570,6 +550,11 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
     `;
   }
 
+  /**
+   * Symbols of keys that triggers opening/closing menu and selecting/deselecting menu item.
+   */
+  static TRIGGER_KEYS = new Set([' ', 'Enter']);
+
   static get observedAttributes() {
     const attributes = super.observedAttributes;
     return ['id', ...attributes];
@@ -621,6 +606,22 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   static styles = styles;
+
+  /**
+   * @returns A action for dropdown for the given key symbol.
+   */
+  static getAction(key: string) {
+    if (key === 'Escape') {
+      return DROPDOWN_KEYBOARD_ACTION.CLOSING;
+    }
+    if (key in NAVIGATION_DIRECTION) {
+      return DROPDOWN_KEYBOARD_ACTION.NAVIGATING;
+    }
+    if (this.TRIGGER_KEYS.has(key)) {
+      return DROPDOWN_KEYBOARD_ACTION.TRIGGERING;
+    }
+    return DROPDOWN_KEYBOARD_ACTION.NONE;
+  }
 }
 
 export default BXDropdown;

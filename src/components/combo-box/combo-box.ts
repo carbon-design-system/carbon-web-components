@@ -3,7 +3,7 @@ import { TemplateResult } from 'lit-html';
 import { html, property, query, customElement } from 'lit-element';
 import Close16 from '@carbon/icons/lib/close/16';
 import { findIndex, forEach } from '../../globals/internal/collection-helpers';
-import BXDropdown, { DROPDOWN_KEYBOARD_ACTION, getAction } from '../dropdown/dropdown';
+import BXDropdown, { DROPDOWN_KEYBOARD_ACTION } from '../dropdown/dropdown';
 import BXComboBoxItem from './combo-box-item';
 import styles from './combo-box.scss';
 
@@ -74,7 +74,7 @@ class BXComboBox extends BXDropdown {
 
   protected _handleKeydownInner(event: KeyboardEvent) {
     const { key } = event;
-    const action = getAction(key);
+    const action = (this.constructor as typeof BXDropdown).getAction(key);
     const { NAVIGATING, TRIGGERING } = DROPDOWN_KEYBOARD_ACTION;
     if (
       (event.target as Element).closest((this.constructor as typeof BXComboBox).selectorSelectionButton) &&
@@ -171,6 +171,9 @@ class BXComboBox extends BXDropdown {
       this._filterInputValue = selectedItemContent!.textContent || '';
     }
   }
+
+  // For combo box, open/selection with space key is disabled given the input box should take it over
+  static TRIGGER_KEYS = new Set(['Enter']);
 
   /**
    * The tag name of the element working as a combo box item, which is, `<bx-combo-box-item>`.
