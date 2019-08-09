@@ -2,7 +2,7 @@ import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement } from 'lit-element';
 import Close16 from '@carbon/icons/lib/close/16';
 import { filter, forEach } from '../../globals/internal/collection-helpers';
-import BXDropdown, { TRIGGER_KEYS } from '../dropdown/dropdown';
+import BXDropdown from '../dropdown/dropdown';
 import BXMultiSelectItem from './multi-select-item';
 import styles from './multi-select.scss';
 
@@ -54,7 +54,7 @@ class BXMultiSelect extends BXDropdown {
     const { key } = event;
     if (
       (event.target as Element).closest((this.constructor as typeof BXMultiSelect).selectorSelectionButton) &&
-      TRIGGER_KEYS.has(key)
+      (this.constructor as typeof BXMultiSelect).TRIGGER_KEYS.has(key)
     ) {
       this._handleUserInitiatedSelectItem();
       (this.shadowRoot!.querySelector((this.constructor as typeof BXMultiSelect).selectorTrigger) as HTMLElement).focus();

@@ -185,6 +185,10 @@ If you get TypeScript "may be null" errors, think twice to see if there is such 
 - If so, do such check to throw more reasonable exception or to make it no-op if the condition is not met.
 - If not, you can now add non-null assertion operator (`!`) - But again, don't do that blindly.
 
+## Updating view upon change in `private`/`protected` properties
+
+`lit-element` observes for changes in declared properties for updating the view. `carbon-custom-elements` codebase doesn't use this feature simply to get properties observed. Specifically, `carbon-custom-elements` doesn't set `private`/`protected` properties as declared. Whenever change in `private`/`protected` should cause update in the view, we take manual approach (`.requestUpdate()`).
+
 ## CSS considerations with IE11
 
 We use ShadyCSS shim as the emulation of scoped CSS in shadow DOM in IE11. There is one notable limitation with that; It appears that `:host(bx-foo) ::slotted(bx-bar)` selector does not work in ShadyCSS unless `<slot>` is a direct child of the shadow root. There was an issue in ShadyCSS repo (https://github.com/webcomponents/shadycss/issues/5) that seems to have explained that in detail, but the repository has been deleted somehow.

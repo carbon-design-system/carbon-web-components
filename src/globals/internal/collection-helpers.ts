@@ -14,6 +14,18 @@ export const filter = (
  * @param a A DOM collection.
  * @param predicate The callback function.
  * @param [thisObject] The context object for the given callback function.
+ * @returns The index of the first item in the given collection where `predicate` returns `true`. `-1` if no such item is found.
+ */
+export const findIndex = (
+  a: NodeListOf<Node> | HTMLCollectionOf<Element>,
+  predicate: (search: Node, index?: number) => boolean,
+  thisObject?: any
+) => Array.prototype.findIndex.call(a, predicate, thisObject);
+
+/**
+ * @param a A DOM collection.
+ * @param predicate The callback function.
+ * @param [thisObject] The context object for the given callback function.
  * @returns The first item in the given collection where `predicate` returns `true`. `null` if no such item is found.
  */
 export const find = (
