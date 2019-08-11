@@ -3,7 +3,7 @@ import on from 'carbon-components/es/globals/js/misc/on';
 /**
  * The format for the event name used by `@HostListener` decorator.
  */
-const EVENT_NAME_FORMAT = /^((document|window):)?(\w+)$/;
+const EVENT_NAME_FORMAT = /^((document|window|shadowRoot):)?(\w+)$/;
 
 /**
  * @param Base The base class.
@@ -36,6 +36,7 @@ const HostListenerMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
             {
               document: this.ownerDocument,
               window: this.ownerDocument!.defaultView,
+              shadowRoot: this.shadowRoot,
             }[targetName] || this;
 
           // Determines the event type for delegated `focus`/`blur` event

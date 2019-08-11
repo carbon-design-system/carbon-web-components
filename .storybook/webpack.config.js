@@ -65,11 +65,11 @@ module.exports = ({ config, mode }) => {
       use: 'null-loader',
     },
     {
-      test: /@carbon[\\/]icons/i,
+      test: /@carbon[\\/]icons[\\/]/i,
       use: [...babelLoaderRule.use, require.resolve('../svg-result-carbon-icon-loader')],
     },
     {
-      test: /-story\.[jt]sx?$/,
+      test: /-story(-(angular|react))?\.[jt]sx?$/,
       use: [
         {
           loader: require.resolve('@storybook/addon-storysource/loader'),
@@ -89,7 +89,7 @@ module.exports = ({ config, mode }) => {
     },
     {
       test: /\.ts$/,
-      use: ['babel-loader', 'ts-loader'],
+      use: ['babel-loader'],
     },
     {
       test: /\.scss$/,

@@ -1,0 +1,32 @@
+$css--plex: true !default;
+
+@import 'carbon-components/scss/components/combo-box/combo-box';
+@import 'carbon-components/scss/components/form/form';
+@import 'carbon-components/scss/components/text-input/text-input';
+
+:host(#{$prefix}-combo-box) {
+  outline: none;
+
+  .#{$prefix}--list-box__field {
+    padding: 0;
+  }
+}
+
+:host(#{$prefix}-combo-box[type='inline']) {
+  @extend .#{$prefix}--list-box__wrapper--inline;
+}
+
+:host(#{$prefix}-combo-box-item) {
+  @extend .#{$prefix}--list-box__menu-item;
+
+  display: block;
+}
+
+:host(#{$prefix}-combo-box-item[disabled]) {
+  color: $disabled-02;
+  text-decoration: none;
+}
+
+:host(#{$prefix}-combo-box-item[highlighted]) {
+  @extend .#{$prefix}--list-box__menu-item--highlighted;
+}

@@ -4,6 +4,7 @@
 - [Coding conventions](#coding-conventions)
   - [Linters/formatters](#lintersformatters)
   - [TSDoc comments](#tsdoc-comments)
+  - [No kitchen-sink "base" class and using mix-in](#no-kitchen-sink-base-class-and-using-mix-in)
   - [Lifecycle management](#lifecycle-management)
   - [Component styles for different component states/variants](#component-styles-for-different-component-statesvariants)
   - [Customizing components](#customizing-components)
@@ -11,11 +12,18 @@
     - [Component variants with different options](#component-variants-with-different-options)
       - [Areas to make them configurable as component options](#areas-to-make-them-configurable-as-component-options)
       - [Areas where component optinos are _not_ applied](#areas-where-component-optinos-are-_not_-applied)
+    - [Creating inherited components](#creating-inherited-components)
   - [Polymorphism with static properties](#polymorphism-with-static-properties)
   - [Custom events](#custom-events)
+  - [Globalization](#globalization)
+    - [Translation](#translation)
+    - [Collation](#collation)
+  - [Null checks](#null-checks)
+  - [CSS considerations with IE11](#css-considerations-with-ie11)
   - [Custom element registration](#custom-element-registration)
   - [Propagating misc attributes from shadow host to an element in shadow DOM](#propagating-misc-attributes-from-shadow-host-to-an-element-in-shadow-dom)
-    <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Coding conventions
 
@@ -114,6 +122,14 @@ A component variant with different options can be created by creating a derived 
 
 - CSS classes used in template (Should be done by overriding `.render()` method)
 
+### Creating inherited components
+
+This codebase intends to support the components being inherited, to some extent. e.g. Compoennts with different options described above. To support that, it's easier for all properties/methods exposed as `protected`, but it exposes a risk of the component internals being poked around. The current guideline for using `protected` is the following:
+
+- Ones where override happens within this component library (e.g. `<bx-multi-select>` inheriting `<bx-dropdown>`)
+- Element ID's auto-generation logic
+- (Possibly some more, e.g. ones whose API are stable enough)
+
 ## Polymorphism with static properties
 
 To support [polymorphism with static properties](https://github.com/Microsoft/TypeScript/issues/3841)...
@@ -168,6 +184,10 @@ If you get TypeScript "may be null" errors, think twice to see if there is such 
 
 - If so, do such check to throw more reasonable exception or to make it no-op if the condition is not met.
 - If not, you can now add non-null assertion operator (`!`) - But again, don't do that blindly.
+
+## Updating view upon change in `private`/`protected` properties
+
+`lit-element` observes for changes in declared properties for updating the view. `carbon-custom-elements` codebase doesn't use this feature simply to get properties observed. Specifically, `carbon-custom-elements` doesn't set `private`/`protected` properties as declared. Whenever change in `private`/`protected` should cause update in the view, we take manual approach (`.requestUpdate()`).
 
 ## CSS considerations with IE11
 

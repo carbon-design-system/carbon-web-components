@@ -42,7 +42,7 @@ class BXCEDemoDataTable extends LitElement {
   /**
    * Unique ID used for form elements.
    */
-  private _uniqueId = Math.random()
+  protected _uniqueId = Math.random()
     .toString(36)
     .slice(2);
 
