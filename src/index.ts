@@ -15,3 +15,5 @@ export { default as BXOverflowMenuItem } from './components/overflow-menu/overfl
 export { default as BXTooltip } from './components/tooltip/tooltip';
 export { default as BXTooltipBody } from './components/tooltip/tooltip-body';
 export { default as BXTooltipFooter } from './components/tooltip/tooltip-footer';
+export { default as BXInput } from './components/input/input';
+export { default as BXFormItem } from './components/form/form-item';
