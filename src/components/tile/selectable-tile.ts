@@ -1,5 +1,4 @@
 import settings from 'carbon-components/es/globals/js/settings';
-import classnames from 'classnames';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, svg, property, query, customElement, LitElement } from 'lit-element';
 import CheckmarkFilled16 from '@carbon/icons/lib/checkmark--filled/16';
@@ -8,12 +7,17 @@ import styles from './tile.scss';
 const { prefix } = settings;
 
 /**
- * Selectable tile.
+ * Multi-selectable tile.
  */
 @customElement(`${prefix}-selectable-tile`)
 class BXSelectableTile extends LitElement {
   @query('input')
-  _checkboxNode!: HTMLInputElement;
+  protected _inputNode!: HTMLInputElement;
+
+  /**
+   * The `type` attribute of the `<input>`.
+   */
+  protected _inputType = 'checkbox';
 
   /**
    * Unique ID used for form elements.
@@ -25,7 +29,7 @@ class BXSelectableTile extends LitElement {
   /**
    * The element ID for the check box.
    */
-  protected get _checkboxId() {
+  protected get _inputId() {
     const { id: elementId, _uniqueId: uniqueId } = this;
     return `__bx-ce-selectable-tile_${elementId || uniqueId}`;
   }
@@ -33,8 +37,8 @@ class BXSelectableTile extends LitElement {
   /**
    * Handles `change` event on the `<input>` in the shadow DOM.
    */
-  private _handleChange() {
-    this.selected = this._checkboxNode.checked;
+  protected _handleChange() {
+    this.selected = this._inputNode.checked;
   }
 
   /**
@@ -66,14 +70,11 @@ class BXSelectableTile extends LitElement {
   }
 
   render() {
-    const { checkmarkLabel, name, selected, value, _checkboxId: checkboxId, _handleChange: handleChange } = this;
-    const classes = classnames(`${prefix}--tile`, `${prefix}--tile--selectable`, {
-      [`${prefix}--tile--is-selected`]: selected,
-    });
+    const { checkmarkLabel, name, selected, value, _inputId: inputId, _inputType: inputType, _handleChange: handleChange } = this;
     return html`
       <input
-        type="checkbox"
-        id="${checkboxId}"
+        type="${inputType}"
+        id="${inputId}"
         class="${prefix}--tile-input"
         tabindex="-1"
         name="${ifDefined(name == null ? undefined : name)}"
@@ -81,7 +82,7 @@ class BXSelectableTile extends LitElement {
         .checked=${selected}
         @change=${handleChange}
       />
-      <label for="${checkboxId}" class="${classes}" tabindex="0">
+      <label for="${inputId}" class="${prefix}--tile ${prefix}--tile--selectable" tabindex="0">
         <div class="${prefix}--tile__checkmark">
           ${CheckmarkFilled16({
             children: !checkmarkLabel ? undefined : svg`<title>${checkmarkLabel}</title>`,
