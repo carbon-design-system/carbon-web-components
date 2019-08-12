@@ -89,7 +89,15 @@ module.exports = ({ config, mode }) => {
     },
     {
       test: /\.ts$/,
-      use: ['babel-loader'],
+      use: [
+        {
+          loader: 'babel-loader',
+          options: {
+            // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
+            plugins: [['@babel/plugin-transform-runtime', { version: '7.3.0' }]],
+          },
+        },
+      ],
     },
     {
       test: /\.scss$/,

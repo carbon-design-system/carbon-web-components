@@ -2,4 +2,5 @@ docs/js
 es
 node_modules
 public
+storybook-static
 tests/coverage

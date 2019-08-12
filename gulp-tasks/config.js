@@ -30,8 +30,8 @@ module.exports = {
   jsDocDir: 'docs/js',
   tasksDir: 'gulp-tasks',
   bundle: {
-    'carbon-custom-elements': 'index.js',
+    'carbon-custom-elements': 'index.ts',
     'carbon-custom-elements-polyfills': 'polyfills/index.js',
-    'carbon-custom-elements-with-polyfills': 'index-with-polyfills.js',
+    'carbon-custom-elements-with-polyfills': 'index-with-polyfills.ts',
   },
 };
