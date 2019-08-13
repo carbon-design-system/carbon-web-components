@@ -5,36 +5,73 @@ import styles from './input.scss';
 
 const { prefix } = settings;
 
+export enum INPUT_TYPE {
+  EMAIL = 'email',
+  PASSWORD = 'password',
+  TEL = 'tel',
+  TEXT = 'text',
+  URL = 'url',
+}
+
 @customElement(`${prefix}-input`)
 export default class BXInput extends LitElement {
   @property()
-  placeholder = '';
+  autocomplete = '';
 
-  @property()
-  value = '';
-
-  @property()
-  type = 'text';
+  @property({ type: Boolean })
+  autofocus = false;
 
   @property({ type: Boolean })
   disabled = false;
 
+  @property()
+  form = '';
+
   @property({ type: Boolean })
   invalid = false;
+
+  @property()
+  list = '';
+
+  @property()
+  name = '';
+
+  @property()
+  placeholder = '';
+
+  @property({ type: Boolean })
+  readonly = false;
+
+  @property({ type: Boolean })
+  required = false;
+
+  @property()
+  type = INPUT_TYPE.TEXT;
+
+  @property()
+  value = '';
 
   render() {
     const invalidIcon = WarningFilled16({ class: 'bx--text-input__invalid-icon' });
 
     return html`
-      <div class="bx--text-input__field-wrapper">
+      <div class="${prefix}--text-input__field-wrapper">
         ${this.invalid ? invalidIcon : null}
         <input
-          class="bx--text-input"
+          ?autocomplete="${this.autocomplete}"
+          ?autofocus="${this.autofocus}"
+          class="${prefix}--text-input"
           ?data-invalid="${this.invalid}"
           ?disabled="${this.disabled}"
+          form="${this.form}"
+          invalid="${this.invalid}"
+          list="${this.list}"
+          name="${this.name}"
+          placeholder="${this.placeholder}"
+          ?readonly="${this.readonly}"
+          ?required="${this.required}"
           type="${this.type}"
           value="${this.value}"
-          placeholder="${this.placeholder}"
         />
       </div>
     `;
