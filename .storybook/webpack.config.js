@@ -69,7 +69,7 @@ module.exports = ({ config, mode }) => {
       use: [...babelLoaderRule.use, require.resolve('../svg-result-carbon-icon-loader')],
     },
     {
-      test: /-story\.[jt]sx?$/,
+      test: /-story(-(angular|react))?\.[jt]sx?$/,
       use: [
         {
           loader: require.resolve('@storybook/addon-storysource/loader'),
@@ -89,7 +89,15 @@ module.exports = ({ config, mode }) => {
     },
     {
       test: /\.ts$/,
-      use: ['babel-loader', 'ts-loader'],
+      use: [
+        {
+          loader: 'babel-loader',
+          options: {
+            // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
+            plugins: [['@babel/plugin-transform-runtime', { version: '7.3.0' }]],
+          },
+        },
+      ],
     },
     {
       test: /\.scss$/,

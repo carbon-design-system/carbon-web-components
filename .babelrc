@@ -1,19 +1,8 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "modules": false,
-        "targets": {
-          "browsers": ["last 1 version", "Firefox ESR", "ie >= 11"]
-        }
-      }
-    ]
-  ],
   "plugins": [
-    "./babel-plugin-supercall",
+    "@babel/plugin-transform-typescript",
     "@babel/plugin-proposal-class-properties",
-    ["@babel/plugin-proposal-object-rest-spread", { "useBuiltIns": true }],
-    "@babel/plugin-transform-runtime"
+    ["@babel/plugin-proposal-decorators", { "decoratorsBeforeExport": true }],
+    ["@babel/plugin-proposal-object-rest-spread", { "useBuiltIns": true }]
   ]
 }

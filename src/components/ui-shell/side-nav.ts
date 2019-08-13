@@ -1,5 +1,5 @@
 import settings from 'carbon-components/es/globals/js/settings';
-import { html, customElement, LitElement } from 'lit-element';
+import { html, property, customElement, LitElement } from 'lit-element';
 import styles from './side-nav.scss';
 
 const { prefix } = settings;
@@ -9,6 +9,18 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-side-nav`)
 class BXSideNav extends LitElement {
+  /**
+   * `true` to expand the side nav. Corresponds to the attribute with the same name.
+   */
+  @property({ type: Boolean, reflect: true })
+  expanded = false;
+
+  /**
+   * `true` to make the side nav non-collapsible. Corresponds to the attribute with the same name.
+   */
+  @property({ type: Boolean, reflect: true })
+  fixed = false;
+
   connectedCallback() {
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'navigation');

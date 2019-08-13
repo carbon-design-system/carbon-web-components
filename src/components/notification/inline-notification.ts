@@ -155,6 +155,12 @@ class BXInlineNotification extends LitElement {
   closeButtonLabel!: string;
 
   /**
+   * `true` to hide the close button. Corresponds to `hide-close-button` attribute.
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'hide-close-button' })
+  hideCloseButton = false;
+
+  /**
    * The a11y text for the icon. Corresponds to `icon-label` attribute.
    */
   @property({ attribute: 'icon-label' })

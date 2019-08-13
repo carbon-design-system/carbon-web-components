@@ -14,7 +14,7 @@ class BXTableRow extends LitElement {
    * Handles `click` event on the check box.
    * @param event The event.
    */
-  protected _handleClickSelectionCheckbox(event: Event) {
+  private _handleClickSelectionCheckbox(event: Event) {
     const selected = (event.target as HTMLInputElement).checked;
     const init = {
       bubbles: true,

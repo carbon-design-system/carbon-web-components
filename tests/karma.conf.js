@@ -48,7 +48,7 @@ module.exports = function setupKarma(config) {
       module: {
         rules: [
           {
-            test: /@carbon[\\/]icons/i,
+            test: /@carbon[\\/]icons[\\/]/i,
             use: [require.resolve('../svg-result-carbon-icon-loader')],
           },
           {
@@ -58,16 +58,6 @@ module.exports = function setupKarma(config) {
                 loader: 'babel-loader',
                 options: {
                   configFile: path.resolve(__dirname, '..', '.babelrc'),
-                },
-              },
-              {
-                loader: 'ts-loader',
-                options: {
-                  ignoreDiagnostics: [6133],
-                  compilerOptions: {
-                    sourceMap: false,
-                    inlineSourceMap: true,
-                  },
                 },
               },
             ],

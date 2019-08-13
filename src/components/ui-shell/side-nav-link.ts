@@ -13,7 +13,7 @@ class BXSideNavLink extends LitElement {
   /**
    * Handles `slotchange` event on the `<slot>` for the title icon.
    */
-  protected _handleSlotChangeTitleIcon({ target }) {
+  private _handleSlotChangeTitleIcon({ target }) {
     this.shadowRoot!.getElementById('title-icon-container')!.toggleAttribute('hidden', target.assignedNodes().length === 0);
   }
 

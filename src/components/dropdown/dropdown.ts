@@ -1,6 +1,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { TemplateResult } from 'lit-html';
+import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
@@ -22,11 +23,6 @@ export const NAVIGATION_DIRECTION = {
   Down: 1,
   ArrowDown: 1,
 };
-
-/**
- * Symbols of keys that triggers opening/closing menu and selecting/deselecting menu item.
- */
-export const TRIGGER_KEYS = new Set([' ', 'Enter']);
 
 /**
  * The keyboard action categories for multi select.
@@ -69,22 +65,6 @@ export enum DROPDOWN_TYPE {
 }
 
 /**
- * @returns A action for multi select for the given key symbol.
- */
-export const getAction = (key: string) => {
-  if (key === 'Escape') {
-    return DROPDOWN_KEYBOARD_ACTION.CLOSING;
-  }
-  if (key in NAVIGATION_DIRECTION) {
-    return DROPDOWN_KEYBOARD_ACTION.NAVIGATING;
-  }
-  if (TRIGGER_KEYS.has(key)) {
-    return DROPDOWN_KEYBOARD_ACTION.TRIGGERING;
-  }
-  return DROPDOWN_KEYBOARD_ACTION.NONE;
-};
-
-/**
  * Dropdown.
  */
 @customElement(`${prefix}-dropdown`)
@@ -98,6 +78,28 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    * The content of the selected item.
    */
   protected _selectedItemContent: DocumentFragment | null = null;
+
+  /**
+   * `true` if the trigger button should be focusable.
+   * Derived class can set `false` to this if the trigger button contains another primary focusable element (e.g. `<input>`).
+   */
+  protected _shouldTriggerBeFocusable = true;
+
+  /**
+   * The element ID of the one that has the content of the trigger button.
+   */
+  protected get _triggerLabelId() {
+    const { id, _uniqueId: uniqueId } = this;
+    return `__bx-ce-dropdown_trigger-label_${id || uniqueId}`;
+  }
+
+  /**
+   * The element ID for the menu body.
+   */
+  protected get _menuBodyId() {
+    const { id, _uniqueId: uniqueId } = this;
+    return `__bx-ce-dropdown_menu_${id || uniqueId}`;
+  }
 
   /**
    * Unique ID used for ID refs.
@@ -152,8 +154,9 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    */
   protected _handleKeydownInner(event: KeyboardEvent) {
     const { key } = event;
+    const action = (this.constructor as typeof BXDropdown).getAction(key);
     if (!this.open) {
-      switch (getAction(key)) {
+      switch (action) {
         case DROPDOWN_KEYBOARD_ACTION.NAVIGATING:
           this._handleUserInitiatedToggle(true);
           // If this menu gets open with an arrow key, reset the highlight
@@ -166,7 +169,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
           break;
       }
     } else {
-      switch (getAction(key)) {
+      switch (action) {
         case DROPDOWN_KEYBOARD_ACTION.CLOSING:
           this._handleUserInitiatedToggle(false);
           break;
@@ -305,6 +308,25 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   /* eslint-enable class-methods-use-this */
 
   /**
+   * @returns The main content of the trigger button.
+   */
+  protected _renderTriggerContent(): TemplateResult {
+    const { triggerContent, _selectedItemContent: selectedItemContent, _triggerLabelId: triggerLabelId } = this;
+    return html`
+      <span id="${triggerLabelId}" class="${prefix}--list-box__label">${selectedItemContent || triggerContent}</span>
+    `;
+  }
+
+  /* eslint-disable class-methods-use-this */
+  /**
+   * @returns The content following the trigger button.
+   */
+  protected _renderFollowingTriggerContent(): TemplateResult | void {
+    return undefined;
+  }
+  /* eslint-enable class-methods-use-this */
+
+  /**
    * `true` if this multi select should be disabled. Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
@@ -389,7 +411,10 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
 
   attributeChangedCallback(name, old, current) {
     if (old !== current) {
-      if (name === 'disabled') {
+      if (name === 'id') {
+        // Force updaring ID refs
+        this.requestUpdate();
+      } else if (name === 'disabled') {
         // Propagate `disabled` attribute to descendants until `:host-context()` gets supported in all major browsers
         forEach(this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItem), elem => {
           if (current === null) {
@@ -427,7 +452,6 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
 
   render() {
     const {
-      id: elementId,
       disabled,
       helperText,
       labelText,
@@ -435,14 +459,15 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       open,
       toggleLabelClosed,
       toggleLabelOpen,
-      triggerContent,
       type,
       validityMessage,
+      _assistiveStatusText: assistiveStatusText,
+      _shouldTriggerBeFocusable: shouldTriggerBeFocusable,
+      _menuBodyId: menuBodyId,
+      _triggerLabelId: triggerLabelId,
       _handleClickInner: handleClickInner,
       _handleKeydownInner: handleKeydownInner,
-      _assistiveStatusText: assistiveStatusText,
     } = this;
-    const selectedItemContent = this._selectedItemContent || triggerContent;
     const inline = type === DROPDOWN_TYPE.INLINE;
     const hasValidity = Boolean(validityMessage);
     const selectedItemsCount = this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItemSelected).length;
@@ -481,8 +506,9 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       : html`
           <div class=${`${prefix}--form-requirement`}>${validityMessage}</div>
         `;
-    const validityIcon = !hasValidity ? undefined : WarningFilled16({ class: `${prefix}--list-box__invalid-icon` });
-    const menuBodyId = `__bx-ce-dropdown_menu_${elementId || this._uniqueId}`;
+    const validityIcon = !hasValidity
+      ? undefined
+      : WarningFilled16({ class: `${prefix}--list-box__invalid-icon`, 'aria-label': toggleLabel });
     const menuBody = !open
       ? undefined
       : html`
@@ -490,7 +516,6 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
             <slot></slot>
           </div>
         `;
-    const triggerLabelId = `__bx-ce-dropdown_trigger-label_${elementId || this._uniqueId}`;
     return html`
       ${label} ${helper}
       <div
@@ -502,17 +527,16 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       >
         ${validityIcon}
         <div
-          role="button"
+          role="${ifDefined(!shouldTriggerBeFocusable ? undefined : 'button')}"
           class="${prefix}--list-box__field"
-          tabindex="0"
+          tabindex="${ifDefined(!shouldTriggerBeFocusable ? undefined : '0')}"
           aria-labelledby="${triggerLabelId}"
           aria-expanded="${String(open)}"
           aria-haspopup="listbox"
           aria-owns="${menuBodyId}"
           aria-controls="${menuBodyId}"
         >
-          ${this._renderPrecedingTriggerContent()}
-          <span id="${triggerLabelId}" class="${prefix}--list-box__label">${selectedItemContent}</span>
+          ${this._renderPrecedingTriggerContent()}${this._renderTriggerContent()}${this._renderFollowingTriggerContent()}
           <div class="${iconContainerClasses}">
             ${ChevronDown16({ 'aria-label': toggleLabel })}
           </div>
@@ -524,6 +548,16 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
         ${assistiveStatusText}
       </div>
     `;
+  }
+
+  /**
+   * Symbols of keys that triggers opening/closing menu and selecting/deselecting menu item.
+   */
+  static TRIGGER_KEYS = new Set([' ', 'Enter']);
+
+  static get observedAttributes() {
+    const attributes = super.observedAttributes;
+    return ['id', ...attributes];
   }
 
   /**
@@ -572,6 +606,22 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   static styles = styles;
+
+  /**
+   * @returns A action for dropdown for the given key symbol.
+   */
+  static getAction(key: string) {
+    if (key === 'Escape') {
+      return DROPDOWN_KEYBOARD_ACTION.CLOSING;
+    }
+    if (key in NAVIGATION_DIRECTION) {
+      return DROPDOWN_KEYBOARD_ACTION.NAVIGATING;
+    }
+    if (this.TRIGGER_KEYS.has(key)) {
+      return DROPDOWN_KEYBOARD_ACTION.TRIGGERING;
+    }
+    return DROPDOWN_KEYBOARD_ACTION.NONE;
+  }
 }
 
 export default BXDropdown;
