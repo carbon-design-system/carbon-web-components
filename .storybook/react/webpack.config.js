@@ -11,7 +11,7 @@ module.exports = ({ config, mode }) => {
     massagedConfig.module.rules.push({
       test: /\.tsx$/,
       // `@storybook/react` NPM installation seems to add `@babel/preset-react` automatically
-      use: [...babelLoaderRule.use, 'ts-loader'],
+      use: babelLoaderRule.use,
     });
   }
   return massagedConfig;
