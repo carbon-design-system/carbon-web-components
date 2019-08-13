@@ -9,24 +9,32 @@ const createProps = () => ({
   disabled: boolean('Disabled (disabled)', false),
   value: text('Input value (value)', ''),
   placeholder: text('Placeholder text (placeholder)', 'Optional placeholder text'),
+  invalid: boolean('Invalid (invalid)', false),
   onInput: action('input'),
 });
 
 storiesOf('Input', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const { disabled, value, placeholder, onInput } = createProps();
+    const { disabled, value, placeholder, invalid, onInput } = createProps();
     return html`
-      <bx-input ?disabled=${disabled} value="${value}" placeholder="${placeholder}" @input="${onInput}"></bx-input>
+      <bx-input
+        ?disabled=${disabled}
+        value="${value}"
+        placeholder="${placeholder}"
+        ?invalid="${invalid}"
+        @input="${onInput}"
+      ></bx-input>
     `;
   })
   .add('Form item', () => {
-    const { disabled, value, placeholder, onInput } = createProps();
+    const { disabled, value, placeholder, invalid, onInput } = createProps();
     return html`
-      <bx-form-item>
+      <bx-form-item ?invalid="${invalid}">
         <span slot="label">Label text</span>
         <span slot="help-text">Optional helper text</span>
         <bx-input ?disabled=${disabled} value="${value}" placeholder="${placeholder}" @input="${onInput}"></bx-input>
+        <span slot="validation">Something isn't right</span>
       </bx-form-item>
     `;
   });

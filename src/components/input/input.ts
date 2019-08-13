@@ -1,5 +1,6 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { customElement, LitElement, html, property } from 'lit-element';
+import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import styles from './input.scss';
 
 const { prefix } = settings;
@@ -18,15 +19,24 @@ export default class BXInput extends LitElement {
   @property({ type: Boolean })
   disabled = false;
 
+  @property({ type: Boolean })
+  invalid = false;
+
   render() {
+    const invalidIcon = WarningFilled16({ class: 'bx--text-input__invalid-icon' });
+
     return html`
-      <input
-        class="bx--text-input"
-        ?disabled="${this.disabled}"
-        type="${this.type}"
-        value="${this.value}"
-        placeholder="${this.placeholder}"
-      />
+      <div class="bx--text-input__field-wrapper">
+        ${this.invalid ? invalidIcon : null}
+        <input
+          class="bx--text-input"
+          ?data-invalid="${this.invalid}"
+          ?disabled="${this.disabled}"
+          type="${this.type}"
+          value="${this.value}"
+          placeholder="${this.placeholder}"
+        />
+      </div>
     `;
   }
 
