@@ -1,8 +1,8 @@
 import settings from 'carbon-components/es/globals/js/settings';
-import { html, property, customElement } from 'lit-element';
+import { html, property, query, customElement } from 'lit-element';
 import Close16 from '@carbon/icons/lib/close/16';
 import { filter, forEach } from '../../globals/internal/collection-helpers';
-import BXDropdown from '../dropdown/dropdown';
+import BXDropdown, { DROPDOWN_KEYBOARD_ACTION } from '../dropdown/dropdown';
 import BXMultiSelectItem from './multi-select-item';
 import styles from './multi-select.scss';
 
@@ -13,6 +13,12 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-multi-select`)
 class BXMultiSelect extends BXDropdown {
+  /**
+   * The trigger button.
+   */
+  @query(`.${prefix}--list-box__field`)
+  private _triggerNode!: HTMLElement;
+
   protected _selectionShouldChange(itemToSelect?: BXMultiSelectItem) {
     // If we are selecting an item, assumes we always toggle
     return Boolean(this.value || itemToSelect);
@@ -57,8 +63,12 @@ class BXMultiSelect extends BXDropdown {
       (this.constructor as typeof BXMultiSelect).TRIGGER_KEYS.has(key)
     ) {
       this._handleUserInitiatedSelectItem();
-      (this.shadowRoot!.querySelector((this.constructor as typeof BXMultiSelect).selectorTrigger) as HTMLElement).focus();
+      this._triggerNode.focus();
     } else {
+      // Ensures up/down keys won't keep focus on "clear selection" button
+      if (DROPDOWN_KEYBOARD_ACTION.NAVIGATING === (this.constructor as typeof BXMultiSelect).getAction(key)) {
+        this._triggerNode.focus();
+      }
       super._handleKeydownInner(event);
     }
   }
@@ -153,13 +163,6 @@ class BXMultiSelect extends BXDropdown {
    */
   static get selectorSelectionButton() {
     return `.${prefix}--list-box__selection`;
-  }
-
-  /**
-   * A selector that will return the trigger button.
-   */
-  static get selectorTrigger() {
-    return `.${prefix}--list-box__field`;
   }
 
   /**
