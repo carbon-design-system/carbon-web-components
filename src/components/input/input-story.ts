@@ -1,33 +1,18 @@
 import { html } from 'lit-element';
 import { storiesOf } from '@storybook/polymer';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, text, select } from '@storybook/addon-knobs';
+import * as knobs from '@storybook/addon-knobs';
 import './input';
 import '../form/form-item';
-import { INPUT_TYPE } from './input';
+import { createProps } from './stories/helpers';
 
-const inputTypes = {};
-
-for (const [key, value] of Object.entries(INPUT_TYPE)) {
-  inputTypes[key.toLowerCase()] = value;
-}
-
-const createProps = () => ({
-  disabled: boolean('Disabled (disabled)', false),
-  value: text('Input value (value)', ''),
-  placeholder: text('Placeholder text (placeholder)', 'Optional placeholder text'),
-  invalid: boolean('Invalid (invalid)', false),
-  onInput: action('input'),
-  type: select('Input type (type)', inputTypes, INPUT_TYPE.TEXT)
-});
 
 storiesOf('Input', module)
-  .addDecorator(withKnobs)
+  .addDecorator(knobs.withKnobs)
   .add('Default', () => {
-    const { disabled, value, placeholder, invalid, type, onInput } = createProps();
+    const { disabled, value, placeholder, invalid, type, onInput } = createProps(knobs);
     return html`
       <bx-input
-        ?disabled=${disabled}
+        ?disabled="${disabled}"
         value="${value}"
         type="${type}"
         placeholder="${placeholder}"
@@ -37,7 +22,7 @@ storiesOf('Input', module)
     `;
   })
   .add('Form item', () => {
-    const { disabled, value, placeholder, invalid, onInput } = createProps();
+    const { disabled, value, placeholder, invalid, onInput } = createProps(knobs);
     return html`
       <bx-form-item ?invalid="${invalid}" ?disabled="${disabled}">
         <span slot="label">Label text</span>
