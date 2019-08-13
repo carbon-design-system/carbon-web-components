@@ -5,6 +5,11 @@ import styles from './input.scss';
 
 const { prefix } = settings;
 
+/**
+ * Supported input types.
+ *
+ * For this component we only support textual types
+ */
 export enum INPUT_TYPE {
   EMAIL = 'email',
   PASSWORD = 'password',
@@ -13,6 +18,9 @@ export enum INPUT_TYPE {
   URL = 'url',
 }
 
+/**
+ * Input element. Supports all the usual attributes for textual input types
+ */
 @customElement(`${prefix}-input`)
 export default class BXInput extends LitElement {
   @property()
@@ -35,6 +43,9 @@ export default class BXInput extends LitElement {
 
   @property()
   name = '';
+
+  @property()
+  pattern = '';
 
   @property()
   placeholder = '';
@@ -67,6 +78,7 @@ export default class BXInput extends LitElement {
           invalid="${this.invalid}"
           list="${this.list}"
           name="${this.name}"
+          pattern="${this.pattern}"
           placeholder="${this.placeholder}"
           ?readonly="${this.readonly}"
           ?required="${this.required}"
