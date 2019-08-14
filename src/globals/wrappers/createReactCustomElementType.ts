@@ -2,6 +2,21 @@ import React, { Component, createElement, forwardRef } from 'react';
 import on from 'carbon-components/es/globals/js/misc/on';
 
 /**
+ * A descriptor for a React event prop of a custom element.
+ */
+interface CustomElementEventDescriptor {
+  /**
+   * The event name.
+   */
+  name: string;
+
+  /**
+   * A boolean to detemine usage of capture mode or the event options.
+   */
+  options?: boolean | EventListenerOptions;
+}
+
+/**
  * A descriptor for a React prop for an attribute of a custom element.
  */
 interface CustomElementPropDescriptor {
@@ -11,9 +26,9 @@ interface CustomElementPropDescriptor {
   attribute?: string;
 
   /**
-   * The event name for the prop.
+   * The event name (or descriptor) for the prop.
    */
-  event?: string;
+  event?: string | CustomElementEventDescriptor;
 
   /**
    * A function that takes a property value and returns the corresponding attribute value.
@@ -108,12 +123,23 @@ const attachEventListeners = (
   const handles = new Set<Handle>();
   Object.keys(descriptor).forEach(propName => {
     if (descriptor[propName]) {
-      const { event: name } = descriptor[propName];
+      const { event: eventDescriptor } = descriptor[propName];
+      const name =
+        Object(eventDescriptor) !== eventDescriptor
+          ? (eventDescriptor as string)
+          : (eventDescriptor as CustomElementEventDescriptor).name;
+      const options =
+        Object(eventDescriptor) !== eventDescriptor ? undefined : (eventDescriptor as CustomElementEventDescriptor).options;
       if (name) {
         handles.add(
-          on(elem, name, event => {
-            callback(propName, event);
-          })
+          on(
+            elem,
+            name,
+            event => {
+              callback(propName, event);
+            },
+            options
+          )
         );
       }
     }

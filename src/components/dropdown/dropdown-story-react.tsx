@@ -22,6 +22,12 @@ const BXDropdown = createReactCustomElementType('bx-dropdown', {
   open: {
     serialize: booleanSerializer,
   },
+  toggleLabelClosed: {
+    attribute: 'toggle-label-closed',
+  },
+  toggleLabelOpen: {
+    attribute: 'toggle-label-open',
+  },
   triggerContent: {
     attribute: 'trigger-content',
   },
@@ -40,6 +46,8 @@ const createProps = () => ({
   labelText: text('Label text (label-text)', ''),
   light: boolean('Light variant (light)', false),
   value: text('The value of the selected item (value)', ''),
+  toggleLabelClosed: text('a11y label for the UI indicating the closed state (toggle-label-closed)', ''),
+  toggleLabelOpen: text('a11y label for the UI indicating the closed state (toggle-label-open)', ''),
   triggerContent: text('The default content of the trigger button (trigger-content)', 'Select an item'),
   disableSelection: boolean(
     'Disable user-initiated selection change (Call event.preventDefault() in bx-dropdown-beingselected event)',
@@ -50,7 +58,18 @@ const createProps = () => ({
 storiesOf('Dropdown', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection } = createProps();
+    const {
+      open,
+      disabled,
+      helperText,
+      labelText,
+      light,
+      toggleLabelClosed,
+      toggleLabelOpen,
+      triggerContent,
+      value,
+      disableSelection,
+    } = createProps();
     const beforeSelectedAction = action('bx-dropdown-beingselected');
     const handleBeforeSelected = (event: CustomEvent) => {
       beforeSelectedAction(event);
@@ -65,8 +84,10 @@ storiesOf('Dropdown', module)
         light={light}
         helperText={helperText}
         labelText={labelText}
-        value={value}
+        toggleLabelClosed={toggleLabelClosed}
+        toggleLabelOpen={toggleLabelOpen}
         triggerContent={triggerContent}
+        value={value}
         onBeforeSelect={handleBeforeSelected}
         onSelect={action('bx-dropdown-selected')}>
         <bx-dropdown-item value="all">Option 1</bx-dropdown-item>

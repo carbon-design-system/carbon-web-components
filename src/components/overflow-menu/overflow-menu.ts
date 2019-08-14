@@ -64,21 +64,22 @@ class BXOverflowMenu extends HostListenerMixin(LitElement) implements BXFloating
     super.connectedCallback();
   }
 
-  attributeChangedCallback(name, old, current) {
-    if (old !== current) {
-      if (name === 'open' && !this._menuBody) {
-        this._menuBody = find(this.childNodes, elem => (elem.constructor as typeof BXFloatingMenu).FLOATING_MENU);
-      }
-      if (this._menuBody) {
-        this._menuBody.open = this.open;
-      }
-      this.setAttribute('aria-expanded', String(Boolean(this.open)));
-    }
-    super.attributeChangedCallback(name, old, current);
-  }
-
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
+
+  updated(changedProperties) {
+    if (changedProperties.has('open')) {
+      const { open } = this;
+      if (open && !this._menuBody) {
+        this._menuBody = find(this.childNodes, elem => (elem.constructor as typeof BXFloatingMenu).FLOATING_MENU);
+      }
+      const { _menuBody: menuBody } = this;
+      if (menuBody) {
+        menuBody.open = open;
+        this.setAttribute('aria-expanded', String(Boolean(open)));
+      }
+    }
   }
 
   render() {

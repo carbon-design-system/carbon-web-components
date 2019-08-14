@@ -266,11 +266,7 @@ const createProps = ({ sortable }: { sortable?: boolean } = {}) => {
       ),
     disableChangeSort:
       sortable &&
-      boolean(
-        'Disable user-initiated change in sorting ' +
-          '(Call event.preventDefault() in bx-table-row-change-selection/bx-table-change-selection-all events)',
-        false
-      ),
+      boolean('Disable user-initiated change in sorting (Call event.preventDefault() in bx-table-header-cell-sort event)', false),
   };
 };
 
