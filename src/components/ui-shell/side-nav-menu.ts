@@ -40,7 +40,9 @@ class BXSideNavMenu extends LitElement {
   private _handleSlotChange({ target }) {
     const { _hasIcon: hasIcon } = this;
     forEach(target.assignedNodes(), item => {
-      item.toggleAttribute((this.constructor as typeof BXSideNavMenu).attribItemHasIcon, hasIcon);
+      if (item.nodeType === Node.ELEMENT_NODE) {
+        item.toggleAttribute((this.constructor as typeof BXSideNavMenu).attribItemHasIcon, hasIcon);
+      }
     });
     this.active = filter(target.assignedNodes(), this.isMenuItemActive, this).length > 0;
   }

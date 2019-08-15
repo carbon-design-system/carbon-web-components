@@ -1,5 +1,4 @@
 export { default as BXButton } from './components/button/button';
-export { default as BXDataTable } from './components/data-table/data-table';
 export { default as BXTable } from './components/data-table/table';
 export { default as BXTableHead } from './components/data-table/table-head';
 export { default as BXTableHeaderRow } from './components/data-table/table-header-row';
