@@ -136,7 +136,7 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
             </bx-table-header-cell>
           </bx-table-header-row>
         </bx-table-head>
-        <bx-table-body>
+        <bx-table-body [zebra]="zebra">
           <bx-table-row
             *ngFor="let row of _rows | BXCETableRowsSortWith: { compare: _compare, sortInfo: _sortInfo }"
             [selected]="hasSelection && row.selected"
@@ -296,6 +296,12 @@ class BXCEDemoDataTable {
   @Input()
   size = TABLE_SIZE.REGULAR;
 
+  /**
+   * `true` if the zebra stripe should be shown.
+   */
+  @Input()
+  zebra = false;
+
   ngOnChanges(changes) {
     if ('sortInfo' in changes) {
       this._sortInfo = this.sortInfo;
@@ -327,6 +333,7 @@ const createProps = ({ sortable }: { sortable?: boolean } = {}) => {
   return {
     hasSelection,
     size: select('Table size (size)', sizes, TABLE_SIZE.REGULAR),
+    zebra: boolean('Supports zebra stripe (zebra in `<bx-table-body>`)', false),
   };
 };
 
@@ -346,7 +353,7 @@ storiesOf('Data table', module)
               <bx-table-header-cell>Status</bx-table-header-cell>
             </bx-table-header-row>
           </bx-table-head>
-          <bx-table-body>
+          <bx-table-body [zebra]="zebra">
             <bx-table-row>
               <bx-table-cell>Load Balancer 1</bx-table-cell>
               <bx-table-cell>HTTP</bx-table-cell>
@@ -389,6 +396,7 @@ storiesOf('Data table', module)
         [sortInfo]="demoSortInfo"
         [hasSelection]="hasSelection"
         [size]="size"
+        [zebra]="zebra"
         (bx-table-row-change-selection)="onBeforeChangeSelection($event)"
         (bx-table-change-selection-all)="onBeforeChangeSelection($event)"
         (bx-table-header-cell-sort)="onBeforeChangeSort($event)"

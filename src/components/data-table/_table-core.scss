@@ -110,6 +110,16 @@
   }
 }
 
+:host(#{$prefix}-table-row[even]) ::slotted(#{$prefix}-table-cell) {
+  border-bottom: 1px solid $ui-01;
+}
+
+:host(#{$prefix}-table-row[odd]) ::slotted(#{$prefix}-table-cell) {
+  background-color: $data-table-zebra-color;
+  border-bottom: 1px solid $data-table-zebra-color;
+  border-top: 1px solid $data-table-zebra-color;
+}
+
 :host(#{$prefix}-table-row:hover) {
   ::slotted(#{$prefix}-table-cell),
   .#{$prefix}--table-column-checkbox {
@@ -117,5 +127,14 @@
     background-color: $hover-field;
     border-bottom-color: $hover-field;
     border-top-color: $hover-field;
+  }
+}
+
+:host(#{$prefix}-table-row[even]:hover),
+:host(#{$prefix}-table-row[odd]:hover) {
+  ::slotted(#{$prefix}-table-cell) {
+    background-color: $hover-field;
+    border-bottom: 1px solid $hover-field;
+    border-top: 1px solid $hover-field;
   }
 }

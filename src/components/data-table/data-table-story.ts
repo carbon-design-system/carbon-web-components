@@ -144,6 +144,12 @@ class BXCEDemoDataTable extends LitElement {
   @property({ reflect: true })
   size = TABLE_SIZE.REGULAR;
 
+  /**
+   * `true` if the zebra stripe should be shown. Corresponds to the attribute with the same name.
+   */
+  @property({ type: Boolean, reflect: true })
+  zebra = false;
+
   shouldUpdate(changedProperties) {
     if (changedProperties.has('sortInfo')) {
       this._sortInfo = this.sortInfo;
@@ -155,7 +161,7 @@ class BXCEDemoDataTable extends LitElement {
   }
 
   render() {
-    const { id: elementId, hasSelection, size, columns, _rows: rows } = this;
+    const { id: elementId, hasSelection, size, columns, zebra, _rows: rows } = this;
     const selectionAllName = !hasSelection ? undefined : `__bx-ce-demo-data-table_select-all_${elementId || this._uniqueId}`;
     const selectedAll = rows!.every(({ selected }) => selected!);
     const { columnId: sortColumnId, direction: sortDirection } = this._sortInfo!;
@@ -202,7 +208,7 @@ class BXCEDemoDataTable extends LitElement {
               )}
             </bx-table-header-row>
           </bx-table-head>
-          <bx-table-body>
+          <bx-table-body ?zebra="${zebra}">
             ${repeat(
               sortedRows,
               ({ id: rowId }) => rowId,
@@ -257,6 +263,7 @@ const createProps = ({ sortable }: { sortable?: boolean } = {}) => {
   return {
     hasSelection,
     size: select('Table size (size)', sizes, TABLE_SIZE.REGULAR),
+    zebra: boolean('Supports zebra stripe (zebra in `<bx-table-body>`)', false),
     disableChangeSelection:
       hasSelection &&
       boolean(
@@ -273,7 +280,7 @@ const createProps = ({ sortable }: { sortable?: boolean } = {}) => {
 storiesOf('Data table', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const { size } = createProps();
+    const { size, zebra } = createProps();
     return html`
       <bx-data-table>
         <bx-table size="${size}">
@@ -287,7 +294,7 @@ storiesOf('Data table', module)
               <bx-table-header-cell>Status</bx-table-header-cell>
             </bx-table-header-row>
           </bx-table-head>
-          <bx-table-body>
+          <bx-table-body ?zebra="${zebra}">
             <bx-table-row>
               <bx-table-cell>Load Balancer 1</bx-table-cell>
               <bx-table-cell>HTTP</bx-table-cell>
@@ -318,7 +325,7 @@ storiesOf('Data table', module)
     `;
   })
   .add('Sortable', () => {
-    const { hasSelection, size, disableChangeSelection, disableChangeSort } = createProps({ sortable: true });
+    const { hasSelection, size, zebra, disableChangeSelection, disableChangeSort } = createProps({ sortable: true });
     const beforeChangeSelectionAction = action('bx-table-row-change-selection');
     const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
     const beforeChangeSelectionHandler = {
@@ -352,6 +359,7 @@ storiesOf('Data table', module)
         .sortInfo=${demoSortInfo}
         ?has-selection=${hasSelection}
         size="${size}"
+        ?zebra="${zebra}"
         @bx-table-row-change-selection=${beforeChangeSelectionHandler}
         @bx-table-change-selection-all=${beforeChangeSelectionHandler}
         @bx-table-header-cell-sort=${beforeChangeSortHandler}
