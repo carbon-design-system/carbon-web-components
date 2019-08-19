@@ -1,9 +1,21 @@
-import { ifDefined } from 'lit-html/directives/if-defined';
-import { html } from 'lit-element';
-import { storiesOf } from '@storybook/polymer';
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
+import createReactCustomElementType, { booleanSerializer } from '../../globals/wrappers/createReactCustomElementType';
 import { SEARCH_SIZE } from './search';
+
+const BXSearch = createReactCustomElementType('bx-search', {
+  disabled: {
+    serialize: booleanSerializer,
+  },
+  light: {
+    serialize: booleanSerializer,
+  },
+  onAfterInput: {
+    event: 'bx-search-input',
+  },
+});
 
 const sizes = {
   [`Small size (${SEARCH_SIZE.SMALL})`]: SEARCH_SIZE.SMALL,
@@ -14,7 +26,7 @@ const createProps = () => ({
   closeButtonAssistiveText: text('The label text for the close button (close-button-assistive-text)', 'Clear search input'),
   disabled: boolean('Disabled (disabled)', false),
   light: boolean('Light variant (light)', false),
-  labelText: text('Label text (label-text)', 'Search'),
+  labelText: text('Label text (labelText)', 'Search'),
   name: text('Name (name)', ''),
   placeholder: text('Placeholder text (placeholder)', ''),
   size: select('Searh size (size)', sizes, SEARCH_SIZE.REGULAR),
@@ -38,18 +50,18 @@ storiesOf('Search', module)
       value,
       onAfterInput,
     } = createProps();
-    return html`
-      <bx-search
-        close-button-label-text="${ifDefined(!closeButtonAssistiveText ? undefined : closeButtonAssistiveText)}"
-        ?disabled="${disabled}"
-        ?light="${light}"
-        label-text="${labelText}"
-        name="${ifDefined(!name ? undefined : name)}"
-        placeholder="${ifDefined(!placeholder ? undefined : placeholder)}"
-        size="${size}"
-        type="${ifDefined(!type ? undefined : type)}"
-        value="${ifDefined(!value ? undefined : value)}"
-        @bx-search-input="${onAfterInput}"
-      ></bx-search>
-    `;
+    return (
+      <BXSearch
+        closeButtonAssistiveText={closeButtonAssistiveText}
+        disabled={disabled}
+        light={light}
+        labelText={labelText}
+        name={name}
+        placeholder={placeholder}
+        size={size}
+        type={type}
+        value={value}
+        onAfterInput={onAfterInput}
+      />
+    );
   });
