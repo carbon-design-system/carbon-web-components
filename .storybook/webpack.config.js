@@ -69,7 +69,7 @@ module.exports = ({ config, mode }) => {
       use: [...babelLoaderRule.use, require.resolve('../svg-result-carbon-icon-loader')],
     },
     {
-      test: /-story(-(angular|react))?\.[jt]sx?$/,
+      test: /-story(-(angular|react|vue))?\.[jt]sx?$/,
       use: [
         {
           loader: require.resolve('@storybook/addon-storysource/loader'),

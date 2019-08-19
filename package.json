@@ -24,7 +24,11 @@
     "start": "yarn storybook",
     "storybook": "start-storybook -p 9000",
     "storybook:angular": "start-storybook -p 9001 -c .storybook/angular",
-    "storybook:react": "start-storybook -p 9002 -c .storybook/react"
+    "storybook:react": "start-storybook -p 9002 -c .storybook/react",
+    "storybook:vue": "start-storybook -p 9003 -c .storybook/vue"
+  },
+  "resolutions": {
+    "babel-plugin-transform-vue-jsx": "^4.0.0"
   },
   "devDependencies": {
     "@angular-devkit/core": "^7.0.0",
@@ -46,6 +50,7 @@
     "@carbon/icons": "^10.3.0",
     "@carbon/icons-react": "^10.3.0",
     "@carbon/icons-angular": "^10.3.0",
+    "@carbon/icons-vue": "^10.3.0",
     "@commitlint/cli": "^7.5.0",
     "@commitlint/config-conventional": "^7.5.0",
     "@storybook/addon-actions": "^5.1.0",
@@ -54,6 +59,7 @@
     "@storybook/angular": "^5.1.0",
     "@storybook/polymer": "^5.1.0",
     "@storybook/react": "^5.1.0",
+    "@storybook/vue": "^5.1.0",
     "@types/jasmine": "^3.3.0",
     "@types/storybook__addon-actions": "^3.4.2",
     "@types/storybook__addon-knobs": "^5.0.0",
@@ -69,6 +75,7 @@
     "babel-eslint": "^10.0.0",
     "babel-loader": "^8.0.0",
     "babel-plugin-istanbul": "^4.1.0",
+    "babel-preset-vue": "^2.0.0",
     "bluebird": "^3.5.0",
     "carbon-components": "^10.3.0",
     "classnames": "^2.2.0",
@@ -114,6 +121,7 @@
     "lit-element": "^2.1.0",
     "lit-html": "~1.0.0",
     "lodash.findlast": "^4.6.0",
+    "lodash.pickby": "^4.6.0",
     "mini-css-extract-plugin": "^0.5.0",
     "morgan": "^1.8.0",
     "node-sass": "^4.11.0",
@@ -141,6 +149,9 @@
     "through2": "^3.0.0",
     "ts-loader": "^6.0.0",
     "typescript": "^3.4.0",
+    "vue": "^2.6.0",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.0",
     "webpack": "^4.28.0",
     "zone.js": "^0.8.0"
   },
