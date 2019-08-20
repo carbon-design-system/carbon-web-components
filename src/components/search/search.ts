@@ -181,7 +181,7 @@ class BXSearch extends LitElement {
         aria-label="${closeButtonAssistiveText}"
       >
         ${(size === SEARCH_SIZE.SMALL ? Close16 : Close20)({
-          aria0label: closeButtonAssistiveText,
+          'aria-label': closeButtonAssistiveText,
           role: 'img',
         })}
       </button>

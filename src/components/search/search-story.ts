@@ -40,7 +40,7 @@ storiesOf('Search', module)
     } = createProps();
     return html`
       <bx-search
-        close-button-label-text="${ifDefined(!closeButtonAssistiveText ? undefined : closeButtonAssistiveText)}"
+        close-button-assistive-text="${ifDefined(!closeButtonAssistiveText ? undefined : closeButtonAssistiveText)}"
         ?disabled="${disabled}"
         ?light="${light}"
         label-text="${labelText}"

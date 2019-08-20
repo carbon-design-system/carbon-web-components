@@ -1,7 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf } from '@storybook/angular';
+import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, select, text } from '@storybook/addon-knobs/angular';
+import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
+import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import { SEARCH_SIZE } from './search';
 
 const sizes = {
@@ -10,10 +10,10 @@ const sizes = {
 };
 
 const createProps = () => ({
-  closeButtonAssistiveText: text('The label text for the close button (closeButtonAssistiveText)', 'Clear search input'),
+  closeButtonAssistiveText: text('The label text for the close button (close-button-assistive-text)', 'Clear search input'),
   disabled: boolean('Disabled (disabled)', false),
   light: boolean('Light variant (light)', false),
-  labelText: text('Label text (labelText)', 'Search'),
+  labelText: text('Label text (label-text)', 'Search'),
   name: text('Name (name)', ''),
   placeholder: text('Placeholder text (placeholder)', ''),
   size: select('Searh size (size)', sizes, SEARCH_SIZE.REGULAR),
@@ -27,20 +27,17 @@ storiesOf('Search', module)
   .add('Default', () => ({
     template: `
       <bx-search
-        [closeButtonAssistiveText]="closeButtonAssistiveText"
-        [disabled]="disabled"
-        [light]="light"
-        [labelText]="labelText"
-        [name]="name"
-        [placeholder]="placeholder"
-        [size]="size"
-        [type]="type"
-        [value]="value"
-        (bx-search-input)="onAfterInput($event)"
+        :close-button-assistive-text="closeButtonAssistiveText"
+        :disabled="disabled"
+        :light="light"
+        :label-text="labelText"
+        :name="name"
+        :placeholder="placeholder"
+        :size="size"
+        :type="type"
+        :value="value"
+        @bx-search-input="onAfterInput"
       ></bx-search>
     `,
-    props: createProps(),
-    moduleMetadata: {
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
+    ...createVueBindingsFromProps(createProps()),
   }));
