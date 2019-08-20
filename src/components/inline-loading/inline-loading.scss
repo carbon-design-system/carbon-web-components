@@ -1,0 +1,12 @@
+@import 'carbon-components/scss/components/loading/loading';
+@import 'carbon-components/scss/components/inline-loading/inline-loading';
+
+:host(#{$prefix}-inline-loading) {
+  @extend .#{$prefix}--inline-loading;
+
+  min-height: 2rem;
+
+  .#{$prefix}--inline-loading--error {
+    fill: $support-01;
+  }
+}

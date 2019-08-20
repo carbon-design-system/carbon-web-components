@@ -24,6 +24,7 @@ declare global {
       'bx-modal-label': any;
       'bx-multi-select': any;
       'bx-multi-select-item': any;
+      'bx-inline-loading': any;
       'bx-overflow-menu': any;
       'bx-overflow-menu-body': any;
       'bx-overflow-menu-item': any;
