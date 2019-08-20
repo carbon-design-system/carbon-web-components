@@ -2,43 +2,13 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
-import createReactCustomElementType, { booleanSerializer } from '../../globals/wrappers/createReactCustomElementType';
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// @ts-ignore
+import BXMultiSelect from 'carbon-custom-elements/es/components-react/multi-select/multi-select';
+// @ts-ignore
+import BXMultiSelectItem from 'carbon-custom-elements/es/components-react/multi-select/multi-select-item';
 import { DROPDOWN_TYPE } from '../dropdown/dropdown';
-import './multi-select';
-import './multi-select-item';
-
-const BXMultiSelect = createReactCustomElementType('bx-multi-select', {
-  clearSelectionLabel: {
-    attribute: 'clear-selection-label',
-  },
-  disabled: {
-    serialize: booleanSerializer,
-  },
-  helperText: {
-    attribute: 'helper-text',
-  },
-  labelText: {
-    attribute: 'label-text',
-  },
-  light: {
-    serialize: booleanSerializer,
-  },
-  open: {
-    serialize: booleanSerializer,
-  },
-  triggerContent: {
-    attribute: 'trigger-content',
-  },
-  validityMessage: {
-    attribute: 'validity-message',
-  },
-  onBeforeSelect: {
-    event: 'bx-multi-select-beingselected',
-  },
-  onSelect: {
-    event: 'bx-multi-select-selected',
-  },
-});
 
 const types = {
   [`Regular (${DROPDOWN_TYPE.REGULAR})`]: DROPDOWN_TYPE.REGULAR,
@@ -46,19 +16,19 @@ const types = {
 };
 
 const createProps = () => ({
-  clearSelectionLabel: text('a11y label for the icon to clear selection (clear-selection-label)', ''),
+  clearSelectionLabel: text('a11y label for the icon to clear selection (clearSelectionLabel)', ''),
   disabled: boolean('Disabled (disabled)', false),
   helperText: text('Helper text (helper-text)', 'This is not helper text'),
   labelText: text('Label text (label-text)', 'Multiselect title'),
   light: boolean('Light variant (light)', false),
   open: boolean('Open (open)', false),
-  toggleLabelClosed: text('a11y label for the UI indicating the closed state (toggle-label-closed)', ''),
-  toggleLabelOpen: text('a11y label for the UI indicating the closed state (toggle-label-open)', ''),
-  triggerContent: text('The default content of the trigger button (trigger-content)', 'Select items'),
+  toggleLabelClosed: text('a11y label for the UI indicating the closed state (toggleLabelClosed)', ''),
+  toggleLabelOpen: text('a11y label for the UI indicating the closed state (toggleLabelOpen)', ''),
+  triggerContent: text('The default content of the trigger button (triggerContent)', 'Select items'),
   type: select('UI type (type)', types, DROPDOWN_TYPE.REGULAR),
-  validityMessage: text('The validity message (validity-message)', ''),
+  validityMessage: text('The validity message (validityMessage)', ''),
   disableSelection: boolean(
-    'Disable user-initiated selection change (Call event.preventDefault() in bx-multi-select-beingselected event)',
+    'Disable user-initiated selection change (Call event.preventDefault() in onBeforeSelect event)',
     false
   ),
 });
@@ -80,8 +50,8 @@ storiesOf('Multi select', module)
       validityMessage,
       disableSelection,
     } = createProps();
-    const beforeSelectedAction = action('bx-multi-select-beingselected');
-    const handleBeforeSelected = (event: CustomEvent) => {
+    const beforeSelectedAction = action('onBeforeSelect');
+    const handleBeforeSelect = (event: CustomEvent) => {
       beforeSelectedAction(event);
       if (disableSelection) {
         event.preventDefault();
@@ -100,13 +70,13 @@ storiesOf('Multi select', module)
         triggerContent={triggerContent}
         type={type}
         validityMessage={validityMessage}
-        onBeforeSelect={handleBeforeSelected}
-        onSelect={action('bx-multi-select-selected')}>
-        <bx-multi-select-item value="all">Option 1</bx-multi-select-item>
-        <bx-multi-select-item value="cloudFoundry">Option 2</bx-multi-select-item>
-        <bx-multi-select-item value="staging">Option 3</bx-multi-select-item>
-        <bx-multi-select-item value="dea">Option 4</bx-multi-select-item>
-        <bx-multi-select-item value="router">Option 5</bx-multi-select-item>
+        onBeforeSelect={handleBeforeSelect}
+        onAfterSelect={action('onAfterSelect')}>
+        <BXMultiSelectItem value="all">Option 1</BXMultiSelectItem>
+        <BXMultiSelectItem value="cloudFoundry">Option 2</BXMultiSelectItem>
+        <BXMultiSelectItem value="staging">Option 3</BXMultiSelectItem>
+        <BXMultiSelectItem value="dea">Option 4</BXMultiSelectItem>
+        <BXMultiSelectItem value="router">Option 5</BXMultiSelectItem>
       </BXMultiSelect>
     );
   });

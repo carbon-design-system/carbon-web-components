@@ -2,59 +2,14 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
-import createReactCustomElementType, { booleanSerializer } from '../../globals/wrappers/createReactCustomElementType';
-import { NOTIFICATION_KIND } from './inline-notification';
-import './toast-notification';
-
-const BXInlineNotification = createReactCustomElementType('bx-inline-notification', {
-  hideCloseButton: {
-    attribute: 'hide-close-button',
-    serialize: booleanSerializer,
-  },
-  disabled: {
-    serialize: booleanSerializer,
-  },
-  closeButtonLabel: {
-    attribute: 'close-button-label',
-  },
-  iconLabel: {
-    attribute: 'icon-label',
-  },
-  open: {
-    serialize: booleanSerializer,
-  },
-  onBeforeClose: {
-    event: 'bx-notification-beingclosed',
-  },
-  onClose: {
-    event: 'bx-notification-closed',
-  },
-});
-
-const BXToastNotification = createReactCustomElementType('bx-toast-notification', {
-  hideCloseButton: {
-    attribute: 'hide-close-button',
-    serialize: booleanSerializer,
-  },
-  disabled: {
-    serialize: booleanSerializer,
-  },
-  closeButtonLabel: {
-    attribute: 'close-button-label',
-  },
-  iconLabel: {
-    attribute: 'icon-label',
-  },
-  open: {
-    serialize: booleanSerializer,
-  },
-  onBeforeClose: {
-    event: 'bx-notification-beingclosed',
-  },
-  onClose: {
-    event: 'bx-notification-closed',
-  },
-});
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// @ts-ignore
+// prettier-ignore
+// eslint-disable-next-line max-len
+import BXInlineNotification, { NOTIFICATION_KIND } from 'carbon-custom-elements/es/components-react/notification/inline-notification';
+// @ts-ignore
+import BXToastNotification from 'carbon-custom-elements/es/components-react/notification/toast-notification';
 
 const kinds = {
   [`Success (${NOTIFICATION_KIND.SUCCESS})`]: NOTIFICATION_KIND.SUCCESS,
@@ -67,14 +22,11 @@ const createInlineProps = () => ({
   kind: select('The notification kind (kind)', kinds, NOTIFICATION_KIND.INFO),
   title: text('Title (title)', 'Notification title'),
   subtitle: text('Subtitle (subtitle)', 'Subtitle text goes here.'),
-  hideCloseButton: boolean('Hide the close button (hide-close-button)', false),
-  closeButtonLabel: text('a11y label for the close button (close-button-label)', ''),
-  iconLabel: text('a11y label for the icon (icon-label)', ''),
+  hideCloseButton: boolean('Hide the close button (hideCloseButton)', false),
+  closeButtonLabel: text('a11y label for the close button (closeButtonLabel)', ''),
+  iconLabel: text('a11y label for the icon (iconLabel)', ''),
   open: boolean('Open (open)', true),
-  disableClose: boolean(
-    'Disable user-initiated close action (Call event.preventDefault() in bx-notification-beingclosed event)',
-    false
-  ),
+  disableClose: boolean('Disable user-initiated close action (Call event.preventDefault() in onBeforeClose event)', false),
 });
 
 const createToastProps = () => ({
@@ -86,7 +38,7 @@ storiesOf('Notifications', module)
   .addDecorator(withKnobs)
   .add('Inline', () => {
     const { kind, title, subtitle, hideCloseButton, closeButtonLabel, iconLabel, open, disableClose } = createInlineProps();
-    const beforeSelectedAction = action('bx-notification-beingclosed');
+    const beforeSelectedAction = action('onBeforeClose');
     const handleBeforeClose = (event: CustomEvent) => {
       beforeSelectedAction(event);
       if (disableClose) {
@@ -104,7 +56,7 @@ storiesOf('Notifications', module)
         iconLabel={iconLabel}
         open={open}
         onBeforeClose={handleBeforeClose}
-        onClose={action('bx-notification-closed')}
+        onClose={action('onAfterClose')}
       />
     );
   })
@@ -120,7 +72,7 @@ storiesOf('Notifications', module)
       open,
       disableClose,
     } = createToastProps();
-    const beforeSelectedAction = action('bx-notification-beingclosed');
+    const beforeSelectedAction = action('onBeforeClose');
     const handleBeforeClose = (event: CustomEvent) => {
       beforeSelectedAction(event);
       if (disableClose) {
@@ -139,7 +91,7 @@ storiesOf('Notifications', module)
         iconLabel={iconLabel}
         open={open}
         onBeforeClose={handleBeforeClose}
-        onClose={action('bx-notification-closed')}
+        onClose={action('onAfterClose')}
       />
     );
   });

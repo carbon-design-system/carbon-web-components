@@ -1,19 +1,18 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
-import createReactCustomElementType, { booleanSerializer } from '../../globals/wrappers/createReactCustomElementType';
-import '../button/button';
-import './tooltip';
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// @ts-ignore
+import BXBtn from 'carbon-custom-elements/es/components-react/button/button';
+// @ts-ignore
+import BXTooltip from 'carbon-custom-elements/es/components-react/tooltip/tooltip';
+// @ts-ignore
+import BXTooltipBody from 'carbon-custom-elements/es/components-react/tooltip/tooltip-body';
+// @ts-ignore
+import BXTooltipFooter from 'carbon-custom-elements/es/components-react/tooltip/tooltip-footer';
 import { FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
-import './tooltip-body';
-import './tooltip-footer';
 import styles from './tooltip-story.scss';
-
-const BXTooltip = createReactCustomElementType('bx-tooltip', {
-  open: {
-    serialize: booleanSerializer,
-  },
-});
 
 const directions = {
   [`Bottom (${FLOATING_MENU_DIRECTION.BOTTOM})`]: FLOATING_MENU_DIRECTION.BOTTOM,
@@ -35,18 +34,18 @@ storiesOf('Tooltip', module)
       <>
         <style>{styles.cssText}</style>
         <BXTooltip open={open}>
-          <bx-tooltip-body direction={direction}>
+          <BXTooltipBody direction={direction}>
             <p>
               This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is
               needed please use a modal instead.
             </p>
-            <bx-tooltip-footer>
+            <BXTooltipFooter>
               <a href="#" className="bx--link">
                 Learn More
               </a>
-              <bx-btn kind="primary">Create</bx-btn>
-            </bx-tooltip-footer>
-          </bx-tooltip-body>
+              <BXBtn kind="primary">Create</BXBtn>
+            </BXTooltipFooter>
+          </BXTooltipBody>
         </BXTooltip>
       </>
     );

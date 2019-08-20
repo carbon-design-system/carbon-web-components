@@ -3,75 +3,26 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
-import createReactCustomElementType, { booleanSerializer } from '../../globals/wrappers/createReactCustomElementType';
-import './data-table';
-import { TABLE_SIZE } from './table';
-import './table-head';
-import './table-header-row';
-import { TABLE_SORT_DIRECTION } from './table-header-cell';
-import './table-body';
-import './table-row';
-import './table-cell';
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// @ts-ignore
+import BXDataTable from 'carbon-custom-elements/es/components-react/data-table/data-table';
+// @ts-ignore
+import BXTable, { TABLE_SIZE } from 'carbon-custom-elements/es/components-react/data-table/table';
+// @ts-ignore
+import BXTableHead from 'carbon-custom-elements/es/components-react/data-table/table-head';
+// @ts-ignore
+import BXTableHeaderRow from 'carbon-custom-elements/es/components-react/data-table/table-header-row';
+// @ts-ignore
+import BXTableHeaderCell, { TABLE_SORT_DIRECTION } from 'carbon-custom-elements/es/components-react/data-table/table-header-cell';
+// @ts-ignore
+import BXTableBody from 'carbon-custom-elements/es/components-react/data-table/table-body';
+// @ts-ignore
+import BXTableRow from 'carbon-custom-elements/es/components-react/data-table/table-row';
+// @ts-ignore
+import BXTableCell from 'carbon-custom-elements/es/components-react/data-table/table-cell';
 import { rows as demoRows, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
-
-const BXDataTable = createReactCustomElementType('bx-data-table', {
-  hasSelection: {
-    attribute: 'has-selection',
-    serialize: booleanSerializer,
-  },
-  onChangeSelection: {
-    event: {
-      name: 'bx-table-row-change-selection',
-      options: true,
-    },
-  },
-  onChangeSelectionAll: {
-    event: {
-      name: 'bx-table-change-selection-all',
-      options: true,
-    },
-  },
-  onSort: {
-    event: {
-      name: 'bx-table-header-cell-sort',
-      options: true,
-    },
-  },
-});
-
-const BXTableHeaderRow = createReactCustomElementType('bx-table-header-row', {
-  selected: {
-    serialize: booleanSerializer,
-  },
-  selectionName: {
-    attribute: 'selection-name',
-  },
-  selectionValue: {
-    attribute: 'selection-value',
-  },
-});
-
-const BXTableHeaderCell = createReactCustomElementType('bx-table-header-cell', {
-  sortCycle: {
-    attribute: 'sort-cycle',
-  },
-  sortDirection: {
-    attribute: 'sort-direction',
-  },
-});
-
-const BXTableRow = createReactCustomElementType('bx-table-row', {
-  selected: {
-    serialize: booleanSerializer,
-  },
-  selectionName: {
-    attribute: 'selection-name',
-  },
-  selectionValue: {
-    attribute: 'selection-value',
-  },
-});
 
 /**
  * The map of how sorting direction affects sorting order.
@@ -196,44 +147,51 @@ const BXCEDemoDataTable = ({
   );
 
   return (
-    <BXDataTable
-      hasSelection={hasSelection}
-      onSort={handleChangeSort}
-      onChangeSelection={handleChangeSelection}
-      onChangeSelectionAll={handleChangeSelectionAll}>
-      <bx-table size={size}>
-        <bx-table-head>
-          <BXTableHeaderRow selected={selectedAll} selectionName={selectionAllName} selectionValue={selectionAllName}>
+    <BXDataTable>
+      <BXTable size={size}>
+        <BXTableHead>
+          <BXTableHeaderRow
+            selected={selectedAll}
+            selectionName={selectionAllName}
+            selectionValue={selectionAllName}
+            onBeforeChangeSelection={handleChangeSelectionAll}>
             {columns.map(({ id: columnId, sortCycle, title }) => {
               const sortDirectionForThisCell =
                 sortCycle && (columnId === sortColumnId ? sortDirection : TABLE_SORT_DIRECTION.NONE);
               return (
-                <BXTableHeaderCell sortCycle={sortCycle} sort-direction={sortDirectionForThisCell} data-column-id={columnId}>
+                <BXTableHeaderCell
+                  key={columnId}
+                  sortCycle={sortCycle}
+                  sortDirection={sortDirectionForThisCell}
+                  data-column-id={columnId}
+                  onBeforeSort={handleChangeSort}>
                   {title}
                 </BXTableHeaderCell>
               );
             })}
           </BXTableHeaderRow>
-        </bx-table-head>
-        <bx-table-body>
+        </BXTableHead>
+        <BXTableBody>
           {sortedRows.map(row => {
             const { id: rowId, selected } = row;
             const selectionName = !hasSelection ? undefined : `__bx-ce-demo-data-table_${elementId}_${rowId}`;
             const selectionValue = !hasSelection ? undefined : 'selected';
             return (
               <BXTableRow
+                key={rowId}
                 selected={hasSelection && selected}
                 selectionName={selectionName}
                 selectionValue={selectionValue}
-                data-row-id={rowId}>
+                data-row-id={rowId}
+                onBeforeChangeSelection={handleChangeSelection}>
                 {columns.map(({ id: columnId }) => (
-                  <bx-table-cell>{row[columnId]}</bx-table-cell>
+                  <BXTableCell key={columnId}>{row[columnId]}</BXTableCell>
                 ))}
               </BXTableRow>
             );
           })}
-        </bx-table-body>
-      </bx-table>
+        </BXTableBody>
+      </BXTable>
     </BXDataTable>
   );
 };
@@ -319,14 +277,9 @@ const createProps = ({ sortable }: { sortable?: boolean } = {}) => {
     size: select('Table size (size)', sizes, TABLE_SIZE.REGULAR),
     disableChangeSelection:
       hasSelection &&
-      boolean(
-        'Disable user-initiated change in selection ' +
-          '(Call event.preventDefault() in bx-table-row-change-selection/bx-table-change-selection-all events)',
-        false
-      ),
+      boolean('Disable user-initiated change in selection (Call event.preventDefault() in onBeforeChangeSelection event)', false),
     disableChangeSort:
-      sortable &&
-      boolean('Disable user-initiated change in sorting (Call event.preventDefault() in bx-table-header-cell-sort event)', false),
+      sortable && boolean('Disable user-initiated change in sorting (Call event.preventDefault() in onBeforeSort event)', false),
   };
 };
 
@@ -379,8 +332,8 @@ storiesOf('Data table', module)
   })
   .add('Sortable', () => {
     const { hasSelection, size, disableChangeSelection, disableChangeSort } = createProps({ sortable: true });
-    const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-    const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
+    const beforeChangeSelectionAction = action('onBeforeChangeSelection');
+    const beforeChangeSelectionAllAction = action('onBeforeChangeSelection (for selecting all rows)');
     const beforeChangeSelectionHandler = (event: CustomEvent) => {
       if (event.type === 'bx-table-change-selection-all') {
         beforeChangeSelectionAllAction(event);
@@ -391,7 +344,7 @@ storiesOf('Data table', module)
         event.preventDefault();
       }
     };
-    const beforeChangeSortAction = action('bx-table-header-cell-sort');
+    const beforeChangeSortAction = action('onBeforeSort');
     const beforeChangeSortHandler = (event: CustomEvent) => {
       beforeChangeSortAction(event);
       if (disableChangeSort) {

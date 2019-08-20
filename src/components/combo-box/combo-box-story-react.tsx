@@ -5,9 +5,9 @@ import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
 // @ts-ignore
-import BXDropdown from 'carbon-custom-elements/es/components-react/dropdown/dropdown';
+import BXComboBox from 'carbon-custom-elements/es/components-react/combo-box/combo-box';
 // @ts-ignore
-import BXDropdownItem from 'carbon-custom-elements/es/components-react/dropdown/dropdown-item';
+import BXComboBoxItem from 'carbon-custom-elements/es/components-react/combo-box/combo-box-item';
 
 const createProps = () => ({
   open: boolean('Open (open)', false),
@@ -16,30 +16,17 @@ const createProps = () => ({
   labelText: text('Label text (labelText)', ''),
   light: boolean('Light variant (light)', false),
   value: text('The value of the selected item (value)', ''),
-  toggleLabelClosed: text('a11y label for the UI indicating the closed state (toggleLabelClosed)', ''),
-  toggleLabelOpen: text('a11y label for the UI indicating the closed state (toggleLabelOpen)', ''),
-  triggerContent: text('The default content of the trigger button (triggerContent)', 'Select an item'),
+  triggerContent: text('The placeholder content (triggerContent)', 'Filter...'),
   disableSelection: boolean(
     'Disable user-initiated selection change (Call event.preventDefault() in onBeforeSelect event)',
     false
   ),
 });
 
-storiesOf('Dropdown', module)
+storiesOf('Combo box', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const {
-      open,
-      disabled,
-      helperText,
-      labelText,
-      light,
-      toggleLabelClosed,
-      toggleLabelOpen,
-      triggerContent,
-      value,
-      disableSelection,
-    } = createProps();
+    const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection } = createProps();
     const beforeSelectedAction = action('onBeforeSelect');
     const handleBeforeSelected = (event: CustomEvent) => {
       beforeSelectedAction(event);
@@ -48,23 +35,21 @@ storiesOf('Dropdown', module)
       }
     };
     return (
-      <BXDropdown
+      <BXComboBox
         open={open}
         disabled={disabled}
         light={light}
         helperText={helperText}
         labelText={labelText}
-        toggleLabelClosed={toggleLabelClosed}
-        toggleLabelOpen={toggleLabelOpen}
-        triggerContent={triggerContent}
         value={value}
+        triggerContent={triggerContent}
         onBeforeSelect={handleBeforeSelected}
         onAfterSelect={action('onAfterSelect')}>
-        <BXDropdownItem value="all">Option 1</BXDropdownItem>
-        <BXDropdownItem value="cloudFoundry">Option 2</BXDropdownItem>
-        <BXDropdownItem value="staging">Option 3</BXDropdownItem>
-        <BXDropdownItem value="dea">Option 4</BXDropdownItem>
-        <BXDropdownItem value="router">Option 5</BXDropdownItem>
-      </BXDropdown>
+        <BXComboBoxItem value="all">Option 1</BXComboBoxItem>
+        <BXComboBoxItem value="cloudFoundry">Option 2</BXComboBoxItem>
+        <BXComboBoxItem value="staging">Option 3</BXComboBoxItem>
+        <BXComboBoxItem value="dea">Option 4</BXComboBoxItem>
+        <BXComboBoxItem value="router">Option 5</BXComboBoxItem>
+      </BXComboBox>
     );
   });

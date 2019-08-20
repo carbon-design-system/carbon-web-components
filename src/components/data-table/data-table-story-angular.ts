@@ -114,7 +114,6 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
   selector: 'bx-ce-demo-data-table',
   template: `
     <bx-data-table
-      [hasSelection]="hasSelection"
       (bx-table-row-change-selection)="_handleChangeSelection($event)"
       (bx-table-change-selection-all)="_handleChangeSelectionAll($event)"
       (bx-table-header-cell-sort)="_handleChangeSort($event)"

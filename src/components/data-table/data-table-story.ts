@@ -171,7 +171,6 @@ class BXCEDemoDataTable extends LitElement {
             );
     return html`
       <bx-data-table
-        ?has-selection=${hasSelection}
         @bx-table-row-change-selection=${this._handleChangeSelection}
         @bx-table-change-selection-all=${this._handleChangeSelectionAll}
         @bx-table-header-cell-sort=${this._handleChangeSort}
