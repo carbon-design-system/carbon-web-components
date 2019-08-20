@@ -74,8 +74,18 @@ module.exports = ({ config, mode }) => {
   if (babelLoaderRule) {
     massagedConfig.module.rules.push({
       test: /\.tsx$/,
-      // `@storybook/react` NPM installation seems to add `@babel/preset-react` automatically
-      use: babelLoaderRule.use,
+      use: babelLoaderRule.use.map(item => {
+        const { presets } = item.options || {};
+        return !presets || presets.indexOf('@babel/preset-react') >= 0
+          ? item
+          : {
+              ...item,
+              options: {
+                ...item.options,
+                presets: [...item.options.presets, '@babel/preset-react'],
+              },
+            };
+      }),
     });
   }
   if (!massagedConfig.resolve.plugins) {
