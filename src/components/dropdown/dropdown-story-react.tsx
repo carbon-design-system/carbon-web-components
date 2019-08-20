@@ -2,42 +2,14 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
-import createReactCustomElementType, { booleanSerializer } from '../../globals/wrappers/createReactCustomElementType';
-import './dropdown';
-import './dropdown-item';
-
-const BXDropdown = createReactCustomElementType('bx-dropdown', {
-  disabled: {
-    serialize: booleanSerializer,
-  },
-  helperText: {
-    attribute: 'helper-text',
-  },
-  labelText: {
-    attribute: 'label-text',
-  },
-  light: {
-    serialize: booleanSerializer,
-  },
-  open: {
-    serialize: booleanSerializer,
-  },
-  toggleLabelClosed: {
-    attribute: 'toggle-label-closed',
-  },
-  toggleLabelOpen: {
-    attribute: 'toggle-label-open',
-  },
-  triggerContent: {
-    attribute: 'trigger-content',
-  },
-  onBeforeSelect: {
-    event: 'bx-dropdown-beingselected',
-  },
-  onSelect: {
-    event: 'bx-dropdown-selected',
-  },
-});
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// @ts-ignore
+// eslint-disable-next-line import/no-unresolved
+import BXDropdown from 'carbon-custom-elements/es/components-react/dropdown/dropdown';
+// @ts-ignore
+// eslint-disable-next-line import/no-unresolved
+import BXDropdownItem from 'carbon-custom-elements/es/components-react/dropdown/dropdown-item';
 
 const createProps = () => ({
   open: boolean('Open (open)', false),
@@ -89,12 +61,12 @@ storiesOf('Dropdown', module)
         triggerContent={triggerContent}
         value={value}
         onBeforeSelect={handleBeforeSelected}
-        onSelect={action('bx-dropdown-selected')}>
-        <bx-dropdown-item value="all">Option 1</bx-dropdown-item>
-        <bx-dropdown-item value="cloudFoundry">Option 2</bx-dropdown-item>
-        <bx-dropdown-item value="staging">Option 3</bx-dropdown-item>
-        <bx-dropdown-item value="dea">Option 4</bx-dropdown-item>
-        <bx-dropdown-item value="router">Option 5</bx-dropdown-item>
+        onAfterSelect={action('bx-dropdown-selected')}>
+        <BXDropdownItem value="all">Option 1</BXDropdownItem>
+        <BXDropdownItem value="cloudFoundry">Option 2</BXDropdownItem>
+        <BXDropdownItem value="staging">Option 3</BXDropdownItem>
+        <BXDropdownItem value="dea">Option 4</BXDropdownItem>
+        <BXDropdownItem value="router">Option 5</BXDropdownItem>
       </BXDropdown>
     );
   });

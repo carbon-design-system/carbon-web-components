@@ -8,10 +8,16 @@ const test = require('./gulp-tasks/test');
 
 gulp.task('build:modules:icons', build.modules.icons);
 gulp.task('build:modules:sass', build.modules.sass);
+gulp.task('build:modules:react', build.modules.react);
 gulp.task('build:modules:scripts', build.modules.scripts);
 gulp.task(
   'build:modules',
-  gulp.parallel(gulp.task('build:modules:icons'), gulp.task('build:modules:sass'), gulp.task('build:modules:scripts'))
+  gulp.parallel(
+    gulp.task('build:modules:icons'),
+    gulp.task('build:modules:sass'),
+    gulp.task('build:modules:react'),
+    gulp.task('build:modules:scripts')
+  )
 );
 // TODO: Consider removing build:modules:sass dependency
 gulp.task('build:bundle', gulp.series('build:modules:sass', build.bundle));
