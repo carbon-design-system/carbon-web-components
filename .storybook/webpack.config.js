@@ -45,6 +45,16 @@ module.exports = ({ config, mode }) => {
     item => item.use && item.use.some && item.use.some(use => /babel-loader/i.test(use.loader))
   );
   if (babelLoaderRule) {
+    babelLoaderRule.use.forEach(item => {
+      const { presets } = item.options || {};
+      if (presets) {
+        const vuePresetIndex = presets.findIndex(preset => /babel-preset-vue/i.test(preset));
+        if (vuePresetIndex >= 0) {
+          // Prevents `babel-preset-vue` from transpiling JSX. Our Vue example doesn't use JSX
+          presets.splice(vuePresetIndex, 1);
+        }
+      }
+    });
     config.module.rules.unshift({
       use: babelLoaderRule.use,
       include: [
