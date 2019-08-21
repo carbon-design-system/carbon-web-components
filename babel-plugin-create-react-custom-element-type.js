@@ -248,15 +248,21 @@ module.exports = function generateCreateReactCustomElementType(api) {
 
       // Creates a module with `createReactCustomElementType()`
       // with the gathered metadata of custom element properties and events
-      const parentDescriptor = !context.parentDescriptorSource ? t.nullLiteral() : t.identifier('parentDescriptor');
-      const descriptors = [...buildPropsDescriptor(declaredProps), ...buildEventsDescriptor(customEvents)];
+      const descriptors = t.objectExpression([...buildPropsDescriptor(declaredProps), ...buildEventsDescriptor(customEvents)]);
+      const descriptorsWithParent = !context.parentDescriptorSource
+        ? descriptors
+        : t.callExpression(t.memberExpression(t.identifier('Object'), t.identifier('assign')), [
+            t.objectExpression([]),
+            t.identifier('parentDescriptor'),
+            descriptors,
+          ]);
 
       let body;
       if (!context.customElementName) {
         // Custom element name not found means that it's likely a module not for custom element
         // (e.g. an abstract class like floating menu)
         // If so, we just export empty `descriptor` and re-export from the original class
-        body = [template.ast`export const descriptor = {};`];
+        body = [template.ast`export var descriptor = {};`];
       } else {
         body = [
           t.exportNamedDeclaration(
@@ -268,7 +274,7 @@ module.exports = function generateCreateReactCustomElementType(api) {
           ...template.ast`
             import settings from "carbon-components/es/globals/js/settings";
             var prefix = settings.prefix;
-            export const descriptor = Object.assign(Object.create(${parentDescriptor}), ${t.objectExpression(descriptors)});
+            export var descriptor = ${descriptorsWithParent};
             export default createReactCustomElementType(${context.customElementName}, descriptor);
           `,
         ];
