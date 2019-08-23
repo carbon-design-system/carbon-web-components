@@ -1,4 +1,6 @@
-import { html, svg, property, customElement, LitElement } from 'lit-element';
+import { html, property, customElement, LitElement } from 'lit-element';
+import classnames from 'classnames';
+import CheckmarkFilled16 from '@carbon/icons/lib/checkmark--filled/16';
 import Error20 from '@carbon/icons/lib/error/20';
 import settings from 'carbon-components/es/globals/js/settings';
 import styles from './inline-loading.scss';
@@ -46,21 +48,16 @@ class BXInlineLoading extends LitElement {
       });
     }
     if (status === INLINE_LOADING_STATE.FINISHED) {
-      return svg`
-        <svg
-          class="${prefix}--inline-loading__checkmark-container ${prefix}--inline-loading__svg"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 10 10">
-          <polyline
-            class="${prefix}--inline-loading__checkmark"
-            points="0.74 3.4 3.67 6.34 9.24 0.74"
-          />
-        </svg>
-      `;
+      return CheckmarkFilled16({
+        class: `${prefix}--inline-loading__checkmark-container ${prefix}--inline-loading__svg`,
+      });
     }
-    if (status === INLINE_LOADING_STATE.ACTIVE) {
+    if (status === INLINE_LOADING_STATE.INACTIVE || status === INLINE_LOADING_STATE.ACTIVE) {
+      const classes = classnames(`${prefix}--loading ${prefix}--loading--small`, {
+        [`${prefix}--loading--stop`]: status === INLINE_LOADING_STATE.INACTIVE,
+      });
       return html`
-        <div class="${prefix}--loading ${prefix}--loading--small">
+        <div class="${classes}">
           <svg class="${prefix}--loading__svg" viewBox="-75 -75 150 150">
             <circle class="${prefix}--loading__background" cx="0" cy="0" r="37.5" />
             <circle class="${prefix}--loading__stroke" cx="0" cy="0" r="37.5" />
