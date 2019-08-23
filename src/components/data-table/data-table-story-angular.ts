@@ -2,6 +2,9 @@ import { Pipe, PipeTransform, Component, Input, HostBinding, CUSTOM_ELEMENTS_SCH
 import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs/angular';
+import '../pagination/pagination';
+import '../pagination/page-sizes-select';
+import '../pagination/pages-select';
 import './data-table';
 import { TABLE_SIZE } from './table';
 import './table-head';
@@ -10,7 +13,7 @@ import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import './table-body';
 import './table-row';
 import './table-cell';
-import { rows as demoRows, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
+import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 
 /**
@@ -38,7 +41,7 @@ interface IBXCETableSortOptions {
 })
 class BXCETableRowsSortPipe implements PipeTransform {
   /**
-   * @param rows The table rows. to sort.
+   * @param rows The table rows to sort.
    * @param options The table sorting options.
    * @returns The sorted table rows.
    */
@@ -47,11 +50,13 @@ class BXCETableRowsSortPipe implements PipeTransform {
     const { columnId: sortColumnId, direction: sortDirection } = sortInfo;
     return sortDirection === TABLE_SORT_DIRECTION.NONE
       ? rows
-      : rows!.sort(
-          (lhs, rhs) =>
-            (this.constructor as typeof BXCETableRowsSortPipe).collationFactors[sortDirection] *
-            compare(lhs[sortColumnId!], rhs[sortColumnId!])
-        );
+      : rows!
+          .slice()
+          .sort(
+            (lhs, rhs) =>
+              (this.constructor as typeof BXCETableRowsSortPipe).collationFactors[sortDirection] *
+              compare(lhs[sortColumnId!], rhs[sortColumnId!])
+          );
   }
 
   /**
@@ -61,6 +66,41 @@ class BXCETableRowsSortPipe implements PipeTransform {
     [TABLE_SORT_DIRECTION.ASCENDING]: 1,
     [TABLE_SORT_DIRECTION.DESCENDING]: -1,
   };
+}
+
+/**
+ * Table windowing options.
+ */
+interface IBXCETableSliceOptions {
+  /**
+   * Number of items per page.
+   */
+  pageSize: number;
+
+  /**
+   * The row number where current page start with, index that starts with zero.
+   */
+  start: number;
+}
+
+/**
+ * Angular filter for windowing table rows.
+ */
+@Pipe({
+  name: 'BXCETableRowsSliceWith',
+})
+class BXCETableRowsSlicePipe implements PipeTransform {
+  /* eslint-disable class-methods-use-this */
+  /**
+   * @param rows The table rows to window.
+   * @param options The table windowing options.
+   * @returns The windowed table rows.
+   */
+  transform(rows: TDemoTableRow[], options: IBXCETableSliceOptions): TDemoTableRow[] {
+    const { pageSize = Infinity, start } = options;
+    return rows!.slice(start, start + pageSize);
+  }
+  /* eslint-enable class-methods-use-this */
 }
 
 /* eslint-disable class-methods-use-this */
@@ -138,7 +178,11 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
         </bx-table-head>
         <bx-table-body [zebra]="zebra">
           <bx-table-row
-            *ngFor="let row of _rows | BXCETableRowsSortWith: { compare: _compare, sortInfo: _sortInfo }"
+            *ngFor="
+              let row of _rows
+                | BXCETableRowsSortWith: { compare: _compare, sortInfo: _sortInfo }
+                | BXCETableRowsSliceWith: { start: start, pageSize: pageSize }
+            "
             [selected]="hasSelection && row.selected"
             [selectionName]="!hasSelection ? undefined : (row.id | BXCETableRowSelectionId: _selectionId)"
             [selectionValue]="!hasSelection ? undefined : 'selected'"
@@ -149,6 +193,21 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
         </bx-table-body>
       </bx-table>
     </bx-data-table>
+    <bx-pagination
+      *ngIf="pageSize !== undefined"
+      [pageSize]="pageSize"
+      [start]="start"
+      [total]="rows.length"
+      (bx-pagination-changed-current)="_handleChangeStart($event)"
+      (bx-page-sizes-select-changed)="_handleChangePageSize($event)"
+    >
+      <bx-page-sizes-select slot="page-sizes-select">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+      </bx-page-sizes-select>
+      <bx-pages-select></bx-pages-select>
+    </bx-pagination>
   `,
 })
 class BXCEDemoDataTable {
@@ -256,6 +315,22 @@ class BXCEDemoDataTable {
   }
 
   /**
+   * Handles `bx-pagination-changed-current` event on the pagination UI.
+   * @param event The event.
+   */
+  _handleChangeStart({ detail }: CustomEvent) {
+    this.start = detail.start;
+  }
+
+  /**
+   * Handles `bx-pages-select-changed` event on the pagination UI.
+   * @param event The event.
+   */
+  _handleChangePageSize({ detail }: CustomEvent) {
+    this.pageSize = detail.value;
+  }
+
+  /**
    * The element ID.
    */
   @Input() @HostBinding('id') id!: string;
@@ -285,13 +360,19 @@ class BXCEDemoDataTable {
   sortInfo?: TDemoSortInfo;
 
   /**
-   * `true` if the the table should support selection UI. Corresponds to the attribute with the same name.
+   * `true` if the the table should support selection UI.
    */
   @Input()
   hasSelection = false;
 
   /**
-   * `true` if the the table should use the compact version of the UI. Corresponds to the attribute with the same name.
+   * Number of items per page.
+   */
+  @Input()
+  pageSize!: number;
+
+  /**
+   * `true` if the the table should use the compact version of the UI.
    */
   @Input()
   size = TABLE_SIZE.REGULAR;
@@ -301,6 +382,12 @@ class BXCEDemoDataTable {
    */
   @Input()
   zebra = false;
+
+  /**
+   * The row number where current page start with, index that starts with zero.
+   */
+  @Input()
+  start = 0;
 
   ngOnChanges(changes) {
     if ('sortInfo' in changes) {
@@ -424,7 +511,61 @@ storiesOf('Data table', module)
       };
     })(createProps({ sortable: true })),
     moduleMetadata: {
-      declarations: [BXCEDemoDataTable, BXCETableRowsSortPipe, BXCETableColumnSortDirectionPipe, BXCETableRowSelectionIdPipe],
+      declarations: [
+        BXCEDemoDataTable,
+        BXCETableRowsSortPipe,
+        BXCETableRowsSlicePipe,
+        BXCETableColumnSortDirectionPipe,
+        BXCETableRowSelectionIdPipe,
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    },
+  }))
+  .add('Sortable with pagination', () => ({
+    template: `
+      <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
+      <bx-ce-demo-data-table
+        [columns]="demoColumns"
+        [rows]="demoRows"
+        [sortInfo]="demoSortInfo"
+        [hasSelection]="hasSelection"
+        [pageSize]="5"
+        [size]="size"
+        [start]="0"
+        (bx-table-row-change-selection)="onBeforeChangeSelection($event)"
+        (bx-table-change-selection-all)="onBeforeChangeSelection($event)"
+        (bx-table-header-cell-sort)="onBeforeChangeSort($event)"
+      >
+      </bx-ce-demo-data-table>
+    `,
+    props: (props => {
+      const beforeChangeSelectionAction = action('bx-table-row-change-selection');
+      const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
+      const onBeforeChangeSelection = (event: CustomEvent) => {
+        if (event.type === 'bx-table-change-selection-all') {
+          beforeChangeSelectionAllAction(event);
+        } else {
+          beforeChangeSelectionAction(event);
+        }
+      };
+      const onBeforeChangeSort = action('bx-table-header-cell-sort');
+      return {
+        ...props,
+        demoColumns,
+        demoRows: demoRowsMany,
+        demoSortInfo,
+        onBeforeChangeSelection,
+        onBeforeChangeSort,
+      };
+    })(createProps({ sortable: true })),
+    moduleMetadata: {
+      declarations: [
+        BXCEDemoDataTable,
+        BXCETableRowsSortPipe,
+        BXCETableRowsSlicePipe,
+        BXCETableColumnSortDirectionPipe,
+        BXCETableRowSelectionIdPipe,
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     },
   }));

@@ -107,11 +107,13 @@ class RadioGroupManager {
    */
   add(radio: ManagedRadioButton) {
     const { name } = radio;
-    const groups = this._groups;
-    if (!groups[name]) {
-      groups[name] = new Set<ManagedRadioButton>();
+    if (name) {
+      const groups = this._groups;
+      if (!groups[name]) {
+        groups[name] = new Set<ManagedRadioButton>();
+      }
+      groups[name].add(radio);
     }
-    groups[name].add(radio);
     return this;
   }
 

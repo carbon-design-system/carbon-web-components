@@ -45,6 +45,16 @@ module.exports = ({ config, mode }) => {
     item => item.use && item.use.some && item.use.some(use => /babel-loader/i.test(use.loader))
   );
   if (babelLoaderRule) {
+    babelLoaderRule.use.forEach(item => {
+      const { presets } = item.options || {};
+      if (presets) {
+        const vuePresetIndex = presets.findIndex(preset => /babel-preset-vue/i.test(preset));
+        if (vuePresetIndex >= 0) {
+          // Prevents `babel-preset-vue` from transpiling JSX. Our Vue example doesn't use JSX
+          presets.splice(vuePresetIndex, 1);
+        }
+      }
+    });
     config.module.rules.unshift({
       use: babelLoaderRule.use,
       include: [
@@ -69,7 +79,7 @@ module.exports = ({ config, mode }) => {
       use: [...babelLoaderRule.use, require.resolve('../svg-result-carbon-icon-loader')],
     },
     {
-      test: /-story(-(angular|react))?\.[jt]sx?$/,
+      test: /-story(-(angular|react|vue))?\.[jt]sx?$/,
       use: [
         {
           loader: require.resolve('@storybook/addon-storysource/loader'),
@@ -93,6 +103,15 @@ module.exports = ({ config, mode }) => {
         {
           loader: 'babel-loader',
           options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  modules: false,
+                  targets: ['last 1 version', 'Firefox ESR', 'ie >= 11'],
+                },
+              ],
+            ],
             // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
             plugins: [['@babel/plugin-transform-runtime', { version: '7.3.0' }]],
           },

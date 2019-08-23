@@ -9,12 +9,15 @@ const sass = require('gulp-sass');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const prettier = require('gulp-prettier');
+const typescript = require('gulp-typescript');
 const through2 = require('through2');
+const log = require('fancy-log');
 const autoprefixer = require('autoprefixer');
 const replaceExtension = require('replace-ext');
 const { rollup } = require('rollup');
 const rollupConfigDev = require('../rollup.config.dev');
 const rollupConfigProd = require('../rollup.config.prod');
+const babelPluginCreateReactCustomElementType = require('../babel-plugin-create-react-custom-element-type');
 const babelPluginResourceJSPaths = require('../babel-plugin-resource-js-paths');
 const createSVGResultFromCarbonIcon = require('../tools/svg-result-carbon-icon');
 
@@ -73,7 +76,26 @@ module.exports = {
           })
         )
         .pipe(prettier())
+        .on('error', log)
         .pipe(gulp.dest(path.resolve(config.jsDestDir)));
+    },
+
+    react() {
+      return gulp
+        .src([`${config.srcDir}/components/**/*.ts`, `!${config.srcDir}/**/*-story*.ts*`, `!${config.srcDir}/**/stories/*.ts`])
+        .pipe(plumber())
+        .pipe(
+          babel({
+            babelrc: false,
+            plugins: [
+              ['@babel/plugin-syntax-decorators', { decoratorsBeforeExport: true }],
+              '@babel/plugin-syntax-typescript',
+              babelPluginCreateReactCustomElementType,
+            ],
+          })
+        )
+        .on('error', log)
+        .pipe(gulp.dest(`${config.jsDestDir}/components-react`));
     },
 
     scripts() {
@@ -81,6 +103,7 @@ module.exports = {
         .src([
           `${config.srcDir}/**/*.ts`,
           `!${config.srcDir}/**/*-story*.ts*`,
+          `!${config.srcDir}/**/stories/*.ts`,
           `!${config.srcDir}/**/*.d.ts`,
           `!${config.srcDir}/index-with-polyfills.ts`,
         ])
@@ -101,7 +124,31 @@ module.exports = {
             plugins: [['@babel/plugin-transform-runtime', { version: '7.3.0' }], babelPluginResourceJSPaths],
           })
         )
+        .on('error', log)
         .pipe(gulpif(!buildProd, sourcemaps.write()))
+        .pipe(gulp.dest(config.jsDestDir));
+    },
+
+    types() {
+      const tsProject = typescript.createProject(path.resolve(__dirname, '../tsconfig.json'));
+      const { dts } = gulp
+        .src([
+          `${config.srcDir}/**/*.ts`,
+          `!${config.srcDir}/**/*-story*.ts*`,
+          `!${config.srcDir}/**/stories/**/*.ts*`,
+          `!${config.srcDir}/index-with-polyfills.ts`,
+        ])
+        .pipe(plumber())
+        .pipe(sourcemaps.init())
+        .pipe(tsProject());
+      return dts
+        .pipe(
+          through2.obj((file, enc, done) => {
+            file.contents = Buffer.from(`${file.contents.toString()}\n//# sourceMappingURL=${path.basename(file.path)}.map\n`);
+            done(null, file);
+          })
+        )
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.jsDestDir));
     },
   },

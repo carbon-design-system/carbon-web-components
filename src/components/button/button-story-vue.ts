@@ -1,12 +1,8 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
-// Below path will be there when an application installs `carbon-custom-elements` package.
-// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
-// @ts-ignore
-// eslint-disable-next-line import/no-unresolved
-import BXBtn, { BUTTON_KIND } from 'carbon-custom-elements/es/components-react/button/button';
+import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
+import { BUTTON_KIND } from './button';
 
 const kinds = {
   [`Primary button (${BUTTON_KIND.PRIMARY})`]: BUTTON_KIND.PRIMARY,
@@ -20,16 +16,14 @@ const createProps = () => ({
   disabled: boolean('Disabled (disabled)', false),
   small: boolean('Small (small)', false),
   href: text('Link href (href)', ''),
-  onClick: action('onClick'),
+  onClick: action('click'),
 });
 
 storiesOf('Button', module)
   .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { kind, disabled, small, href } = createProps();
-    return (
-      <BXBtn kind={kind} disabled={disabled} small={small} href={href}>
-        Button
-      </BXBtn>
-    );
-  });
+  .add('Default', () => ({
+    template: `
+      <bx-btn :kind="kind" :disabled="disabled" :small="small" :href="href" @click="onClick">Button</bx-btn>
+    `,
+    ...createVueBindingsFromProps(createProps()),
+  }));
