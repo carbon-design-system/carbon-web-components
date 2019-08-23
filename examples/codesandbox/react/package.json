@@ -1,0 +1,32 @@
+{
+  "name": "carbon-custom-elements-react-getting-started",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sample project for getting started with the Web Components from the Carbon Design System with React.",
+  "license": "Apache-2",
+  "dependencies": {
+    "carbon-components": "~10.5.0",
+    "carbon-custom-elements": "^0.1.0",
+    "classnames": "^2.2.0",
+    "lit-element": "^2.1.0",
+    "lit-html": "^1.1.0",
+    "lodash.findlast": "^4.6.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "react-scripts": "^3.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    "last 1 version",
+    "Firefox ESR",
+    "not opera > 0",
+    "not android > 0",
+    "not edge > 0",
+    "not ie > 0"    
+  ]
+}

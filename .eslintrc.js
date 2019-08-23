@@ -63,5 +63,28 @@ module.exports = {
         'react/jsx-uses-vars': 2,
       },
     },
+    {
+      files: ['examples/codesandbox/**/*.js', 'examples/codesandbox/**/*.ts'],
+      parserOptions: {
+        sourceType: 'module',
+      },
+      rules: {
+        'import/no-unresolved': 0,
+      },
+    },
+    {
+      files: ['examples/codesandbox/react/**/*.js'],
+      plugins: ['react'],
+      rules: {
+        'react/jsx-uses-react': 2,
+        'react/jsx-uses-vars': 2,
+      },
+    },
+    {
+      files: ['examples/codesandbox/**/*.config.js'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
   ],
 };
