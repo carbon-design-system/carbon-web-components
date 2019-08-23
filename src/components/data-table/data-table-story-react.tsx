@@ -4,7 +4,6 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 import createReactCustomElementType, { booleanSerializer } from '../../globals/wrappers/createReactCustomElementType';
-import './data-table';
 import { TABLE_SIZE } from './table';
 import './table-head';
 import './table-header-row';
@@ -15,11 +14,7 @@ import './table-cell';
 import { rows as demoRows, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 
-const BXDataTable = createReactCustomElementType('bx-data-table', {
-  hasSelection: {
-    attribute: 'has-selection',
-    serialize: booleanSerializer,
-  },
+const BXTable = createReactCustomElementType('bx-table', {
   onChangeSelection: {
     event: {
       name: 'bx-table-row-change-selection',
@@ -204,45 +199,47 @@ const BXCEDemoDataTable = ({
   );
 
   return (
-    <BXDataTable
-      hasSelection={hasSelection}
+    <BXTable
+      size={size}
       onSort={handleChangeSort}
       onChangeSelection={handleChangeSelection}
       onChangeSelectionAll={handleChangeSelectionAll}>
-      <bx-table size={size}>
-        <bx-table-head>
-          <BXTableHeaderRow selected={selectedAll} selectionName={selectionAllName} selectionValue={selectionAllName}>
-            {columns.map(({ id: columnId, sortCycle, title }) => {
-              const sortDirectionForThisCell =
-                sortCycle && (columnId === sortColumnId ? sortDirection : TABLE_SORT_DIRECTION.NONE);
-              return (
-                <BXTableHeaderCell sortCycle={sortCycle} sort-direction={sortDirectionForThisCell} data-column-id={columnId}>
-                  {title}
-                </BXTableHeaderCell>
-              );
-            })}
-          </BXTableHeaderRow>
-        </bx-table-head>
-        <BXTableBody zebra={zebra}>
-          {sortedRows.map(row => {
-            const { id: rowId, selected } = row;
-            const selectionName = !hasSelection ? undefined : `__bx-ce-demo-data-table_${elementId}_${rowId}`;
-            const selectionValue = !hasSelection ? undefined : 'selected';
+      <bx-table-head>
+        <BXTableHeaderRow selected={selectedAll} selectionName={selectionAllName} selectionValue={selectionAllName}>
+          {columns.map(({ id: columnId, sortCycle, title }) => {
+            const sortDirectionForThisCell = sortCycle && (columnId === sortColumnId ? sortDirection : TABLE_SORT_DIRECTION.NONE);
             return (
-              <BXTableRow
-                selected={hasSelection && selected}
-                selectionName={selectionName}
-                selectionValue={selectionValue}
-                data-row-id={rowId}>
-                {columns.map(({ id: columnId }) => (
-                  <bx-table-cell>{row[columnId]}</bx-table-cell>
-                ))}
-              </BXTableRow>
+              <BXTableHeaderCell
+                key={columnId}
+                sortCycle={sortCycle}
+                sort-direction={sortDirectionForThisCell}
+                data-column-id={columnId}>
+                {title}
+              </BXTableHeaderCell>
             );
           })}
-        </BXTableBody>
-      </bx-table>
-    </BXDataTable>
+        </BXTableHeaderRow>
+      </bx-table-head>
+      <BXTableBody zebra={zebra}>
+        {sortedRows.map(row => {
+          const { id: rowId, selected } = row;
+          const selectionName = !hasSelection ? undefined : `__bx-ce-demo-data-table_${elementId}_${rowId}`;
+          const selectionValue = !hasSelection ? undefined : 'selected';
+          return (
+            <BXTableRow
+              key={rowId}
+              selected={hasSelection && selected}
+              selectionName={selectionName}
+              selectionValue={selectionValue}
+              data-row-id={rowId}>
+              {columns.map(({ id: columnId }) => (
+                <bx-table-cell key={columnId}>{row[columnId]}</bx-table-cell>
+              ))}
+            </BXTableRow>
+          );
+        })}
+      </BXTableBody>
+    </BXTable>
   );
 };
 
@@ -349,46 +346,44 @@ storiesOf('Data table', module)
   .add('Default', () => {
     const { size } = createProps();
     return (
-      <bx-data-table>
-        <bx-table size={size}>
-          <bx-table-head>
-            <bx-table-header-row>
-              <bx-table-header-cell>Name</bx-table-header-cell>
-              <bx-table-header-cell>Protocol</bx-table-header-cell>
-              <bx-table-header-cell>Port</bx-table-header-cell>
-              <bx-table-header-cell>Rule</bx-table-header-cell>
-              <bx-table-header-cell>Attached Groups</bx-table-header-cell>
-              <bx-table-header-cell>Status</bx-table-header-cell>
-            </bx-table-header-row>
-          </bx-table-head>
-          <bx-table-body>
-            <bx-table-row>
-              <bx-table-cell>Load Balancer 1</bx-table-cell>
-              <bx-table-cell>HTTP</bx-table-cell>
-              <bx-table-cell>80</bx-table-cell>
-              <bx-table-cell>Round Robin</bx-table-cell>
-              <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-              <bx-table-cell>Active</bx-table-cell>
-            </bx-table-row>
-            <bx-table-row>
-              <bx-table-cell>Load Balancer 2</bx-table-cell>
-              <bx-table-cell>HTTP</bx-table-cell>
-              <bx-table-cell>80</bx-table-cell>
-              <bx-table-cell>Round Robin</bx-table-cell>
-              <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-              <bx-table-cell>Active</bx-table-cell>
-            </bx-table-row>
-            <bx-table-row>
-              <bx-table-cell>Load Balancer 3</bx-table-cell>
-              <bx-table-cell>HTTP</bx-table-cell>
-              <bx-table-cell>80</bx-table-cell>
-              <bx-table-cell>Round Robin</bx-table-cell>
-              <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-              <bx-table-cell>Active</bx-table-cell>
-            </bx-table-row>
-          </bx-table-body>
-        </bx-table>
-      </bx-data-table>
+      <bx-table size={size}>
+        <bx-table-head>
+          <bx-table-header-row>
+            <bx-table-header-cell>Name</bx-table-header-cell>
+            <bx-table-header-cell>Protocol</bx-table-header-cell>
+            <bx-table-header-cell>Port</bx-table-header-cell>
+            <bx-table-header-cell>Rule</bx-table-header-cell>
+            <bx-table-header-cell>Attached Groups</bx-table-header-cell>
+            <bx-table-header-cell>Status</bx-table-header-cell>
+          </bx-table-header-row>
+        </bx-table-head>
+        <bx-table-body>
+          <bx-table-row>
+            <bx-table-cell>Load Balancer 1</bx-table-cell>
+            <bx-table-cell>HTTP</bx-table-cell>
+            <bx-table-cell>80</bx-table-cell>
+            <bx-table-cell>Round Robin</bx-table-cell>
+            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+            <bx-table-cell>Active</bx-table-cell>
+          </bx-table-row>
+          <bx-table-row>
+            <bx-table-cell>Load Balancer 2</bx-table-cell>
+            <bx-table-cell>HTTP</bx-table-cell>
+            <bx-table-cell>80</bx-table-cell>
+            <bx-table-cell>Round Robin</bx-table-cell>
+            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+            <bx-table-cell>Active</bx-table-cell>
+          </bx-table-row>
+          <bx-table-row>
+            <bx-table-cell>Load Balancer 3</bx-table-cell>
+            <bx-table-cell>HTTP</bx-table-cell>
+            <bx-table-cell>80</bx-table-cell>
+            <bx-table-cell>Round Robin</bx-table-cell>
+            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+            <bx-table-cell>Active</bx-table-cell>
+          </bx-table-row>
+        </bx-table-body>
+      </bx-table>
     );
   })
   .add('Sortable', () => {
