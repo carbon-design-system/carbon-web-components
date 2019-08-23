@@ -103,6 +103,15 @@ module.exports = ({ config, mode }) => {
         {
           loader: 'babel-loader',
           options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  modules: false,
+                  targets: ['last 1 version', 'Firefox ESR', 'ie >= 11'],
+                },
+              ],
+            ],
             // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
             plugins: [['@babel/plugin-transform-runtime', { version: '7.3.0' }]],
           },
