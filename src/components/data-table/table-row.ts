@@ -38,6 +38,22 @@ class BXTableRow extends LitElement {
   disabled = false;
 
   /**
+   * `true` if this table row is placed at an even position in parent `<bx-table-body>`.
+   * `<bx-table-body>` sets this property, _only_ in zebra stripe mode.
+   * Corresponds to the attribute with the same name.
+   */
+  @property({ type: Boolean, reflect: true })
+  even = false;
+
+  /**
+   * `true` if this table row is placed at an odd position in parent `<bx-table-body>`.
+   * `<bx-table-body>` sets this property, _only_ in zebra stripe mode.
+   * Corresponds to the attribute with the same name.
+   */
+  @property({ type: Boolean, reflect: true })
+  odd = false;
+
+  /**
    * `true` if this table row should work as an expando. Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })

@@ -6,8 +6,6 @@ import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
 // @ts-ignore
-import BXDataTable from 'carbon-custom-elements/es/components-react/data-table/data-table';
-// @ts-ignore
 import BXTable, { TABLE_SIZE } from 'carbon-custom-elements/es/components-react/data-table/table';
 // @ts-ignore
 import BXTableHead from 'carbon-custom-elements/es/components-react/data-table/table-head';
@@ -47,6 +45,7 @@ const BXCEDemoDataTable = ({
   rows: propRows,
   size,
   sortInfo: propSortInfo,
+  zebra,
   onChangeSelection,
   onChangeSelectionAll,
   onSort,
@@ -58,6 +57,7 @@ const BXCEDemoDataTable = ({
   rows: TDemoTableRow[];
   size?: TABLE_SIZE;
   sortInfo: TDemoSortInfo;
+  zebra?: boolean;
   onChangeSelection?: (event: CustomEvent) => void;
   onChangeSelectionAll?: (event: CustomEvent) => void;
   onSort?: (event: CustomEvent) => void;
@@ -147,52 +147,49 @@ const BXCEDemoDataTable = ({
   );
 
   return (
-    <BXDataTable>
-      <BXTable size={size}>
-        <BXTableHead>
-          <BXTableHeaderRow
-            selected={selectedAll}
-            selectionName={selectionAllName}
-            selectionValue={selectionAllName}
-            onBeforeChangeSelection={handleChangeSelectionAll}>
-            {columns.map(({ id: columnId, sortCycle, title }) => {
-              const sortDirectionForThisCell =
-                sortCycle && (columnId === sortColumnId ? sortDirection : TABLE_SORT_DIRECTION.NONE);
-              return (
-                <BXTableHeaderCell
-                  key={columnId}
-                  sortCycle={sortCycle}
-                  sortDirection={sortDirectionForThisCell}
-                  data-column-id={columnId}
-                  onBeforeSort={handleChangeSort}>
-                  {title}
-                </BXTableHeaderCell>
-              );
-            })}
-          </BXTableHeaderRow>
-        </BXTableHead>
-        <BXTableBody>
-          {sortedRows.map(row => {
-            const { id: rowId, selected } = row;
-            const selectionName = !hasSelection ? undefined : `__bx-ce-demo-data-table_${elementId}_${rowId}`;
-            const selectionValue = !hasSelection ? undefined : 'selected';
+    <BXTable size={size}>
+      <BXTableHead>
+        <BXTableHeaderRow
+          selected={selectedAll}
+          selectionName={selectionAllName}
+          selectionValue={selectionAllName}
+          onBeforeChangeSelection={handleChangeSelectionAll}>
+          {columns.map(({ id: columnId, sortCycle, title }) => {
+            const sortDirectionForThisCell = sortCycle && (columnId === sortColumnId ? sortDirection : TABLE_SORT_DIRECTION.NONE);
             return (
-              <BXTableRow
-                key={rowId}
-                selected={hasSelection && selected}
-                selectionName={selectionName}
-                selectionValue={selectionValue}
-                data-row-id={rowId}
-                onBeforeChangeSelection={handleChangeSelection}>
-                {columns.map(({ id: columnId }) => (
-                  <BXTableCell key={columnId}>{row[columnId]}</BXTableCell>
-                ))}
-              </BXTableRow>
+              <BXTableHeaderCell
+                key={columnId}
+                sortCycle={sortCycle}
+                sort-direction={sortDirectionForThisCell}
+                data-column-id={columnId}
+                onBeforeSort={handleChangeSort}>
+                {title}
+              </BXTableHeaderCell>
             );
           })}
-        </BXTableBody>
-      </BXTable>
-    </BXDataTable>
+        </BXTableHeaderRow>
+      </BXTableHead>
+      <BXTableBody zebra={zebra}>
+        {sortedRows.map(row => {
+          const { id: rowId, selected } = row;
+          const selectionName = !hasSelection ? undefined : `__bx-ce-demo-data-table_${elementId}_${rowId}`;
+          const selectionValue = !hasSelection ? undefined : 'selected';
+          return (
+            <BXTableRow
+              key={rowId}
+              selected={hasSelection && selected}
+              selectionName={selectionName}
+              selectionValue={selectionValue}
+              data-row-id={rowId}
+              onBeforeChangeSelection={handleChangeSelection}>
+              {columns.map(({ id: columnId }) => (
+                <BXTableCell key={columnId}>{row[columnId]}</BXTableCell>
+              ))}
+            </BXTableRow>
+          );
+        })}
+      </BXTableBody>
+    </BXTable>
   );
 };
 
@@ -242,6 +239,11 @@ BXCEDemoDataTable.propTypes = {
   size: PropTypes.string,
 
   /**
+   * `true` if the zebra stripe should be shown.
+   */
+  zebra: PropTypes.bool,
+
+  /**
    * An event that fires when user changes selection of a row.
    */
   onChangeSelection: PropTypes.func,
@@ -275,6 +277,7 @@ const createProps = ({ sortable }: { sortable?: boolean } = {}) => {
   return {
     hasSelection,
     size: select('Table size (size)', sizes, TABLE_SIZE.REGULAR),
+    zebra: sortable && boolean('Supports zebra stripe (zebra in `<BXTableBody>`)', false),
     disableChangeSelection:
       hasSelection &&
       boolean('Disable user-initiated change in selection (Call event.preventDefault() in onBeforeChangeSelection event)', false),
@@ -288,50 +291,48 @@ storiesOf('Data table', module)
   .add('Default', () => {
     const { size } = createProps();
     return (
-      <bx-data-table>
-        <bx-table size={size}>
-          <bx-table-head>
-            <bx-table-header-row>
-              <bx-table-header-cell>Name</bx-table-header-cell>
-              <bx-table-header-cell>Protocol</bx-table-header-cell>
-              <bx-table-header-cell>Port</bx-table-header-cell>
-              <bx-table-header-cell>Rule</bx-table-header-cell>
-              <bx-table-header-cell>Attached Groups</bx-table-header-cell>
-              <bx-table-header-cell>Status</bx-table-header-cell>
-            </bx-table-header-row>
-          </bx-table-head>
-          <bx-table-body>
-            <bx-table-row>
-              <bx-table-cell>Load Balancer 1</bx-table-cell>
-              <bx-table-cell>HTTP</bx-table-cell>
-              <bx-table-cell>80</bx-table-cell>
-              <bx-table-cell>Round Robin</bx-table-cell>
-              <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-              <bx-table-cell>Active</bx-table-cell>
-            </bx-table-row>
-            <bx-table-row>
-              <bx-table-cell>Load Balancer 2</bx-table-cell>
-              <bx-table-cell>HTTP</bx-table-cell>
-              <bx-table-cell>80</bx-table-cell>
-              <bx-table-cell>Round Robin</bx-table-cell>
-              <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-              <bx-table-cell>Active</bx-table-cell>
-            </bx-table-row>
-            <bx-table-row>
-              <bx-table-cell>Load Balancer 3</bx-table-cell>
-              <bx-table-cell>HTTP</bx-table-cell>
-              <bx-table-cell>80</bx-table-cell>
-              <bx-table-cell>Round Robin</bx-table-cell>
-              <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-              <bx-table-cell>Active</bx-table-cell>
-            </bx-table-row>
-          </bx-table-body>
-        </bx-table>
-      </bx-data-table>
+      <bx-table size={size}>
+        <bx-table-head>
+          <bx-table-header-row>
+            <bx-table-header-cell>Name</bx-table-header-cell>
+            <bx-table-header-cell>Protocol</bx-table-header-cell>
+            <bx-table-header-cell>Port</bx-table-header-cell>
+            <bx-table-header-cell>Rule</bx-table-header-cell>
+            <bx-table-header-cell>Attached Groups</bx-table-header-cell>
+            <bx-table-header-cell>Status</bx-table-header-cell>
+          </bx-table-header-row>
+        </bx-table-head>
+        <bx-table-body>
+          <bx-table-row>
+            <bx-table-cell>Load Balancer 1</bx-table-cell>
+            <bx-table-cell>HTTP</bx-table-cell>
+            <bx-table-cell>80</bx-table-cell>
+            <bx-table-cell>Round Robin</bx-table-cell>
+            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+            <bx-table-cell>Active</bx-table-cell>
+          </bx-table-row>
+          <bx-table-row>
+            <bx-table-cell>Load Balancer 2</bx-table-cell>
+            <bx-table-cell>HTTP</bx-table-cell>
+            <bx-table-cell>80</bx-table-cell>
+            <bx-table-cell>Round Robin</bx-table-cell>
+            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+            <bx-table-cell>Active</bx-table-cell>
+          </bx-table-row>
+          <bx-table-row>
+            <bx-table-cell>Load Balancer 3</bx-table-cell>
+            <bx-table-cell>HTTP</bx-table-cell>
+            <bx-table-cell>80</bx-table-cell>
+            <bx-table-cell>Round Robin</bx-table-cell>
+            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+            <bx-table-cell>Active</bx-table-cell>
+          </bx-table-row>
+        </bx-table-body>
+      </bx-table>
     );
   })
   .add('Sortable', () => {
-    const { hasSelection, size, disableChangeSelection, disableChangeSort } = createProps({ sortable: true });
+    const { hasSelection, size, zebra, disableChangeSelection, disableChangeSort } = createProps({ sortable: true });
     const beforeChangeSelectionAction = action('onBeforeChangeSelection');
     const beforeChangeSelectionAllAction = action('onBeforeChangeSelection (for selecting all rows)');
     const beforeChangeSelectionHandler = (event: CustomEvent) => {
@@ -360,6 +361,7 @@ storiesOf('Data table', module)
           sortInfo={demoSortInfo}
           hasSelection={hasSelection}
           size={size}
+          zebra={zebra}
           onChangeSelection={beforeChangeSelectionHandler}
           onChangeSelectionAll={beforeChangeSelectionHandler}
           onSort={beforeChangeSortHandler}

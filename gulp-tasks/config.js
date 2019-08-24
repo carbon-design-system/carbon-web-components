@@ -23,7 +23,7 @@ module.exports = {
   cloptions,
   srcDir: 'src',
   iconsDir: path.dirname(require.resolve('@carbon/icons/lib')),
-  destDir: 'public',
+  destDir: 'dist',
   jsDestDir: 'es',
   viewsDir: 'views',
   testsDir: 'tests',

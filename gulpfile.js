@@ -10,13 +10,15 @@ gulp.task('build:modules:icons', build.modules.icons);
 gulp.task('build:modules:sass', build.modules.sass);
 gulp.task('build:modules:react', build.modules.react);
 gulp.task('build:modules:scripts', build.modules.scripts);
+gulp.task('build:modules:types', build.modules.types);
 gulp.task(
   'build:modules',
   gulp.parallel(
     gulp.task('build:modules:icons'),
     gulp.task('build:modules:sass'),
     gulp.task('build:modules:react'),
-    gulp.task('build:modules:scripts')
+    gulp.task('build:modules:scripts'),
+    gulp.task('build:modules:types')
   )
 );
 // TODO: Consider removing build:modules:sass dependency

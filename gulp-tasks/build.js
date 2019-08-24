@@ -9,6 +9,7 @@ const sass = require('gulp-sass');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const prettier = require('gulp-prettier');
+const typescript = require('gulp-typescript');
 const through2 = require('through2');
 const log = require('fancy-log');
 const autoprefixer = require('autoprefixer');
@@ -125,6 +126,29 @@ module.exports = {
         )
         .on('error', log)
         .pipe(gulpif(!buildProd, sourcemaps.write()))
+        .pipe(gulp.dest(config.jsDestDir));
+    },
+
+    types() {
+      const tsProject = typescript.createProject(path.resolve(__dirname, '../tsconfig.json'));
+      const { dts } = gulp
+        .src([
+          `${config.srcDir}/**/*.ts`,
+          `!${config.srcDir}/**/*-story*.ts*`,
+          `!${config.srcDir}/**/stories/**/*.ts*`,
+          `!${config.srcDir}/index-with-polyfills.ts`,
+        ])
+        .pipe(plumber())
+        .pipe(sourcemaps.init())
+        .pipe(tsProject());
+      return dts
+        .pipe(
+          through2.obj((file, enc, done) => {
+            file.contents = Buffer.from(`${file.contents.toString()}\n//# sourceMappingURL=${path.basename(file.path)}.map\n`);
+            done(null, file);
+          })
+        )
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.jsDestDir));
     },
   },

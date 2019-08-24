@@ -4,7 +4,9 @@ import { repeat } from 'lit-html/directives/repeat';
 import { storiesOf } from '@storybook/polymer';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
-import './data-table';
+import '../pagination/pagination';
+import '../pagination/page-sizes-select';
+import '../pagination/pages-select';
 import { TABLE_SIZE } from './table';
 import './table-head';
 import './table-header-row';
@@ -12,7 +14,7 @@ import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import './table-body';
 import './table-row';
 import './table-cell';
-import { rows as demoRows, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
+import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 
 /**
@@ -109,6 +111,48 @@ class BXCEDemoDataTable extends LitElement {
   }
 
   /**
+   * Handles `bx-pagination-changed-current` event on the pagination UI.
+   * @param event The event.
+   */
+  private _handleChangeStart({ detail }: CustomEvent) {
+    this.start = detail.start;
+  }
+
+  /**
+   * Handles `bx-pages-select-changed` event on the pagination UI.
+   * @param event The event.
+   */
+  private _handleChangePageSize({ detail }: CustomEvent) {
+    this.pageSize = detail.value;
+  }
+
+  /**
+   * @returns The content of the pagination UI.
+   */
+  private _renderPagination() {
+    const { pageSize, rows, start, _handleChangeStart: handleChangeStart, _handleChangePageSize: handleChangePageSize } = this;
+    if (typeof pageSize === 'undefined') {
+      return undefined;
+    }
+    return html`
+      <bx-pagination
+        page-size="${pageSize}"
+        start="${start}"
+        total="${rows!.length}"
+        @bx-pagination-changed-current="${handleChangeStart}"
+        @bx-page-sizes-select-changed="${handleChangePageSize}"
+      >
+        <bx-page-sizes-select slot="page-sizes-select">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+        </bx-page-sizes-select>
+        <bx-pages-select></bx-pages-select>
+      </bx-pagination>
+    `;
+  }
+
+  /**
    * The g11n collator to use.
    */
   @property({ attribute: false })
@@ -139,10 +183,28 @@ class BXCEDemoDataTable extends LitElement {
   hasSelection = false;
 
   /**
-   * `true` if the the table should use the compact version of the UI. Corresponds to the attribute with the same name.
+   * Number of items per page. Corresponds to `page-size` attribute.
+   */
+  @property({ type: Number, attribute: 'page-size' })
+  pageSize!: number;
+
+  /**
+   * The table size. Corresponds to the attribute with the same name.
    */
   @property({ reflect: true })
   size = TABLE_SIZE.REGULAR;
+
+  /**
+   * `true` if the zebra stripe should be shown. Corresponds to the attribute with the same name.
+   */
+  @property({ type: Boolean, reflect: true })
+  zebra = false;
+
+  /**
+   * The row number where current page start with, index that starts with zero. Corresponds to the attribute with the same name.
+   */
+  @property({ type: Number })
+  start = 0;
 
   shouldUpdate(changedProperties) {
     if (changedProperties.has('sortInfo')) {
@@ -155,7 +217,7 @@ class BXCEDemoDataTable extends LitElement {
   }
 
   render() {
-    const { id: elementId, hasSelection, size, columns, _rows: rows } = this;
+    const { id: elementId, hasSelection, pageSize = Infinity, start = 0, size, columns, zebra, _rows: rows } = this;
     const selectionAllName = !hasSelection ? undefined : `__bx-ce-demo-data-table_select-all_${elementId || this._uniqueId}`;
     const selectedAll = rows!.every(({ selected }) => selected!);
     const { columnId: sortColumnId, direction: sortDirection } = this._sortInfo!;
@@ -170,68 +232,66 @@ class BXCEDemoDataTable extends LitElement {
                 this._compare(lhs[sortColumnId!], rhs[sortColumnId!])
             );
     return html`
-      <bx-data-table
+      <bx-table
+        size="${size}"
         @bx-table-row-change-selection=${this._handleChangeSelection}
         @bx-table-change-selection-all=${this._handleChangeSelectionAll}
         @bx-table-header-cell-sort=${this._handleChangeSort}
       >
-        <bx-table size="${size}">
-          <bx-table-head>
-            <bx-table-header-row
-              ?selected=${selectedAll}
-              selection-name=${ifDefined(selectionAllName)}
-              selection-value=${ifDefined(selectionAllName)}
-            >
-              ${repeat(
-                columns!,
-                ({ id: columnId }) => columnId,
-                ({ id: columnId, sortCycle, title }) => {
-                  const sortDirectionForThisCell =
-                    sortCycle && (columnId === sortColumnId ? sortDirection : TABLE_SORT_DIRECTION.NONE);
-                  return html`
-                    <bx-table-header-cell
-                      sort-cycle="${ifDefined(sortCycle)}"
-                      sort-direction="${ifDefined(sortDirectionForThisCell)}"
-                      data-column-id="${columnId}"
-                    >
-                      ${title}
-                    </bx-table-header-cell>
-                  `;
-                }
-              )}
-            </bx-table-header-row>
-          </bx-table-head>
-          <bx-table-body>
+        <bx-table-head>
+          <bx-table-header-row
+            ?selected=${selectedAll}
+            selection-name=${ifDefined(selectionAllName)}
+            selection-value=${ifDefined(selectionAllName)}
+          >
             ${repeat(
-              sortedRows,
-              ({ id: rowId }) => rowId,
-              row => {
-                const { id: rowId, selected } = row;
-                const selectionName = !hasSelection
-                  ? undefined
-                  : `__bx-ce-demo-data-table_${elementId || this._uniqueId}_${rowId}`;
-                const selectionValue = !hasSelection ? undefined : 'selected';
+              columns!,
+              ({ id: columnId }) => columnId,
+              ({ id: columnId, sortCycle, title }) => {
+                const sortDirectionForThisCell =
+                  sortCycle && (columnId === sortColumnId ? sortDirection : TABLE_SORT_DIRECTION.NONE);
                 return html`
-                  <bx-table-row
-                    ?selected=${hasSelection && selected}
-                    selection-name="${ifDefined(selectionName)}"
-                    selection-value="${ifDefined(selectionValue)}"
-                    data-row-id="${rowId}"
+                  <bx-table-header-cell
+                    sort-cycle="${ifDefined(sortCycle)}"
+                    sort-direction="${ifDefined(sortDirectionForThisCell)}"
+                    data-column-id="${columnId}"
                   >
-                    ${repeat(
-                      columns!,
-                      ({ id: columnId }) => columnId,
-                      ({ id: columnId }) => html`
-                        <bx-table-cell>${row[columnId]}</bx-table-cell>
-                      `
-                    )}
-                  </bx-table-row>
+                    ${title}
+                  </bx-table-header-cell>
                 `;
               }
             )}
-          </bx-table-body>
-        </bx-table>
-      </bx-data-table>
+          </bx-table-header-row>
+        </bx-table-head>
+        <bx-table-body ?zebra="${zebra}">
+          ${repeat(
+            sortedRows.slice(start, start + pageSize),
+            ({ id: rowId }) => rowId,
+            row => {
+              const { id: rowId, selected } = row;
+              const selectionName = !hasSelection ? undefined : `__bx-ce-demo-data-table_${elementId || this._uniqueId}_${rowId}`;
+              const selectionValue = !hasSelection ? undefined : 'selected';
+              return html`
+                <bx-table-row
+                  ?selected=${hasSelection && selected}
+                  selection-name="${ifDefined(selectionName)}"
+                  selection-value="${ifDefined(selectionValue)}"
+                  data-row-id="${rowId}"
+                >
+                  ${repeat(
+                    columns!,
+                    ({ id: columnId }) => columnId,
+                    ({ id: columnId }) => html`
+                      <bx-table-cell>${row[columnId]}</bx-table-cell>
+                    `
+                  )}
+                </bx-table-row>
+              `;
+            }
+          )}
+        </bx-table-body>
+      </bx-table>
+      ${this._renderPagination()}
     `;
   }
 
@@ -256,6 +316,7 @@ const createProps = ({ sortable }: { sortable?: boolean } = {}) => {
   return {
     hasSelection,
     size: select('Table size (size)', sizes, TABLE_SIZE.REGULAR),
+    zebra: boolean('Supports zebra stripe (zebra in `<bx-table-body>`)', false),
     disableChangeSelection:
       hasSelection &&
       boolean(
@@ -272,52 +333,50 @@ const createProps = ({ sortable }: { sortable?: boolean } = {}) => {
 storiesOf('Data table', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const { size } = createProps();
+    const { size, zebra } = createProps();
     return html`
-      <bx-data-table>
-        <bx-table size="${size}">
-          <bx-table-head>
-            <bx-table-header-row>
-              <bx-table-header-cell>Name</bx-table-header-cell>
-              <bx-table-header-cell>Protocol</bx-table-header-cell>
-              <bx-table-header-cell>Port</bx-table-header-cell>
-              <bx-table-header-cell>Rule</bx-table-header-cell>
-              <bx-table-header-cell>Attached Groups</bx-table-header-cell>
-              <bx-table-header-cell>Status</bx-table-header-cell>
-            </bx-table-header-row>
-          </bx-table-head>
-          <bx-table-body>
-            <bx-table-row>
-              <bx-table-cell>Load Balancer 1</bx-table-cell>
-              <bx-table-cell>HTTP</bx-table-cell>
-              <bx-table-cell>80</bx-table-cell>
-              <bx-table-cell>Round Robin</bx-table-cell>
-              <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-              <bx-table-cell>Active</bx-table-cell>
-            </bx-table-row>
-            <bx-table-row>
-              <bx-table-cell>Load Balancer 2</bx-table-cell>
-              <bx-table-cell>HTTP</bx-table-cell>
-              <bx-table-cell>80</bx-table-cell>
-              <bx-table-cell>Round Robin</bx-table-cell>
-              <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-              <bx-table-cell>Active</bx-table-cell>
-            </bx-table-row>
-            <bx-table-row>
-              <bx-table-cell>Load Balancer 3</bx-table-cell>
-              <bx-table-cell>HTTP</bx-table-cell>
-              <bx-table-cell>80</bx-table-cell>
-              <bx-table-cell>Round Robin</bx-table-cell>
-              <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-              <bx-table-cell>Active</bx-table-cell>
-            </bx-table-row>
-          </bx-table-body>
-        </bx-table>
-      </bx-data-table>
+      <bx-table size="${size}">
+        <bx-table-head>
+          <bx-table-header-row>
+            <bx-table-header-cell>Name</bx-table-header-cell>
+            <bx-table-header-cell>Protocol</bx-table-header-cell>
+            <bx-table-header-cell>Port</bx-table-header-cell>
+            <bx-table-header-cell>Rule</bx-table-header-cell>
+            <bx-table-header-cell>Attached Groups</bx-table-header-cell>
+            <bx-table-header-cell>Status</bx-table-header-cell>
+          </bx-table-header-row>
+        </bx-table-head>
+        <bx-table-body ?zebra="${zebra}">
+          <bx-table-row>
+            <bx-table-cell>Load Balancer 1</bx-table-cell>
+            <bx-table-cell>HTTP</bx-table-cell>
+            <bx-table-cell>80</bx-table-cell>
+            <bx-table-cell>Round Robin</bx-table-cell>
+            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+            <bx-table-cell>Active</bx-table-cell>
+          </bx-table-row>
+          <bx-table-row>
+            <bx-table-cell>Load Balancer 2</bx-table-cell>
+            <bx-table-cell>HTTP</bx-table-cell>
+            <bx-table-cell>80</bx-table-cell>
+            <bx-table-cell>Round Robin</bx-table-cell>
+            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+            <bx-table-cell>Active</bx-table-cell>
+          </bx-table-row>
+          <bx-table-row>
+            <bx-table-cell>Load Balancer 3</bx-table-cell>
+            <bx-table-cell>HTTP</bx-table-cell>
+            <bx-table-cell>80</bx-table-cell>
+            <bx-table-cell>Round Robin</bx-table-cell>
+            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+            <bx-table-cell>Active</bx-table-cell>
+          </bx-table-row>
+        </bx-table-body>
+      </bx-table>
     `;
   })
   .add('Sortable', () => {
-    const { hasSelection, size, disableChangeSelection, disableChangeSort } = createProps({ sortable: true });
+    const { hasSelection, size, zebra, disableChangeSelection, disableChangeSort } = createProps({ sortable: true });
     const beforeChangeSelectionAction = action('bx-table-row-change-selection');
     const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
     const beforeChangeSelectionHandler = {
@@ -351,6 +410,52 @@ storiesOf('Data table', module)
         .sortInfo=${demoSortInfo}
         ?has-selection=${hasSelection}
         size="${size}"
+        ?zebra="${zebra}"
+        @bx-table-row-change-selection=${beforeChangeSelectionHandler}
+        @bx-table-change-selection-all=${beforeChangeSelectionHandler}
+        @bx-table-header-cell-sort=${beforeChangeSortHandler}
+      >
+      </bx-ce-demo-data-table>
+    `;
+  })
+  .add('Sortable with pagination', () => {
+    const { hasSelection, size, zebra, disableChangeSelection, disableChangeSort } = createProps({ sortable: true });
+    const beforeChangeSelectionAction = action('bx-table-row-change-selection');
+    const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
+    const beforeChangeSelectionHandler = {
+      handleEvent(event: CustomEvent) {
+        if (event.type === 'bx-table-change-selection-all') {
+          beforeChangeSelectionAllAction(event);
+        } else {
+          beforeChangeSelectionAction(event);
+        }
+        if (disableChangeSelection) {
+          event.preventDefault();
+        }
+      },
+      capture: true, // To prevent the default behavior before `<bx-ce-demo-data-table>` handles the event
+    };
+    const beforeChangeSortAction = action('bx-table-header-cell-sort');
+    const beforeChangeSortHandler = {
+      handleEvent(event: CustomEvent) {
+        beforeChangeSortAction(event);
+        if (disableChangeSort) {
+          event.preventDefault();
+        }
+      },
+      capture: true, // To prevent the default behavior before `<bx-ce-demo-data-table>` handles the event
+    };
+    return html`
+      <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
+      <bx-ce-demo-data-table
+        .columns=${demoColumns}
+        .rows=${demoRowsMany}
+        .sortInfo=${demoSortInfo}
+        ?has-selection=${hasSelection}
+        page-size="5"
+        size="${size}"
+        start="0"
+        ?zebra="${zebra}"
         @bx-table-row-change-selection=${beforeChangeSelectionHandler}
         @bx-table-change-selection-all=${beforeChangeSelectionHandler}
         @bx-table-header-cell-sort=${beforeChangeSortHandler}

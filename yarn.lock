@@ -1523,6 +1523,11 @@
   resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-10.3.0.tgz#b0a772a7be9c10d5633cf78034c5c988ce998982"
   integrity sha512-vQegj82Y3hC17cA0g0bQUwYfcmhJD/3HyJVE/biyUXImTu82TcLrcRDTZoO9bOleEMEztMXTTDlMKTU9rrhRTw==
 
+"@carbon/icon-helpers@10.4.0":
+  version "10.4.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-10.4.0.tgz#771ba51efcaa9d2be03800f8e0f50c7aa779febf"
+  integrity sha512-52H97nT0Hv3mneNaDXBELt/shrO9AUZIpX5TuxRUcdva0xqLNnjhsLw0PTytjQRw3yNCLmDw8hOutzlReXCleQ==
+
 "@carbon/icon-helpers@^10.2.0":
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-10.2.0.tgz#f58ab1d14b8b63d485d31e7d785d25057eac5409"
@@ -1535,22 +1540,24 @@
   dependencies:
     "@carbon/icon-helpers" "10.3.0"
 
-"@carbon/icons-react@^10.3.0":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-10.4.1.tgz#7107b9f41dd9014fed984c564be80c9e880cdb6c"
-  integrity sha512-QohbOWFj8zwA8y6tw7DgxZAM+W6jGZKtVnRzNxmYaHfI5R73vKL7fwVKX7zwwq51Gbxjg9JMUWixr4fSlCuy5w==
-
-"@carbon/icons-vue@^10.3.0":
-  version "10.4.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.4.0.tgz#4880550373d69350972fd23cff4bb8ac70d439d1"
-  integrity sha512-QzIx7WrPhM93tYsl0lnoA/LTWxnjgqyo7Sb6W1L27/bu3LNV4lzzWZOBAMm381R0RafeFCwsQtqBFJvj1zpx2Q==
+"@carbon/icons-react@^10.5.0":
+  version "10.5.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-10.5.0.tgz#f6162c1e8374c2c061052b7f92ec7f9f596d3ab1"
+  integrity sha512-YfKSsKgO3lKyDq/XtplkKwn1Hyxedo0pdjvajQUq/jZ5vrg7Os5k3OdLNBFgMgS0xLwdqpkDBOtjnCZsDJhRlg==
   dependencies:
-    "@carbon/icon-helpers" "10.3.0"
+    "@carbon/icon-helpers" "10.4.0"
 
-"@carbon/icons@^10.3.0":
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons/-/icons-10.3.0.tgz#ae159d42fada08f4b2a35e4632788145aefdd3d7"
-  integrity sha512-VBaV9+O77T7cuxyUvVd9Gpf3K7sdSoaylnlXQPqr+NCZLg9L60C5qr7Lzg9hgES9H2DF/ruyfAl5rqrCz6MPeQ==
+"@carbon/icons-vue@^10.5.0":
+  version "10.5.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.5.0.tgz#52f887a267f6c5e7f7f7b64b5baee1b256223b00"
+  integrity sha512-1uUw9i5NiZGgy8kWN6sXVTJpq1+AlebqUCcRqDI4d9cvyE9KjF0WX/VfjHmeIGjCgMhn0iXBO0nOEi2GbfT8Pw==
+  dependencies:
+    "@carbon/icon-helpers" "10.4.0"
+
+"@carbon/icons@^10.5.0":
+  version "10.5.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons/-/icons-10.5.0.tgz#739729fb0cf13a7d66b9a563af8de7064d8c613e"
+  integrity sha512-rF+ItKhYZnTbVCa6KmkFHCOX68nqn76K/CrmXp9mMvqFdZoTXAvqrPmM0lZ3vU0A7dtO5G5kmOVCkJChSCekGA==
 
 "@commitlint/cli@^7.5.0":
   version "7.5.2"
@@ -3584,6 +3591,11 @@ ansi-colors@^3.0.0:
   resolved "https://registry.npmjs.org/ansi-colors/-/ansi-colors-3.2.3.tgz#57d35b8686e851e2cc04c403f1c00203976a1813"
   integrity sha512-LEHHyuhlPY3TmuUYMh2oz89lTShfvgbmzaBcxve9t/9Wuy7Dwf4yoAKcND7KFT1HAQfqZ12qtc+DUrBMeKF9nw==
 
+ansi-colors@^3.0.5:
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
+  integrity sha512-hHUXGagefjN2iRrID63xckIvotOXOojhQKWIPUZ4mNUZ9nLZW+7FMNoE1lOkEhNWYsx/7ysGIuJYCiMAA9FnrA==
+
 ansi-cyan@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/ansi-cyan/-/ansi-cyan-0.1.1.tgz#538ae528af8982f28ae30d86f2f17456d2609873"
@@ -5036,10 +5048,10 @@ caniuse-lite@^1.0.30000984:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000984.tgz#dc96c3c469e9bcfc6ad5bdd24c77ec918ea76fe0"
   integrity sha512-n5tKOjMaZ1fksIpQbjERuqCyfgec/m9pferkFQbLmWtqLUdmt12hNhjSwsmPdqeiG2NkITOQhr1VYIwWSAceiA==
 
-carbon-components@^10.3.0:
-  version "10.3.2"
-  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.3.2.tgz#1d1571ce43ccbef06fa506605d60fbc5d75b6fa9"
-  integrity sha512-u6EoEBr7f/QoxuGA3yqv/1qvjwgtnqBQxge3kVXpTIyhq2oGE9fOl6g2fk4KlMNu1zV2hlbyhr+2vvsJuS3n4g==
+carbon-components@^10.5.0:
+  version "10.5.0"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.5.0.tgz#f9d0d4da57b41ba958a30745cb4ada902e491345"
+  integrity sha512-ptsULtugjrrnj7rb2BYK3KAvNjbTdphh62OmOMNaLLswB7jA7S3rnXJrOOWt8o7PeEad3U0ewW49G9OlbpX+mg==
   dependencies:
     carbon-icons "^7.0.7"
     flatpickr "4.6.1"
@@ -8141,6 +8153,18 @@ gulp-sourcemaps@^2.6.0:
     strip-bom-string "1.X"
     through2 "2.X"
 
+gulp-typescript@^5.0.0:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/gulp-typescript/-/gulp-typescript-5.0.1.tgz#96c6565a6eb31e08c2aae1c857b1a079e6226d94"
+  integrity sha512-YuMMlylyJtUSHG1/wuSVTrZp60k1dMEFKYOvDf7OvbAJWrDtxxD4oZon4ancdWwzjj30ztiidhe4VXJniF0pIQ==
+  dependencies:
+    ansi-colors "^3.0.5"
+    plugin-error "^1.0.1"
+    source-map "^0.7.3"
+    through2 "^3.0.0"
+    vinyl "^2.1.0"
+    vinyl-fs "^3.0.3"
+
 gulp-util@^3.0.7:
   version "3.0.8"
   resolved "https://registry.npmjs.org/gulp-util/-/gulp-util-3.0.8.tgz#0054e1e744502e27c04c187c3ecc505dd54bbb4f"
@@ -10044,7 +10068,7 @@ lodash.tail@^4.1.1:
 
 lodash.template@^3.0.0:
   version "3.6.2"
-  resolved "https://registry.npmjs.org/lodash.template/-/lodash.template-3.6.2.tgz#f8cdecc6169a255be9098ae8b0c53d378931d14f"
+  resolved "https://registry.yarnpkg.com/lodash.template/-/lodash.template-3.6.2.tgz#f8cdecc6169a255be9098ae8b0c53d378931d14f"
   integrity sha1-+M3sxhaaJVvpCYrosMU9N4kx0U8=
   dependencies:
     lodash._basecopy "^3.0.0"
@@ -14962,7 +14986,7 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vinyl-fs@^3.0.0:
+vinyl-fs@^3.0.0, vinyl-fs@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/vinyl-fs/-/vinyl-fs-3.0.3.tgz#c85849405f67428feabbbd5c5dbdd64f47d31bc7"
   integrity sha512-vIu34EkyNyJxmP0jscNzWBSygh7VWhqun6RmqVfXePrOwi9lhvRs//dOaGOTRUQr4tx7/zd26Tk5WeSVZitgng==
@@ -15014,7 +15038,7 @@ vinyl@^0.5.0:
     clone-stats "^0.0.1"
     replace-ext "0.0.1"
 
-vinyl@^2.0.0:
+vinyl@^2.0.0, vinyl@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/vinyl/-/vinyl-2.2.0.tgz#d85b07da96e458d25b2ffe19fece9f2caa13ed86"
   integrity sha512-MBH+yP0kC/GQ5GwBqrTPTzEfiiLjta7hTtvQtbxBgTeSXsmKQRQecjibMbxIXzVT3Y9KJK+drOz1/k+vsu8Nkg==

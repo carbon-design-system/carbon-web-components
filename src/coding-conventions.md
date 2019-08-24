@@ -113,10 +113,10 @@ A component variant with different options can be created by creating a derived 
 
 #### Areas to make them configurable as component options
 
-| Area                                                                                                   | Example of component option (static property) name |
-| ------------------------------------------------------------------------------------------------------ | -------------------------------------------------- |
-| CSS selectors/classes used in imperative DOM API calls (Doing so allows overriding `.render()` method) | `selectorNonSelectedItem`                          |
-| [Custom event](#custom-events) names                                                                   | `eventBeforeSelect`                                |
+| Area                                                                                                   | Example of component option (static property) name | Remarks                                                                |
+| ------------------------------------------------------------------------------------------------------ | -------------------------------------------------- | ---------------------------------------------------------------------- |
+| CSS selectors/classes used in imperative DOM API calls (Doing so allows overriding `.render()` method) | `selectorNonSelectedItem`                          | An exception is where `lit-element`'s `@query` decorator is applicable |
+| [Custom event](#custom-events) names                                                                   | `eventBeforeSelect`                                |                                                                        |
 
 #### Areas where component optinos are _not_ applied
 
