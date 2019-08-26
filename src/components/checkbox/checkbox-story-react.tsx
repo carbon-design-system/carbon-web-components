@@ -2,27 +2,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
-import createReactCustomElementType, { booleanSerializer } from '../../globals/wrappers/createReactCustomElementType';
-import './checkbox';
-
-const BXCheckbox = createReactCustomElementType('bx-checkbox', {
-  checked: {
-    serialize: booleanSerializer,
-  },
-  disabled: {
-    serialize: booleanSerializer,
-  },
-  hideLabel: {
-    attribute: 'hide-label',
-    serialize: booleanSerializer,
-  },
-  indeterminate: {
-    serialize: booleanSerializer,
-  },
-  labelText: {
-    attribute: 'label-text',
-  },
-});
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// @ts-ignore
+import BXCheckbox from 'carbon-custom-elements/es/components-react/checkbox/checkbox';
 
 const createProps = () => ({
   checked: boolean('Checked (checked)', false),

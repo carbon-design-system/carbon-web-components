@@ -3,28 +3,32 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import Fade16 from '@carbon/icons-react/es/fade/16';
 import contentStyles from 'carbon-components/scss/components/ui-shell/_content.scss';
-import createReactCustomElementType, { booleanSerializer } from '../../globals/wrappers/createReactCustomElementType';
-import './side-nav';
-import './side-nav-items';
-import './side-nav-link';
-import './side-nav-menu';
-import './side-nav-menu-item';
-import './header';
-import './header-nav';
-import './header-nav-item';
-import './header-menu';
-import './header-menu-item';
-import './header-menu-button';
-import './header-name';
-
-const BXSideNav = createReactCustomElementType('bx-side-nav', {
-  expanded: {
-    serialize: booleanSerializer,
-  },
-  fixed: {
-    serialize: booleanSerializer,
-  },
-});
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// @ts-ignore
+import BXSideNav from 'carbon-custom-elements/es/components-react/ui-shell/side-nav';
+// @ts-ignore
+import BXSideNavItems from 'carbon-custom-elements/es/components-react/ui-shell/side-nav-items';
+// @ts-ignore
+import BXSideNavLink from 'carbon-custom-elements/es/components-react/ui-shell/side-nav-link';
+// @ts-ignore
+import BXSideNavMenu from 'carbon-custom-elements/es/components-react/ui-shell/side-nav-menu';
+// @ts-ignore
+import BXSideNavMenuItem from 'carbon-custom-elements/es/components-react/ui-shell/side-nav-menu-item';
+// @ts-ignore
+import BXHeader from 'carbon-custom-elements/es/components-react/ui-shell/header';
+// @ts-ignore
+import BXHeaderNav from 'carbon-custom-elements/es/components-react/ui-shell/header-nav';
+// @ts-ignore
+import BXHeaderNavItem from 'carbon-custom-elements/es/components-react/ui-shell/header-nav-item';
+// @ts-ignore
+import BXHeaderMenu from 'carbon-custom-elements/es/components-react/ui-shell/header-menu';
+// @ts-ignore
+import BXHeaderMenuItem from 'carbon-custom-elements/es/components-react/ui-shell/header-menu-item';
+// @ts-ignore
+import BXHeaderMenuButton from 'carbon-custom-elements/es/components-react/ui-shell/header-menu-button';
+// @ts-ignore
+import BXHeaderName from 'carbon-custom-elements/es/components-react/ui-shell/header-name';
 
 const StoryContent = () => (
   <>
@@ -85,27 +89,27 @@ storiesOf('UI Shell', module)
     return (
       <>
         <BXSideNav aria-label="Side navigation" expanded={expanded} fixed={fixed}>
-          <bx-side-nav-items>
-            <bx-side-nav-menu title="L0 menu">
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-            </bx-side-nav-menu>
-            <bx-side-nav-menu title="L0 menu">
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-              <bx-side-nav-menu-item active aria-current="page" href={href}>
+          <BXSideNavItems>
+            <BXSideNavMenu title="L0 menu">
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+            </BXSideNavMenu>
+            <BXSideNavMenu title="L0 menu">
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+              <BXSideNavMenuItem active aria-current="page" href={href}>
                 L0 menu item
-              </bx-side-nav-menu-item>
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-            </bx-side-nav-menu>
-            <bx-side-nav-menu title="L0 menu">
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-            </bx-side-nav-menu>
-            <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
-            <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
-          </bx-side-nav-items>
+              </BXSideNavMenuItem>
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+            </BXSideNavMenu>
+            <BXSideNavMenu title="L0 menu">
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+            </BXSideNavMenu>
+            <BXSideNavLink href="javascript:void(0)">L0 link</BXSideNavLink>
+            <BXSideNavLink href="javascript:void(0)">L0 link</BXSideNavLink>
+          </BXSideNavItems>
         </BXSideNav>
         {StoryContent()}
       </>
@@ -116,36 +120,36 @@ storiesOf('UI Shell', module)
     return (
       <>
         <BXSideNav aria-label="Side navigation" expanded={expanded} fixed={fixed}>
-          <bx-side-nav-items>
-            <bx-side-nav-menu title="L0 menu">
+          <BXSideNavItems>
+            <BXSideNavMenu title="L0 menu">
               <Fade16 slot="title-icon" />
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-            </bx-side-nav-menu>
-            <bx-side-nav-menu title="L0 menu">
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+            </BXSideNavMenu>
+            <BXSideNavMenu title="L0 menu">
               <Fade16 slot="title-icon" />
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-              <bx-side-nav-menu-item active aria-current="page" href={href}>
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+              <BXSideNavMenuItem active aria-current="page" href={href}>
                 L0 menu item
-              </bx-side-nav-menu-item>
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-            </bx-side-nav-menu>
-            <bx-side-nav-menu title="L0 menu">
+              </BXSideNavMenuItem>
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+            </BXSideNavMenu>
+            <BXSideNavMenu title="L0 menu">
               <Fade16 slot="title-icon" />
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-              <bx-side-nav-menu-item href={href}>L0 menu item</bx-side-nav-menu-item>
-            </bx-side-nav-menu>
-            <bx-side-nav-link href="javascript:void(0)">
-              <Fade16 slot="title-icon" />
-              L0 link
-            </bx-side-nav-link>
-            <bx-side-nav-link href="javascript:void(0)">
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+              <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+            </BXSideNavMenu>
+            <BXSideNavLink href="javascript:void(0)">
               <Fade16 slot="title-icon" />
               L0 link
-            </bx-side-nav-link>
-          </bx-side-nav-items>
+            </BXSideNavLink>
+            <BXSideNavLink href="javascript:void(0)">
+              <Fade16 slot="title-icon" />
+              L0 link
+            </BXSideNavLink>
+          </BXSideNavItems>
         </BXSideNav>
         {StoryContent()}
       </>
@@ -153,22 +157,22 @@ storiesOf('UI Shell', module)
   })
   .add('Header', () => (
     <>
-      <bx-header aria-label="IBM Platform Name">
-        <bx-header-menu-button button-label-active="Close menu" button-label-inactive="Open menu" />
-        <bx-header-name href="javascript:void 0" prefix="IBM">
+      <BXHeader aria-label="IBM Platform Name">
+        <BXHeaderMenuButton button-label-active="Close menu" button-label-inactive="Open menu" />
+        <BXHeaderName href="javascript:void 0" prefix="IBM">
           [Platform]
-        </bx-header-name>
-        <bx-header-nav menu-bar-label="IBM [Platform]">
-          <bx-header-nav-item href="javascript:void 0">Link 1</bx-header-nav-item>
-          <bx-header-nav-item href="javascript:void 0">Link 2</bx-header-nav-item>
-          <bx-header-nav-item href="javascript:void 0">Link 3</bx-header-nav-item>
-          <bx-header-menu menu-label="Link 4" trigger-content="Link 4">
-            <bx-header-menu-item href="javascript:void 0">Sub-link 1</bx-header-menu-item>
-            <bx-header-menu-item href="javascript:void 0">Sub-link 2</bx-header-menu-item>
-            <bx-header-menu-item href="javascript:void 0">Sub-link 3</bx-header-menu-item>
-          </bx-header-menu>
-        </bx-header-nav>
-      </bx-header>
+        </BXHeaderName>
+        <BXHeaderNav menu-bar-label="IBM [Platform]">
+          <BXHeaderNavItem href="javascript:void 0">Link 1</BXHeaderNavItem>
+          <BXHeaderNavItem href="javascript:void 0">Link 2</BXHeaderNavItem>
+          <BXHeaderNavItem href="javascript:void 0">Link 3</BXHeaderNavItem>
+          <BXHeaderMenu menu-label="Link 4" trigger-content="Link 4">
+            <BXHeaderMenuItem href="javascript:void 0">Sub-link 1</BXHeaderMenuItem>
+            <BXHeaderMenuItem href="javascript:void 0">Sub-link 2</BXHeaderMenuItem>
+            <BXHeaderMenuItem href="javascript:void 0">Sub-link 3</BXHeaderMenuItem>
+          </BXHeaderMenu>
+        </BXHeaderNav>
+      </BXHeader>
       {StoryContent()}
     </>
   ));

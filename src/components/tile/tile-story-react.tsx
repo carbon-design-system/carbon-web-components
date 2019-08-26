@@ -2,26 +2,21 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
-import createReactCustomElementType, { booleanSerializer } from '../../globals/wrappers/createReactCustomElementType';
-import './tile';
-import './clickable-tile';
-import './selectable-tile';
-
-const BXSelectableTile = createReactCustomElementType('bx-selectable-tile', {
-  checkmarkLabel: {
-    attribute: 'checkmark-label',
-  },
-  selected: {
-    serialize: booleanSerializer,
-  },
-});
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// @ts-ignore
+import BXTile from 'carbon-custom-elements/es/components-react/tile/tile';
+// @ts-ignore
+import BXClickableTile from 'carbon-custom-elements/es/components-react/tile/clickable-tile';
+// @ts-ignore
+import BXSelectableTile from 'carbon-custom-elements/es/components-react/tile/selectable-tile';
 
 const createClickableProps = () => ({
   href: text('Href for clickable UI (href)', ''),
 });
 
 const createSelectableProps = () => ({
-  checkmarkLabel: text('Label text for the checkmark icon (checkmark-label)', ''),
+  checkmarkLabel: text('Label text for the checkmark icon (checkmarkLabel)', ''),
   name: text('Name (name)', ''),
   selected: boolean('Selected (selected)', false),
   value: text('Value (value)', ''),
@@ -30,10 +25,10 @@ const createSelectableProps = () => ({
 
 storiesOf('Tile', module)
   .addDecorator(withKnobs)
-  .add('Default', () => <bx-tile>Default tile</bx-tile>)
+  .add('Default', () => <BXTile>Default tile</BXTile>)
   .add('Clickable', () => {
     const { href } = createClickableProps();
-    return <bx-clickable-tile href={href}>Clickable tile</bx-clickable-tile>;
+    return <BXClickableTile href={href}>Clickable tile</BXClickableTile>;
   })
   .add('Selectable', () => {
     const { checkmarkLabel, name, selected, value, onInput } = createSelectableProps();

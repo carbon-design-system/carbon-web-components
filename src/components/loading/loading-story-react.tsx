@@ -1,14 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs';
-import createReactCustomElementType, { booleanSerializer } from '../../globals/wrappers/createReactCustomElementType';
-import { LOADING_TYPE } from './loading';
-
-const BXLoading = createReactCustomElementType('bx-loading', {
-  inactive: {
-    serialize: booleanSerializer,
-  },
-});
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// @ts-ignore
+import BXLoading, { LOADING_TYPE } from 'carbon-custom-elements/es/components-react/loading/loading';
 
 const types = {
   [`Regular (${LOADING_TYPE.REGULAR})`]: LOADING_TYPE.REGULAR,
