@@ -94,6 +94,7 @@ export default class BXInput extends LitElement {
           ?data-invalid="${this.invalid}"
           ?disabled="${this.disabled}"
           form="${this.form}"
+          id="${this._id}"
           invalid="${this.invalid}"
           name="${this.name}"
           pattern="${this.pattern}"
