@@ -4,11 +4,11 @@
 /// @return {Map} A Carbon theme map whose valus are CSS custom properties.
 @function carbon-get-theme-map-with-custom-properties($theme-map: $carbon--theme) {
   $theme-map--with-custom-properties: ();
-  @each $key in map-keys($theme-map) {
+  @each $key, $value in $theme-map {
     $theme-map--with-custom-properties: map-merge(
       $theme-map--with-custom-properties,
       (
-        $key: var(--#{$key}),
+        $key: var(--#{$key}, $value),
       )
     );
   }

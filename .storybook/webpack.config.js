@@ -1,6 +1,6 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
-const deduper = require('postcss-discard-duplicates');
+const customProperties = require('postcss-custom-properties');
 
 const useExperimentalFeatures = process.env.CARBON_USE_EXPERIMENTAL_FEATURES !== 'false';
 const useCustomProperties = process.env.CARBON_CUSTOM_ELEMENTS_STORYBOOK_USE_CUSTOM_PROPERTIES === 'true';
@@ -127,7 +127,7 @@ module.exports = ({ config, mode }) => {
           loader: 'postcss-loader',
           options: {
             plugins: () => [
-              ...(!useCustomProperties ? [] : [deduper()]),
+              ...(!useCustomProperties ? [] : [customProperties()]),
               require('../postcss-fix-host-pseudo')(),
               require('autoprefixer')({
                 browsers: ['last 1 version', 'ie >= 11'],
@@ -136,39 +136,19 @@ module.exports = ({ config, mode }) => {
             sourceMap: useStyleSourceMap,
           },
         },
-        !useCustomProperties
-          ? {
-              loader: 'sass-loader',
-              options: sassOptions,
-            }
-          : {
-              loader: require.resolve('../multiple-instances-loader'),
-              options: {
-                instances: [
-                  {
-                    loader: 'sass-loader',
-                    options: {
-                      ...sassOptions,
-                      data: `
-                        @import '${path.resolve(__dirname, 'theme-chooser')}';
-                        ${sassOptions.data}
-                      `,
-                    },
-                  },
-                  {
-                    loader: 'sass-loader',
-                    options: {
-                      ...sassOptions,
-                      data: `
-                        $storybook--carbon--theme-name: 'custom-properties';
-                        @import '${path.resolve(__dirname, 'theme-chooser')}';
-                        ${sassOptions.data}
-                      `,
-                    },
-                  },
-                ],
+        {
+          loader: 'sass-loader',
+          options: !useCustomProperties
+            ? sassOptions
+            : {
+                ...sassOptions,
+                data: `
+              $storybook--carbon--theme-name: 'custom-properties';
+              @import '${path.resolve(__dirname, 'theme-chooser')}';
+              ${sassOptions.data}
+            `,
               },
-            },
+        },
       ],
     }
   );
