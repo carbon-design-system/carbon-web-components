@@ -1,4 +1,5 @@
 import on from 'carbon-components/es/globals/js/misc/on';
+import Handle from '../internal/handle';
 
 /**
  * The format for the event name used by `@HostListener` decorator.

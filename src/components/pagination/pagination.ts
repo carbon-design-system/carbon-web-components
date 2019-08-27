@@ -5,6 +5,7 @@ import CaretRight24 from '@carbon/icons/lib/caret--right/24';
 import settings from 'carbon-components/es/globals/js/settings';
 import on from 'carbon-components/es/globals/js/misc/on';
 import { forEach } from '../../globals/internal/collection-helpers';
+import Handle from '../../globals/internal/handle';
 import BXPagesSelect from './pages-select';
 import BXPageSizesSelect from './page-sizes-select';
 import styles from './pagination.scss';

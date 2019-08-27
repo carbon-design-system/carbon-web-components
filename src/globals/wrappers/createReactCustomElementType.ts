@@ -1,5 +1,6 @@
 import React, { Component, createElement, forwardRef } from 'react';
 import on from 'carbon-components/es/globals/js/misc/on';
+import Handle from '../internal/handle';
 
 /**
  * A descriptor for a React event prop of a custom element.
