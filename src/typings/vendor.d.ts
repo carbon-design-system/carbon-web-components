@@ -1,13 +1,4 @@
-/**
- * An object to keep track of things that can be cleaned up.
- */
-interface Handle {
-  /**
-   * Releases the thing that this object is keeping track of.
-   * For example, if this `Handle` is keeping track of an event listener, this `release()` method removes the event listener.
-   */
-  release(): null;
-}
+import Handle from '../globals/internal/handle';
 
 declare module 'carbon-components/es/globals/js/settings' {
   const settings: {

@@ -8,7 +8,7 @@ const { prefix } = settings;
 /**
  * The product name UI in header nav.
  */
-@customElement(`${prefix}-header-name` as any)
+@customElement(`${prefix}-header-name`)
 class BXHeaderName extends LitElement {
   /**
    * Link `href`. Corresponds to the attribute with the same name.

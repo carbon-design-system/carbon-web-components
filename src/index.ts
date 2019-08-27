@@ -1,6 +1,5 @@
 export { default as BXButton } from './components/button/button';
 export { default as BXClickableTile } from './components/tile/clickable-tile';
-export { default as BXDataTable } from './components/data-table/data-table';
 export { default as BXDropdown } from './components/dropdown/dropdown';
 export { default as BXDropdownItem } from './components/dropdown/dropdown-item';
 export { default as BXFormItem } from './components/form/form-item';

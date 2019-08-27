@@ -1,3 +1,5 @@
+A Carbon Design System variant that's as easy to use as native HTML elements, with no framework tax, no framework silo.
+
 <p align="center">
   <a href="https://www.carbondesignsystem.com">
     <img alt="Carbon Design System" src="https://user-images.githubusercontent.com/3901764/57545698-ce5f2380-7320-11e9-8682-903df232d7b0.png" width="100%" />
@@ -45,10 +47,11 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 2. `yarn install`
 3. `yarn storybook`
 
-## Running React/Angular demo
+## Running React/Angular/Vue demo
 
 - React: `yarn storybook:react` (Live demo: https://carbon-custom-elements-react.netlify.com/)
 - Angular: `yarn storybook:angular` (Live demo: https://carbon-custom-elements-angular.netlify.com/)
+- Vue: `yarn storybook:vue` (Live demo: https://carbon-custom-elements-vue.netlify.com/)
 
 ## List of available components
 

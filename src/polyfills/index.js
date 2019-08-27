@@ -7,6 +7,7 @@ import 'core-js/modules/es.symbol.js';
 import 'core-js/modules/es.symbol.iterator.js';
 import 'core-js/modules/es.array.includes.js';
 import 'core-js/modules/es.array.iterator.js';
+import 'core-js/modules/es.object.is.js'; // For src/globals/directives/spread.ts
 import 'core-js/modules/es.object.values.js';
 
 import './element-closest.js';

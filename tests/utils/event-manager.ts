@@ -1,4 +1,5 @@
 import on from 'carbon-components/es/globals/js/misc/on';
+import Handle from '../../src/globals/internal/handle';
 
 interface CustomEventListener {
   (evt: CustomEvent): void;

@@ -2,17 +2,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
-import createReactCustomElementType, { booleanSerializer } from '../../globals/wrappers/createReactCustomElementType';
-import { BUTTON_KIND } from './button';
-
-const BXBtn = createReactCustomElementType('bx-btn', {
-  disabled: {
-    serialize: booleanSerializer,
-  },
-  small: {
-    serialize: booleanSerializer,
-  },
-});
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// @ts-ignore
+import BXBtn, { BUTTON_KIND } from 'carbon-custom-elements/es/components-react/button/button';
 
 const kinds = {
   [`Primary button (${BUTTON_KIND.PRIMARY})`]: BUTTON_KIND.PRIMARY,

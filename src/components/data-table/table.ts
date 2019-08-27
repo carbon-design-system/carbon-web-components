@@ -36,7 +36,7 @@ export enum TABLE_SIZE {
 @customElement(`${prefix}-table`)
 class BXTable extends LitElement {
   /**
-   * `true` if the the table should use the compact version of the UI. Corresponds to the attribute with the same name.
+   * The table size. Corresponds to the attribute with the same name.
    */
   @property({ reflect: true })
   size = TABLE_SIZE.REGULAR;

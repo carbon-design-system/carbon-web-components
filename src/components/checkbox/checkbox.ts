@@ -77,7 +77,7 @@ class BXCheckbox extends LitElement {
   /**
    * The value. Corresponds to the attribute with the same name.
    */
-  @property({ type: String })
+  @property()
   value!: string;
 
   createRenderRoot() {

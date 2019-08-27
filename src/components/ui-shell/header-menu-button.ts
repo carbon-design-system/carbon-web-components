@@ -12,7 +12,7 @@ const { prefix } = settings;
 /**
  * The trigger button for side nav in header nav.
  */
-@customElement(`${prefix}-header-menu-button` as any)
+@customElement(`${prefix}-header-menu-button`)
 class BXHeaderMenuButton extends LitElement {
   private _handleClick() {
     const active = !this.active;

@@ -44,10 +44,12 @@ module.exports = {
     },
     {
       files: ['**/*-react.tsx'],
+      parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint', 'react'],
       rules: {
         'no-unused-vars': 0,
         '@typescript-eslint/no-unused-vars': 2,
+        'import/no-unresolved': [2, { ignore: ['^carbon-custom-elements/es/components-react/'] }],
         'react/jsx-uses-react': 2,
         'react/jsx-uses-vars': 2,
       },
