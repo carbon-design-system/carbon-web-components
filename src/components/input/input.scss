@@ -2,6 +2,6 @@ $css--plex: true !default;
 
 @import 'carbon-components/scss/components/text-input/text-input';
 
-:host {
+:host(#{$prefix}-input) {
   width: 100%;
 }

@@ -24,11 +24,22 @@ storiesOf('Input', module)
     props: createProps(knobs),
   }))
   .add('Form item', () => ({
-    template: `<bx-form-item [invalid]="invalid" [disabled]="disabled">
-        <span slot="label">Label text</span>
-        <span slot="help-text">Optional helper text</span>
-        <bx-input [value]="value" [placeholder]="placeholder" (input)="onInput()"></bx-input>
-        <span slot="validation">Something isn't right</span>
+    template: `
+      <bx-form-item>
+        <bx-input [value]="value" [placeholder]="placeholder" (input)="onInput()" [invalid]="invalid" [disabled]="disabled">
+          <span slot="label">Label text</span>
+          <span slot="help-text">Optional helper text</span>
+          <span slot="validation">Something isn't right</span>
+        </bx-input>
       </bx-form-item>`,
+    props: createProps(knobs),
+  }))
+  .add('Without form item wrapper', () => ({
+    template: `
+        <bx-input [value]="value" [placeholder]="placeholder" (input)="onInput()" [invalid]="invalid" [disabled]="disabled">
+          <span slot="label">Label text</span>
+          <span slot="help-text">Optional helper text</span>
+          <span slot="validation">Something isn't right</span>
+        </bx-input>`,
     props: createProps(knobs),
   }));

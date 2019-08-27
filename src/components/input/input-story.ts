@@ -5,7 +5,6 @@ import './input';
 import '../form/form-item';
 import { createProps } from './stories/helpers';
 
-
 storiesOf('Input', module)
   .addDecorator(knobs.withKnobs)
   .add('Default', () => {
@@ -24,11 +23,22 @@ storiesOf('Input', module)
   .add('Form item', () => {
     const { disabled, value, placeholder, invalid, onInput } = createProps(knobs);
     return html`
-      <bx-form-item ?invalid="${invalid}" ?disabled="${disabled}">
+      <bx-form-item>
+        <bx-input value="${value}" placeholder="${placeholder}" @input="${onInput}" ?invalid="${invalid}" ?disabled="${disabled}">
+          <span slot="label">Label text</span>
+          <span slot="help-text">Optional helper text</span>
+          <span slot="validation">Something isn't right</span>
+        </bx-input>
+      </bx-form-item>
+    `;
+  })
+  .add('Without form item wrapper', () => {
+    const { disabled, value, placeholder, invalid, onInput } = createProps(knobs);
+    return html`
+      <bx-input value="${value}" placeholder="${placeholder}" @input="${onInput}" ?invalid="${invalid}" ?disabled="${disabled}">
         <span slot="label">Label text</span>
         <span slot="help-text">Optional helper text</span>
-        <bx-input value="${value}" placeholder="${placeholder}" @input="${onInput}"></bx-input>
         <span slot="validation">Something isn't right</span>
-      </bx-form-item>
+      </bx-input>
     `;
   });

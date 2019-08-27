@@ -1,5 +1,6 @@
-import settings from 'carbon-components/es/globals/js/settings';
 import { customElement, LitElement, html, property } from 'lit-element';
+import classnames from 'classnames';
+import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import styles from './input.scss';
 
@@ -29,17 +30,14 @@ export default class BXInput extends LitElement {
   @property({ type: Boolean })
   autofocus = false;
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   disabled = false;
 
   @property()
   form = '';
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   invalid = false;
-
-  @property()
-  list = '';
 
   @property()
   name = '';
@@ -47,36 +45,56 @@ export default class BXInput extends LitElement {
   @property()
   pattern = '';
 
-  @property()
+  @property({ reflect: true })
   placeholder = '';
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   readonly = false;
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   required = false;
 
-  @property()
+  @property({ reflect: true })
   type = INPUT_TYPE.TEXT;
 
-  @property()
+  @property({ reflect: true })
   value = '';
+
+  /**
+   * Unique ID used for ID refs.
+   */
+  protected _id = Math.random()
+    .toString(36)
+    .slice(2);
 
   render() {
     const invalidIcon = WarningFilled16({ class: 'bx--text-input__invalid-icon' });
 
+    const inputClasses = classnames(`${prefix}--text-input`, {
+      [`${prefix}--text-input--invalid`]: this.invalid,
+    });
+
+    const labelClasses = classnames(`${prefix}--label`, {
+      [`${prefix}--label--disabled`]: this.disabled,
+    });
+
+    const helperTextClasses = classnames(`${prefix}--form__helper-text`, {
+      [`${prefix}--form__helper-text--disabled`]: this.disabled,
+    });
+
     return html`
-      <div class="${prefix}--text-input__field-wrapper">
+      <label class="${labelClasses}" for="${this._id}"><slot name="label"></slot></label>
+      <div class="${helperTextClasses}"><slot name="help-text"></slot></div>
+      <div class="${prefix}--text-input__field-wrapper" ?data-invalid="${this.invalid}">
         ${this.invalid ? invalidIcon : null}
         <input
           ?autocomplete="${this.autocomplete}"
           ?autofocus="${this.autofocus}"
-          class="${prefix}--text-input"
+          class="${inputClasses}"
           ?data-invalid="${this.invalid}"
           ?disabled="${this.disabled}"
           form="${this.form}"
           invalid="${this.invalid}"
-          list="${this.list}"
           name="${this.name}"
           pattern="${this.pattern}"
           placeholder="${this.placeholder}"
@@ -86,6 +104,7 @@ export default class BXInput extends LitElement {
           value="${this.value}"
         />
       </div>
+      <div class="bx--form-requirement"><slot name="validation"></slot></div>
     `;
   }
 

@@ -1,6 +1,5 @@
 import settings from 'carbon-components/es/globals/js/settings';
-import { customElement, LitElement, html, property } from 'lit-element';
-import classnames from 'classnames';
+import { customElement, LitElement, html } from 'lit-element';
 import styles from './form-item.scss';
 
 const { prefix } = settings;
@@ -10,64 +9,10 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-form-item`)
 export default class BXFormItem extends LitElement {
-  /**
-   * Sets the invalid state on the form item and slotted input
-   */
-  @property({ type: Boolean })
-  invalid = false;
-
-  /**
-   * Sets the disabled state on the form item and slotted input
-   */
-  @property({ type: Boolean })
-  disabled = false;
-
-  /**
-   * Unique ID used for ID refs.
-   */
-  protected _uniqueInputId = Math.random()
-    .toString(36)
-    .slice(2);
-
   render() {
-    const formControl = this.querySelector('*:not([slot])');
-    if (formControl) {
-      // pass down our generated id to link the label and form control
-      formControl.setAttribute('id', this._uniqueInputId);
-
-      // pass down the invalid state
-      if (this.invalid) {
-        formControl.setAttribute('invalid', '');
-      } else {
-        formControl.removeAttribute('invalid');
-      }
-
-      // pass down the disabled state
-      if (this.disabled) {
-        formControl.setAttribute('disabled', '');
-      } else {
-        formControl.removeAttribute('disabled');
-      }
-    }
-
-    const formItemClasses = classnames('bx--form-item', {
-      'bx-ce--invalid': this.invalid,
-    });
-
-    const labelClasses = classnames(`${prefix}--label`, {
-      [`${prefix}--label--disabled`]: this.disabled,
-    });
-
-    const helperTextClasses = classnames(`${prefix}--form__helper-text`, {
-      [`${prefix}--form__helper-text--disabled`]: this.disabled,
-    });
-
     return html`
-      <div class="${formItemClasses}">
-        <label class="${labelClasses}" for="${this._uniqueInputId}"><slot name="label"></slot></label>
-        <div class="${helperTextClasses}"><slot name="help-text"></slot></div>
+      <div class="bx--form-item">
         <slot></slot>
-        <div class="bx--form-requirement"><slot name="validation"></slot></div>
       </div>
     `;
   }
