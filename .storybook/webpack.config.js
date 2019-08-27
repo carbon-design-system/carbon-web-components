@@ -3,20 +3,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 const customProperties = require('postcss-custom-properties');
 
 const useExperimentalFeatures = process.env.CARBON_USE_EXPERIMENTAL_FEATURES !== 'false';
-const useCustomProperties = process.env.CARBON_CUSTOM_ELEMENTS_STORYBOOK_USE_CUSTOM_PROPERTIES === 'true';
 const useStyleSourceMap = process.env.CARBON_CUSTOM_ELEMENTS_STORYBOOK_USE_STYLE_SOURCEMAP === 'true';
 
 module.exports = ({ config, mode }) => {
-  const sassOptions = {
-    includePaths: [path.resolve(__dirname, '..', 'node_modules')],
-    data: `
-      $feature-flags: (
-        grid: ${useExperimentalFeatures},
-      );
-    `,
-    sourceMap: useStyleSourceMap,
-  };
-
   config.devtool = useStyleSourceMap ? 'source-map' : '';
 
   if (mode === 'PRODUCTION') {
@@ -127,7 +116,7 @@ module.exports = ({ config, mode }) => {
           loader: 'postcss-loader',
           options: {
             plugins: () => [
-              ...(!useCustomProperties ? [] : [customProperties()]),
+              customProperties(),
               require('../postcss-fix-host-pseudo')(),
               require('autoprefixer')({
                 browsers: ['last 1 version', 'ie >= 11'],
@@ -138,16 +127,17 @@ module.exports = ({ config, mode }) => {
         },
         {
           loader: 'sass-loader',
-          options: !useCustomProperties
-            ? sassOptions
-            : {
-                ...sassOptions,
-                data: `
+          options: {
+            includePaths: [path.resolve(__dirname, '..', 'node_modules')],
+            data: `
               $storybook--carbon--theme-name: 'custom-properties';
               @import '${path.resolve(__dirname, 'theme-chooser')}';
-              ${sassOptions.data}
+              $feature-flags: (
+                grid: ${useExperimentalFeatures},
+              );
             `,
-              },
+            sourceMap: useStyleSourceMap,
+          },
         },
       ],
     }
