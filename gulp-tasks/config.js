@@ -23,15 +23,9 @@ module.exports = {
   cloptions,
   srcDir: 'src',
   iconsDir: path.dirname(require.resolve('@carbon/icons/lib')),
-  destDir: 'dist',
   jsDestDir: 'es',
   viewsDir: 'views',
   testsDir: 'tests',
   jsDocDir: 'docs/js',
   tasksDir: 'gulp-tasks',
-  bundle: {
-    'carbon-custom-elements': 'index.ts',
-    'carbon-custom-elements-polyfills': 'polyfills/index.js',
-    'carbon-custom-elements-with-polyfills': 'index-with-polyfills.ts',
-  },
 };

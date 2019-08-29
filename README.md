@@ -29,14 +29,13 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Getting started with development](#getting-started-with-development)
-- [Running React/Angular demo](#running-reactangular-demo)
+- [Running React/Angular/Vue demo](#running-reactangularvue-demo)
 - [List of available components](#list-of-available-components)
 - [Browser support](#browser-support)
 - [Coding conventions](#coding-conventions)
 - [Iteration plans](#iteration-plans)
 - [Creating build](#creating-build)
-  - [Trying out the bundled build](#trying-out-the-bundled-build)
-  - [Trying out the ESM build in CodeSandbox](#trying-out-the-esm-build-in-codesandbox)
+  - [Trying out the build in CodeSandbox](#trying-out-the-build-in-codesandbox)
 - [Running unit test](#running-unit-test)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -83,46 +82,20 @@ Can be found at [here](./src/coding-conventions.md).
 > gulp build
 ```
 
-You'll see the build artifacts in `/path/to/carbon-custom-elements/es` (ESM build) and `/path/to/carbon-custom-elements/public` (bundled build) directories.
+You'll see the build artifacts in `/path/to/carbon-custom-elements/es` directory.
 
-### Trying out the bundled build
-
-1. Fork this repo
-2. Run `yarn install`
-3. Run `gulp build:bundle`
-4. Create a directory somewhere
-5. Copy `/path/to/carbon-custom-elements/public/carbon-custom-elements-with-polyfills.js` the created directory
-6. Create a HTML like below and put it to the same directory, open it in browser, and you'll see the Carbon button! 🎉
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <script type="text/javascript" src="./carbon-custom-elements-with-polyfills.js"></script>
-    <style type="text/css">
-      body {
-        font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
-      }
-    </style>
-  </head>
-  <body>
-    <bx-btn>Foo</bx-btn>
-  </body>
-</html>
-```
-
-### Trying out the ESM build in CodeSandbox
+### Trying out the build in CodeSandbox
 
 1. Fork this repo
 2. Run `yarn install`
-3. Run `gulp build:modules`
+3. Run `gulp build`
 4. Go to https://codesandbox.io/s/
 5. Select Vanilla
 6. Add dependencies (with Add Dependency button) to add the following
    - `lit-html` (Latest)
    - `lit-element` (Latest)
    - `classnames` (Latest)
-   - `carbon-components` (`10.3.x`)
+   - `carbon-components` (`10.5.x`)
 7. Add the following to the CodeSandbox (e.g. to `src` directory)
    - `/path/to/carbon-custom-elements/es/components/button/button.js`
    - `/path/to/carbon-custom-elements/es/components/button/button.css.js`

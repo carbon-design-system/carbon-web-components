@@ -2,7 +2,6 @@
 
 const path = require('path');
 const gulp = require('gulp');
-const gulpif = require('gulp-if');
 const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const sass = require('gulp-sass');
@@ -14,16 +13,11 @@ const through2 = require('through2');
 const log = require('fancy-log');
 const autoprefixer = require('autoprefixer');
 const replaceExtension = require('replace-ext');
-const { rollup } = require('rollup');
-const rollupConfigDev = require('../rollup.config.dev');
-const rollupConfigProd = require('../rollup.config.prod');
 const babelPluginCreateReactCustomElementType = require('../babel-plugin-create-react-custom-element-type');
 const babelPluginResourceJSPaths = require('../babel-plugin-resource-js-paths');
 const createSVGResultFromCarbonIcon = require('../tools/svg-result-carbon-icon');
 
 const config = require('./config');
-
-const buildProd = process.env.NODE_ENV === config.ENV_PRODUCTION;
 
 module.exports = {
   modules: {
@@ -54,7 +48,7 @@ module.exports = {
         .pipe(
           sass({
             includePaths: ['node_modules'],
-            outputStyle: !buildProd ? 'nested' : 'compressed',
+            outputStyle: 'compressed',
           }).on('error', sass.logError)
         )
         .pipe(
@@ -108,7 +102,7 @@ module.exports = {
           `!${config.srcDir}/index-with-polyfills.ts`,
         ])
         .pipe(plumber())
-        .pipe(gulpif(!buildProd, sourcemaps.init()))
+        .pipe(sourcemaps.init())
         .pipe(
           babel({
             presets: [
@@ -125,7 +119,7 @@ module.exports = {
           })
         )
         .on('error', log)
-        .pipe(gulpif(!buildProd, sourcemaps.write()))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(config.jsDestDir));
     },
 
@@ -151,28 +145,5 @@ module.exports = {
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.jsDestDir));
     },
-  },
-
-  bundle() {
-    const suffix = !buildProd ? '.js' : '.min.js';
-    return Promise.all(
-      Object.keys(config.bundle).map(moduleName =>
-        rollup(
-          Object.assign(buildProd ? rollupConfigProd : rollupConfigDev, {
-            input: path.join(config.srcDir, config.bundle[moduleName]),
-          })
-        ).then(bundle =>
-          bundle.write({
-            format: 'iife',
-            moduleName,
-            output: {
-              name: 'CarbonCustomElements',
-              file: path.join(config.destDir, moduleName + suffix),
-            },
-            sourceMap: true,
-          })
-        )
-      )
-    );
   },
 };
