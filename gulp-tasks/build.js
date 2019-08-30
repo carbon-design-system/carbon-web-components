@@ -95,11 +95,10 @@ module.exports = {
     scripts() {
       return gulp
         .src([
-          `${config.srcDir}/**/*.ts`,
+          `${config.srcDir}/**/*.{js,ts}`,
           `!${config.srcDir}/**/*-story*.ts*`,
           `!${config.srcDir}/**/stories/*.ts`,
           `!${config.srcDir}/**/*.d.ts`,
-          `!${config.srcDir}/index-with-polyfills.ts`,
         ])
         .pipe(plumber())
         .pipe(sourcemaps.init())
@@ -126,12 +125,7 @@ module.exports = {
     types() {
       const tsProject = typescript.createProject(path.resolve(__dirname, '../tsconfig.json'));
       const { dts } = gulp
-        .src([
-          `${config.srcDir}/**/*.ts`,
-          `!${config.srcDir}/**/*-story*.ts*`,
-          `!${config.srcDir}/**/stories/**/*.ts*`,
-          `!${config.srcDir}/index-with-polyfills.ts`,
-        ])
+        .src([`${config.srcDir}/**/*.ts`, `!${config.srcDir}/**/*-story*.ts*`, `!${config.srcDir}/**/stories/**/*.ts*`])
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(tsProject());
