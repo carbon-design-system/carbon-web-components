@@ -35,14 +35,14 @@ class BXSearch extends LitElement {
   /**
    * Unique ID used for ID refs.
    */
-  protected _uniqueId = Math.random()
+  private _uniqueId = Math.random()
     .toString(36)
     .slice(2);
 
   /**
    * The element ID for the search box.
    */
-  protected get _inputId() {
+  private get _inputId() {
     const { id: elementId, _uniqueId: uniqueId } = this;
     return `__bx-ce-search_${elementId || uniqueId}`;
   }
