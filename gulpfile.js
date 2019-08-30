@@ -21,9 +21,7 @@ gulp.task(
     gulp.task('build:modules:types')
   )
 );
-// TODO: Consider removing build:modules:sass dependency
-gulp.task('build:bundle', gulp.series('build:modules:sass', build.bundle));
-gulp.task('build', gulp.parallel(gulp.task('build:modules'), gulp.task('build:bundle')));
+gulp.task('build', gulp.task('build:modules'));
 
 gulp.task('clean', clean);
 
