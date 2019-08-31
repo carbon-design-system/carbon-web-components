@@ -57,6 +57,12 @@ class BXAccordionItem extends LitElement {
   @property({ type: Boolean, reflect: true })
   open = false;
 
+  /**
+   * The title text. Corresponds to `title-text` attribute.
+   */
+  @property({ attribute: 'title-text' })
+  titleText = '';
+
   connectedCallback() {
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'listitem');
@@ -67,6 +73,7 @@ class BXAccordionItem extends LitElement {
   render() {
     const {
       expandoAssistiveText,
+      titleText,
       open,
       _handleClickExpando: handleClickExpando,
       _handleKeydownExpando: handleKeydownExpando,
@@ -84,7 +91,7 @@ class BXAccordionItem extends LitElement {
           class: `${prefix}--accordion__arrow`,
           'aria-label': expandoAssistiveText,
         })}
-        <div class="${prefix}--accordion__title"><slot name="title"></slot></div>
+        <div class="${prefix}--accordion__title"><slot name="title">${titleText}</slot></div>
       </button>
       <div class="${prefix}--accordion__content"><slot></slot></div>
     `;

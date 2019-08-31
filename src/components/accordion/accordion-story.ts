@@ -7,7 +7,7 @@ import './accordion-item';
 
 const createProps = () => ({
   open: boolean('Open the section (open)', false),
-  title: text('The title (title)', 'Section title'),
+  titleText: text('The title (title-text)', 'Section title'),
   disableToggle: boolean(
     'Disable user-initiated toggle action (Call event.preventDefault() in bx-accordion-beingtoggled event)',
     false
@@ -17,7 +17,7 @@ const createProps = () => ({
 storiesOf('Accordion', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const { open, title, disableToggle } = createProps();
+    const { open, titleText, disableToggle } = createProps();
     const beforeToggleAction = action('bx-accordion-item-beingtoggled');
     const handleBeforeToggle = (event: CustomEvent) => {
       beforeToggleAction(event);
@@ -30,26 +30,24 @@ storiesOf('Accordion', module)
         @bx-accordion-item-beingtoggled="${handleBeforeToggle}"
         @bx-accordion-item-toggled="${action('bx-accordion-item-toggled')}"
       >
-        <bx-accordion-item ?open="${open}">
+        <bx-accordion-item ?open="${open}" title-text=${titleText}>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
             aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
-          <span slot="title">${title}</span>
+        </bx-accordion-item>
+        <bx-accordion-item ?open="${open}" title-text=${titleText}>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
         </bx-accordion-item>
         <bx-accordion-item ?open="${open}">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
             aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
-          <span slot="title">${title}</span>
-        </bx-accordion-item>
-        <bx-accordion-item ?open="${open}">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-          <span slot="title">${title}</span>
+          <span slot="title">${titleText}</span>
         </bx-accordion-item>
       </bx-accordion>
     `;
