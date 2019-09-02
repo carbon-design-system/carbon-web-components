@@ -21,15 +21,13 @@ describe('bx-loading', function() {
     it('should choose the right template for small type', async function() {
       elem!.setAttribute('type', LOADING_TYPE.SMALL);
       await Promise.resolve();
-      expect(elem!.shadowRoot!.querySelectorAll('.bx--loading--small').length).toBe(1);
-      expect(elem!.shadowRoot!.querySelectorAll('.bx--loading-overlay').length).toBe(0);
+      expect(elem!.shadowRoot!.querySelectorAll('.bx--loading').length).toBe(0);
     });
 
     it('should choose the right template for overlay type', async function() {
       elem!.setAttribute('type', LOADING_TYPE.OVERLAY);
       await Promise.resolve();
-      expect(elem!.shadowRoot!.querySelectorAll('.bx--loading--small').length).toBe(0);
-      expect(elem!.shadowRoot!.querySelectorAll('.bx--loading-overlay').length).toBe(1);
+      expect(elem!.shadowRoot!.querySelectorAll('.bx--loading').length).toBe(1);
     });
 
     afterEach(function() {
@@ -45,6 +43,7 @@ describe('bx-loading', function() {
 
     beforeAll(function() {
       elem = document.body.appendChild(document.createElement('bx-loading'));
+      elem.setAttribute('type', LOADING_TYPE.OVERLAY);
     });
 
     it('should deactivate when inactive attribute is set', async function() {
