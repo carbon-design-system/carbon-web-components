@@ -12,19 +12,19 @@ const { prefix } = settings;
 @customElement(`${prefix}-checkbox`)
 class BXCheckbox extends LitElement {
   @query('input')
-  _checkboxNode!: HTMLInputElement;
+  private _checkboxNode!: HTMLInputElement;
 
   /**
    * Unique ID used for ID refs.
    */
-  protected _uniqueId = Math.random()
+  private _uniqueId = Math.random()
     .toString(36)
     .slice(2);
 
   /**
    * The element ID for the check box.
    */
-  protected get _checkboxId() {
+  private get _checkboxId() {
     const { id: elementId, _uniqueId: uniqueId } = this;
     return `__bx-ce-selectable-tile_${elementId || uniqueId}`;
   }
