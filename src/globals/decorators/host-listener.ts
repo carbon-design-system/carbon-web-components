@@ -1,4 +1,13 @@
 /**
+ * @license
+ *
+ * Copyright IBM Corp. 2019
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
  * Puts an event listener to an internal table for `@HostListener()`.
  * @param type
  *   The event type. Can be prefixed with `document:` or `window:`.

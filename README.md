@@ -78,8 +78,8 @@ Can be found at [here](./src/coding-conventions.md).
 ## Creating build
 
 ```
-> gulp clean
-> gulp build
+> yarn clean
+> yarn build
 ```
 
 You'll see the build artifacts in `/path/to/carbon-custom-elements/es` directory.
