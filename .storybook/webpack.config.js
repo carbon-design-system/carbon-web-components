@@ -1,22 +1,20 @@
+/**
+ * @license
+ *
+ * Copyright IBM Corp. 2019
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
-const deduper = require('postcss-discard-duplicates');
+const customProperties = require('postcss-custom-properties');
 
 const useExperimentalFeatures = process.env.CARBON_USE_EXPERIMENTAL_FEATURES !== 'false';
-const useCustomProperties = process.env.CARBON_CUSTOM_ELEMENTS_STORYBOOK_USE_CUSTOM_PROPERTIES === 'true';
 const useStyleSourceMap = process.env.CARBON_CUSTOM_ELEMENTS_STORYBOOK_USE_STYLE_SOURCEMAP === 'true';
 
 module.exports = ({ config, mode }) => {
-  const sassOptions = {
-    includePaths: [path.resolve(__dirname, '..', 'node_modules')],
-    data: `
-      $feature-flags: (
-        grid: ${useExperimentalFeatures},
-      );
-    `,
-    sourceMap: useStyleSourceMap,
-  };
-
   config.devtool = useStyleSourceMap ? 'source-map' : '';
 
   if (mode === 'PRODUCTION') {
@@ -127,7 +125,7 @@ module.exports = ({ config, mode }) => {
           loader: 'postcss-loader',
           options: {
             plugins: () => [
-              ...(!useCustomProperties ? [] : [deduper()]),
+              customProperties(),
               require('../postcss-fix-host-pseudo')(),
               require('autoprefixer')({
                 browsers: ['last 1 version', 'ie >= 11'],
@@ -136,44 +134,25 @@ module.exports = ({ config, mode }) => {
             sourceMap: useStyleSourceMap,
           },
         },
-        !useCustomProperties
-          ? {
-              loader: 'sass-loader',
-              options: sassOptions,
-            }
-          : {
-              loader: require.resolve('../multiple-instances-loader'),
-              options: {
-                instances: [
-                  {
-                    loader: 'sass-loader',
-                    options: {
-                      ...sassOptions,
-                      data: `
-                        @import '${path.resolve(__dirname, 'theme-chooser')}';
-                        ${sassOptions.data}
-                      `,
-                    },
-                  },
-                  {
-                    loader: 'sass-loader',
-                    options: {
-                      ...sassOptions,
-                      data: `
-                        $storybook--carbon--theme-name: 'custom-properties';
-                        @import '${path.resolve(__dirname, 'theme-chooser')}';
-                        ${sassOptions.data}
-                      `,
-                    },
-                  },
-                ],
-              },
-            },
+        {
+          loader: 'sass-loader',
+          options: {
+            includePaths: [path.resolve(__dirname, '..', 'node_modules')],
+            data: `
+              $storybook--carbon--theme-name: 'custom-properties';
+              @import '${path.resolve(__dirname, 'theme-chooser')}';
+              $feature-flags: (
+                grid: ${useExperimentalFeatures},
+              );
+            `,
+            sourceMap: useStyleSourceMap,
+          },
+        },
       ],
     }
   );
 
-  config.resolve.extensions.push('.ts');
+  config.resolve.extensions.push('.ts', '.d.ts');
 
   return config;
 };

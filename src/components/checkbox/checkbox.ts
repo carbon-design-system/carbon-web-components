@@ -1,3 +1,12 @@
+/**
+ * @license
+ *
+ * Copyright IBM Corp. 2019
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import classnames from 'classnames';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, query, customElement, LitElement } from 'lit-element';
@@ -12,19 +21,19 @@ const { prefix } = settings;
 @customElement(`${prefix}-checkbox`)
 class BXCheckbox extends LitElement {
   @query('input')
-  _checkboxNode!: HTMLInputElement;
+  private _checkboxNode!: HTMLInputElement;
 
   /**
    * Unique ID used for ID refs.
    */
-  protected _uniqueId = Math.random()
+  private _uniqueId = Math.random()
     .toString(36)
     .slice(2);
 
   /**
    * The element ID for the check box.
    */
-  protected get _checkboxId() {
+  private get _checkboxId() {
     const { id: elementId, _uniqueId: uniqueId } = this;
     return `__bx-ce-selectable-tile_${elementId || uniqueId}`;
   }

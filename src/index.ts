@@ -1,3 +1,12 @@
+/**
+ * @license
+ *
+ * Copyright IBM Corp. 2019
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 export { default as BXButton } from './components/button/button';
 export { default as BXClickableTile } from './components/tile/clickable-tile';
 export { default as BXDropdown } from './components/dropdown/dropdown';

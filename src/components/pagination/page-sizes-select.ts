@@ -1,3 +1,12 @@
+/**
+ * @license
+ *
+ * Copyright IBM Corp. 2019
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import settings from 'carbon-components/es/globals/js/settings';
@@ -11,19 +20,19 @@ const { prefix } = settings;
 @customElement(`${prefix}-page-sizes-select`)
 class BXPageSizesSelect extends LitElement {
   @query('select')
-  protected _selectNode!: HTMLSelectElement;
+  private _selectNode!: HTMLSelectElement;
 
   /**
    * Unique ID used for ID refs.
    */
-  protected _uniqueId = Math.random()
+  private _uniqueId = Math.random()
     .toString(36)
     .slice(2);
 
   /**
    * The element ID for the select box.
    */
-  protected get _selectId() {
+  private get _selectId() {
     const { id: elementId, _uniqueId: uniqueId } = this;
     return `__bx-ce-page-sizes-select_${elementId || uniqueId}`;
   }
@@ -31,7 +40,7 @@ class BXPageSizesSelect extends LitElement {
   /**
    * Handles `change` event on the `<select>` to select page size.
    */
-  protected _handleChange({ target }: Event) {
+  private _handleChange({ target }: Event) {
     const value = Number((target as HTMLSelectElement).value);
     this.dispatchEvent(
       new CustomEvent((this.constructor as typeof BXPageSizesSelect).eventAfterChange, {
@@ -49,7 +58,7 @@ class BXPageSizesSelect extends LitElement {
    * Handles `slotchange` event for the `<slot>` for `<options>`.
    * @param event The event.
    */
-  protected _handleSlotChange({ target }: Event) {
+  private _handleSlotChange({ target }: Event) {
     const { _selectNode: selectNode } = this;
     while (selectNode.firstChild) {
       selectNode.removeChild(selectNode.firstChild);

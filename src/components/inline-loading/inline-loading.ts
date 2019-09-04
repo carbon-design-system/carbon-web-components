@@ -1,8 +1,19 @@
+/**
+ * @license
+ *
+ * Copyright IBM Corp. 2019
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import { html, property, customElement, LitElement } from 'lit-element';
 import classnames from 'classnames';
 import CheckmarkFilled16 from '@carbon/icons/lib/checkmark--filled/16';
 import Error20 from '@carbon/icons/lib/error/20';
 import settings from 'carbon-components/es/globals/js/settings';
+import LOADING_TYPE from '../loading/types';
+import getLoadingIcon from '../loading/loading-icon';
 import styles from './inline-loading.scss';
 
 const { prefix } = settings;
@@ -58,10 +69,7 @@ class BXInlineLoading extends LitElement {
       });
       return html`
         <div class="${classes}">
-          <svg class="${prefix}--loading__svg" viewBox="-75 -75 150 150">
-            <circle class="${prefix}--loading__background" cx="0" cy="0" r="37.5" />
-            <circle class="${prefix}--loading__stroke" cx="0" cy="0" r="37.5" />
-          </svg>
+          ${getLoadingIcon({ type: LOADING_TYPE.SMALL })}
         </div>
       `;
     }
