@@ -1,9 +1,18 @@
+/**
+ * @license
+ *
+ * Copyright IBM Corp. 2019
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import { html } from 'lit-element';
 import { storiesOf } from '@storybook/polymer';
 import * as knobs from '@storybook/addon-knobs';
 import './input';
 import '../form/form-item';
-import { createProps } from './stories/helpers';
+import createProps from './stories/helpers';
 
 storiesOf('Input', module)
   .addDecorator(knobs.withKnobs)
@@ -25,9 +34,9 @@ storiesOf('Input', module)
     return html`
       <bx-form-item>
         <bx-input value="${value}" placeholder="${placeholder}" @input="${onInput}" ?invalid="${invalid}" ?disabled="${disabled}">
-          <span slot="label">Label text</span>
-          <span slot="help-text">Optional helper text</span>
-          <span slot="validation">Something isn't right</span>
+          <span slot="label-text">Label text</span>
+          <span slot="helper-text">Optional helper text</span>
+          <span slot="validity-message">Something isn't right</span>
         </bx-input>
       </bx-form-item>
     `;
@@ -36,9 +45,9 @@ storiesOf('Input', module)
     const { disabled, value, placeholder, invalid, onInput } = createProps(knobs);
     return html`
       <bx-input value="${value}" placeholder="${placeholder}" @input="${onInput}" ?invalid="${invalid}" ?disabled="${disabled}">
-        <span slot="label">Label text</span>
-        <span slot="help-text">Optional helper text</span>
-        <span slot="validation">Something isn't right</span>
+        <span slot="label-text">Label text</span>
+        <span slot="helper-text">Optional helper text</span>
+        <span slot="validity-message">Something isn't right</span>
       </bx-input>
     `;
   });
