@@ -19,9 +19,11 @@
     - [Translation](#translation)
     - [Collation](#collation)
   - [Null checks](#null-checks)
+  - [Updating view upon change in `private`/`protected` properties](#updating-view-upon-change-in-privateprotected-properties)
   - [CSS considerations with IE11](#css-considerations-with-ie11)
   - [Custom element registration](#custom-element-registration)
   - [Propagating misc attributes from shadow host to an element in shadow DOM](#propagating-misc-attributes-from-shadow-host-to-an-element-in-shadow-dom)
+  - [Private properties](#private-properties)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -208,3 +210,7 @@ It may not be desirable in two scenarios:
 Some components, e.g. `<bx-btn>`, simply represent the content in shadow DOM, e.g. `<button>` in it. It's sometimes desiable for applications to have control of attributes in `<button>`, for example, adding `data-` attributes there.
 
 In such case, we let consumer create a derived class. For example, its `.attributeChangedCallback()` can propagate `<bx-btn>`'s attribute to `<button>` in it.
+
+## Private properties
+
+This codebase tends to make all component class/instance properties `private` unless they serve API purpose. This codebase makes some of them `protected` to support inherited components.

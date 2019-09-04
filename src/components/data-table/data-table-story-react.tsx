@@ -1,3 +1,12 @@
+/**
+ * @license
+ *
+ * Copyright IBM Corp. 2019
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import PropTypes from 'prop-types';
 import React, { useCallback, useMemo, useState } from 'react';
 import { storiesOf } from '@storybook/react';

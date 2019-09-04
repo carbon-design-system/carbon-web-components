@@ -1,3 +1,12 @@
+/**
+ * @license
+ *
+ * Copyright IBM Corp. 2019
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import classnames from 'classnames';
 import { html, property, customElement, LitElement } from 'lit-element';
 import CaretLeft24 from '@carbon/icons/lib/caret--left/24';
@@ -20,17 +29,17 @@ class BXPagination extends LitElement {
   /**
    * The handle for the listener of `${prefix}-pages-select-changed` event.
    */
-  protected _hChangePage: Handle | null = null;
+  private _hChangePage: Handle | null = null;
 
   /**
    * The handle for the listener of `${prefix}-page-sizes-select-changed` event.
    */
-  protected _hChangePageSize: Handle | null = null;
+  private _hChangePageSize: Handle | null = null;
 
   /**
    * @returns Page status text.
    */
-  protected _renderStatusText() {
+  private _renderStatusText() {
     const { start, pageSize, total, formatStatusWithDeterminateTotal, formatStatusWithIndeterminateTotal } = this;
     const end = start + pageSize - 1;
     const format = typeof total === 'undefined' ? formatStatusWithIndeterminateTotal : formatStatusWithDeterminateTotal;
@@ -42,7 +51,7 @@ class BXPagination extends LitElement {
    * Handles user-initiated change in the row number the current page starts with.
    * @param start The new current row number, index that starts with zero.
    */
-  protected _handleUserInitiatedChangeStart(start: number) {
+  private _handleUserInitiatedChangeStart(start: number) {
     this.start = start;
     this.dispatchEvent(
       new CustomEvent((this.constructor as typeof BXPagination).eventAfterChangeCurrent, {
@@ -58,7 +67,7 @@ class BXPagination extends LitElement {
   /**
    * Handles `click` event on the previous button.
    */
-  protected _handleClickPrevButton() {
+  private _handleClickPrevButton() {
     const { start: oldStart, pageSize } = this;
     this._handleUserInitiatedChangeStart(Math.max(oldStart - pageSize, 0));
   }
@@ -66,7 +75,7 @@ class BXPagination extends LitElement {
   /**
    * Handles `click` event on the next button.
    */
-  protected _handleClickNextButton() {
+  private _handleClickNextButton() {
     const { start: oldStart, pageSize, total } = this;
     this._handleUserInitiatedChangeStart(Math.min(oldStart + pageSize, typeof total === 'undefined' ? Infinity : total - 1));
   }
@@ -75,7 +84,7 @@ class BXPagination extends LitElement {
    * Handles user-initiated change in current page.
    * @param event The event.
    */
-  protected _handleChangePage({ detail }: CustomEvent) {
+  private _handleChangePage({ detail }: CustomEvent) {
     const { value } = detail;
     const { pageSize } = this;
     this._handleUserInitiatedChangeStart(value * pageSize);
@@ -85,7 +94,7 @@ class BXPagination extends LitElement {
    * Handles user-initiated change in number of rows per page.
    * @param event The event.
    */
-  protected _handleChangePageSize({ detail }: CustomEvent) {
+  private _handleChangePageSize({ detail }: CustomEvent) {
     this.pageSize = detail.value;
   }
 
