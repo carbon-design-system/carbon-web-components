@@ -152,7 +152,7 @@ module.exports = ({ config, mode }) => {
     }
   );
 
-  config.resolve.extensions.push('.ts', '.d.ts');
+  config.resolve.extensions.push('.ts');
 
   return config;
 };
