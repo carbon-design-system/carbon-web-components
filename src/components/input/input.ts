@@ -1,3 +1,12 @@
+/**
+ * @license
+ *
+ * Copyright IBM Corp. 2019
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import { customElement, LitElement, html, property } from 'lit-element';
 import classnames from 'classnames';
 import settings from 'carbon-components/es/globals/js/settings';
@@ -24,6 +33,9 @@ export enum INPUT_TYPE {
  */
 @customElement(`${prefix}-input`)
 export default class BXInput extends LitElement {
+  /**
+   * May be any of the standard HTML autocomplete options
+   */
   @property()
   autocomplete = '';
 
@@ -33,11 +45,23 @@ export default class BXInput extends LitElement {
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
+  /**
+   * The helper text. Corresponds to `helper-text` attribute.
+   */
+  @property({ attribute: 'helper-text' })
+  helperText = '';
+
   @property()
-  form = '';
+  id = '';
 
   @property({ type: Boolean, reflect: true })
   invalid = false;
+
+  /**
+   * The label text. Corresponds to `label-text` attribute.
+   */
+  @property({ attribute: 'label-text' })
+  labelText = '';
 
   @property()
   name = '';
@@ -51,24 +75,44 @@ export default class BXInput extends LitElement {
   @property({ type: Boolean, reflect: true })
   readonly = false;
 
+  /**
+   * Boolean property to set the required status
+   */
   @property({ type: Boolean, reflect: true })
   required = false;
 
+  /**
+   * The type of the input. Can be one of the types listed in the INPUT_TYPE enum
+   */
   @property({ reflect: true })
   type = INPUT_TYPE.TEXT;
 
+  /**
+   * The validity message. Corresponds to `validity-message` attribute.
+   * If present and non-empty, this multi select shows the UI of its invalid state.
+   */
+  @property({ attribute: 'validity-message' })
+  validityMessage = '';
+
+  /**
+   * The value of the input.
+   */
   @property({ reflect: true })
   value = '';
 
   /**
    * Unique ID used for ID refs.
    */
-  protected _id = Math.random()
+  protected _uniqueId = Math.random()
     .toString(36)
     .slice(2);
 
+  protected get _inputId() {
+    return this.id || this._uniqueId;
+  }
+
   render() {
-    const invalidIcon = WarningFilled16({ class: 'bx--text-input__invalid-icon' });
+    const invalidIcon = WarningFilled16({ class: `${prefix}--text-input__invalid-icon` });
 
     const inputClasses = classnames(`${prefix}--text-input`, {
       [`${prefix}--text-input--invalid`]: this.invalid,
@@ -83,8 +127,16 @@ export default class BXInput extends LitElement {
     });
 
     return html`
-      <label class="${labelClasses}" for="${this._id}"><slot name="label"></slot></label>
-      <div class="${helperTextClasses}"><slot name="help-text"></slot></div>
+      <label class="${labelClasses}" for="${this._uniqueId}">
+        <slot name="label-text">
+          ${this.labelText}
+        </slot>
+      </label>
+      <div class="${helperTextClasses}">
+        <slot name="helper-text">
+          ${this.helperText}
+        </slot>
+      </div>
       <div class="${prefix}--text-input__field-wrapper" ?data-invalid="${this.invalid}">
         ${this.invalid ? invalidIcon : null}
         <input
@@ -93,8 +145,7 @@ export default class BXInput extends LitElement {
           class="${inputClasses}"
           ?data-invalid="${this.invalid}"
           ?disabled="${this.disabled}"
-          form="${this.form}"
-          id="${this._id}"
+          id="${this._inputId}"
           invalid="${this.invalid}"
           name="${this.name}"
           pattern="${this.pattern}"
@@ -105,7 +156,11 @@ export default class BXInput extends LitElement {
           value="${this.value}"
         />
       </div>
-      <div class="bx--form-requirement"><slot name="validation"></slot></div>
+      <div class="${prefix}--form-requirement">
+        <slot name="validity-message">
+          ${this.validityMessage}
+        </slot>
+      </div>
     `;
   }
 
