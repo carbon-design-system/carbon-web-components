@@ -41,10 +41,10 @@ class BXPagination extends LitElement {
    */
   private _renderStatusText() {
     const { start, pageSize, total, formatStatusWithDeterminateTotal, formatStatusWithIndeterminateTotal } = this;
-    const end = start + pageSize - 1;
+    const end = Math.min(start + pageSize, total);
     const format = typeof total === 'undefined' ? formatStatusWithIndeterminateTotal : formatStatusWithDeterminateTotal;
     // `start`/`end` properties starts with zero, whereas we want to show number starting with 1
-    return format({ start: start + 1, end: end + 1, total });
+    return format({ start: start + 1, end, total });
   }
 
   /**
