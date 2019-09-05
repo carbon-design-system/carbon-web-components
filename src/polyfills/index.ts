@@ -19,10 +19,10 @@ import 'core-js/modules/es.array.iterator.js';
 import 'core-js/modules/es.object.is.js'; // For src/globals/directives/spread.ts
 import 'core-js/modules/es.object.values.js';
 
-import './element-closest.js';
-import './element-matches.js';
-import './toggle-attribute.js';
-import './toggle-class.js';
+import './element-closest';
+import './element-matches';
+import './toggle-attribute';
+import './toggle-class';
 
 import 'es6-promise/auto'; // eslint-disable-line import/first
 
