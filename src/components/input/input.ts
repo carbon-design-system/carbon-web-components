@@ -127,7 +127,7 @@ export default class BXInput extends LitElement {
     });
 
     return html`
-      <label class="${labelClasses}" for="${this._uniqueId}">
+      <label class="${labelClasses}" for="${this._inputId}">
         <slot name="label-text">
           ${this.labelText}
         </slot>
