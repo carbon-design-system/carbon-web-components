@@ -8,11 +8,11 @@
  */
 
 if (typeof Element.prototype.closest !== 'function') {
-  Element.prototype.closest = function closestElement(selector) {
+  Element.prototype.closest = function closestElement(selector: string) {
     const doc = this.ownerDocument;
-    for (let traverse = this; traverse && traverse !== doc; traverse = traverse.parentNode) {
-      if (traverse.nodeType === Node.ELEMENT_NODE && traverse.matches(selector)) {
-        return traverse;
+    for (let traverse: Node | null = this; traverse && traverse !== doc; traverse = traverse.parentNode) {
+      if (traverse.nodeType === Node.ELEMENT_NODE && (traverse as Element).matches(selector)) {
+        return traverse as Element;
       }
     }
     return null;

@@ -8,7 +8,7 @@
  */
 
 if (!Element.prototype.toggleAttribute) {
-  Element.prototype.toggleAttribute = function toggleAttribute(name, force) {
+  Element.prototype.toggleAttribute = function toggleAttribute(name: string, force?: boolean) {
     const oldState = Boolean(this.hasAttribute(name));
     const newState = typeof force !== 'undefined' ? Boolean(force) : !oldState;
     if (oldState !== newState) {
