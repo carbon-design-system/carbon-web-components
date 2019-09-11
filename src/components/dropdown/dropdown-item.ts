@@ -19,6 +19,12 @@ const { prefix } = settings;
 @customElement(`${prefix}-dropdown-item`)
 class BXDropdownItem extends LitElement {
   /**
+   * `true` if this dropdown item should be disabled. Corresponds to the attribute with the same name.
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
    * `true` if this dropdown item should be highlighted. Corresponds to the attribute with the same name.
    * If `true`, parent `<dropdown>` selects/deselects this dropdown item upon keyboard interaction.
    */

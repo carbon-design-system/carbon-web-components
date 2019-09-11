@@ -115,7 +115,8 @@ describe('bx-dropdown', function() {
 
     it('should provide a way to switch item with a value', async function() {
       (elem as BXDropdown).value = 'value-1';
-      await Promise.resolve();
+      await Promise.resolve(); // Update cycle for `<bx-dropdown>`
+      await Promise.resolve(); // Update cycle for `<bx-dropdown-item>`
       expect(itemNodes[0].hasAttribute('selected')).toBe(false);
       expect(itemNodes[1].hasAttribute('selected')).toBe(true);
     });

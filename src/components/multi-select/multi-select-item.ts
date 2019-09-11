@@ -28,29 +28,10 @@ class BXMultiSelectItem extends BXDropdownItem {
     .slice(2);
 
   /**
-   * `true` if this multi select should be disabled. Corresponds to the attribute with the same name.
-   */
-  @property({ type: Boolean, reflect: true })
-  disabled = false;
-
-  /**
    * The `name` attribute for the `<input>` for selection. Corresponds to `selection-name` attribute.
    */
   @property({ attribute: 'selection-name' })
   selectionName = '';
-
-  connectedCallback() {
-    const list = this.closest((this.constructor as typeof BXMultiSelectItem).selectorList);
-    if (list) {
-      // Propagate `disabled` attribute from `<multi-select>` until `:host-context()` gets supported in all major browsers
-      if (!list.hasAttribute('disabled')) {
-        this.removeAttribute('disabled');
-      } else {
-        this.setAttribute('disabled', list.getAttribute('disabled')!);
-      }
-    }
-    super.connectedCallback();
-  }
 
   render() {
     const { id: elementId, disabled, selected, selectionName, value } = this;

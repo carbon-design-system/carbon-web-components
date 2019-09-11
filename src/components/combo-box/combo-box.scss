@@ -29,7 +29,7 @@ $css--plex: true !default;
   display: block;
 }
 
-:host(#{$prefix}-combo-box-item[disabled]) {
+:host(#{$prefix}-combo-box-item[disabled]) .#{$prefix}--list-box__menu-item__option {
   color: $disabled-02;
   text-decoration: none;
 }
