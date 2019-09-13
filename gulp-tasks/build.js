@@ -27,6 +27,7 @@ const through2 = require('through2');
 const log = require('fancy-log');
 const stripComments = require('strip-comments');
 const autoprefixer = require('autoprefixer');
+const customProperties = require('postcss-custom-properties');
 const replaceExtension = require('replace-ext');
 const babelPluginCreateReactCustomElementType = require('../babel-plugin-create-react-custom-element-type');
 const babelPluginResourceJSPaths = require('../babel-plugin-resource-js-paths');
@@ -70,6 +71,12 @@ module.exports = {
         gulp
           .src(`${config.srcDir}/**/*.scss`)
           .pipe(
+            header(`
+              $storybook--carbon--theme-name: 'custom-properties';
+              @import '${path.resolve(__dirname, '../src/globals/scss/theme-chooser')}';
+          `)
+          )
+          .pipe(
             sass({
               includePaths: ['node_modules'],
               outputStyle: 'compressed',
@@ -77,6 +84,7 @@ module.exports = {
           )
           .pipe(
             postcss([
+              customProperties(),
               autoprefixer({
                 // TODO: Optimize for modern browsers here
                 browsers: ['last 1 version', 'Firefox ESR', 'ie >= 11'],
