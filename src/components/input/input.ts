@@ -39,9 +39,15 @@ export default class BXInput extends LitElement {
   @property()
   autocomplete = '';
 
+  /**
+   * Sets the input to be focussed automatically on page load. Defaults to false
+   */
   @property({ type: Boolean })
   autofocus = false;
 
+  /**
+   * Controls the disabled state of the input
+   */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
@@ -51,9 +57,15 @@ export default class BXInput extends LitElement {
   @property({ attribute: 'helper-text' })
   helperText = '';
 
+  /**
+   * ID to link the `label` and `input`
+   */
   @property()
   id = '';
 
+  /**
+   * Controls the invalid state and visibility of the `validityMessage`
+   */
   @property({ type: Boolean, reflect: true })
   invalid = false;
 
@@ -63,15 +75,27 @@ export default class BXInput extends LitElement {
   @property({ attribute: 'label-text' })
   labelText = '';
 
+  /**
+   * Name for the input in the `FormData`
+   */
   @property()
   name = '';
 
+  /**
+   * Pattern to validate the input against for HTML validity checking
+   */
   @property()
   pattern = '';
 
+  /**
+   * Value to display when the input has an empty `value`
+   */
   @property({ reflect: true })
   placeholder = '';
 
+  /**
+   * Controls the readonly state of the input
+   */
   @property({ type: Boolean, reflect: true })
   readonly = false;
 
@@ -127,7 +151,7 @@ export default class BXInput extends LitElement {
     });
 
     return html`
-      <label class="${labelClasses}" for="${this._uniqueId}">
+      <label class="${labelClasses}" for="${this._inputId}">
         <slot name="label-text">
           ${this.labelText}
         </slot>
@@ -146,7 +170,6 @@ export default class BXInput extends LitElement {
           ?data-invalid="${this.invalid}"
           ?disabled="${this.disabled}"
           id="${this._inputId}"
-          invalid="${this.invalid}"
           name="${this.name}"
           pattern="${this.pattern}"
           placeholder="${this.placeholder}"
