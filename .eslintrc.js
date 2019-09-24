@@ -1,3 +1,12 @@
+/**
+ * @license
+ *
+ * Copyright IBM Corp. 2019
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 'use strict';
 
 const restrictedGlobals = require('eslint-restricted-globals');
@@ -28,7 +37,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.ts', '.d.ts'],
+        extensions: ['.ts'],
       },
     },
   },
@@ -52,6 +61,29 @@ module.exports = {
         'import/no-unresolved': [2, { ignore: ['^carbon-custom-elements/es/components-react/'] }],
         'react/jsx-uses-react': 2,
         'react/jsx-uses-vars': 2,
+      },
+    },
+    {
+      files: ['examples/codesandbox/**/*.js', 'examples/codesandbox/**/*.ts'],
+      parserOptions: {
+        sourceType: 'module',
+      },
+      rules: {
+        'import/no-unresolved': 0,
+      },
+    },
+    {
+      files: ['examples/codesandbox/react/**/*.js'],
+      plugins: ['react'],
+      rules: {
+        'react/jsx-uses-react': 2,
+        'react/jsx-uses-vars': 2,
+      },
+    },
+    {
+      files: ['examples/codesandbox/**/*.config.js'],
+      parserOptions: {
+        sourceType: 'script',
       },
     },
   ],

@@ -1,0 +1,41 @@
+{
+  "name": "carbon-custom-elements-vue-getting-started",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "carbon-components": "~10.5.0",
+    "carbon-custom-elements": "^0.1.0",
+    "classnames": "^2.2.0",
+    "lit-element": "^2.1.0",
+    "lit-html": "^1.1.0",
+    "lodash.findlast": "^4.6.0",
+    "vue": "^2.5.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "3.6.0",
+    "@vue/cli-plugin-eslint": "3.6.0",
+    "@vue/cli-service": "3.6.0",
+    "babel-eslint": "^10.0.0",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-eslint-parser": "^6.0.0",
+    "vue-template-compiler": "^2.5.0"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
+  "eslintConfig": {
+    "parser": "vue-eslint-parser",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    }
+  }
+}

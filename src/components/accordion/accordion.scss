@@ -1,0 +1,22 @@
+//
+// Copyright IBM Corp. 2019
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+$css--plex: true !default;
+
+@import 'carbon-components/scss/components/accordion/accordion';
+
+:host(#{$prefix}-accordion) {
+  @extend .#{$prefix}--accordion;
+}
+
+:host(#{$prefix}-accordion-item) {
+  @extend .#{$prefix}--accordion__item;
+}
+
+:host(#{$prefix}-accordion-item[open]) {
+  @extend .#{$prefix}--accordion__item--active;
+}

@@ -140,7 +140,7 @@ module.exports = ({ config, mode }) => {
             includePaths: [path.resolve(__dirname, '..', 'node_modules')],
             data: `
               $storybook--carbon--theme-name: 'custom-properties';
-              @import '${path.resolve(__dirname, 'theme-chooser')}';
+              @import '${path.resolve(__dirname, '../src/globals/scss/theme-chooser')}';
               $feature-flags: (
                 grid: ${useExperimentalFeatures},
               );
@@ -152,7 +152,7 @@ module.exports = ({ config, mode }) => {
     }
   );
 
-  config.resolve.extensions.push('.ts', '.d.ts');
+  config.resolve.extensions.push('.ts');
 
   return config;
 };
