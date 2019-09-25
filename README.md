@@ -28,17 +28,116 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+- [Getting started](#getting-started)
+  - [Basic usage](#basic-usage)
+  - [Angular](#angular)
+  - [React](#react)
+  - [Vue](#vue)
 - [Getting started with development](#getting-started-with-development)
-- [Running React/Angular/Vue demo](#running-reactangularvue-demo)
+- [Running React/Angular/Vue Storybook demo](#running-reactangularvue-storybook-demo)
 - [List of available components](#list-of-available-components)
 - [Browser support](#browser-support)
 - [Coding conventions](#coding-conventions)
 - [Iteration plans](#iteration-plans)
 - [Creating build](#creating-build)
-  - [Trying out the build in CodeSandbox](#trying-out-the-build-in-codesandbox)
 - [Running unit test](#running-unit-test)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Getting started
+
+To install `carbon-custom-elements` in your project, you will need to run the
+following command using [npm](https://www.npmjs.com/):
+
+```bash
+npm install -S carbon-custom-elements carbon-components lit-html lit-element classnames lodash.findlast @babel/runtime
+```
+
+If you prefer [Yarn](https://yarnpkg.com/en/), use the following command
+instead:
+
+```bash
+yarn add carbon-custom-elements carbon-components lit-html lit-element classnames lodash.findlast @babel/runtime
+```
+
+### Basic usage
+
+Our example at [CodeSandbox](https://codesandbox.io) shows the most basic usage:
+
+[![Edit carbon-custom-elements](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/basic)
+
+The first thing you need is **setting up a module bundler** to resolve ECMAScript `import`s. Above example uses [Parcel](https://parceljs.org). You can use other bundlers like [Rollup](https://rollupjs.org/)/[Webpack](https://webpack.js.org), too.
+
+Once you set up a module bundler, you can start importing our component modules, like:
+
+```javascript
+import 'carbon-custom-elements/es/components/dropdown/dropdown';
+import 'carbon-custom-elements/es/components/dropdown/dropdown-item';
+```
+
+Once you do that, you can use our components in the same manner as native HTML tags, like:
+
+```html
+<bx-dropdown trigger-content="Select an item">
+  <bx-dropdown-item value="all">Option 1</bx-dropdown-item>
+  <bx-dropdown-item value="cloudFoundry">Option 2</bx-dropdown-item>
+  <bx-dropdown-item value="staging">Option 3</bx-dropdown-item>
+  <bx-dropdown-item value="dea">Option 4</bx-dropdown-item>
+  <bx-dropdown-item value="router">Option 5</bx-dropdown-item>
+</bx-dropdown>
+```
+
+### Angular
+
+[![Edit carbon-custom-elements with Angular](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/angular)
+
+Angular users can use our components in the same manner as native HTML tags, too, once you add [`CUSTOM_ELEMENTS_SCHEMA`](https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA) schema to your Angular module, like:
+
+```javascript
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  declarations: [AppComponent],
+  imports: [BrowserModule],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+### React
+
+[![Edit carbon-custom-elements with React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/react)
+
+You can use wrapper React components in `carbon-custom-elements/es/components-react` that allows you to use our components seamlessly from your React code. Here's an example:
+
+```javascript
+import React from 'react';
+import { render } from 'react-dom';
+import BXDropdown from 'carbon-custom-elements/es/components-react/dropdown/dropdown';
+import BXDropdownItem from 'carbon-custom-elements/es/components-react/dropdown/dropdown-item';
+
+const App = () => (
+  <BXDropdown triggerContent="Select an item">
+    <BXDropdownItem value="all">Option 1</BXDropdownItem>
+    <BXDropdownItem value="cloudFoundry">Option 2</BXDropdownItem>
+    <BXDropdownItem value="staging">Option 3</BXDropdownItem>
+    <BXDropdownItem value="dea">Option 4</BXDropdownItem>
+    <BXDropdownItem value="router">Option 5</BXDropdownItem>
+  </BXDropdown>
+);
+
+render(<App />, document.getElementById('root'));
+```
+
+### Vue
+
+[![Edit carbon-custom-elements with Vue](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/vue)
+
+Vue users can use our components in the same manner as native HTML tags, without any additional steps!
 
 ## Getting started with development
 
@@ -46,7 +145,7 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 2. `yarn install`
 3. `yarn storybook`
 
-## Running React/Angular/Vue demo
+## Running React/Angular/Vue Storybook demo
 
 - React: `yarn storybook:react` (Live demo: https://carbon-custom-elements-react.netlify.com/)
 - Angular: `yarn storybook:angular` (Live demo: https://carbon-custom-elements-angular.netlify.com/)
@@ -64,6 +163,15 @@ View available web components at: https://carbon-custom-elements.netlify.com/. Y
 - Latest Chrome/Safari/FF ESR
 - IE/Edge support is bast-effort basis
   - Some components may not be supported
+
+To support IE, you need a couple additional setups:
+
+- Toolstack to re-transpile our cose to ES5 (e.g. by specifying IE11 in [`@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env) configuration)
+- Polyfills, listed [here](https://github.com/carbon-design-system/carbon-custom-elements/blob/master/src/polyfills/index.ts)
+
+Here's an example code that shows such setup:
+
+[![Edit carbon-custom-elements with IE](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/ie)
 
 ## Coding conventions
 
@@ -83,25 +191,6 @@ Can be found at [here](./src/coding-conventions.md).
 ```
 
 You'll see the build artifacts in `/path/to/carbon-custom-elements/es` directory.
-
-### Trying out the build in CodeSandbox
-
-1. Fork this repo
-2. Run `yarn install`
-3. Run `gulp build`
-4. Go to https://codesandbox.io/s/
-5. Select Vanilla
-6. Add dependencies (with Add Dependency button) to add the following
-   - `lit-html` (Latest)
-   - `lit-element` (Latest)
-   - `classnames` (Latest)
-   - `carbon-components` (`10.5.x`)
-7. Add the following to the CodeSandbox (e.g. to `src` directory)
-   - `/path/to/carbon-custom-elements/es/components/button/button.js`
-   - `/path/to/carbon-custom-elements/es/components/button/button.css.js`
-8. Go to `src/index.js` in the CodeSandbox and add something like `import "./button.js"`
-9. Go to `index.html` in the CodeSandbox and add `<bx-btn>Foo</bx-btn>`
-10. Reload the demo and you'll see the Carbon button! 🎉
 
 ## Running unit test
 
@@ -133,6 +222,12 @@ You can prevent code coverate instrumentation code from being generated by:
 
 ```
 > gulp test:unit -d
+```
+
+You can update snapshots by:
+
+```
+> gulp test:unit --update-snapshot
 ```
 
 Above options can be used together. This is useful to debug your code as you test:
