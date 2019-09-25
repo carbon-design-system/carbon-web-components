@@ -11,6 +11,7 @@ import settings from 'carbon-components/es/globals/js/settings';
 import { property, customElement, LitElement } from 'lit-element';
 import OverflowMenuVertical16 from '@carbon/icons/lib/overflow-menu--vertical/16';
 import HostListener from '../../globals/decorators/host-listener';
+import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import { find } from '../../globals/internal/collection-helpers';
 import BXFloatingMenu from '../floating-menu/floating-menu';
@@ -23,7 +24,7 @@ const { prefix } = settings;
  * Overflow menu.
  */
 @customElement(`${prefix}-overflow-menu`)
-class BXOverflowMenu extends HostListenerMixin(LitElement) implements BXFloatingMenuTrigger {
+class BXOverflowMenu extends HostListenerMixin(FocusMixin(LitElement)) implements BXFloatingMenuTrigger {
   /**
    * The menu body.
    */

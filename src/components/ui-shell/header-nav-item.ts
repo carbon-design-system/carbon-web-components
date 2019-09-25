@@ -10,6 +10,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, customElement, LitElement } from 'lit-element';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './header.scss';
 
 const { prefix } = settings;
@@ -18,7 +19,7 @@ const { prefix } = settings;
  * Header nav item.
  */
 @customElement(`${prefix}-header-nav-item`)
-class BXHeaderNavItem extends LitElement {
+class BXHeaderNavItem extends FocusMixin(LitElement) {
   /**
    * Link `href`. Corresponds to the attribute with the same name.
    */

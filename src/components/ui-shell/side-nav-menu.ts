@@ -8,7 +8,7 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import { html, property, customElement, LitElement } from 'lit-element';
+import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown20 from '@carbon/icons/lib/chevron--down/20';
 import { filter, forEach } from '../../globals/internal/collection-helpers';
 import styles from './side-nav.scss';
@@ -37,6 +37,12 @@ class BXSideNavMenu extends LitElement {
   private _hasIcon = false;
 
   /**
+   * The container for the title icon.
+   */
+  @query('#title-icon-container')
+  private _titleIconContainerNode!: HTMLDivElement;
+
+  /**
    * Handles `click` event on the expando button.
    */
   private _handleClickExpando() {
@@ -63,7 +69,7 @@ class BXSideNavMenu extends LitElement {
     const constructor = this.constructor as typeof BXSideNavMenu;
     const hasIcon = target.assignedNodes().length > 0;
     this._hasIcon = hasIcon;
-    this.shadowRoot!.getElementById('title-icon-container')!.toggleAttribute('hidden', !hasIcon);
+    this._titleIconContainerNode!.toggleAttribute('hidden', !hasIcon);
     forEach(this.querySelectorAll(constructor.selectorItem), item => {
       item.toggleAttribute(constructor.attribItemHasIcon, hasIcon);
     });

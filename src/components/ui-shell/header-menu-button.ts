@@ -13,6 +13,7 @@ import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, customElement, LitElement } from 'lit-element';
 import Close20 from '@carbon/icons/lib/close/20';
 import Menu20 from '@carbon/icons/lib/menu/20';
+import FocusMixin from '../../globals/mixins/focus';
 import { forEach } from '../../globals/internal/collection-helpers';
 import styles from './header.scss';
 
@@ -22,7 +23,7 @@ const { prefix } = settings;
  * The trigger button for side nav in header nav.
  */
 @customElement(`${prefix}-header-menu-button`)
-class BXHeaderMenuButton extends LitElement {
+class BXHeaderMenuButton extends FocusMixin(LitElement) {
   private _handleClick() {
     const active = !this.active;
     this.active = !active;

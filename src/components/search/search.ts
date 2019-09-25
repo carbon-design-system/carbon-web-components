@@ -14,6 +14,7 @@ import Close16 from '@carbon/icons/lib/close/16';
 import Close20 from '@carbon/icons/lib/close/20';
 import Search16 from '@carbon/icons/lib/search/16';
 import settings from 'carbon-components/es/globals/js/settings';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './search.scss';
 
 const { prefix } = settings;
@@ -37,7 +38,7 @@ export enum SEARCH_SIZE {
  * Search box.
  */
 @customElement(`${prefix}-search`)
-class BXSearch extends LitElement {
+class BXSearch extends FocusMixin(LitElement) {
   @query('input')
   private _inputNode!: HTMLInputElement;
 
