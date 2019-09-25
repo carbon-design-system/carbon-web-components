@@ -1,0 +1,6 @@
+last 1 version
+Firefox ESR
+not opera > 0
+not android > 0
+not edge > 0
+not ie > 0

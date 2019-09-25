@@ -25,14 +25,23 @@ function normalizeBrowser(browser) {
 }
 
 module.exports = function setupKarma(config) {
-  const { browsers, collectCoverage, specs, random, useExperimentalFeatures, verbose } = config.customConfig;
+  const {
+    browsers,
+    collectCoverage,
+    noPruneShapshot,
+    specs,
+    random,
+    updateSnapshot,
+    useExperimentalFeatures,
+    verbose,
+  } = config.customConfig;
 
   config.set({
     basePath: '..',
 
     browsers: (browsers.length > 0 ? browsers : ['ChromeHeadless']).map(normalizeBrowser),
 
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'snapshot'],
 
     client: {
       jasmine: {
@@ -40,12 +49,16 @@ module.exports = function setupKarma(config) {
       },
     },
 
-    files: ['src/polyfills/index.js'].concat(specs.length > 0 ? specs : ['tests/karma-test-shim.js']),
+    files: ['src/polyfills/index.js', 'tests/utils/snapshot.js', 'tests/snapshots/**/*.md'].concat(
+      specs.length > 0 ? specs : ['tests/karma-test-shim.js']
+    ),
 
     preprocessors: {
       'src/**/*.[jt]s': ['webpack'], // For generatoring coverage report for untested files
       'tests/karma-test-shim.js': ['webpack'],
       'tests/spec/**/*.ts': ['webpack'],
+      'tests/utils/**/*.js': ['webpack'],
+      'tests/snapshots/**/*.md': ['snapshot'],
     },
 
     webpack: {
@@ -152,6 +165,7 @@ module.exports = function setupKarma(config) {
       require('karma-spec-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('karma-webpack'),
+      require('karma-snapshot'),
       require('karma-chrome-launcher'),
       require('karma-firefox-launcher'),
       require('karma-safari-launcher'),
@@ -166,6 +180,14 @@ module.exports = function setupKarma(config) {
       combineBrowserReports: true,
       fixWebpackSourcePaths: true,
       verbose,
+    },
+
+    snapshot: {
+      prune: !noPruneShapshot,
+      update: updateSnapshot,
+      pathResolver(basePath, suiteName) {
+        return path.resolve(basePath, `tests/snapshots/${suiteName}.md`);
+      },
     },
 
     port: 9876,
