@@ -9,7 +9,7 @@
 
 import settings from 'carbon-components/es/globals/js/settings';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { html, property, customElement, LitElement } from 'lit-element';
+import { html, property, query, customElement, LitElement } from 'lit-element';
 import CheckmarkFilled16 from '@carbon/icons/lib/checkmark--filled/16';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
@@ -87,13 +87,19 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
   private _radioButtonDelegate = new StructuredListRowRadioButtonDelegate(this);
 
   /**
+   * The hidden radio button.
+   */
+  @query('#input')
+  private _inputNode!: HTMLInputElement;
+
+  /**
    * Handles `click` event on this element.
    */
   @HostListener('click')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleClick = () => {
-    const input = this.shadowRoot!.getElementById('input') as HTMLInputElement;
-    if (input) {
+    const { _inputNode: inputNode } = this;
+    if (inputNode) {
       this.selected = true;
       if (this._manager) {
         this._manager.select(this._radioButtonDelegate);
@@ -107,9 +113,9 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
   @HostListener('keydown')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleKeydown = (event: KeyboardEvent) => {
-    const input = this.shadowRoot!.getElementById('input') as HTMLInputElement;
+    const { _inputNode: inputNode } = this;
     const manager = this._manager;
-    if (input && manager) {
+    if (inputNode && manager) {
       const navigationDirection = navigationDirectionForKey[event.key];
       if (navigationDirection) {
         manager.select(manager.navigate(this._radioButtonDelegate, navigationDirection));
