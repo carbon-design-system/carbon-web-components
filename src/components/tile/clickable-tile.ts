@@ -10,6 +10,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { html, property, customElement, LitElement } from 'lit-element';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './tile.scss';
 
 const { prefix } = settings;
@@ -18,7 +19,7 @@ const { prefix } = settings;
  * Clickable tile.
  */
 @customElement(`${prefix}-clickable-tile`)
-class BXClickableTile extends LitElement {
+class BXClickableTile extends FocusMixin(LitElement) {
   /**
    * Link `href`. Corresponds to the attribute with the same name.
    */

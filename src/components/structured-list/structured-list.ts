@@ -10,6 +10,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { html, property, customElement, LitElement } from 'lit-element';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './structured-list.scss';
 
 const { prefix } = settings;
@@ -18,7 +19,7 @@ const { prefix } = settings;
  * Structured list wrapper.
  */
 @customElement(`${prefix}-structured-list`)
-class BXStructuredList extends LitElement {
+class BXStructuredList extends FocusMixin(LitElement) {
   /**
    * `true` if border should be used. Corresponds to the attribute with the same name.
    */

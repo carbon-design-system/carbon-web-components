@@ -11,6 +11,7 @@ import classnames from 'classnames';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './checkbox.scss';
 
 const { prefix } = settings;
@@ -19,7 +20,7 @@ const { prefix } = settings;
  * Check box.
  */
 @customElement(`${prefix}-checkbox`)
-class BXCheckbox extends LitElement {
+class BXCheckbox extends FocusMixin(LitElement) {
   @query('input')
   private _checkboxNode!: HTMLInputElement;
 

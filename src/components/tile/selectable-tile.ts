@@ -11,6 +11,7 @@ import settings from 'carbon-components/es/globals/js/settings';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, svg, property, query, customElement, LitElement } from 'lit-element';
 import CheckmarkFilled16 from '@carbon/icons/lib/checkmark--filled/16';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './tile.scss';
 
 const { prefix } = settings;
@@ -19,7 +20,7 @@ const { prefix } = settings;
  * Multi-selectable tile.
  */
 @customElement(`${prefix}-selectable-tile`)
-class BXSelectableTile extends LitElement {
+class BXSelectableTile extends FocusMixin(LitElement) {
   @query('input')
   protected _inputNode!: HTMLInputElement;
 
