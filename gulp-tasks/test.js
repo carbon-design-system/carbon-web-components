@@ -15,7 +15,17 @@ const { Server } = require('karma');
 const config = require('./config');
 
 const { cloptions, testsDir } = config;
-const { browsers, debug, specs, keepalive, random, useExperimentalFeatures, verbose } = cloptions;
+const {
+  browsers,
+  debug,
+  specs,
+  keepalive,
+  noPruneSnapshot,
+  random,
+  updateSnapshot,
+  useExperimentalFeatures,
+  verbose,
+} = cloptions;
 
 module.exports = {
   unit(done) {
@@ -26,8 +36,10 @@ module.exports = {
         customConfig: {
           browsers, // We'll massage browser list in `karma.config.js`
           collectCoverage: !debug,
+          noPruneSnapshot,
           specs,
           random,
+          updateSnapshot,
           useExperimentalFeatures,
           verbose,
         },

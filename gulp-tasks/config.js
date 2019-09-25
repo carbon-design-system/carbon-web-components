@@ -23,6 +23,8 @@ const { browser: browsers, spec: specs, ...rest } = commander
   .option('-k, --keepalive', 'Keeps browser open after first run of Karma test finishes')
   .option('-r, --random', 'Enable random execution order of tests')
   .option('-s, --spec [file]', 'Spec files to run for Karma testing', collect, new Set())
+  .option('--no-prune-snapshot', 'Avoid pruning unused snapshot')
+  .option('--update-snapshot', 'Updates snapshot')
   .option('--verbose', 'Enables verbose output')
   .parse(process.argv);
 const cloptions = { browsers: Array.from(browsers), specs: Array.from(specs), ...rest };
