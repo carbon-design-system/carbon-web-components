@@ -117,24 +117,19 @@ class BXMultiSelect extends BXDropdown {
   @property({ attribute: 'unselected-all-assistive-text' })
   unselectedAllAssistiveText = 'Unselected all items.';
 
-  attributeChangedCallback(name, old, current) {
-    if (name === 'value') {
-      const values = !current ? [] : current.split(',');
-      const { itemTagName } = this.constructor as typeof BXMultiSelect;
-      forEach(this.getElementsByTagName(itemTagName), elem => {
-        elem.toggleAttribute('selected', values.indexOf((elem as BXMultiSelectItem).value) >= 0);
+  shouldUpdate(changedProperties) {
+    if (changedProperties.has('value')) {
+      const { value } = this;
+      const values = !value ? [] : value.split(',');
+      const { selectorItem } = this.constructor as typeof BXMultiSelect;
+      // Updates selection beforehand because our rendering logic for `<bx-multi-select>` looks for selected items via `qSA()`
+      forEach(this.querySelectorAll(selectorItem), elem => {
+        (elem as BXMultiSelectItem).selected = values.indexOf((elem as BXMultiSelectItem).value) >= 0;
       });
     } else {
-      super.attributeChangedCallback(name, old, current);
+      super.shouldUpdate(changedProperties);
     }
-  }
-
-  /**
-   * The tag name of the element working as a multi select item, which is, `<bx-multi-select-item>`.
-   * We use a separate property from `.selectorItem` due to the nature in difference of tag name vs. selector.
-   */
-  static get itemTagName() {
-    return `${prefix}-multi-select-item`;
+    return true;
   }
 
   /**

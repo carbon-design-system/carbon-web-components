@@ -34,7 +34,7 @@ export const NAVIGATION_DIRECTION = {
 };
 
 /**
- * The keyboard action categories for multi select.
+ * The keyboard action categories for dropdown.
  */
 export enum DROPDOWN_KEYBOARD_ACTION {
   /**
@@ -59,7 +59,7 @@ export enum DROPDOWN_KEYBOARD_ACTION {
 }
 
 /**
- * Multi select types.
+ * Dropdown types.
  */
 export enum DROPDOWN_TYPE {
   /**
@@ -214,8 +214,8 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * Handles user-initiated selection of a multi select item.
-   * @param [item] The multi select item user wants to select. Absense of this argument means clearing selection.
+   * Handles user-initiated selection of a dropdown item.
+   * @param [item] The dropdown item user wants to select. Absense of this argument means clearing selection.
    */
   protected _handleUserInitiatedSelectItem(item?: BXDropdownItem) {
     if (this._selectionShouldChange(item)) {
@@ -266,7 +266,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * Clears the selection of multi select items.
+   * Clears the selection of dropdown items.
    */
   protected _clearHighlight() {
     forEach(this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItem), item => {
@@ -275,7 +275,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * Navigate through multi select items.
+   * Navigate through dropdown items.
    * @param direction `-1` to navigate backward, `1` to navigate forward.
    */
   protected _navigate(direction: number) {
@@ -336,7 +336,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   /* eslint-enable class-methods-use-this */
 
   /**
-   * `true` if this multi select should be disabled. Corresponds to the attribute with the same name.
+   * `true` if this dropdown should be disabled. Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
@@ -354,13 +354,13 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   labelText = '';
 
   /**
-   * `true` if this multi select should use the light UI variant. Corresponds to the attribute with the same name.
+   * `true` if this dropdown should use the light UI variant. Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
   light = false;
 
   /**
-   * `true` if this multi select should be open. Corresponds to the attribute with the same name.
+   * `true` if this dropdown should be open. Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
   open = false;
@@ -396,14 +396,14 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   triggerContent = '';
 
   /**
-   * `true` if this multi select should use the inline UI variant. Corresponds to the attribute with the same name.
+   * `true` if this dropdown should use the inline UI variant. Corresponds to the attribute with the same name.
    */
   @property({ reflect: true })
   type = DROPDOWN_TYPE.REGULAR;
 
   /**
    * The validity message. Corresponds to `validity-message` attribute.
-   * If present and non-empty, this multi select shows the UI of its invalid state.
+   * If present and non-empty, this dropdown shows the UI of its invalid state.
    */
   @property({ attribute: 'validity-message' })
   validityMessage = '';
@@ -419,40 +419,44 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   attributeChangedCallback(name, old, current) {
-    if (old !== current) {
-      if (name === 'id') {
-        // Force updaring ID refs
-        this.requestUpdate();
-      } else if (name === 'disabled') {
-        // Propagate `disabled` attribute to descendants until `:host-context()` gets supported in all major browsers
-        forEach(this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItem), elem => {
-          if (current === null) {
-            elem.removeAttribute('disabled');
-          } else {
-            elem.setAttribute('disabled', current);
-          }
-        });
-      } else if (name === 'value') {
-        const { itemTagName } = this.constructor as typeof BXDropdown;
-        forEach(this.getElementsByTagName(itemTagName), elem => {
-          elem.toggleAttribute('selected', (elem as BXDropdownItem).value === this.value);
-        });
-        const item = find(this.getElementsByTagName(itemTagName), elem => (elem as BXDropdownItem).value === this.value);
-        if (item) {
-          const range = this.ownerDocument!.createRange();
-          range.selectNodeContents(item);
-          this._selectedItemContent = range.cloneContents();
-        } else {
-          this._selectedItemContent = null;
-        }
-      }
+    if (old !== current && name === 'id') {
+      // Force updaring ID refs
+      this.requestUpdate();
     }
     super.attributeChangedCallback(name, old, current);
+  }
+
+  shouldUpdate(changedProperties) {
+    if (changedProperties.has('value')) {
+      const { selectorItem } = this.constructor as typeof BXDropdown;
+      // `<bx-multi-select>` updates selection beforehand
+      // because our rendering logic for `<bx-multi-select>` looks for selected items via `qSA()`
+      forEach(this.querySelectorAll(selectorItem), elem => {
+        (elem as BXDropdownItem).selected = (elem as BXDropdownItem).value === this.value;
+      });
+      const item = find(this.querySelectorAll(selectorItem), elem => (elem as BXDropdownItem).value === this.value);
+      if (item) {
+        const range = this.ownerDocument!.createRange();
+        range.selectNodeContents(item);
+        this._selectedItemContent = range.cloneContents();
+      } else {
+        this._selectedItemContent = null;
+      }
+    }
+    return true;
   }
 
   updated(changedProperties) {
     const { helperText, type } = this;
     const inline = type === DROPDOWN_TYPE.INLINE;
+    const { selectorItem } = this.constructor as typeof BXDropdown;
+    if (changedProperties.has('disabled')) {
+      const { disabled } = this;
+      // Propagate `disabled` attribute to descendants until `:host-context()` gets supported in all major browsers
+      forEach(this.querySelectorAll(selectorItem), elem => {
+        (elem as BXDropdownItem).disabled = disabled;
+      });
+    }
     if ((changedProperties.has('helperText') || changedProperties.has('type')) && helperText && inline) {
       // eslint-disable-next-line no-console
       console.warn('Found `helperText` property/attribute usage in inline mode, that is not supported, at:', this);
@@ -570,14 +574,6 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * The tag name of the element working as a multi select item, which is, `<bx-dropdown-item>`.
-   * We use a separate property from `.selectorItem` due to the nature in difference of tag name vs. selector.
-   */
-  static get itemTagName() {
-    return `${prefix}-dropdown-item`;
-  }
-
-  /**
    * A selector that will return highlighted items.
    */
   static get selectorItemHighlighted() {
@@ -585,8 +581,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * A selector that will return multi select items.
-   * We use a separate property from `.itemTagName` due to the nature in difference of tag name vs. selector.
+   * A selector that will return dropdown items.
    */
   static get selectorItem() {
     return `${prefix}-dropdown-item`;
@@ -600,7 +595,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * The name of the custom event fired before a multi select item is selected upon a user gesture.
+   * The name of the custom event fired before a dropdown item is selected upon a user gesture.
    * Cancellation of this event stops changing the user-initiated selection.
    */
   static get eventBeforeSelect() {
@@ -608,7 +603,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * The name of the custom event fired after a a multi select item is selected upon a user gesture.
+   * The name of the custom event fired after a a dropdown item is selected upon a user gesture.
    */
   static get eventAfterSelect() {
     return `${prefix}-dropdown-selected`;

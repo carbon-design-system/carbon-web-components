@@ -31,7 +31,7 @@ $css--plex: true !default;
   display: block;
 }
 
-:host(#{$prefix}-dropdown-item[disabled]) {
+:host(#{$prefix}-dropdown-item[disabled]) .#{$prefix}--list-box__menu-item__option {
   color: $disabled-02;
   text-decoration: none;
 }
