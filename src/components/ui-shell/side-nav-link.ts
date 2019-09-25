@@ -9,7 +9,7 @@
 
 import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
-import { html, property, customElement, LitElement } from 'lit-element';
+import { html, property, query, customElement, LitElement } from 'lit-element';
 import styles from './side-nav.scss';
 
 const { prefix } = settings;
@@ -20,10 +20,16 @@ const { prefix } = settings;
 @customElement(`${prefix}-side-nav-link`)
 class BXSideNavLink extends LitElement {
   /**
+   * The container for the title icon.
+   */
+  @query('#title-icon-container')
+  private _titleIconContainerNode!: HTMLDivElement;
+
+  /**
    * Handles `slotchange` event on the `<slot>` for the title icon.
    */
   private _handleSlotChangeTitleIcon({ target }) {
-    this.shadowRoot!.getElementById('title-icon-container')!.toggleAttribute('hidden', target.assignedNodes().length === 0);
+    this._titleIconContainerNode!.toggleAttribute('hidden', target.assignedNodes().length === 0);
   }
 
   /**

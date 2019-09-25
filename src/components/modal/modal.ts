@@ -10,7 +10,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import findLast from 'lodash.findlast';
 import classnames from 'classnames';
-import { html, property, customElement, LitElement } from 'lit-element';
+import { html, property, query, customElement, LitElement } from 'lit-element';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import styles from './modal.scss';
@@ -30,6 +30,18 @@ class BXModal extends HostListenerMixin(LitElement) {
    * The element that had focus before this modal gets open.
    */
   private _launcher: Element | null = null;
+
+  /**
+   * Node to track focus going outside of modal content.
+   */
+  @query('#start-sentinel')
+  private _startSentinelNode!: HTMLAnchorElement;
+
+  /**
+   * Node to track focus going outside of modal content.
+   */
+  @query('#end-sentinel')
+  private _endSentinelNode!: HTMLAnchorElement;
 
   /**
    * Handles `click` event on this element.
@@ -57,11 +69,13 @@ class BXModal extends HostListenerMixin(LitElement) {
     // * This modal is open
     // * The viewport still has focus
     // * Modal body used to have focus but no longer has focus
-    if (this.open && relatedTarget && oldContains && !currentContains) {
+    const { open, _startSentinelNode: startSentinelNode, _endSentinelNode: endSentinelNode } = this;
+    const { selectorTabbable: selectorTabbableForModal } = this.constructor as typeof BXModal;
+    if (open && relatedTarget && oldContains && !currentContains) {
       const comparisonResult = (target as Node).compareDocumentPosition(relatedTarget as Node);
       // eslint-disable-next-line no-bitwise
-      if (relatedTarget === this.shadowRoot!.getElementById('pre-trap') || comparisonResult & PRECEDING) {
-        const tabbable = findLast(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), elem =>
+      if (relatedTarget === startSentinelNode || comparisonResult & PRECEDING) {
+        const tabbable = findLast(this.querySelectorAll(selectorTabbableForModal), elem =>
           Boolean((elem as HTMLElement).offsetParent)
         );
         if (tabbable) {
@@ -71,8 +85,8 @@ class BXModal extends HostListenerMixin(LitElement) {
         }
       }
       // eslint-disable-next-line no-bitwise
-      else if (relatedTarget === this.shadowRoot!.getElementById('post-trap') || comparisonResult & FOLLOWING) {
-        const tabbable = find(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), elem =>
+      else if (relatedTarget === endSentinelNode || comparisonResult & FOLLOWING) {
+        const tabbable = find(this.querySelectorAll(selectorTabbableForModal), elem =>
           Boolean((elem as HTMLElement).offsetParent)
         );
         if (tabbable) {
@@ -146,11 +160,11 @@ class BXModal extends HostListenerMixin(LitElement) {
       [this.containerClass]: this.containerClass,
     });
     return html`
-      <a id="pre-trap" class="${prefix}--visually-hidden" href="javascript:void 0" role="navigation"></a>
+      <a id="start-sentinel" class="${prefix}--visually-hidden" href="javascript:void 0" role="navigation"></a>
       <div class=${containerClasses} role="dialog" tabidnex="-1" @click=${this._handleClickContainer}>
         <slot></slot>
       </div>
-      <a id="post-trap" class="${prefix}--visually-hidden" href="javascript:void 0" role="navigation"></a>
+      <a id="end-sentinel" class="${prefix}--visually-hidden" href="javascript:void 0" role="navigation"></a>
     `;
   }
 

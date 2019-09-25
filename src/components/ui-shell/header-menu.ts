@@ -11,6 +11,7 @@ import settings from 'carbon-components/es/globals/js/settings';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDownGlyph from '@carbon/icons/lib/chevron--down';
+import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
 import styles from './header.scss';
@@ -21,7 +22,7 @@ const { prefix } = settings;
  * Header menu.
  */
 @customElement(`${prefix}-header-menu`)
-class BXHeaderMenu extends HostListenerMixin(LitElement) {
+class BXHeaderMenu extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * The trigger button.
    */
