@@ -24,6 +24,7 @@ const createProps = () => ({
   clearSelectionLabel: text('a11y label for the icon to clear selection (clear-selection-label)', ''),
   disabled: boolean('Disabled (disabled)', false),
   helperText: text('Helper text (helper-text)', 'This is not helper text'),
+  invalid: boolean('Show invalid state  (invalid)', false),
   labelText: text('Label text (label-text)', 'Multiselect title'),
   light: boolean('Light variant (light)', false),
   open: boolean('Open (open)', false),
@@ -45,6 +46,7 @@ storiesOf('Multi select', module)
       clearSelectionLabel,
       disabled,
       helperText,
+      invalid,
       labelText,
       light,
       open,
@@ -65,6 +67,7 @@ storiesOf('Multi select', module)
     return html`
       <bx-multi-select
         ?disabled=${disabled}
+        ?invalid=${invalid}
         ?light=${light}
         ?open=${open}
         clear-selection-label=${clearSelectionLabel}
