@@ -539,8 +539,8 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       [`${prefix}--list-box__menu-icon--open`]: open,
     });
     const toggleLabel = (open ? toggleLabelOpen : toggleLabelClosed) || undefined;
-    const hasHelperText = helperText || slotHelperTextNode.assignedNodes().length > 0;
-    const hasLabelText = labelText || slotLabelTextNode.assignedNodes().length > 0;
+    const hasHelperText = helperText || (slotHelperTextNode && slotHelperTextNode.assignedNodes().length > 0);
+    const hasLabelText = labelText || (slotLabelTextNode && slotLabelTextNode.assignedNodes().length > 0);
     const validity = !invalid
       ? undefined
       : html`
