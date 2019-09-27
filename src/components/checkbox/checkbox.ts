@@ -22,27 +22,27 @@ const { prefix } = settings;
 @customElement(`${prefix}-checkbox`)
 class BXCheckbox extends FocusMixin(LitElement) {
   @query('input')
-  private _checkboxNode!: HTMLInputElement;
+  protected _checkboxNode!: HTMLInputElement;
 
   /**
    * Unique ID used for ID refs.
    */
-  private _uniqueId = Math.random()
+  protected _uniqueId = Math.random()
     .toString(36)
     .slice(2);
 
   /**
    * The element ID for the check box.
    */
-  private get _checkboxId() {
+  protected get _checkboxId() {
     const { id: elementId, _uniqueId: uniqueId } = this;
-    return `__bx-ce-selectable-tile_${elementId || uniqueId}`;
+    return `__bx-ce-checkbox_${elementId || uniqueId}`;
   }
 
   /**
    * Handles `click` event on the `<input>` in the shadow DOM.
    */
-  private _handleChange() {
+  protected _handleChange() {
     const { checked, indeterminate } = this._checkboxNode;
     this.checked = checked;
     this.indeterminate = indeterminate;
