@@ -133,6 +133,7 @@
     "lint-staged": "^8.1.0",
     "lit-element": "^2.1.0",
     "lit-html": "~1.0.0",
+    "lodash.throttle": "^4.0.0",
     "lodash.findlast": "^4.6.0",
     "lodash.pickby": "^4.6.0",
     "mini-css-extract-plugin": "^0.5.0",
@@ -171,6 +172,7 @@
     "classnames": "^2.2.0",
     "lit-element": "^2.1.0",
     "lit-html": "~1.0.0",
+    "lodash.throttle": "^4.0.0",
     "lodash.findlast": "^4.6.0"
   },
   "commitlint": {
