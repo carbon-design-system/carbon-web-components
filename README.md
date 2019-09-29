@@ -33,6 +33,7 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
   - [Angular](#angular)
   - [React](#react)
   - [Vue](#vue)
+  - [Other usage guides](#other-usage-guides)
 - [Getting started with development](#getting-started-with-development)
 - [Running React/Angular/Vue Storybook demo](#running-reactangularvue-storybook-demo)
 - [List of available components](#list-of-available-components)
@@ -138,6 +139,10 @@ render(<App />, document.getElementById('root'));
 [![Edit carbon-custom-elements with Vue](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/vue)
 
 Vue users can use our components in the same manner as native HTML tags, without any additional steps!
+
+### Other usage guides
+
+- [Using custom styles in components](./docs/custom-style.md)
 
 ## Getting started with development
 
