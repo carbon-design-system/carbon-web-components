@@ -69,10 +69,13 @@ module.exports = postcss.plugin('fix-host-pseudo', function postCssPluginFixHost
                 pseudosToMove.push(followingNode);
               }
               pseudosToMove.forEach(item => {
-                const newNode = item.clone();
-                newNode.spaces.before = '';
-                newNode.spaces.after = '';
-                pseudo.first.append(newNode);
+                if (item.type !== 'pseudo' || !/^::/.test(item.value)) {
+                  // Host node of custom elements cannot have pseudo elements, simply ignore them
+                  const newNode = item.clone();
+                  newNode.spaces.before = '';
+                  newNode.spaces.after = '';
+                  pseudo.first.append(newNode);
+                }
                 item.remove();
               });
             }

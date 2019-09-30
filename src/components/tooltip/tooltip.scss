@@ -6,7 +6,11 @@
 //
 
 $css--plex: true !default;
+// `@include reset` with `variable-exists(css--reset) == false or $css--reset == false` breaks the dotted underline
+// TODO: Detemrine how to deal with `$css--reset` across components
+$css--reset: true !default;
 
+@import 'carbon-components/scss/globals/scss/css--helpers';
 @import 'carbon-components/scss/globals/scss/layout';
 @import 'carbon-components/scss/components/tooltip/tooltip';
 
@@ -62,4 +66,9 @@ $css--plex: true !default;
 
 :host(#{$prefix}-tooltip-body[open]) {
   @extend .#{$prefix}--tooltip--shown;
+}
+
+:host(#{$prefix}-tooltip-definition) {
+  @extend .#{$prefix}--tooltip--definition;
+  @extend .#{$prefix}--tooltip--a11y;
 }

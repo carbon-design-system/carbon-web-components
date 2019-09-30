@@ -9,30 +9,52 @@
 
 import { html } from 'lit-element';
 import { storiesOf } from '@storybook/polymer';
-import { withKnobs, boolean, select } from '@storybook/addon-knobs';
+import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
+import Filter16 from '@carbon/icons/lib/filter/16';
 import '../button/button';
 import './tooltip';
 import { FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
 import './tooltip-body';
 import './tooltip-footer';
+import { TOOLTIP_ALIGNMENT, TOOLTIP_DIRECTION } from './tooltip-definition';
+import './tooltip-icon';
 import styles from './tooltip-story.scss';
 
-const directions = {
+const tooltipBodyDirections = {
   [`Bottom (${FLOATING_MENU_DIRECTION.BOTTOM})`]: FLOATING_MENU_DIRECTION.BOTTOM,
   [`Left (${FLOATING_MENU_DIRECTION.LEFT})`]: FLOATING_MENU_DIRECTION.LEFT,
   [`Top (${FLOATING_MENU_DIRECTION.TOP})`]: FLOATING_MENU_DIRECTION.TOP,
   [`Right (${FLOATING_MENU_DIRECTION.RIGHT})`]: FLOATING_MENU_DIRECTION.RIGHT,
 };
 
-const createProps = () => ({
+const tooltipDefinitionAlignments = {
+  [`Start (${TOOLTIP_ALIGNMENT.START})`]: TOOLTIP_ALIGNMENT.START,
+  [`Center (${TOOLTIP_ALIGNMENT.CENTER})`]: TOOLTIP_ALIGNMENT.CENTER,
+  [`End (${TOOLTIP_ALIGNMENT.END})`]: TOOLTIP_ALIGNMENT.END,
+};
+
+const tooltipDefinitionDirections = {
+  [`Bottom (${TOOLTIP_DIRECTION.BOTTOM})`]: TOOLTIP_DIRECTION.BOTTOM,
+  [`Left (${TOOLTIP_DIRECTION.LEFT})`]: TOOLTIP_DIRECTION.LEFT,
+  [`Top (${TOOLTIP_DIRECTION.TOP})`]: TOOLTIP_DIRECTION.TOP,
+  [`Right (${TOOLTIP_DIRECTION.RIGHT})`]: TOOLTIP_DIRECTION.RIGHT,
+};
+
+const createInteractiveProps = () => ({
   open: boolean('Open (open)', false),
-  direction: select('Direction (direction in <bx-tooltip-body>)', directions, FLOATING_MENU_DIRECTION.BOTTOM),
+  direction: select('Direction (direction in <bx-tooltip-body>)', tooltipBodyDirections, FLOATING_MENU_DIRECTION.BOTTOM),
+});
+
+const createDefinitionIconProps = () => ({
+  alignment: select('Tooltip alignment to trigger button (alignment)', tooltipDefinitionAlignments, TOOLTIP_ALIGNMENT.CENTER),
+  bodyText: text('Tooltip content (bodyText)', 'Brief description of the dotted, underlined word above.'),
+  direction: select('Tooltip direction (direction)', tooltipDefinitionDirections, TOOLTIP_DIRECTION.BOTTOM),
 });
 
 storiesOf('Tooltip', module)
   .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { open, direction } = createProps();
+  .add('Interactive tooltip', () => {
+    const { open, direction } = createInteractiveProps();
     return html`
       <style>
         ${styles}
@@ -48,5 +70,21 @@ storiesOf('Tooltip', module)
           </bx-tooltip-footer>
         </bx-tooltip-body>
       </bx-tooltip>
+    `;
+  })
+  .add('Definition tooltip', () => {
+    const { alignment, bodyText, direction } = createDefinitionIconProps();
+    return html`
+      <bx-tooltip-definition alignment="${alignment}" body-text="${bodyText}" direction="${direction}">
+        Definition Tooltip
+      </bx-tooltip-definition>
+    `;
+  })
+  .add('Icon tooltip', () => {
+    const { alignment, bodyText, direction } = createDefinitionIconProps();
+    return html`
+      <bx-tooltip-icon alignment="${alignment}" body-text="${bodyText}" direction="${direction}">
+        ${Filter16()}
+      </bx-tooltip-icon>
     `;
   });
