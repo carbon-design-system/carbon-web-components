@@ -144,12 +144,6 @@ class BXModal extends HostListenerMixin(LitElement) {
   containerClass = '';
 
   /**
-   * `true` if the modal should be the danger variant. Corresponds to the attribute with the same name.
-   */
-  @property({ type: Boolean, reflect: true })
-  danger = false;
-
-  /**
    * `true` if the modal should be open. Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
