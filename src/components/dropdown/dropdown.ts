@@ -107,29 +107,6 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   protected _slotLabelTextNode!: HTMLSlotElement;
 
   /**
-   * The element ID of the one that has the content of the trigger button.
-   */
-  protected get _triggerLabelId() {
-    const { id, _uniqueId: uniqueId } = this;
-    return `__bx-ce-dropdown_trigger-label_${id || uniqueId}`;
-  }
-
-  /**
-   * The element ID for the menu body.
-   */
-  protected get _menuBodyId() {
-    const { id, _uniqueId: uniqueId } = this;
-    return `__bx-ce-dropdown_menu_${id || uniqueId}`;
-  }
-
-  /**
-   * Unique ID used for ID refs.
-   */
-  protected _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
-
-  /**
    * @param itemToSelect A dropdown item. Absense of this argument means clearing selection.
    * @returns `true` if the selection of this dropdown should change if the given item is selected upon user interaction.
    */
@@ -347,9 +324,9 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    * @returns The main content of the trigger button.
    */
   protected _renderTriggerContent(): TemplateResult {
-    const { triggerContent, _selectedItemContent: selectedItemContent, _triggerLabelId: triggerLabelId } = this;
+    const { triggerContent, _selectedItemContent: selectedItemContent } = this;
     return html`
-      <span id="${triggerLabelId}" class="${prefix}--list-box__label">${selectedItemContent || triggerContent}</span>
+      <span id="trigger-label" class="${prefix}--list-box__label">${selectedItemContent || triggerContent}</span>
     `;
   }
 
@@ -509,8 +486,6 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       validityMessage,
       _assistiveStatusText: assistiveStatusText,
       _shouldTriggerBeFocusable: shouldTriggerBeFocusable,
-      _menuBodyId: menuBodyId,
-      _triggerLabelId: triggerLabelId,
       _handleClickInner: handleClickInner,
       _handleKeydownInner: handleKeydownInner,
       _handleSlotchangeHelperText: handleSlotchangeHelperText,
@@ -552,7 +527,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
     const menuBody = !open
       ? undefined
       : html`
-          <div id="${menuBodyId}" class="${prefix}--list-box__menu" role="listbox" tabindex="-1">
+          <div id="menu-body" class="${prefix}--list-box__menu" role="listbox" tabindex="-1">
             <slot></slot>
           </div>
         `;
@@ -569,11 +544,11 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
           role="${ifDefined(!shouldTriggerBeFocusable ? undefined : 'button')}"
           class="${prefix}--list-box__field"
           tabindex="${ifDefined(!shouldTriggerBeFocusable ? undefined : '0')}"
-          aria-labelledby="${triggerLabelId}"
+          aria-labelledby="trigger-label"
           aria-expanded="${String(open)}"
           aria-haspopup="listbox"
-          aria-owns="${menuBodyId}"
-          aria-controls="${menuBodyId}"
+          aria-owns="menu-body"
+          aria-controls="menu-body"
         >
           ${this._renderPrecedingTriggerContent()}${this._renderTriggerContent()}${this._renderFollowingTriggerContent()}
           <div class="${iconContainerClasses}">
