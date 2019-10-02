@@ -9,7 +9,7 @@
 
 import { html, render, TemplateResult } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import '../../src/components/toggle/toggle';
+import { INPUT_TYPE } from '../../src/components/input/input';
 
 /**
  * @param formData A `FormData` instance.
@@ -27,39 +27,54 @@ const getValues = (formData: FormData) => {
 const template = ({
   hasContent = true,
   hasForm,
-  checked,
-  checkedText,
+  autocomplete,
+  autofocus,
   disabled,
-  id,
+  helperText,
   labelText,
   name,
+  pattern,
+  placeholder,
+  readonly,
+  required,
+  type,
+  validityMessage,
   value,
-  uncheckedText,
 }: {
   hasContent?: boolean;
   hasForm?: boolean;
-  checked?: boolean;
-  checkedText?: string;
+  autocomplete?: string;
+  autofocus?: boolean;
   disabled?: boolean;
-  id?: string;
+  helperText?: string;
   labelText?: string;
   name?: string;
+  pattern?: string;
+  placeholder?: string;
+  readonly?: boolean;
+  required?: boolean;
+  type?: INPUT_TYPE;
+  validityMessage?: string;
   value?: string;
-  uncheckedText?: string;
 } = {}) => {
   const inner = !hasContent
     ? (undefined! as TemplateResult)
     : html`
-        <bx-toggle
-          id="${ifDefined(id)}"
-          ?checked="${ifDefined(checked)}"
-          checked-text="${ifDefined(checkedText)}"
-          ?disabled="${ifDefined(disabled)}"
+        <bx-input
+          autocomplete="${ifDefined(autocomplete)}"
+          ?autofocus="${autofocus}"
+          ?disabled="${disabled}"
+          helper-text="${ifDefined(helperText)}"
           label-text="${ifDefined(labelText)}"
           name="${ifDefined(name)}"
+          pattern="${ifDefined(pattern)}"
+          placeholder="${ifDefined(placeholder)}"
+          ?readonly="${readonly}"
+          ?required="${required}"
+          type="${ifDefined(type)}"
+          validity-message="${ifDefined(validityMessage)}"
           value="${ifDefined(value)}"
-          unchecked-text="${ifDefined(uncheckedText)}"
-        ></bx-toggle>
+        ></bx-input>
       `;
   return !hasContent || !hasForm
     ? inner
@@ -68,35 +83,29 @@ const template = ({
       `;
 };
 
-describe('bx-toggle', function() {
+describe('bx-input', function() {
   describe('Rendering', function() {
-    it('Should render with minimum attributes', async function() {
-      render(
-        template({
-          id: 'id-foo',
-        }),
-        document.body
-      );
-      await Promise.resolve();
-      expect(document.body.querySelector('bx-toggle')).toMatchSnapshot({ mode: 'shadow' });
-    });
-
     it('Should render with various attributes', async function() {
       render(
         template({
-          id: 'id-foo',
-          checked: true,
-          checkedText: 'checked-text-foo',
+          autocomplete: 'on',
+          autofocus: true,
           disabled: true,
+          helperText: 'helper-text-foo',
           labelText: 'label-text-foo',
           name: 'name-foo',
+          pattern: 'pattern-foo',
+          placeholder: 'placeholder-foo',
+          readonly: true,
+          required: true,
+          type: INPUT_TYPE.TEXT,
+          validityMessage: 'validity-message-foo',
           value: 'value-foo',
-          uncheckedText: 'unchecked-text-foo',
         }),
         document.body
       );
       await Promise.resolve();
-      expect(document.body.querySelector('bx-toggle')).toMatchSnapshot({ mode: 'shadow' });
+      expect(document.body.querySelector('bx-input')).toMatchSnapshot({ mode: 'shadow' });
     });
   });
 
@@ -105,7 +114,6 @@ describe('bx-toggle', function() {
       render(
         template({
           hasForm: true,
-          checked: true,
           name: 'name-foo',
           value: 'value-foo',
         }),
@@ -120,48 +128,11 @@ describe('bx-toggle', function() {
       expect(getValues(formData)).toEqual({ 'name-foo': 'value-foo' });
     });
 
-    it('Should respond to `formdata` event with default value', async function() {
-      render(
-        template({
-          hasForm: true,
-          checked: true,
-          name: 'name-foo',
-        }),
-        document.body
-      );
-      await Promise.resolve();
-      const formData = new FormData();
-      const event = new CustomEvent('formdata', { bubbles: true, cancelable: false, composed: false });
-      (event as any).formData = formData; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
-      const form = document.querySelector('form');
-      form!.dispatchEvent(event);
-      expect(getValues(formData)).toEqual({ 'name-foo': 'on' });
-    });
-
-    it('Should not respond to `formdata` event if unchecked', async function() {
-      render(
-        template({
-          hasForm: true,
-          name: 'name-foo',
-          value: 'value-foo',
-        }),
-        document.body
-      );
-      await Promise.resolve();
-      const formData = new FormData();
-      const event = new CustomEvent('formdata', { bubbles: true, cancelable: false, composed: false });
-      (event as any).formData = formData; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
-      const form = document.querySelector('form');
-      form!.dispatchEvent(event);
-      expect(getValues(formData)).toEqual({});
-    });
-
     it('Should not respond to `formdata` event if disabled', async function() {
       render(
         template({
           hasForm: true,
           disabled: true,
-          checked: true,
           name: 'name-foo',
           value: 'value-foo',
         }),
