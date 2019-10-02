@@ -22,12 +22,12 @@ const { prefix } = settings;
 @customElement(`${prefix}-checkbox`)
 class BXCheckbox extends FocusMixin(LitElement) {
   @query('input')
-  private _checkboxNode!: HTMLInputElement;
+  protected _checkboxNode!: HTMLInputElement;
 
   /**
    * Handles `click` event on the `<input>` in the shadow DOM.
    */
-  private _handleChange() {
+  protected _handleChange() {
     const { checked, indeterminate } = this._checkboxNode;
     this.checked = checked;
     this.indeterminate = indeterminate;
