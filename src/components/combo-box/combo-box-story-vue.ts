@@ -19,7 +19,9 @@ const createProps = () => ({
   disabled: boolean('Disabled (disabled)', false),
   helperText: text('Helper text (helper-text)', ''),
   labelText: text('Label text (label-text)', ''),
+  invalid: boolean('Show invalid state (invalid)', false),
   light: boolean('Light variant (light)', false),
+  validityMessage: text('The validity message (validity-message)', ''),
   value: text('The value of the selected item (value)', ''),
   triggerContent: text('The default content of the trigger button (trigger-content)', 'Select an item'),
   disableSelection: boolean(
@@ -35,9 +37,11 @@ storiesOf('Combo box', module)
       <bx-combo-box
         :open="open"
         :disabled="disabled"
+        :invalid="invalid"
         :light="light"
         :helper-text="helperText"
         :label-text="labelText"
+        :validity-message="validityMessage"
         :value="value"
         :trigger-content="triggerContent"
         @bx-combo-box-beingselected="onBeforeSelect"
