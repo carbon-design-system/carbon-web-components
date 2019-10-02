@@ -8,12 +8,12 @@
 <input
   aria-checked="false"
   class="bx--toggle-input"
-  id="__bx-ce-checkbox_id-foo"
+  id="checkbox"
   type="checkbox"
 >
 <label
   class="bx--toggle-input__label"
-  for="__bx-ce-checkbox_id-foo"
+  for="checkbox"
 >
   <slot name="label-text">
   </slot>
@@ -44,14 +44,14 @@
   aria-checked="true"
   class="bx--toggle-input"
   disabled=""
-  id="__bx-ce-checkbox_id-foo"
+  id="checkbox"
   name="name-foo"
   type="checkbox"
   value="value-foo"
 >
 <label
   class="bx--toggle-input__label"
-  for="__bx-ce-checkbox_id-foo"
+  for="checkbox"
 >
   <slot name="label-text">
     label-text-foo
