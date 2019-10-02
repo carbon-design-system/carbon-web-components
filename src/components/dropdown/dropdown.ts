@@ -11,7 +11,7 @@ import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { TemplateResult } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { html, property, customElement, LitElement } from 'lit-element';
+import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import FocusMixin from '../../globals/mixins/focus';
@@ -95,27 +95,16 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   protected _shouldTriggerBeFocusable = true;
 
   /**
-   * The element ID of the one that has the content of the trigger button.
+   * The `<slot>` element for the helper text in the shadow DOM.
    */
-  protected get _triggerLabelId() {
-    const { id, _uniqueId: uniqueId } = this;
-    return `__bx-ce-dropdown_trigger-label_${id || uniqueId}`;
-  }
+  @query('slot[name="helper-text"]')
+  protected _slotHelperTextNode!: HTMLSlotElement;
 
   /**
-   * The element ID for the menu body.
+   * The `<slot>` element for the label text in the shadow DOM.
    */
-  protected get _menuBodyId() {
-    const { id, _uniqueId: uniqueId } = this;
-    return `__bx-ce-dropdown_menu_${id || uniqueId}`;
-  }
-
-  /**
-   * Unique ID used for ID refs.
-   */
-  protected _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
+  @query('slot[name="label-text"]')
+  protected _slotLabelTextNode!: HTMLSlotElement;
 
   /**
    * @param itemToSelect A dropdown item. Absense of this argument means clearing selection.
@@ -204,13 +193,28 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
 
   /**
    * Handles `blur` event handler on the document this element is in.
+   * @param event The event.
    */
   @HostListener('blur')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
-  protected _handleFocusOut(event) {
-    if (!this.contains(event.relatedTarget)) {
+  protected _handleFocusOut(event: FocusEvent) {
+    if (!this.contains(event.relatedTarget as Node)) {
       this._handleUserInitiatedToggle(false);
     }
+  }
+
+  /**
+   * Handles `slotchange` event for the `<slot>` for helper text.
+   */
+  protected _handleSlotchangeHelperText() {
+    this.requestUpdate();
+  }
+
+  /**
+   * Handles `slotchange` event for the `<slot>` for label text.
+   */
+  protected _handleSlotchangeLabelText() {
+    this.requestUpdate();
   }
 
   /**
@@ -320,9 +324,9 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    * @returns The main content of the trigger button.
    */
   protected _renderTriggerContent(): TemplateResult {
-    const { triggerContent, _selectedItemContent: selectedItemContent, _triggerLabelId: triggerLabelId } = this;
+    const { triggerContent, _selectedItemContent: selectedItemContent } = this;
     return html`
-      <span id="${triggerLabelId}" class="${prefix}--list-box__label">${selectedItemContent || triggerContent}</span>
+      <span id="trigger-label" class="${prefix}--list-box__label">${selectedItemContent || triggerContent}</span>
     `;
   }
 
@@ -346,6 +350,12 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    */
   @property({ attribute: 'helper-text' })
   helperText = '';
+
+  /**
+   * `true` to show the UI of the invalid state.
+   */
+  @property({ type: Boolean, reflect: true })
+  invalid = false;
 
   /**
    * The label text. Corresponds to `label-text` attribute.
@@ -403,7 +413,6 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
 
   /**
    * The validity message. Corresponds to `validity-message` attribute.
-   * If present and non-empty, this dropdown shows the UI of its invalid state.
    */
   @property({ attribute: 'validity-message' })
   validityMessage = '';
@@ -467,6 +476,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
     const {
       disabled,
       helperText,
+      invalid,
       labelText,
       light,
       open,
@@ -476,20 +486,21 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       validityMessage,
       _assistiveStatusText: assistiveStatusText,
       _shouldTriggerBeFocusable: shouldTriggerBeFocusable,
-      _menuBodyId: menuBodyId,
-      _triggerLabelId: triggerLabelId,
       _handleClickInner: handleClickInner,
       _handleKeydownInner: handleKeydownInner,
+      _handleSlotchangeHelperText: handleSlotchangeHelperText,
+      _handleSlotchangeLabelText: handleSlotchangeLabelText,
+      _slotHelperTextNode: slotHelperTextNode,
+      _slotLabelTextNode: slotLabelTextNode,
     } = this;
     const inline = type === DROPDOWN_TYPE.INLINE;
-    const hasValidity = Boolean(validityMessage);
     const selectedItemsCount = this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItemSelected).length;
     const classes = classnames(`${prefix}--dropdown`, `${prefix}--list-box`, {
       [`${prefix}--list-box--disabled`]: disabled,
       [`${prefix}--list-box--inline`]: inline,
       [`${prefix}--list-box--light`]: light,
       [`${prefix}--list-box--expanded`]: open,
-      [`${prefix}--dropdown--invalid`]: hasValidity,
+      [`${prefix}--dropdown--invalid`]: invalid,
       [`${prefix}--dropdown--inline`]: inline,
       [`${prefix}--dropdown--selected`]: selectedItemsCount > 0,
     });
@@ -503,51 +514,41 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       [`${prefix}--list-box__menu-icon--open`]: open,
     });
     const toggleLabel = (open ? toggleLabelOpen : toggleLabelClosed) || undefined;
-    const label = !labelText
+    const hasHelperText = helperText || (slotHelperTextNode && slotHelperTextNode.assignedNodes().length > 0);
+    const hasLabelText = labelText || (slotLabelTextNode && slotLabelTextNode.assignedNodes().length > 0);
+    const validity = !invalid
       ? undefined
       : html`
-          <label class="${labelClasses}">${labelText}</label>
+          <div class=${`${prefix}--form-requirement`}><slot name="validity-message">${validityMessage}</slot></div>
         `;
-    const helper =
-      !helperText || inline
-        ? undefined
-        : html`
-            <div class="${helperClasses}">${helperText}</div>
-          `;
-    const validity = !hasValidity
-      ? undefined
-      : html`
-          <div class=${`${prefix}--form-requirement`}>${validityMessage}</div>
-        `;
-    const validityIcon = !hasValidity
+    const validityIcon = !invalid
       ? undefined
       : WarningFilled16({ class: `${prefix}--list-box__invalid-icon`, 'aria-label': toggleLabel });
     const menuBody = !open
       ? undefined
       : html`
-          <div id="${menuBodyId}" class="${prefix}--list-box__menu" role="listbox" tabindex="-1">
+          <div id="menu-body" class="${prefix}--list-box__menu" role="listbox" tabindex="-1">
             <slot></slot>
           </div>
         `;
     return html`
-      ${label} ${helper}
-      <div
-        role="listbox"
-        class="${classes}"
-        ?data-invalid=${hasValidity}
-        @click=${handleClickInner}
-        @keydown=${handleKeydownInner}
-      >
+      <label class="${labelClasses}" ?hidden="${!hasLabelText}">
+        <slot name="label-text" @slotchange="${handleSlotchangeLabelText}">${labelText}</slot>
+      </label>
+      <div class="${helperClasses}" ?hidden="${!hasHelperText}">
+        <slot name="helper-text" @slotchange="${handleSlotchangeHelperText}">${helperText}</slot>
+      </div>
+      <div role="listbox" class="${classes}" ?data-invalid=${invalid} @click=${handleClickInner} @keydown=${handleKeydownInner}>
         ${validityIcon}
         <div
           role="${ifDefined(!shouldTriggerBeFocusable ? undefined : 'button')}"
           class="${prefix}--list-box__field"
           tabindex="${ifDefined(!shouldTriggerBeFocusable ? undefined : '0')}"
-          aria-labelledby="${triggerLabelId}"
+          aria-labelledby="trigger-label"
           aria-expanded="${String(open)}"
           aria-haspopup="listbox"
-          aria-owns="${menuBodyId}"
-          aria-controls="${menuBodyId}"
+          aria-owns="menu-body"
+          aria-controls="menu-body"
         >
           ${this._renderPrecedingTriggerContent()}${this._renderTriggerContent()}${this._renderFollowingTriggerContent()}
           <div class="${iconContainerClasses}">

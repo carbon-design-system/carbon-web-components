@@ -123,25 +123,17 @@ class BXComboBox extends BXDropdown {
   }
 
   protected _renderTriggerContent(): TemplateResult {
-    const {
-      disabled,
-      inputLabel,
-      triggerContent,
-      _filterInputValue: filterInputValue,
-      _menuBodyId: menuBodyId,
-      _triggerLabelId: triggerLabelId,
-      _handleInput: handleInput,
-    } = this;
+    const { disabled, inputLabel, triggerContent, _filterInputValue: filterInputValue, _handleInput: handleInput } = this;
     return html`
       <input
-        id="${triggerLabelId}"
+        id="trigger-label"
         class="${prefix}--text-input"
         ?disabled=${disabled}
         placeholder="${triggerContent}"
         .value=${filterInputValue}
         role="combobox"
         aria-label="${inputLabel}"
-        aria-controls="${menuBodyId}"
+        aria-controls="menu-body"
         aria-autocomplete="list"
         @input=${handleInput}
       />
