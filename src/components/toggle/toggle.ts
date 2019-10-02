@@ -51,24 +51,13 @@ class BXToggle extends BXCheckbox {
   uncheckedText = '';
 
   render() {
-    const {
-      checked,
-      checkedText,
-      disabled,
-      labelText,
-      name,
-      small,
-      uncheckedText,
-      value,
-      _checkboxId: checkboxId,
-      _handleChange: handleChange,
-    } = this;
+    const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, _handleChange: handleChange } = this;
     const inputClasses = classnames(`${prefix}--toggle-input`, {
       [`${prefix}--toggle-input--small`]: small,
     });
     return html`
       <input
-        id="${checkboxId}"
+        id="checkbox"
         type="checkbox"
         class="${inputClasses}"
         aria-checked="${String(Boolean(checked))}"
@@ -78,7 +67,7 @@ class BXToggle extends BXCheckbox {
         value="${ifDefined(value == null ? undefined : value)}"
         @change="${handleChange}"
       />
-      <label for="${checkboxId}" class="${prefix}--toggle-input__label">
+      <label for="checkbox" class="${prefix}--toggle-input__label">
         <slot name="label-text">${labelText}</slot>
         <span class="${prefix}--toggle__switch">
           ${this._renderCheckmark()}
