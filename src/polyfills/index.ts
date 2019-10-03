@@ -18,6 +18,7 @@ import 'core-js/modules/es.array.includes.js';
 import 'core-js/modules/es.array.iterator.js';
 import 'core-js/modules/es.object.is.js'; // For src/globals/directives/spread.ts
 import 'core-js/modules/es.object.values.js';
+import 'core-js/modules/es.object.entries';
 
 import './element-closest';
 import './element-matches';

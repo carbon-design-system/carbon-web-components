@@ -10,6 +10,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { html, property, customElement, LitElement } from 'lit-element';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './button.scss';
 
 const { prefix } = settings;
@@ -48,7 +49,7 @@ export enum BUTTON_KIND {
  * Button.
  */
 @customElement(`${prefix}-btn`)
-class BXButton extends LitElement {
+class BXButton extends FocusMixin(LitElement) {
   /**
    * Handles `click` event on the `<a>.
    * @param event The event.

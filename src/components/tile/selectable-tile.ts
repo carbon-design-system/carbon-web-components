@@ -11,6 +11,7 @@ import settings from 'carbon-components/es/globals/js/settings';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, svg, property, query, customElement, LitElement } from 'lit-element';
 import CheckmarkFilled16 from '@carbon/icons/lib/checkmark--filled/16';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './tile.scss';
 
 const { prefix } = settings;
@@ -19,7 +20,7 @@ const { prefix } = settings;
  * Multi-selectable tile.
  */
 @customElement(`${prefix}-selectable-tile`)
-class BXSelectableTile extends LitElement {
+class BXSelectableTile extends FocusMixin(LitElement) {
   @query('input')
   protected _inputNode!: HTMLInputElement;
 
@@ -27,21 +28,6 @@ class BXSelectableTile extends LitElement {
    * The `type` attribute of the `<input>`.
    */
   protected _inputType = 'checkbox';
-
-  /**
-   * Unique ID used for form elements.
-   */
-  protected _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
-
-  /**
-   * The element ID for the check box.
-   */
-  protected get _inputId() {
-    const { id: elementId, _uniqueId: uniqueId } = this;
-    return `__bx-ce-selectable-tile_${elementId || uniqueId}`;
-  }
 
   /**
    * Handles `change` event on the `<input>` in the shadow DOM.
@@ -79,11 +65,11 @@ class BXSelectableTile extends LitElement {
   }
 
   render() {
-    const { checkmarkLabel, name, selected, value, _inputId: inputId, _inputType: inputType, _handleChange: handleChange } = this;
+    const { checkmarkLabel, name, selected, value, _inputType: inputType, _handleChange: handleChange } = this;
     return html`
       <input
         type="${inputType}"
-        id="${inputId}"
+        id="input"
         class="${prefix}--tile-input"
         tabindex="-1"
         name="${ifDefined(name == null ? undefined : name)}"
@@ -91,7 +77,7 @@ class BXSelectableTile extends LitElement {
         .checked=${selected}
         @change=${handleChange}
       />
-      <label for="${inputId}" class="${prefix}--tile ${prefix}--tile--selectable" tabindex="0">
+      <label for="input" class="${prefix}--tile ${prefix}--tile--selectable" tabindex="0">
         <div class="${prefix}--tile__checkmark">
           ${CheckmarkFilled16({
             children: !checkmarkLabel ? undefined : svg`<title>${checkmarkLabel}</title>`,

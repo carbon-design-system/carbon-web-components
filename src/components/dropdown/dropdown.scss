@@ -20,6 +20,10 @@ $css--plex: true !default;
     left: -100%;
     top: -100%;
   }
+
+  .#{$prefix}--label[hidden] {
+    display: none;
+  }
 }
 
 :host(#{$prefix}-dropdown[type='inline']) {
@@ -31,7 +35,7 @@ $css--plex: true !default;
   display: block;
 }
 
-:host(#{$prefix}-dropdown-item[disabled]) {
+:host(#{$prefix}-dropdown-item[disabled]) .#{$prefix}--list-box__menu-item__option {
   color: $disabled-02;
   text-decoration: none;
 }

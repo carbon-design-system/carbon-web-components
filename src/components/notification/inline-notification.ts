@@ -14,6 +14,7 @@ import Close20 from '@carbon/icons/lib/close/20';
 import CheckmarkFilled20 from '@carbon/icons/lib/checkmark--filled/20';
 import WarningFilled20 from '@carbon/icons/lib/warning--filled/20';
 import ErrorFilled20 from '@carbon/icons/lib/error--filled/20';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './inline-notification.scss';
 
 const { prefix } = settings;
@@ -74,7 +75,7 @@ const iconsForKinds = {
  * Inline notification.
  */
 @customElement(`${prefix}-inline-notification`)
-class BXInlineNotification extends LitElement {
+class BXInlineNotification extends FocusMixin(LitElement) {
   /**
    * Notification type.
    */

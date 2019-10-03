@@ -110,8 +110,12 @@ class BXComboBox extends BXDropdown {
 
   protected _handleUserInitiatedSelectItem(item?: BXComboBoxItem) {
     if (item && !this._selectionShouldChange(item)) {
-      // Escape hatch for `attributeChangedCallback()` logic that updates `._filterInputValue()` when selection changes,
-      // given we want to update the `<input>` even if selection doesn't update
+      // Escape hatch for `shouldUpdate()` logic that updates `._filterInputValue()` when selection changes,
+      // given we want to update the `<input>` even if selection doesn't update.
+      // Use case:
+      // 1. Select the 2nd item in combo box drop down
+      // 2. Type some text in the `<input>`
+      // 3. Re-select the 2nd item in combo box drop down, the `<input>` has to updated with the 2nd item
       this._filterInputValue = item.textContent || '';
       this.requestUpdate();
     }
@@ -119,25 +123,17 @@ class BXComboBox extends BXDropdown {
   }
 
   protected _renderTriggerContent(): TemplateResult {
-    const {
-      disabled,
-      inputLabel,
-      triggerContent,
-      _filterInputValue: filterInputValue,
-      _menuBodyId: menuBodyId,
-      _triggerLabelId: triggerLabelId,
-      _handleInput: handleInput,
-    } = this;
+    const { disabled, inputLabel, triggerContent, _filterInputValue: filterInputValue, _handleInput: handleInput } = this;
     return html`
       <input
-        id="${triggerLabelId}"
+        id="trigger-label"
         class="${prefix}--text-input"
         ?disabled=${disabled}
         placeholder="${triggerContent}"
         .value=${filterInputValue}
         role="combobox"
         aria-label="${inputLabel}"
-        aria-controls="${menuBodyId}"
+        aria-controls="menu-body"
         aria-autocomplete="list"
         @input=${handleInput}
       />
@@ -173,24 +169,17 @@ class BXComboBox extends BXDropdown {
   @property({ attribute: false })
   itemMatches!: (item: BXComboBoxItem, queryText: string) => boolean;
 
-  attributeChangedCallback(name, old, current) {
-    super.attributeChangedCallback(name, old, current);
+  shouldUpdate(changedProperties) {
+    super.shouldUpdate(changedProperties);
     const { _selectedItemContent: selectedItemContent } = this;
-    if (old !== current && name === 'value' && selectedItemContent) {
+    if (selectedItemContent && changedProperties.has('value')) {
       this._filterInputValue = selectedItemContent!.textContent || '';
     }
+    return true;
   }
 
   // For combo box, open/selection with space key is disabled given the input box should take it over
   static TRIGGER_KEYS = new Set(['Enter']);
-
-  /**
-   * The tag name of the element working as a combo box item, which is, `<bx-combo-box-item>`.
-   * We use a separate property from `.selectorItem` due to the nature in difference of tag name vs. selector.
-   */
-  static get itemTagName() {
-    return `${prefix}-combo-box-item`;
-  }
 
   /**
    * A selector that will return highlighted items.
@@ -209,7 +198,6 @@ class BXComboBox extends BXDropdown {
 
   /**
    * A selector that will return combo box items.
-   * We use a separate property from `.itemTagName` due to the nature in difference of tag name vs. selector.
    */
   static get selectorItem() {
     return `${prefix}-combo-box-item`;

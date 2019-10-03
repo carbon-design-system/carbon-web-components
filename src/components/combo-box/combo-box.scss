@@ -14,6 +14,16 @@ $css--plex: true !default;
 :host(#{$prefix}-combo-box) {
   outline: none;
 
+  .#{$prefix}--assistive-text {
+    // Hides screen reader cursor
+    left: -100%;
+    top: -100%;
+  }
+
+  .#{$prefix}--label[hidden] {
+    display: none;
+  }
+
   .#{$prefix}--list-box__field {
     padding: 0;
   }
@@ -29,7 +39,7 @@ $css--plex: true !default;
   display: block;
 }
 
-:host(#{$prefix}-combo-box-item[disabled]) {
+:host(#{$prefix}-combo-box-item[disabled]) .#{$prefix}--list-box__menu-item__option {
   color: $disabled-02;
   text-decoration: none;
 }

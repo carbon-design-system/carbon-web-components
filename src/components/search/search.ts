@@ -14,6 +14,7 @@ import Close16 from '@carbon/icons/lib/close/16';
 import Close20 from '@carbon/icons/lib/close/20';
 import Search16 from '@carbon/icons/lib/search/16';
 import settings from 'carbon-components/es/globals/js/settings';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './search.scss';
 
 const { prefix } = settings;
@@ -37,24 +38,9 @@ export enum SEARCH_SIZE {
  * Search box.
  */
 @customElement(`${prefix}-search`)
-class BXSearch extends LitElement {
+class BXSearch extends FocusMixin(LitElement) {
   @query('input')
   private _inputNode!: HTMLInputElement;
-
-  /**
-   * Unique ID used for ID refs.
-   */
-  private _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
-
-  /**
-   * The element ID for the search box.
-   */
-  private get _inputId() {
-    const { id: elementId, _uniqueId: uniqueId } = this;
-    return `__bx-ce-search_${elementId || uniqueId}`;
-  }
 
   /**
    * Handles `input` event on the `<input>` in the shadow DOM.
@@ -157,7 +143,6 @@ class BXSearch extends LitElement {
       size,
       type,
       value = '',
-      _inputId: inputId,
       _inputNode: inputNode,
       _handleInput: handleInput,
       _handleClearInputButtonClick: handleClearInputButtonClick,
@@ -170,11 +155,11 @@ class BXSearch extends LitElement {
         class: `${prefix}--search-magnifier`,
         role: 'img',
       })}
-      <label for="${inputId}" class="${prefix}--label">
+      <label for="input" class="${prefix}--label">
         ${labelText}
       </label>
       <input
-        id="${inputId}"
+        id="input"
         type="${ifDefined(type == null ? undefined : type)}"
         class="${prefix}--search-input"
         ?disabled="${disabled}"

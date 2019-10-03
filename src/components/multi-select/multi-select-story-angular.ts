@@ -25,6 +25,7 @@ const createProps = () => ({
   disabled: boolean('Disabled (disabled)', false),
   helperText: text('Helper text (helper-text)', 'This is not helper text'),
   labelText: text('Label text (label-text)', 'Multiselect title'),
+  invalid: boolean('Show invalid state (invalid)', false),
   light: boolean('Light variant (light)', false),
   open: boolean('Open (open)', false),
   toggleLabelClosed: text('a11y label for the UI indicating the closed state (toggle-label-closed)', ''),
@@ -44,6 +45,7 @@ storiesOf('Multi select', module)
     template: `
       <bx-multi-select
         [disabled]="disabled"
+        [invalid]="invalid"
         [light]="light"
         [open]="open"
         [clearSelectionLabel]="clearSelectionLabel"

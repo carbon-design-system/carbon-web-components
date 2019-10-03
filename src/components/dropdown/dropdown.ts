@@ -11,7 +11,7 @@ import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { TemplateResult } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { html, property, customElement, LitElement } from 'lit-element';
+import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import FocusMixin from '../../globals/mixins/focus';
@@ -34,7 +34,7 @@ export const NAVIGATION_DIRECTION = {
 };
 
 /**
- * The keyboard action categories for multi select.
+ * The keyboard action categories for dropdown.
  */
 export enum DROPDOWN_KEYBOARD_ACTION {
   /**
@@ -59,7 +59,7 @@ export enum DROPDOWN_KEYBOARD_ACTION {
 }
 
 /**
- * Multi select types.
+ * Dropdown types.
  */
 export enum DROPDOWN_TYPE {
   /**
@@ -95,27 +95,16 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   protected _shouldTriggerBeFocusable = true;
 
   /**
-   * The element ID of the one that has the content of the trigger button.
+   * The `<slot>` element for the helper text in the shadow DOM.
    */
-  protected get _triggerLabelId() {
-    const { id, _uniqueId: uniqueId } = this;
-    return `__bx-ce-dropdown_trigger-label_${id || uniqueId}`;
-  }
+  @query('slot[name="helper-text"]')
+  protected _slotHelperTextNode!: HTMLSlotElement;
 
   /**
-   * The element ID for the menu body.
+   * The `<slot>` element for the label text in the shadow DOM.
    */
-  protected get _menuBodyId() {
-    const { id, _uniqueId: uniqueId } = this;
-    return `__bx-ce-dropdown_menu_${id || uniqueId}`;
-  }
-
-  /**
-   * Unique ID used for ID refs.
-   */
-  protected _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
+  @query('slot[name="label-text"]')
+  protected _slotLabelTextNode!: HTMLSlotElement;
 
   /**
    * @param itemToSelect A dropdown item. Absense of this argument means clearing selection.
@@ -204,18 +193,33 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
 
   /**
    * Handles `blur` event handler on the document this element is in.
+   * @param event The event.
    */
   @HostListener('blur')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
-  protected _handleFocusOut(event) {
-    if (!this.contains(event.relatedTarget)) {
+  protected _handleFocusOut(event: FocusEvent) {
+    if (!this.contains(event.relatedTarget as Node)) {
       this._handleUserInitiatedToggle(false);
     }
   }
 
   /**
-   * Handles user-initiated selection of a multi select item.
-   * @param [item] The multi select item user wants to select. Absense of this argument means clearing selection.
+   * Handles `slotchange` event for the `<slot>` for helper text.
+   */
+  protected _handleSlotchangeHelperText() {
+    this.requestUpdate();
+  }
+
+  /**
+   * Handles `slotchange` event for the `<slot>` for label text.
+   */
+  protected _handleSlotchangeLabelText() {
+    this.requestUpdate();
+  }
+
+  /**
+   * Handles user-initiated selection of a dropdown item.
+   * @param [item] The dropdown item user wants to select. Absense of this argument means clearing selection.
    */
   protected _handleUserInitiatedSelectItem(item?: BXDropdownItem) {
     if (this._selectionShouldChange(item)) {
@@ -266,7 +270,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * Clears the selection of multi select items.
+   * Clears the selection of dropdown items.
    */
   protected _clearHighlight() {
     forEach(this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItem), item => {
@@ -275,7 +279,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * Navigate through multi select items.
+   * Navigate through dropdown items.
    * @param direction `-1` to navigate backward, `1` to navigate forward.
    */
   protected _navigate(direction: number) {
@@ -320,9 +324,9 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    * @returns The main content of the trigger button.
    */
   protected _renderTriggerContent(): TemplateResult {
-    const { triggerContent, _selectedItemContent: selectedItemContent, _triggerLabelId: triggerLabelId } = this;
+    const { triggerContent, _selectedItemContent: selectedItemContent } = this;
     return html`
-      <span id="${triggerLabelId}" class="${prefix}--list-box__label">${selectedItemContent || triggerContent}</span>
+      <span id="trigger-label" class="${prefix}--list-box__label">${selectedItemContent || triggerContent}</span>
     `;
   }
 
@@ -336,7 +340,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   /* eslint-enable class-methods-use-this */
 
   /**
-   * `true` if this multi select should be disabled. Corresponds to the attribute with the same name.
+   * `true` if this dropdown should be disabled. Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
@@ -348,19 +352,25 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   helperText = '';
 
   /**
+   * `true` to show the UI of the invalid state.
+   */
+  @property({ type: Boolean, reflect: true })
+  invalid = false;
+
+  /**
    * The label text. Corresponds to `label-text` attribute.
    */
   @property({ attribute: 'label-text' })
   labelText = '';
 
   /**
-   * `true` if this multi select should use the light UI variant. Corresponds to the attribute with the same name.
+   * `true` if this dropdown should use the light UI variant. Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
   light = false;
 
   /**
-   * `true` if this multi select should be open. Corresponds to the attribute with the same name.
+   * `true` if this dropdown should be open. Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
   open = false;
@@ -396,14 +406,13 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   triggerContent = '';
 
   /**
-   * `true` if this multi select should use the inline UI variant. Corresponds to the attribute with the same name.
+   * `true` if this dropdown should use the inline UI variant. Corresponds to the attribute with the same name.
    */
   @property({ reflect: true })
   type = DROPDOWN_TYPE.REGULAR;
 
   /**
    * The validity message. Corresponds to `validity-message` attribute.
-   * If present and non-empty, this multi select shows the UI of its invalid state.
    */
   @property({ attribute: 'validity-message' })
   validityMessage = '';
@@ -419,40 +428,44 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   attributeChangedCallback(name, old, current) {
-    if (old !== current) {
-      if (name === 'id') {
-        // Force updaring ID refs
-        this.requestUpdate();
-      } else if (name === 'disabled') {
-        // Propagate `disabled` attribute to descendants until `:host-context()` gets supported in all major browsers
-        forEach(this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItem), elem => {
-          if (current === null) {
-            elem.removeAttribute('disabled');
-          } else {
-            elem.setAttribute('disabled', current);
-          }
-        });
-      } else if (name === 'value') {
-        const { itemTagName } = this.constructor as typeof BXDropdown;
-        forEach(this.getElementsByTagName(itemTagName), elem => {
-          elem.toggleAttribute('selected', (elem as BXDropdownItem).value === this.value);
-        });
-        const item = find(this.getElementsByTagName(itemTagName), elem => (elem as BXDropdownItem).value === this.value);
-        if (item) {
-          const range = this.ownerDocument!.createRange();
-          range.selectNodeContents(item);
-          this._selectedItemContent = range.cloneContents();
-        } else {
-          this._selectedItemContent = null;
-        }
-      }
+    if (old !== current && name === 'id') {
+      // Force updaring ID refs
+      this.requestUpdate();
     }
     super.attributeChangedCallback(name, old, current);
+  }
+
+  shouldUpdate(changedProperties) {
+    if (changedProperties.has('value')) {
+      const { selectorItem } = this.constructor as typeof BXDropdown;
+      // `<bx-multi-select>` updates selection beforehand
+      // because our rendering logic for `<bx-multi-select>` looks for selected items via `qSA()`
+      forEach(this.querySelectorAll(selectorItem), elem => {
+        (elem as BXDropdownItem).selected = (elem as BXDropdownItem).value === this.value;
+      });
+      const item = find(this.querySelectorAll(selectorItem), elem => (elem as BXDropdownItem).value === this.value);
+      if (item) {
+        const range = this.ownerDocument!.createRange();
+        range.selectNodeContents(item);
+        this._selectedItemContent = range.cloneContents();
+      } else {
+        this._selectedItemContent = null;
+      }
+    }
+    return true;
   }
 
   updated(changedProperties) {
     const { helperText, type } = this;
     const inline = type === DROPDOWN_TYPE.INLINE;
+    const { selectorItem } = this.constructor as typeof BXDropdown;
+    if (changedProperties.has('disabled')) {
+      const { disabled } = this;
+      // Propagate `disabled` attribute to descendants until `:host-context()` gets supported in all major browsers
+      forEach(this.querySelectorAll(selectorItem), elem => {
+        (elem as BXDropdownItem).disabled = disabled;
+      });
+    }
     if ((changedProperties.has('helperText') || changedProperties.has('type')) && helperText && inline) {
       // eslint-disable-next-line no-console
       console.warn('Found `helperText` property/attribute usage in inline mode, that is not supported, at:', this);
@@ -463,6 +476,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
     const {
       disabled,
       helperText,
+      invalid,
       labelText,
       light,
       open,
@@ -472,20 +486,21 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       validityMessage,
       _assistiveStatusText: assistiveStatusText,
       _shouldTriggerBeFocusable: shouldTriggerBeFocusable,
-      _menuBodyId: menuBodyId,
-      _triggerLabelId: triggerLabelId,
       _handleClickInner: handleClickInner,
       _handleKeydownInner: handleKeydownInner,
+      _handleSlotchangeHelperText: handleSlotchangeHelperText,
+      _handleSlotchangeLabelText: handleSlotchangeLabelText,
+      _slotHelperTextNode: slotHelperTextNode,
+      _slotLabelTextNode: slotLabelTextNode,
     } = this;
     const inline = type === DROPDOWN_TYPE.INLINE;
-    const hasValidity = Boolean(validityMessage);
     const selectedItemsCount = this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItemSelected).length;
     const classes = classnames(`${prefix}--dropdown`, `${prefix}--list-box`, {
       [`${prefix}--list-box--disabled`]: disabled,
       [`${prefix}--list-box--inline`]: inline,
       [`${prefix}--list-box--light`]: light,
       [`${prefix}--list-box--expanded`]: open,
-      [`${prefix}--dropdown--invalid`]: hasValidity,
+      [`${prefix}--dropdown--invalid`]: invalid,
       [`${prefix}--dropdown--inline`]: inline,
       [`${prefix}--dropdown--selected`]: selectedItemsCount > 0,
     });
@@ -499,51 +514,41 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       [`${prefix}--list-box__menu-icon--open`]: open,
     });
     const toggleLabel = (open ? toggleLabelOpen : toggleLabelClosed) || undefined;
-    const label = !labelText
+    const hasHelperText = helperText || (slotHelperTextNode && slotHelperTextNode.assignedNodes().length > 0);
+    const hasLabelText = labelText || (slotLabelTextNode && slotLabelTextNode.assignedNodes().length > 0);
+    const validity = !invalid
       ? undefined
       : html`
-          <label class="${labelClasses}">${labelText}</label>
+          <div class=${`${prefix}--form-requirement`}><slot name="validity-message">${validityMessage}</slot></div>
         `;
-    const helper =
-      !helperText || inline
-        ? undefined
-        : html`
-            <div class="${helperClasses}">${helperText}</div>
-          `;
-    const validity = !hasValidity
-      ? undefined
-      : html`
-          <div class=${`${prefix}--form-requirement`}>${validityMessage}</div>
-        `;
-    const validityIcon = !hasValidity
+    const validityIcon = !invalid
       ? undefined
       : WarningFilled16({ class: `${prefix}--list-box__invalid-icon`, 'aria-label': toggleLabel });
     const menuBody = !open
       ? undefined
       : html`
-          <div id="${menuBodyId}" class="${prefix}--list-box__menu" role="listbox" tabindex="-1">
+          <div id="menu-body" class="${prefix}--list-box__menu" role="listbox" tabindex="-1">
             <slot></slot>
           </div>
         `;
     return html`
-      ${label} ${helper}
-      <div
-        role="listbox"
-        class="${classes}"
-        ?data-invalid=${hasValidity}
-        @click=${handleClickInner}
-        @keydown=${handleKeydownInner}
-      >
+      <label class="${labelClasses}" ?hidden="${!hasLabelText}">
+        <slot name="label-text" @slotchange="${handleSlotchangeLabelText}">${labelText}</slot>
+      </label>
+      <div class="${helperClasses}" ?hidden="${!hasHelperText}">
+        <slot name="helper-text" @slotchange="${handleSlotchangeHelperText}">${helperText}</slot>
+      </div>
+      <div role="listbox" class="${classes}" ?data-invalid=${invalid} @click=${handleClickInner} @keydown=${handleKeydownInner}>
         ${validityIcon}
         <div
           role="${ifDefined(!shouldTriggerBeFocusable ? undefined : 'button')}"
           class="${prefix}--list-box__field"
           tabindex="${ifDefined(!shouldTriggerBeFocusable ? undefined : '0')}"
-          aria-labelledby="${triggerLabelId}"
+          aria-labelledby="trigger-label"
           aria-expanded="${String(open)}"
           aria-haspopup="listbox"
-          aria-owns="${menuBodyId}"
-          aria-controls="${menuBodyId}"
+          aria-owns="menu-body"
+          aria-controls="menu-body"
         >
           ${this._renderPrecedingTriggerContent()}${this._renderTriggerContent()}${this._renderFollowingTriggerContent()}
           <div class="${iconContainerClasses}">
@@ -570,14 +575,6 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * The tag name of the element working as a multi select item, which is, `<bx-dropdown-item>`.
-   * We use a separate property from `.selectorItem` due to the nature in difference of tag name vs. selector.
-   */
-  static get itemTagName() {
-    return `${prefix}-dropdown-item`;
-  }
-
-  /**
    * A selector that will return highlighted items.
    */
   static get selectorItemHighlighted() {
@@ -585,8 +582,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * A selector that will return multi select items.
-   * We use a separate property from `.itemTagName` due to the nature in difference of tag name vs. selector.
+   * A selector that will return dropdown items.
    */
   static get selectorItem() {
     return `${prefix}-dropdown-item`;
@@ -600,7 +596,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * The name of the custom event fired before a multi select item is selected upon a user gesture.
+   * The name of the custom event fired before a dropdown item is selected upon a user gesture.
    * Cancellation of this event stops changing the user-initiated selection.
    */
   static get eventBeforeSelect() {
@@ -608,7 +604,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * The name of the custom event fired after a a multi select item is selected upon a user gesture.
+   * The name of the custom event fired after a a dropdown item is selected upon a user gesture.
    */
   static get eventAfterSelect() {
     return `${prefix}-dropdown-selected`;

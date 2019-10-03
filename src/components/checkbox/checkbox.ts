@@ -11,6 +11,7 @@ import classnames from 'classnames';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './checkbox.scss';
 
 const { prefix } = settings;
@@ -19,29 +20,14 @@ const { prefix } = settings;
  * Check box.
  */
 @customElement(`${prefix}-checkbox`)
-class BXCheckbox extends LitElement {
+class BXCheckbox extends FocusMixin(LitElement) {
   @query('input')
-  private _checkboxNode!: HTMLInputElement;
-
-  /**
-   * Unique ID used for ID refs.
-   */
-  private _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
-
-  /**
-   * The element ID for the check box.
-   */
-  private get _checkboxId() {
-    const { id: elementId, _uniqueId: uniqueId } = this;
-    return `__bx-ce-selectable-tile_${elementId || uniqueId}`;
-  }
+  protected _checkboxNode!: HTMLInputElement;
 
   /**
    * Handles `click` event on the `<input>` in the shadow DOM.
    */
-  private _handleChange() {
+  protected _handleChange() {
     const { checked, indeterminate } = this._checkboxNode;
     this.checked = checked;
     this.indeterminate = indeterminate;
@@ -94,23 +80,13 @@ class BXCheckbox extends LitElement {
   }
 
   render() {
-    const {
-      checked,
-      disabled,
-      hideLabel,
-      indeterminate,
-      labelText,
-      name,
-      value,
-      _checkboxId: checkboxId,
-      _handleChange: handleChange,
-    } = this;
+    const { checked, disabled, hideLabel, indeterminate, labelText, name, value, _handleChange: handleChange } = this;
     const labelClasses = classnames(`${prefix}--checkbox-label`, {
       [`${prefix}--visually-hidden`]: hideLabel,
     });
     return html`
       <input
-        id="${checkboxId}"
+        id="checkbox"
         type="checkbox"
         class="${`${prefix}--checkbox`}"
         aria-checked="${indeterminate ? 'mixed' : String(Boolean(checked))}"
@@ -121,7 +97,7 @@ class BXCheckbox extends LitElement {
         value="${ifDefined(value == null ? undefined : value)}"
         @change="${handleChange}"
       />
-      <label for="${checkboxId}" class="${labelClasses}">${labelText}</label>
+      <label for="checkbox" class="${labelClasses}">${labelText}</label>
     `;
   }
 
