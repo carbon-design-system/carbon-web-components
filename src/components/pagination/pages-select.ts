@@ -20,21 +20,6 @@ const { prefix } = settings;
 @customElement(`${prefix}-pages-select`)
 class BXPagesSelect extends LitElement {
   /**
-   * Unique ID used for ID refs.
-   */
-  protected _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
-
-  /**
-   * The element ID for the select box.
-   */
-  protected get _selectId() {
-    const { id: elementId, _uniqueId: uniqueId } = this;
-    return `__bx-ce-pages-select_${elementId || uniqueId}`;
-  }
-
-  /**
    * Handles `change` event on the `<select>` to select page size.
    */
   protected _handleChange({ target }: Event) {
@@ -77,13 +62,13 @@ class BXPagesSelect extends LitElement {
   value!: number;
 
   render() {
-    const { formatLabelText, formatSupplementalText, total, value, _selectId: selectId, _handleChange: handleChange } = this;
+    const { formatLabelText, formatSupplementalText, total, value, _handleChange: handleChange } = this;
     return html`
       <div class="${prefix}--select__page-number">
-        <label for="${selectId}_page-number" class="${prefix}--label ${prefix}--visually-hidden">
+        <label for="select" class="${prefix}--label ${prefix}--visually-hidden">
           ${formatLabelText(this)}
         </label>
-        <select id="${selectId}_page-number" class="${prefix}--select-input" .value="${value}" @change="${handleChange}">
+        <select id="select" class="${prefix}--select-input" .value="${value}" @change="${handleChange}">
           ${Array.from(new Array(total)).map(
             (_item, index) => html`
               <option value=${index}>${index + 1}</option>
