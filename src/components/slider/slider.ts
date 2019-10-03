@@ -71,7 +71,7 @@ class BXSlider extends HostListenerMixin(LitElement) {
 
   private set _rate(rate: number) {
     const { max, min, step } = this;
-    this.value = min + Math.round(((max - min) * rate) / step) * step;
+    this.value = min + Math.round(((max - min) * Math.min(1, Math.max(0, rate))) / step) * step;
   }
 
   /**
