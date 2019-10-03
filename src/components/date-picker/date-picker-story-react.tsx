@@ -30,6 +30,7 @@ const createInputProps = () => ({
   hideLabel: boolean('Hide label (hideLabel in <BXDatePickerInput>)', false),
   labelText: text('Label text (labelText in <BXDatePickerInput>)', 'Date Picker label'),
   light: boolean('Light variant (light in <BXDatePickerInput>)', false),
+  placeholder: text('Placeholder text (placeholder in <bx-date-picker-input>)', 'mm/dd/yyyy'),
   onInput: action('onInput'),
 });
 
@@ -37,16 +38,22 @@ storiesOf('Date picker', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
     const { open } = createProps();
-    const { disabled, hideLabel, labelText, light } = createInputProps();
+    const { disabled, hideLabel, labelText, light, placeholder } = createInputProps();
     return (
       <BXDatePicker open={open}>
-        <BXDatePickerInput disabled={disabled} hideLabel={hideLabel} labelText={labelText} light={light} />
+        <BXDatePickerInput
+          disabled={disabled}
+          hideLabel={hideLabel}
+          labelText={labelText}
+          light={light}
+          placeholder={placeholder}
+        />
       </BXDatePicker>
     );
   })
   .add('Single with calendar', () => {
     const { enabledRange, open, value, onAfterChanged } = createProps();
-    const { disabled, hideLabel, labelText, light, onInput } = createInputProps();
+    const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
     return (
       <BXDatePicker enabledRange={enabledRange} open={open} value={value} onAfterChanged={onAfterChanged}>
         <BXDatePickerInput
@@ -55,6 +62,7 @@ storiesOf('Date picker', module)
           kind="single"
           labelText={labelText}
           light={light}
+          placeholder={placeholder}
           onInput={onInput}
         />
       </BXDatePicker>
@@ -62,7 +70,7 @@ storiesOf('Date picker', module)
   })
   .add('Range with calendar', () => {
     const { enabledRange, open, value, onAfterChanged } = createProps();
-    const { disabled, hideLabel, labelText, light, onInput } = createInputProps();
+    const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
     return (
       <BXDatePicker enabledRange={enabledRange} open={open} value={value} onAfterChanged={onAfterChanged}>
         <BXDatePickerInput
@@ -71,6 +79,7 @@ storiesOf('Date picker', module)
           kind="from"
           labelText={labelText}
           light={light}
+          placeholder={placeholder}
           onInput={onInput}
         />
         <BXDatePickerInput
@@ -79,6 +88,7 @@ storiesOf('Date picker', module)
           kind="to"
           labelText={labelText}
           light={light}
+          placeholder={placeholder}
           onInput={onInput}
         />
       </BXDatePicker>

@@ -18,6 +18,7 @@ const createProps = () => ({
   enabledRange: text('Minimum/maximum dates in ISO8601 date format, separated by `/` (enabled-range)', ''),
   open: boolean('Open (open)', false),
   value: text('Value in ISO8601 date format, separated by `/` (value)', ''),
+  placeholder: text('Placeholder text (placeholder in <bx-date-picker-input>)', 'mm/dd/yyyy'),
   onAfterChanged: action('bx-date-picker-changed'),
 });
 
@@ -34,7 +35,13 @@ storiesOf('Date picker', module)
   .add('Default', () => ({
     template: `
       <bx-date-picker :open="open">
-        <bx-date-picker-input :disabled="disabled" :hide-label="hideLabel" :label-text="labelText" :light="light">
+        <bx-date-picker-input
+          :disabled="disabled"
+          :hide-label="hideLabel"
+          :label-text="labelText"
+          :light="light"
+          :placeholder="placeholder"
+        >
         </bx-date-picker-input>
       </bx-date-picker>
     `,
@@ -54,6 +61,7 @@ storiesOf('Date picker', module)
           kind="single"
           :label-text="labelText"
           :light="light"
+          :placeholder="placeholder"
           @input="onInput"
         >
         </bx-date-picker-input>
@@ -75,6 +83,7 @@ storiesOf('Date picker', module)
           kind="from"
           :label-text="labelText"
           :light="light"
+          :placeholder="placeholder"
           @input="onInput"
         >
         </bx-date-picker-input>
@@ -84,6 +93,7 @@ storiesOf('Date picker', module)
           kind="to"
           :label-text="labelText"
           :light="light"
+          :placeholder="placeholder"
           @input="onInput"
         >
         </bx-date-picker-input>

@@ -26,6 +26,7 @@ const createInputProps = () => ({
   hideLabel: boolean('Hide label (hideLabel in <BXDatePickerInput>)', false),
   labelText: text('Label text (labelText in <BXDatePickerInput>)', 'Date Picker label'),
   light: boolean('Light variant (light in <BXDatePickerInput>)', false),
+  placeholder: text('Placeholder text (placeholder in <bx-date-picker-input>)', 'mm/dd/yyyy'),
   onInput: action('input'),
 });
 
@@ -34,7 +35,13 @@ storiesOf('Date picker', module)
   .add('Default', () => ({
     template: `
       <bx-date-picker [open]="open">
-        <bx-date-picker-input [disabled]="disabled" [hideLabel]="hideLabel" [labelText]="labelText" [light]="light">
+        <bx-date-picker-input
+          [disabled]="disabled"
+          [hideLabel]="hideLabel"
+          [labelText]="labelText"
+          [light]="light"
+          [placeholder]="placeholder"
+        >
         </bx-date-picker-input>
       </bx-date-picker>
     `,
@@ -57,6 +64,7 @@ storiesOf('Date picker', module)
           kind="single"
           [labelText]="labelText"
           [light]="light"
+          [placeholder]="placeholder"
           (input)="onInput($event)"
         >
         </bx-date-picker-input>
@@ -81,6 +89,7 @@ storiesOf('Date picker', module)
           kind="from"
           [labelText]="labelText"
           [light]="light"
+          [placeholder]="placeholder"
           (input)="onInput($event)"
         >
         </bx-date-picker-input>
@@ -90,6 +99,7 @@ storiesOf('Date picker', module)
           kind="to"
           [labelText]="labelText"
           [light]="light"
+          [placeholder]="placeholder"
           (input)="onInput($event)"
         >
         </bx-date-picker-input>
