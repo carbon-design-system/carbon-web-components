@@ -102,13 +102,13 @@ class BXPagination extends LitElement {
    * The formatter, used with determinate the total pages. Should be changed upon the locale the UI is rendered with.
    */
   @property({ attribute: false })
-  formatStatusWithDeterminateTotal = ({ start, end, total }) => `${start}–${end} of ${total} items`;
+  formatStatusWithDeterminateTotal = ({ start, end, total }) => `${start}–${end} of ${total} item${total <= 1 ? '' : 's'}`;
 
   /**
    * The formatter, used with indeterminate the total pages. Should be changed upon the locale the UI is rendered with.
    */
   @property({ attribute: false })
-  formatStatusWithIndeterminateTotal = ({ start, end }) => `${start}–${end} items`;
+  formatStatusWithIndeterminateTotal = ({ start, end }) => `${start}–${end} item${end <= 1 ? '' : 's'}`;
 
   /**
    * `true` to explicitly state that user is at the last page. Corresponds to `at-last-page` attribute.
