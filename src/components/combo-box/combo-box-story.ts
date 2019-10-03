@@ -18,10 +18,12 @@ const createProps = () => ({
   open: boolean('Open (open)', false),
   disabled: boolean('Disabled (disabled)', false),
   helperText: text('Helper text (helper-text)', ''),
+  invalid: boolean('Show invalid state  (invalid)', false),
   labelText: text('Label text (label-text)', ''),
   light: boolean('Light variant (light)', false),
   value: text('The value of the selected item (value)', ''),
   triggerContent: text('The placeholder content (trigger-content)', 'Filter...'),
+  validityMessage: text('The validity message (validity-message)', ''),
   disableSelection: boolean(
     'Disable user-initiated selection change (Call event.preventDefault() in bx-combo-box-beingselected event)',
     false
@@ -31,7 +33,18 @@ const createProps = () => ({
 storiesOf('Combo box', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection } = createProps();
+    const {
+      open,
+      disabled,
+      helperText,
+      invalid,
+      labelText,
+      light,
+      value,
+      triggerContent,
+      validityMessage,
+      disableSelection,
+    } = createProps();
     const beforeSelectedAction = action('bx-combo-box-beingselected');
     const handleBeforeSelected = (event: CustomEvent) => {
       beforeSelectedAction(event);
@@ -43,9 +56,11 @@ storiesOf('Combo box', module)
       <bx-combo-box
         ?open=${open}
         ?disabled=${disabled}
+        ?invalid=${invalid}
         ?light=${light}
         helper-text=${helperText}
         label-text=${labelText}
+        validity-message=${validityMessage}
         value=${value}
         trigger-content=${triggerContent}
         @bx-combo-box-beingselected=${handleBeforeSelected}

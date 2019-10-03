@@ -21,21 +21,6 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-expandable-tile`)
 class BXExpandableTile extends HostListenerMixin(LitElement) {
-  /**
-   * Unique ID used for ID refs.
-   */
-  private _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
-
-  /**
-   * The element ID for the check box.
-   */
-  private get _iconId() {
-    const { id: elementId, _uniqueId: uniqueId } = this;
-    return `__bx-ce-selectable-tile_${elementId || uniqueId}`;
-  }
-
   @HostListener('click')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleClick = () => {
@@ -80,12 +65,12 @@ class BXExpandableTile extends HostListenerMixin(LitElement) {
   expanded = false;
 
   render() {
-    const { collapsedAssistiveText, expandedAssistiveText, expanded, _iconId: iconId } = this;
+    const { collapsedAssistiveText, expandedAssistiveText, expanded } = this;
     const assistiveText = expanded ? expandedAssistiveText : collapsedAssistiveText;
     return html`
-      <button class="${prefix}--tile__chevron" aria-labelledby="${iconId}">
+      <button class="${prefix}--tile__chevron" aria-labelledby="icon">
         ${ChevronDown16({
-          id: iconId,
+          id: 'icon',
           alt: assistiveText,
           description: assistiveText,
           'aria-label': assistiveText,

@@ -21,25 +21,18 @@ const { prefix } = settings;
 @customElement(`${prefix}-multi-select-item`)
 class BXMultiSelectItem extends BXDropdownItem {
   /**
-   * Unique ID used for form elements.
-   */
-  protected _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
-
-  /**
    * The `name` attribute for the `<input>` for selection. Corresponds to `selection-name` attribute.
    */
   @property({ attribute: 'selection-name' })
   selectionName = '';
 
   render() {
-    const { id: elementId, disabled, selected, selectionName, value } = this;
+    const { disabled, selected, selectionName, value } = this;
     return html`
       <div class="${prefix}--list-box__menu-item__option">
         <div class="${prefix}--form-item ${prefix}--checkbox-wrapper">
           <input
-            id="__bx-multi-select-item_checkbox_${elementId || this._uniqueId}"
+            id="input"
             type="checkbox"
             class="${prefix}--checkbox"
             tabindex="-1"
@@ -49,7 +42,7 @@ class BXMultiSelectItem extends BXDropdownItem {
             name="${ifDefined(selectionName || undefined)}"
             value="${value}"
           />
-          <label for="__bx-multi-select-item_checkbox_${elementId || this._uniqueId}" class="${prefix}--checkbox-label">
+          <label for="input" class="${prefix}--checkbox-label">
             <span class="${prefix}--checkbox-label-text"><slot></slot></span>
           </label>
         </div>

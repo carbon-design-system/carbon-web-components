@@ -43,21 +43,6 @@ class BXSearch extends FocusMixin(LitElement) {
   private _inputNode!: HTMLInputElement;
 
   /**
-   * Unique ID used for ID refs.
-   */
-  private _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
-
-  /**
-   * The element ID for the search box.
-   */
-  private get _inputId() {
-    const { id: elementId, _uniqueId: uniqueId } = this;
-    return `__bx-ce-search_${elementId || uniqueId}`;
-  }
-
-  /**
    * Handles `input` event on the `<input>` in the shadow DOM.
    */
   private _handleInput(event: Event) {
@@ -158,7 +143,6 @@ class BXSearch extends FocusMixin(LitElement) {
       size,
       type,
       value = '',
-      _inputId: inputId,
       _inputNode: inputNode,
       _handleInput: handleInput,
       _handleClearInputButtonClick: handleClearInputButtonClick,
@@ -171,11 +155,11 @@ class BXSearch extends FocusMixin(LitElement) {
         class: `${prefix}--search-magnifier`,
         role: 'img',
       })}
-      <label for="${inputId}" class="${prefix}--label">
+      <label for="input" class="${prefix}--label">
         ${labelText}
       </label>
       <input
-        id="${inputId}"
+        id="input"
         type="${ifDefined(type == null ? undefined : type)}"
         class="${prefix}--search-input"
         ?disabled="${disabled}"
