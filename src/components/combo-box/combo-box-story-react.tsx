@@ -22,8 +22,10 @@ const createProps = () => ({
   open: boolean('Open (open)', false),
   disabled: boolean('Disabled (disabled)', false),
   helperText: text('Helper text (helperText)', ''),
+  invalid: boolean('Show invalid state (invalid)', false),
   labelText: text('Label text (labelText)', ''),
   light: boolean('Light variant (light)', false),
+  validityMessage: text('The validity message (validityMessage)', ''),
   value: text('The value of the selected item (value)', ''),
   triggerContent: text('The placeholder content (triggerContent)', 'Filter...'),
   disableSelection: boolean(
@@ -35,7 +37,18 @@ const createProps = () => ({
 storiesOf('Combo box', module)
   .addDecorator(withKnobs)
   .add('Default', () => {
-    const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection } = createProps();
+    const {
+      open,
+      disabled,
+      helperText,
+      invalid,
+      labelText,
+      light,
+      validityMessage,
+      value,
+      triggerContent,
+      disableSelection,
+    } = createProps();
     const beforeSelectedAction = action('onBeforeSelect');
     const handleBeforeSelected = (event: CustomEvent) => {
       beforeSelectedAction(event);
@@ -47,9 +60,11 @@ storiesOf('Combo box', module)
       <BXComboBox
         open={open}
         disabled={disabled}
+        invalid={invalid}
         light={light}
         helperText={helperText}
         labelText={labelText}
+        validityMessage={validityMessage}
         value={value}
         triggerContent={triggerContent}
         onBeforeSelect={handleBeforeSelected}

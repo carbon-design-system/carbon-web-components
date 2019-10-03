@@ -124,17 +124,6 @@ export default class BXInput extends LitElement {
   @property({ reflect: true })
   value = '';
 
-  /**
-   * Unique ID used for ID refs.
-   */
-  protected _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
-
-  protected get _inputId() {
-    return this.id || this._uniqueId;
-  }
-
   render() {
     const invalidIcon = WarningFilled16({ class: `${prefix}--text-input__invalid-icon` });
 
@@ -151,7 +140,7 @@ export default class BXInput extends LitElement {
     });
 
     return html`
-      <label class="${labelClasses}" for="${this._inputId}">
+      <label class="${labelClasses}" for="input">
         <slot name="label-text">
           ${this.labelText}
         </slot>
@@ -169,7 +158,7 @@ export default class BXInput extends LitElement {
           class="${inputClasses}"
           ?data-invalid="${this.invalid}"
           ?disabled="${this.disabled}"
-          id="${this._inputId}"
+          id="input"
           name="${this.name}"
           pattern="${this.pattern}"
           placeholder="${this.placeholder}"

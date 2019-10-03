@@ -23,21 +23,6 @@ class BXPageSizesSelect extends LitElement {
   private _selectNode!: HTMLSelectElement;
 
   /**
-   * Unique ID used for ID refs.
-   */
-  private _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
-
-  /**
-   * The element ID for the select box.
-   */
-  private get _selectId() {
-    const { id: elementId, _uniqueId: uniqueId } = this;
-    return `__bx-ce-page-sizes-select_${elementId || uniqueId}`;
-  }
-
-  /**
    * Handles `change` event on the `<select>` to select page size.
    */
   private _handleChange({ target }: Event) {
@@ -81,11 +66,11 @@ class BXPageSizesSelect extends LitElement {
   value!: number;
 
   render() {
-    const { labelText, value, _selectId: selectId, _handleChange: handleChange, _handleSlotChange: handleSlotChange } = this;
+    const { labelText, value, _handleChange: handleChange, _handleSlotChange: handleSlotChange } = this;
     return html`
-      <label for="${selectId}_size" class="${prefix}--pagination__text">${labelText}<slot name="label-text"></slot></label>
+      <label for="select" class="${prefix}--pagination__text">${labelText}<slot name="label-text"></slot></label>
       <div class="${prefix}--select__item-count">
-        <select id="${selectId}_size" class="${prefix}--select-input" .value="${value}" @change=${handleChange}></select>
+        <select id="select" class="${prefix}--select-input" .value="${value}" @change=${handleChange}></select>
         ${ChevronDown16({ class: `${prefix}--select__arrow` })}
       </div>
       <div hidden><slot @slotchange="${handleSlotChange}"></slot></div>

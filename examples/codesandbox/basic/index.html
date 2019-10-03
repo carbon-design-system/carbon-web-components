@@ -19,6 +19,16 @@ LICENSE file in the root directory of this source tree.
       #app {
         width: 300px;
       }
+
+      bx-dropdown,
+      bx-dropdown-item {
+        visibility: hidden;
+      }
+
+      bx-dropdown:defined,
+      bx-dropdown-item:defined {
+        visibility: inherit;
+      }
     </style>
     <script src="src/index.js"></script>
   </head>
