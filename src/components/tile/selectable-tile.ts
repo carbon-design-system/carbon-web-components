@@ -30,21 +30,6 @@ class BXSelectableTile extends FocusMixin(LitElement) {
   protected _inputType = 'checkbox';
 
   /**
-   * Unique ID used for form elements.
-   */
-  protected _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
-
-  /**
-   * The element ID for the check box.
-   */
-  protected get _inputId() {
-    const { id: elementId, _uniqueId: uniqueId } = this;
-    return `__bx-ce-selectable-tile_${elementId || uniqueId}`;
-  }
-
-  /**
    * Handles `change` event on the `<input>` in the shadow DOM.
    */
   protected _handleChange() {
@@ -80,11 +65,11 @@ class BXSelectableTile extends FocusMixin(LitElement) {
   }
 
   render() {
-    const { checkmarkLabel, name, selected, value, _inputId: inputId, _inputType: inputType, _handleChange: handleChange } = this;
+    const { checkmarkLabel, name, selected, value, _inputType: inputType, _handleChange: handleChange } = this;
     return html`
       <input
         type="${inputType}"
-        id="${inputId}"
+        id="input"
         class="${prefix}--tile-input"
         tabindex="-1"
         name="${ifDefined(name == null ? undefined : name)}"
@@ -92,7 +77,7 @@ class BXSelectableTile extends FocusMixin(LitElement) {
         .checked=${selected}
         @change=${handleChange}
       />
-      <label for="${inputId}" class="${prefix}--tile ${prefix}--tile--selectable" tabindex="0">
+      <label for="input" class="${prefix}--tile ${prefix}--tile--selectable" tabindex="0">
         <div class="${prefix}--tile__checkmark">
           ${CheckmarkFilled16({
             children: !checkmarkLabel ? undefined : svg`<title>${checkmarkLabel}</title>`,

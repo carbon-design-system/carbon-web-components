@@ -36,10 +36,6 @@
   @extend .#{$prefix}--modal.is-visible;
 }
 
-:host(#{$prefix}-modal[danger]) {
-  @extend .#{$prefix}--modal--danger;
-}
-
 :host(#{$prefix}-modal-header) {
   @extend .#{$prefix}--modal-header;
 }

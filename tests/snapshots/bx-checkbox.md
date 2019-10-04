@@ -8,12 +8,12 @@
 <input
   aria-checked="false"
   class="bx--checkbox"
-  id="__bx-ce-selectable-tile_id-foo"
+  id="checkbox"
   type="checkbox"
 >
 <label
   class="bx--checkbox-label"
-  for="__bx-ce-selectable-tile_id-foo"
+  for="checkbox"
 >
 </label>
 
@@ -26,14 +26,14 @@
   aria-checked="mixed"
   class="bx--checkbox"
   disabled=""
-  id="__bx-ce-selectable-tile_id-foo"
+  id="checkbox"
   name="name-foo"
   type="checkbox"
   value="value-foo"
 >
 <label
   class="bx--checkbox-label bx--visually-hidden"
-  for="__bx-ce-selectable-tile_id-foo"
+  for="checkbox"
 >
   label-text-foo
 </label>

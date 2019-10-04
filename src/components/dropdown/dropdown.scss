@@ -20,6 +20,10 @@ $css--plex: true !default;
     left: -100%;
     top: -100%;
   }
+
+  .#{$prefix}--label[hidden] {
+    display: none;
+  }
 }
 
 :host(#{$prefix}-dropdown[type='inline']) {

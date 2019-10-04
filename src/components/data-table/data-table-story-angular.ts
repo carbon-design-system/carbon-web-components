@@ -228,12 +228,7 @@ class BXCEDemoDataTable {
   _rows?: TDemoTableRow[];
 
   /**
-   * The sorted version of the table rows.
-   */
-  _sortedRows?: TDemoTableRow[];
-
-  /**
-   * `true` if all rows are selected;
+   * `true` if all rows are selected.
    */
   _selectedAll?: boolean;
 

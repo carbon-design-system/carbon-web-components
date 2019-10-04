@@ -234,7 +234,9 @@ module.exports = function generateCreateReactCustomElementType(api) {
 
       const metadata = getPropertyMetadata(path);
       if (metadata) {
-        parentPath.assertClassProperty();
+        if (!parentPath.isClassProperty() && (!parentPath.isClassMethod() || parentPath.node.kind !== 'get')) {
+          throw parentPath.buildCodeFrameError('`@property()` must target class properties.');
+        }
         declaredProps[parent.key.name] = metadata;
       }
     },
