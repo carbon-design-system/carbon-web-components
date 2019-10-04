@@ -168,7 +168,7 @@ Like what most of native elements do, the primary means to handle translatable s
 
 Some translatable strings are specified as a property, whose value is a function that takes a key-value map (object) as the arguments and returns the translatable string, e.g. `` ({ start, end, total }) => `${start}–${end} of ${total} item${total <= 1 ? '' : 's'}` ``. This is for supporting locale-specific pluralization, etc. that require string interpolation as well as the logic to dictate the locale-specific rule of pluralization.
 
-The only exception of above rules is `<bx-date-picker>`, where there are huge amount of translatable stings and uses `locale` property to put all locale-specific info.
+The only exception to the above rules is `<bx-date-picker>` which uses the `locale` property for all locale-specific info since there is a huge amount of translatable strings.
 
 ### Collation
 
