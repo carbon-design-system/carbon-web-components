@@ -166,7 +166,9 @@ We define custom event names as static properties so derived classes can customi
 
 Like what most of native elements do, the primary means to handle translatable strings is let user put them in DOM, e.g. in attributes, child (text) nodes.
 
-The only exception would be date picker (though this repository hasn't got one yet), where there are huge amount of translatable stings.
+Some translatable strings are specified as a property, whose value is a function that takes a key-value map (object) as the arguments and returns the translatable string, e.g. `` ({ start, end, total }) => `${start}–${end} of ${total} item${total <= 1 ? '' : 's'}` ``. This is for supporting locale-specific pluralization, etc. that require string interpolation as well as the logic to dictate the locale-specific rule of pluralization.
+
+The only exception to the above rules is `<bx-date-picker>` which uses the `locale` property for all locale-specific info since there is a huge amount of translatable strings.
 
 ### Collation
 
