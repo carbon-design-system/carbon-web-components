@@ -34,6 +34,14 @@ export enum INPUT_TYPE {
 @customElement(`${prefix}-input`)
 export default class BXInput extends LitElement {
   /**
+   * Handles `oninput` event on the `<input>`.
+   * @param event The event.
+   */
+  private _handleInput({ target }: Event) {
+    this.value = (target as HTMLInputElement).value;
+  }
+
+  /**
    * May be any of the standard HTML autocomplete options
    */
   @property()
@@ -125,6 +133,8 @@ export default class BXInput extends LitElement {
   value = '';
 
   render() {
+    const { _handleInput: handleInput } = this;
+
     const invalidIcon = WarningFilled16({ class: `${prefix}--text-input__invalid-icon` });
 
     const inputClasses = classnames(`${prefix}--text-input`, {
@@ -166,6 +176,7 @@ export default class BXInput extends LitElement {
           ?required="${this.required}"
           type="${this.type}"
           value="${this.value}"
+          @input="${handleInput}"
         />
       </div>
       <div class="${prefix}--form-requirement">
