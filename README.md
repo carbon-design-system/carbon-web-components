@@ -143,6 +143,7 @@ Vue users can use our components in the same manner as native HTML tags, without
 ### Other usage guides
 
 - [Using custom styles in components](./docs/custom-style.md)
+- [Using `carbon-custom-elements` with old build toolchain](./docs/old-build-toolchain.md)
 
 ## Getting started with development
 
