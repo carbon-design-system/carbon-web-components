@@ -182,11 +182,6 @@ class BXSearch extends FocusMixin(LitElement) {
     `;
   }
 
-  static get observedAttributes() {
-    const attributes = super.observedAttributes;
-    return ['id', ...attributes];
-  }
-
   /**
    * The name of the custom event fired after the search content is changed upon a user gesture.
    */
