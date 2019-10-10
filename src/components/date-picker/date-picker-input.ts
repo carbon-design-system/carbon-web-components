@@ -54,26 +54,11 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
   private _slotValidityMessage!: HTMLSlotElement;
 
   /**
-   * Unique ID used for ID refs.
-   */
-  private _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
-
-  /**
    * `true` if validity message is given via `validityMessage` property or via `<slot name="validity-message">`.
    */
   private get _hasValidityMessage() {
     const { validityMessage, _slotValidityMessage: slotValidityMessage } = this;
     return validityMessage || (slotValidityMessage && slotValidityMessage.assignedNodes.length > 0);
-  }
-
-  /**
-   * The element ID for the `<input>`.
-   */
-  private get _inputId() {
-    const { id: elementId, _uniqueId: uniqueId } = this;
-    return `__bx-ce-date-picker-input_${elementId || uniqueId}`;
   }
 
   /**
@@ -215,7 +200,6 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
       type = constructor.defaultType,
       validityMessage,
       value,
-      _inputId: inputId,
       _handleInput: handleInput,
     } = this;
     const hasValidity = Boolean(validityMessage);
@@ -224,12 +208,12 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
       [`${prefix}--label--disabled`]: disabled,
     });
     return html`
-      <label class="${labelClasses}">
+      <label for="input" class="${labelClasses}">
         <slot name="label-text">${labelText}</slot>
       </label>
       <div class="${prefix}--date-picker-input__wrapper">
         <input
-          id="${inputId}"
+          id="input"
           type="${type}"
           class="${prefix}--date-picker__input"
           ?disabled="${disabled}"
@@ -260,11 +244,6 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
    */
   static get selectorParent() {
     return `${prefix}-date-picker`;
-  }
-
-  static get observedAttributes() {
-    const attributes = super.observedAttributes;
-    return ['id', ...attributes];
   }
 
   static styles = styles;
