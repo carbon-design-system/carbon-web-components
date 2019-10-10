@@ -139,9 +139,8 @@ module.exports = ({ config, mode }) => {
           options: {
             includePaths: [path.resolve(__dirname, '..', 'node_modules')],
             data: `
-              $storybook--carbon--theme-name: 'custom-properties';
-              @import '${path.resolve(__dirname, '../src/globals/scss/theme-chooser')}';
               $feature-flags: (
+                enable-css-custom-properties: true,
                 grid: ${useExperimentalFeatures},
               );
             `,
