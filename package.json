@@ -84,7 +84,7 @@
     "babel-plugin-istanbul": "^4.1.0",
     "babel-preset-vue": "^2.0.0",
     "bluebird": "^3.5.0",
-    "carbon-components": "^10.6.0",
+    "carbon-components": "^10.7.0",
     "classnames": "^2.2.0",
     "commander": "^2.13.0",
     "core-js": "^3.0.0",
@@ -134,6 +134,7 @@
     "lint-staged": "^8.1.0",
     "lit-element": "^2.1.0",
     "lit-html": "~1.0.0",
+    "lodash.throttle": "^4.0.0",
     "lodash.findlast": "^4.6.0",
     "lodash.pick": "^4.3.0",
     "lodash.pickby": "^4.6.0",
@@ -169,11 +170,12 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
-    "carbon-components": "~10.6.0",
+    "carbon-components": "~10.7.0",
     "classnames": "^2.2.0",
     "flatpickr": "4.6.1",
     "lit-element": "^2.1.0",
     "lit-html": "~1.0.0",
+    "lodash.throttle": "^4.0.0",
     "lodash.findlast": "^4.6.0"
   },
   "commitlint": {

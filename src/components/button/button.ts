@@ -62,16 +62,36 @@ class BXButton extends FocusMixin(LitElement) {
   }
 
   /**
+   * `true` if the button should have input focus when the page loads. Corresponds to the attribute with the same name.
+   */
+  @property({ type: Boolean, reflect: true })
+  autofocus = false;
+
+  /**
    * `true` if the button should be disabled. Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * Link `href`. Corresponds to the attribute with the same name. If present, this button is rendered as `<a>`.
+   * The default file name, used if this button is rendered as `<a>`. Corresponds to the attribute with the same name.
    */
   @property()
-  href = '';
+  download!: string;
+
+  /**
+   * Link `href`. Corresponds to the attribute with the same name. If present, this button is rendered as `<a>`.
+   * Corresponds to the attribute with the same name.
+   */
+  @property()
+  href!: string;
+
+  /**
+   * The language of what `href` points to, if this button is rendered as `<a>`. Corresponds to the attribute with the same name.
+   * @type {[type]}
+   */
+  @property()
+  hreflang!: string;
 
   /**
    * Button kind. Corresponds to the attribute with the same name.
@@ -80,17 +100,42 @@ class BXButton extends FocusMixin(LitElement) {
   kind = BUTTON_KIND.PRIMARY;
 
   /**
+   * URLs to ping, if this button is rendered as `<a>`. Corresponds to the attribute with the same name.
+   */
+  @property()
+  ping!: string;
+
+  /**
+   * The link type, if this button is rendered as `<a>`. Corresponds to the attribute with the same name.
+   */
+  @property()
+  rel!: string;
+
+  /**
    * `true` if the button should be a small variant. Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
   small = false;
+
+  /**
+   * The link target, if this button is rendered as `<a>`. Corresponds to the attribute with the same name.
+   */
+  @property()
+  target!: string;
+
+  /**
+   * The default behavior if the button is rendered as `<button>`. MIME type of the `target`if this button is rendered as `<a>`.
+   * Corresponds to the attribute with the same name.
+   */
+  @property()
+  type!: string;
 
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
 
   render() {
-    const { disabled, href, kind, small } = this;
+    const { autofocus, disabled, download, href, hreflang, kind, ping, rel, small, target, type } = this;
     const classes = classnames(`${prefix}--btn`, {
       [`${prefix}--btn--${kind}`]: kind,
       [`${prefix}--btn--disabled`]: disabled,
@@ -98,10 +143,25 @@ class BXButton extends FocusMixin(LitElement) {
     });
     return href
       ? html`
-          <a id="button" role="button" class="${classes}" href=${href} @click=${this._handleClickLink}><slot></slot></a>
+          <a
+            id="button"
+            role="button"
+            class="${classes}"
+            .download="${download}"
+            .href="${href}"
+            .hreflang="${hreflang}"
+            .ping="${ping}"
+            .rel="${rel}"
+            .target="${target}"
+            .type="${type}"
+            @click="${this._handleClickLink}"
+            ><slot></slot
+          ></a>
         `
       : html`
-          <button id="button" class="${classes}" ?disabled=${disabled}><slot></slot></button>
+          <button id="button" class="${classes}" ?autofocus="${autofocus}" ?disabled="${disabled}" .type="${type}">
+            <slot></slot>
+          </button>
         `;
   }
 

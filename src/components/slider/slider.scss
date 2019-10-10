@@ -1,14 +1,14 @@
 //
-// @license
-//
 // Copyright IBM Corp. 2019
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
 //
 
-$storybook--carbon--theme-name: 'white' !default;
+$css--plex: true !default;
 
-@import './carbon-theme';
+@import 'carbon-components/scss/components/slider/slider';
 
-$carbon--theme: map-get($carbon--theme--list, $storybook--carbon--theme-name);
+:host(#{$prefix}-slider-input) {
+  outline: none;
+}

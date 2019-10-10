@@ -41,13 +41,13 @@ class BXPagesSelect extends LitElement {
    * Should be changed upon the locale the UI is rendered with.
    */
   @property({ attribute: false })
-  formatLabelText = ({ total }) => `Page number, of ${total} pages`;
+  formatLabelText = ({ total }) => `Page number, of ${total} page${total <= 1 ? '' : 's'}`;
 
   /**
    * The formatter for the text next to the select box. Should be changed upon the locale the UI is rendered with.
    */
   @property({ attribute: false })
-  formatSupplementalText = ({ total }) => `of ${total} pages`;
+  formatSupplementalText = ({ total }) => `of ${total} page${total <= 1 ? '' : 's'}`;
 
   /**
    * The number of total pages. Corresponds to the attribute with the same name.
