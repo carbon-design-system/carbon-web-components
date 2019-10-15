@@ -10,6 +10,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { html, property, customElement, LitElement } from 'lit-element';
+import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './button.scss';
 
@@ -147,19 +148,19 @@ class BXButton extends FocusMixin(LitElement) {
             id="button"
             role="button"
             class="${classes}"
-            .download="${download}"
-            .href="${href}"
-            .hreflang="${hreflang}"
-            .ping="${ping}"
-            .rel="${rel}"
-            .target="${target}"
-            .type="${type}"
+            download="${ifNonNull(download)}"
+            href="${ifNonNull(href)}"
+            hreflang="${ifNonNull(hreflang)}"
+            ping="${ifNonNull(ping)}"
+            rel="${ifNonNull(rel)}"
+            target="${ifNonNull(target)}"
+            type="${ifNonNull(type)}"
             @click="${this._handleClickLink}"
             ><slot></slot
           ></a>
         `
       : html`
-          <button id="button" class="${classes}" ?autofocus="${autofocus}" ?disabled="${disabled}" .type="${type}">
+          <button id="button" class="${classes}" ?autofocus="${autofocus}" ?disabled="${disabled}" type="${ifNonNull(type)}">
             <slot></slot>
           </button>
         `;
