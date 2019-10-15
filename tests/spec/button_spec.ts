@@ -117,6 +117,12 @@ describe('bx-btn', function() {
   });
 
   describe('Misc attributes', function() {
+    it('should render with minimum attributes for <button>', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      expect(document.body.querySelector('bx-btn')).toMatchSnapshot({ mode: 'shadow' });
+    });
+
     it('should render with various attributes for <button>', async function() {
       render(
         template({
@@ -128,6 +134,12 @@ describe('bx-btn', function() {
         }),
         document.body
       );
+      await Promise.resolve();
+      expect(document.body.querySelector('bx-btn')).toMatchSnapshot({ mode: 'shadow' });
+    });
+
+    it('should render with minimum attributes for <a>', async function() {
+      render(template({ href: 'about:blank' }), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-btn')).toMatchSnapshot({ mode: 'shadow' });
     });
