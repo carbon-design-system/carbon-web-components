@@ -9,7 +9,6 @@
 
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
-const customProperties = require('postcss-custom-properties');
 
 const useExperimentalFeatures = process.env.CARBON_USE_EXPERIMENTAL_FEATURES !== 'false';
 const useStyleSourceMap = process.env.CARBON_CUSTOM_ELEMENTS_STORYBOOK_USE_STYLE_SOURCEMAP === 'true';
@@ -125,7 +124,6 @@ module.exports = ({ config, mode }) => {
           loader: 'postcss-loader',
           options: {
             plugins: () => [
-              customProperties(),
               require('../postcss-fix-host-pseudo')(),
               require('autoprefixer')({
                 browsers: ['last 1 version', 'ie >= 11'],
