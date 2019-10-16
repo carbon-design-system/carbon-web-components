@@ -106,7 +106,6 @@ export default class BXTextarea extends LitElement {
 
   /**
    * The validity message. Corresponds to `validity-message` attribute.
-   * If present and non-empty, this multi select shows the UI of its invalid state.
    */
   @property({ attribute: 'validity-message' })
   validityMessage = '';
