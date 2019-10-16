@@ -125,7 +125,7 @@ export default class BXTextarea extends LitElement {
     if (this.textarea) {
       return this.textarea.value;
     }
-    return '';
+    return null;
   }
 
   /**
