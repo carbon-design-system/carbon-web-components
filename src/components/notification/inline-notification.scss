@@ -15,6 +15,10 @@ $css--plex: true !default;
 
   display: none;
   outline: none;
+
+  .#{$prefix}--inline-notification__close-button:focus {
+    @include focus-outline('outline');
+  }
 }
 
 :host(#{$prefix}-inline-notification[open]) {
