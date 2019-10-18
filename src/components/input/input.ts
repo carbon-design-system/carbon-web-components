@@ -129,7 +129,7 @@ export default class BXInput extends LitElement {
   /**
    * The value of the input.
    */
-  @property({ reflect: true })
+  @property()
   value = '';
 
   render() {
@@ -175,7 +175,7 @@ export default class BXInput extends LitElement {
           ?readonly="${this.readonly}"
           ?required="${this.required}"
           type="${this.type}"
-          value="${this.value}"
+          .value="${this.value}"
           @input="${handleInput}"
         />
       </div>

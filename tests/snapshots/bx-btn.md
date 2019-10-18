@@ -2,6 +2,19 @@
 
 ## `Misc attributes`
 
+#### `should render with minimum attributes for <button>`
+
+```
+<button
+  class="bx--btn bx--btn--primary"
+  id="button"
+>
+  <slot>
+  </slot>
+</button>
+
+```
+
 #### `should render with various attributes for <button>`
 
 ```
@@ -15,6 +28,21 @@
   <slot>
   </slot>
 </button>
+
+```
+
+#### `should render with minimum attributes for <a>`
+
+```
+<a
+  class="bx--btn bx--btn--primary"
+  href="about:blank"
+  id="button"
+  role="button"
+>
+  <slot>
+  </slot>
+</a>
 
 ```
 
