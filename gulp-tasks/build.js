@@ -107,6 +107,17 @@ module.exports = {
       );
     },
 
+    angular() {
+      const tsProject = typescript.createProject(path.resolve(__dirname, '../tsconfig.json'));
+      const { js } = gulp
+        // Ensures type references are in the TS project by adding `.d.ts` here
+        .src([`${config.srcDir}/directives-angular/**/*.ts`, `${config.srcDir}/**/*.d.ts`], { base: config.srcDir })
+        .pipe(plumber())
+        .pipe(sourcemaps.init())
+        .pipe(tsProject());
+      return js.pipe(sourcemaps.write('.')).pipe(gulp.dest(config.jsDestDir));
+    },
+
     async react() {
       const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
       await promisifyStream(() =>
@@ -135,6 +146,7 @@ module.exports = {
         gulp
           .src([
             `${config.srcDir}/**/*.ts`,
+            `!${config.srcDir}/directives-angular/**/*.ts`,
             `!${config.srcDir}/**/*-story*.ts*`,
             `!${config.srcDir}/**/stories/*.ts`,
             `!${config.srcDir}/**/*.d.ts`,

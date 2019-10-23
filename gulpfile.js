@@ -18,6 +18,7 @@ const test = require('./gulp-tasks/test');
 
 gulp.task('build:modules:icons', build.modules.icons);
 gulp.task('build:modules:sass', build.modules.sass);
+gulp.task('build:modules:angular', build.modules.angular);
 gulp.task('build:modules:react', build.modules.react);
 gulp.task('build:modules:scripts', build.modules.scripts);
 gulp.task('build:modules:types', build.modules.types);
@@ -26,6 +27,7 @@ gulp.task(
   gulp.parallel(
     gulp.task('build:modules:icons'),
     gulp.task('build:modules:sass'),
+    gulp.task('build:modules:angular'),
     gulp.task('build:modules:react'),
     gulp.task('build:modules:scripts'),
     gulp.task('build:modules:types')

@@ -49,7 +49,7 @@ module.exports = function setupKarma(config) {
       },
     },
 
-    files: ['src/polyfills/index.js', 'tests/utils/snapshot.js', 'tests/snapshots/**/*.md'].concat(
+    files: ['src/polyfills/index.ts', 'tests/utils/snapshot.js', 'tests/snapshots/**/*.md'].concat(
       specs.length > 0 ? specs : ['tests/karma-test-shim.js']
     ),
 
@@ -80,6 +80,21 @@ module.exports = function setupKarma(config) {
                 loader: 'babel-loader',
                 options: {
                   configFile: path.resolve(__dirname, '..', '.babelrc'),
+                },
+              },
+            ],
+          },
+          {
+            test: [/directives-angular\/.*\.ts$/, /-angular_spec\.ts$/],
+            use: [
+              {
+                loader: 'ts-loader',
+                options: {
+                  ignoreDiagnostics: [6133],
+                  compilerOptions: {
+                    sourceMap: false,
+                    inlineSourceMap: true,
+                  },
                 },
               },
             ],
