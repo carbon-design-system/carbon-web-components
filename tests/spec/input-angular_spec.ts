@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import BXInput from '../../src/components/input/input';
-import BXInputDirective from '../../src/directives-angular/input';
+import { BXInputDirective } from '../../src/directives-angular/input';
 
 @Component({
   template: `

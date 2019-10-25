@@ -13,7 +13,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import BXSliderDirective from '../../src/directives-angular/slider';
+import { BXSliderDirective } from '../../src/directives-angular/slider';
 
 @Component({
   template: `
