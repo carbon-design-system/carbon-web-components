@@ -11,7 +11,7 @@ import { Directive, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, CheckboxControlValueAccessor } from '@angular/forms';
 import settings from 'carbon-components/es/globals/js/settings';
 
-const { prefix } = settings;
+const prefix = settings.prefix; // eslint-disable-line prefer-destructuring
 
 @Directive({
   selector: `
@@ -30,4 +30,4 @@ const { prefix } = settings;
     },
   ],
 })
-export default class BXCheckboxDirective extends CheckboxControlValueAccessor {}
+export class BXCheckboxDirective extends CheckboxControlValueAccessor {} // eslint-disable-line import/prefer-default-export

@@ -11,7 +11,7 @@ import { Directive, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, DefaultValueAccessor } from '@angular/forms';
 import settings from 'carbon-components/es/globals/js/settings';
 
-const { prefix } = settings;
+const prefix = settings.prefix; // eslint-disable-line prefer-destructuring
 
 @Directive({
   selector: `${prefix}-input[formControlName],${prefix}-input[formControl],${prefix}-input[ngModel]`,
@@ -29,4 +29,4 @@ const { prefix } = settings;
     },
   ],
 })
-export default class BXInputDirective extends DefaultValueAccessor {}
+export class BXInputDirective extends DefaultValueAccessor {} // eslint-disable-line import/prefer-default-export

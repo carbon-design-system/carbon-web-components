@@ -15,7 +15,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import BXCheckbox from '../../src/components/checkbox/checkbox';
 import BXToggle from '../../src/components/toggle/toggle';
-import BXCheckboxDirective from '../../src/directives-angular/checkbox';
+import { BXCheckboxDirective } from '../../src/directives-angular/checkbox';
 
 @Component({
   template: `

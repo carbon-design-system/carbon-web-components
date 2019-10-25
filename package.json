@@ -8,8 +8,10 @@
   ],
   "scripts": {
     "build": "gulp build",
+    "build:ng-packagr": "ng-packagr -p package.json && sed -e 's/carbon-custom-elements/carbon-custom-elements-angular-forms/' < dist/package.json > dist/package.json.new && mv dist/package.json.new dist/package.json",
     "ci-check": "yarn format:diff && yarn lint:src && yarn typecheck && yarn test && yarn build && yarn lint:dist",
     "clean": "gulp clean",
+    "clean:ng-packagr": "rm -Rf dist",
     "format": "prettier --write \"**/*.{css,js,md,scss}\"",
     "format:diff": "prettier --check \"**/*.{css,js,md,scss}\"",
     "format:staged": "prettier --write",
@@ -34,9 +36,10 @@
     "babel-plugin-transform-vue-jsx": "^4.0.0"
   },
   "devDependencies": {
-    "@angular-devkit/core": "^7.0.0",
+    "@angular-devkit/core": "^8.0.0",
     "@angular/common": "^8.0.0",
     "@angular/compiler": "^8.0.0",
+    "@angular/compiler-cli": "^8.0.0",
     "@angular/core": "^8.0.0",
     "@angular/forms": "^8.0.0",
     "@angular/platform-browser": "^8.0.0",
@@ -141,6 +144,7 @@
     "mini-css-extract-plugin": "^0.5.0",
     "mkdirp": "^0.5.0",
     "morgan": "^1.8.0",
+    "ng-packagr": "^5.7.0",
     "node-sass": "^4.11.0",
     "null-loader": "^2.0.0",
     "polymer-webpack-loader": "^2.0.0",
@@ -176,6 +180,11 @@
     "lit-html": "~1.0.0",
     "lodash.throttle": "^4.0.0",
     "lodash.findlast": "^4.6.0"
+  },
+  "ngPackage": {
+    "lib": {
+      "entryFile": "src/directives-angular/index.ts"
+    }
   },
   "commitlint": {
     "extends": [
