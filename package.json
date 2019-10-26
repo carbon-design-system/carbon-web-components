@@ -129,6 +129,7 @@
     "karma-jasmine": "^2.0.0",
     "karma-safari-launcher": "^1.0.0",
     "karma-snapshot":"^0.6.0",
+    "karma-sourcemap-loader": "^0.3.0",
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "^4.0.0",
     "lint-staged": "^8.1.0",

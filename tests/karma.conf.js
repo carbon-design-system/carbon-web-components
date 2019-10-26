@@ -54,10 +54,10 @@ module.exports = function setupKarma(config) {
     ),
 
     preprocessors: {
-      'src/**/*.[jt]s': ['webpack'], // For generatoring coverage report for untested files
-      'tests/karma-test-shim.js': ['webpack'],
-      'tests/spec/**/*.ts': ['webpack'],
-      'tests/utils/**/*.js': ['webpack'],
+      'src/**/*.[jt]s': ['webpack', 'sourcemap'], // For generatoring coverage report for untested files
+      'tests/karma-test-shim.js': ['webpack', 'sourcemap'],
+      'tests/spec/**/*.ts': ['webpack', 'sourcemap'],
+      'tests/utils/**/*.js': ['webpack', 'sourcemap'],
       'tests/snapshots/**/*.md': ['snapshot'],
     },
 
@@ -163,6 +163,7 @@ module.exports = function setupKarma(config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-spec-reporter'),
+      require('karma-sourcemap-loader'),
       require('karma-coverage-istanbul-reporter'),
       require('karma-webpack'),
       require('karma-snapshot'),
