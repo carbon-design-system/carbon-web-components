@@ -50,46 +50,79 @@ storiesOf('Tile', module)
     'Default',
     () => html`
       <bx-tile>Default tile</bx-tile>
-    `
+    `,
+    {
+      docs: {
+        storyDescription: `
+Read-only tiles are used to display information to the user, such as features or services offered.
+Read-only tiles are often seen on marketing pages to promote content.
+These tiles can have internal calls-to-action (CTAs), such as a button or a link.
+      `,
+      },
+    }
   )
-  .add('Clickable', () => {
-    const { href } = createClickableProps();
-    return html`
-      <bx-clickable-tile href="${href}">Clickable tile</bx-clickable-tile>
-    `;
-  })
-  .add('Single-selectable', () => {
-    const { checkmarkLabel, name, value, onInput } = createSelectableProps();
-    return html`
-      <fieldset>
-        <legend>Single-select tiles</legend>
-        <bx-radio-tile
-          checkmark-label="${ifDefined(!checkmarkLabel ? undefined : checkmarkLabel)}"
-          name="${ifDefined(!name ? undefined : name)}"
-          value="${ifDefined(!value ? undefined : value)}"
-          @input="${onInput}"
-        >
-          Single-select Tile
-        </bx-radio-tile>
-        <bx-radio-tile
-          checkmark-label="${ifDefined(!checkmarkLabel ? undefined : checkmarkLabel)}"
-          name="${ifDefined(!name ? undefined : name)}"
-          value="${ifDefined(!value ? undefined : value)}"
-          @input="${onInput}"
-        >
-          Single-select Tile
-        </bx-radio-tile>
-        <bx-radio-tile
-          checkmark-label="${ifDefined(!checkmarkLabel ? undefined : checkmarkLabel)}"
-          name="${ifDefined(!name ? undefined : name)}"
-          value="${ifDefined(!value ? undefined : value)}"
-          @input="${onInput}"
-        >
-          Single-select Tile
-        </bx-radio-tile>
-      </fieldset>
-    `;
-  })
+  .add(
+    'Clickable',
+    () => {
+      const { href } = createClickableProps();
+      return html`
+        <bx-clickable-tile href="${href}">Clickable tile</bx-clickable-tile>
+      `;
+    },
+    {
+      docs: {
+        storyDescription: `
+Clickable tiles can be used as navigational items, where the entire tile is a clickable state,
+which redirects the user to a new page.
+Clickable tiles cannot contain separate internal CTAs.
+      `,
+      },
+    }
+  )
+  .add(
+    'Single-selectable',
+    () => {
+      const { checkmarkLabel, name, value, onInput } = createSelectableProps();
+      return html`
+        <fieldset>
+          <legend>Single-select tiles</legend>
+          <bx-radio-tile
+            checkmark-label="${ifDefined(!checkmarkLabel ? undefined : checkmarkLabel)}"
+            name="${ifDefined(!name ? undefined : name)}"
+            value="${ifDefined(!value ? undefined : value)}"
+            @input="${onInput}"
+          >
+            Single-select Tile
+          </bx-radio-tile>
+          <bx-radio-tile
+            checkmark-label="${ifDefined(!checkmarkLabel ? undefined : checkmarkLabel)}"
+            name="${ifDefined(!name ? undefined : name)}"
+            value="${ifDefined(!value ? undefined : value)}"
+            @input="${onInput}"
+          >
+            Single-select Tile
+          </bx-radio-tile>
+          <bx-radio-tile
+            checkmark-label="${ifDefined(!checkmarkLabel ? undefined : checkmarkLabel)}"
+            name="${ifDefined(!name ? undefined : name)}"
+            value="${ifDefined(!value ? undefined : value)}"
+            @input="${onInput}"
+          >
+            Single-select Tile
+          </bx-radio-tile>
+        </fieldset>
+      `;
+    },
+    {
+      docs: {
+        storyDescription: `
+Selectable tiles work like a radio button, where the entire tile is a click target.
+Selectable tiles may contain internal CTAs (like links to docs) if the internal CTA is given its own click target.
+Selectable tiles work well for presenting options to a user in a structured manner, such as a set of pricing plans.
+      `,
+      },
+    }
+  )
   .add('Multi-selectable', () => {
     const { checkmarkLabel, name, selected, value, onInput } = createSelectableProps();
     return html`
@@ -104,27 +137,40 @@ storiesOf('Tile', module)
       </bx-selectable-tile>
     `;
   })
-  .add('Expandable', () => {
-    const { expanded, disableChange } = createExpandableProps();
-    const beforeChangedAction = action('bx-expandable-tile-beingchanged');
-    const handleBeforeChanged = (event: CustomEvent) => {
-      beforeChangedAction(event);
-      if (disableChange) {
-        event.preventDefault();
-      }
-    };
-    return html`
-      <bx-expandable-tile
-        ?expanded="${expanded}"
-        @bx-expandable-tile-beingchanged=${handleBeforeChanged}
-        @bx-expandable-tile-changed=${action('bx-expandable-tile-changed')}
-      >
-        <bx-tile-above-the-fold-content style="height: 200px">
-          Above the fold content here
-        </bx-tile-above-the-fold-content>
-        <bx-tile-below-the-fold-content style="height: 300px">
-          Below the fold content here
-        </bx-tile-below-the-fold-content>
-      </bx-expandable-tile>
-    `;
-  });
+  .add(
+    'Expandable',
+    () => {
+      const { expanded, disableChange } = createExpandableProps();
+      const beforeChangedAction = action('bx-expandable-tile-beingchanged');
+      const handleBeforeChanged = (event: CustomEvent) => {
+        beforeChangedAction(event);
+        if (disableChange) {
+          event.preventDefault();
+        }
+      };
+      return html`
+        <bx-expandable-tile
+          ?expanded="${expanded}"
+          @bx-expandable-tile-beingchanged=${handleBeforeChanged}
+          @bx-expandable-tile-changed=${action('bx-expandable-tile-changed')}
+        >
+          <bx-tile-above-the-fold-content style="height: 200px">
+            Above the fold content here
+          </bx-tile-above-the-fold-content>
+          <bx-tile-below-the-fold-content style="height: 300px">
+            Below the fold content here
+          </bx-tile-below-the-fold-content>
+        </bx-expandable-tile>
+      `;
+    },
+    {
+      docs: {
+        storyDescription: `
+Expandable tiles are helpful for hiding/showing larger amounts of content to a user.
+They can only be stacked in a single column, and cannot live in a row or horizontal grid.
+When expanded, tiles push content down the page.
+Expandable tiles may contain internal CTAs (like links to docs) if the internal CTA is given its own click target.
+      `,
+      },
+    }
+  );

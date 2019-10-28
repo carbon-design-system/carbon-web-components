@@ -45,62 +45,84 @@ const createToastProps = () => ({
 
 storiesOf('Notifications', module)
   .addDecorator(withKnobs)
-  .add('Inline', () => {
-    const { kind, title, subtitle, hideCloseButton, closeButtonLabel, iconLabel, open, disableClose } = createInlineProps();
-    const beforeSelectedAction = action('onBeforeClose');
-    const handleBeforeClose = (event: CustomEvent) => {
-      beforeSelectedAction(event);
-      if (disableClose) {
-        event.preventDefault();
-      }
-    };
-    return (
-      <BXInlineNotification
-        style={{ minWidth: '30rem', marginBottom: '.5rem' }}
-        kind={kind}
-        title={title}
-        subtitle={subtitle}
-        hideCloseButton={hideCloseButton}
-        closeButtonLabel={closeButtonLabel}
-        iconLabel={iconLabel}
-        open={open}
-        onBeforeClose={handleBeforeClose}
-        onClose={action('onAfterClose')}
-      />
-    );
-  })
-  .add('Toast', () => {
-    const {
-      kind,
-      title,
-      subtitle,
-      caption,
-      hideCloseButton,
-      closeButtonLabel,
-      iconLabel,
-      open,
-      disableClose,
-    } = createToastProps();
-    const beforeSelectedAction = action('onBeforeClose');
-    const handleBeforeClose = (event: CustomEvent) => {
-      beforeSelectedAction(event);
-      if (disableClose) {
-        event.preventDefault();
-      }
-    };
-    return (
-      <BXToastNotification
-        style={{ minWidth: '30rem', marginBottom: '.5rem' }}
-        kind={kind}
-        title={title}
-        subtitle={subtitle}
-        caption={caption}
-        hideCloseButton={hideCloseButton}
-        closeButtonLabel={closeButtonLabel}
-        iconLabel={iconLabel}
-        open={open}
-        onBeforeClose={handleBeforeClose}
-        onClose={action('onAfterClose')}
-      />
-    );
-  });
+  .add(
+    'Inline',
+    () => {
+      const { kind, title, subtitle, hideCloseButton, closeButtonLabel, iconLabel, open, disableClose } = createInlineProps();
+      const beforeSelectedAction = action('onBeforeClose');
+      const handleBeforeClose = (event: CustomEvent) => {
+        beforeSelectedAction(event);
+        if (disableClose) {
+          event.preventDefault();
+        }
+      };
+      return (
+        <BXInlineNotification
+          style={{ minWidth: '30rem', marginBottom: '.5rem' }}
+          kind={kind}
+          title={title}
+          subtitle={subtitle}
+          hideCloseButton={hideCloseButton}
+          closeButtonLabel={closeButtonLabel}
+          iconLabel={iconLabel}
+          open={open}
+          onBeforeClose={handleBeforeClose}
+          onClose={action('onAfterClose')}
+        />
+      );
+    },
+    {
+      docs: {
+        storyDescription: `
+Inline notifications show up in task flows, to notify users of the status of an action.
+They usually appear at the top of the primary content area.
+      `,
+      },
+    }
+  )
+  .add(
+    'Toast',
+    () => {
+      const {
+        kind,
+        title,
+        subtitle,
+        caption,
+        hideCloseButton,
+        closeButtonLabel,
+        iconLabel,
+        open,
+        disableClose,
+      } = createToastProps();
+      const beforeSelectedAction = action('onBeforeClose');
+      const handleBeforeClose = (event: CustomEvent) => {
+        beforeSelectedAction(event);
+        if (disableClose) {
+          event.preventDefault();
+        }
+      };
+      return (
+        <BXToastNotification
+          style={{ minWidth: '30rem', marginBottom: '.5rem' }}
+          kind={kind}
+          title={title}
+          subtitle={subtitle}
+          caption={caption}
+          hideCloseButton={hideCloseButton}
+          closeButtonLabel={closeButtonLabel}
+          iconLabel={iconLabel}
+          open={open}
+          onBeforeClose={handleBeforeClose}
+          onClose={action('onAfterClose')}
+        />
+      );
+    },
+    {
+      docs: {
+        storyDescription: `
+Toasts are a non-modal, time-based window elements used to display short messages;
+they usually appear at the bottom of the screen and disappear after a few seconds.
+      `,
+      },
+    }
+  );

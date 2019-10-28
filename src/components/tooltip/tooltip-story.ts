@@ -31,22 +31,33 @@ const createProps = () => ({
 
 storiesOf('Tooltip', module)
   .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { open, direction } = createProps();
-    return html`
-      <style>
-        ${styles}
-      </style>
-      <bx-tooltip ?open="${open}">
-        <bx-tooltip-body direction="${direction}">
-          <p>
-            This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is needed
-            please use a modal instead.
-          </p>
-          <bx-tooltip-footer>
-            <a href="#" class="bx--link">Learn More</a><bx-btn kind="primary">Create</bx-btn>
-          </bx-tooltip-footer>
-        </bx-tooltip-body>
-      </bx-tooltip>
-    `;
-  });
+  .add(
+    'Default',
+    () => {
+      const { open, direction } = createProps();
+      return html`
+        <style>
+          ${styles}
+        </style>
+        <bx-tooltip ?open="${open}">
+          <bx-tooltip-body direction="${direction}">
+            <p>
+              This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is
+              needed please use a modal instead.
+            </p>
+            <bx-tooltip-footer>
+              <a href="#" class="bx--link">Learn More</a><bx-btn kind="primary">Create</bx-btn>
+            </bx-tooltip-footer>
+          </bx-tooltip-body>
+        </bx-tooltip>
+      `;
+    },
+    {
+      docs: {
+        storyDescription: `
+Interactive tooltip should be used if there are actions a user can take in the tooltip (e.g. a link or a button).
+For more regular use case, e.g. giving the user more text information about something, use definition tooltip or icon tooltip.
+      `,
+      },
+    }
+  );
