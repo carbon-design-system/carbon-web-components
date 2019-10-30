@@ -427,14 +427,6 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
 
-  attributeChangedCallback(name, old, current) {
-    if (old !== current && name === 'id') {
-      // Force updaring ID refs
-      this.requestUpdate();
-    }
-    super.attributeChangedCallback(name, old, current);
-  }
-
   shouldUpdate(changedProperties) {
     if (changedProperties.has('value')) {
       const { selectorItem } = this.constructor as typeof BXDropdown;
@@ -568,11 +560,6 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    * Symbols of keys that triggers opening/closing menu and selecting/deselecting menu item.
    */
   static TRIGGER_KEYS = new Set([' ', 'Enter']);
-
-  static get observedAttributes() {
-    const attributes = super.observedAttributes;
-    return ['id', ...attributes];
-  }
 
   /**
    * A selector that will return highlighted items.

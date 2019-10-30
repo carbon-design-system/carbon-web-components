@@ -7,7 +7,54 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { html, render, TemplateResult } from 'lit-html';
+import { ifDefined } from 'lit-html/directives/if-defined';
 import { BUTTON_KIND } from '../../src/components/button/button';
+
+const template = ({
+  hasContent = true,
+  autofocus,
+  disabled,
+  download,
+  href,
+  hreflang,
+  kind,
+  ping,
+  rel,
+  small,
+  target,
+  type,
+}: {
+  hasContent?: boolean;
+  autofocus?: boolean;
+  disabled?: boolean;
+  download?: string;
+  href?: string;
+  hreflang?: string;
+  kind?: BUTTON_KIND;
+  ping?: string;
+  rel?: string;
+  small?: boolean;
+  target?: string;
+  type?: string;
+} = {}) =>
+  !hasContent
+    ? (undefined! as TemplateResult)
+    : html`
+        <bx-btn
+          ?autofocus="${autofocus}"
+          ?disabled="${disabled}"
+          download="${ifDefined(download)}"
+          href="${ifDefined(href)}"
+          hreflang="${ifDefined(hreflang)}"
+          kind="${ifDefined(kind)}"
+          ping="${ifDefined(ping)}"
+          rel="${ifDefined(rel)}"
+          ?small="${small}"
+          target="${ifDefined(target)}"
+          type="${ifDefined(type)}"
+        ></bx-btn>
+      `;
 
 describe('bx-btn', function() {
   describe('Changing button type', function() {
@@ -67,5 +114,58 @@ describe('bx-btn', function() {
         elem = null;
       }
     });
+  });
+
+  describe('Misc attributes', function() {
+    it('should render with minimum attributes for <button>', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      expect(document.body.querySelector('bx-btn')).toMatchSnapshot({ mode: 'shadow' });
+    });
+
+    it('should render with various attributes for <button>', async function() {
+      render(
+        template({
+          autofocus: true,
+          disabled: true,
+          kind: BUTTON_KIND.SECONDARY,
+          small: true,
+          type: 'submit',
+        }),
+        document.body
+      );
+      await Promise.resolve();
+      expect(document.body.querySelector('bx-btn')).toMatchSnapshot({ mode: 'shadow' });
+    });
+
+    it('should render with minimum attributes for <a>', async function() {
+      render(template({ href: 'about:blank' }), document.body);
+      await Promise.resolve();
+      expect(document.body.querySelector('bx-btn')).toMatchSnapshot({ mode: 'shadow' });
+    });
+
+    it('should render with various attributes for <a>', async function() {
+      render(
+        template({
+          disabled: true,
+          download: 'file-name-foo',
+          href: 'about:blank',
+          hreflang: 'en',
+          kind: BUTTON_KIND.SECONDARY,
+          ping: 'about:blank',
+          rel: 'noopener',
+          small: true,
+          target: '_blank',
+          type: 'text/plain',
+        }),
+        document.body
+      );
+      await Promise.resolve();
+      expect(document.body.querySelector('bx-btn')).toMatchSnapshot({ mode: 'shadow' });
+    });
+  });
+
+  afterEach(function() {
+    render(template({ hasContent: false }), document.body);
   });
 });
