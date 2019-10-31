@@ -106,7 +106,6 @@ export default class BXTextarea extends LitElement {
 
   /**
    * The validity message. Corresponds to `validity-message` attribute.
-   * If present and non-empty, the text area shows the UI of its invalid state.
    */
   @property({ attribute: 'validity-message' })
   validityMessage = '';
@@ -125,7 +124,7 @@ export default class BXTextarea extends LitElement {
     if (this._textarea) {
       return this._textarea.value;
     }
-    return '';
+    return null;
   }
 
   /**
