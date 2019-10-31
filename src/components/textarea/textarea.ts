@@ -27,7 +27,7 @@ export default class BXTextarea extends LitElement {
   autocomplete = '';
 
   /**
-   * Sets the input to be focussed automatically on page load. Defaults to false
+   * Sets the textarea to be focussed automatically on page load. Defaults to false
    */
   @property({ type: Boolean })
   autofocus = false;
@@ -39,7 +39,7 @@ export default class BXTextarea extends LitElement {
   cols = 50;
 
   /**
-   * Controls the disabled state of the input
+   * Controls the disabled state of the textarea
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
@@ -51,7 +51,7 @@ export default class BXTextarea extends LitElement {
   helperText = '';
 
   /**
-   * ID to link the `label` and `input`
+   * ID to link the `label` and `textarea`
    */
   @property()
   id = '';
@@ -69,25 +69,25 @@ export default class BXTextarea extends LitElement {
   labelText = '';
 
   /**
-   * Name for the input in the `FormData`
+   * Name for the textarea in the `FormData`
    */
   @property()
   name = '';
 
   /**
-   * Pattern to validate the input against for HTML validity checking
+   * Pattern to validate the textarea against for HTML validity checking
    */
   @property()
   pattern = '';
 
   /**
-   * Value to display when the input has an empty `value`
+   * Value to display when the textarea has an empty `value`
    */
   @property({ reflect: true })
   placeholder = '';
 
   /**
-   * Controls the readonly state of the input
+   * Controls the readonly state of the textarea
    */
   @property({ type: Boolean, reflect: true })
   readonly = false;
@@ -106,24 +106,24 @@ export default class BXTextarea extends LitElement {
 
   /**
    * The validity message. Corresponds to `validity-message` attribute.
-   * If present and non-empty, this multi select shows the UI of its invalid state.
+   * If present and non-empty, the text area shows the UI of its invalid state.
    */
   @property({ attribute: 'validity-message' })
   validityMessage = '';
 
   /**
-   * The value of the input.
+   * The value of the text area.
    */
   @property()
   set value(v: string) {
-    if (this.textarea) {
-      this.textarea.value = v.trim();
+    if (this._textarea) {
+      this._textarea.value = v;
     }
   }
 
   get value(): string {
-    if (this.textarea) {
-      return this.textarea.value;
+    if (this._textarea) {
+      return this._textarea.value;
     }
     return '';
   }
@@ -133,20 +133,7 @@ export default class BXTextarea extends LitElement {
    * This lets us fixe a bug where after a user would clear text, the value wouldn't update programmatically
    */
   @query('textarea')
-  protected textarea!: HTMLTextAreaElement;
-
-  /**
-   * handles updating the value when the non-named slot updates
-   *
-   * @param param0 the event - we pull the target from it since that's what we're interested in
-   */
-  protected _handleSlotChange({ target }: { target: HTMLSlotElement }) {
-    if (target.assignedNodes) {
-      this.value = target
-        .assignedNodes({ flatten: true })
-        .reduce((accumulator, node) => accumulator + (node ? node.textContent : ''), '');
-    }
-  }
+  protected _textarea!: HTMLTextAreaElement;
 
   render() {
     const invalidIcon = WarningFilled16({ class: `${prefix}--text-area__invalid-icon` });
@@ -191,8 +178,6 @@ export default class BXTextarea extends LitElement {
           ?required="${this.required}"
           rows="${this.rows}"
         ></textarea>
-        <!-- hidden slot to allow for slotted value changes like a native textarea -->
-        <slot class="slot-value" @slotchange="${this._handleSlotChange}"></slot>
       </div>
       <div class="${prefix}--form-requirement">
         <slot name="validity-message">

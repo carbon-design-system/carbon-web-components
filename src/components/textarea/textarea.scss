@@ -7,9 +7,3 @@
 
 $css--plex: true !default;
 @import 'carbon-components/scss/components/text-area/text-area';
-
-:host(#{$prefix}-textarea) {
-  .slot-value {
-    display: none;
-  }
-}

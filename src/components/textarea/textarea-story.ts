@@ -17,25 +17,22 @@ import createProps from './stories/helpers';
 storiesOf('Textarea', module)
   .addDecorator(knobs.withKnobs)
   .add('Default', () => {
-    const { disabled, value, placeholder, invalid, onInput } = createProps(knobs);
+    const { disabled, value, placeholder, invalid, onInput, rows, cols } = createProps(knobs);
     return html`
-      <p><code>value</code> as an attribute</p>
       <bx-textarea
         ?disabled="${disabled}"
         value="${value}"
         placeholder="${placeholder}"
         ?invalid="${invalid}"
         @input="${onInput}"
+        rows="${rows}"
+        cols="${cols}"
       >
-      </bx-textarea>
-      <p>value as a child</p>
-      <bx-textarea ?disabled="${disabled}" placeholder="${placeholder}" ?invalid="${invalid}" @input="${onInput}">
-        value here (note: storybook can't update this value)
       </bx-textarea>
     `;
   })
   .add('Form item', () => {
-    const { disabled, value, placeholder, invalid, onInput } = createProps(knobs);
+    const { disabled, value, placeholder, invalid, onInput, rows, cols } = createProps(knobs);
     return html`
       <bx-form-item>
         <bx-textarea
@@ -44,6 +41,8 @@ storiesOf('Textarea', module)
           ?invalid="${invalid}"
           ?disabled="${disabled}"
           value="${value}"
+          rows="${rows}"
+          cols="${cols}"
         >
           <span slot="label-text">Label text</span>
           <span slot="helper-text">Optional helper text</span>
@@ -54,7 +53,7 @@ storiesOf('Textarea', module)
     `;
   })
   .add('Without form item wrapper', () => {
-    const { disabled, value, placeholder, invalid, onInput } = createProps(knobs);
+    const { disabled, value, placeholder, invalid, onInput, rows, cols } = createProps(knobs);
     return html`
       <bx-textarea
         placeholder="${placeholder}"
@@ -62,6 +61,8 @@ storiesOf('Textarea', module)
         ?invalid="${invalid}"
         ?disabled="${disabled}"
         value="${value}"
+        rows="${rows}"
+        cols="${cols}"
       >
         <span slot="label-text">Label text</span>
         <span slot="helper-text">Optional helper text</span>
