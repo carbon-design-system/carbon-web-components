@@ -125,7 +125,7 @@ They usually appear at the top of the primary content area.
     {
       docs: {
         storyDescription: `
-Toasts are a non-modal, time-based window elements used to display short messages;
+Toasts are non-modal, time-based window elements used to display short messages;
 they usually appear at the bottom of the screen and disappear after a few seconds.
       `,
       },
