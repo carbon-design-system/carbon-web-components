@@ -4,7 +4,7 @@ Buttons are used to initialize an action, either in the background or foreground
 
 There are several kinds of buttons:
 
-- Primary buttons should be used for the principle call to action on the page.
+- Primary buttons should be used for the principal call to action on the page.
 - Secondary buttons should be used for secondary actions on each page.
 - Danger buttons should be used for a negative action (such as Delete) on the page.
 
