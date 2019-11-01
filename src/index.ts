@@ -30,6 +30,7 @@ export { default as BXModalLabel } from './components/modal/modal-label';
 export { default as BXMultiSelect } from './components/multi-select/multi-select';
 export { default as BXMultiSelectItem } from './components/multi-select/multi-select-item';
 export { default as BXInlineNotification } from './components/notification/inline-notification';
+export { default as BXTextarea } from './components/textarea/textarea';
 export { default as BXToastNotification } from './components/notification/toast-notification';
 export { default as BXOverflowMenu } from './components/overflow-menu/overflow-menu';
 export { default as BXOverflowMenuBody } from './components/overflow-menu/overflow-menu-body';
