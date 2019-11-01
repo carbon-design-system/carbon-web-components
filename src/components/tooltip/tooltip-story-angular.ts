@@ -55,7 +55,7 @@ storiesOf('Tooltip', module)
       docs: {
         storyDescription: `
 Interactive tooltip should be used if there are actions a user can take in the tooltip (e.g. a link or a button).
-For more regular use case, e.g. giving the user more text information about something, use definition tooltip or icon tooltip.
+For more regular use cases, e.g. giving the user more text information about something, use definition tooltip or icon tooltip.
       `,
       },
     }
