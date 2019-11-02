@@ -32,8 +32,10 @@ const createInputProps = () => ({
 
 storiesOf('Date picker', module)
   .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
+  .add(
+    'Default',
+    () => ({
+      template: `
       <bx-date-picker :open="open">
         <bx-date-picker-input
           :disabled="disabled"
@@ -45,10 +47,18 @@ storiesOf('Date picker', module)
         </bx-date-picker-input>
       </bx-date-picker>
     `,
-    ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
-  }))
-  .add('Single with calendar', () => ({
-    template: `
+      ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
+    }),
+    {
+      docs: {
+        storyDescription: 'A simple Date Picker consists of an input field and no calendar.',
+      },
+    }
+  )
+  .add(
+    'Single with calendar',
+    () => ({
+      template: `
       <bx-date-picker
         :enabled-range="enabledRange"
         :open="open"
@@ -67,10 +77,18 @@ storiesOf('Date picker', module)
         </bx-date-picker-input>
       </bx-date-picker>
     `,
-    ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
-  }))
-  .add('Range with calendar', () => ({
-    template: `
+      ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
+    }),
+    {
+      docs: {
+        storyDescription: 'A single Date Picker consists of an input field and a calendar.',
+      },
+    }
+  )
+  .add(
+    'Range with calendar',
+    () => ({
+      template: `
       <bx-date-picker
         :enabled-range="enabledRange"
         :open="open"
@@ -99,5 +117,11 @@ storiesOf('Date picker', module)
         </bx-date-picker-input>
       </bx-date-picker>
     `,
-    ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
-  }));
+      ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
+    }),
+    {
+      docs: {
+        storyDescription: 'A range Date Picker consists of two input fields and a calendar.',
+      },
+    }
+  );

@@ -11,12 +11,18 @@ import '../src/polyfills';
 import { html } from 'lit-html'; // eslint-disable-line import/first
 import addons from '@storybook/addons';
 import { configure, addDecorator, addParameters } from '@storybook/polymer'; // eslint-disable-line import/first
+import { DocsContainer } from '@storybook/addon-docs/blocks';
 import './components/focus-trap/focus-trap';
 import { CURRENT_THEME } from './addon-carbon-theme/shared';
+import DocsPage from './DocsPage';
 import theme from './theme';
 import containerStyles from './_container.scss'; // eslint-disable-line import/first
 
 addParameters({
+  docs: {
+    container: DocsContainer,
+    page: DocsPage,
+  },
   options: {
     theme: theme,
   },
