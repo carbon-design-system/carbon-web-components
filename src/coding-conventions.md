@@ -216,3 +216,7 @@ In such case, we let consumer create a derived class. For example, its `.attribu
 ## Private properties
 
 This codebase tends to make all component class/instance properties `private` unless they serve API purpose. This codebase makes some of them `protected` to support inherited components.
+
+## Component-specific considerations
+
+- [Handling `formdata` event](./components/form/form-data.md)

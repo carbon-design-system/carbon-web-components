@@ -11,8 +11,22 @@ import { html, render, TemplateResult } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import '../../src/components/slider/slider';
 
+/**
+ * @param formData A `FormData` instance.
+ * @returns The given `formData` converted to a classic key-value pair.
+ */
+const getValues = (formData: FormData) => {
+  const values = {};
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [key, value] of formData.entries()) {
+    values[key] = value;
+  }
+  return values;
+};
+
 const template = ({
   hasContent = true,
+  hasForm,
   disabled,
   labelText,
   max,
@@ -22,6 +36,7 @@ const template = ({
   value,
 }: {
   hasContent?: boolean;
+  hasForm?: boolean;
   disabled?: boolean;
   labelText?: string;
   max?: number;
@@ -29,8 +44,8 @@ const template = ({
   name?: string;
   step?: number;
   value?: number;
-} = {}) =>
-  !hasContent
+} = {}) => {
+  const inner = !hasContent
     ? (undefined! as TemplateResult)
     : html`
         <bx-slider
@@ -43,6 +58,12 @@ const template = ({
           value="${ifDefined(value)}"
         ></bx-slider>
       `;
+  return !hasContent || !hasForm
+    ? inner
+    : html`
+        <form>${inner}</form>
+      `;
+};
 
 describe('bx-slider', function() {
   describe('Rendering', function() {
@@ -68,9 +89,48 @@ describe('bx-slider', function() {
       await Promise.resolve();
       expect(document.body.querySelector('bx-slider')).toMatchSnapshot({ mode: 'shadow' });
     });
+  });
 
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
+  describe('Event-based form participation', function() {
+    it('Should respond to `formdata` event', async function() {
+      render(
+        template({
+          hasForm: true,
+          name: 'name-foo',
+          value: 5,
+        }),
+        document.body
+      );
+      await Promise.resolve();
+      const formData = new FormData();
+      const event = new CustomEvent('formdata', { bubbles: true, cancelable: false, composed: false });
+      (event as any).formData = formData; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
+      const form = document.querySelector('form');
+      form!.dispatchEvent(event);
+      expect(getValues(formData)).toEqual({ 'name-foo': '5' });
     });
+
+    it('Should not respond to `formdata` event if disabled', async function() {
+      render(
+        template({
+          hasForm: true,
+          disabled: true,
+          name: 'name-foo',
+          value: 5,
+        }),
+        document.body
+      );
+      await Promise.resolve();
+      const formData = new FormData();
+      const event = new CustomEvent('formdata', { bubbles: true, cancelable: false, composed: false });
+      (event as any).formData = formData; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
+      const form = document.querySelector('form');
+      form!.dispatchEvent(event);
+      expect(getValues(formData)).toEqual({});
+    });
+  });
+
+  afterEach(function() {
+    render(template({ hasContent: false }), document.body);
   });
 });

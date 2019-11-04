@@ -11,6 +11,7 @@ import { customElement, LitElement, html, property, query } from 'lit-element';
 import classnames from 'classnames';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
+import FormMixin from '../../globals/mixins/form';
 import styles from './textarea.scss';
 
 const { prefix } = settings;
@@ -19,13 +20,21 @@ const { prefix } = settings;
  * Input element. Supports all the usual attributes for textual input types
  */
 @customElement(`${prefix}-textarea`)
-export default class BXTextarea extends LitElement {
+export default class BXTextarea extends FormMixin(LitElement) {
   /**
    * Handles `oninput` event on the `<input>`.
    * @param event The event.
    */
   private _handleInput({ target }: Event) {
     this.value = (target as HTMLTextAreaElement).value;
+  }
+
+  _handleFormdata(event: Event) {
+    const { formData } = event as any; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
+    const { disabled, name, value } = this;
+    if (!disabled) {
+      formData.append(name, value);
+    }
   }
 
   /**
