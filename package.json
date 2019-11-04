@@ -167,6 +167,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "replace-ext": "^1.0.0",
+    "rtlcss": "^2.4.0",
     "rxjs": "^6.4.0",
     "sass-loader": "^7.1.0",
     "strip-comments": "^1.0.0",
