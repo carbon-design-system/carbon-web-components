@@ -21,6 +21,14 @@ const { prefix } = settings;
 @customElement(`${prefix}-textarea`)
 export default class BXTextarea extends LitElement {
   /**
+   * Handles `oninput` event on the `<input>`.
+   * @param event The event.
+   */
+  private _handleInput({ target }: Event) {
+    this.value = (target as HTMLTextAreaElement).value;
+  }
+
+  /**
    * May be any of the standard HTML autocomplete options
    */
   @property()
@@ -114,18 +122,7 @@ export default class BXTextarea extends LitElement {
    * The value of the text area.
    */
   @property()
-  set value(v: string) {
-    if (this._textarea) {
-      this._textarea.value = v;
-    }
-  }
-
-  get value(): string {
-    if (this._textarea) {
-      return this._textarea.value;
-    }
-    return '';
-  }
+  value = '';
 
   /**
    * Get a reference to the underlying textarea so we can directly apply values.
@@ -176,6 +173,8 @@ export default class BXTextarea extends LitElement {
           ?readonly="${this.readonly}"
           ?required="${this.required}"
           rows="${this.rows}"
+          .value="${this.value}"
+          @input="${this._handleInput}"
         ></textarea>
       </div>
       <div class="${prefix}--form-requirement">
