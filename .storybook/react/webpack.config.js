@@ -77,26 +77,6 @@ class CreateReactCustomElementTypeProxyPlugin {
 
 module.exports = ({ config, mode }) => {
   const massagedConfig = configure({ config, mode });
-  const babelLoaderRule = massagedConfig.module.rules.find(
-    item => item.use && item.use.some && item.use.some(use => /babel-loader/i.test(use.loader))
-  );
-  if (babelLoaderRule) {
-    massagedConfig.module.rules.push({
-      test: /\.tsx$/,
-      use: babelLoaderRule.use.map(item => {
-        const { presets } = item.options || {};
-        return !presets || presets.indexOf('@babel/preset-react') >= 0
-          ? item
-          : {
-              ...item,
-              options: {
-                ...item.options,
-                presets: [...item.options.presets, '@babel/preset-react'],
-              },
-            };
-      }),
-    });
-  }
   if (!massagedConfig.resolve.plugins) {
     massagedConfig.resolve.plugins = [];
   }

@@ -12,6 +12,7 @@ $css--plex: true !default;
 :host(#{$prefix}-btn) {
   display: inline-flex;
   max-width: rem(320px);
+  outline: none;
 
   .#{$prefix}--btn {
     flex-grow: 1;
