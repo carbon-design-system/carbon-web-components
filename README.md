@@ -185,9 +185,8 @@ Can be found at [here](./src/coding-conventions.md).
 
 ## Iteration plans
 
-- [i3 (September 2019)](./plans/i3.md)
-- [i4 (October 2019)](./plans/i4.md)
 - [i5 (November 2019)](./plans/i5.md)
+- [i6 (December 2019)](./plans/i6.md)
 
 ## Creating build
 
