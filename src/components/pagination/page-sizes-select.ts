@@ -49,7 +49,7 @@ class BXPageSizesSelect extends LitElement {
       selectNode.removeChild(selectNode.firstChild);
     }
     ((target as HTMLSlotElement).assignedNodes() as HTMLOptionElement[]).forEach(item => {
-      selectNode!.appendChild(item.cloneNode(true));
+      selectNode?.appendChild(item.cloneNode(true));
     });
   }
 

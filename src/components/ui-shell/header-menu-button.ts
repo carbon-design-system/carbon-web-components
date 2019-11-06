@@ -9,10 +9,10 @@
 
 import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, customElement, LitElement } from 'lit-element';
 import Close20 from '@carbon/icons/lib/close/20';
 import Menu20 from '@carbon/icons/lib/menu/20';
+import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import { forEach } from '../../globals/internal/collection-helpers';
 import styles from './header.scss';
@@ -68,7 +68,7 @@ class BXHeaderMenuButton extends FocusMixin(LitElement) {
       [`${prefix}--header__action--active`]: active,
     });
     return html`
-      <button class="${classes}" ?disabled=${disabled} aria-label="${ifDefined(buttonLabel)}" @click=${handleClick}>
+      <button class="${classes}" ?disabled=${disabled} aria-label="${ifNonNull(buttonLabel)}" @click=${handleClick}>
         ${active ? Close20() : Menu20()}
       </button>
     `;

@@ -8,9 +8,9 @@
  */
 
 import classnames from 'classnames';
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
+import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import FormMixin from '../../globals/mixins/form';
 import styles from './checkbox.scss';
@@ -102,8 +102,8 @@ class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
         .checked="${checked}"
         ?disabled="${disabled}"
         .indeterminate="${indeterminate}"
-        name="${ifDefined(name == null ? undefined : name)}"
-        value="${ifDefined(value == null ? undefined : value)}"
+        name="${ifNonNull(name)}"
+        value="${ifNonNull(value)}"
         @change="${handleChange}"
       />
       <label for="checkbox" class="${labelClasses}">${labelText}</label>

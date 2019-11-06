@@ -8,9 +8,9 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, svg, property, query, customElement, LitElement } from 'lit-element';
 import CheckmarkFilled16 from '@carbon/icons/lib/checkmark--filled/16';
+import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './tile.scss';
 
@@ -72,8 +72,8 @@ class BXSelectableTile extends FocusMixin(LitElement) {
         id="input"
         class="${prefix}--tile-input"
         tabindex="-1"
-        name="${ifDefined(name == null ? undefined : name)}"
-        value="${ifDefined(value == null ? undefined : value)}"
+        name="${ifNonNull(name)}"
+        value="${ifNonNull(value)}"
         .checked=${selected}
         @change=${handleChange}
       />

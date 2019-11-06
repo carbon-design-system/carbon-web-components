@@ -12,6 +12,7 @@
 const restrictedGlobals = require('eslint-restricted-globals');
 
 module.exports = {
+  plugins: ['babel'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 6,
@@ -24,6 +25,8 @@ module.exports = {
   },
   rules: {
     'no-restricted-globals': ['error', 'isFinite'].concat(restrictedGlobals),
+    'no-unused-expressions': 0,
+    'babel/no-unused-expressions': 2,
     'import/extensions': 0,
     'import/no-extraneous-dependencies': [
       2,
