@@ -25,7 +25,7 @@ const { prefix } = settings;
  */
 export enum RADIO_BUTTON_LABEL_POSITION {
   /**
-   * Plated at left.
+   * Placed at left.
    */
   LEFT = 'left',
 
