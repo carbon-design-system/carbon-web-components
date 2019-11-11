@@ -30,7 +30,7 @@ export enum RADIO_BUTTON_LABEL_POSITION {
   LEFT = 'left',
 
   /**
-   * Plated at right.
+   * Placed at right.
    */
   RIGHT = 'right',
 }
