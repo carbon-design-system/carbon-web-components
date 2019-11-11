@@ -12,6 +12,7 @@ import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import FocusMixin from '../../globals/mixins/focus';
+import FormMixin from '../../globals/mixins/form';
 import styles from './checkbox.scss';
 
 const { prefix } = settings;
@@ -20,7 +21,7 @@ const { prefix } = settings;
  * Check box.
  */
 @customElement(`${prefix}-checkbox`)
-class BXCheckbox extends FocusMixin(LitElement) {
+class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
   @query('input')
   protected _checkboxNode!: HTMLInputElement;
 
@@ -31,6 +32,14 @@ class BXCheckbox extends FocusMixin(LitElement) {
     const { checked, indeterminate } = this._checkboxNode;
     this.checked = checked;
     this.indeterminate = indeterminate;
+  }
+
+  _handleFormdata(event: Event) {
+    const { formData } = event as any; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
+    const { checked, disabled, name, value = 'on' } = this;
+    if (!disabled && checked) {
+      formData.append(name, value);
+    }
   }
 
   /**

@@ -34,16 +34,48 @@ const createSelectableProps = () => ({
 
 storiesOf('Tile', module)
   .addDecorator(withKnobs)
-  .add('Default', () => <BXTile>Default tile</BXTile>)
-  .add('Clickable', () => {
-    const { href } = createClickableProps();
-    return <BXClickableTile href={href}>Clickable tile</BXClickableTile>;
+  .add('Default', () => <BXTile>Default tile</BXTile>, {
+    docs: {
+      storyDescription: `
+Read-only tiles are used to display information to the user, such as features or services offered.
+Read-only tiles are often seen on marketing pages to promote content.
+These tiles can have internal calls-to-action (CTAs), such as a button or a link.
+      `,
+    },
   })
-  .add('Selectable', () => {
-    const { checkmarkLabel, name, selected, value, onInput } = createSelectableProps();
-    return (
-      <BXSelectableTile checkmarkLabel={checkmarkLabel} name={name} selected={selected} value={value} onInput={onInput}>
-        Multi-select Tile
-      </BXSelectableTile>
-    );
-  });
+  .add(
+    'Clickable',
+    () => {
+      const { href } = createClickableProps();
+      return <BXClickableTile href={href}>Clickable tile</BXClickableTile>;
+    },
+    {
+      docs: {
+        storyDescription: `
+Clickable tiles can be used as navigational items, where the entire tile is a clickable state,
+which redirects the user to a new page.
+Clickable tiles cannot contain separate internal CTAs.
+      `,
+      },
+    }
+  )
+  .add(
+    'Selectable',
+    () => {
+      const { checkmarkLabel, name, selected, value, onInput } = createSelectableProps();
+      return (
+        <BXSelectableTile checkmarkLabel={checkmarkLabel} name={name} selected={selected} value={value} onInput={onInput}>
+          Multi-select Tile
+        </BXSelectableTile>
+      );
+    },
+    {
+      docs: {
+        storyDescription: `
+Selectable tiles work like a radio button, where the entire tile is a click target.
+Selectable tiles may contain internal CTAs (like links to docs) if the internal CTA is given its own click target.
+Selectable tiles work well for presenting options to a user in a structured manner, such as a set of pricing plans.
+      `,
+      },
+    }
+  );

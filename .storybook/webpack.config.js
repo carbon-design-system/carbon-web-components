@@ -95,12 +95,13 @@ module.exports = ({ config, mode }) => {
       enforce: 'pre',
     },
     {
-      test: /\.ts$/,
+      test: /\.tsx?$/,
       use: [
         {
           loader: 'babel-loader',
           options: {
             presets: [
+              '@babel/preset-react',
               [
                 '@babel/preset-env',
                 {
@@ -109,8 +110,18 @@ module.exports = ({ config, mode }) => {
                 },
               ],
             ],
-            // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
-            plugins: [['@babel/plugin-transform-runtime', { version: '7.3.0' }]],
+            plugins: [
+              // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
+              ['@babel/plugin-transform-runtime', { version: '7.3.0' }],
+              [
+                'babel-plugin-emotion',
+                {
+                  sourceMap: true,
+                  autoLabel: true,
+                },
+              ],
+              require.resolve('../babel-plugin-story-add-readme'),
+            ],
           },
         },
       ],
@@ -149,7 +160,7 @@ module.exports = ({ config, mode }) => {
     }
   );
 
-  config.resolve.extensions.push('.ts', '.d.ts');
+  config.resolve.extensions.push('.ts', '.tsx', '.d.ts');
 
   return config;
 };
