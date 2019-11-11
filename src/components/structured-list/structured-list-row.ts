@@ -173,10 +173,9 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
     const { _manager: manager, selectionName } = this;
     if (changedProperties.has('selectionName')) {
       if (manager) {
+        manager.delete(this._radioButtonDelegate, changedProperties.get('selectionName'));
         if (selectionName) {
           manager.add(this._radioButtonDelegate);
-        } else {
-          manager.delete(this._radioButtonDelegate);
         }
       }
       this.setAttribute(
