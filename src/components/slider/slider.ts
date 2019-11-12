@@ -12,6 +12,7 @@ import throttle from 'lodash.throttle';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import on from 'carbon-components/es/globals/js/misc/on';
+import FormMixin from '../../globals/mixins/form';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
 import ifNonNull from '../../globals/directives/if-non-null';
@@ -43,7 +44,7 @@ const THUMB_DIRECTION = {
  * Slider.
  */
 @customElement(`${prefix}-slider`)
-class BXSlider extends HostListenerMixin(LitElement) {
+class BXSlider extends HostListenerMixin(FormMixin(LitElement)) {
   /**
    * The handle for the listener of `${prefix}-slider-input` event.
    */
@@ -91,6 +92,14 @@ class BXSlider extends HostListenerMixin(LitElement) {
    */
   _handleClickLabel() {
     this._thumbNode!.focus();
+  }
+
+  _handleFormdata(event: Event) {
+    const { formData } = event as any; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
+    const { disabled, name, value } = this;
+    if (!disabled) {
+      formData.append(name, String(value));
+    }
   }
 
   /**

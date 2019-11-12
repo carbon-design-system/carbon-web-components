@@ -30,75 +30,99 @@ const createInputProps = () => ({
 
 storiesOf('Date picker', module)
   .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { open } = createProps();
-    const { disabled, hideLabel, labelText, light, placeholder } = createInputProps();
-    return html`
-      <bx-date-picker ?open="${open}">
-        <bx-date-picker-input
-          ?disabled="${disabled}"
-          ?hide-label="${hideLabel}"
-          label-text="${labelText}"
-          ?light="${light}"
-          placeholder="${placeholder}"
+  .add(
+    'Default',
+    () => {
+      const { open } = createProps();
+      const { disabled, hideLabel, labelText, light, placeholder } = createInputProps();
+      return html`
+        <bx-date-picker ?open="${open}">
+          <bx-date-picker-input
+            ?disabled="${disabled}"
+            ?hide-label="${hideLabel}"
+            label-text="${labelText}"
+            ?light="${light}"
+            placeholder="${placeholder}"
+          >
+          </bx-date-picker-input>
+        </bx-date-picker>
+      `;
+    },
+    {
+      docs: {
+        storyDescription: 'A simple Date Picker consists of an input field and no calendar.',
+      },
+    }
+  )
+  .add(
+    'Single with calendar',
+    () => {
+      const { enabledRange, open, value, onAfterChanged } = createProps();
+      const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
+      return html`
+        <bx-date-picker
+          enabled-range="${enabledRange}"
+          ?open="${open}"
+          value="${value}"
+          @bx-date-picker-changed="${onAfterChanged}"
         >
-        </bx-date-picker-input>
-      </bx-date-picker>
-    `;
-  })
-  .add('Single with calendar', () => {
-    const { enabledRange, open, value, onAfterChanged } = createProps();
-    const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
-    return html`
-      <bx-date-picker
-        enabled-range="${enabledRange}"
-        ?open="${open}"
-        value="${value}"
-        @bx-date-picker-changed="${onAfterChanged}"
-      >
-        <bx-date-picker-input
-          ?disabled="${disabled}"
-          ?hide-label="${hideLabel}"
-          kind="single"
-          label-text="${labelText}"
-          ?light="${light}"
-          placeholder="${placeholder}"
-          @input="${onInput}"
+          <bx-date-picker-input
+            ?disabled="${disabled}"
+            ?hide-label="${hideLabel}"
+            kind="single"
+            label-text="${labelText}"
+            ?light="${light}"
+            placeholder="${placeholder}"
+            @input="${onInput}"
+          >
+          </bx-date-picker-input>
+        </bx-date-picker>
+      `;
+    },
+    {
+      docs: {
+        storyDescription: 'A single Date Picker consists of an input field and a calendar.',
+      },
+    }
+  )
+  .add(
+    'Range with calendar',
+    () => {
+      const { enabledRange, open, value, onAfterChanged } = createProps();
+      const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
+      return html`
+        <bx-date-picker
+          enabled-range="${enabledRange}"
+          ?open="${open}"
+          value="${value}"
+          @bx-date-picker-changed="${onAfterChanged}"
         >
-        </bx-date-picker-input>
-      </bx-date-picker>
-    `;
-  })
-  .add('Range with calendar', () => {
-    const { enabledRange, open, value, onAfterChanged } = createProps();
-    const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
-    return html`
-      <bx-date-picker
-        enabled-range="${enabledRange}"
-        ?open="${open}"
-        value="${value}"
-        @bx-date-picker-changed="${onAfterChanged}"
-      >
-        <bx-date-picker-input
-          ?disabled="${disabled}"
-          ?hide-label="${hideLabel}"
-          kind="from"
-          label-text="${labelText}"
-          ?light="${light}"
-          placeholder="${placeholder}"
-          @input="${onInput}"
-        >
-        </bx-date-picker-input>
-        <bx-date-picker-input
-          ?disabled="${disabled}"
-          ?hide-label="${hideLabel}"
-          kind="to"
-          label-text="${labelText}"
-          ?light="${light}"
-          placeholder="${placeholder}"
-          @input="${onInput}"
-        >
-        </bx-date-picker-input>
-      </bx-date-picker>
-    `;
-  });
+          <bx-date-picker-input
+            ?disabled="${disabled}"
+            ?hide-label="${hideLabel}"
+            kind="from"
+            label-text="${labelText}"
+            ?light="${light}"
+            placeholder="${placeholder}"
+            @input="${onInput}"
+          >
+          </bx-date-picker-input>
+          <bx-date-picker-input
+            ?disabled="${disabled}"
+            ?hide-label="${hideLabel}"
+            kind="to"
+            label-text="${labelText}"
+            ?light="${light}"
+            placeholder="${placeholder}"
+            @input="${onInput}"
+          >
+          </bx-date-picker-input>
+        </bx-date-picker>
+      `;
+    },
+    {
+      docs: {
+        storyDescription: 'A range Date Picker consists of two input fields and a calendar.',
+      },
+    }
+  );
