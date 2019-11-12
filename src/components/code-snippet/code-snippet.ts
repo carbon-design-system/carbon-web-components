@@ -228,39 +228,64 @@ class BXCodeSnippet extends LitElement {
       _handleClickExpando: handleClickExpando,
       _handleSlotChange: handleSlotChange,
     } = this;
-    // Ensures no extra whitespace text node
-    // prettier-ignore
-    return html`
-      ${type === CODE_SNIPPET_TYPE.INLINE
-        ? undefined
-        : renderCode({
+
+    if (type === CODE_SNIPPET_TYPE.SINGLE) {
+      // Ensures no extra whitespace text node
+      // prettier-ignore
+      return html`
+        ${renderCode({
           assistiveText: codeAssistiveText,
           expanded,
           children: html`<slot @slotchange="${handleSlotChange}"></slot>`,
         })}
+        ${renderCopyButton({
+          assistiveText: copyButtonAssistiveText,
+          feedbackText: copyButtonFeedbackText,
+          showFeedback: showCopyButtonFeedback,
+          handleClickButton: handleClickCopyButton,
+          className: `${prefix}--snippet-button`,
+        })}
+        ${html`
+          <div class="${prefix}-ce--snippet__overflow-gradient"></div>
+        `}
+      `;
+    }
+
+    if (type === CODE_SNIPPET_TYPE.MULTI) {
+      // Ensures no extra whitespace text node
+      // prettier-ignore
+      return html`
+        ${renderCode({
+          assistiveText: codeAssistiveText,
+          expanded,
+          children: html`<slot @slotchange="${handleSlotChange}"></slot>`,
+        })}
+        ${renderCopyButton({
+          assistiveText: copyButtonAssistiveText,
+          feedbackText: copyButtonFeedbackText,
+          showFeedback: showCopyButtonFeedback,
+          handleClickButton: handleClickCopyButton,
+          className: `${prefix}--snippet-button`,
+        })}
+        ${!showExpando
+          ? undefined
+          : renderExpando({
+              children: expanded ? collapseButtonText : expandButtonText,
+              handleClick: handleClickExpando,
+            })}
+      `;
+    }
+
+    // Ensures no extra whitespace text node
+    // prettier-ignore
+    return html`
       ${renderCopyButton({
         assistiveText: copyButtonAssistiveText,
         feedbackText: copyButtonFeedbackText,
         showFeedback: showCopyButtonFeedback,
         handleClickButton: handleClickCopyButton,
-        className: type !== CODE_SNIPPET_TYPE.INLINE
-          ? `${prefix}--snippet-button`
-          : `${prefix}--snippet ${prefix}--snippet--inline`,
-        children: type !== CODE_SNIPPET_TYPE.INLINE
-          ? undefined
-          : html`<code aria-label="${codeAssistiveText}"><slot></slot></code>`
+        className: `${prefix}--snippet ${prefix}--snippet--inline`,
       })}
-      ${type !== CODE_SNIPPET_TYPE.MULTI || !showExpando
-        ? undefined
-        : renderExpando({
-            children: expanded ? collapseButtonText : expandButtonText,
-            handleClick: handleClickExpando,
-          })}
-      ${type !== CODE_SNIPPET_TYPE.SINGLE
-        ? undefined
-        : html`
-            <div class="${prefix}-ce--snippet__overflow-gradient"></div>
-          `}
     `;
   }
 
