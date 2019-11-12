@@ -10,14 +10,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import * as knobs from '@storybook/addon-knobs';
-import createProps from './stories/helpers';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
 // @ts-ignore
 import BXInput from 'carbon-custom-elements/es/components-react/input/input';
 // @ts-ignore
 import BXFormItem from 'carbon-custom-elements/es/components-react/form/form-item';
-
+import createProps from './stories/helpers';
 
 storiesOf('Input', module)
   .addDecorator(knobs.withKnobs)
@@ -42,10 +41,10 @@ storiesOf('Input', module)
   .add('Without form item wrapper', () => {
     const { disabled, value, placeholder, invalid, type, onInput } = createProps(knobs);
     return (
-        <BXInput type={type} value={value} placeholder={placeholder} onInput={onInput} disabled={disabled} invalid={invalid}>
-          <span slot="label-text">Label text</span>
-          <span slot="helper-text">Optional helper text</span>
-          <span slot="validity-message">Something isn't right</span>
-        </BXInput>
+      <BXInput type={type} value={value} placeholder={placeholder} onInput={onInput} disabled={disabled} invalid={invalid}>
+        <span slot="label-text">Label text</span>
+        <span slot="helper-text">Optional helper text</span>
+        <span slot="validity-message">Something isn't right</span>
+      </BXInput>
     );
   });

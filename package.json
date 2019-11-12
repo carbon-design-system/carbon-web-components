@@ -23,7 +23,7 @@
     "lint:dist": "yarn lint:license:dist",
     "lint:license:src": "gulp lint:license:src",
     "lint:license:dist": "gulp lint:license:dist",
-    "lint:scripts": "eslint .",
+    "lint:scripts": "eslint --ext .js,.ts,.tsx .",
     "lint:license:staged": "tools/check-license.js",
     "lint:scripts:staged": "eslint",
     "test": "gulp test",
@@ -211,7 +211,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "*.{js,ts,tsx}": [
       "yarn format:staged",
       "yarn lint:license:staged",
       "yarn lint:scripts:staged",

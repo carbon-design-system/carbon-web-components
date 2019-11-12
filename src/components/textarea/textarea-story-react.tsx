@@ -10,21 +10,19 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import * as knobs from '@storybook/addon-knobs';
-import createProps from './stories/helpers';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
 // @ts-ignore
 import BXTextarea from 'carbon-custom-elements/es/components-react/textarea/textarea';
 // @ts-ignore
 import BXFormItem from 'carbon-custom-elements/es/components-react/form/form-item';
+import createProps from './stories/helpers';
 
 storiesOf('Textarea', module)
   .addDecorator(knobs.withKnobs)
   .add('Default', () => {
     const { disabled, value, placeholder, invalid, onInput } = createProps(knobs);
-    return (
-      <BXTextarea disabled={disabled} invalid={invalid} value={value} placeholder={placeholder} onInput={onInput} />
-    );
+    return <BXTextarea disabled={disabled} invalid={invalid} value={value} placeholder={placeholder} onInput={onInput} />;
   })
   .add('Form item', () => {
     const { disabled, value, placeholder, invalid, onInput } = createProps(knobs);
