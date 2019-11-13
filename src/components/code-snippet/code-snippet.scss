@@ -1,0 +1,104 @@
+//
+// Copyright IBM Corp. 2019
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+$css--plex: true !default;
+
+@import 'carbon-components/scss/components/code-snippet/code-snippet';
+@import 'carbon-components/scss/components/copy-button/copy-button';
+
+:host(#{$prefix}-code-snippet) {
+  @extend .#{$prefix}--snippet--single;
+  outline: none;
+
+  .#{$prefix}--snippet-button .#{$prefix}--btn--copy__feedback {
+    left: 50%;
+    right: auto;
+  }
+
+  .#{$prefix}--snippet-container {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    position: relative;
+    padding-bottom: $carbon--spacing-05;
+    height: rem(56px);
+  }
+
+  .#{$prefix}-ce--snippet__overflow-gradient {
+    width: rem(16px);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: rem(56px);
+    background-image: linear-gradient(to right, transparent, $ui-01);
+  }
+
+  pre {
+    white-space: nowrap;
+    @include type-style('code-01');
+    padding-right: $spacing-xs;
+  }
+}
+
+:host(#{$prefix}-code-snippet[type='multi']) {
+  @extend .#{$prefix}--snippet--multi;
+  height: auto;
+
+  .#{$prefix}--snippet-container {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    height: auto;
+    padding-bottom: 0;
+    max-height: rem(238px);
+    min-height: rem(56px);
+    transition: max-height $duration--moderate-01 motion(standard, productive);
+
+    pre {
+      overflow: hidden;
+      padding-bottom: rem(24px);
+      white-space: pre;
+      padding-right: 0;
+
+      &::after {
+        width: rem(16px);
+        height: 100%;
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-image: linear-gradient(to right, transparent, $ui-01);
+      }
+
+      code {
+        overflow: hidden;
+      }
+    }
+  }
+
+  .#{$prefix}-ce--snippet-container--expanded {
+    max-height: rem(1500px);
+    transition: max-height $duration--moderate-01 motion(standard, productive);
+
+    pre {
+      overflow-x: auto;
+    }
+  }
+}
+
+:host(#{$prefix}-code-snippet[type='inline']) {
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  min-width: auto;
+  max-width: auto;
+  padding: 0;
+
+  .#{$prefix}--btn--copy__feedback {
+    top: rem(6.7882px); // Half of the diagonal line of `0.6rem` square
+  }
+}
