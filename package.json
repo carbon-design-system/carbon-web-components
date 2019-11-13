@@ -9,7 +9,10 @@
     "es/**/*"
   ],
   "scripts": {
-    "build": "gulp build",
+    "build": "gulp build && yarn build:ngc",
+    "build:ngc": "yarn build:ngc:esm2015 && yarn build:ngc:esm5",
+    "build:ngc:esm2015": "ngc -p tsconfig-angular-esm2015.json",
+    "build:ngc:esm5": "ngc -p tsconfig-angular-esm5.json",
     "ci-check": "yarn format:diff && yarn lint:src && yarn typecheck && yarn test && yarn build && yarn lint:dist",
     "clean": "gulp clean",
     "format": "prettier --write \"**/*.{css,js,md,scss}\"",
@@ -20,7 +23,7 @@
     "lint:dist": "yarn lint:license:dist",
     "lint:license:src": "gulp lint:license:src",
     "lint:license:dist": "gulp lint:license:dist",
-    "lint:scripts": "eslint .",
+    "lint:scripts": "eslint --ext .js,.ts,.tsx .",
     "lint:license:staged": "tools/check-license.js",
     "lint:scripts:staged": "eslint",
     "test": "gulp test",
@@ -36,9 +39,10 @@
     "babel-plugin-transform-vue-jsx": "^4.0.0"
   },
   "devDependencies": {
-    "@angular-devkit/core": "^7.0.0",
+    "@angular-devkit/core": "^8.0.0",
     "@angular/common": "^8.0.0",
     "@angular/compiler": "^8.0.0",
+    "@angular/compiler-cli": "^8.0.0",
     "@angular/core": "^8.0.0",
     "@angular/forms": "^8.0.0",
     "@angular/platform-browser": "^8.0.0",
@@ -164,6 +168,7 @@
     "terser-webpack-plugin": "^1.2.0",
     "through2": "^3.0.0",
     "ts-loader": "^6.0.0",
+    "tsickle": "^0.37.0",
     "typescript": "^3.4.0",
     "vue": "^2.6.0",
     "vue-eslint-parser": "^6.0.0",
@@ -206,7 +211,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "*.{js,ts,tsx}": [
       "yarn format:staged",
       "yarn lint:license:staged",
       "yarn lint:scripts:staged",
