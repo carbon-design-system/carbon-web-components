@@ -285,6 +285,7 @@ class BXCodeSnippet extends LitElement {
         showFeedback: showCopyButtonFeedback,
         handleClickButton: handleClickCopyButton,
         className: `${prefix}--snippet ${prefix}--snippet--inline`,
+        children: html`<code aria-label="${codeAssistiveText}"><slot></slot></code>`,
       })}
     `;
   }
