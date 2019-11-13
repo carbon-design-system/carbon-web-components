@@ -135,6 +135,7 @@ module.exports = {
         gulp
           .src([
             `${config.srcDir}/**/*.ts`,
+            `!${config.srcDir}/directives-angular/**/*.ts`,
             `!${config.srcDir}/**/*-story*.ts*`,
             `!${config.srcDir}/**/stories/*.ts`,
             `!${config.srcDir}/**/*.d.ts`,
@@ -168,7 +169,12 @@ module.exports = {
     types() {
       const tsProject = typescript.createProject(path.resolve(__dirname, '../tsconfig.json'));
       const { dts } = gulp
-        .src([`${config.srcDir}/**/*.ts`, `!${config.srcDir}/**/*-story*.ts*`, `!${config.srcDir}/**/stories/**/*.ts*`])
+        .src([
+          `${config.srcDir}/**/*.ts`,
+          `!${config.srcDir}/directives-angular/**/*.ts`,
+          `!${config.srcDir}/**/*-story*.ts*`,
+          `!${config.srcDir}/**/stories/**/*.ts*`,
+        ])
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(tsProject());

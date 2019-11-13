@@ -7,8 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import Handle from '../globals/internal/handle';
-
 declare module 'carbon-components/es/globals/js/settings' {
   const settings: {
     /**

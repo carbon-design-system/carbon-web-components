@@ -49,7 +49,7 @@ export interface ManagedRadioButtonDelegate {
   /**
    * Focuses on the radio button.
    */
-  focus();
+  focus(): void;
 }
 
 type ManagedRadioButton = HTMLInputElement | ManagedRadioButtonDelegate;
@@ -95,18 +95,21 @@ class RadioGroupManager {
    */
   getSortedGroup(radio: ManagedRadioButton) {
     const group = this._groups[radio.name];
-    return Array.from(group).sort((lhs, rhs) => {
-      const comparisonResult = (lhs as ManagedRadioButtonDelegate).compareDocumentPosition(rhs as ManagedRadioButtonDelegate);
-      // eslint-disable-next-line no-bitwise
-      if (comparisonResult & Node.DOCUMENT_POSITION_FOLLOWING || comparisonResult & Node.DOCUMENT_POSITION_CONTAINED_BY) {
-        return -1;
-      }
-      // eslint-disable-next-line no-bitwise
-      if (comparisonResult & Node.DOCUMENT_POSITION_PRECEDING || comparisonResult & Node.DOCUMENT_POSITION_CONTAINS) {
-        return 1;
-      }
-      return 0;
-    });
+    return (
+      group &&
+      Array.from(group).sort((lhs, rhs) => {
+        const comparisonResult = (lhs as ManagedRadioButtonDelegate).compareDocumentPosition(rhs as ManagedRadioButtonDelegate);
+        // eslint-disable-next-line no-bitwise
+        if (comparisonResult & Node.DOCUMENT_POSITION_FOLLOWING || comparisonResult & Node.DOCUMENT_POSITION_CONTAINED_BY) {
+          return -1;
+        }
+        // eslint-disable-next-line no-bitwise
+        if (comparisonResult & Node.DOCUMENT_POSITION_PRECEDING || comparisonResult & Node.DOCUMENT_POSITION_CONTAINS) {
+          return 1;
+        }
+        return 0;
+      })
+    );
   }
 
   /**
@@ -129,10 +132,11 @@ class RadioGroupManager {
   /**
    * Unmanages a radio button.
    * @param radio The radio button to unmanage.
+   * @param name The old name of the radio button to unmanage.
    * @returns `true` if `element` was actually managed.
    */
-  delete(radio: ManagedRadioButton) {
-    const group = this._groups[radio.name];
+  delete(radio: ManagedRadioButton, name: string = radio.name) {
+    const group = this._groups[name];
     return !group ? false : group.delete(radio);
   }
 
@@ -142,14 +146,18 @@ class RadioGroupManager {
    */
   select(radio: ManagedRadioButton) {
     const group = this._groups[radio.name];
-    group.forEach(item => {
-      const shouldBeSelected = radio === item;
-      item.checked = shouldBeSelected;
-      item.tabIndex = shouldBeSelected ? 0 : -1;
-      if (shouldBeSelected) {
-        item.focus();
-      }
-    });
+    if (group) {
+      // Updates the state of the one being selected up-front to avoid the state of no radio button is selected
+      radio.checked = true;
+      radio.tabIndex = 0;
+      radio.focus();
+      group.forEach(item => {
+        if (radio !== item) {
+          item.checked = false;
+          item.tabIndex = -1;
+        }
+      });
+    }
   }
 
   /**
