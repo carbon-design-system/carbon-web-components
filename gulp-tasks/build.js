@@ -64,7 +64,7 @@ module.exports = {
       );
     },
 
-    async sass() {
+    async css() {
       const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
       await promisifyStream(() =>
         gulp
@@ -188,5 +188,9 @@ module.exports = {
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.jsDestDir));
     },
+  },
+
+  sass() {
+    return gulp.src(`${config.srcDir}/**/*.scss`).pipe(gulp.dest(config.sassDestDir));
   },
 };
