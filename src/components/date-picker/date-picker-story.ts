@@ -17,6 +17,7 @@ const createProps = () => ({
   open: boolean('Open (open)', false),
   value: text('Value in ISO8601 date format, separated by `/` (value)', ''),
   onAfterChanged: action('bx-date-picker-changed'),
+  onFlatpickrError: action('bx-date-picker-flatpickr-error'),
 });
 
 const createInputProps = () => ({
@@ -57,7 +58,7 @@ storiesOf('Date picker', module)
   .add(
     'Single with calendar',
     () => {
-      const { enabledRange, open, value, onAfterChanged } = createProps();
+      const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = createProps();
       const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
       return html`
         <bx-date-picker
@@ -65,6 +66,7 @@ storiesOf('Date picker', module)
           ?open="${open}"
           value="${value}"
           @bx-date-picker-changed="${onAfterChanged}"
+          @bx-date-picker-flatpickr-error="${onFlatpickrError}"
         >
           <bx-date-picker-input
             ?disabled="${disabled}"
@@ -88,7 +90,7 @@ storiesOf('Date picker', module)
   .add(
     'Range with calendar',
     () => {
-      const { enabledRange, open, value, onAfterChanged } = createProps();
+      const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = createProps();
       const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
       return html`
         <bx-date-picker
@@ -96,6 +98,7 @@ storiesOf('Date picker', module)
           ?open="${open}"
           value="${value}"
           @bx-date-picker-changed="${onAfterChanged}"
+          @bx-date-picker-flatpickr-error="${onFlatpickrError}"
         >
           <bx-date-picker-input
             ?disabled="${disabled}"

@@ -23,6 +23,7 @@ const createProps = () => ({
   open: boolean('Open (open)', false),
   value: text('Value in ISO8601 date format, separated by `/` (value)', ''),
   onAfterChanged: action('onAfterChanged'),
+  onFlatpickrError: action('onFlatpickrError'),
 });
 
 const createInputProps = () => ({
@@ -62,10 +63,15 @@ storiesOf('Date picker', module)
   .add(
     'Single with calendar',
     () => {
-      const { enabledRange, open, value, onAfterChanged } = createProps();
+      const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = createProps();
       const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
       return (
-        <BXDatePicker enabledRange={enabledRange} open={open} value={value} onAfterChanged={onAfterChanged}>
+        <BXDatePicker
+          enabledRange={enabledRange}
+          open={open}
+          value={value}
+          onAfterChanged={onAfterChanged}
+          onFlatpickrError={onFlatpickrError}>
           <BXDatePickerInput
             disabled={disabled}
             hideLabel={hideLabel}
@@ -87,10 +93,15 @@ storiesOf('Date picker', module)
   .add(
     'Range with calendar',
     () => {
-      const { enabledRange, open, value, onAfterChanged } = createProps();
+      const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = createProps();
       const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
       return (
-        <BXDatePicker enabledRange={enabledRange} open={open} value={value} onAfterChanged={onAfterChanged}>
+        <BXDatePicker
+          enabledRange={enabledRange}
+          open={open}
+          value={value}
+          onAfterChanged={onAfterChanged}
+          onFlatpickrError={onFlatpickrError}>
           <BXDatePickerInput
             disabled={disabled}
             hideLabel={hideLabel}
