@@ -56,6 +56,9 @@ describe('bx-copy-button', function() {
 
   describe('Showing tooltip', function() {
     beforeEach(function() {
+      // Workaround for:
+      // `Error: Jasmine Clock was unable to install over custom global timer functions. Is the clock already installed?`
+      jasmine.clock().uninstall();
       jasmine.clock().install();
     });
 
