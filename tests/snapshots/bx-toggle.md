@@ -22,14 +22,14 @@
       aria-hidden="true"
       class="bx--toggle__text--off"
     >
-      <slot name="off-text">
+      <slot name="unchecked-text">
       </slot>
     </span>
     <span
       aria-hidden="true"
       class="bx--toggle__text--on"
     >
-      <slot name="on-text">
+      <slot name="checked-text">
       </slot>
     </span>
   </span>
@@ -61,7 +61,7 @@
       aria-hidden="true"
       class="bx--toggle__text--off"
     >
-      <slot name="off-text">
+      <slot name="unchecked-text">
         unchecked-text-foo
       </slot>
     </span>
@@ -69,7 +69,7 @@
       aria-hidden="true"
       class="bx--toggle__text--on"
     >
-      <slot name="on-text">
+      <slot name="checked-text">
         checked-text-foo
       </slot>
     </span>
