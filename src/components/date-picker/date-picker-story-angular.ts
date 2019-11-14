@@ -19,6 +19,7 @@ const createProps = () => ({
   open: boolean('Open (open)', false),
   value: text('Value in ISO8601 date format, separated by `/` (value)', ''),
   onAfterChanged: action('bx-date-picker-changed'),
+  onFlatpickrError: action('bx-date-picker-flatpickr-error'),
 });
 
 const createInputProps = () => ({
@@ -67,6 +68,7 @@ storiesOf('Date picker', module)
         [open]="open"
         [value]="value"
         (bx-date-picker-changed)="onAfterChanged($event)"
+        (bx-date-picker-flatpickr-error)="onFlatpickrError($event)"
       >
         <bx-date-picker-input
           [disabled]="disabled"
@@ -100,6 +102,7 @@ storiesOf('Date picker', module)
         [open]="open"
         [value]="value"
         (bx-date-picker-changed)="onAfterChanged($event)"
+        (bx-date-picker-flatpickr-error)="onFlatpickrError($event)"
       >
         <bx-date-picker-input
           [disabled]="disabled"

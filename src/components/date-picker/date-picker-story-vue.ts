@@ -20,6 +20,7 @@ const createProps = () => ({
   value: text('Value in ISO8601 date format, separated by `/` (value)', ''),
   placeholder: text('Placeholder text (placeholder in <bx-date-picker-input>)', 'mm/dd/yyyy'),
   onAfterChanged: action('bx-date-picker-changed'),
+  onFlatpickrError: action('bx-date-picker-flatpickr-error'),
 });
 
 const createInputProps = () => ({
@@ -64,6 +65,7 @@ storiesOf('Date picker', module)
         :open="open"
         :value="value"
         @bx-date-picker-changed="onAfterChanged"
+        @bx-date-picker-flatpickr-error="onFlatpickrError"
       >
         <bx-date-picker-input
           :disabled="disabled"
@@ -94,6 +96,7 @@ storiesOf('Date picker', module)
         :open="open"
         :value="value"
         @bx-date-picker-changed="onAfterChanged"
+        @bx-date-picker-flatpickr-error="onFlatpickrError"
       >
         <bx-date-picker-input
           :disabled="disabled"
