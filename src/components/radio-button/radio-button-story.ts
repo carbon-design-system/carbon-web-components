@@ -13,6 +13,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, select, text } from '@storybook/addon-knobs';
 import { RADIO_BUTTON_ORIENTATION } from './radio-button-group';
 import { RADIO_BUTTON_LABEL_POSITION } from './radio-button';
+import storyDocs from './radio-button-story.mdx';
 
 const orientations = {
   [`Horizontal (${RADIO_BUTTON_ORIENTATION.HORIZONTAL})`]: RADIO_BUTTON_ORIENTATION.HORIZONTAL,
@@ -50,6 +51,7 @@ defaultStory.story = {
 export default {
   title: 'Radio button',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-radio-button-group': () => ({
         disabled: boolean('Disabled (disabled)', false),

@@ -33,6 +33,7 @@ import './table-toolbar-content';
 import './table-toolbar-search';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
+import storyDocs from './data-table-story.mdx';
 
 /**
  * A class to manage table states, like selection and sorting.
@@ -619,4 +620,7 @@ sortableWithPagination.story = {
 
 export default {
   title: 'Data table',
+  parameters: {
+    docs: storyDocs.parameters.docs,
+  },
 };

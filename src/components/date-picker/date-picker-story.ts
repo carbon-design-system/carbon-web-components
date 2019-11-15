@@ -10,6 +10,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, text } from '@storybook/addon-knobs';
 import './date-picker';
 import './date-picker-input';
+import storyDocs from './date-picker-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { disabled, hideLabel, labelText, light, placeholder } = parameters?.props?.['bx-date-picker-input'];
@@ -29,11 +30,6 @@ export const defaultStory = ({ parameters }) => {
 
 defaultStory.story = {
   name: 'Default',
-  parameters: {
-    docs: {
-      storyDescription: 'A simple Date Picker consists of an input field and no calendar.',
-    },
-  },
 };
 
 export const singleWithCalendar = ({ parameters }) => {
@@ -65,9 +61,6 @@ export const singleWithCalendar = ({ parameters }) => {
 singleWithCalendar.story = {
   name: 'Single with calendar',
   parameters: {
-    docs: {
-      storyDescription: 'A single Date Picker consists of an input field and a calendar.',
-    },
     knobs: {
       'bx-date-picker': () => ({
         dateFormat: text('The date format (date-format)', 'm/d/Y'),
@@ -120,9 +113,6 @@ export const rangeWithCalendar = ({ parameters }) => {
 rangeWithCalendar.story = {
   name: 'Range with calendar',
   parameters: {
-    docs: {
-      storyDescription: 'A range Date Picker consists of two input fields and a calendar.',
-    },
     knobs: singleWithCalendar.story.parameters.knobs,
   },
 };
@@ -130,6 +120,7 @@ rangeWithCalendar.story = {
 export default {
   title: 'Date picker',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-date-picker-input': () => ({
         disabled: boolean('Disabled (disabled in <bx-date-picker-input>)', false),

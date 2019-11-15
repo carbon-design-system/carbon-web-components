@@ -1,3 +1,5 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+
 # UI Shell
 
 UI Shell in Carbon Design System consists of several component groups.
@@ -13,6 +15,10 @@ Side nav in UI Shell consists of the following components:
 | `<side-nav-link>`      | Nav item, working as a link                      |
 | `<side-nav-menu>`      | Nav item, working as a container of sub-items    |
 | `<side-nav-menu-item>` | Nav item, working as as a sub-item and as a link |
+
+<Preview withToolbar>
+  <Story id="ui-shell--side-nav" />
+</Preview>
 
 ### Expanding/collapsing
 
@@ -37,3 +43,7 @@ Header nav in UI Shell consists of the following components:
 | `<bx-header-menu-item>`   | Nav item, working as as a sub-item            |
 | `<bx-header-menu-button>` | The expando button for side nav               |
 | `<bx-header-name>`        | The UI to show product name                   |
+
+<Preview withToolbar>
+  <Story id="ui-shell--header" />
+</Preview>

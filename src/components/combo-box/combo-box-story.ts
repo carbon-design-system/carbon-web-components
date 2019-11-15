@@ -12,6 +12,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, text } from '@storybook/addon-knobs';
 import './combo-box';
 import './combo-box-item';
+import storyDocs from './combo-box-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const {
@@ -63,6 +64,7 @@ defaultStory.story = {
 export default {
   title: 'Combo box',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-combo-box': () => ({
         open: boolean('Open (open)', false),
