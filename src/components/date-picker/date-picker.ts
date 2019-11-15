@@ -167,6 +167,7 @@ class BXDatePicker extends LitElement {
       _dateInteractNode: dateInteractNode,
       _floatingMenuContainerNode: floatingMenuContainerNode,
       _datePickerPlugins: plugins,
+      _handleFlatpickrError: handleFlatpickrError,
     } = this;
     // We use `<bx-date-picker-input>` to communicate values/events with Flatpickr,
     // but want to use `<input>` in shadow DOM to base the calendar dropdown's position on
@@ -176,6 +177,7 @@ class BXDatePicker extends LitElement {
       allowInput: true,
       appendTo: floatingMenuContainerNode,
       dateFormat: this.dateFormat ?? (this.constructor as typeof BXDatePicker).defaultDateFormat,
+      errorHandler: handleFlatpickrError,
       locale,
       maxDate,
       minDate,
@@ -208,6 +210,22 @@ class BXDatePicker extends LitElement {
       this._instantiateDatePicker();
     }
   }
+
+  /**
+   * Fires a custom event to notify an error in Flatpickr.
+   */
+  private _handleFlatpickrError = (error: Error) => {
+    this.dispatchEvent(
+      new CustomEvent((this.constructor as typeof BXDatePicker).eventFlatpickrError, {
+        bubbles: true,
+        cancelable: false,
+        composed: true,
+        detail: {
+          error,
+        },
+      })
+    );
+  };
 
   /**
    * Instantiates Flatpickr.
@@ -480,6 +498,13 @@ class BXDatePicker extends LitElement {
    */
   static get selectorInputTo() {
     return `${prefix}-date-picker-input[kind="to"]`;
+  }
+
+  /**
+   * The name of the custom event when Flatpickr throws an error.
+   */
+  static get eventFlatpickrError() {
+    return `${prefix}-date-picker-flatpickr-error`;
   }
 
   /**
