@@ -9,9 +9,8 @@
 
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html } from 'lit-element';
-import { storiesOf } from '@storybook/polymer';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
+import { boolean, select, text } from '@storybook/addon-knobs';
 import { RADIO_BUTTON_ORIENTATION } from './radio-button-group';
 import { RADIO_BUTTON_LABEL_POSITION } from './radio-button';
 
@@ -25,37 +24,48 @@ const labelPositions = {
   [`Right (${RADIO_BUTTON_LABEL_POSITION.RIGHT})`]: RADIO_BUTTON_LABEL_POSITION.RIGHT,
 };
 
-const createGroupProps = () => ({
-  disabled: boolean('Disabled (disabled)', false),
-  labelPosition: select('Label position (label-position)', labelPositions, RADIO_BUTTON_LABEL_POSITION.RIGHT),
-  orientation: select('Orientation (orientation)', orientations, RADIO_BUTTON_ORIENTATION.HORIZONTAL),
-  name: text('Name (name)', 'radio-group'),
-  value: text('Value (value)', ''),
-  onAfterChange: action('bx-radio-button-group-changed'),
-});
+export const defaultStory = ({ parameters }) => {
+  const { 'bx-radio-button-group': radioButtonGroupProps, 'bx-radio-button': radioButtonProps } =
+    parameters.props || ({} as typeof parameters.props);
+  const { disabled, labelPosition, orientation, name, value, onAfterChange } =
+    radioButtonGroupProps || ({} as typeof radioButtonGroupProps);
+  const { hideLabel, labelText } = radioButtonProps || ({} as typeof radioButtonProps);
+  return html`
+    <bx-radio-button-group
+      ?disabled="${disabled}"
+      label-position="${labelPosition}"
+      orientation="${orientation}"
+      name="${ifDefined(!name ? undefined : name)}"
+      value="${ifDefined(!value ? undefined : value)}"
+      @bx-radio-button-group-changed="${onAfterChange}"
+    >
+      <bx-radio-button ?hide-label="${hideLabel}" label-text="${labelText}" value="all"></bx-radio-button>
+      <bx-radio-button ?hide-label="${hideLabel}" label-text="${labelText}" value="cloudFoundry"></bx-radio-button>
+      <bx-radio-button ?hide-label="${hideLabel}" label-text="${labelText}" value="staging"></bx-radio-button>
+    </bx-radio-button-group>
+  `;
+};
 
-const createProps = () => ({
-  hideLabel: boolean('Hide label (hide-label)', false),
-  labelText: text('Label text (label-text)', 'Radio button'),
-});
+defaultStory.story = {
+  name: 'Default',
+};
 
-storiesOf('Radio button', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { disabled, labelPosition, orientation, name, value, onAfterChange } = createGroupProps();
-    const { hideLabel, labelText } = createProps();
-    return html`
-      <bx-radio-button-group
-        ?disabled="${disabled}"
-        label-position="${labelPosition}"
-        orientation="${orientation}"
-        name="${ifDefined(!name ? undefined : name)}"
-        value="${ifDefined(!value ? undefined : value)}"
-        @bx-radio-button-group-changed="${onAfterChange}"
-      >
-        <bx-radio-button ?hide-label="${hideLabel}" label-text="${labelText}" value="all"></bx-radio-button>
-        <bx-radio-button ?hide-label="${hideLabel}" label-text="${labelText}" value="cloudFoundry"></bx-radio-button>
-        <bx-radio-button ?hide-label="${hideLabel}" label-text="${labelText}" value="staging"></bx-radio-button>
-      </bx-radio-button-group>
-    `;
-  });
+export default {
+  title: 'Radio button',
+  parameters: {
+    knobs: {
+      'bx-radio-button-group': () => ({
+        disabled: boolean('Disabled (disabled)', false),
+        labelPosition: select('Label position (label-position)', labelPositions, RADIO_BUTTON_LABEL_POSITION.RIGHT),
+        orientation: select('Orientation (orientation)', orientations, RADIO_BUTTON_ORIENTATION.HORIZONTAL),
+        name: text('Name (name)', 'radio-group'),
+        value: text('Value (value)', ''),
+        onAfterChange: action('bx-radio-button-group-changed'),
+      }),
+      'bx-radio-button': () => ({
+        hideLabel: boolean('Hide label (hide-label)', false),
+        labelText: text('Label text (label-text)', 'Radio button'),
+      }),
+    },
+  },
+};

@@ -28,18 +28,20 @@ addParameters({
   },
 });
 
-addDecorator(
-  story => <StrictMode>
-    <style>
-      {containerStyles.cssText}
-    </style>
-    <bx-ce-demo-focus-trap href="#main-content" aria-label="Skip to main content">Skip to main content</bx-ce-demo-focus-trap>
+addDecorator(story => (
+  <StrictMode>
+    <style>{containerStyles.cssText}</style>
+    <bx-ce-demo-focus-trap href="#main-content" aria-label="Skip to main content">
+      Skip to main content
+    </bx-ce-demo-focus-trap>
     <div id="main-content" data-floating-menu-container role="main" className="bx--body bx-ce-demo-devenv--container">
       {story()}
     </div>
-    <bx-ce-demo-focus-trap href="#main-content" aria-label="End of content">End of content</bx-ce-demo-focus-trap>
+    <bx-ce-demo-focus-trap href="#main-content" aria-label="End of content">
+      End of content
+    </bx-ce-demo-focus-trap>
   </StrictMode>
-);
+));
 
 addons.getChannel().on(CURRENT_THEME, theme => {
   document.documentElement.setAttribute('storybook-carbon-theme', theme);

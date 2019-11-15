@@ -8,8 +8,7 @@
  */
 
 import { html } from 'lit-element';
-import { storiesOf } from '@storybook/polymer';
-import { withKnobs, select } from '@storybook/addon-knobs';
+import { select } from '@storybook/addon-knobs';
 import { INLINE_LOADING_STATE } from './inline-loading';
 
 const states = {
@@ -19,15 +18,25 @@ const states = {
   [`Failed (${INLINE_LOADING_STATE.ERROR})`]: INLINE_LOADING_STATE.ERROR,
 };
 
-const createProps = () => ({
-  status: select('Loading status (status)', states, INLINE_LOADING_STATE.ACTIVE),
-});
+export const defaultStory = ({ parameters }) => {
+  const { status } =
+    (parameters.props && parameters.props['bx-inline-loading']) || ({} as typeof parameters.props['bx-inline-loading']);
+  return html`
+    <bx-inline-loading status="${status}">Loading data...</bx-inline-loading>
+  `;
+};
 
-storiesOf('Inline loading', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { status } = createProps();
-    return html`
-      <bx-inline-loading status="${status}">Loading data...</bx-inline-loading>
-    `;
-  });
+defaultStory.story = {
+  name: 'Default',
+};
+
+export default {
+  title: 'Inline loading',
+  parameters: {
+    knobs: {
+      'bx-inline-loading': () => ({
+        status: select('Loading status (status)', states, INLINE_LOADING_STATE.ACTIVE),
+      }),
+    },
+  },
+};
