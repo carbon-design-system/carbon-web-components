@@ -161,10 +161,16 @@ class BXPagination extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     // Manually hooks the event listeners on the host element to make the event names configurable
-    this._hChangePage = on(this, (this.constructor as typeof BXPagination).eventAfterChangePage, this
-      ._handleChangePage as EventListener);
-    this._hChangePageSize = on(this, (this.constructor as typeof BXPagination).eventAfterChangePageSize, this
-      ._handleChangePageSize as EventListener);
+    this._hChangePage = on(
+      this,
+      (this.constructor as typeof BXPagination).eventAfterChangePage,
+      this._handleChangePage as EventListener
+    );
+    this._hChangePageSize = on(
+      this,
+      (this.constructor as typeof BXPagination).eventAfterChangePageSize,
+      this._handleChangePageSize as EventListener
+    );
   }
 
   disconnectedCallback() {
