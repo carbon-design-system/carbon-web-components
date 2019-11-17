@@ -58,3 +58,4 @@ export { default as BXSideNavItems } from './components/ui-shell/side-nav-items'
 export { default as BXSideNavLink } from './components/ui-shell/side-nav-link';
 export { default as BXSideNavMenu } from './components/ui-shell/side-nav-menu';
 export { default as BXSideNavMenuItem } from './components/ui-shell/side-nav-menu-item';
+export { default as BxSearch } from './components/search/search';
