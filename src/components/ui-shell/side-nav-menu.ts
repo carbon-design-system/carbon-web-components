@@ -89,6 +89,12 @@ class BXSideNavMenu extends FocusMixin(LitElement) {
   expanded = false;
 
   /**
+   * `true` if the menu should be forced collapsed upon side nav's expanded state. Corresponds to `force-collapsed` attribute.
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'force-collapsed' })
+  forceCollapsed = false;
+
+  /**
    * The title text. Corresponds to the attribute with the same name.
    */
   @property()
@@ -108,6 +114,7 @@ class BXSideNavMenu extends FocusMixin(LitElement) {
   render() {
     const {
       expanded,
+      forceCollapsed,
       title,
       _handleClickExpando: handleClickExpando,
       _handleSlotChange: handleSlotChange,
@@ -117,7 +124,7 @@ class BXSideNavMenu extends FocusMixin(LitElement) {
       <button
         type="button"
         aria-haspopup="true"
-        aria-expanded="${String(Boolean(expanded))}"
+        aria-expanded="${String(Boolean(expanded && !forceCollapsed))}"
         class="${prefix}--side-nav__submenu"
         @click=${handleClickExpando}
       >
