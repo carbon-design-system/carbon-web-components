@@ -113,7 +113,7 @@ export class AppModule {}
 
 [![Edit carbon-custom-elements with React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/react)
 
-You can use wrapper React components in `carbon-custom-elements/es/components-react` that allows you to use our components seamlessly from your React code. Here's an example:
+You can use wrapper React components in `carbon-custom-elements/es/components-react` generated [automatically from the custom elements](./src/globals/wrappers/createReactCustomElementType.ts) which allows you to use our components seamlessly in your React code. Here's an example:
 
 ```javascript
 import React from 'react';
