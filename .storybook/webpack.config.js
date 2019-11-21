@@ -9,7 +9,6 @@
 
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
-const customProperties = require('postcss-custom-properties');
 
 const useExperimentalFeatures = process.env.CARBON_USE_EXPERIMENTAL_FEATURES !== 'false';
 const useStyleSourceMap = process.env.CARBON_CUSTOM_ELEMENTS_STORYBOOK_USE_STYLE_SOURCEMAP === 'true';
@@ -77,10 +76,22 @@ module.exports = ({ config, mode }) => {
       use: [...babelLoaderRule.use, require.resolve('../svg-result-carbon-icon-loader')],
     },
     {
+      test: /-story\.ts$/,
+      use: [
+        {
+          loader: 'babel-loader',
+          options: {
+            babelrc: false,
+            plugins: [require.resolve('../babel-plugin-story-add-readme')],
+          },
+        },
+      ],
+    },
+    {
       test: /-story(-(angular|react|vue))?\.[jt]sx?$/,
       use: [
         {
-          loader: require.resolve('@storybook/addon-storysource/loader'),
+          loader: require.resolve('@storybook/source-loader'),
           options: {
             parser: 'typescript',
             prettierConfig: {
@@ -96,12 +107,13 @@ module.exports = ({ config, mode }) => {
       enforce: 'pre',
     },
     {
-      test: /\.ts$/,
+      test: /\.tsx?$/,
       use: [
         {
           loader: 'babel-loader',
           options: {
             presets: [
+              '@babel/preset-react',
               [
                 '@babel/preset-env',
                 {
@@ -110,8 +122,17 @@ module.exports = ({ config, mode }) => {
                 },
               ],
             ],
-            // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
-            plugins: [['@babel/plugin-transform-runtime', { version: '7.3.0' }]],
+            plugins: [
+              // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
+              ['@babel/plugin-transform-runtime', { version: '7.3.0' }],
+              [
+                'babel-plugin-emotion',
+                {
+                  sourceMap: true,
+                  autoLabel: true,
+                },
+              ],
+            ],
           },
         },
       ],
@@ -125,7 +146,6 @@ module.exports = ({ config, mode }) => {
           loader: 'postcss-loader',
           options: {
             plugins: () => [
-              customProperties(),
               require('../postcss-fix-host-pseudo')(),
               require('autoprefixer')({
                 browsers: ['last 1 version', 'ie >= 11'],
@@ -139,9 +159,8 @@ module.exports = ({ config, mode }) => {
           options: {
             includePaths: [path.resolve(__dirname, '..', 'node_modules')],
             data: `
-              $storybook--carbon--theme-name: 'custom-properties';
-              @import '${path.resolve(__dirname, '../src/globals/scss/theme-chooser')}';
               $feature-flags: (
+                enable-css-custom-properties: true,
                 grid: ${useExperimentalFeatures},
               );
             `,
@@ -152,7 +171,7 @@ module.exports = ({ config, mode }) => {
     }
   );
 
-  config.resolve.extensions.push('.ts', '.d.ts');
+  config.resolve.extensions.push('.ts', '.tsx', '.d.ts');
 
   return config;
 };

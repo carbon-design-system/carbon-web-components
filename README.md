@@ -33,6 +33,7 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
   - [Angular](#angular)
   - [React](#react)
   - [Vue](#vue)
+  - [Other usage guides](#other-usage-guides)
 - [Getting started with development](#getting-started-with-development)
 - [Running React/Angular/Vue Storybook demo](#running-reactangularvue-storybook-demo)
 - [List of available components](#list-of-available-components)
@@ -112,7 +113,7 @@ export class AppModule {}
 
 [![Edit carbon-custom-elements with React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/react)
 
-You can use wrapper React components in `carbon-custom-elements/es/components-react` that allows you to use our components seamlessly from your React code. Here's an example:
+You can use wrapper React components in `carbon-custom-elements/es/components-react` generated [automatically from the custom elements](./src/globals/wrappers/createReactCustomElementType.ts) which allows you to use our components seamlessly in your React code. Here's an example:
 
 ```javascript
 import React from 'react';
@@ -138,6 +139,11 @@ render(<App />, document.getElementById('root'));
 [![Edit carbon-custom-elements with Vue](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/vue)
 
 Vue users can use our components in the same manner as native HTML tags, without any additional steps!
+
+### Other usage guides
+
+- [Using custom styles in components](./docs/custom-style.md)
+- [Using `carbon-custom-elements` with old build toolchain](./docs/old-build-toolchain.md)
 
 ## Getting started with development
 
@@ -179,9 +185,8 @@ Can be found at [here](./src/coding-conventions.md).
 
 ## Iteration plans
 
-- [i3 (September 2019)](./plans/i3.md)
-- [i4 (October 2019)](./plans/i4.md)
 - [i5 (November 2019)](./plans/i5.md)
+- [i6 (December 2019)](./plans/i6.md)
 
 ## Creating build
 

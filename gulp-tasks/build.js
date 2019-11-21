@@ -27,7 +27,6 @@ const through2 = require('through2');
 const log = require('fancy-log');
 const stripComments = require('strip-comments');
 const autoprefixer = require('autoprefixer');
-const customProperties = require('postcss-custom-properties');
 const replaceExtension = require('replace-ext');
 const babelPluginCreateReactCustomElementType = require('../babel-plugin-create-react-custom-element-type');
 const babelPluginResourceJSPaths = require('../babel-plugin-resource-js-paths');
@@ -65,26 +64,26 @@ module.exports = {
       );
     },
 
-    async sass() {
+    async css() {
       const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
       await promisifyStream(() =>
         gulp
           .src(`${config.srcDir}/**/*.scss`)
           .pipe(
             header(`
-              $storybook--carbon--theme-name: 'custom-properties';
-              @import '${path.resolve(__dirname, '../src/globals/scss/theme-chooser')}';
-          `)
+              $feature-flags: (
+                enable-css-custom-properties: true
+              );
+            `)
           )
           .pipe(
             sass({
               includePaths: ['node_modules'],
               outputStyle: 'compressed',
-            }).on('error', sass.logError)
+            })
           )
           .pipe(
             postcss([
-              customProperties(),
               autoprefixer({
                 // TODO: Optimize for modern browsers here
                 browsers: ['last 1 version', 'Firefox ESR', 'ie >= 11'],
@@ -136,6 +135,7 @@ module.exports = {
         gulp
           .src([
             `${config.srcDir}/**/*.ts`,
+            `!${config.srcDir}/directives-angular/**/*.ts`,
             `!${config.srcDir}/**/*-story*.ts*`,
             `!${config.srcDir}/**/stories/*.ts`,
             `!${config.srcDir}/**/*.d.ts`,
@@ -169,7 +169,12 @@ module.exports = {
     types() {
       const tsProject = typescript.createProject(path.resolve(__dirname, '../tsconfig.json'));
       const { dts } = gulp
-        .src([`${config.srcDir}/**/*.ts`, `!${config.srcDir}/**/*-story*.ts*`, `!${config.srcDir}/**/stories/**/*.ts*`])
+        .src([
+          `${config.srcDir}/**/*.ts`,
+          `!${config.srcDir}/directives-angular/**/*.ts`,
+          `!${config.srcDir}/**/*-story*.ts*`,
+          `!${config.srcDir}/**/stories/**/*.ts*`,
+        ])
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(tsProject());
@@ -183,5 +188,9 @@ module.exports = {
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.jsDestDir));
     },
+  },
+
+  sass() {
+    return gulp.src(`${config.srcDir}/**/*.scss`).pipe(gulp.dest(config.sassDestDir));
   },
 };

@@ -11,6 +11,7 @@ import { customElement, LitElement, html, property } from 'lit-element';
 import classnames from 'classnames';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
+import FormMixin from '../../globals/mixins/form';
 import styles from './input.scss';
 
 const { prefix } = settings;
@@ -32,7 +33,23 @@ export enum INPUT_TYPE {
  * Input element. Supports all the usual attributes for textual input types
  */
 @customElement(`${prefix}-input`)
-export default class BXInput extends LitElement {
+export default class BXInput extends FormMixin(LitElement) {
+  /**
+   * Handles `oninput` event on the `<input>`.
+   * @param event The event.
+   */
+  private _handleInput({ target }: Event) {
+    this.value = (target as HTMLInputElement).value;
+  }
+
+  _handleFormdata(event: Event) {
+    const { formData } = event as any; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
+    const { disabled, name, value } = this;
+    if (!disabled) {
+      formData.append(name, value);
+    }
+  }
+
   /**
    * May be any of the standard HTML autocomplete options
    */
@@ -56,12 +73,6 @@ export default class BXInput extends LitElement {
    */
   @property({ attribute: 'helper-text' })
   helperText = '';
-
-  /**
-   * ID to link the `label` and `input`
-   */
-  @property()
-  id = '';
 
   /**
    * Controls the invalid state and visibility of the `validityMessage`
@@ -121,10 +132,12 @@ export default class BXInput extends LitElement {
   /**
    * The value of the input.
    */
-  @property({ reflect: true })
+  @property()
   value = '';
 
   render() {
+    const { _handleInput: handleInput } = this;
+
     const invalidIcon = WarningFilled16({ class: `${prefix}--text-input__invalid-icon` });
 
     const inputClasses = classnames(`${prefix}--text-input`, {
@@ -165,7 +178,8 @@ export default class BXInput extends LitElement {
           ?readonly="${this.readonly}"
           ?required="${this.required}"
           type="${this.type}"
-          value="${this.value}"
+          .value="${this.value}"
+          @input="${handleInput}"
         />
       </div>
       <div class="${prefix}--form-requirement">
