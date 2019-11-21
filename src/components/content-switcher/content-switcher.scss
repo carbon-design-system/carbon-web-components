@@ -1,0 +1,65 @@
+//
+// Copyright IBM Corp. 2019
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+$css--plex: true !default;
+
+@import 'carbon-components/scss/components/content-switcher/content-switcher';
+
+:host(#{$prefix}-content-switcher) {
+  @extend .#{$prefix}--content-switcher;
+}
+
+:host(#{$prefix}-content-switcher-item) {
+  width: 100%;
+  outline: none;
+
+  .#{$prefix}--content-switcher-btn {
+    height: 100%;
+
+    &:first-child,
+    &:last-child {
+      border-radius: 0;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      height: rem(16px);
+      width: rem(1px);
+      background-color: $content-switcher-divider;
+      position: absolute;
+      z-index: 2;
+      left: 0;
+    }
+
+    &.#{$prefix}--content-switcher--selected,
+    &:focus,
+    &:hover {
+      &::before {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+:host(#{$prefix}-content-switcher-item[hide-divider]) .#{$prefix}--content-switcher-btn::before {
+  background-color: transparent;
+}
+
+:host(#{$prefix}-content-switcher-item:first-of-type) .#{$prefix}--content-switcher-btn {
+  border-top-left-radius: rem(4px);
+  border-bottom-left-radius: rem(4px);
+
+  &::before {
+    content: none;
+  }
+}
+
+:host(#{$prefix}-content-switcher-item:last-of-type) .#{$prefix}--content-switcher-btn {
+  border-top-right-radius: rem(4px);
+  border-bottom-right-radius: rem(4px);
+}
