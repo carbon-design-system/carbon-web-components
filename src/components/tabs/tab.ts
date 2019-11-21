@@ -9,7 +9,7 @@
 
 import { html, property, customElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
-import BXSwitch from '../content-switcher/switch';
+import BXContentSwitcherItem from '../content-switcher/content-switcher-item';
 import styles from './tabs.scss';
 
 const { prefix } = settings;
@@ -18,7 +18,7 @@ const { prefix } = settings;
  * Basic tab.
  */
 @customElement(`${prefix}-tab`)
-class BXTab extends BXSwitch {
+class BXTab extends BXContentSwitcherItem {
   /**
    * `true` if this tab should be highlighted. Corresponds to the attribute with the same name.
    * If `true`, parent `<bx-tabs>` selects/deselects this tab upon keyboard interaction.

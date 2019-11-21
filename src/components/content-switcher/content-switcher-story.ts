@@ -12,7 +12,7 @@ import { storiesOf } from '@storybook/polymer';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import './content-switcher';
-import './switch';
+import './content-switcher-item';
 
 const createProps = () => ({
   disabled: boolean('Disabled (disabled)', false),
@@ -41,11 +41,11 @@ storiesOf('Content switcher', module)
         @bx-content-switcher-beingselected=${handleBeforeSelected}
         @bx-content-switcher-selected=${action('bx-content-switcher-selected')}
       >
-        <bx-switch value="all">Option 1</bx-switch>
-        <bx-switch value="cloudFoundry" disabled>Option 2</bx-switch>
-        <bx-switch value="staging">Option 3</bx-switch>
-        <bx-switch value="dea">Option 4</bx-switch>
-        <bx-switch value="router">Option 5</bx-switch>
+        <bx-content-switcher-item value="all">Option 1</bx-content-switcher-item>
+        <bx-content-switcher-item value="cloudFoundry" disabled>Option 2</bx-content-switcher-item>
+        <bx-content-switcher-item value="staging">Option 3</bx-content-switcher-item>
+        <bx-content-switcher-item value="dea">Option 4</bx-content-switcher-item>
+        <bx-content-switcher-item value="router">Option 5</bx-content-switcher-item>
       </bx-content-switcher>
     `;
   });

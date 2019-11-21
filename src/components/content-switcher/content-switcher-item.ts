@@ -19,8 +19,8 @@ const { prefix } = settings;
 /**
  * Content switcher button.
  */
-@customElement(`${prefix}-switch`)
-class BXSwitch extends FocusMixin(LitElement) {
+@customElement(`${prefix}-content-switcher-item`)
+class BXContentSwitcherItem extends FocusMixin(LitElement) {
   /**
    * `true` if this content switcher item should be disabled. Corresponds to the attribute with the same name.
    */
@@ -92,4 +92,4 @@ class BXSwitch extends FocusMixin(LitElement) {
   static styles = styles;
 }
 
-export default BXSwitch;
+export default BXContentSwitcherItem;

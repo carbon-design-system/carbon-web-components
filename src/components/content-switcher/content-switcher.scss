@@ -13,7 +13,7 @@ $css--plex: true !default;
   @extend .#{$prefix}--content-switcher;
 }
 
-:host(#{$prefix}-switch) {
+:host(#{$prefix}-content-switcher-item) {
   width: 100%;
   outline: none;
 
@@ -46,11 +46,11 @@ $css--plex: true !default;
   }
 }
 
-:host(#{$prefix}-switch[hide-divider]) .#{$prefix}--content-switcher-btn::before {
+:host(#{$prefix}-content-switcher-item[hide-divider]) .#{$prefix}--content-switcher-btn::before {
   background-color: transparent;
 }
 
-:host(#{$prefix}-switch:first-of-type) .#{$prefix}--content-switcher-btn {
+:host(#{$prefix}-content-switcher-item:first-of-type) .#{$prefix}--content-switcher-btn {
   border-top-left-radius: rem(4px);
   border-bottom-left-radius: rem(4px);
 
@@ -59,7 +59,7 @@ $css--plex: true !default;
   }
 }
 
-:host(#{$prefix}-switch:last-of-type) .#{$prefix}--content-switcher-btn {
+:host(#{$prefix}-content-switcher-item:last-of-type) .#{$prefix}--content-switcher-btn {
   border-top-right-radius: rem(4px);
   border-bottom-right-radius: rem(4px);
 }

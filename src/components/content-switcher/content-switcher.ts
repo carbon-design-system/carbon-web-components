@@ -10,7 +10,7 @@
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import { forEach, indexOf } from '../../globals/internal/collection-helpers';
-import BXSwitch from './switch';
+import BXSwitch from './content-switcher-item';
 import styles from './content-switcher.scss';
 
 const { prefix } = settings;
@@ -55,7 +55,7 @@ class BXContentSwitcher extends LitElement {
     const index = type !== 'mouseover' ? -1 : indexOf(items, (target as Element).closest(selectorItem)!);
     const nextIndex = index < 0 ? index : index + 1;
     forEach(this.querySelectorAll(selectorItem), (elem, i) => {
-      // Specifies child `<bx-switch>` to hide its divider instead of using CSS,
+      // Specifies child `<bx-content-switcher-item>` to hide its divider instead of using CSS,
       // until `:host-context()` gets supported in all major browsers
       (elem as BXSwitch).hideDivider = i === nextIndex;
     });
@@ -101,7 +101,7 @@ class BXContentSwitcher extends LitElement {
    * @param [item] The content switcher item user wants to select.
    */
   protected _handleUserInitiatedSelectItem(item: BXSwitch) {
-    if (item.value !== this.value) {
+    if (!item.disabled && item.value !== this.value) {
       const init = {
         bubbles: true,
         composed: true,
@@ -171,14 +171,14 @@ class BXContentSwitcher extends LitElement {
    * A selector that will return content switcher items.
    */
   static get selectorItem() {
-    return `${prefix}-switch`;
+    return `${prefix}-content-switcher-item`;
   }
 
   /**
    * A selector that will return selected items.
    */
   static get selectorItemSelected() {
-    return `${prefix}-switch[selected]`;
+    return `${prefix}-content-switcher-item[selected]`;
   }
 
   /**

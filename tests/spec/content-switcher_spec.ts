@@ -33,7 +33,7 @@ const template = ({
         <bx-content-switcher ?disabled=${disabled} value=${ifDefined(value)}>
           ${[0, 1, 2].map(
             item => html`
-              <bx-switch value="value-${item}">Option ${item}</bx-switch>
+              <bx-content-switcher-item value="value-${item}">Option ${item}</bx-content-switcher-item>
             `
           )}
         </bx-content-switcher>
@@ -46,7 +46,7 @@ describe('bx-content-switcher', function() {
     it('should add/remove "selected" attribute', async function() {
       render(template(), document.body);
       await Promise.resolve();
-      const itemNodes = document.body.querySelectorAll('bx-switch');
+      const itemNodes = document.body.querySelectorAll('bx-content-switcher-item');
       (itemNodes[1] as HTMLElement).click();
       await Promise.resolve();
       expect(itemNodes[0].hasAttribute('selected')).toBe(false);
@@ -57,7 +57,7 @@ describe('bx-content-switcher', function() {
     it('should update value', async function() {
       render(template(), document.body);
       await Promise.resolve();
-      const itemNodes = document.body.querySelectorAll('bx-switch');
+      const itemNodes = document.body.querySelectorAll('bx-content-switcher-item');
       (itemNodes[1] as HTMLElement).click();
       await Promise.resolve();
       expect((document.body.querySelector('bx-content-switcher') as BXTabs).value).toBe('value-1');
@@ -68,8 +68,8 @@ describe('bx-content-switcher', function() {
       await Promise.resolve();
       (document.body.querySelector('bx-content-switcher') as BXTabs).value = 'value-1';
       await Promise.resolve(); // Update cycle for `<bx-content-switcher>`
-      await Promise.resolve(); // Update cycle for `<bx-switch>`
-      const itemNodes = document.body.querySelectorAll('bx-switch');
+      await Promise.resolve(); // Update cycle for `<bx-content-switcher-item>`
+      const itemNodes = document.body.querySelectorAll('bx-content-switcher-item');
       expect(itemNodes[0].hasAttribute('selected')).toBe(false);
       expect(itemNodes[1].hasAttribute('selected')).toBe(true);
       expect(itemNodes[2].hasAttribute('selected')).toBe(false);
@@ -79,7 +79,7 @@ describe('bx-content-switcher', function() {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-content-switcher');
-      const itemNodes = document.body.querySelectorAll('bx-switch');
+      const itemNodes = document.body.querySelectorAll('bx-content-switcher-item');
       (document.body.querySelector('bx-content-switcher') as BXTabs).value = 'value-0';
       await Promise.resolve();
       events.on(elem!, 'bx-content-switcher-beingselected', (event: CustomEvent) => {
@@ -102,7 +102,7 @@ describe('bx-content-switcher', function() {
     it('should add/remove "hide-divider" attribute', async function() {
       render(template(), document.body);
       await Promise.resolve();
-      const itemNodes = document.body.querySelectorAll('bx-switch');
+      const itemNodes = document.body.querySelectorAll('bx-content-switcher-item');
       itemNodes[0].dispatchEvent(new CustomEvent('mouseover', { bubbles: true }));
       await Promise.resolve();
       expect(itemNodes[0].hasAttribute('hide-divider')).toBe(false);
