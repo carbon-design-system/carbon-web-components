@@ -8,55 +8,70 @@
  */
 
 import { html } from 'lit-element';
-import { storiesOf } from '@storybook/polymer';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, number, text } from '@storybook/addon-knobs';
+import { boolean, number, text } from '@storybook/addon-knobs';
 import ifNonNull from '../../globals/directives/if-non-null';
 import './slider';
 import './slider-input';
 
-const createProps = () => ({
-  disabled: boolean('Disabled (disabled)', false),
-  labelText: text('Label text (label-text)', 'Slider'),
-  name: text('Name (name)', ''),
-  max: number('The maximum value (max)', 100),
-  min: number('The minimum value (min)', 0),
-  step: number('The step (step)', 1),
-  value: number('Value (value)', 50),
-  onAfterChange: action('bx-slider-changed'),
-});
+export const defaultStory = ({ parameters }) => {
+  const { disabled, labelText, max, min, name, step, value, onAfterChange } =
+    (parameters.props && parameters.props['bx-slider']) || ({} as typeof parameters.props['bx-slider']);
+  return html`
+    <bx-slider
+      ?disabled="${disabled}"
+      label-text="${labelText}"
+      max="${max}"
+      min="${min}"
+      name="${ifNonNull(name)}"
+      step="${step}"
+      value="${value}"
+      @bx-slider-changed="${onAfterChange}"
+    ></bx-slider>
+  `;
+};
 
-storiesOf('Slider', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { disabled, labelText, max, min, name, step, value, onAfterChange } = createProps();
-    return html`
-      <bx-slider
-        ?disabled="${disabled}"
-        label-text="${labelText}"
-        max="${max}"
-        min="${min}"
-        name="${ifNonNull(name)}"
-        step="${step}"
-        value="${value}"
-        @bx-slider-changed="${onAfterChange}"
-      ></bx-slider>
-    `;
-  })
-  .add('With input box', () => {
-    const { disabled, labelText, max, min, name, step, value, onAfterChange } = createProps();
-    return html`
-      <bx-slider
-        ?disabled="${disabled}"
-        label-text="${labelText}"
-        max="${max}"
-        min="${min}"
-        name="${ifNonNull(name)}"
-        step="${step}"
-        value="${value}"
-        @bx-slider-changed="${onAfterChange}"
-      >
-        <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
-      </bx-slider>
-    `;
-  });
+defaultStory.story = {
+  name: 'Default',
+};
+
+export const withInputBox = ({ parameters }) => {
+  const { disabled, labelText, max, min, name, step, value, onAfterChange } =
+    (parameters.props && parameters.props['bx-slider']) || ({} as typeof parameters.props['bx-slider']);
+  return html`
+    <bx-slider
+      ?disabled="${disabled}"
+      label-text="${labelText}"
+      max="${max}"
+      min="${min}"
+      name="${ifNonNull(name)}"
+      step="${step}"
+      value="${value}"
+      @bx-slider-changed="${onAfterChange}"
+    >
+      <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
+    </bx-slider>
+  `;
+};
+
+withInputBox.story = {
+  name: 'With input box',
+};
+
+export default {
+  title: 'Slider',
+  parameters: {
+    knobs: {
+      'bx-slider': () => ({
+        disabled: boolean('Disabled (disabled)', false),
+        labelText: text('Label text (label-text)', 'Slider'),
+        name: text('Name (name)', ''),
+        max: number('The maximum value (max)', 100),
+        min: number('The minimum value (min)', 0),
+        step: number('The step (step)', 1),
+        value: number('Value (value)', 50),
+        onAfterChange: action('bx-slider-changed'),
+      }),
+    },
+  },
+};
