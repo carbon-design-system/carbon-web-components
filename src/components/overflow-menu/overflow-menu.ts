@@ -8,7 +8,7 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import { property, customElement, LitElement } from 'lit-element';
+import { html, property, customElement, LitElement } from 'lit-element';
 import OverflowMenuVertical16 from '@carbon/icons/lib/overflow-menu--vertical/16';
 import HostListener from '../../globals/decorators/host-listener';
 import FocusMixin from '../../globals/mixins/focus';
@@ -93,9 +93,13 @@ class BXOverflowMenu extends HostListenerMixin(FocusMixin(LitElement)) implement
   }
 
   render() {
-    return OverflowMenuVertical16({
-      class: `${prefix}--overflow-menu__icon`,
-    });
+    return html`
+      <slot name="icon">
+        ${OverflowMenuVertical16({
+          class: `${prefix}--overflow-menu__icon`,
+        })}
+      </slot>
+    `;
   }
 
   /**

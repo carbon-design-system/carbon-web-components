@@ -7,11 +7,17 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import debounce from 'lodash.debounce';
 import { html, property, LitElement } from 'lit-element';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { repeat } from 'lit-html/directives/repeat';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
+import Settings16 from '@carbon/icons/lib/settings/16';
+import '../button/button';
+import '../overflow-menu/overflow-menu';
+import '../overflow-menu/overflow-menu-body';
+import '../overflow-menu/overflow-menu-item';
 import '../pagination/pagination';
 import '../pagination/page-sizes-select';
 import '../pagination/pages-select';
@@ -22,6 +28,9 @@ import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import './table-body';
 import './table-row';
 import './table-cell';
+import './table-toolbar';
+import './table-toolbar-content';
+import './table-toolbar-search';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 
@@ -36,14 +45,29 @@ import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class BXCEDemoDataTable extends LitElement {
   /**
+   * The debounced handler for user-initiated change in search string.
+   */
+  private _handleChangeSearchString: ((() => void) & { cancel(): void }) | void = undefined;
+
+  /**
    * The table sorting info reflecting user-initiated changes.
    */
   private _sortInfo?: TDemoSortInfo;
 
   /**
-   * The table rows reflecting user-initiated changes in sorting.
+   * The table rows reflecting selection.
    */
   private _rows?: TDemoTableRow[];
+
+  /**
+   * The table rows reflecting selection and filtering.
+   */
+  private _filteredRows?: TDemoTableRow[];
+
+  /**
+   * The search string.
+   */
+  private _searchString = '';
 
   /**
    * Unique ID used for form elements.
@@ -68,6 +92,15 @@ class BXCEDemoDataTable extends LitElement {
   }
 
   /**
+   * Handles user-initiated change in search string.
+   */
+  private _handleChangeSearchStringImpl({ detail }: CustomEvent) {
+    const { _searchString: oldSearchString } = this;
+    this._searchString = detail.value;
+    this.requestUpdate('_searchString', oldSearchString);
+  }
+
+  /**
    * Handles an event to change in selection of rows, fired from `<bx-table-row>`.
    * @param event The event.
    */
@@ -88,8 +121,12 @@ class BXCEDemoDataTable extends LitElement {
   private _handleChangeSelectionAll({ defaultPrevented, detail }: CustomEvent) {
     if (!defaultPrevented) {
       const { selected } = detail;
-      const { _rows: oldRows } = this;
-      this._rows = this._rows!.map(row => ({ ...row, selected }));
+      const { _rows: oldRows, _searchString: searchString } = this;
+      this._rows = this._rows!.map(row =>
+        searchString && Object.keys(row).every(key => key === 'id' || String(row[key] ?? '').indexOf(searchString) < 0)
+          ? row
+          : { ...row, selected }
+      );
       this.requestUpdate('_rows', oldRows);
     }
   }
@@ -137,7 +174,13 @@ class BXCEDemoDataTable extends LitElement {
    * @returns The content of the pagination UI.
    */
   private _renderPagination() {
-    const { pageSize, rows, start, _handleChangeStart: handleChangeStart, _handleChangePageSize: handleChangePageSize } = this;
+    const {
+      pageSize,
+      start,
+      _filteredRows: filteredRows,
+      _handleChangeStart: handleChangeStart,
+      _handleChangePageSize: handleChangePageSize,
+    } = this;
     if (typeof pageSize === 'undefined') {
       return undefined;
     }
@@ -145,7 +188,7 @@ class BXCEDemoDataTable extends LitElement {
       <bx-pagination
         page-size="${pageSize}"
         start="${start}"
-        total="${rows!.length}"
+        total="${filteredRows!.length}"
         @bx-pagination-changed-current="${handleChangeStart}"
         @bx-page-sizes-select-changed="${handleChangePageSize}"
       >
@@ -184,7 +227,7 @@ class BXCEDemoDataTable extends LitElement {
   sortInfo?: TDemoSortInfo;
 
   /**
-   * `true` if the the table should support selection UI. Corresponds to the attribute with the same name.
+   * `true` if the the table should support selection UI. Corresponds to `has-selection` attribute.
    */
   @property({ type: Boolean, reflect: true, attribute: 'has-selection' })
   hasSelection = false;
@@ -213,6 +256,22 @@ class BXCEDemoDataTable extends LitElement {
   @property({ type: Number })
   start = 0;
 
+  connectedCallback() {
+    super.connectedCallback();
+    if (this._handleChangeSearchString) {
+      this._handleChangeSearchString.cancel();
+    }
+    this._handleChangeSearchString = debounce(this._handleChangeSearchStringImpl, 500);
+  }
+
+  disconnectedCallback() {
+    if (this._handleChangeSearchString) {
+      this._handleChangeSearchString.cancel();
+      this._handleChangeSearchString = undefined;
+    }
+    super.disconnectedCallback();
+  }
+
   shouldUpdate(changedProperties) {
     if (changedProperties.has('sortInfo')) {
       this._sortInfo = this.sortInfo;
@@ -220,18 +279,37 @@ class BXCEDemoDataTable extends LitElement {
     if (changedProperties.has('rows')) {
       this._rows = this.rows;
     }
+    if (changedProperties.has('rows') || changedProperties.has('_rows') || changedProperties.has('_searchString')) {
+      const { pageSize, start, _rows: rows, _searchString: searchString } = this;
+      this._filteredRows = !searchString
+        ? rows!
+        : rows!.filter(row => Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0));
+      const count = this._filteredRows.length;
+      if (start >= count) {
+        this.start = Math.max(start - Math.ceil((start - count) / pageSize) * pageSize, 0);
+      }
+    }
     return true;
   }
 
   render() {
-    const { id: elementId, hasSelection, pageSize = Infinity, start = 0, size, columns, zebra, _rows: rows } = this;
+    const {
+      id: elementId,
+      hasSelection,
+      pageSize = Infinity,
+      start = 0,
+      size,
+      columns,
+      zebra,
+      _filteredRows: filteredRows,
+    } = this;
     const selectionAllName = !hasSelection ? undefined : `__bx-ce-demo-data-table_select-all_${elementId || this._uniqueId}`;
-    const selectedAll = rows!.every(({ selected }) => selected!);
+    const selectedAll = filteredRows!.every(({ selected }) => selected!);
     const { columnId: sortColumnId, direction: sortDirection } = this._sortInfo!;
     const sortedRows =
       sortDirection === TABLE_SORT_DIRECTION.NONE
-        ? rows!.slice()
-        : rows!
+        ? filteredRows!
+        : filteredRows!
             .slice()
             .sort(
               (lhs, rhs) =>
@@ -239,6 +317,26 @@ class BXCEDemoDataTable extends LitElement {
                 this._compare(lhs[sortColumnId!], rhs[sortColumnId!])
             );
     return html`
+      <bx-table-toolbar>
+        <bx-table-toolbar-content>
+          <bx-table-toolbar-search @bx-search-input="${this._handleChangeSearchString}"></bx-table-toolbar-search>
+          <bx-overflow-menu>
+            ${Settings16({ slot: 'icon' })}
+            <bx-overflow-menu-body>
+              <bx-overflow-menu-item>
+                Action 1
+              </bx-overflow-menu-item>
+              <bx-overflow-menu-item>
+                Action 2
+              </bx-overflow-menu-item>
+              <bx-overflow-menu-item>
+                Action 3
+              </bx-overflow-menu-item>
+            </bx-overflow-menu-body>
+          </bx-overflow-menu>
+          <bx-btn>Primary Button</bx-btn>
+        </bx-table-toolbar-content>
+      </bx-table-toolbar>
       <bx-table
         size="${size}"
         @bx-table-row-change-selection=${this._handleChangeSelection}

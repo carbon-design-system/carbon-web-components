@@ -7,9 +7,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import debounce from 'lodash.debounce';
 import { Pipe, PipeTransform, Component, Input, HostBinding, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
+import { Settings16Module } from '@carbon/icons-angular/lib/settings/16';
 import { TABLE_SIZE } from './table';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import baseStory, {
@@ -19,6 +21,38 @@ import baseStory, {
 } from './data-table-story';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
+
+/**
+ * Table filtering options.
+ */
+interface IBXCETableFilterOptions {
+  /**
+   * Search string.
+   */
+  searchString: string;
+}
+
+/**
+ * Angular filter for filtering table rows.
+ */
+@Pipe({
+  name: 'BXCETableRowsFilterWith',
+})
+class BXCETableRowsFilterPipe implements PipeTransform {
+  /* eslint-disable class-methods-use-this */
+  /**
+   * @param rows The table rows to window.
+   * @param options The table windowing options.
+   * @returns The windowed table rows.
+   */
+  transform(rows: TDemoTableRow[], options: IBXCETableFilterOptions): TDemoTableRow[] {
+    const { searchString } = options;
+    return !searchString
+      ? rows
+      : rows!.filter(row => Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0));
+  }
+  /* eslint-enable class-methods-use-this */
+}
 
 /**
  * Table sorting options.
@@ -157,6 +191,26 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
 @Component({
   selector: 'bx-ce-demo-data-table',
   template: `
+    <bx-table-toolbar>
+      <bx-table-toolbar-content>
+        <bx-table-toolbar-search (bx-search-input)="_handleChangeSearchString($event)"></bx-table-toolbar-search>
+        <bx-overflow-menu>
+          <ibm-icon-settings16 slot="icon"></ibm-icon-settings16>
+          <bx-overflow-menu-body>
+            <bx-overflow-menu-item>
+              Action 1
+            </bx-overflow-menu-item>
+            <bx-overflow-menu-item>
+              Action 2
+            </bx-overflow-menu-item>
+            <bx-overflow-menu-item>
+              Action 3
+            </bx-overflow-menu-item>
+          </bx-overflow-menu-body>
+        </bx-overflow-menu>
+        <bx-btn>Primary Button</bx-btn>
+      </bx-table-toolbar-content>
+    </bx-table-toolbar>
     <bx-table
       [size]="size"
       (bx-table-row-change-selection)="_handleChangeSelection($event)"
@@ -183,6 +237,7 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
         <bx-table-row
           *ngFor="
             let row of _rows
+              | BXCETableRowsFilterWith: { searchString: _searchString }
               | BXCETableRowsSortWith: { compare: _compare, sortInfo: _sortInfo }
               | BXCETableRowsSliceWith: { start: start, pageSize: pageSize }
           "
@@ -199,7 +254,7 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
       *ngIf="pageSize !== undefined"
       [pageSize]="pageSize"
       [start]="start"
-      [total]="rows.length"
+      [total]="(rows | BXCETableRowsFilterWith: { searchString: _searchString }).length"
       (bx-pagination-changed-current)="_handleChangeStart($event)"
       (bx-page-sizes-select-changed)="_handleChangePageSize($event)"
     >
@@ -213,6 +268,16 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
   `,
 })
 class BXCEDemoDataTable {
+  /**
+   * The debounced handler for user-initiated change in search string.
+   */
+  _handleChangeSearchString: ((() => void) & { cancel(): void }) | void = undefined;
+
+  /**
+   * The search string.
+   */
+  _searchString = '';
+
   /**
    * The table sorting info reflecting user-initiated changes.
    */
@@ -259,6 +324,21 @@ class BXCEDemoDataTable {
   };
 
   /**
+   * Handles user-initiated change in search string.
+   */
+  _handleChangeSearchStringImpl({ detail }: CustomEvent) {
+    const { pageSize, start } = this;
+    const { value: searchString } = detail;
+    const { length: count } = this._rows!.filter(row =>
+      Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0)
+    );
+    if (start >= count) {
+      this.start = Math.max(start - Math.ceil((start - count) / pageSize) * pageSize, 0);
+    }
+    this._searchString = searchString;
+  }
+
+  /**
    * Handles an event to change in selection of rows, fired from `<bx-table-row>`.
    * @param event The event.
    */
@@ -282,9 +362,12 @@ class BXCEDemoDataTable {
    */
   _handleChangeSelectionAll({ defaultPrevented, detail }: CustomEvent) {
     if (!defaultPrevented) {
+      const { _searchString: searchString } = this;
       const { selected } = detail;
       this._rows!.forEach(row => {
-        row.selected = selected;
+        if (Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0)) {
+          row.selected = selected;
+        }
       });
       this._selectedAll = selected;
     }
@@ -385,6 +468,20 @@ class BXCEDemoDataTable {
    */
   @Input()
   start = 0;
+
+  ngOnInit() {
+    if (this._handleChangeSearchString) {
+      this._handleChangeSearchString.cancel();
+    }
+    this._handleChangeSearchString = debounce(this._handleChangeSearchStringImpl, 500);
+  }
+
+  ngOnDestroy() {
+    if (this._handleChangeSearchString) {
+      this._handleChangeSearchString.cancel();
+      this._handleChangeSearchString = undefined;
+    }
+  }
 
   ngOnChanges(changes) {
     if ('sortInfo' in changes) {
@@ -499,11 +596,13 @@ sortable.story = Object.assign(baseSortable.story, {
     moduleMetadata({
       declarations: [
         BXCEDemoDataTable,
+        BXCETableRowsFilterPipe,
         BXCETableRowsSortPipe,
         BXCETableRowsSlicePipe,
         BXCETableColumnSortDirectionPipe,
         BXCETableRowSelectionIdPipe,
       ],
+      imports: [Settings16Module],
     }),
   ],
 });
@@ -558,11 +657,13 @@ sortableWithPagination.story = Object.assign(baseSortableWithPagination.story, {
     moduleMetadata({
       declarations: [
         BXCEDemoDataTable,
+        BXCETableRowsFilterPipe,
         BXCETableRowsSortPipe,
         BXCETableRowsSlicePipe,
         BXCETableColumnSortDirectionPipe,
         BXCETableRowSelectionIdPipe,
       ],
+      imports: [Settings16Module],
     }),
   ],
 });
