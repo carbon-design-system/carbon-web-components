@@ -15,6 +15,8 @@
   class="bx--checkbox-label"
   for="checkbox"
 >
+  <slot>
+  </slot>
 </label>
 
 ```
@@ -35,7 +37,9 @@
   class="bx--checkbox-label bx--visually-hidden"
   for="checkbox"
 >
-  label-text-foo
+  <slot>
+    label-text-foo
+  </slot>
 </label>
 
 ```
