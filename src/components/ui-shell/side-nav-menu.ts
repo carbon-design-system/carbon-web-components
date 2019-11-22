@@ -69,7 +69,7 @@ class BXSideNavMenu extends LitElement {
     const constructor = this.constructor as typeof BXSideNavMenu;
     const hasIcon = target.assignedNodes().length > 0;
     this._hasIcon = hasIcon;
-    this._titleIconContainerNode!.toggleAttribute('hidden', !hasIcon);
+    this._titleIconContainerNode?.toggleAttribute('hidden', !hasIcon);
     forEach(this.querySelectorAll(constructor.selectorItem), item => {
       item.toggleAttribute(constructor.attribItemHasIcon, hasIcon);
     });

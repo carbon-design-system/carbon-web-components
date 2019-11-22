@@ -8,9 +8,9 @@
  */
 
 import classnames from 'classnames';
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, customElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
+import ifNonNull from '../../globals/directives/if-non-null';
 import BXCheckbox from '../checkbox/checkbox';
 import styles from './toggle.scss';
 
@@ -63,8 +63,8 @@ class BXToggle extends BXCheckbox {
         aria-checked="${String(Boolean(checked))}"
         .checked="${checked}"
         ?disabled="${disabled}"
-        name="${ifDefined(name == null ? undefined : name)}"
-        value="${ifDefined(value == null ? undefined : value)}"
+        name="${ifNonNull(name)}"
+        value="${ifNonNull(value)}"
         @change="${handleChange}"
       />
       <label for="checkbox" class="${prefix}--toggle-input__label">

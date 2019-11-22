@@ -27,6 +27,8 @@ const buildCreateReactCustomElementTypeBabelOpts = {
   plugins: [
     ['@babel/plugin-syntax-decorators', { decoratorsBeforeExport: true }],
     '@babel/plugin-syntax-typescript',
+    '@babel/plugin-proposal-nullish-coalescing-operator',
+    '@babel/plugin-proposal-optional-chaining',
     babelPluginCreateReactCustomElementType,
   ],
 };
