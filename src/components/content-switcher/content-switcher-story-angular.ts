@@ -8,53 +8,47 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs/angular';
-import './content-switcher';
-import './content-switcher-item';
+import { moduleMetadata } from '@storybook/angular';
+import baseStory, { defaultStory as baseDefaultStory } from './content-switcher-story';
 
-const createProps = () => ({
-  disabled: boolean('Disabled (disabled)', false),
-  value: text('The value of the selected item (value)', ''),
-  disableSelection: boolean(
-    'Disable user-initiated selection change (Call event.preventDefault() in bx-content-switcher-beingselected event)',
-    false
-  ),
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-content-switcher
+      [disabled]="disabled"
+      [value]="value"
+      (bx-content-switcher-beingselected)="onBeforeSelect($event)"
+      (bx-content-switcher-selected)="onSelect($event)"
+    >
+      <bx-content-switcher-item value="all">Option 1</bx-content-switcher-item>
+      <bx-content-switcher-item value="cloudFoundry" disabled>Option 2</bx-content-switcher-item>
+      <bx-content-switcher-item value="staging">Option 3</bx-content-switcher-item>
+      <bx-content-switcher-item value="dea">Option 4</bx-content-switcher-item>
+      <bx-content-switcher-item value="router">Option 5</bx-content-switcher-item>
+    </bx-content-switcher>
+  `,
+  props: (({ disableSelection, ...rest }) => {
+    const beforeSelectedAction = action('bx-content-switcher-beingselected');
+    const onBeforeSelect = (event: CustomEvent) => {
+      beforeSelectedAction(event);
+      if (disableSelection) {
+        event.preventDefault();
+      }
+    };
+    return {
+      ...rest,
+      onBeforeSelect,
+      onSelect: action('bx-content-switcher-selected'),
+    };
+  })(parameters?.props['bx-content-switcher']),
 });
 
-storiesOf('Content switcher', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-content-switcher
-        [disabled]="disabled"
-        [value]="value"
-        (bx-content-switcher-beingselected)="onBeforeSelect($event)"
-        (bx-content-switcher-selected)="onSelect($event)"
-      >
-        <bx-content-switcher-item value="all">Option 1</bx-content-switcher-item>
-        <bx-content-switcher-item value="cloudFoundry" disabled>Option 2</bx-content-switcher-item>
-        <bx-content-switcher-item value="staging">Option 3</bx-content-switcher-item>
-        <bx-content-switcher-item value="dea">Option 4</bx-content-switcher-item>
-        <bx-content-switcher-item value="router">Option 5</bx-content-switcher-item>
-      </bx-content-switcher>
-    `,
-    props: (({ disableSelection, ...rest }) => {
-      const beforeSelectedAction = action('bx-content-switcher-beingselected');
-      const onBeforeSelect = (event: CustomEvent) => {
-        beforeSelectedAction(event);
-        if (disableSelection) {
-          event.preventDefault();
-        }
-      };
-      return {
-        ...rest,
-        onBeforeSelect,
-        onSelect: action('bx-content-switcher-selected'),
-      };
-    })(createProps()),
-    moduleMetadata: {
+defaultStory.story = baseDefaultStory.story;
+
+export default Object.assign(baseStory, {
+  decorators: [
+    moduleMetadata({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
-  }));
+    }),
+  ],
+});

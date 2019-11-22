@@ -8,41 +8,35 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs/angular';
-import './toggle';
+import { moduleMetadata } from '@storybook/angular';
+import baseStory, { defaultStory as baseDefaultStory } from './toggle-story';
 
-const createProps = () => ({
-  checked: boolean('Checked (checked)', false),
-  checkedText: text('Text for checked state (checkedText)', 'On'),
-  disabled: boolean('Disabled (disabled)', false),
-  labelText: text('Label text (labelText)', 'Toggle'),
-  name: text('Name (name)', ''),
-  small: boolean('Use small variant (small)', false),
-  uncheckedText: text('Text for unchecked state (uncheckedText)', 'Off'),
-  value: text('Value (value)', ''),
-  onInput: action('onInput'),
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-toggle
+      [checked]="checked"
+      [checkedText]="checkedText"
+      [disabled]="disabled"
+      [labelText]="labelText"
+      [name]="name"
+      [small]="small"
+      [uncheckedText]="uncheckedText"
+      [value]="value"
+      (input)="onInput($event)"
+    ></bx-toggle>
+  `,
+  props: parameters?.props['bx-toggle'],
+  moduleMetadata: {
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  },
 });
 
-storiesOf('Toggle', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-toggle
-        [checked]="checked"
-        [checkedText]="checkedText"
-        [disabled]="disabled"
-        [labelText]="labelText"
-        [name]="name"
-        [small]="small"
-        [uncheckedText]="uncheckedText"
-        [value]="value"
-        (input)="onInput($event)"
-      ></bx-toggle>
-    `,
-    props: createProps(),
-    moduleMetadata: {
+defaultStory.story = baseDefaultStory.story;
+
+export default Object.assign(baseStory, {
+  decorators: [
+    moduleMetadata({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
-  }));
+    }),
+  ],
+});

@@ -8,46 +8,60 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf, moduleMetadata } from '@storybook/angular';
-import * as knobs from '@storybook/addon-knobs/angular';
-import './textarea';
-import '../form/form-item';
-import createProps from './stories/helpers';
+import { moduleMetadata } from '@storybook/angular';
+import baseStory, {
+  defaultStory as baseDefaultStory,
+  formItem as baseFormItem,
+  withoutFormItemWrapper as baseWithoutFormItemWrapper,
+} from './textarea-story';
 
-storiesOf('Textarea', module)
-  .addDecorator(knobs.withKnobs)
-  .addDecorator(
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-textarea
+      [disabled]="disabled"
+      [value]="value"
+      [placeholder]="placeholder"
+      [invalid]="invalid"
+      (input)="onInput()"
+    ></bx-textarea>
+  `,
+  props: parameters?.props['bx-textarea'],
+});
+
+defaultStory.story = baseDefaultStory.story;
+
+export const formItem = ({ parameters }) => ({
+  template: `
+    <bx-form-item>
+      <bx-textarea [value]="value" [placeholder]="placeholder" (input)="onInput()" [invalid]="invalid" [disabled]="disabled">
+        <span slot="label-text">Label text</span>
+        <span slot="helper-text">Optional helper text</span>
+        <span slot="validity-message">Something isn't right</span>
+      </bx-textarea>
+    </bx-form-item>
+  `,
+  props: parameters?.props['bx-textarea'],
+});
+
+formItem.story = baseFormItem.story;
+
+export const withoutFormItemWrapper = ({ parameters }) => ({
+  template: `
+    <bx-textarea [value]="value" [placeholder]="placeholder" (input)="onInput()" [invalid]="invalid" [disabled]="disabled">
+      <span slot="label-text">Label text</span>
+      <span slot="helper-text">Optional helper text</span>
+      <span slot="validity-message">Something isn't right</span>
+    </bx-textarea>
+  `,
+  props: parameters?.props['bx-textarea'],
+});
+
+withoutFormItemWrapper.story = baseWithoutFormItemWrapper.story;
+
+export default Object.assign(baseStory, {
+  decorators: [
     moduleMetadata({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-  )
-  .add('Default', () => ({
-    template: `<bx-textarea
-        [disabled]="disabled"
-        [value]="value"
-        [placeholder]="placeholder"
-        [invalid]="invalid"
-        (input)="onInput()"
-      ></bx-textarea>`,
-    props: createProps(knobs),
-  }))
-  .add('Form item', () => ({
-    template: `
-      <bx-form-item>
-        <bx-textarea [value]="value" [placeholder]="placeholder" (input)="onInput()" [invalid]="invalid" [disabled]="disabled">
-          <span slot="label-text">Label text</span>
-          <span slot="helper-text">Optional helper text</span>
-          <span slot="validity-message">Something isn't right</span>
-        </bx-textarea>
-      </bx-form-item>`,
-    props: createProps(knobs),
-  }))
-  .add('Without form item wrapper', () => ({
-    template: `
-        <bx-textarea [value]="value" [placeholder]="placeholder" (input)="onInput()" [invalid]="invalid" [disabled]="disabled">
-          <span slot="label-text">Label text</span>
-          <span slot="helper-text">Optional helper text</span>
-          <span slot="validity-message">Something isn't right</span>
-        </bx-textarea>`,
-    props: createProps(knobs),
-  }));
+    }),
+  ],
+});

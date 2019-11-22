@@ -8,29 +8,22 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf } from '@storybook/angular';
-import { withKnobs, select } from '@storybook/addon-knobs/angular';
-import { INLINE_LOADING_STATE } from './inline-loading';
+import { moduleMetadata } from '@storybook/angular';
+import baseStory, { defaultStory as baseDefaultStory } from './inline-loading-story';
 
-const states = {
-  [`Inactive (${INLINE_LOADING_STATE.INACTIVE})`]: INLINE_LOADING_STATE.INACTIVE,
-  [`In progress (${INLINE_LOADING_STATE.ACTIVE})`]: INLINE_LOADING_STATE.ACTIVE,
-  [`Success (${INLINE_LOADING_STATE.FINISHED})`]: INLINE_LOADING_STATE.FINISHED,
-  [`Failed (${INLINE_LOADING_STATE.ERROR})`]: INLINE_LOADING_STATE.ERROR,
-};
-
-const createProps = () => ({
-  status: select('Loadint status (status)', states, INLINE_LOADING_STATE.ACTIVE),
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-inline-loading [status]="status">Loading data...</bx-inline-loading>
+  `,
+  props: parameters?.props['bx-inline-loading'],
 });
 
-storiesOf('Inline loading', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-inline-loading [status]="status">Loading data...</bx-inline-loading>
-    `,
-    props: createProps(),
-    moduleMetadata: {
+defaultStory.story = baseDefaultStory.story;
+
+export default Object.assign(baseStory, {
+  decorators: [
+    moduleMetadata({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
-  }));
+    }),
+  ],
+});
