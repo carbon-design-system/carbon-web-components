@@ -64,28 +64,39 @@ const createDefinitionIconProps = () => ({
 
 storiesOf('Tooltip', module)
   .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { open, direction } = createProps();
-    return (
-      <>
-        <style>{styles.cssText}</style>
-        <BXTooltip open={open}>
-          <BXTooltipBody direction={direction}>
-            <p>
-              This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is
-              needed please use a modal instead.
-            </p>
-            <BXTooltipFooter>
-              <a href="#" className="bx--link">
-                Learn More
-              </a>
-              <BXBtn kind="primary">Create</BXBtn>
-            </BXTooltipFooter>
-          </BXTooltipBody>
-        </BXTooltip>
-      </>
-    );
-  })
+  .add(
+    'Default',
+    () => {
+      const { open, direction } = createProps();
+      return (
+        <>
+          <style>{styles.cssText}</style>
+          <BXTooltip open={open}>
+            <BXTooltipBody direction={direction}>
+              <p>
+                This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is
+                needed please use a modal instead.
+              </p>
+              <BXTooltipFooter>
+                <a href="#" className="bx--link">
+                  Learn More
+                </a>
+                <BXBtn kind="primary">Create</BXBtn>
+              </BXTooltipFooter>
+            </BXTooltipBody>
+          </BXTooltip>
+        </>
+      );
+    },
+    {
+      docs: {
+        storyDescription: `
+Interactive tooltip should be used if there are actions a user can take in the tooltip (e.g. a link or a button).
+For more regular use cases, e.g. giving the user more text information about something, use definition tooltip or icon tooltip.
+    `,
+      },
+    }
+  )
   .add('Definition tooltip', () => {
     const { alignment, bodyText, direction } = createDefinitionIconProps();
     return (

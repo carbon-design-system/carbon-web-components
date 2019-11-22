@@ -8,8 +8,7 @@
  */
 
 import { html } from 'lit-element';
-import { storiesOf } from '@storybook/polymer';
-import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
+import { boolean, select, text } from '@storybook/addon-knobs';
 import Filter16 from '@carbon/icons/lib/filter/16';
 import '../button/button';
 import './tooltip';
@@ -40,51 +39,92 @@ const tooltipDefinitionDirections = {
   [`Right (${TOOLTIP_DIRECTION.RIGHT})`]: TOOLTIP_DIRECTION.RIGHT,
 };
 
-const createInteractiveProps = () => ({
-  open: boolean('Open (open)', false),
-  direction: select('Direction (direction in <bx-tooltip-body>)', tooltipBodyDirections, FLOATING_MENU_DIRECTION.BOTTOM),
-});
+export const defaultStory = ({ parameters }) => {
+  const { 'bx-tooltip': tooltipProps, 'bx-tooltip-body': tooltipBodyProps } = parameters.props || ({} as typeof parameters.props);
+  const { open } = tooltipProps || ({} as typeof tooltipProps);
+  const { direction } = tooltipBodyProps || ({} as typeof tooltipBodyProps);
+  return html`
+    <style>
+      ${styles}
+    </style>
+    <bx-tooltip ?open="${open}">
+      <bx-tooltip-body direction="${direction}">
+        <p>
+          This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is needed
+          please use a modal instead.
+        </p>
+        <bx-tooltip-footer> <a href="#" class="bx--link">Learn More</a><bx-btn kind="primary">Create</bx-btn> </bx-tooltip-footer>
+      </bx-tooltip-body>
+    </bx-tooltip>
+  `;
+};
 
-const createDefinitionIconProps = () => ({
-  alignment: select('Tooltip alignment to trigger button (alignment)', tooltipDefinitionAlignments, TOOLTIP_ALIGNMENT.CENTER),
-  bodyText: text('Tooltip content (bodyText)', 'Brief description of the dotted, underlined word above.'),
-  direction: select('Tooltip direction (direction)', tooltipDefinitionDirections, TOOLTIP_DIRECTION.BOTTOM),
-});
+defaultStory.story = {
+  name: 'Default',
+  parameters: {
+    docs: {
+      storyDescription: `
+Interactive tooltip should be used if there are actions a user can take in the tooltip (e.g. a link or a button).
+For more regular use cases, e.g. giving the user more text information about something, use definition tooltip or icon tooltip.
+    `,
+    },
+    knobs: {
+      'bx-tooltip': () => ({
+        open: boolean('Open (open)', false),
+      }),
+      'bx-tooltip-body': () => ({
+        direction: select('Direction (direction in <bx-tooltip-body>)', tooltipBodyDirections, FLOATING_MENU_DIRECTION.BOTTOM),
+      }),
+    },
+  },
+};
 
-storiesOf('Tooltip', module)
-  .addDecorator(withKnobs)
-  .add('Interactive tooltip', () => {
-    const { open, direction } = createInteractiveProps();
-    return html`
-      <style>
-        ${styles}
-      </style>
-      <bx-tooltip ?open="${open}">
-        <bx-tooltip-body direction="${direction}">
-          <p>
-            This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is needed
-            please use a modal instead.
-          </p>
-          <bx-tooltip-footer>
-            <a href="#" class="bx--link">Learn More</a><bx-btn kind="primary">Create</bx-btn>
-          </bx-tooltip-footer>
-        </bx-tooltip-body>
-      </bx-tooltip>
-    `;
-  })
-  .add('Definition tooltip', () => {
-    const { alignment, bodyText, direction } = createDefinitionIconProps();
-    return html`
-      <bx-tooltip-definition alignment="${alignment}" body-text="${bodyText}" direction="${direction}">
-        Definition Tooltip
-      </bx-tooltip-definition>
-    `;
-  })
-  .add('Icon tooltip', () => {
-    const { alignment, bodyText, direction } = createDefinitionIconProps();
-    return html`
-      <bx-tooltip-icon alignment="${alignment}" body-text="${bodyText}" direction="${direction}">
-        ${Filter16()}
-      </bx-tooltip-icon>
-    `;
-  });
+export const definition = ({ parameters }) => {
+  const { alignment, bodyText, direction } =
+    (parameters.props && parameters.props['bx-tooltip-definition']) || ({} as typeof parameters.props['bx-tooltip-definition']);
+  return html`
+    <bx-tooltip-definition alignment="${alignment}" body-text="${bodyText}" direction="${direction}">
+      Definition Tooltip
+    </bx-tooltip-definition>
+  `;
+};
+
+definition.story = {
+  name: 'Definition tooltip',
+  parameters: {
+    knobs: {
+      'bx-tooltip-definition': () => ({
+        alignment: select(
+          'Tooltip alignment to trigger button (alignment)',
+          tooltipDefinitionAlignments,
+          TOOLTIP_ALIGNMENT.CENTER
+        ),
+        bodyText: text('Tooltip content (bodyText)', 'Brief description of the dotted, underlined word above.'),
+        direction: select('Tooltip direction (direction)', tooltipDefinitionDirections, TOOLTIP_DIRECTION.BOTTOM),
+      }),
+    },
+  },
+};
+
+export const icon = ({ parameters }) => {
+  const { alignment, bodyText, direction } =
+    (parameters.props && parameters.props['bx-tooltip-icon']) || ({} as typeof parameters.props['bx-tooltip-icon']);
+  return html`
+    <bx-tooltip-icon alignment="${alignment}" body-text="${bodyText}" direction="${direction}">
+      ${Filter16()}
+    </bx-tooltip-icon>
+  `;
+};
+
+icon.story = {
+  name: 'Icon tooltip',
+  parameters: {
+    knobs: {
+      'bx-tooltip-icon': definition.story.parameters.knobs['bx-tooltip-definition'],
+    },
+  },
+};
+
+export default {
+  title: 'Tooltip',
+};

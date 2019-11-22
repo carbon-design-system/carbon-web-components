@@ -42,8 +42,10 @@ const createToastProps = () => ({
 
 storiesOf('Notifications', module)
   .addDecorator(withKnobs)
-  .add('Inline', () => ({
-    template: `
+  .add(
+    'Inline',
+    () => ({
+      template: `
       <bx-inline-notification
         style="min-width: 30rem; margin-bottom: .5rem"
         :kind="kind"
@@ -58,24 +60,35 @@ storiesOf('Notifications', module)
       >
       </bx-inline-notification>
     `,
-    ...createVueBindingsFromProps(
-      (({ disableClose, ...rest }) => {
-        const beforeSelectedAction = action('bx-notification-beingclosed');
-        return {
-          ...rest,
-          handleBeforeClose: (event: CustomEvent) => {
-            beforeSelectedAction(event);
-            if (disableClose) {
-              event.preventDefault();
-            }
-          },
-          handleClose: action('bx-notification-closed'),
-        };
-      })(createInlineProps())
-    ),
-  }))
-  .add('Toast', () => ({
-    template: `
+      ...createVueBindingsFromProps(
+        (({ disableClose, ...rest }) => {
+          const beforeSelectedAction = action('bx-notification-beingclosed');
+          return {
+            ...rest,
+            handleBeforeClose: (event: CustomEvent) => {
+              beforeSelectedAction(event);
+              if (disableClose) {
+                event.preventDefault();
+              }
+            },
+            handleClose: action('bx-notification-closed'),
+          };
+        })(createInlineProps())
+      ),
+    }),
+    {
+      docs: {
+        storyDescription: `
+Inline notifications show up in task flows, to notify users of the status of an action.
+They usually appear at the top of the primary content area.
+      `,
+      },
+    }
+  )
+  .add(
+    'Toast',
+    () => ({
+      template: `
       <bx-toast-notification
         style="min-width: 30rem; margin-bottom: .5rem"
         :kind="kind"
@@ -91,19 +104,28 @@ storiesOf('Notifications', module)
       >
       </bx-toast-notification>
     `,
-    ...createVueBindingsFromProps(
-      (({ disableClose, ...rest }) => {
-        const beforeSelectedAction = action('bx-notification-beingclosed');
-        return {
-          ...rest,
-          handleBeforeClose: (event: CustomEvent) => {
-            beforeSelectedAction(event);
-            if (disableClose) {
-              event.preventDefault();
-            }
-          },
-          handleClose: action('bx-notification-closed'),
-        };
-      })(createToastProps())
-    ),
-  }));
+      ...createVueBindingsFromProps(
+        (({ disableClose, ...rest }) => {
+          const beforeSelectedAction = action('bx-notification-beingclosed');
+          return {
+            ...rest,
+            handleBeforeClose: (event: CustomEvent) => {
+              beforeSelectedAction(event);
+              if (disableClose) {
+                event.preventDefault();
+              }
+            },
+            handleClose: action('bx-notification-closed'),
+          };
+        })(createToastProps())
+      ),
+    }),
+    {
+      docs: {
+        storyDescription: `
+Toasts are non-modal, time-based window elements used to display short messages;
+they usually appear at the bottom of the screen and disappear after a few seconds.
+      `,
+      },
+    }
+  );

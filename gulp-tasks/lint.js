@@ -65,7 +65,7 @@ module.exports = {
 
     dist() {
       return gulp
-        .src([`${config.jsDestDir}/**/*`, '!**/*.map'])
+        .src([`${config.jsDestDir}/**/*`, '!**/*.json', '!**/*.map'])
         .pipe(filter(file => !file.stat.isDirectory()))
         .pipe(gulpCheckLicense());
     },

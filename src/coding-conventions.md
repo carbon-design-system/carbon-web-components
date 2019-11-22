@@ -24,6 +24,7 @@
   - [Custom element registration](#custom-element-registration)
   - [Propagating misc attributes from shadow host to an element in shadow DOM](#propagating-misc-attributes-from-shadow-host-to-an-element-in-shadow-dom)
   - [Private properties](#private-properties)
+  - [Component-specific considerations](#component-specific-considerations)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -216,3 +217,8 @@ In such case, we let consumer create a derived class. For example, its `.attribu
 ## Private properties
 
 This codebase tends to make all component class/instance properties `private` unless they serve API purpose. This codebase makes some of them `protected` to support inherited components.
+
+## Component-specific considerations
+
+- [`<bx-tabs>`](./components/tabs/coding-conventions.md)
+- [Handling `formdata` event](./components/form/form-data.md)

@@ -64,7 +64,7 @@ module.exports = {
       );
     },
 
-    async sass() {
+    async css() {
       const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
       await promisifyStream(() =>
         gulp
@@ -135,6 +135,7 @@ module.exports = {
         gulp
           .src([
             `${config.srcDir}/**/*.ts`,
+            `!${config.srcDir}/directives-angular/**/*.ts`,
             `!${config.srcDir}/**/*-story*.ts*`,
             `!${config.srcDir}/**/stories/*.ts`,
             `!${config.srcDir}/**/*.d.ts`,
@@ -168,7 +169,12 @@ module.exports = {
     types() {
       const tsProject = typescript.createProject(path.resolve(__dirname, '../tsconfig.json'));
       const { dts } = gulp
-        .src([`${config.srcDir}/**/*.ts`, `!${config.srcDir}/**/*-story*.ts*`, `!${config.srcDir}/**/stories/**/*.ts*`])
+        .src([
+          `${config.srcDir}/**/*.ts`,
+          `!${config.srcDir}/directives-angular/**/*.ts`,
+          `!${config.srcDir}/**/*-story*.ts*`,
+          `!${config.srcDir}/**/stories/**/*.ts*`,
+        ])
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(tsProject());
@@ -182,5 +188,9 @@ module.exports = {
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.jsDestDir));
     },
+  },
+
+  sass() {
+    return gulp.src(`${config.srcDir}/**/*.scss`).pipe(gulp.dest(config.sassDestDir));
   },
 };

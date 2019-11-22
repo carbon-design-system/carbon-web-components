@@ -8,41 +8,50 @@
  */
 
 import { html } from 'lit-element';
-import { storiesOf } from '@storybook/polymer';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, number } from '@storybook/addon-knobs';
+import { boolean, number } from '@storybook/addon-knobs';
 import './pagination';
 import './page-sizes-select';
 import './pages-select';
 
-const createProps = () => ({
-  atLastPage: boolean('Explicitly state that the user is at the last page (at-last-apge)', false),
-  pageSize: number('Number of rows per page (page-size)', 10),
-  start: number('Start row index of the current page (start)', 0),
-  total: number('Total rows count (total)', 100),
-  onChangedCurrent: action('bx-pagination-changed-current'),
-  onChangedPageSizesSelect: action('bx-page-sizes-select-changed'),
-});
+export const defaultStory = ({ parameters }) => {
+  const { atLastPage, pageSize, start, total, onChangedCurrent, onChangedPageSizesSelect } =
+    (parameters.props && parameters.props['bx-pagination']) || ({} as typeof parameters.props['bx-pagination']);
+  return html`
+    <bx-pagination
+      ?at-last-page="${atLastPage || undefined}"
+      page-size="${pageSize}"
+      start="${start}"
+      total="${total}"
+      @bx-pagination-changed-current="${onChangedCurrent}"
+      @bx-page-sizes-select-changed="${onChangedPageSizesSelect}"
+    >
+      <bx-page-sizes-select slot="page-sizes-select">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+      </bx-page-sizes-select>
+      <bx-pages-select></bx-pages-select>
+    </bx-pagination>
+  `;
+};
 
-storiesOf('Pagination', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { atLastPage, pageSize, start, total, onChangedCurrent, onChangedPageSizesSelect } = createProps();
-    return html`
-      <bx-pagination
-        ?at-last-page="${atLastPage || undefined}"
-        page-size="${pageSize}"
-        start="${start}"
-        total="${total}"
-        @bx-pagination-changed-current="${onChangedCurrent}"
-        @bx-page-sizes-select-changed="${onChangedPageSizesSelect}"
-      >
-        <bx-page-sizes-select slot="page-sizes-select">
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-        </bx-page-sizes-select>
-        <bx-pages-select></bx-pages-select>
-      </bx-pagination>
-    `;
-  });
+defaultStory.story = {
+  name: 'Default',
+};
+
+export default {
+  title: 'Pagination',
+  parameters: {
+    knobs: {
+      'bx-pagination': () => ({
+        atLastPage: boolean('Explicitly state that the user is at the last page (at-last-apge)', false),
+        pageSize: number('Number of rows per page (page-size)', 10),
+        start: number('Start row index of the current page (start)', 0),
+        total: number('Total rows count (total)', 100),
+        onChangedCurrent: action('bx-pagination-changed-current'),
+        onChangedPageSizesSelect: action('bx-page-sizes-select-changed'),
+      }),
+    },
+  },
+};

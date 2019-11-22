@@ -51,8 +51,10 @@ const createDefinitionIconProps = () => ({
 });
 storiesOf('Tooltip', module)
   .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
+  .add(
+    'Default',
+    () => ({
+      template: `
       <bx-tooltip :open="open">
         <bx-tooltip-body :direction="direction">
           <p>
@@ -65,8 +67,17 @@ storiesOf('Tooltip', module)
         </bx-tooltip-body>
       </bx-tooltip>
     `,
-    ...createVueBindingsFromProps(createProps()),
-  }))
+      ...createVueBindingsFromProps(createProps()),
+    }),
+    {
+      docs: {
+        storyDescription: `
+Interactive tooltip should be used if there are actions a user can take in the tooltip (e.g. a link or a button).
+For more regular use cases, e.g. giving the user more text information about something, use definition tooltip or icon tooltip.
+    `,
+      },
+    }
+  )
   .add('Definition tooltip', () => ({
     template: `
       <bx-tooltip-definition :alignment="alignment" :body-text="bodyText" :direction="direction">

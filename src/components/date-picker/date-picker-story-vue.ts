@@ -20,6 +20,7 @@ const createProps = () => ({
   value: text('Value in ISO8601 date format, separated by `/` (value)', ''),
   placeholder: text('Placeholder text (placeholder in <bx-date-picker-input>)', 'mm/dd/yyyy'),
   onAfterChanged: action('bx-date-picker-changed'),
+  onFlatpickrError: action('bx-date-picker-flatpickr-error'),
 });
 
 const createInputProps = () => ({
@@ -32,8 +33,10 @@ const createInputProps = () => ({
 
 storiesOf('Date picker', module)
   .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
+  .add(
+    'Default',
+    () => ({
+      template: `
       <bx-date-picker :open="open">
         <bx-date-picker-input
           :disabled="disabled"
@@ -45,15 +48,24 @@ storiesOf('Date picker', module)
         </bx-date-picker-input>
       </bx-date-picker>
     `,
-    ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
-  }))
-  .add('Single with calendar', () => ({
-    template: `
+      ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
+    }),
+    {
+      docs: {
+        storyDescription: 'A simple Date Picker consists of an input field and no calendar.',
+      },
+    }
+  )
+  .add(
+    'Single with calendar',
+    () => ({
+      template: `
       <bx-date-picker
         :enabled-range="enabledRange"
         :open="open"
         :value="value"
         @bx-date-picker-changed="onAfterChanged"
+        @bx-date-picker-flatpickr-error="onFlatpickrError"
       >
         <bx-date-picker-input
           :disabled="disabled"
@@ -67,15 +79,24 @@ storiesOf('Date picker', module)
         </bx-date-picker-input>
       </bx-date-picker>
     `,
-    ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
-  }))
-  .add('Range with calendar', () => ({
-    template: `
+      ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
+    }),
+    {
+      docs: {
+        storyDescription: 'A single Date Picker consists of an input field and a calendar.',
+      },
+    }
+  )
+  .add(
+    'Range with calendar',
+    () => ({
+      template: `
       <bx-date-picker
         :enabled-range="enabledRange"
         :open="open"
         :value="value"
         @bx-date-picker-changed="onAfterChanged"
+        @bx-date-picker-flatpickr-error="onFlatpickrError"
       >
         <bx-date-picker-input
           :disabled="disabled"
@@ -99,5 +120,11 @@ storiesOf('Date picker', module)
         </bx-date-picker-input>
       </bx-date-picker>
     `,
-    ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
-  }));
+      ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
+    }),
+    {
+      docs: {
+        storyDescription: 'A range Date Picker consists of two input fields and a calendar.',
+      },
+    }
+  );

@@ -35,6 +35,7 @@ module.exports = {
   srcDir: 'src',
   iconsDir: path.dirname(require.resolve('@carbon/icons/lib')),
   jsDestDir: 'es',
+  sassDestDir: 'scss',
   viewsDir: 'views',
   testsDir: 'tests',
   jsDocDir: 'docs/js',
