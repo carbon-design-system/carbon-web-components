@@ -188,7 +188,7 @@ If you get TypeScript "may be null" errors, think twice to see if there is such 
 
 - If some other portion of your code ensures the `null` condition won't happen and nothing else is likely to break it, use the non-null assertion operator (`!`) - But don't blindly do so.
 - Otherwise, add code to perform a `null` check by doing one of the following:
-  - Throw an exception that well explains why the `null` value won't be acceptable and (if applicable) what mistake may cause that wrong condition
+  - Throw an exception that explains why the `null` value won't be acceptable and (if applicable) what mistake may cause that wrong condition
   - Make the code no-op for `null` value, e.g. with optional chaining (`?.`)
   - Provide a fallback value, e.g. with null coalescing (`??`)
 
