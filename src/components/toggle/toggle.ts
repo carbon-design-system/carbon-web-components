@@ -72,10 +72,10 @@ class BXToggle extends BXCheckbox {
         <span class="${prefix}--toggle__switch">
           ${this._renderCheckmark()}
           <span class="${prefix}--toggle__text--off" aria-hidden="true">
-            <slot name="off-text">${uncheckedText}</slot>
+            <slot name="unchecked-text">${uncheckedText}</slot>
           </span>
           <span class="${prefix}--toggle__text--on" aria-hidden="true">
-            <slot name="on-text">${checkedText}</slot>
+            <slot name="checked-text">${checkedText}</slot>
           </span>
         </span>
       </label>

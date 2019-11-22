@@ -156,7 +156,7 @@ class BXSearch extends FocusMixin(LitElement) {
         role: 'img',
       })}
       <label for="input" class="${prefix}--label">
-        ${labelText}
+        <slot>${labelText}</slot>
       </label>
       <input
         id="input"

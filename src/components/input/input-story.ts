@@ -8,46 +8,69 @@
  */
 
 import { html } from 'lit-element';
-import { storiesOf } from '@storybook/polymer';
 import * as knobs from '@storybook/addon-knobs';
 import './input';
 import '../form/form-item';
 import createProps from './stories/helpers';
 
-storiesOf('Input', module)
-  .addDecorator(knobs.withKnobs)
-  .add('Default', () => {
-    const { disabled, value, placeholder, invalid, type, onInput } = createProps(knobs);
-    return html`
-      <bx-input
-        ?disabled="${disabled}"
-        value="${value}"
-        type="${type}"
-        placeholder="${placeholder}"
-        ?invalid="${invalid}"
-        @input="${onInput}"
-      ></bx-input>
-    `;
-  })
-  .add('Form item', () => {
-    const { disabled, value, placeholder, invalid, onInput } = createProps(knobs);
-    return html`
-      <bx-form-item>
-        <bx-input value="${value}" placeholder="${placeholder}" @input="${onInput}" ?invalid="${invalid}" ?disabled="${disabled}">
-          <span slot="label-text">Label text</span>
-          <span slot="helper-text">Optional helper text</span>
-          <span slot="validity-message">Something isn't right</span>
-        </bx-input>
-      </bx-form-item>
-    `;
-  })
-  .add('Without form item wrapper', () => {
-    const { disabled, value, placeholder, invalid, onInput } = createProps(knobs);
-    return html`
+export const defaultStory = ({ parameters }) => {
+  const { disabled, value, placeholder, invalid, type, onInput } =
+    (parameters.props && parameters.props['bx-input']) || ({} as typeof parameters.props['bx-input']);
+  return html`
+    <bx-input
+      ?disabled="${disabled}"
+      value="${value}"
+      type="${type}"
+      placeholder="${placeholder}"
+      ?invalid="${invalid}"
+      @input="${onInput}"
+    ></bx-input>
+  `;
+};
+
+defaultStory.story = {
+  name: 'Default',
+};
+
+export const formItem = ({ parameters }) => {
+  const { disabled, value, placeholder, invalid, onInput } =
+    (parameters.props && parameters.props['bx-input']) || ({} as typeof parameters.props['bx-input']);
+  return html`
+    <bx-form-item>
       <bx-input value="${value}" placeholder="${placeholder}" @input="${onInput}" ?invalid="${invalid}" ?disabled="${disabled}">
         <span slot="label-text">Label text</span>
         <span slot="helper-text">Optional helper text</span>
         <span slot="validity-message">Something isn't right</span>
       </bx-input>
-    `;
-  });
+    </bx-form-item>
+  `;
+};
+
+formItem.story = {
+  name: 'Form item',
+};
+
+export const withoutFormItemWrapper = ({ parameters }) => {
+  const { disabled, value, placeholder, invalid, onInput } =
+    (parameters.props && parameters.props['bx-input']) || ({} as typeof parameters.props['bx-input']);
+  return html`
+    <bx-input value="${value}" placeholder="${placeholder}" @input="${onInput}" ?invalid="${invalid}" ?disabled="${disabled}">
+      <span slot="label-text">Label text</span>
+      <span slot="helper-text">Optional helper text</span>
+      <span slot="validity-message">Something isn't right</span>
+    </bx-input>
+  `;
+};
+
+withoutFormItemWrapper.story = {
+  name: 'Without form item wrapper',
+};
+
+export default {
+  title: 'Input',
+  parameters: {
+    knobs: {
+      'bx-input': () => createProps(knobs),
+    },
+  },
+};

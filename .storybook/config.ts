@@ -12,6 +12,7 @@ import { html } from 'lit-html'; // eslint-disable-line import/first
 import addons from '@storybook/addons';
 import { configure, addDecorator, addParameters } from '@storybook/polymer'; // eslint-disable-line import/first
 import { DocsContainer } from '@storybook/addon-docs/blocks';
+import { withKnobs } from '@storybook/addon-knobs';
 import './components/focus-trap/focus-trap';
 import { CURRENT_THEME } from './addon-carbon-theme/shared';
 import DocsPage from './DocsPage';
@@ -48,13 +49,34 @@ addDecorator(story => {
   `;
 });
 
+addDecorator(withKnobs);
+
+addDecorator((story, { parameters }) => {
+  const { knobs } = parameters;
+  if (Object(knobs) === knobs) {
+    if (!parameters.props) {
+      parameters.props = {};
+    }
+    Object.keys(knobs).forEach(name => {
+      if (typeof knobs[name] === 'function') {
+        parameters.props[name] = knobs[name]();
+      }
+    });
+  }
+  return story();
+});
+
 addons.getChannel().on(CURRENT_THEME, theme => {
   document.documentElement.setAttribute('storybook-carbon-theme', theme);
 });
 
-function loadStories() {
-  const req = require.context('../src/components', true, /\-story\.[jt]s$/);
-  req.keys().forEach(filename => req(filename));
-}
+const req = require.context('../src/components', true, /\-story\.[jt]s$/);
+configure(req, module);
 
-configure(loadStories, module);
+if (module.hot) {
+  module.hot.accept(req.id, () => {
+    const currentLocationHref = window.location.href;
+    window.history.pushState(null, '', currentLocationHref);
+    window.location.reload();
+  });
+}

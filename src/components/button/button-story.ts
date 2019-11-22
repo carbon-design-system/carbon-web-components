@@ -9,9 +9,8 @@
 
 import { html } from 'lit-element';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { storiesOf } from '@storybook/polymer';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
+import { boolean, select, text } from '@storybook/addon-knobs';
 import { BUTTON_KIND } from './button';
 
 const kinds = {
@@ -21,21 +20,31 @@ const kinds = {
   [`Ghost button (${BUTTON_KIND.GHOST})`]: BUTTON_KIND.GHOST,
 };
 
-const createProps = () => ({
-  kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
-  disabled: boolean('Disabled (disabled)', false),
-  small: boolean('Small (small)', false),
-  href: text('Link href (href)', ''),
-  onClick: action('click'),
-});
+export const defaultStory = ({ parameters }) => {
+  const { kind, disabled, small, href, onClick } =
+    (parameters.props && parameters.props['bx-btn']) || ({} as typeof parameters.props['bx-btn']);
+  return html`
+    <bx-btn kind=${kind} ?disabled=${disabled} ?small=${small} href=${ifDefined(href || undefined)} @click=${onClick}>
+      Button
+    </bx-btn>
+  `;
+};
 
-storiesOf('Button', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { kind, disabled, small, href, onClick } = createProps();
-    return html`
-      <bx-btn kind=${kind} ?disabled=${disabled} ?small=${small} href=${ifDefined(href || undefined)} @click=${onClick}>
-        Button
-      </bx-btn>
-    `;
-  });
+defaultStory.story = {
+  name: 'Default',
+};
+
+export default {
+  title: 'Button',
+  parameters: {
+    knobs: {
+      'bx-btn': () => ({
+        kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
+        disabled: boolean('Disabled (disabled)', false),
+        small: boolean('Small (small)', false),
+        href: text('Link href (href)', ''),
+        onClick: action('click'),
+      }),
+    },
+  },
+};

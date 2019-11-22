@@ -270,7 +270,9 @@ class BXCodeSnippet extends LitElement {
         ${!showExpando
           ? undefined
           : renderExpando({
-              children: expanded ? collapseButtonText : expandButtonText,
+              children: expanded
+                ? html`<slot name="collapse-button-text">${collapseButtonText}</slot>`
+                : html`<slot name="expand-button-text">${expandButtonText}</slot>`,
               handleClick: handleClickExpando,
             })}
       `;
