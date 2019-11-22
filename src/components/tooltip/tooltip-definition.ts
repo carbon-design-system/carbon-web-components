@@ -10,6 +10,7 @@
 import classnames from 'classnames';
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './tooltip.scss';
 
 const { prefix } = settings;
@@ -63,7 +64,7 @@ export enum TOOLTIP_DIRECTION {
  * Definition tooltip.
  */
 @customElement(`${prefix}-tooltip-definition`)
-class BXTooltipDefinition extends LitElement {
+class BXTooltipDefinition extends FocusMixin(LitElement) {
   /**
    * How the tooltip is aligned to the trigger button. Corresponds to the attribute with the same name.
    */
@@ -81,6 +82,10 @@ class BXTooltipDefinition extends LitElement {
    */
   @property()
   direction = TOOLTIP_DIRECTION.BOTTOM;
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   render() {
     const { alignment, bodyText, direction } = this;

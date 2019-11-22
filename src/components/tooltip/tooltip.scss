@@ -71,4 +71,14 @@ $css--reset: true !default;
 :host(#{$prefix}-tooltip-definition) {
   @extend .#{$prefix}--tooltip--definition;
   @extend .#{$prefix}--tooltip--a11y;
+
+  outline: none;
+}
+
+:host(#{$prefix}-tooltip-icon) {
+  outline: none;
+
+  .#{$prefix}--tooltip__trigger:focus ::slotted(svg) {
+    outline: 1px solid $focus;
+  }
 }
