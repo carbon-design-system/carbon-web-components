@@ -23,6 +23,7 @@ const createProps = () => ({
   open: boolean('Open (open)', false),
   value: text('Value in ISO8601 date format, separated by `/` (value)', ''),
   onAfterChanged: action('onAfterChanged'),
+  onFlatpickrError: action('onFlatpickrError'),
 });
 
 const createInputProps = () => ({
@@ -36,61 +37,95 @@ const createInputProps = () => ({
 
 storiesOf('Date picker', module)
   .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { open } = createProps();
-    const { disabled, hideLabel, labelText, light, placeholder } = createInputProps();
-    return (
-      <BXDatePicker open={open}>
-        <BXDatePickerInput
-          disabled={disabled}
-          hideLabel={hideLabel}
-          labelText={labelText}
-          light={light}
-          placeholder={placeholder}
-        />
-      </BXDatePicker>
-    );
-  })
-  .add('Single with calendar', () => {
-    const { enabledRange, open, value, onAfterChanged } = createProps();
-    const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
-    return (
-      <BXDatePicker enabledRange={enabledRange} open={open} value={value} onAfterChanged={onAfterChanged}>
-        <BXDatePickerInput
-          disabled={disabled}
-          hideLabel={hideLabel}
-          kind="single"
-          labelText={labelText}
-          light={light}
-          placeholder={placeholder}
-          onInput={onInput}
-        />
-      </BXDatePicker>
-    );
-  })
-  .add('Range with calendar', () => {
-    const { enabledRange, open, value, onAfterChanged } = createProps();
-    const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
-    return (
-      <BXDatePicker enabledRange={enabledRange} open={open} value={value} onAfterChanged={onAfterChanged}>
-        <BXDatePickerInput
-          disabled={disabled}
-          hideLabel={hideLabel}
-          kind="from"
-          labelText={labelText}
-          light={light}
-          placeholder={placeholder}
-          onInput={onInput}
-        />
-        <BXDatePickerInput
-          disabled={disabled}
-          hideLabel={hideLabel}
-          kind="to"
-          labelText={labelText}
-          light={light}
-          placeholder={placeholder}
-          onInput={onInput}
-        />
-      </BXDatePicker>
-    );
-  });
+  .add(
+    'Default',
+    () => {
+      const { open } = createProps();
+      const { disabled, hideLabel, labelText, light, placeholder } = createInputProps();
+      return (
+        <BXDatePicker open={open}>
+          <BXDatePickerInput
+            disabled={disabled}
+            hideLabel={hideLabel}
+            labelText={labelText}
+            light={light}
+            placeholder={placeholder}
+          />
+        </BXDatePicker>
+      );
+    },
+    {
+      docs: {
+        storyDescription: 'A simple Date Picker consists of an input field and no calendar.',
+      },
+    }
+  )
+  .add(
+    'Single with calendar',
+    () => {
+      const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = createProps();
+      const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
+      return (
+        <BXDatePicker
+          enabledRange={enabledRange}
+          open={open}
+          value={value}
+          onAfterChanged={onAfterChanged}
+          onFlatpickrError={onFlatpickrError}>
+          <BXDatePickerInput
+            disabled={disabled}
+            hideLabel={hideLabel}
+            kind="single"
+            labelText={labelText}
+            light={light}
+            placeholder={placeholder}
+            onInput={onInput}
+          />
+        </BXDatePicker>
+      );
+    },
+    {
+      docs: {
+        storyDescription: 'A single Date Picker consists of an input field and a calendar.',
+      },
+    }
+  )
+  .add(
+    'Range with calendar',
+    () => {
+      const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = createProps();
+      const { disabled, hideLabel, labelText, light, placeholder, onInput } = createInputProps();
+      return (
+        <BXDatePicker
+          enabledRange={enabledRange}
+          open={open}
+          value={value}
+          onAfterChanged={onAfterChanged}
+          onFlatpickrError={onFlatpickrError}>
+          <BXDatePickerInput
+            disabled={disabled}
+            hideLabel={hideLabel}
+            kind="from"
+            labelText={labelText}
+            light={light}
+            placeholder={placeholder}
+            onInput={onInput}
+          />
+          <BXDatePickerInput
+            disabled={disabled}
+            hideLabel={hideLabel}
+            kind="to"
+            labelText={labelText}
+            light={light}
+            placeholder={placeholder}
+            onInput={onInput}
+          />
+        </BXDatePicker>
+      );
+    },
+    {
+      docs: {
+        storyDescription: 'A range Date Picker consists of two input fields and a calendar.',
+      },
+    }
+  );

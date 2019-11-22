@@ -76,10 +76,22 @@ module.exports = ({ config, mode }) => {
       use: [...babelLoaderRule.use, require.resolve('../svg-result-carbon-icon-loader')],
     },
     {
+      test: /-story\.ts$/,
+      use: [
+        {
+          loader: 'babel-loader',
+          options: {
+            babelrc: false,
+            plugins: [require.resolve('../babel-plugin-story-add-readme')],
+          },
+        },
+      ],
+    },
+    {
       test: /-story(-(angular|react|vue))?\.[jt]sx?$/,
       use: [
         {
-          loader: require.resolve('@storybook/addon-storysource/loader'),
+          loader: require.resolve('@storybook/source-loader'),
           options: {
             parser: 'typescript',
             prettierConfig: {
@@ -95,12 +107,13 @@ module.exports = ({ config, mode }) => {
       enforce: 'pre',
     },
     {
-      test: /\.ts$/,
+      test: /\.tsx?$/,
       use: [
         {
           loader: 'babel-loader',
           options: {
             presets: [
+              '@babel/preset-react',
               [
                 '@babel/preset-env',
                 {
@@ -109,8 +122,17 @@ module.exports = ({ config, mode }) => {
                 },
               ],
             ],
-            // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
-            plugins: [['@babel/plugin-transform-runtime', { version: '7.3.0' }]],
+            plugins: [
+              // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
+              ['@babel/plugin-transform-runtime', { version: '7.3.0' }],
+              [
+                'babel-plugin-emotion',
+                {
+                  sourceMap: true,
+                  autoLabel: true,
+                },
+              ],
+            ],
           },
         },
       ],
@@ -149,7 +171,7 @@ module.exports = ({ config, mode }) => {
     }
   );
 
-  config.resolve.extensions.push('.ts', '.d.ts');
+  config.resolve.extensions.push('.ts', '.tsx', '.d.ts');
 
   return config;
 };

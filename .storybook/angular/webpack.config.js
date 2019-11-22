@@ -15,7 +15,7 @@ module.exports = ({ config, mode }) => {
   const massagedConfig = configure({ config, mode });
   const babelLoaderRuleIndex = massagedConfig.module.rules.findIndex(
     item =>
-      '/\\.ts$/' === (item.test && item.test.toString()) &&
+      '/\\.tsx?$/' === (item.test && item.test.toString()) &&
       item.use &&
       item.use.some &&
       item.use.some(use => /babel-loader/i.test(use) || /babel-loader/i.test(use.loader))
