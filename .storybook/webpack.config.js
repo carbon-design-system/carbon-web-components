@@ -76,10 +76,22 @@ module.exports = ({ config, mode }) => {
       use: [...babelLoaderRule.use, require.resolve('../svg-result-carbon-icon-loader')],
     },
     {
+      test: /-story\.ts$/,
+      use: [
+        {
+          loader: 'babel-loader',
+          options: {
+            babelrc: false,
+            plugins: [require.resolve('../babel-plugin-story-add-readme')],
+          },
+        },
+      ],
+    },
+    {
       test: /-story(-(angular|react|vue))?\.[jt]sx?$/,
       use: [
         {
-          loader: require.resolve('@storybook/addon-storysource/loader'),
+          loader: require.resolve('@storybook/source-loader'),
           options: {
             parser: 'typescript',
             prettierConfig: {
@@ -120,7 +132,6 @@ module.exports = ({ config, mode }) => {
                   autoLabel: true,
                 },
               ],
-              require.resolve('../babel-plugin-story-add-readme'),
             ],
           },
         },
