@@ -186,7 +186,7 @@ To avoid problems with collation, the primary means for user to determine order 
 
 If you get TypeScript "may be null" errors, think twice to see if there is such edge case:
 
-- If some other portion of your code ensures the `null` condition won't happen and somebody else won't likely break that, use non-null assertion operator (`!`) - But don't do that blindly.
+- If some other portion of your code ensures the `null` condition won't happen and nothing else is likely to break it, use the non-null assertion operator (`!`) - But don't blindly do so.
 - Otherwise, add code to do `null` check to do one of the following:
   - Throw an exception that well explains why the `null` value won't be acceptable and (if applicable) what mistake may cause that wrong condition
   - Make the code no-op for `null` value, e.g. with optional chaining (`?.`)
