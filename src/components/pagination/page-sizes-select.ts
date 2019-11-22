@@ -49,7 +49,7 @@ class BXPageSizesSelect extends LitElement {
       selectNode.removeChild(selectNode.firstChild);
     }
     ((target as HTMLSlotElement).assignedNodes() as HTMLOptionElement[]).forEach(item => {
-      selectNode!.appendChild(item.cloneNode(true));
+      selectNode?.appendChild(item.cloneNode(true));
     });
   }
 
@@ -68,7 +68,7 @@ class BXPageSizesSelect extends LitElement {
   render() {
     const { labelText, value, _handleChange: handleChange, _handleSlotChange: handleSlotChange } = this;
     return html`
-      <label for="select" class="${prefix}--pagination__text">${labelText}<slot name="label-text"></slot></label>
+      <label for="select" class="${prefix}--pagination__text"><slot name="label-text">${labelText}</slot></label>
       <div class="${prefix}--select__item-count">
         <select id="select" class="${prefix}--select-input" .value="${value}" @change=${handleChange}></select>
         ${ChevronDown16({ class: `${prefix}--select__arrow` })}

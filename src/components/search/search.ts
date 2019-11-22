@@ -8,12 +8,12 @@
  */
 
 import classnames from 'classnames';
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import Close16 from '@carbon/icons/lib/close/16';
 import Close20 from '@carbon/icons/lib/close/20';
 import Search16 from '@carbon/icons/lib/search/16';
 import settings from 'carbon-components/es/globals/js/settings';
+import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './search.scss';
 
@@ -156,15 +156,15 @@ class BXSearch extends FocusMixin(LitElement) {
         role: 'img',
       })}
       <label for="input" class="${prefix}--label">
-        ${labelText}
+        <slot>${labelText}</slot>
       </label>
       <input
         id="input"
-        type="${ifDefined(type == null ? undefined : type)}"
+        type="${ifNonNull(type)}"
         class="${prefix}--search-input"
         ?disabled="${disabled}"
-        name="${ifDefined(name == null ? undefined : name)}"
-        placeholder="${ifDefined(placeholder == null ? undefined : placeholder)}"
+        name="${ifNonNull(name)}"
+        placeholder="${ifNonNull(placeholder)}"
         .value="${value}"
         @input="${handleInput}"
       />

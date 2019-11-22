@@ -189,7 +189,9 @@
     class="bx--snippet-btn--text"
     id="button-text"
   >
-    expand-button-text-foo
+    <slot name="expand-button-text">
+      expand-button-text-foo
+    </slot>
   </span>
 </button>
 

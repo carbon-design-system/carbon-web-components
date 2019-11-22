@@ -173,7 +173,7 @@ class BXComboBox extends BXDropdown {
     super.shouldUpdate(changedProperties);
     const { _selectedItemContent: selectedItemContent } = this;
     if (selectedItemContent && changedProperties.has('value')) {
-      this._filterInputValue = selectedItemContent!.textContent || '';
+      this._filterInputValue = selectedItemContent?.textContent || '';
     }
     return true;
   }

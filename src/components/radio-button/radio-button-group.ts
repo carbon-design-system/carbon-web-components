@@ -106,8 +106,11 @@ class BXRadioButtonGroup extends FormMixin(LitElement) {
   connectedCallback() {
     super.connectedCallback();
     // Manually hooks the event listeners on the host element to make the event names configurable
-    this._hAfterChangeRadioButton = on(this, (this.constructor as typeof BXRadioButtonGroup).eventAfterChangeRadioButton, this
-      ._handleAfterChangeRadioButton as EventListener);
+    this._hAfterChangeRadioButton = on(
+      this,
+      (this.constructor as typeof BXRadioButtonGroup).eventAfterChangeRadioButton,
+      this._handleAfterChangeRadioButton as EventListener
+    );
   }
 
   disconnectedCallback() {

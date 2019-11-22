@@ -157,7 +157,7 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
       this._manager = RadioGroupManager.get(this.getRootNode({ composed: true }) as Document);
       const { selectionName } = this;
       if (selectionName) {
-        this._manager!.add(this._radioButtonDelegate);
+        this._manager?.add(this._radioButtonDelegate);
       }
     }
   }

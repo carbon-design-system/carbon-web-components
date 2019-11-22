@@ -91,7 +91,7 @@ class BXSlider extends HostListenerMixin(FormMixin(LitElement)) {
    * Handles `click` event on the `<label>` to focus on the thumb.
    */
   _handleClickLabel() {
-    this._thumbNode!.focus();
+    this._thumbNode?.focus();
   }
 
   _handleFormdata(event: Event) {
@@ -295,8 +295,11 @@ class BXSlider extends HostListenerMixin(FormMixin(LitElement)) {
       this._throttledHandleMousemoveImpl = throttle(this._handleMousemoveImpl, 10);
     }
     // Manually hooks the event listeners on the host element to make the event names configurable
-    this._hChangeInput = on(this, (this.constructor as typeof BXSlider).eventAfterChangeInput, this
-      ._handleChangeInput as EventListener);
+    this._hChangeInput = on(
+      this,
+      (this.constructor as typeof BXSlider).eventAfterChangeInput,
+      this._handleChangeInput as EventListener
+    );
   }
 
   disconnectedCallback() {
