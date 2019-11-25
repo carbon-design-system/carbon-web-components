@@ -17,7 +17,7 @@ import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 import BXTag from 'carbon-custom-elements/es/components-react/tag/tag';
 // @ts-ignore
 import BXFilterTag from 'carbon-custom-elements/es/components-react/tag/filter-tag';
-import TAG_TYPE from './types';
+import { TAG_TYPE } from './tag';
 
 const createDefaultProps = () => ({
   disabled: boolean('Disabled (disabled)', false),

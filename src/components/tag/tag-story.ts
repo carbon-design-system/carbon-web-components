@@ -10,8 +10,7 @@
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
-import TAG_TYPE from './types';
-import './tag';
+import { TAG_TYPE } from './tag';
 import './filter-tag';
 
 export const defaultStory = ({ parameters }) => {

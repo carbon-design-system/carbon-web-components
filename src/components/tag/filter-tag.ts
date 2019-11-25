@@ -15,6 +15,8 @@ import FocusMixin from '../../globals/mixins/focus';
 import TAG_TYPE from './types';
 import styles from './tag.scss';
 
+export { TAG_TYPE };
+
 const { prefix } = settings;
 
 /**
