@@ -26,7 +26,7 @@ export default class BXFilterTag extends FocusMixin(LitElement) {
    * Text to show on filter tag "clear" buttons. Corresponds to the attribute with the same name
    */
   @property({ type: String, reflect: true })
-  title = '';
+  title = 'Clear filter';
 
   /**
    * `true` if the tag should be disabled
@@ -46,9 +46,9 @@ export default class BXFilterTag extends FocusMixin(LitElement) {
       [`${prefix}--tag--disabled`]: disabled,
     });
     return html`
-      <span class="${classes}" title="${title || 'Clear filter'}" tabindex="0">
+      <span class="${classes}" title="${title}" tabindex="0">
         <slot></slot>
-        ${Close16({ 'aria-label': title || 'Clear filter' })}
+        ${Close16({ 'aria-label': title })}
       </span>
     `;
   }
