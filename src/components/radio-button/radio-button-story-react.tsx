@@ -8,58 +8,32 @@
  */
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
-import BXRadioButtonGroup, {
-  RADIO_BUTTON_ORIENTATION,
-  // @ts-ignore
-} from 'carbon-custom-elements/es/components-react/radio-button/radio-button-group';
 // @ts-ignore
-import BXRadioButton, { RADIO_BUTTON_LABEL_POSITION } from 'carbon-custom-elements/es/components-react/radio-button/radio-button';
+import BXRadioButtonGroup from 'carbon-custom-elements/es/components-react/radio-button/radio-button-group';
+// @ts-ignore
+import BXRadioButton from 'carbon-custom-elements/es/components-react/radio-button/radio-button';
+import { defaultStory as baseDefaultStory } from './radio-button-story';
 
-const orientations = {
-  [`Horizontal (${RADIO_BUTTON_ORIENTATION.HORIZONTAL})`]: RADIO_BUTTON_ORIENTATION.HORIZONTAL,
-  [`Vertical (${RADIO_BUTTON_ORIENTATION.VERTICAL})`]: RADIO_BUTTON_ORIENTATION.VERTICAL,
+export { default } from './radio-button-story';
+
+export const defaultStory = ({ parameters }) => {
+  const { disabled, labelPosition, orientation, name, value, onAfterChange } = parameters?.props['bx-radio-button-group'];
+  const { hideLabel, labelText } = parameters?.props['bx-radio-button'];
+  return (
+    <BXRadioButtonGroup
+      disabled={disabled}
+      labelPosition={labelPosition}
+      orientation={orientation}
+      name={name}
+      value={value}
+      onAfterChange={onAfterChange}>
+      <BXRadioButton hideLabel={hideLabel} labelText={labelText} value="all" />
+      <BXRadioButton hideLabel={hideLabel} labelText={labelText} value="cloudFoundry" />
+      <BXRadioButton hideLabel={hideLabel} labelText={labelText} value="staging" />
+    </BXRadioButtonGroup>
+  );
 };
 
-const labelPositions = {
-  [`Left (${RADIO_BUTTON_LABEL_POSITION.LEFT})`]: RADIO_BUTTON_LABEL_POSITION.LEFT,
-  [`Right (${RADIO_BUTTON_LABEL_POSITION.RIGHT})`]: RADIO_BUTTON_LABEL_POSITION.RIGHT,
-};
-
-const createGroupProps = () => ({
-  disabled: boolean('Disabled (disabled)', false),
-  labelPosition: select('Label position (labelPosition)', labelPositions, RADIO_BUTTON_LABEL_POSITION.RIGHT),
-  orientation: select('Orientation (orientation)', orientations, RADIO_BUTTON_ORIENTATION.HORIZONTAL),
-  name: text('Name (name)', 'radio-group'),
-  value: text('Value (value)', ''),
-  onAfterChange: action('onAfterChange'),
-});
-
-const createProps = () => ({
-  hideLabel: boolean('Hide label (hideLabel)', false),
-  labelText: text('Label text (labelText)', 'Radio button'),
-});
-
-storiesOf('Radio button', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { disabled, labelPosition, orientation, name, value, onAfterChange } = createGroupProps();
-    const { hideLabel, labelText } = createProps();
-    return (
-      <BXRadioButtonGroup
-        disabled={disabled}
-        labelPosition={labelPosition}
-        orientation={orientation}
-        name={name}
-        value={value}
-        onAfterChange={onAfterChange}>
-        <BXRadioButton hideLabel={hideLabel} labelText={labelText} value="all" />
-        <BXRadioButton hideLabel={hideLabel} labelText={labelText} value="cloudFoundry" />
-        <BXRadioButton hideLabel={hideLabel} labelText={labelText} value="staging" />
-      </BXRadioButtonGroup>
-    );
-  });
+defaultStory.story = baseDefaultStory.story;

@@ -40,7 +40,7 @@ defaultStory.story = {
   },
 };
 
-export const singleWithCalendarStory = ({ parameters }) => {
+export const singleWithCalendar = ({ parameters }) => {
   const { 'bx-date-picker': datePickerProps, 'bx-date-picker-input': datePickerInputProps } =
     parameters.props || ({} as typeof parameters.props);
   const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = datePickerProps || ({} as typeof datePickerProps);
@@ -68,7 +68,7 @@ export const singleWithCalendarStory = ({ parameters }) => {
   `;
 };
 
-singleWithCalendarStory.story = {
+singleWithCalendar.story = {
   name: 'Single with calendar',
   parameters: {
     docs: {
@@ -77,7 +77,7 @@ singleWithCalendarStory.story = {
   },
 };
 
-export const rangeWithCalendarStory = ({ parameters }) => {
+export const rangeWithCalendar = ({ parameters }) => {
   const { 'bx-date-picker': datePickerProps, 'bx-date-picker-input': datePickerInputProps } =
     parameters.props || ({} as typeof parameters.props);
   const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = datePickerProps || ({} as typeof datePickerProps);
@@ -115,7 +115,7 @@ export const rangeWithCalendarStory = ({ parameters }) => {
   `;
 };
 
-rangeWithCalendarStory.story = {
+rangeWithCalendar.story = {
   name: 'Range with calendar',
   parameters: {
     docs: {

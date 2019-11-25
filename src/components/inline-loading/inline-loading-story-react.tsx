@@ -8,24 +8,13 @@
  */
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { withKnobs, select } from '@storybook/addon-knobs';
-import { INLINE_LOADING_STATE } from './inline-loading';
+import { defaultStory as baseDefaultStory } from './inline-loading-story';
 
-const states = {
-  [`Inactive (${INLINE_LOADING_STATE.INACTIVE})`]: INLINE_LOADING_STATE.INACTIVE,
-  [`In progress (${INLINE_LOADING_STATE.ACTIVE})`]: INLINE_LOADING_STATE.ACTIVE,
-  [`Success (${INLINE_LOADING_STATE.FINISHED})`]: INLINE_LOADING_STATE.FINISHED,
-  [`Failed (${INLINE_LOADING_STATE.ERROR})`]: INLINE_LOADING_STATE.ERROR,
+export { default } from './inline-loading-story';
+
+export const defaultStory = ({ parameters }) => {
+  const { status } = parameters?.props['bx-inline-loading'];
+  return <bx-inline-loading status={status}>Loading data...</bx-inline-loading>;
 };
 
-const createProps = () => ({
-  status: select('Loading status (status)', states, INLINE_LOADING_STATE.ACTIVE),
-});
-
-storiesOf('Inline loading', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { status } = createProps();
-    return <bx-inline-loading status={status}>Loading data...</bx-inline-loading>;
-  });
+defaultStory.story = baseDefaultStory.story;

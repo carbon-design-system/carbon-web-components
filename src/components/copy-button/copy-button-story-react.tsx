@@ -8,31 +8,24 @@
  */
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, number, text } from '@storybook/addon-knobs';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
 // @ts-ignore
 import BXCopyButton from 'carbon-custom-elements/es/components-react/copy-button/copy-button';
+import { defaultStory as baseDefaultStory } from './copy-button-story';
 
-const createProps = () => ({
-  buttonAssistiveText: text('Assistive text for the button (buttonAssistiveText)', ''),
-  feedbackText: text('Feedback text (feedbackText)', ''),
-  feedbackTimeout: number('Feedback timeout (feedbackTimeout)', 2000),
-  onClick: action('click'),
-});
+export { default } from './copy-button-story';
 
-storiesOf('Copy button', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } = createProps();
-    return (
-      <BXCopyButton
-        buttonAssistiveText={buttonAssistiveText}
-        feedbackText={feedbackText || undefined}
-        feedbackTimeout={feedbackTimeout}
-        onClick={onClick}
-      />
-    );
-  });
+export const defaultStory = ({ parameters }) => {
+  const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } = parameters?.props['bx-copy-button'];
+  return (
+    <BXCopyButton
+      buttonAssistiveText={buttonAssistiveText}
+      feedbackText={feedbackText || undefined}
+      feedbackTimeout={feedbackTimeout}
+      onClick={onClick}
+    />
+  );
+};
+
+defaultStory.story = baseDefaultStory.story;

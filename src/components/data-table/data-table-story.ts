@@ -379,7 +379,7 @@ defaultStory.story = {
   },
 };
 
-export const sortableStory = ({ parameters }) => {
+export const sortable = ({ parameters }) => {
   const {
     'bx-table': tableProps,
     'bx-table-body': tableBodyProps,
@@ -432,7 +432,7 @@ export const sortableStory = ({ parameters }) => {
   `;
 };
 
-sortableStory.story = {
+sortable.story = {
   name: 'Sortable',
   parameters: {
     knobs: {
@@ -518,7 +518,7 @@ export const sortableWithPagination = ({ parameters }) => {
 sortableWithPagination.story = {
   name: 'Sortable with pagination',
   parameters: {
-    knobs: sortableStory.story.parameters.knobs,
+    knobs: sortable.story.parameters.knobs,
   },
 };
 
