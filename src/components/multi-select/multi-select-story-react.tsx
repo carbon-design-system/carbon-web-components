@@ -34,7 +34,7 @@ export const defaultStory = ({ parameters }) => {
     type,
     validityMessage,
     disableSelection,
-  } = parameters?.props['bx-multi-select'];
+  } = parameters?.props?.['bx-multi-select'];
   const beforeSelectedAction = action('onBeforeSelect');
   const handleBeforeSelect = (event: CustomEvent) => {
     beforeSelectedAction(event);

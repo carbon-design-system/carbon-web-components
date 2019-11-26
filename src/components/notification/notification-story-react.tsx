@@ -22,7 +22,7 @@ import { inline as baseInline, toast as baseToast } from './notification-story';
 export { default } from './notification-story';
 
 export const inline = ({ parameters }) => {
-  const { kind, title, subtitle, hideCloseButton, closeButtonLabel, iconLabel, open, disableClose } = parameters?.props[
+  const { kind, title, subtitle, hideCloseButton, closeButtonLabel, iconLabel, open, disableClose } = parameters?.props?.[
     'bx-inline-notification'
   ];
   const beforeSelectedAction = action('onBeforeClose');
@@ -51,9 +51,17 @@ export const inline = ({ parameters }) => {
 inline.story = baseInline.story;
 
 export const toast = ({ parameters }) => {
-  const { kind, title, subtitle, caption, hideCloseButton, closeButtonLabel, iconLabel, open, disableClose } = parameters?.props[
-    'bx-toast-notification'
-  ];
+  const {
+    kind,
+    title,
+    subtitle,
+    caption,
+    hideCloseButton,
+    closeButtonLabel,
+    iconLabel,
+    open,
+    disableClose,
+  } = parameters?.props?.['bx-toast-notification'];
   const beforeSelectedAction = action('onBeforeClose');
   const handleBeforeClose = (event: CustomEvent) => {
     beforeSelectedAction(event);

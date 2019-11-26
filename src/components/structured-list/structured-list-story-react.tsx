@@ -25,7 +25,7 @@ import { defaultStory as baseDefaultStory } from './structured-list-story';
 export { default } from './structured-list-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { hasSelection } = parameters?.props['bx-structured-list'];
+  const { hasSelection } = parameters?.props?.['bx-structured-list'];
   const selectionName = !hasSelection ? undefined : 'structured-list-selection';
   const selectionValues = !hasSelection
     ? []

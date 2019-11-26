@@ -29,7 +29,7 @@ import styles from './tooltip-story.scss';
 export { default } from './tooltip-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { open, direction } = parameters?.props['bx-tooltip'];
+  const { open, direction } = parameters?.props?.['bx-tooltip'];
   return (
     <>
       <style>{styles.cssText}</style>
@@ -54,7 +54,7 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = baseDefaultStory.story;
 
 export const definition = ({ parameters }) => {
-  const { alignment, bodyText, direction } = parameters?.props['bx-tooltip-definition'];
+  const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-definition'];
   return (
     <BXTooltipDefinition alignment={alignment} bodyText={bodyText} direction={direction}>
       Definition Tooltip
@@ -65,7 +65,7 @@ export const definition = ({ parameters }) => {
 definition.story = baseDefinition.story;
 
 export const icon = ({ parameters }) => {
-  const { alignment, bodyText, direction } = parameters?.props['bx-tooltip-icon'];
+  const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-icon'];
   return (
     <BXTooltipIcon alignment={alignment} bodyText={bodyText} direction={direction}>
       <Filter16 />

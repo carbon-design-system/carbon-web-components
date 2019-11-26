@@ -23,14 +23,14 @@ import {
 export { default } from './input-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, type, onInput } = parameters?.props['bx-input'];
+  const { disabled, value, placeholder, invalid, type, onInput } = parameters?.props?.['bx-input'];
   return <BXInput disabled={disabled} invalid={invalid} type={type} value={value} placeholder={placeholder} onInput={onInput} />;
 };
 
 defaultStory.story = baseDefaultStory.story;
 
 export const formItem = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, type, onInput } = parameters?.props['bx-input'];
+  const { disabled, value, placeholder, invalid, type, onInput } = parameters?.props?.['bx-input'];
   return (
     <BXFormItem>
       <BXInput type={type} value={value} placeholder={placeholder} onInput={onInput} disabled={disabled} invalid={invalid}>
@@ -45,7 +45,7 @@ export const formItem = ({ parameters }) => {
 formItem.story = baseFormItem.story;
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, type, onInput } = parameters?.props['bx-input'];
+  const { disabled, value, placeholder, invalid, type, onInput } = parameters?.props?.['bx-input'];
   return (
     <BXInput type={type} value={value} placeholder={placeholder} onInput={onInput} disabled={disabled} invalid={invalid}>
       <span slot="label-text">Label text</span>

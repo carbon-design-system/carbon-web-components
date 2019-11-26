@@ -23,7 +23,7 @@ export const singleLine = ({ parameters }) => {
     copyButtonFeedbackText,
     copyButtonFeedbackTimeout,
     onClick,
-  } = parameters?.props['bx-code-snippet'];
+  } = parameters?.props?.['bx-code-snippet'];
   return (
     <BXCodeSnippet
       codeAssistiveText={codeAssistiveText}
@@ -50,7 +50,7 @@ export const multiLine = ({ parameters }) => {
     collapseButtonText,
     expandButtonText,
     onClick,
-  } = parameters?.props['bx-code-snippet'];
+  } = parameters?.props?.['bx-code-snippet'];
   return (
     <BXCodeSnippet
       type="multi"
@@ -93,7 +93,7 @@ export const inline = ({ parameters }) => {
     copyButtonFeedbackText,
     copyButtonFeedbackTimeout,
     onClick,
-  } = parameters?.props['bx-code-snippet'];
+  } = parameters?.props?.['bx-code-snippet'];
   return (
     <BXCodeSnippet
       type="inline"

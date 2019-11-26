@@ -21,7 +21,7 @@ import { defaultStory as baseDefaultStory } from './overflow-menu-story';
 export { default } from './overflow-menu-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { open, disabled, direction } = parameters?.props['bx-overflow-menu'];
+  const { open, disabled, direction } = parameters?.props?.['bx-overflow-menu'];
   return (
     <BXOverflowMenu disabled={disabled} open={open}>
       <BXOverflowMenuBody direction={direction}>

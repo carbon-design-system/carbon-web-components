@@ -28,7 +28,7 @@ export const defaultStory = ({ parameters }) => {
     type,
     value,
     onAfterInput,
-  } = parameters?.props['bx-search'];
+  } = parameters?.props?.['bx-search'];
   return (
     <BXSearch
       closeButtonAssistiveText={closeButtonAssistiveText}

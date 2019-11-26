@@ -23,14 +23,14 @@ import {
 export { default } from './textarea-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput } = parameters?.props['bx-textarea'];
+  const { disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-textarea'];
   return <BXTextarea disabled={disabled} invalid={invalid} value={value} placeholder={placeholder} onInput={onInput} />;
 };
 
 defaultStory.story = baseDefaultStory.story;
 
 export const formItem = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput } = parameters?.props['bx-textarea'];
+  const { disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-textarea'];
   return (
     <BXFormItem>
       <BXTextarea value={value} placeholder={placeholder} onInput={onInput} disabled={disabled} invalid={invalid}>
@@ -45,7 +45,7 @@ export const formItem = ({ parameters }) => {
 formItem.story = baseFormItem.story;
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput } = parameters?.props['bx-textarea'];
+  const { disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-textarea'];
   return (
     <BXTextarea value={value} placeholder={placeholder} onInput={onInput} disabled={disabled} invalid={invalid}>
       <span slot="label-text">Label text</span>

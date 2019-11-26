@@ -38,7 +38,7 @@ export const defaultStory = () => <BXTile>Default tile</BXTile>;
 defaultStory.story = baseDefaultStory.story;
 
 export const clickable = ({ parameters }) => {
-  const { href } = parameters?.props['bx-clickable-tile'];
+  const { href } = parameters?.props?.['bx-clickable-tile'];
   return <BXClickableTile href={href}>Clickable tile</BXClickableTile>;
 };
 
@@ -66,7 +66,7 @@ export const singleSelectable = ({ parameters }) => {
 singleSelectable.story = baseSingleSelectable.story;
 
 export const multiSelectable = ({ parameters }) => {
-  const { checkmarkLabel, name, selected, value, onInput } = parameters?.props['bx-selectable-tile'];
+  const { checkmarkLabel, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'];
   return (
     <BXSelectableTile checkmarkLabel={checkmarkLabel} name={name} selected={selected} value={value} onInput={onInput}>
       Multi-select Tile

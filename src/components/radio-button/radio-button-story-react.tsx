@@ -19,8 +19,8 @@ import { defaultStory as baseDefaultStory } from './radio-button-story';
 export { default } from './radio-button-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, labelPosition, orientation, name, value, onAfterChange } = parameters?.props['bx-radio-button-group'];
-  const { hideLabel, labelText } = parameters?.props['bx-radio-button'];
+  const { disabled, labelPosition, orientation, name, value, onAfterChange } = parameters?.props?.['bx-radio-button-group'];
+  const { hideLabel, labelText } = parameters?.props?.['bx-radio-button'];
   return (
     <BXRadioButtonGroup
       disabled={disabled}

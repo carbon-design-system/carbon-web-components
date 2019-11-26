@@ -19,7 +19,7 @@ import { defaultStory as baseDefaultStory, filter as baseFilter } from './tag-st
 export { default } from './tag-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { type, title, disabled } = parameters?.props['bx-tag'];
+  const { type, title, disabled } = parameters?.props?.['bx-tag'];
   return (
     <BXTag type={type} title={title} disabled={disabled}>
       This is not a tag
@@ -30,7 +30,7 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = baseDefaultStory.story;
 
 export const filter = ({ parameters }) => {
-  const { type, title, disabled, onClick } = parameters?.props['bx-filter-tag'];
+  const { type, title, disabled, onClick } = parameters?.props?.['bx-filter-tag'];
   return (
     <BXFilterTag type={type} title={title} disabled={disabled} click={onClick}>
       This is not a tag

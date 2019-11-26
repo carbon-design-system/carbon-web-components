@@ -17,7 +17,7 @@ import { defaultStory as baseDefaultStory } from './button-story';
 export { default } from './button-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { kind, disabled, small, href } = parameters?.props['bx-btn'];
+  const { kind, disabled, small, href } = parameters?.props?.['bx-btn'];
   return (
     <BXBtn kind={kind} disabled={disabled} small={small} href={href}>
       Button

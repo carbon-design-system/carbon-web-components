@@ -17,7 +17,7 @@ import { defaultStory as baseDefaultStory } from './copy-button-story';
 export { default } from './copy-button-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } = parameters?.props['bx-copy-button'];
+  const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } = parameters?.props?.['bx-copy-button'];
   return (
     <BXCopyButton
       buttonAssistiveText={buttonAssistiveText}

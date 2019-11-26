@@ -23,8 +23,8 @@ import {
 export { default } from './date-picker-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { open } = parameters?.props['bx-date-picker'];
-  const { disabled, hideLabel, labelText, light, placeholder } = parameters?.props['bx-date-picker-input'];
+  const { open } = parameters?.props?.['bx-date-picker'];
+  const { disabled, hideLabel, labelText, light, placeholder } = parameters?.props?.['bx-date-picker-input'];
   return (
     <BXDatePicker open={open}>
       <BXDatePickerInput
@@ -41,8 +41,8 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = baseDefaultStory.story;
 
 export const singleWithCalendar = ({ parameters }) => {
-  const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props['bx-date-picker'];
-  const { disabled, hideLabel, labelText, light, placeholder, onInput } = parameters?.props['bx-date-picker-input'];
+  const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
+  const { disabled, hideLabel, labelText, light, placeholder, onInput } = parameters?.props?.['bx-date-picker-input'];
   return (
     <BXDatePicker
       enabledRange={enabledRange}
@@ -66,8 +66,8 @@ export const singleWithCalendar = ({ parameters }) => {
 singleWithCalendar.story = baseSingleWithCalendar.story;
 
 export const rangeWithCalendar = ({ parameters }) => {
-  const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props['bx-date-picker'];
-  const { disabled, hideLabel, labelText, light, placeholder, onInput } = parameters?.props['bx-date-picker-input'];
+  const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
+  const { disabled, hideLabel, labelText, light, placeholder, onInput } = parameters?.props?.['bx-date-picker-input'];
   return (
     <BXDatePicker
       enabledRange={enabledRange}

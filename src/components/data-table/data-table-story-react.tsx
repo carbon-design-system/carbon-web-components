@@ -331,7 +331,7 @@ BXCEDemoDataTable.defaultProps = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { size } = parameters?.props['bx-table'];
+  const { size } = parameters?.props?.['bx-table'];
   return (
     <bx-table size={size}>
       <bx-table-head>

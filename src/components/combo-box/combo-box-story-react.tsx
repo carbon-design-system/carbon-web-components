@@ -31,7 +31,7 @@ export const defaultStory = ({ parameters }) => {
     value,
     triggerContent,
     disableSelection,
-  } = parameters?.props['bx-combo-box'];
+  } = parameters?.props?.['bx-combo-box'];
   const beforeSelectedAction = action('onBeforeSelect');
   const handleBeforeSelected = (event: CustomEvent) => {
     beforeSelectedAction(event);

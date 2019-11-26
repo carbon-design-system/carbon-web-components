@@ -19,8 +19,8 @@ import { defaultStory as baseDefaultStory } from './progress-indicator-story';
 export { default } from './progress-indicator-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { vertical } = parameters?.props['bx-progress-indicator'];
-  const { iconLabel, labelText, secondaryLabelText } = parameters?.props['bx-progress-step'];
+  const { vertical } = parameters?.props?.['bx-progress-indicator'];
+  const { iconLabel, labelText, secondaryLabelText } = parameters?.props?.['bx-progress-step'];
   return (
     <BXProgressIndicator vertical={vertical}>
       <BXProgressStep iconLabel={iconLabel} labelText={labelText} secondaryLabelText={secondaryLabelText} state="invalid" />

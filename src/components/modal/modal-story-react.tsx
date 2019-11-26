@@ -33,7 +33,7 @@ import { defaultStory as baseDefaultStory } from './modal-story';
 export { default } from './modal-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { danger, open, disableClose } = parameters?.props['bx-modal'];
+  const { danger, open, disableClose } = parameters?.props?.['bx-modal'];
   const beforeSelectedAction = action('onBeforeClose');
   const handleBeforeClose = (event: CustomEvent) => {
     beforeSelectedAction(event);

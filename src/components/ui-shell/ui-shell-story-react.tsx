@@ -88,7 +88,7 @@ const StoryContent = () => (
 );
 
 export const sideNav = ({ parameters }) => {
-  const { expanded, fixed, href } = parameters?.props['bx-side-nav'];
+  const { expanded, fixed, href } = parameters?.props?.['bx-side-nav'];
   return (
     <>
       <BXSideNav aria-label="Side navigation" expanded={expanded} fixed={fixed}>
@@ -122,7 +122,7 @@ export const sideNav = ({ parameters }) => {
 sideNav.story = baseSideNav.story;
 
 export const sideNavWithIcons = ({ parameters }) => {
-  const { expanded, fixed, href } = parameters?.props['bx-side-nav'];
+  const { expanded, fixed, href } = parameters?.props?.['bx-side-nav'];
   return (
     <>
       <BXSideNav aria-label="Side navigation" expanded={expanded} fixed={fixed}>
