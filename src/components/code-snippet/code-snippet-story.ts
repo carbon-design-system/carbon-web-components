@@ -24,8 +24,13 @@ const defaultKnobs = {
 };
 
 export const singleLine = ({ parameters }) => {
-  const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, onClick } =
-    (parameters.props && parameters.props['bx-code-snippet']) || ({} as typeof parameters.props['bx-code-snippet']);
+  const {
+    codeAssistiveText,
+    copyButtonAssistiveText,
+    copyButtonFeedbackText,
+    copyButtonFeedbackTimeout,
+    onClick,
+  } = parameters?.props?.['bx-code-snippet'];
   return html`
     <bx-code-snippet
       code-assistive-text="${ifDefined(!codeAssistiveText ? undefined : codeAssistiveText)}"
@@ -58,7 +63,7 @@ export const multiLine = ({ parameters }) => {
     collapseButtonText,
     expandButtonText,
     onClick,
-  } = (parameters.props && parameters.props['bx-code-snippet']) || ({} as typeof parameters.props['bx-code-snippet']);
+  } = parameters?.props?.['bx-code-snippet'];
   // prettier-ignore
   return html`
   <bx-code-snippet
@@ -111,8 +116,13 @@ multiLine.story = {
 };
 
 export const inline = ({ parameters }) => {
-  const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, onClick } =
-    (parameters.props && parameters.props['bx-code-snippet']) || ({} as typeof parameters.props['bx-code-snippet']);
+  const {
+    codeAssistiveText,
+    copyButtonAssistiveText,
+    copyButtonFeedbackText,
+    copyButtonFeedbackTimeout,
+    onClick,
+  } = parameters?.props?.['bx-code-snippet'];
   return html`
     <bx-code-snippet
       type="inline"

@@ -34,8 +34,7 @@ defaultStory.story = {
 };
 
 export const formItem = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput, rows, cols } =
-    (parameters.props && parameters.props['bx-textarea']) || ({} as typeof parameters.props['bx-textarea']);
+  const { disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'];
   return html`
     <bx-form-item>
       <bx-textarea
@@ -61,8 +60,7 @@ formItem.story = {
 };
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput, rows, cols } =
-    (parameters.props && parameters.props['bx-textarea']) || ({} as typeof parameters.props['bx-textarea']);
+  const { disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'];
   return html`
     <bx-textarea
       placeholder="${placeholder}"

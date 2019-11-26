@@ -35,8 +35,7 @@ These tiles can have internal calls-to-action (CTAs), such as a button or a link
 };
 
 export const clickable = ({ parameters }) => {
-  const { href } =
-    (parameters.props && parameters.props['bx-clickable-tile']) || ({} as typeof parameters.props['bx-clickable-tile']);
+  const { href } = parameters?.props?.['bx-clickable-tile'];
   return html`
     <bx-clickable-tile href="${href}">Clickable tile</bx-clickable-tile>
   `;
@@ -60,8 +59,7 @@ Clickable tiles cannot contain separate internal CTAs.
 };
 
 export const singleSelectable = ({ parameters }) => {
-  const { checkmarkLabel, name, value, onInput } =
-    (parameters.props && parameters.props['bx-radio-tile']) || ({} as typeof parameters.props['bx-radio-tile']);
+  const { checkmarkLabel, name, value, onInput } = parameters?.props?.['bx-radio-tile'];
   return html`
     <fieldset>
       <legend>Single-select tiles</legend>
@@ -115,8 +113,7 @@ Selectable tiles work well for presenting options to a user in a structured mann
 };
 
 export const multiSelectable = ({ parameters }) => {
-  const { checkmarkLabel, name, selected, value, onInput } =
-    (parameters.props && parameters.props['bx-selectable-tile']) || ({} as typeof parameters.props['bx-selectable-tile']);
+  const { checkmarkLabel, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'];
   return html`
     <bx-selectable-tile
       checkmark-label="${ifDefined(!checkmarkLabel ? undefined : checkmarkLabel)}"
@@ -143,8 +140,7 @@ multiSelectable.story = {
 };
 
 export const expandable = ({ parameters }) => {
-  const { expanded, disableChange } =
-    (parameters.props && parameters.props['bx-expandable-tile']) || ({} as typeof parameters.props['bx-expandable-tile']);
+  const { expanded, disableChange } = parameters?.props?.['bx-expandable-tile'];
   const beforeChangedAction = action('bx-expandable-tile-beingchanged');
   const handleBeforeChanged = (event: CustomEvent) => {
     beforeChangedAction(event);

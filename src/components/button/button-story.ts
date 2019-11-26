@@ -21,8 +21,7 @@ const kinds = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { kind, disabled, small, href, onClick } =
-    (parameters.props && parameters.props['bx-btn']) || ({} as typeof parameters.props['bx-btn']);
+  const { kind, disabled, small, href, onClick } = parameters?.props?.['bx-btn'];
   return html`
     <bx-btn kind=${kind} ?disabled=${disabled} ?small=${small} href=${ifDefined(href || undefined)} @click=${onClick}>
       Button
