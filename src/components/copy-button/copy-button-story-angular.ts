@@ -20,7 +20,7 @@ export const defaultStory = ({ parameters }) => ({
       (click)="onClick($event)"
     ></bx-copy-button>
   `,
-  props: parameters?.props['bx-copy-button'],
+  props: parameters?.props?.['bx-copy-button'],
 });
 
 defaultStory.story = baseDefaultStory.story;

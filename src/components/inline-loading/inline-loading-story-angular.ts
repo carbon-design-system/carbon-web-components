@@ -15,7 +15,7 @@ export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-inline-loading [status]="status">Loading data...</bx-inline-loading>
   `,
-  props: parameters?.props['bx-inline-loading'],
+  props: parameters?.props?.['bx-inline-loading'],
 });
 
 defaultStory.story = baseDefaultStory.story;

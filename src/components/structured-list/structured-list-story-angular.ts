@@ -56,7 +56,7 @@ export const defaultStory = ({ parameters }) => ({
     selectionValues: !hasSelection
       ? []
       : ['structured-list-selection-0', 'structured-list-selection-1', 'structured-list-selection-2'],
-  }))(parameters?.props['bx-structured-list']),
+  }))(parameters?.props?.['bx-structured-list']),
 });
 
 defaultStory.story = baseDefaultStory.story;

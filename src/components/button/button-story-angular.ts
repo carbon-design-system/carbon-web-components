@@ -15,7 +15,7 @@ export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-btn [kind]="kind" [disabled]="disabled" [small]="small" [href]="href" (click)="onClick($event)">Button</bx-btn>
   `,
-  props: parameters?.props['bx-btn'],
+  props: parameters?.props?.['bx-btn'],
 });
 
 defaultStory.story = baseDefaultStory.story;

@@ -47,7 +47,7 @@ export const defaultStory = ({ parameters }) => ({
       ></bx-progress-step>
     </bx-progress-indicator>
   `,
-  props: { ...parameters?.props['bx-progress-indicator'], ...parameters?.props['bx-progress-step'] },
+  props: { ...parameters?.props?.['bx-progress-indicator'], ...parameters?.props?.['bx-progress-step'] },
 });
 
 defaultStory.story = baseDefaultStory.story;

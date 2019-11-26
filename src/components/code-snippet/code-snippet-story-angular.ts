@@ -46,7 +46,7 @@ export const singleLine = ({ parameters }) => ({
       laboriosam!</bx-code-snippet
     >
   `,
-  props: parameters?.props['bx-code-snippet'],
+  props: parameters?.props?.['bx-code-snippet'],
 });
 
 singleLine.story = baseSingleLine.story;
@@ -64,7 +64,7 @@ export const multiLine = ({ parameters }) => ({
       (click)="onClick($event)"
       >{{code}}</bx-code-snippet>
   `,
-  props: { ...parameters?.props['bx-code-snippet'], code: multilineCode },
+  props: { ...parameters?.props?.['bx-code-snippet'], code: multilineCode },
 });
 
 multiLine.story = baseMultiLine.story;
@@ -81,7 +81,7 @@ export const inline = ({ parameters }) => ({
       >node -v</bx-code-snippet
     >
   `,
-  props: parameters?.props['bx-code-snippet'],
+  props: parameters?.props?.['bx-code-snippet'],
 });
 
 inline.story = baseInline.story;

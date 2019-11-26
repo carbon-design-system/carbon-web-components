@@ -47,7 +47,7 @@ export const defaultStory = ({ parameters }) => ({
       onBeforeSelect,
       onSelect: action('bx-dropdown-selected'),
     };
-  })(parameters?.props['bx-combo-box']),
+  })(parameters?.props?.['bx-combo-box']),
 });
 
 defaultStory.story = baseDefaultStory.story;

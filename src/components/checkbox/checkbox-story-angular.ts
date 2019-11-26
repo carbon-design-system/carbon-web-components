@@ -24,7 +24,7 @@ export const defaultStory = ({ parameters }) => ({
       (input)="onInput($event)"
     ></bx-checkbox>
   `,
-  props: parameters?.props['bx-checkbox'],
+  props: parameters?.props?.['bx-checkbox'],
 });
 
 defaultStory.story = baseDefaultStory.story;

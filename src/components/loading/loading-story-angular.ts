@@ -13,7 +13,7 @@ import baseStory, { defaultStory as baseDefaultStory } from './loading-story';
 
 export const defaultStory = ({ parameters }) => ({
   template: `<bx-loading [inactive]="inactive" [type]="type"></bx-loading>`,
-  props: parameters?.props['bx-loading'],
+  props: parameters?.props?.['bx-loading'],
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },

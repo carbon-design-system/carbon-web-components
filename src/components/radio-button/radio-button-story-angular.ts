@@ -27,8 +27,8 @@ export const defaultStory = ({ parameters }) => ({
     </bx-radio-button-group>
   `,
   props: {
-    ...parameters?.props['bx-radio-button-group'],
-    ...parameters?.props['bx-radio-button'],
+    ...parameters?.props?.['bx-radio-button-group'],
+    ...parameters?.props?.['bx-radio-button'],
   },
 });
 

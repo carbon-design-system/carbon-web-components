@@ -51,7 +51,7 @@ export const defaultStory = ({ parameters }) => ({
       },
       handleToggle: action('bx-accordion-item-toggled'),
     };
-  })(parameters?.props['bx-accordion']),
+  })(parameters?.props?.['bx-accordion']),
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },

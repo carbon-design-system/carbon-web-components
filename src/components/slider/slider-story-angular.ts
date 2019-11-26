@@ -24,7 +24,7 @@ export const defaultStory = ({ parameters }) => ({
       (bx-slider-changed)="onAfterChange($event)"
     ></bx-slider>
   `,
-  props: parameters?.props['bx-slider'],
+  props: parameters?.props?.['bx-slider'],
 });
 
 defaultStory.story = baseDefaultStory.story;
@@ -44,7 +44,7 @@ export const withInputBox = ({ parameters }) => ({
       <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
     </bx-slider>
   `,
-  props: parameters?.props['bx-slider'],
+  props: parameters?.props?.['bx-slider'],
 });
 
 withInputBox.story = baseWithInputBox.story;

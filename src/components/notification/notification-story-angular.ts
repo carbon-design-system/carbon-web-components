@@ -40,7 +40,7 @@ export const inline = ({ parameters }) => ({
       },
       handleClose: action('bx-notification-closed'),
     };
-  })(parameters?.props['bx-inline-notification']),
+  })(parameters?.props?.['bx-inline-notification']),
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },
@@ -77,7 +77,7 @@ export const toast = ({ parameters }) => ({
       },
       handleClose: action('bx-notification-closed'),
     };
-  })(parameters?.props['bx-toast-notification']),
+  })(parameters?.props?.['bx-toast-notification']),
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },

@@ -44,7 +44,7 @@ export const defaultStory = ({ parameters }) => ({
       },
       handleClose: action('bx-modal-closed'),
     };
-  })(parameters?.props['bx-modal']),
+  })(parameters?.props?.['bx-modal']),
 });
 
 defaultStory.story = baseDefaultStory.story;

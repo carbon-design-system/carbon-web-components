@@ -446,7 +446,7 @@ export const defaultStory = ({ parameters }) => ({
       </bx-table-body>
     </bx-table>
   `,
-  props: { ...parameters?.props['bx-table'], ...parameters?.props['bx-table-body'] },
+  props: { ...parameters?.props?.['bx-table'], ...parameters?.props?.['bx-table-body'] },
 });
 
 defaultStory.story = baseDefaultStory.story;
@@ -487,10 +487,10 @@ export const sortable = ({ parameters }) => ({
       onBeforeChangeSort,
     };
   })({
-    ...parameters?.props['bx-table'],
-    ...parameters?.props['bx-table-body'],
-    ...parameters?.props['bx-table-row'],
-    ...parameters?.props['bx-header-cell'],
+    ...parameters?.props?.['bx-table'],
+    ...parameters?.props?.['bx-table-body'],
+    ...parameters?.props?.['bx-table-row'],
+    ...parameters?.props?.['bx-header-cell'],
   }),
 });
 
@@ -546,10 +546,10 @@ export const sortableWithPagination = ({ parameters }) => ({
       onBeforeChangeSort,
     };
   })({
-    ...parameters?.props['bx-table'],
-    ...parameters?.props['bx-table-body'],
-    ...parameters?.props['bx-table-row'],
-    ...parameters?.props['bx-header-cell'],
+    ...parameters?.props?.['bx-table'],
+    ...parameters?.props?.['bx-table-body'],
+    ...parameters?.props?.['bx-table-row'],
+    ...parameters?.props?.['bx-header-cell'],
   }),
 });
 

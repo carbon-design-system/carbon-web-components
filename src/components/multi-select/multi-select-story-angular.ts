@@ -49,7 +49,7 @@ export const defaultStory = ({ parameters }) => ({
       },
       handleSelected: action('bx-multi-select-selected'),
     };
-  })(parameters?.props['bx-multi-select']),
+  })(parameters?.props?.['bx-multi-select']),
 });
 
 defaultStory.story = baseDefaultStory.story;

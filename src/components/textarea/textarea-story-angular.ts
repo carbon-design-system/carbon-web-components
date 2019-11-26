@@ -25,7 +25,7 @@ export const defaultStory = ({ parameters }) => ({
       (input)="onInput()"
     ></bx-textarea>
   `,
-  props: parameters?.props['bx-textarea'],
+  props: parameters?.props?.['bx-textarea'],
 });
 
 defaultStory.story = baseDefaultStory.story;
@@ -40,7 +40,7 @@ export const formItem = ({ parameters }) => ({
       </bx-textarea>
     </bx-form-item>
   `,
-  props: parameters?.props['bx-textarea'],
+  props: parameters?.props?.['bx-textarea'],
 });
 
 formItem.story = baseFormItem.story;
@@ -53,7 +53,7 @@ export const withoutFormItemWrapper = ({ parameters }) => ({
       <span slot="validity-message">Something isn't right</span>
     </bx-textarea>
   `,
-  props: parameters?.props['bx-textarea'],
+  props: parameters?.props?.['bx-textarea'],
 });
 
 withoutFormItemWrapper.story = baseWithoutFormItemWrapper.story;

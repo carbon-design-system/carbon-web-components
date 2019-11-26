@@ -29,8 +29,8 @@ export const defaultStory = ({ parameters }) => ({
   </bx-date-picker>
 `,
   props: {
-    ...parameters?.props['bx-date-picker'],
-    ...parameters?.props['bx-date-picker-input'],
+    ...parameters?.props?.['bx-date-picker'],
+    ...parameters?.props?.['bx-date-picker-input'],
   },
 });
 
@@ -58,8 +58,8 @@ export const singleWithCalendar = ({ parameters }) => ({
   </bx-date-picker>
 `,
   props: {
-    ...parameters?.props['bx-date-picker'],
-    ...parameters?.props['bx-date-picker-input'],
+    ...parameters?.props?.['bx-date-picker'],
+    ...parameters?.props?.['bx-date-picker-input'],
   },
 });
 
@@ -97,8 +97,8 @@ export const rangeWithCalendar = ({ parameters }) => ({
   </bx-date-picker>
 `,
   props: {
-    ...parameters?.props['bx-date-picker'],
-    ...parameters?.props['bx-date-picker-input'],
+    ...parameters?.props?.['bx-date-picker'],
+    ...parameters?.props?.['bx-date-picker-input'],
   },
 });
 

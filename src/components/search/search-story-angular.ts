@@ -27,7 +27,7 @@ export const defaultStory = ({ parameters }) => ({
       (bx-search-input)="onAfterInput($event)"
     ></bx-search>
   `,
-  props: parameters?.props['bx-search'],
+  props: parameters?.props?.['bx-search'],
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },

@@ -42,7 +42,7 @@ export const defaultStory = ({ parameters }) => ({
       onBeforeSelect,
       onSelect: action('bx-tabs-selected'),
     };
-  })(parameters?.props['bx-tabs']),
+  })(parameters?.props?.['bx-tabs']),
 });
 
 defaultStory.story = baseDefaultStory.story;

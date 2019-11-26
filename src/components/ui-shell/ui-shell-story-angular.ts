@@ -59,7 +59,7 @@ export const sideNav = ({ parameters }) => ({
     </bx-side-nav>
     <!-- TODO: Figure out how to style the main content demo -->
   `,
-  props: parameters?.props['bx-side-nav'],
+  props: parameters?.props?.['bx-side-nav'],
 });
 
 sideNav.story = baseSideNav.story;
@@ -116,7 +116,7 @@ export const sideNavWithIcons = ({ parameters }) => ({
     </bx-side-nav>
     <!-- TODO: Figure out how to style the main content demo -->
   `,
-  props: parameters?.props['bx-side-nav'],
+  props: parameters?.props?.['bx-side-nav'],
 });
 
 sideNavWithIcons.story = Object.assign(baseSideNavWithIcons.story, {

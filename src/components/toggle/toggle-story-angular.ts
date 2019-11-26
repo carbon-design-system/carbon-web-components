@@ -25,7 +25,7 @@ export const defaultStory = ({ parameters }) => ({
       (input)="onInput($event)"
     ></bx-toggle>
   `,
-  props: parameters?.props['bx-toggle'],
+  props: parameters?.props?.['bx-toggle'],
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },

@@ -45,7 +45,7 @@ export const defaultStory = ({ parameters }) => ({
       onBeforeSelect,
       onSelect: action('bx-dropdown-selected'),
     };
-  })(parameters?.props['bx-dropdown']),
+  })(parameters?.props?.['bx-dropdown']),
 });
 
 defaultStory.story = baseDefaultStory.story;

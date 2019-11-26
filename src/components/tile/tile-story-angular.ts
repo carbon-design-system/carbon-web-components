@@ -30,7 +30,7 @@ export const clickable = ({ parameters }) => ({
   template: `
     <bx-clickable-tile [href]="href">Clickable tile</bx-clickable-tile>
   `,
-  props: parameters?.props['bx-clickable-tile'],
+  props: parameters?.props?.['bx-clickable-tile'],
 });
 
 clickable.story = baseClickable.story;
@@ -65,7 +65,7 @@ export const singleSelectable = ({ parameters }) => ({
       </bx-radio-tile>
     </fieldset>
   `,
-  props: parameters?.props['bx-radio-tile'],
+  props: parameters?.props?.['bx-radio-tile'],
 });
 
 singleSelectable.story = baseSingleSelectable.story;
@@ -82,7 +82,7 @@ export const multiSelectable = ({ parameters }) => ({
       Multi-select Tile
     </bx-selectable-tile>
   `,
-  props: parameters?.props['bx-selectable-tile'],
+  props: parameters?.props?.['bx-selectable-tile'],
 });
 
 multiSelectable.story = baseMultiSelectable.story;
@@ -115,7 +115,7 @@ export const expandable = ({ parameters }) => ({
       onBeforeChange,
       onChange: action('bx-expandable-tile-changed'),
     };
-  })(parameters?.props['bx-expandable-tile']),
+  })(parameters?.props?.['bx-expandable-tile']),
 });
 
 expandable.story = baseExpandable.story;

@@ -40,7 +40,7 @@ export const defaultStory = ({ parameters }) => ({
       onBeforeSelect,
       onSelect: action('bx-content-switcher-selected'),
     };
-  })(parameters?.props['bx-content-switcher']),
+  })(parameters?.props?.['bx-content-switcher']),
 });
 
 defaultStory.story = baseDefaultStory.story;

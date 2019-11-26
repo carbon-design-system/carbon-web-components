@@ -23,7 +23,7 @@ export const defaultStory = ({ parameters }) => ({
       </bx-overflow-menu-body>
     </bx-overflow-menu>
   `,
-  props: parameters?.props['bx-overflow-menu'],
+  props: parameters?.props?.['bx-overflow-menu'],
 });
 
 defaultStory.story = baseDefaultStory.story;
