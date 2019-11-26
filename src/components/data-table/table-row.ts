@@ -10,6 +10,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
 import ChevronRight16 from '@carbon/icons/lib/chevron--right/16';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './data-table.scss';
 
 const { prefix } = settings;
@@ -18,7 +19,7 @@ const { prefix } = settings;
  * Data table row.
  */
 @customElement(`${prefix}-table-row`)
-class BXTableRow extends LitElement {
+class BXTableRow extends FocusMixin(LitElement) {
   /**
    * Handles `click` event on the check box.
    * @param event The event.
@@ -92,6 +93,10 @@ class BXTableRow extends LitElement {
    */
   @property({ attribute: 'selection-value' })
   selectionValue = '';
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   connectedCallback() {
     const table = this.closest((this.constructor as typeof BXTableRow).selectorTable);

@@ -10,6 +10,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import classnames from 'classnames';
 import { html, property, customElement, LitElement } from 'lit-element';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './side-nav.scss';
 
 const { prefix } = settings;
@@ -18,7 +19,7 @@ const { prefix } = settings;
  * Side nav menu item.
  */
 @customElement(`${prefix}-side-nav-menu-item`)
-class BXSideNavMenuItem extends LitElement {
+class BXSideNavMenuItem extends FocusMixin(LitElement) {
   /**
    * `true` if the menu item should be active. Corresponds to the attribute with the same name.
    */
@@ -30,6 +31,10 @@ class BXSideNavMenuItem extends LitElement {
    */
   @property()
   href = '';
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   render() {
     const { active, href } = this;

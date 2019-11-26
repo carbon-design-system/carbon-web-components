@@ -9,6 +9,10 @@ $css--plex: true !default;
 
 @import 'carbon-components/scss/components/slider/slider';
 
+:host(#{$prefix}-slider) {
+  outline: none;
+}
+
 :host(#{$prefix}-slider-input) {
   outline: none;
 }

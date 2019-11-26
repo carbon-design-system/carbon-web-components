@@ -140,6 +140,10 @@ export default class BXTextarea extends FormMixin(LitElement) {
   @query('textarea')
   protected _textarea!: HTMLTextAreaElement;
 
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
+
   render() {
     const invalidIcon = WarningFilled16({ class: `${prefix}--text-area__invalid-icon` });
 

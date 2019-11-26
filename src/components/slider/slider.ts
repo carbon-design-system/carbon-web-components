@@ -12,6 +12,7 @@ import throttle from 'lodash.throttle';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import on from 'carbon-components/es/globals/js/misc/on';
+import FocusMixin from '../../globals/mixins/focus';
 import FormMixin from '../../globals/mixins/form';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
@@ -44,7 +45,7 @@ const THUMB_DIRECTION = {
  * Slider.
  */
 @customElement(`${prefix}-slider`)
-class BXSlider extends HostListenerMixin(FormMixin(LitElement)) {
+class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   /**
    * The handle for the listener of `${prefix}-slider-input` event.
    */
@@ -288,6 +289,10 @@ class BXSlider extends HostListenerMixin(FormMixin(LitElement)) {
    */
   @property({ type: Number })
   value = 50;
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   connectedCallback() {
     super.connectedCallback();

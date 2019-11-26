@@ -20,6 +20,8 @@ $css--plex: true !default;
 :host(#{$prefix}-progress-step) {
   @extend .#{$prefix}--progress-step;
 
+  outline: none;
+
   .#{$prefix}--progress-line {
     background-color: $ui-03;
   }

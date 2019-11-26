@@ -13,6 +13,7 @@ $css--plex: true !default;
   @extend .#{$prefix}--pagination;
 
   position: relative;
+  outline: none;
 
   .#{$prefix}--pagination__left {
     flex: 1;
@@ -27,10 +28,14 @@ $css--plex: true !default;
 
 :host(#{$prefix}-pages-select) {
   @extend .#{$prefix}--select__page-number;
+
+  outline: none;
 }
 
 :host(#{$prefix}-page-sizes-select) {
   @extend .#{$prefix}--select__item-count;
+
+  outline: none;
 }
 
 :host(#{$prefix}-pages-select),

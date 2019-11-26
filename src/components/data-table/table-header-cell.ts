@@ -11,6 +11,7 @@ import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
 import Arrows16 from '@carbon/icons/lib/arrows/16';
 import ArrowDown16 from '@carbon/icons/lib/arrow--down/16';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './data-table.scss';
 
 const { prefix } = settings;
@@ -67,7 +68,7 @@ export const TABLE_SORT_CYCLES = {
  * Data table header cell.
  */
 @customElement(`${prefix}-table-header-cell`)
-class BXTableHeaderCell extends LitElement {
+class BXTableHeaderCell extends FocusMixin(LitElement) {
   /**
    * Handles `click` event on the sort button.
    * @param event The event.
@@ -139,6 +140,10 @@ class BXTableHeaderCell extends LitElement {
    */
   @property({ reflect: true, attribute: 'sort-direction' })
   sortDirection?: TABLE_SORT_DIRECTION;
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   connectedCallback() {
     if (!this.hasAttribute('role')) {

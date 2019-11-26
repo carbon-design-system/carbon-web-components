@@ -10,6 +10,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
 import ChevronRight16 from '@carbon/icons/lib/chevron--right/16';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './accordion.scss';
 
 const { prefix } = settings;
@@ -18,7 +19,7 @@ const { prefix } = settings;
  * Accordion item.
  */
 @customElement(`${prefix}-accordion-item`)
-class BXAccordionItem extends LitElement {
+class BXAccordionItem extends FocusMixin(LitElement) {
   /**
    * Handles user-initiated toggle request of this accordion item.
    * @param open The new open state.
@@ -77,6 +78,10 @@ class BXAccordionItem extends LitElement {
       this.setAttribute('role', 'listitem');
     }
     super.connectedCallback();
+  }
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
 
   render() {
