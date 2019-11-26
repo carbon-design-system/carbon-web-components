@@ -8,31 +8,27 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, number, text } from '@storybook/addon-knobs/angular';
-import './copy-button';
+import { moduleMetadata } from '@storybook/angular';
+import baseStory, { defaultStory as baseDefaultStory } from './copy-button-story';
 
-const createProps = () => ({
-  buttonAssistiveText: text('Assistive text for the button (buttonAssistiveText)', ''),
-  feedbackText: text('Feedback text (feedbackText)', ''),
-  feedbackTimeout: number('Feedback timeout (feedbackTimeout)', 2000),
-  onClick: action('click'),
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-copy-button
+      [buttonAssistiveText]="buttonAssistiveText"
+      [attr.feedbackText]="feedbackText || null"
+      [feedbackTimeout]="feedbackTimeout"
+      (click)="onClick($event)"
+    ></bx-copy-button>
+  `,
+  props: parameters?.props?.['bx-copy-button'],
 });
 
-storiesOf('Copy button', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-copy-button
-        [buttonAssistiveText]="buttonAssistiveText"
-        [attr.feedbackText]="feedbackText || null"
-        [feedbackTimeout]="feedbackTimeout"
-        (click)="onClick($event)"
-      ></bx-copy-button>
-    `,
-    props: createProps(),
-    moduleMetadata: {
+defaultStory.story = baseDefaultStory.story;
+
+export default Object.assign(baseStory, {
+  decorators: [
+    moduleMetadata({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
-  }));
+    }),
+  ],
+});

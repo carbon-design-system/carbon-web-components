@@ -8,39 +8,31 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs/angular';
-import './checkbox';
+import { moduleMetadata } from '@storybook/angular';
+import baseStory, { defaultStory as baseDefaultStory } from './checkbox-story';
 
-const createProps = () => ({
-  checked: boolean('Checked (checked)', false),
-  disabled: boolean('Disabled (disabled)', false),
-  hideLabel: boolean('Hide label (hide-label)', false),
-  indeterminate: boolean('Indeterminate state (indeterminate)', false),
-  labelText: text('Label text (label-text)', 'Checkbox'),
-  name: text('Name (name)', ''),
-  value: text('Value (value)', ''),
-  onInput: action('onInput'),
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-checkbox
+      [checked]="checked"
+      [disabled]="disabled"
+      [hideLabel]="hideLabel"
+      [indeterminate]="indeterminate"
+      [labelText]="labelText"
+      [name]="name"
+      [value]="value"
+      (input)="onInput($event)"
+    ></bx-checkbox>
+  `,
+  props: parameters?.props?.['bx-checkbox'],
 });
 
-storiesOf('Checkbox', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-checkbox
-        [checked]="checked"
-        [disabled]="disabled"
-        [hideLabel]="hideLabel"
-        [indeterminate]="indeterminate"
-        [labelText]="labelText"
-        [name]="name"
-        [value]="value"
-        (input)="onInput($event)"
-      ></bx-checkbox>
-    `,
-    props: createProps(),
-    moduleMetadata: {
+defaultStory.story = baseDefaultStory.story;
+
+export default Object.assign(baseStory, {
+  decorators: [
+    moduleMetadata({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
-  }));
+    }),
+  ],
+});

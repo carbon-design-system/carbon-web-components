@@ -8,19 +8,15 @@
  */
 
 import { Pipe, PipeTransform, Component, Input, HostBinding, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, select } from '@storybook/addon-knobs/angular';
-import '../pagination/pagination';
-import '../pagination/page-sizes-select';
-import '../pagination/pages-select';
+import { moduleMetadata } from '@storybook/angular';
 import { TABLE_SIZE } from './table';
-import './table-head';
-import './table-header-row';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
-import './table-body';
-import './table-row';
-import './table-cell';
+import baseStory, {
+  defaultStory as baseDefaultStory,
+  sortable as baseSortable,
+  sortableWithPagination as baseSortableWithPagination,
+} from './data-table-story';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 
@@ -409,107 +405,98 @@ class BXCEDemoDataTable {
   };
 }
 
-const sizes = {
-  [`Compact size (${TABLE_SIZE.COMPACT})`]: TABLE_SIZE.COMPACT,
-  [`Short size (${TABLE_SIZE.SHORT})`]: TABLE_SIZE.SHORT,
-  [`Regular size (${TABLE_SIZE.REGULAR})`]: TABLE_SIZE.REGULAR,
-  [`Tall size (${TABLE_SIZE.TALL})`]: TABLE_SIZE.TALL,
-};
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-table [size]="size">
+      <bx-table-head>
+        <bx-table-header-row>
+          <bx-table-header-cell>Name</bx-table-header-cell>
+          <bx-table-header-cell>Protocol</bx-table-header-cell>
+          <bx-table-header-cell>Port</bx-table-header-cell>
+          <bx-table-header-cell>Rule</bx-table-header-cell>
+          <bx-table-header-cell>Attached Groups</bx-table-header-cell>
+          <bx-table-header-cell>Status</bx-table-header-cell>
+        </bx-table-header-row>
+      </bx-table-head>
+      <bx-table-body [zebra]="zebra">
+        <bx-table-row>
+          <bx-table-cell>Load Balancer 1</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell>Load Balancer 2</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell>Load Balancer 3</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-row>
+      </bx-table-body>
+    </bx-table>
+  `,
+  props: { ...parameters?.props?.['bx-table'], ...parameters?.props?.['bx-table-body'] },
+});
 
-const createProps = ({ sortable }: { sortable?: boolean } = {}) => {
-  const hasSelection = sortable && boolean('Supports selection feature (has-selection)', false);
-  return {
-    hasSelection,
-    size: select('Table size (size)', sizes, TABLE_SIZE.REGULAR),
-    zebra: boolean('Supports zebra stripe (zebra in `<bx-table-body>`)', false),
-  };
-};
+defaultStory.story = baseDefaultStory.story;
 
-storiesOf('Data table', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-        <bx-table [size]="size">
-          <bx-table-head>
-            <bx-table-header-row>
-              <bx-table-header-cell>Name</bx-table-header-cell>
-              <bx-table-header-cell>Protocol</bx-table-header-cell>
-              <bx-table-header-cell>Port</bx-table-header-cell>
-              <bx-table-header-cell>Rule</bx-table-header-cell>
-              <bx-table-header-cell>Attached Groups</bx-table-header-cell>
-              <bx-table-header-cell>Status</bx-table-header-cell>
-            </bx-table-header-row>
-          </bx-table-head>
-          <bx-table-body [zebra]="zebra">
-            <bx-table-row>
-              <bx-table-cell>Load Balancer 1</bx-table-cell>
-              <bx-table-cell>HTTP</bx-table-cell>
-              <bx-table-cell>80</bx-table-cell>
-              <bx-table-cell>Round Robin</bx-table-cell>
-              <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-              <bx-table-cell>Active</bx-table-cell>
-            </bx-table-row>
-            <bx-table-row>
-              <bx-table-cell>Load Balancer 2</bx-table-cell>
-              <bx-table-cell>HTTP</bx-table-cell>
-              <bx-table-cell>80</bx-table-cell>
-              <bx-table-cell>Round Robin</bx-table-cell>
-              <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-              <bx-table-cell>Active</bx-table-cell>
-            </bx-table-row>
-            <bx-table-row>
-              <bx-table-cell>Load Balancer 3</bx-table-cell>
-              <bx-table-cell>HTTP</bx-table-cell>
-              <bx-table-cell>80</bx-table-cell>
-              <bx-table-cell>Round Robin</bx-table-cell>
-              <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-              <bx-table-cell>Active</bx-table-cell>
-            </bx-table-row>
-          </bx-table-body>
-        </bx-table>
-    `,
-    props: createProps(),
-    moduleMetadata: {
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
-  }))
-  .add('Sortable', () => ({
-    template: `
-      <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
-      <bx-ce-demo-data-table
-        [columns]="demoColumns"
-        [rows]="demoRows"
-        [sortInfo]="demoSortInfo"
-        [hasSelection]="hasSelection"
-        [size]="size"
-        [zebra]="zebra"
-        (bx-table-row-change-selection)="onBeforeChangeSelection($event)"
-        (bx-table-change-selection-all)="onBeforeChangeSelection($event)"
-        (bx-table-header-cell-sort)="onBeforeChangeSort($event)"
-      >
-      </bx-ce-demo-data-table>
-    `,
-    props: (props => {
-      const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-      const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
-      const onBeforeChangeSelection = (event: CustomEvent) => {
-        if (event.type === 'bx-table-change-selection-all') {
-          beforeChangeSelectionAllAction(event);
-        } else {
-          beforeChangeSelectionAction(event);
-        }
-      };
-      const onBeforeChangeSort = action('bx-table-header-cell-sort');
-      return {
-        ...props,
-        demoColumns,
-        demoRows,
-        demoSortInfo,
-        onBeforeChangeSelection,
-        onBeforeChangeSort,
-      };
-    })(createProps({ sortable: true })),
-    moduleMetadata: {
+export const sortable = ({ parameters }) => ({
+  template: `
+    <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
+    <bx-ce-demo-data-table
+      [columns]="demoColumns"
+      [rows]="demoRows"
+      [sortInfo]="demoSortInfo"
+      [hasSelection]="hasSelection"
+      [size]="size"
+      [zebra]="zebra"
+      (bx-table-row-change-selection)="onBeforeChangeSelection($event)"
+      (bx-table-change-selection-all)="onBeforeChangeSelection($event)"
+      (bx-table-header-cell-sort)="onBeforeChangeSort($event)"
+    >
+    </bx-ce-demo-data-table>
+  `,
+  props: (props => {
+    const beforeChangeSelectionAction = action('bx-table-row-change-selection');
+    const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
+    const onBeforeChangeSelection = (event: CustomEvent) => {
+      if (event.type === 'bx-table-change-selection-all') {
+        beforeChangeSelectionAllAction(event);
+      } else {
+        beforeChangeSelectionAction(event);
+      }
+    };
+    const onBeforeChangeSort = action('bx-table-header-cell-sort');
+    return {
+      ...props,
+      demoColumns,
+      demoRows,
+      demoSortInfo,
+      onBeforeChangeSelection,
+      onBeforeChangeSort,
+    };
+  })({
+    ...parameters?.props?.['bx-table'],
+    ...parameters?.props?.['bx-table-body'],
+    ...parameters?.props?.['bx-table-row'],
+    ...parameters?.props?.['bx-header-cell'],
+  }),
+});
+
+sortable.story = Object.assign(baseSortable.story, {
+  decorators: [
+    moduleMetadata({
       declarations: [
         BXCEDemoDataTable,
         BXCETableRowsSortPipe,
@@ -517,48 +504,58 @@ storiesOf('Data table', module)
         BXCETableColumnSortDirectionPipe,
         BXCETableRowSelectionIdPipe,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
-  }))
-  .add('Sortable with pagination', () => ({
-    template: `
-      <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
-      <bx-ce-demo-data-table
-        [columns]="demoColumns"
-        [rows]="demoRows"
-        [sortInfo]="demoSortInfo"
-        [hasSelection]="hasSelection"
-        [pageSize]="5"
-        [size]="size"
-        [start]="0"
-        [zebra]="zebra"
-        (bx-table-row-change-selection)="onBeforeChangeSelection($event)"
-        (bx-table-change-selection-all)="onBeforeChangeSelection($event)"
-        (bx-table-header-cell-sort)="onBeforeChangeSort($event)"
-      >
-      </bx-ce-demo-data-table>
-    `,
-    props: (props => {
-      const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-      const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
-      const onBeforeChangeSelection = (event: CustomEvent) => {
-        if (event.type === 'bx-table-change-selection-all') {
-          beforeChangeSelectionAllAction(event);
-        } else {
-          beforeChangeSelectionAction(event);
-        }
-      };
-      const onBeforeChangeSort = action('bx-table-header-cell-sort');
-      return {
-        ...props,
-        demoColumns,
-        demoRows: demoRowsMany,
-        demoSortInfo,
-        onBeforeChangeSelection,
-        onBeforeChangeSort,
-      };
-    })(createProps({ sortable: true })),
-    moduleMetadata: {
+    }),
+  ],
+});
+
+export const sortableWithPagination = ({ parameters }) => ({
+  template: `
+    <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
+    <bx-ce-demo-data-table
+      [columns]="demoColumns"
+      [rows]="demoRows"
+      [sortInfo]="demoSortInfo"
+      [hasSelection]="hasSelection"
+      [pageSize]="5"
+      [size]="size"
+      [start]="0"
+      [zebra]="zebra"
+      (bx-table-row-change-selection)="onBeforeChangeSelection($event)"
+      (bx-table-change-selection-all)="onBeforeChangeSelection($event)"
+      (bx-table-header-cell-sort)="onBeforeChangeSort($event)"
+    >
+    </bx-ce-demo-data-table>
+  `,
+  props: (props => {
+    const beforeChangeSelectionAction = action('bx-table-row-change-selection');
+    const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
+    const onBeforeChangeSelection = (event: CustomEvent) => {
+      if (event.type === 'bx-table-change-selection-all') {
+        beforeChangeSelectionAllAction(event);
+      } else {
+        beforeChangeSelectionAction(event);
+      }
+    };
+    const onBeforeChangeSort = action('bx-table-header-cell-sort');
+    return {
+      ...props,
+      demoColumns,
+      demoRows: demoRowsMany,
+      demoSortInfo,
+      onBeforeChangeSelection,
+      onBeforeChangeSort,
+    };
+  })({
+    ...parameters?.props?.['bx-table'],
+    ...parameters?.props?.['bx-table-body'],
+    ...parameters?.props?.['bx-table-row'],
+    ...parameters?.props?.['bx-header-cell'],
+  }),
+});
+
+sortableWithPagination.story = Object.assign(baseSortableWithPagination.story, {
+  decorators: [
+    moduleMetadata({
       declarations: [
         BXCEDemoDataTable,
         BXCETableRowsSortPipe,
@@ -566,6 +563,14 @@ storiesOf('Data table', module)
         BXCETableColumnSortDirectionPipe,
         BXCETableRowSelectionIdPipe,
       ],
+    }),
+  ],
+});
+
+export default Object.assign(baseStory, {
+  decorators: [
+    moduleMetadata({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
-  }));
+    }),
+  ],
+});

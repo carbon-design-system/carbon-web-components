@@ -45,7 +45,7 @@ defaultStory.story = {
   },
 };
 
-export const filterStory = ({ parameters }) => {
+export const filter = ({ parameters }) => {
   const { type, title, disabled, onClick } =
     (parameters.props && parameters.props['bx-filter-tag']) || ({} as typeof parameters.props['bx-filter-tag']);
   return html`
@@ -55,8 +55,7 @@ export const filterStory = ({ parameters }) => {
   `;
 };
 
-filterStory.story = {
-  name: 'Filter',
+filter.story = {
   parameters: {
     knobs: {
       'bx-filter-tag': () => ({
