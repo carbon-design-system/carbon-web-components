@@ -11,6 +11,7 @@ import { html, property, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import settings from 'carbon-components/es/globals/js/settings';
 import HostListener from '../../globals/decorators/host-listener';
+import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import styles from './tile.scss';
 
@@ -20,7 +21,7 @@ const { prefix } = settings;
  * Expandable tile.
  */
 @customElement(`${prefix}-expandable-tile`)
-class BXExpandableTile extends HostListenerMixin(LitElement) {
+class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
   @HostListener('click')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleClick = () => {
@@ -63,6 +64,10 @@ class BXExpandableTile extends HostListenerMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   expanded = false;
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   render() {
     const { collapsedAssistiveText, expandedAssistiveText, expanded } = this;

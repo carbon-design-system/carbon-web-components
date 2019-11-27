@@ -10,7 +10,6 @@
 import { html, property, customElement, LitElement } from 'lit-element';
 import classnames from 'classnames';
 import settings from 'carbon-components/es/globals/js/settings';
-import FocusMixin from '../../globals/mixins/focus';
 import TAG_TYPE from './types';
 import styles from './tag.scss';
 
@@ -22,7 +21,7 @@ const { prefix } = settings;
  * Tag.
  */
 @customElement(`${prefix}-tag`)
-export default class BXTag extends FocusMixin(LitElement) {
+export default class BXTag extends LitElement {
   /**
    * `true` if the tag should be disabled
    */

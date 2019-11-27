@@ -13,6 +13,7 @@ import CaretLeft24 from '@carbon/icons/lib/caret--left/24';
 import CaretRight24 from '@carbon/icons/lib/caret--right/24';
 import settings from 'carbon-components/es/globals/js/settings';
 import on from 'carbon-components/es/globals/js/misc/on';
+import FocusMixin from '../../globals/mixins/focus';
 import { forEach } from '../../globals/internal/collection-helpers';
 import Handle from '../../globals/internal/handle';
 import BXPagesSelect from './pages-select';
@@ -25,7 +26,7 @@ const { prefix } = settings;
  * Pagination UI.
  */
 @customElement(`${prefix}-pagination`)
-class BXPagination extends LitElement {
+class BXPagination extends FocusMixin(LitElement) {
   /**
    * The handle for the listener of `${prefix}-pages-select-changed` event.
    */
@@ -157,6 +158,10 @@ class BXPagination extends LitElement {
    */
   @property({ type: Number })
   total!: number;
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   connectedCallback() {
     super.connectedCallback();

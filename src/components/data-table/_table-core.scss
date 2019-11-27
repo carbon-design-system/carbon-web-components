@@ -63,6 +63,7 @@
     background-color: $ui-03;
     text-align: left;
     display: table-cell;
+    outline: none;
   }
 
   ::slotted(#{$prefix}-table-header-cell:first-of-type) {
@@ -91,6 +92,7 @@
   height: $layout-04;
   width: 100%;
   display: table-row;
+  outline: none;
 }
 
 //

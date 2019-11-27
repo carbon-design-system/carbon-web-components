@@ -36,6 +36,8 @@ $css--plex: true !default;
 
 :host(#{$prefix}-overflow-menu-item) {
   @extend .#{$prefix}--overflow-menu-options__option;
+
+  outline: none;
 }
 
 :host(#{$prefix}-overflow-menu-item[danger]) {

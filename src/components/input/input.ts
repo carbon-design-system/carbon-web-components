@@ -135,6 +135,10 @@ export default class BXInput extends FormMixin(LitElement) {
   @property()
   value = '';
 
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
+
   render() {
     const { _handleInput: handleInput } = this;
 

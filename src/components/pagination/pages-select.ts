@@ -10,6 +10,7 @@
 import { html, property, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import settings from 'carbon-components/es/globals/js/settings';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './pagination.scss';
 
 const { prefix } = settings;
@@ -18,7 +19,7 @@ const { prefix } = settings;
  * The select box for the current page.
  */
 @customElement(`${prefix}-pages-select`)
-class BXPagesSelect extends LitElement {
+class BXPagesSelect extends FocusMixin(LitElement) {
   /**
    * Handles `change` event on the `<select>` to select page size.
    */
@@ -60,6 +61,10 @@ class BXPagesSelect extends LitElement {
    */
   @property({ type: Number })
   value!: number;
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   render() {
     const { formatLabelText, formatSupplementalText, total, value, _handleChange: handleChange } = this;

@@ -13,6 +13,7 @@ import CheckmarkOutline16 from '@carbon/icons/lib/checkmark--outline/16';
 import Warning16 from '@carbon/icons/lib/warning/16';
 import settings from 'carbon-components/es/globals/js/settings';
 import spread from '../../globals/directives/spread';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './progress-indicator.scss';
 
 const { prefix } = settings;
@@ -74,7 +75,7 @@ const icons = {
  * Progress step.
  */
 @customElement(`${prefix}-progress-step`)
-class BXProgressStep extends LitElement {
+class BXProgressStep extends FocusMixin(LitElement) {
   /**
    * `true` if the progress step should be disabled. Corresponds to the attribute with the same name.
    */
@@ -110,6 +111,10 @@ class BXProgressStep extends LitElement {
    */
   @property({ type: Boolean, reflect: true })
   vertical = false;
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   connectedCallback() {
     if (!this.hasAttribute('role')) {

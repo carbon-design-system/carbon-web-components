@@ -11,6 +11,7 @@ import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown20 from '@carbon/icons/lib/chevron--down/20';
 import { filter, forEach } from '../../globals/internal/collection-helpers';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './side-nav.scss';
 
 const { prefix } = settings;
@@ -19,7 +20,7 @@ const { prefix } = settings;
  * Side nav menu.
  */
 @customElement(`${prefix}-side-nav-menu`)
-class BXSideNavMenu extends LitElement {
+class BXSideNavMenu extends FocusMixin(LitElement) {
   /**
    * @param item A menu item.
    * @returns `true` if the given menu item is active.
@@ -92,6 +93,10 @@ class BXSideNavMenu extends LitElement {
    */
   @property()
   title = '';
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   connectedCallback() {
     if (!this.hasAttribute('role')) {

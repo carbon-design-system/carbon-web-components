@@ -12,6 +12,7 @@ import { TemplateResult } from 'lit-html';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import settings from 'carbon-components/es/globals/js/settings';
+import FocusMixin from '../../globals/mixins/focus';
 import {
   _createHandleFeedbackTooltip as createHandleCopyButtonFeedbackTooltip,
   _renderButton as renderCopyButton,
@@ -93,7 +94,7 @@ const renderCode = ({
  * Basic code snippet.
  */
 @customElement(`${prefix}-code-snippet`)
-class BXCodeSnippet extends LitElement {
+class BXCodeSnippet extends FocusMixin(LitElement) {
   /**
    * `true` to expand multi-line variant of code snippet.
    */
@@ -212,6 +213,10 @@ class BXCodeSnippet extends LitElement {
    */
   @property({ reflect: true })
   type = CODE_SNIPPET_TYPE.SINGLE;
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   render() {
     const {

@@ -9,6 +9,7 @@
 
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
+import FocusMixin from '../../globals/mixins/focus';
 import styles from './overflow-menu.scss';
 
 const { prefix } = settings;
@@ -17,7 +18,7 @@ const { prefix } = settings;
  * Overflow menu item.
  */
 @customElement(`${prefix}-overflow-menu-item`)
-class BXOverflowMenuItem extends LitElement {
+class BXOverflowMenuItem extends FocusMixin(LitElement) {
   /**
    * `true` if the action is danger. Corresponds to the attribute with the same name.
    */
@@ -35,6 +36,10 @@ class BXOverflowMenuItem extends LitElement {
    */
   @property()
   href = '';
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   connectedCallback() {
     if (!this.hasAttribute('role')) {
