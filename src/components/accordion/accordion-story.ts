@@ -14,8 +14,7 @@ import './accordion';
 import './accordion-item';
 
 export const defaultStory = ({ parameters }) => {
-  const { open, titleText, disableToggle } =
-    (parameters.props && parameters.props['bx-accordion']) || ({} as typeof parameters.props['bx-accordion']);
+  const { open, titleText, disableToggle } = parameters?.props?.['bx-accordion'];
   const beforeToggleAction = action('bx-accordion-item-beingtoggled');
   const handleBeforeToggle = (event: CustomEvent) => {
     beforeToggleAction(event);

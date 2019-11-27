@@ -14,8 +14,7 @@ import './content-switcher';
 import './content-switcher-item';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, disableSelection } =
-    (parameters.props && parameters.props['bx-content-switcher']) || ({} as typeof parameters.props['bx-content-switcher']);
+  const { disabled, value, disableSelection } = parameters?.props?.['bx-content-switcher'];
   const beforeSelectedAction = action('bx-content-switcher-beingselected');
   const handleBeforeSelected = (event: CustomEvent) => {
     beforeSelectedAction(event);

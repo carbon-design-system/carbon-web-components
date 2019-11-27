@@ -352,6 +352,13 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
   }
 
   /**
+   * A selector that will return enabled tabs.
+   */
+  static get selectorItemEnabled() {
+    return `${prefix}-tab:not([disabled])`;
+  }
+
+  /**
    * A selector that will return highlighted tabs.
    */
   static get selectorItemHighlighted() {

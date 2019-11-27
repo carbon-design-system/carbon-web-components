@@ -8,126 +8,87 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, select, text } from '@storybook/addon-knobs/angular';
-import { NOTIFICATION_KIND } from './inline-notification';
-import './toast-notification';
+import { moduleMetadata } from '@storybook/angular';
+import baseStory, { inline as baseInline, toast as baseToast } from './notification-story';
 
-const kinds = {
-  [`Success (${NOTIFICATION_KIND.SUCCESS})`]: NOTIFICATION_KIND.SUCCESS,
-  [`Info (${NOTIFICATION_KIND.INFO})`]: NOTIFICATION_KIND.INFO,
-  [`Warning (${NOTIFICATION_KIND.WARNING})`]: NOTIFICATION_KIND.WARNING,
-  [`Error (${NOTIFICATION_KIND.ERROR})`]: NOTIFICATION_KIND.ERROR,
-};
-
-const createInlineProps = () => ({
-  kind: select('The notification kind (kind)', kinds, NOTIFICATION_KIND.INFO),
-  title: text('Title (title)', 'Notification title'),
-  subtitle: text('Subtitle (subtitle)', 'Subtitle text goes here.'),
-  hideCloseButton: boolean('Hide the close button (hide-close-button)', false),
-  closeButtonLabel: text('a11y label for the close button (close-button-label)', ''),
-  iconLabel: text('a11y label for the icon (icon-label)', ''),
-  open: boolean('Open (open)', true),
-  disableClose: boolean(
-    'Disable user-initiated close action (Call event.preventDefault() in bx-notification-beingclosed event)',
-    false
-  ),
+export const inline = ({ parameters }) => ({
+  template: `
+    <bx-inline-notification
+      style="min-width: 30rem; margin-bottom: .5rem"
+      [kind]="kind"
+      [title]="title"
+      [subtitle]="subtitle"
+      [hideCloseButton]="hideCloseButton"
+      [closeButtonLabel]="closeButtonLabel"
+      [iconLabel]="iconLabel"
+      [open]="open"
+      (bx-notification-beingclosed)="handleBeforeClose($event)"
+      (bx-notification-closed)="handleClose($event)"
+    >
+    </bx-inline-notification>
+  `,
+  props: (({ disableClose, ...rest }) => {
+    const beforeSelectedAction = action('bx-notification-beingclosed');
+    return {
+      ...rest,
+      handleBeforeClose: (event: CustomEvent) => {
+        beforeSelectedAction(event);
+        if (disableClose) {
+          event.preventDefault();
+        }
+      },
+      handleClose: action('bx-notification-closed'),
+    };
+  })(parameters?.props?.['bx-inline-notification']),
+  moduleMetadata: {
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  },
 });
 
-const createToastProps = () => ({
-  ...createInlineProps(),
-  caption: text('Caption (caption)', 'Time stamp [00:00:00]'),
+inline.story = baseInline.story;
+
+export const toast = ({ parameters }) => ({
+  template: `
+    <bx-toast-notification
+      style="min-width: 30rem; margin-bottom: .5rem"
+      [kind]="kind"
+      [title]="title"
+      [subtitle]="subtitle"
+      [caption]="caption"
+      [hideCloseButton]="hideCloseButton"
+      [closeButtonLabel]="closeButtonLabel"
+      [iconLabel]="iconLabel"
+      [open]="open"
+      (bx-notification-beingclosed)="handleBeforeClose($event)"
+      (bx-notification-closed)="handleClose($event)"
+    >
+    </bx-toast-notification>
+  `,
+  props: (({ disableClose, ...rest }) => {
+    const beforeSelectedAction = action('bx-notification-beingclosed');
+    return {
+      ...rest,
+      handleBeforeClose: (event: CustomEvent) => {
+        beforeSelectedAction(event);
+        if (disableClose) {
+          event.preventDefault();
+        }
+      },
+      handleClose: action('bx-notification-closed'),
+    };
+  })(parameters?.props?.['bx-toast-notification']),
+  moduleMetadata: {
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  },
 });
 
-storiesOf('Notifications', module)
-  .addDecorator(withKnobs)
-  .add(
-    'Inline',
-    () => ({
-      template: `
-      <bx-inline-notification
-        style="min-width: 30rem; margin-bottom: .5rem"
-        [kind]="kind"
-        [title]="title"
-        [subtitle]="subtitle"
-        [hideCloseButton]="hideCloseButton"
-        [closeButtonLabel]="closeButtonLabel"
-        [iconLabel]="iconLabel"
-        [open]="open"
-        (bx-notification-beingclosed)="handleBeforeClose($event)"
-        (bx-notification-closed)="handleClose($event)"
-      >
-      </bx-inline-notification>
-    `,
-      props: (({ disableClose, ...rest }) => {
-        const beforeSelectedAction = action('bx-notification-beingclosed');
-        return {
-          ...rest,
-          handleBeforeClose: (event: CustomEvent) => {
-            beforeSelectedAction(event);
-            if (disableClose) {
-              event.preventDefault();
-            }
-          },
-          handleClose: action('bx-notification-closed'),
-        };
-      })(createInlineProps()),
-      moduleMetadata: {
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      },
+toast.story = baseToast.story;
+
+export default Object.assign(baseStory, {
+  decorators: [
+    moduleMetadata({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }),
-    {
-      docs: {
-        storyDescription: `
-Inline notifications show up in task flows, to notify users of the status of an action.
-They usually appear at the top of the primary content area.
-      `,
-      },
-    }
-  )
-  .add(
-    'Toast',
-    () => ({
-      template: `
-      <bx-toast-notification
-        style="min-width: 30rem; margin-bottom: .5rem"
-        [kind]="kind"
-        [title]="title"
-        [subtitle]="subtitle"
-        [caption]="caption"
-        [hideCloseButton]="hideCloseButton"
-        [closeButtonLabel]="closeButtonLabel"
-        [iconLabel]="iconLabel"
-        [open]="open"
-        (bx-notification-beingclosed)="handleBeforeClose($event)"
-        (bx-notification-closed)="handleClose($event)"
-      >
-      </bx-toast-notification>
-    `,
-      props: (({ disableClose, ...rest }) => {
-        const beforeSelectedAction = action('bx-notification-beingclosed');
-        return {
-          ...rest,
-          handleBeforeClose: (event: CustomEvent) => {
-            beforeSelectedAction(event);
-            if (disableClose) {
-              event.preventDefault();
-            }
-          },
-          handleClose: action('bx-notification-closed'),
-        };
-      })(createToastProps()),
-      moduleMetadata: {
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      },
-    }),
-    {
-      docs: {
-        storyDescription: `
-Toasts are non-modal, time-based window elements used to display short messages;
-they usually appear at the bottom of the screen and disappear after a few seconds.
-      `,
-      },
-    }
-  );
+  ],
+});

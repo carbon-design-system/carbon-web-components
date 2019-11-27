@@ -14,8 +14,9 @@ import './dropdown';
 import './dropdown-item';
 
 export const defaultStory = ({ parameters }) => {
-  const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection } =
-    (parameters.props && parameters.props['bx-dropdown']) || ({} as typeof parameters.props['bx-dropdown']);
+  const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection } = parameters?.props?.[
+    'bx-dropdown'
+  ];
   const beforeSelectedAction = action('bx-dropdown-beingselected');
   const handleBeforeSelected = (event: CustomEvent) => {
     beforeSelectedAction(event);

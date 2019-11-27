@@ -8,60 +8,51 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, number, text } from '@storybook/addon-knobs/angular';
-import './slider';
-import './slider-input';
+import { moduleMetadata } from '@storybook/angular';
+import baseStory, { defaultStory as baseDefaultStory, withInputBox as baseWithInputBox } from './slider-story';
 
-const createProps = () => ({
-  disabled: boolean('Disabled (disabled)', false),
-  labelText: text('Label text (labelText)', 'Slider'),
-  name: text('Name (name)', ''),
-  max: number('The maximum value (max)', 100),
-  min: number('The minimum value (min)', 0),
-  step: number('The step (step)', 1),
-  value: number('Value (value)', 50),
-  onAfterChange: action('bx-slider-changed'),
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-slider
+      [disabled]="disabled"
+      [labelText]="labelText"
+      [max]="max"
+      [min]="min"
+      [name]="name"
+      [step]="step"
+      [value]="value"
+      (bx-slider-changed)="onAfterChange($event)"
+    ></bx-slider>
+  `,
+  props: parameters?.props?.['bx-slider'],
 });
 
-storiesOf('Slider', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-slider
-        [disabled]="disabled"
-        [labelText]="labelText"
-        [max]="max"
-        [min]="min"
-        [name]="name"
-        [step]="step"
-        [value]="value"
-        (bx-slider-changed)="onAfterChange($event)"
-      ></bx-slider>
-    `,
-    props: createProps(),
-    moduleMetadata: {
+defaultStory.story = baseDefaultStory.story;
+
+export const withInputBox = ({ parameters }) => ({
+  template: `
+    <bx-slider
+      [disabled]="disabled"
+      [labelText]="labelText"
+      [max]="max"
+      [min]="min"
+      [name]="name"
+      [step]="step"
+      [value]="value"
+      (bx-slider-changed)="onAfterChange($event)"
+    >
+      <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
+    </bx-slider>
+  `,
+  props: parameters?.props?.['bx-slider'],
+});
+
+withInputBox.story = baseWithInputBox.story;
+
+export default Object.assign(baseStory, {
+  decorators: [
+    moduleMetadata({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
-  }))
-  .add('With input box', () => ({
-    template: `
-      <bx-slider
-        [disabled]="disabled"
-        [labelText]="labelText"
-        [max]="max"
-        [min]="min"
-        [name]="name"
-        [step]="step"
-        [value]="value"
-        (bx-slider-changed)="onAfterChange($event)"
-      >
-        <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
-      </bx-slider>
-    `,
-    props: createProps(),
-    moduleMetadata: {
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
-  }));
+    }),
+  ],
+});

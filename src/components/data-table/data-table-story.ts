@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, property, customElement, LitElement } from 'lit-element';
+import { html, property, LitElement } from 'lit-element';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { repeat } from 'lit-html/directives/repeat';
 import { action } from '@storybook/addon-actions';
@@ -32,7 +32,6 @@ import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types'
  * and thus abstracting everything in a library won't be a good return on investment
  * vs. letting users copy code here and implement features that fit their needs.
  */
-@customElement('bx-ce-demo-data-table')
 // @ts-ignore `BXCEDemoDataTable` is used (only) for type reference
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class BXCEDemoDataTable extends LitElement {
@@ -319,10 +318,19 @@ const sizes = {
   [`Tall size (${TABLE_SIZE.TALL})`]: TABLE_SIZE.TALL,
 };
 
+const defineDemoDataTable = (() => {
+  let hasDemoDataTableDefined;
+  return () => {
+    if (!hasDemoDataTableDefined) {
+      hasDemoDataTableDefined = true;
+      customElements.define('bx-ce-demo-data-table', BXCEDemoDataTable);
+    }
+  };
+})();
+
 export const defaultStory = ({ parameters }) => {
-  const { 'bx-table': tableProps, 'bx-table-body': tableBodyProps } = parameters.props || ({} as typeof parameters.props);
-  const { size } = tableProps || ({} as typeof tableProps);
-  const { zebra } = tableBodyProps || ({} as typeof tableBodyProps);
+  const { size } = parameters?.props?.['bx-table'];
+  const { zebra } = parameters?.props?.['bx-table-body'];
   return html`
     <bx-table size="${size}">
       <bx-table-head>
@@ -379,17 +387,11 @@ defaultStory.story = {
   },
 };
 
-export const sortableStory = ({ parameters }) => {
-  const {
-    'bx-table': tableProps,
-    'bx-table-body': tableBodyProps,
-    'bx-table-row': tableRowProps,
-    'bx-table-header-cell': tableHeaderCellProps,
-  } = parameters.props || ({} as typeof parameters.props);
-  const { size } = tableProps || ({} as typeof tableProps);
-  const { zebra } = tableBodyProps || ({} as typeof tableBodyProps);
-  const { hasSelection, disableChangeSelection } = tableRowProps || ({} as typeof tableRowProps);
-  const { disableChangeSort } = tableHeaderCellProps || ({} as typeof tableHeaderCellProps);
+export const sortable = ({ parameters }) => {
+  const { size } = parameters?.props?.['bx-table'];
+  const { zebra } = parameters?.props?.['bx-table-body'];
+  const { hasSelection, disableChangeSelection } = parameters?.props?.['bx-table-row'];
+  const { disableChangeSort } = parameters?.props?.['bx-table-header-cell'];
   const beforeChangeSelectionAction = action('bx-table-row-change-selection');
   const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
   const beforeChangeSelectionHandler = {
@@ -415,6 +417,7 @@ export const sortableStory = ({ parameters }) => {
     },
     capture: true, // To prevent the default behavior before `<bx-ce-demo-data-table>` handles the event
   };
+  defineDemoDataTable();
   return html`
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
     <bx-ce-demo-data-table
@@ -432,8 +435,7 @@ export const sortableStory = ({ parameters }) => {
   `;
 };
 
-sortableStory.story = {
-  name: 'Sortable',
+sortable.story = {
   parameters: {
     knobs: {
       ...defaultStory.story.parameters.knobs,
@@ -461,16 +463,10 @@ sortableStory.story = {
 };
 
 export const sortableWithPagination = ({ parameters }) => {
-  const {
-    'bx-table': tableProps,
-    'bx-table-body': tableBodyProps,
-    'bx-table-row': tableRowProps,
-    'bx-table-header-cell': tableHeaderCellProps,
-  } = parameters.props || ({} as typeof parameters.props);
-  const { size } = tableProps || ({} as typeof tableProps);
-  const { zebra } = tableBodyProps || ({} as typeof tableBodyProps);
-  const { hasSelection, disableChangeSelection } = tableRowProps || ({} as typeof tableRowProps);
-  const { disableChangeSort } = tableHeaderCellProps || ({} as typeof tableHeaderCellProps);
+  const { size } = parameters?.props?.['bx-table'];
+  const { zebra } = parameters?.props?.['bx-table-body'];
+  const { hasSelection, disableChangeSelection } = parameters?.props?.['bx-table-row'];
+  const { disableChangeSort } = parameters?.props?.['bx-table-header-cell'];
   const beforeChangeSelectionAction = action('bx-table-row-change-selection');
   const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
   const beforeChangeSelectionHandler = {
@@ -496,6 +492,7 @@ export const sortableWithPagination = ({ parameters }) => {
     },
     capture: true, // To prevent the default behavior before `<bx-ce-demo-data-table>` handles the event
   };
+  defineDemoDataTable();
   return html`
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
     <bx-ce-demo-data-table
@@ -518,7 +515,7 @@ export const sortableWithPagination = ({ parameters }) => {
 sortableWithPagination.story = {
   name: 'Sortable with pagination',
   parameters: {
-    knobs: sortableStory.story.parameters.knobs,
+    knobs: sortable.story.parameters.knobs,
   },
 };
 

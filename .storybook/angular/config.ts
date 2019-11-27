@@ -12,6 +12,7 @@ import '../../src/polyfills';
 import addons from '@storybook/addons';
 import { configure, addDecorator, addParameters } from '@storybook/angular';
 import { DocsContainer } from '@storybook/addon-docs/blocks';
+import { withKnobs } from '@storybook/addon-knobs';
 import '../components/focus-trap/focus-trap';
 import { CURRENT_THEME } from '../addon-carbon-theme/shared';
 import theme from './theme';
@@ -53,13 +54,26 @@ addDecorator(story => {
   };
 });
 
+addDecorator(withKnobs);
+
+addDecorator((story, { parameters }) => {
+  const { knobs } = parameters;
+  if (Object(knobs) === knobs) {
+    if (!parameters.props) {
+      parameters.props = {};
+    }
+    Object.keys(knobs).forEach(name => {
+      if (typeof knobs[name] === 'function') {
+        parameters.props[name] = knobs[name]();
+      }
+    });
+  }
+  return story();
+});
+
 addons.getChannel().on(CURRENT_THEME, theme => {
   document.documentElement.setAttribute('storybook-carbon-theme', theme);
 });
 
-function loadStories() {
-  const req = require.context('../../src/components', true, /\-story\-angular\.[jt]s$/);
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
+const req = require.context('../../src/components', true, /\-story\-angular\.[jt]s$/);
+configure(req, module);

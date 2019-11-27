@@ -14,7 +14,7 @@ import { TAG_TYPE } from './tag';
 import './filter-tag';
 
 export const defaultStory = ({ parameters }) => {
-  const { type, title, disabled } = (parameters.props && parameters.props['bx-tag']) || ({} as typeof parameters.props['bx-tag']);
+  const { type, title, disabled } = parameters?.props?.['bx-tag'];
   return html`
     <bx-tag type=${type} ?title=${title} ?disabled=${disabled}>
       This is not a tag
@@ -45,9 +45,8 @@ defaultStory.story = {
   },
 };
 
-export const filterStory = ({ parameters }) => {
-  const { type, title, disabled, onClick } =
-    (parameters.props && parameters.props['bx-filter-tag']) || ({} as typeof parameters.props['bx-filter-tag']);
+export const filter = ({ parameters }) => {
+  const { type, title, disabled, onClick } = parameters?.props?.['bx-filter-tag'];
   return html`
     <bx-filter-tag type=${type} ?title=${title} ?disabled=${disabled} @click=${onClick} filter>
       This is not a tag
@@ -55,8 +54,7 @@ export const filterStory = ({ parameters }) => {
   `;
 };
 
-filterStory.story = {
-  name: 'Filter',
+filter.story = {
   parameters: {
     knobs: {
       'bx-filter-tag': () => ({

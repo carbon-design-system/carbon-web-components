@@ -15,8 +15,7 @@ import './page-sizes-select';
 import './pages-select';
 
 export const defaultStory = ({ parameters }) => {
-  const { atLastPage, pageSize, start, total, onChangedCurrent, onChangedPageSizesSelect } =
-    (parameters.props && parameters.props['bx-pagination']) || ({} as typeof parameters.props['bx-pagination']);
+  const { atLastPage, pageSize, start, total, onChangedCurrent, onChangedPageSizesSelect } = parameters?.props?.['bx-pagination'];
   return html`
     <bx-pagination
       ?at-last-page="${atLastPage || undefined}"

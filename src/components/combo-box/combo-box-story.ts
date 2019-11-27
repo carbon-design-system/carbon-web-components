@@ -14,8 +14,18 @@ import './combo-box';
 import './combo-box-item';
 
 export const defaultStory = ({ parameters }) => {
-  const { open, disabled, helperText, invalid, labelText, light, value, triggerContent, validityMessage, disableSelection } =
-    (parameters.props && parameters.props['bx-combo-box']) || ({} as typeof parameters.props['bx-combo-box']);
+  const {
+    open,
+    disabled,
+    helperText,
+    invalid,
+    labelText,
+    light,
+    value,
+    triggerContent,
+    validityMessage,
+    disableSelection,
+  } = parameters?.props?.['bx-combo-box'];
   const beforeSelectedAction = action('bx-combo-box-beingselected');
   const handleBeforeSelected = (event: CustomEvent) => {
     beforeSelectedAction(event);

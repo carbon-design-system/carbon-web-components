@@ -8,61 +8,54 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf } from '@storybook/angular';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs/angular';
-import './progress-indicator';
-import './progress-step';
+import { moduleMetadata } from '@storybook/angular';
+import baseStory, { defaultStory as baseDefaultStory } from './progress-indicator-story';
 
-const createProps = () => ({
-  vertical: boolean('Vertical (vertical)', false),
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-progress-indicator
+      [vertical]="vertical"
+    >
+      <bx-progress-step
+        [iconLabel]="iconLabel"
+        [labelText]="labelText"
+        [secondaryLabelText]="secondaryLabelText"
+        state="invalid"
+      ></bx-progress-step>
+      <bx-progress-step
+        [iconLabel]="iconLabel"
+        [labelText]="labelText"
+        [secondaryLabelText]="secondaryLabelText"
+        state="complete"
+      ></bx-progress-step>
+      <bx-progress-step
+        [iconLabel]="iconLabel"
+        [labelText]="labelText"
+        [secondaryLabelText]="secondaryLabelText"
+        state="current"
+      ></bx-progress-step>
+      <bx-progress-step
+        disabled
+        [iconLabel]="iconLabel"
+        [labelText]="labelText"
+        [secondaryLabelText]="secondaryLabelText"
+      ></bx-progress-step>
+      <bx-progress-step
+        [iconLabel]="iconLabel"
+        [labelText]="labelText"
+        [secondaryLabelText]="secondaryLabelText"
+      ></bx-progress-step>
+    </bx-progress-indicator>
+  `,
+  props: { ...parameters?.props?.['bx-progress-indicator'], ...parameters?.props?.['bx-progress-step'] },
 });
 
-const createStepProps = () => ({
-  iconLabel: text('Icon label (icon-label)', ''),
-  labelText: text('Primary label text (label-text)', 'Label'),
-  secondaryLabelText: text('Secondary label text (secondary-label-text)', 'Secondary label'),
-});
+defaultStory.story = baseDefaultStory.story;
 
-storiesOf('Progress indicator', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-progress-indicator
-        [vertical]="vertical"
-      >
-        <bx-progress-step
-          [iconLabel]="iconLabel"
-          [labelText]="labelText"
-          [secondaryLabelText]="secondaryLabelText"
-          state="invalid"
-        ></bx-progress-step>
-        <bx-progress-step
-          [iconLabel]="iconLabel"
-          [labelText]="labelText"
-          [secondaryLabelText]="secondaryLabelText"
-          state="complete"
-        ></bx-progress-step>
-        <bx-progress-step
-          [iconLabel]="iconLabel"
-          [labelText]="labelText"
-          [secondaryLabelText]="secondaryLabelText"
-          state="current"
-        ></bx-progress-step>
-        <bx-progress-step
-          disabled
-          [iconLabel]="iconLabel"
-          [labelText]="labelText"
-          [secondaryLabelText]="secondaryLabelText"
-        ></bx-progress-step>
-        <bx-progress-step
-          [iconLabel]="iconLabel"
-          [labelText]="labelText"
-          [secondaryLabelText]="secondaryLabelText"
-        ></bx-progress-step>
-      </bx-progress-indicator>
-    `,
-    props: { ...createProps(), ...createStepProps() },
-    moduleMetadata: {
+export default Object.assign(baseStory, {
+  decorators: [
+    moduleMetadata({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
-  }));
+    }),
+  ],
+});

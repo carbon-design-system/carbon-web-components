@@ -14,8 +14,7 @@ import '../form/form-item';
 import createProps from './stories/helpers';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, type, onInput } =
-    (parameters.props && parameters.props['bx-input']) || ({} as typeof parameters.props['bx-input']);
+  const { disabled, value, placeholder, invalid, type, onInput } = parameters?.props?.['bx-input'];
   return html`
     <bx-input
       ?disabled="${disabled}"
@@ -33,8 +32,7 @@ defaultStory.story = {
 };
 
 export const formItem = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput } =
-    (parameters.props && parameters.props['bx-input']) || ({} as typeof parameters.props['bx-input']);
+  const { disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-input'];
   return html`
     <bx-form-item>
       <bx-input value="${value}" placeholder="${placeholder}" @input="${onInput}" ?invalid="${invalid}" ?disabled="${disabled}">
@@ -51,8 +49,7 @@ formItem.story = {
 };
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput } =
-    (parameters.props && parameters.props['bx-input']) || ({} as typeof parameters.props['bx-input']);
+  const { disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-input'];
   return html`
     <bx-input value="${value}" placeholder="${placeholder}" @input="${onInput}" ?invalid="${invalid}" ?disabled="${disabled}">
       <span slot="label-text">Label text</span>

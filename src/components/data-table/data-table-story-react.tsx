@@ -9,9 +9,7 @@
 
 import PropTypes from 'prop-types';
 import React, { useCallback, useMemo, useState } from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
 // @ts-ignore
@@ -26,8 +24,10 @@ import BXTable, { TABLE_SIZE } from 'carbon-custom-elements/es/components-react/
 import BXTableHead from 'carbon-custom-elements/es/components-react/data-table/table-head';
 // @ts-ignore
 import BXTableHeaderRow from 'carbon-custom-elements/es/components-react/data-table/table-header-row';
-// @ts-ignore
-import BXTableHeaderCell, { TABLE_SORT_DIRECTION } from 'carbon-custom-elements/es/components-react/data-table/table-header-cell';
+import BXTableHeaderCell, {
+  TABLE_SORT_DIRECTION,
+  // @ts-ignore
+} from 'carbon-custom-elements/es/components-react/data-table/table-header-cell';
 // @ts-ignore
 import BXTableBody from 'carbon-custom-elements/es/components-react/data-table/table-body';
 // @ts-ignore
@@ -36,6 +36,13 @@ import BXTableRow from 'carbon-custom-elements/es/components-react/data-table/ta
 import BXTableCell from 'carbon-custom-elements/es/components-react/data-table/table-cell';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
+import {
+  defaultStory as baseDefaultStory,
+  sortable as baseSortable,
+  sortableWithPagination as baseSortableWithPagination,
+} from './data-table-story';
+
+export { default } from './data-table-story';
 
 /**
  * The map of how sorting direction affects sorting order.
@@ -215,7 +222,7 @@ const BXCEDemoDataTable = ({
           </BXTableHeaderRow>
         </BXTableHead>
         <BXTableBody zebra={zebra}>
-          {sortedRows.slice(start, start! + pageSize!).map(row => {
+          {sortedRows.slice(start, start! + (typeof pageSize === 'undefined' ? Infinity : pageSize)).map(row => {
             const { id: rowId, selected } = row;
             const selectionName = !hasSelection ? undefined : `__bx-ce-demo-data-table_${elementId}_${rowId}`;
             const selectionValue = !hasSelection ? undefined : 'selected';
@@ -323,147 +330,150 @@ BXCEDemoDataTable.defaultProps = {
   start: 0,
 };
 
-const sizes = {
-  [`Compact size (${TABLE_SIZE.COMPACT})`]: TABLE_SIZE.COMPACT,
-  [`Short size (${TABLE_SIZE.SHORT})`]: TABLE_SIZE.SHORT,
-  [`Regular size (${TABLE_SIZE.REGULAR})`]: TABLE_SIZE.REGULAR,
-  [`Tall size (${TABLE_SIZE.TALL})`]: TABLE_SIZE.TALL,
+export const defaultStory = ({ parameters }) => {
+  const { size } = parameters?.props?.['bx-table'];
+  return (
+    <bx-table size={size}>
+      <bx-table-head>
+        <bx-table-header-row>
+          <bx-table-header-cell>Name</bx-table-header-cell>
+          <bx-table-header-cell>Protocol</bx-table-header-cell>
+          <bx-table-header-cell>Port</bx-table-header-cell>
+          <bx-table-header-cell>Rule</bx-table-header-cell>
+          <bx-table-header-cell>Attached Groups</bx-table-header-cell>
+          <bx-table-header-cell>Status</bx-table-header-cell>
+        </bx-table-header-row>
+      </bx-table-head>
+      <bx-table-body>
+        <bx-table-row>
+          <bx-table-cell>Load Balancer 1</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell>Load Balancer 2</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell>Load Balancer 3</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-row>
+      </bx-table-body>
+    </bx-table>
+  );
 };
 
-const createProps = ({ sortable }: { sortable?: boolean } = {}) => {
-  const hasSelection = sortable && boolean('Supports selection feature (has-selection)', false);
-  return {
-    hasSelection,
-    size: select('Table size (size)', sizes, TABLE_SIZE.REGULAR),
-    zebra: sortable && boolean('Supports zebra stripe (zebra in `<BXTableBody>`)', false),
-    disableChangeSelection:
-      hasSelection &&
-      boolean('Disable user-initiated change in selection (Call event.preventDefault() in onBeforeChangeSelection event)', false),
-    disableChangeSort:
-      sortable && boolean('Disable user-initiated change in sorting (Call event.preventDefault() in onBeforeSort event)', false),
+defaultStory.story = baseDefaultStory.story;
+
+export const sortable = ({ parameters }) => {
+  const {
+    'bx-table': tableProps,
+    'bx-table-body': tableBodyProps,
+    'bx-table-row': tableRowProps,
+    'bx-table-header-cell': tableHeaderCellProps,
+  } = parameters.props || ({} as typeof parameters.props);
+  const { size } = tableProps || ({} as typeof tableProps);
+  const { zebra } = tableBodyProps || ({} as typeof tableBodyProps);
+  const { hasSelection, disableChangeSelection } = tableRowProps || ({} as typeof tableRowProps);
+  const { disableChangeSort } = tableHeaderCellProps || ({} as typeof tableHeaderCellProps);
+  const beforeChangeSelectionAction = action('onBeforeChangeSelection');
+  const beforeChangeSelectionAllAction = action('onBeforeChangeSelection (for selecting all rows)');
+  const beforeChangeSelectionHandler = (event: CustomEvent) => {
+    if (event.type === 'bx-table-change-selection-all') {
+      beforeChangeSelectionAllAction(event);
+    } else {
+      beforeChangeSelectionAction(event);
+    }
+    if (disableChangeSelection) {
+      event.preventDefault();
+    }
   };
+  const beforeChangeSortAction = action('onBeforeSort');
+  const beforeChangeSortHandler = (event: CustomEvent) => {
+    beforeChangeSortAction(event);
+    if (disableChangeSort) {
+      event.preventDefault();
+    }
+  };
+  return (
+    <>
+      {/* Refer to <bx-ce-demo-data-table> implementation at the top for details */}
+      <BXCEDemoDataTable
+        columns={demoColumns}
+        rows={demoRows}
+        sortInfo={demoSortInfo}
+        hasSelection={hasSelection}
+        size={size}
+        zebra={zebra}
+        onChangeSelection={beforeChangeSelectionHandler}
+        onChangeSelectionAll={beforeChangeSelectionHandler}
+        onSort={beforeChangeSortHandler}
+      />
+    </>
+  );
 };
 
-storiesOf('Data table', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { size } = createProps();
-    return (
-      <bx-table size={size}>
-        <bx-table-head>
-          <bx-table-header-row>
-            <bx-table-header-cell>Name</bx-table-header-cell>
-            <bx-table-header-cell>Protocol</bx-table-header-cell>
-            <bx-table-header-cell>Port</bx-table-header-cell>
-            <bx-table-header-cell>Rule</bx-table-header-cell>
-            <bx-table-header-cell>Attached Groups</bx-table-header-cell>
-            <bx-table-header-cell>Status</bx-table-header-cell>
-          </bx-table-header-row>
-        </bx-table-head>
-        <bx-table-body>
-          <bx-table-row>
-            <bx-table-cell>Load Balancer 1</bx-table-cell>
-            <bx-table-cell>HTTP</bx-table-cell>
-            <bx-table-cell>80</bx-table-cell>
-            <bx-table-cell>Round Robin</bx-table-cell>
-            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-            <bx-table-cell>Active</bx-table-cell>
-          </bx-table-row>
-          <bx-table-row>
-            <bx-table-cell>Load Balancer 2</bx-table-cell>
-            <bx-table-cell>HTTP</bx-table-cell>
-            <bx-table-cell>80</bx-table-cell>
-            <bx-table-cell>Round Robin</bx-table-cell>
-            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-            <bx-table-cell>Active</bx-table-cell>
-          </bx-table-row>
-          <bx-table-row>
-            <bx-table-cell>Load Balancer 3</bx-table-cell>
-            <bx-table-cell>HTTP</bx-table-cell>
-            <bx-table-cell>80</bx-table-cell>
-            <bx-table-cell>Round Robin</bx-table-cell>
-            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-            <bx-table-cell>Active</bx-table-cell>
-          </bx-table-row>
-        </bx-table-body>
-      </bx-table>
-    );
-  })
-  .add('Sortable', () => {
-    const { hasSelection, size, zebra, disableChangeSelection, disableChangeSort } = createProps({ sortable: true });
-    const beforeChangeSelectionAction = action('onBeforeChangeSelection');
-    const beforeChangeSelectionAllAction = action('onBeforeChangeSelection (for selecting all rows)');
-    const beforeChangeSelectionHandler = (event: CustomEvent) => {
-      if (event.type === 'bx-table-change-selection-all') {
-        beforeChangeSelectionAllAction(event);
-      } else {
-        beforeChangeSelectionAction(event);
-      }
-      if (disableChangeSelection) {
-        event.preventDefault();
-      }
-    };
-    const beforeChangeSortAction = action('onBeforeSort');
-    const beforeChangeSortHandler = (event: CustomEvent) => {
-      beforeChangeSortAction(event);
-      if (disableChangeSort) {
-        event.preventDefault();
-      }
-    };
-    return (
-      <>
-        {/* Refer to <bx-ce-demo-data-table> implementation at the top for details */}
-        <BXCEDemoDataTable
-          columns={demoColumns}
-          rows={demoRows}
-          sortInfo={demoSortInfo}
-          hasSelection={hasSelection}
-          size={size}
-          zebra={zebra}
-          onChangeSelection={beforeChangeSelectionHandler}
-          onChangeSelectionAll={beforeChangeSelectionHandler}
-          onSort={beforeChangeSortHandler}
-        />
-      </>
-    );
-  })
-  .add('Sortable with pagination', () => {
-    const { hasSelection, size, zebra, disableChangeSelection, disableChangeSort } = createProps({ sortable: true });
-    const beforeChangeSelectionAction = action('onBeforeChangeSelection');
-    const beforeChangeSelectionAllAction = action('onBeforeChangeSelection (for selecting all rows)');
-    const beforeChangeSelectionHandler = (event: CustomEvent) => {
-      if (event.type === 'bx-table-change-selection-all') {
-        beforeChangeSelectionAllAction(event);
-      } else {
-        beforeChangeSelectionAction(event);
-      }
-      if (disableChangeSelection) {
-        event.preventDefault();
-      }
-    };
-    const beforeChangeSortAction = action('onBeforeSort');
-    const beforeChangeSortHandler = (event: CustomEvent) => {
-      beforeChangeSortAction(event);
-      if (disableChangeSort) {
-        event.preventDefault();
-      }
-    };
-    return (
-      <>
-        {/* Refer to <bx-ce-demo-data-table> implementation at the top for details */}
-        <BXCEDemoDataTable
-          columns={demoColumns}
-          rows={demoRowsMany}
-          sortInfo={demoSortInfo}
-          hasSelection={hasSelection}
-          pageSize={5}
-          size={size}
-          start={0}
-          zebra={zebra}
-          onChangeSelection={beforeChangeSelectionHandler}
-          onChangeSelectionAll={beforeChangeSelectionHandler}
-          onSort={beforeChangeSortHandler}
-        />
-      </>
-    );
-  });
+sortable.story = baseSortable.story;
+
+export const sortableWithPagination = ({ parameters }) => {
+  const {
+    'bx-table': tableProps,
+    'bx-table-body': tableBodyProps,
+    'bx-table-row': tableRowProps,
+    'bx-table-header-cell': tableHeaderCellProps,
+  } = parameters.props || ({} as typeof parameters.props);
+  const { size } = tableProps || ({} as typeof tableProps);
+  const { zebra } = tableBodyProps || ({} as typeof tableBodyProps);
+  const { hasSelection, disableChangeSelection } = tableRowProps || ({} as typeof tableRowProps);
+  const { disableChangeSort } = tableHeaderCellProps || ({} as typeof tableHeaderCellProps);
+  const beforeChangeSelectionAction = action('onBeforeChangeSelection');
+  const beforeChangeSelectionAllAction = action('onBeforeChangeSelection (for selecting all rows)');
+  const beforeChangeSelectionHandler = (event: CustomEvent) => {
+    if (event.type === 'bx-table-change-selection-all') {
+      beforeChangeSelectionAllAction(event);
+    } else {
+      beforeChangeSelectionAction(event);
+    }
+    if (disableChangeSelection) {
+      event.preventDefault();
+    }
+  };
+  const beforeChangeSortAction = action('onBeforeSort');
+  const beforeChangeSortHandler = (event: CustomEvent) => {
+    beforeChangeSortAction(event);
+    if (disableChangeSort) {
+      event.preventDefault();
+    }
+  };
+  return (
+    <>
+      {/* Refer to <bx-ce-demo-data-table> implementation at the top for details */}
+      <BXCEDemoDataTable
+        columns={demoColumns}
+        rows={demoRowsMany}
+        sortInfo={demoSortInfo}
+        hasSelection={hasSelection}
+        pageSize={5}
+        size={size}
+        start={0}
+        zebra={zebra}
+        onChangeSelection={beforeChangeSelectionHandler}
+        onChangeSelectionAll={beforeChangeSelectionHandler}
+        onSort={beforeChangeSortHandler}
+      />
+    </>
+  );
+};
+
+sortableWithPagination.story = baseSortableWithPagination.story;
