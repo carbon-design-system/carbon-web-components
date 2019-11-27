@@ -22,8 +22,9 @@ const kinds = {
 };
 
 export const inline = ({ parameters }) => {
-  const { kind, title, subtitle, hideCloseButton, closeButtonLabel, iconLabel, open, disableClose } =
-    (parameters.props && parameters.props['bx-inline-notification']) || ({} as typeof parameters.props['bx-inline-notification']);
+  const { kind, title, subtitle, hideCloseButton, closeButtonLabel, iconLabel, open, disableClose } = parameters?.props?.[
+    'bx-inline-notification'
+  ];
   const beforeSelectedAction = action('bx-notification-beingclosed');
   const handleBeforeClose = (event: CustomEvent) => {
     beforeSelectedAction(event);
@@ -75,8 +76,17 @@ They usually appear at the top of the primary content area.
 };
 
 export const toast = ({ parameters }) => {
-  const { kind, title, subtitle, caption, hideCloseButton, closeButtonLabel, iconLabel, open, disableClose } =
-    (parameters.props && parameters.props['bx-toast-notification']) || ({} as typeof parameters.props['bx-toast-notification']);
+  const {
+    kind,
+    title,
+    subtitle,
+    caption,
+    hideCloseButton,
+    closeButtonLabel,
+    iconLabel,
+    open,
+    disableClose,
+  } = parameters?.props?.['bx-toast-notification'];
   const beforeSelectedAction = action('bx-notification-beingclosed');
   const handleBeforeClose = (event: CustomEvent) => {
     beforeSelectedAction(event);

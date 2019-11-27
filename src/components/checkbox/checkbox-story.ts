@@ -14,8 +14,7 @@ import { boolean, text } from '@storybook/addon-knobs';
 import './checkbox';
 
 export const defaultStory = ({ parameters }) => {
-  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onInput } =
-    (parameters.props && parameters.props['bx-checkbox']) || ({} as typeof parameters.props['bx-checkbox']);
+  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onInput } = parameters?.props?.['bx-checkbox'];
   return html`
     <bx-checkbox
       ?checked="${checked}"

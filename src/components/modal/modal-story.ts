@@ -20,8 +20,7 @@ import './modal-body';
 import './modal-footer';
 
 export const defaultStory = ({ parameters }) => {
-  const { danger, open, disableClose } =
-    (parameters.props && parameters.props['bx-modal']) || ({} as typeof parameters.props['bx-modal']);
+  const { danger, open, disableClose } = parameters?.props?.['bx-modal'];
   const beforeSelectedAction = action('bx-modal-beingclosed');
   const handleBeforeClose = (event: CustomEvent) => {
     beforeSelectedAction(event);

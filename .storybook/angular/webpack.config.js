@@ -27,7 +27,17 @@ module.exports = ({ config, mode }) => {
       1,
       {
         test: /\.tsx?$/,
-        use: [...babelLoaderRule.use, 'ts-loader'],
+        use: [
+          ...babelLoaderRule.use,
+          {
+            loader: 'ts-loader',
+            options: {
+              compilerOptions: {
+                noUnusedLocals: false,
+              },
+            },
+          },
+        ],
       },
       {
         test: /@carbon[\\/]icons-angular/i,

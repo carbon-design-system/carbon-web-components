@@ -8,23 +8,8 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, number, text } from '@storybook/addon-knobs/angular';
-import './code-snippet';
-
-const createProps = () => ({
-  codeAssistiveText: text('Assistive text for the code portion (codeAssistiveText)', ''),
-  copyButtonAssistiveText: text('Assistive text for the copy button (copyButtonAssistiveText)', ''),
-  copyButtonFeedbackText: text('Feedback text for copy button (copyButtonFeedbackText)', ''),
-  copyButtonFeedbackTimeout: number('Feedback timeout for copy button (copyButtobnFeedbackTimeout)', 2000),
-  onClick: action('click'),
-});
-
-const createMultilineProps = () => ({
-  collapseButtonText: text('The text for the collapse button (collapseButtonText)', ''),
-  expandButtonText: text('The text for the expand button (expandButtonText)', ''),
-});
+import { moduleMetadata } from '@storybook/angular';
+import baseStory, { singleLine as baseSingleLine, multiLine as baseMultiLine, inline as baseInline } from './code-snippet-story';
 
 const multilineCode = `@mixin grid-container {
   width: 100%;
@@ -48,82 +33,63 @@ $z-indexes: (
   floating: 10000
 );`;
 
-storiesOf('Code sinppet', module)
-  .addDecorator(withKnobs)
-  .add(
-    'Single line',
-    () => ({
-      template: `
-        <bx-code-snippet
-          [codeAssistiveText]="codeAssistiveText"
-          [copyButtonAssistiveText]="copyButtonAssistiveText"
-          [attr.copyButtonFeedbackText]="copyButtonFeedbackText || null"
-          [copyButtonFeedbackTimeout]="copyButtonFeedbackTimeout"
-          (click)="onClick($event)"
-          >node -v Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis voluptate id incidunt molestiae
-          officia possimus, quasi itaque alias, architecto hic, dicta fugit? Debitis delectus quidem explicabo vitae fuga
-          laboriosam!</bx-code-snippet
-        >
-      `,
-      props: createProps(),
-      moduleMetadata: {
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      },
+export const singleLine = ({ parameters }) => ({
+  template: `
+    <bx-code-snippet
+      [codeAssistiveText]="codeAssistiveText"
+      [copyButtonAssistiveText]="copyButtonAssistiveText"
+      [attr.copy-button-feedback-text]="copyButtonFeedbackText || null"
+      [copyButtonFeedbackTimeout]="copyButtonFeedbackTimeout"
+      (click)="onClick($event)"
+      >node -v Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis voluptate id incidunt molestiae
+      officia possimus, quasi itaque alias, architecto hic, dicta fugit? Debitis delectus quidem explicabo vitae fuga
+      laboriosam!</bx-code-snippet
+    >
+  `,
+  props: parameters?.props?.['bx-code-snippet'],
+});
+
+singleLine.story = baseSingleLine.story;
+
+export const multiLine = ({ parameters }) => ({
+  template: `
+    <bx-code-snippet
+      type="multi"
+      [codeAssistiveText]="codeAssistiveText"
+      [copyButtonAssistiveText]="copyButtonAssistiveText"
+      [attr.copy-button-feedback-text]="copyButtonFeedbackText || null"
+      [copyButtonFeedbackTimeout]="copyButtonFeedbackTimeout"
+      [collapseButtonText]="collapseButtonText"
+      [expandButtonText]="expandButtonText"
+      (click)="onClick($event)"
+      >{{code}}</bx-code-snippet>
+  `,
+  props: { ...parameters?.props?.['bx-code-snippet'], code: multilineCode },
+});
+
+multiLine.story = baseMultiLine.story;
+
+export const inline = ({ parameters }) => ({
+  template: `
+    <bx-code-snippet
+      type="inline"
+      [codeAssistiveText]="codeAssistiveText"
+      [copyButtonAssistiveText]="copyButtonAssistiveText"
+      [attr.copy-button-feedback-text]="copyButtonFeedbackText || null"
+      [copyButtonFeedbackTimeout]="copyButtonFeedbackTimeout"
+      (click)="onClick($event)"
+      >node -v</bx-code-snippet
+    >
+  `,
+  props: parameters?.props?.['bx-code-snippet'],
+});
+
+inline.story = baseInline.story;
+
+export default Object.assign(baseStory, {
+  decorators: [
+    moduleMetadata({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }),
-    {
-      docs: {
-        storyDescription: 'The Terminal style is for single-line.',
-      },
-    }
-  )
-  .add(
-    'Multi line',
-    () => ({
-      template: `
-        <bx-code-snippet
-          type="multi"
-          [codeAssistiveText]="codeAssistiveText"
-          [copyButtonAssistiveText]="copyButtonAssistiveText"
-          [attr.copyButtonFeedbackText]="copyButtonFeedbackText || null"
-          [copyButtonFeedbackTimeout]="copyButtonFeedbackTimeout"
-          [collapseButtonText]="collapseButtonText"
-          [expandButtonText]="expandButtonText"
-          (click)="onClick($event)"
-          >{{code}}</bx-code-snippet>
-      `,
-      props: { ...createProps(), ...createMultilineProps(), code: multilineCode },
-      moduleMetadata: {
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      },
-    }),
-    {
-      docs: {
-        storyDescription: 'The Code style is for larger, multi-line code snippets.',
-      },
-    }
-  )
-  .add(
-    'Inline',
-    () => ({
-      template: `
-        <bx-code-snippet
-          type="inline"
-          [codeAssistiveText]="codeAssistiveText"
-          [copyButtonAssistiveText]="copyButtonAssistiveText"
-          [attr.copyButtonFeedbackText]="copyButtonFeedbackText || null"
-          [copyButtonFeedbackTimeout]="copyButtonFeedbackTimeout"
-          (click)="onClick($event)"
-          >node -v</bx-code-snippet
-        >
-      `,
-      props: createProps(),
-      moduleMetadata: {
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      },
-    }),
-    {
-      docs: {
-        storyDescription: 'The Inline style is for code used within a block of text.',
-      },
-    }
-  );
+  ],
+});

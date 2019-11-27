@@ -20,8 +20,7 @@ const directions = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { open, disabled, direction } =
-    (parameters.props && parameters.props['bx-overflow-menu']) || ({} as typeof parameters.props['bx-overflow-menu']);
+  const { open, disabled, direction } = parameters?.props?.['bx-overflow-menu'];
   return html`
     <bx-overflow-menu ?open="${open}" ?disabled="${disabled}">
       <bx-overflow-menu-body direction="${direction}">

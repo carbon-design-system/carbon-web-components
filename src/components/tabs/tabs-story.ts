@@ -15,8 +15,7 @@ import './tab';
 import styles from './tabs-story.scss';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, triggerContent, value, disableSelection } =
-    (parameters.props && parameters.props['bx-tabs']) || ({} as typeof parameters.props['bx-tabs']);
+  const { disabled, triggerContent, value, disableSelection } = parameters?.props?.['bx-tabs'];
   const beforeSelectedAction = action('bx-tabs-beingselected');
   const handleBeforeSelected = (event: CustomEvent) => {
     beforeSelectedAction(event);

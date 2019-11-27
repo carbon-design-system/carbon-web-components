@@ -8,60 +8,51 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean } from '@storybook/addon-knobs/angular';
-import '../button/button';
-import './modal';
-import './modal-header';
-import './modal-close-button';
-import './modal-heading';
-import './modal-label';
-import './modal-body';
-import './modal-footer';
+import { moduleMetadata } from '@storybook/angular';
+import baseStory, { defaultStory as baseDefaultStory } from './modal-story';
 
-const createProps = () => ({
-  open: boolean('Open (open)', true),
-  danger: boolean('Danger mode (danger)', false),
-  disableClose: boolean('Disable user-initiated close action (Call event.preventDefault() in bx-modal-beingclosed event)', false),
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-modal
+      [danger]="danger"
+      [open]="open"
+      (bx-modal-beingclosed)="handleBeforeClose($event)"
+      (bx-modal-closed)="handleClose($event)"
+    >
+      <bx-modal-header>
+        <bx-modal-close-button></bx-modal-close-button>
+        <bx-modal-label>Label (Optional)</bx-modal-label>
+        <bx-modal-heading>Modal Title</bx-modal-heading>
+      </bx-modal-header>
+      <bx-modal-body><p>Modal text description</p></bx-modal-body>
+      <bx-modal-footer>
+        <bx-btn kind="secondary" data-modal-close>Cancel</bx-btn>
+        <bx-btn kind="primary">Save</bx-btn>
+      </bx-modal-footer>
+    </bx-modal>
+  `,
+  props: (({ disableClose, ...rest }) => {
+    const beforeSelectedAction = action('bx-modal-beingclosed');
+    return {
+      ...rest,
+      handleBeforeClose: (event: CustomEvent) => {
+        beforeSelectedAction(event);
+        if (disableClose) {
+          event.preventDefault();
+        }
+      },
+      handleClose: action('bx-modal-closed'),
+    };
+  })(parameters?.props?.['bx-modal']),
 });
 
-storiesOf('Modal', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-modal
-        [danger]="danger"
-        [open]="open"
-        (bx-modal-beingclosed)="handleBeforeClose($event)"
-        (bx-modal-closed)="handleClose($event)"
-      >
-        <bx-modal-header>
-          <bx-modal-close-button></bx-modal-close-button>
-          <bx-modal-label>Label (Optional)</bx-modal-label>
-          <bx-modal-heading>Modal Title</bx-modal-heading>
-        </bx-modal-header>
-        <bx-modal-body><p>Modal text description</p></bx-modal-body>
-        <bx-modal-footer>
-          <bx-btn kind="secondary" data-modal-close>Cancel</bx-btn>
-          <bx-btn kind="primary">Save</bx-btn>
-        </bx-modal-footer>
-      </bx-modal>
-    `,
-    props: (({ disableClose, ...rest }) => {
-      const beforeSelectedAction = action('bx-modal-beingclosed');
-      return {
-        ...rest,
-        handleBeforeClose: (event: CustomEvent) => {
-          beforeSelectedAction(event);
-          if (disableClose) {
-            event.preventDefault();
-          }
-        },
-        handleClose: action('bx-modal-closed'),
-      };
-    })(createProps()),
-    moduleMetadata: {
+defaultStory.story = baseDefaultStory.story;
+
+export default Object.assign(baseStory, {
+  decorators: [
+    moduleMetadata({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    },
-  }));
+    }),
+  ],
+});
