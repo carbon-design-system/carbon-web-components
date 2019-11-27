@@ -25,11 +25,8 @@ const labelPositions = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { 'bx-radio-button-group': radioButtonGroupProps, 'bx-radio-button': radioButtonProps } =
-    parameters.props || ({} as typeof parameters.props);
-  const { disabled, labelPosition, orientation, name, value, onAfterChange } =
-    radioButtonGroupProps || ({} as typeof radioButtonGroupProps);
-  const { hideLabel, labelText } = radioButtonProps || ({} as typeof radioButtonProps);
+  const { disabled, labelPosition, orientation, name, value, onAfterChange } = parameters?.props?.['bx-radio-button-group'];
+  const { hideLabel, labelText } = parameters?.props?.['bx-radio-button'];
   return html`
     <bx-radio-button-group
       ?disabled="${disabled}"

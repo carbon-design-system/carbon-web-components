@@ -17,6 +17,6 @@ const { prefix } = settings;
  * Header submenu item.
  */
 @customElement(`${prefix}-header-menu-item`)
-class BXHeaderSubmenuItem extends BXHeaderNavItem {}
+class BXHeaderMenuItem extends BXHeaderNavItem {}
 
-export default BXHeaderSubmenuItem;
+export default BXHeaderMenuItem;

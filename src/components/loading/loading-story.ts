@@ -18,7 +18,7 @@ const types = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const props = (parameters.props && parameters.props['bx-loading']) || ({} as typeof parameters.props['bx-loading']);
+  const props = parameters?.props?.['bx-loading'];
   return html`
     <bx-loading ?inactive=${props.inactive} type=${props.type}></bx-loading>
   `;

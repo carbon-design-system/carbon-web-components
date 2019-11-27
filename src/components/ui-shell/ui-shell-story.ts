@@ -76,10 +76,8 @@ const StoryContent = () => html`
 `;
 
 export const sideNav = ({ parameters }) => {
-  const { 'bx-side-nav': sideNavProps, 'bx-side-nav-menu-item': sideNavMenuItemProps } =
-    parameters.props || ({} as typeof parameters.props);
-  const { expanded, fixed } = sideNavProps || ({} as typeof sideNavProps);
-  const { href } = sideNavMenuItemProps || ({} as typeof sideNavMenuItemProps);
+  const { expanded, fixed } = parameters?.props?.['bx-side-nav'];
+  const { href } = parameters?.props?.['bx-side-nav-menu-item'];
   const result = html`
     <bx-side-nav aria-label="Side navigation" ?expanded=${expanded} ?fixed=${fixed}>
       <bx-side-nav-items>
@@ -142,10 +140,8 @@ sideNav.story = {
 };
 
 export const sideNavWithIcons = ({ parameters }) => {
-  const { 'bx-side-nav': sideNavProps, 'bx-side-nav-menu-item': sideNavMenuItemProps } =
-    parameters.props || ({} as typeof parameters.props);
-  const { expanded, fixed } = sideNavProps || ({} as typeof sideNavProps);
-  const { href } = sideNavMenuItemProps || ({} as typeof sideNavMenuItemProps);
+  const { expanded, fixed } = parameters?.props?.['bx-side-nav'];
+  const { href } = parameters?.props?.['bx-side-nav-menu-item'];
   const result = html`
     <bx-side-nav aria-label="Side navigation" ?expanded=${expanded} ?fixed=${fixed}>
       <bx-side-nav-items>

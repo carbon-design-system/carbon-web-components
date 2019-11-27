@@ -19,8 +19,7 @@ const states = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { status } =
-    (parameters.props && parameters.props['bx-inline-loading']) || ({} as typeof parameters.props['bx-inline-loading']);
+  const { status } = parameters?.props?.['bx-inline-loading'];
   return html`
     <bx-inline-loading status="${status}">Loading data...</bx-inline-loading>
   `;

@@ -12,6 +12,7 @@ import React, { StrictMode } from 'react';
 import addons from '@storybook/addons';
 import { configure, addDecorator, addParameters } from '@storybook/react'; // eslint-disable-line import/first
 import { DocsContainer } from '@storybook/addon-docs/blocks';
+import { withKnobs } from '@storybook/addon-knobs';
 import '../components/focus-trap/focus-trap';
 import { CURRENT_THEME } from '../addon-carbon-theme/shared';
 import DocsPage from '../DocsPage';
@@ -26,6 +27,23 @@ addParameters({
   options: {
     theme: theme,
   },
+});
+
+addDecorator(withKnobs);
+
+addDecorator((story, { parameters }) => {
+  const { knobs } = parameters;
+  if (Object(knobs) === knobs) {
+    if (!parameters.props) {
+      parameters.props = {};
+    }
+    Object.keys(knobs).forEach(name => {
+      if (typeof knobs[name] === 'function') {
+        parameters.props[name] = knobs[name]();
+      }
+    });
+  }
+  return story();
 });
 
 addDecorator(story => (
@@ -47,9 +65,13 @@ addons.getChannel().on(CURRENT_THEME, theme => {
   document.documentElement.setAttribute('storybook-carbon-theme', theme);
 });
 
-function loadStories() {
-  const req = require.context('../../src/components', true, /\-story\-react\.[jt]sx$/);
-  req.keys().forEach(filename => req(filename));
-}
+const req = require.context('../../src/components', true, /\-story\-react\.[jt]sx$/);
+configure(req, module);
 
-configure(loadStories, module);
+if (module.hot) {
+  module.hot.accept(req.id, () => {
+    const currentLocationHref = window.location.href;
+    window.history.pushState(null, '', currentLocationHref);
+    window.location.reload();
+  });
+}

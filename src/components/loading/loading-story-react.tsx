@@ -8,27 +8,17 @@
  */
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
 // @ts-ignore
-import BXLoading, { LOADING_TYPE } from 'carbon-custom-elements/es/components-react/loading/loading';
+import BXLoading from 'carbon-custom-elements/es/components-react/loading/loading';
+import { defaultStory as baseDefaultStory } from './loading-story';
 
-const types = {
-  [`Regular (${LOADING_TYPE.REGULAR})`]: LOADING_TYPE.REGULAR,
-  [`Small (${LOADING_TYPE.SMALL})`]: LOADING_TYPE.SMALL,
-  [`With overlay (${LOADING_TYPE.OVERLAY})`]: LOADING_TYPE.OVERLAY,
+export { default } from './loading-story';
+
+export const defaultStory = ({ parameters }) => {
+  const props = parameters?.props?.['bx-loading'];
+  return <BXLoading inactive={props.inactive} type={props.type} />;
 };
 
-const createProps = () => ({
-  inactive: boolean('Inactive (inactive)', false),
-  type: select('The spinner type (type)', types, LOADING_TYPE.REGULAR),
-});
-
-storiesOf('Loading', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
-    const props = createProps();
-    return <BXLoading inactive={props.inactive} type={props.type} />;
-  });
+defaultStory.story = baseDefaultStory.story;

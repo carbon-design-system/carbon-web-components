@@ -67,14 +67,9 @@ class BXContentSwitcher extends LitElement {
    * @returns The item to be selected.
    */
   protected _getNextItem(currentItem: BXSwitch, direction: number) {
-    const items = this.querySelectorAll((this.constructor as typeof BXContentSwitcher).selectorItem);
+    const items = this.querySelectorAll((this.constructor as typeof BXContentSwitcher).selectorItemEnabled);
     const currentIndex = indexOf(items, currentItem);
-    let nextIndex = currentIndex;
-    for (
-      nextIndex = capIndex(nextIndex + direction, items.length);
-      (items[nextIndex] as BXSwitch).disabled && nextIndex !== currentIndex;
-      nextIndex = capIndex(nextIndex + direction, items.length)
-    );
+    const nextIndex = capIndex(currentIndex + direction, items.length);
     return nextIndex === currentIndex ? null : items[nextIndex];
   }
 
@@ -172,6 +167,13 @@ class BXContentSwitcher extends LitElement {
    */
   static get selectorItem() {
     return `${prefix}-content-switcher-item`;
+  }
+
+  /**
+   * A selector that will return enabled content switcher items.
+   */
+  static get selectorItemEnabled() {
+    return `${prefix}-content-switcher-item:not([disabled])`;
   }
 
   /**

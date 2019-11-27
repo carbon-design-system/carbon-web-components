@@ -14,8 +14,7 @@ import { number, text } from '@storybook/addon-knobs';
 import './copy-button';
 
 export const defaultStory = ({ parameters }) => {
-  const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } =
-    (parameters.props && parameters.props['bx-copy-button']) || ({} as typeof parameters.props['bx-copy-button']);
+  const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } = parameters?.props?.['bx-copy-button'];
   return html`
     <bx-copy-button
       button-assistive-text="${ifDefined(!buttonAssistiveText ? undefined : buttonAssistiveText)}"
