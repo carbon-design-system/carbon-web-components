@@ -19,8 +19,18 @@ const sizes = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { closeButtonAssistiveText, disabled, light, labelText, name, placeholder, size, type, value, onAfterInput } =
-    (parameters.props && parameters.props['bx-search']) || ({} as typeof parameters.props['bx-search']);
+  const {
+    closeButtonAssistiveText,
+    disabled,
+    light,
+    labelText,
+    name,
+    placeholder,
+    size,
+    type,
+    value,
+    onAfterInput,
+  } = parameters?.props?.['bx-search'];
   return html`
     <bx-search
       close-button-assistive-text="${ifDefined(!closeButtonAssistiveText ? undefined : closeButtonAssistiveText)}"

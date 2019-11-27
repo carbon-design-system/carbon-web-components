@@ -15,8 +15,7 @@ import './slider';
 import './slider-input';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, labelText, max, min, name, step, value, onAfterChange } =
-    (parameters.props && parameters.props['bx-slider']) || ({} as typeof parameters.props['bx-slider']);
+  const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'];
   return html`
     <bx-slider
       ?disabled="${disabled}"
@@ -36,8 +35,7 @@ defaultStory.story = {
 };
 
 export const withInputBox = ({ parameters }) => {
-  const { disabled, labelText, max, min, name, step, value, onAfterChange } =
-    (parameters.props && parameters.props['bx-slider']) || ({} as typeof parameters.props['bx-slider']);
+  const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'];
   return html`
     <bx-slider
       ?disabled="${disabled}"

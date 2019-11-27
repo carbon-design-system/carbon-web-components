@@ -14,8 +14,9 @@ import { boolean, text } from '@storybook/addon-knobs';
 import './toggle';
 
 export const defaultStory = ({ parameters }) => {
-  const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, onInput } =
-    (parameters.props && parameters.props['bx-toggle']) || ({} as typeof parameters.props['bx-toggle']);
+  const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, onInput } = parameters?.props?.[
+    'bx-toggle'
+  ];
   return html`
     <bx-toggle
       ?checked="${checked}"

@@ -329,9 +329,8 @@ const defineDemoDataTable = (() => {
 })();
 
 export const defaultStory = ({ parameters }) => {
-  const { 'bx-table': tableProps, 'bx-table-body': tableBodyProps } = parameters.props || ({} as typeof parameters.props);
-  const { size } = tableProps || ({} as typeof tableProps);
-  const { zebra } = tableBodyProps || ({} as typeof tableBodyProps);
+  const { size } = parameters?.props?.['bx-table'];
+  const { zebra } = parameters?.props?.['bx-table-body'];
   return html`
     <bx-table size="${size}">
       <bx-table-head>
@@ -389,16 +388,10 @@ defaultStory.story = {
 };
 
 export const sortable = ({ parameters }) => {
-  const {
-    'bx-table': tableProps,
-    'bx-table-body': tableBodyProps,
-    'bx-table-row': tableRowProps,
-    'bx-table-header-cell': tableHeaderCellProps,
-  } = parameters.props || ({} as typeof parameters.props);
-  const { size } = tableProps || ({} as typeof tableProps);
-  const { zebra } = tableBodyProps || ({} as typeof tableBodyProps);
-  const { hasSelection, disableChangeSelection } = tableRowProps || ({} as typeof tableRowProps);
-  const { disableChangeSort } = tableHeaderCellProps || ({} as typeof tableHeaderCellProps);
+  const { size } = parameters?.props?.['bx-table'];
+  const { zebra } = parameters?.props?.['bx-table-body'];
+  const { hasSelection, disableChangeSelection } = parameters?.props?.['bx-table-row'];
+  const { disableChangeSort } = parameters?.props?.['bx-table-header-cell'];
   const beforeChangeSelectionAction = action('bx-table-row-change-selection');
   const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
   const beforeChangeSelectionHandler = {
@@ -470,16 +463,10 @@ sortable.story = {
 };
 
 export const sortableWithPagination = ({ parameters }) => {
-  const {
-    'bx-table': tableProps,
-    'bx-table-body': tableBodyProps,
-    'bx-table-row': tableRowProps,
-    'bx-table-header-cell': tableHeaderCellProps,
-  } = parameters.props || ({} as typeof parameters.props);
-  const { size } = tableProps || ({} as typeof tableProps);
-  const { zebra } = tableBodyProps || ({} as typeof tableBodyProps);
-  const { hasSelection, disableChangeSelection } = tableRowProps || ({} as typeof tableRowProps);
-  const { disableChangeSort } = tableHeaderCellProps || ({} as typeof tableHeaderCellProps);
+  const { size } = parameters?.props?.['bx-table'];
+  const { zebra } = parameters?.props?.['bx-table-body'];
+  const { hasSelection, disableChangeSelection } = parameters?.props?.['bx-table-row'];
+  const { disableChangeSort } = parameters?.props?.['bx-table-header-cell'];
   const beforeChangeSelectionAction = action('bx-table-row-change-selection');
   const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
   const beforeChangeSelectionHandler = {

@@ -40,9 +40,8 @@ const tooltipDefinitionDirections = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { 'bx-tooltip': tooltipProps, 'bx-tooltip-body': tooltipBodyProps } = parameters.props || ({} as typeof parameters.props);
-  const { open } = tooltipProps || ({} as typeof tooltipProps);
-  const { direction } = tooltipBodyProps || ({} as typeof tooltipBodyProps);
+  const { open } = parameters?.props?.['bx-tooltip'];
+  const { direction } = parameters?.props?.['bx-tooltip-body'];
   return html`
     <style>
       ${styles}
@@ -80,8 +79,7 @@ For more regular use cases, e.g. giving the user more text information about som
 };
 
 export const definition = ({ parameters }) => {
-  const { alignment, bodyText, direction } =
-    (parameters.props && parameters.props['bx-tooltip-definition']) || ({} as typeof parameters.props['bx-tooltip-definition']);
+  const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-definition'];
   return html`
     <bx-tooltip-definition alignment="${alignment}" body-text="${bodyText}" direction="${direction}">
       Definition Tooltip
@@ -107,8 +105,7 @@ definition.story = {
 };
 
 export const icon = ({ parameters }) => {
-  const { alignment, bodyText, direction } =
-    (parameters.props && parameters.props['bx-tooltip-icon']) || ({} as typeof parameters.props['bx-tooltip-icon']);
+  const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-icon'];
   return html`
     <bx-tooltip-icon alignment="${alignment}" body-text="${bodyText}" direction="${direction}">
       ${Filter16()}

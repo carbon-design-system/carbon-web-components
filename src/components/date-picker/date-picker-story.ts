@@ -12,8 +12,7 @@ import './date-picker';
 import './date-picker-input';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, hideLabel, labelText, light, placeholder } =
-    (parameters.props && parameters.props['bx-date-picker-input']) || ({} as typeof parameters.props['bx-date-picker-input']);
+  const { disabled, hideLabel, labelText, light, placeholder } = parameters?.props?.['bx-date-picker-input'];
   return html`
     <bx-date-picker>
       <bx-date-picker-input
@@ -41,11 +40,8 @@ defaultStory.story = {
 };
 
 export const singleWithCalendar = ({ parameters }) => {
-  const { 'bx-date-picker': datePickerProps, 'bx-date-picker-input': datePickerInputProps } =
-    parameters.props || ({} as typeof parameters.props);
-  const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = datePickerProps || ({} as typeof datePickerProps);
-  const { disabled, hideLabel, labelText, light, placeholder, onInput } =
-    datePickerInputProps || ({} as typeof datePickerInputProps);
+  const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
+  const { disabled, hideLabel, labelText, light, placeholder, onInput } = parameters?.props?.['bx-date-picker-input'];
   return html`
     <bx-date-picker
       enabled-range="${enabledRange}"
@@ -78,11 +74,8 @@ singleWithCalendar.story = {
 };
 
 export const rangeWithCalendar = ({ parameters }) => {
-  const { 'bx-date-picker': datePickerProps, 'bx-date-picker-input': datePickerInputProps } =
-    parameters.props || ({} as typeof parameters.props);
-  const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = datePickerProps || ({} as typeof datePickerProps);
-  const { disabled, hideLabel, labelText, light, placeholder, onInput } =
-    datePickerInputProps || ({} as typeof datePickerInputProps);
+  const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
+  const { disabled, hideLabel, labelText, light, placeholder, onInput } = parameters?.props?.['bx-date-picker-input'];
   return html`
     <bx-date-picker
       enabled-range="${enabledRange}"
