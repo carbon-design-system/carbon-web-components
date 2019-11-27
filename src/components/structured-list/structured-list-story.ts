@@ -17,8 +17,7 @@ import './structured-list-body';
 import './structured-list-row';
 
 export const defaultStory = ({ parameters }) => {
-  const { hasSelection } =
-    (parameters.props && parameters.props['bx-structured-list']) || ({} as typeof parameters.props['bx-structured-list']);
+  const { hasSelection } = parameters?.props?.['bx-structured-list'];
   const selectionName = !hasSelection ? undefined : 'structured-list-selection';
   const selectionValues = !hasSelection
     ? []

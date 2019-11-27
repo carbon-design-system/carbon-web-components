@@ -14,10 +14,8 @@ import './progress-indicator';
 import './progress-step';
 
 export const defaultStory = ({ parameters }) => {
-  const { vertical } =
-    (parameters.props && parameters.props['bx-progress-indicator']) || ({} as typeof parameters.props['bx-progress-indicator']);
-  const { iconLabel, labelText, secondaryLabelText } =
-    (parameters.props && parameters.props['bx-progress-step']) || ({} as typeof parameters.props['bx-progress-step']);
+  const { vertical } = parameters?.props?.['bx-progress-indicator'];
+  const { iconLabel, labelText, secondaryLabelText } = parameters?.props?.['bx-progress-step'];
   return html`
     <bx-progress-indicator ?vertical="${vertical}">
       <bx-progress-step
