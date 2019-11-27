@@ -8,9 +8,7 @@
  */
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
 // @ts-ignore
@@ -18,64 +16,90 @@ import BXTile from 'carbon-custom-elements/es/components-react/tile/tile';
 // @ts-ignore
 import BXClickableTile from 'carbon-custom-elements/es/components-react/tile/clickable-tile';
 // @ts-ignore
+import BXRadioTile from 'carbon-custom-elements/es/components-react/tile/radio-tile';
+// @ts-ignore
 import BXSelectableTile from 'carbon-custom-elements/es/components-react/tile/selectable-tile';
+// @ts-ignore
+import BXExpandableTile from 'carbon-custom-elements/es/components-react/tile/expandable-tile';
+import createReactCustomElementType from '../../globals/wrappers/createReactCustomElementType';
+import baseStory, {
+  defaultStory as baseDefaultStory,
+  clickable as baseClickable,
+  singleSelectable as baseSingleSelectable,
+  multiSelectable as baseMultiSelectable,
+  expandable as baseExpandable,
+} from './tile-story';
 
-const createClickableProps = () => ({
-  href: text('Href for clickable UI (href)', ''),
-});
+const BXTileAboveTheFoldContent = createReactCustomElementType('bx-tile-above-the-fold-content', {});
+const BXTileBelowTheFoldContent = createReactCustomElementType('bx-tile-below-the-fold-content', {});
 
-const createSelectableProps = () => ({
-  checkmarkLabel: text('Label text for the checkmark icon (checkmarkLabel)', ''),
-  name: text('Name (name)', ''),
-  selected: boolean('Selected (selected)', false),
-  value: text('Value (value)', ''),
-  onInput: action('input'),
-});
+export const defaultStory = () => <BXTile>Default tile</BXTile>;
 
-storiesOf('Tile', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => <BXTile>Default tile</BXTile>, {
-    docs: {
-      storyDescription: `
-Read-only tiles are used to display information to the user, such as features or services offered.
-Read-only tiles are often seen on marketing pages to promote content.
-These tiles can have internal calls-to-action (CTAs), such as a button or a link.
-      `,
-    },
-  })
-  .add(
-    'Clickable',
-    () => {
-      const { href } = createClickableProps();
-      return <BXClickableTile href={href}>Clickable tile</BXClickableTile>;
-    },
-    {
-      docs: {
-        storyDescription: `
-Clickable tiles can be used as navigational items, where the entire tile is a clickable state,
-which redirects the user to a new page.
-Clickable tiles cannot contain separate internal CTAs.
-      `,
-      },
-    }
-  )
-  .add(
-    'Selectable',
-    () => {
-      const { checkmarkLabel, name, selected, value, onInput } = createSelectableProps();
-      return (
-        <BXSelectableTile checkmarkLabel={checkmarkLabel} name={name} selected={selected} value={value} onInput={onInput}>
-          Multi-select Tile
-        </BXSelectableTile>
-      );
-    },
-    {
-      docs: {
-        storyDescription: `
-Selectable tiles work like a radio button, where the entire tile is a click target.
-Selectable tiles may contain internal CTAs (like links to docs) if the internal CTA is given its own click target.
-Selectable tiles work well for presenting options to a user in a structured manner, such as a set of pricing plans.
-      `,
-      },
-    }
+defaultStory.story = baseDefaultStory.story;
+
+export const clickable = ({ parameters }) => {
+  const { href } = parameters?.props?.['bx-clickable-tile'];
+  return <BXClickableTile href={href}>Clickable tile</BXClickableTile>;
+};
+
+clickable.story = baseClickable.story;
+
+export const singleSelectable = ({ parameters }) => {
+  const { checkmarkLabel, name, value, onInput } =
+    (parameters.props && parameters.props['bx-radio-tile']) || ({} as typeof parameters.props['bx-radio-tile']);
+  return (
+    <fieldset>
+      <legend>Single-select tiles</legend>
+      <BXRadioTile checkmarkLabel={checkmarkLabel} name={name} value={value} onInput={onInput}>
+        Single-select Tile
+      </BXRadioTile>
+      <BXRadioTile checkmarkLabel={checkmarkLabel} name={name} value={value} onInput={onInput}>
+        Single-select Tile
+      </BXRadioTile>
+      <BXRadioTile checkmarkLabel={checkmarkLabel} name={name} value={value} onInput={onInput}>
+        Single-select Tile
+      </BXRadioTile>
+    </fieldset>
   );
+};
+
+singleSelectable.story = baseSingleSelectable.story;
+
+export const multiSelectable = ({ parameters }) => {
+  const { checkmarkLabel, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'];
+  return (
+    <BXSelectableTile checkmarkLabel={checkmarkLabel} name={name} selected={selected} value={value} onInput={onInput}>
+      Multi-select Tile
+    </BXSelectableTile>
+  );
+};
+
+multiSelectable.story = baseMultiSelectable.story;
+
+export const expandable = ({ parameters }) => {
+  const { expanded, disableChange } =
+    (parameters.props && parameters.props['bx-expandable-tile']) || ({} as typeof parameters.props['bx-expandable-tile']);
+  const beforeChangedAction = action('bx-expandable-tile-beingchanged');
+  const handleBeforeChanged = (event: CustomEvent) => {
+    beforeChangedAction(event);
+    if (disableChange) {
+      event.preventDefault();
+    }
+  };
+  return (
+    <BXExpandableTile
+      expanded={expanded}
+      onBeforeChange={handleBeforeChanged}
+      onAfterChange={action('bx-expandable-tile-changed')}>
+      <BXTileAboveTheFoldContent style={{ height: '200px' }}>Above the fold content here</BXTileAboveTheFoldContent>
+      <BXTileBelowTheFoldContent style={{ height: '300px' }}>Below the fold content here</BXTileBelowTheFoldContent>
+    </BXExpandableTile>
+  );
+};
+
+expandable.story = baseExpandable.story;
+
+export default {
+  ...baseStory,
+  decorators: [story => <div>{story()}</div>],
+};

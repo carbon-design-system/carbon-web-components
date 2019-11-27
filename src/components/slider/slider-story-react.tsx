@@ -8,57 +8,49 @@
  */
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, number, text } from '@storybook/addon-knobs';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
 // @ts-ignore
 import BXSlider from 'carbon-custom-elements/es/components-react/slider/slider';
 // @ts-ignore
 import BXSliderInput from 'carbon-custom-elements/es/components-react/slider/slider-input';
+import { defaultStory as baseDefaultStory, withInputBox as baseWithInputBox } from './slider-story';
 
-const createProps = () => ({
-  disabled: boolean('Disabled (disabled)', false),
-  labelText: text('Label text (labelText)', 'Slider'),
-  name: text('Name (name)', ''),
-  max: number('The maximum value (max)', 100),
-  min: number('The minimum value (min)', 0),
-  step: number('The step (step)', 1),
-  value: number('Value (value)', 50),
-  onAfterChange: action('onAfterChange'),
-});
+export { default } from './slider-story';
 
-storiesOf('Slider', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
-    const { disabled, labelText, max, min, name, step, value, onAfterChange } = createProps();
-    return (
-      <BXSlider
-        disabled={disabled}
-        labelText={labelText}
-        max={max}
-        min={min}
-        name={name}
-        step={step}
-        value={value}
-        onAfterChange={onAfterChange}
-      />
-    );
-  })
-  .add('With input box', () => {
-    const { disabled, labelText, max, min, name, step, value, onAfterChange } = createProps();
-    return (
-      <BXSlider
-        disabled={disabled}
-        labelText={labelText}
-        max={max}
-        min={min}
-        name={name}
-        step={step}
-        value={value}
-        onAfterChange={onAfterChange}>
-        <BXSliderInput aria-label="Slider value" type="number" />
-      </BXSlider>
-    );
-  });
+export const defaultStory = ({ parameters }) => {
+  const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'];
+  return (
+    <BXSlider
+      disabled={disabled}
+      labelText={labelText}
+      max={max}
+      min={min}
+      name={name}
+      step={step}
+      value={value}
+      onAfterChange={onAfterChange}
+    />
+  );
+};
+
+defaultStory.story = baseDefaultStory;
+
+export const withInputBox = ({ parameters }) => {
+  const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'];
+  return (
+    <BXSlider
+      disabled={disabled}
+      labelText={labelText}
+      max={max}
+      min={min}
+      name={name}
+      step={step}
+      value={value}
+      onAfterChange={onAfterChange}>
+      <BXSliderInput aria-label="Slider value" type="number" />
+    </BXSlider>
+  );
+};
+
+withInputBox.story = baseWithInputBox.story;
