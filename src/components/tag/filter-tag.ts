@@ -7,11 +7,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, property, customElement, LitElement } from 'lit-element';
-import classnames from 'classnames';
+import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import Close16 from '@carbon/icons/lib/close/16';
 import FocusMixin from '../../globals/mixins/focus';
+import HostListener from '../../globals/decorators/host-listener';
+import HostListenerMixin from '../../globals/mixins/host-listener';
 import TAG_TYPE from './types';
 import styles from './tag.scss';
 
@@ -23,7 +24,22 @@ const { prefix } = settings;
  * Filter tag.
  */
 @customElement(`${prefix}-filter-tag`)
-export default class BXFilterTag extends FocusMixin(LitElement) {
+export default class BXFilterTag extends HostListenerMixin(FocusMixin(LitElement)) {
+  @query('button')
+  protected _buttonNode!: HTMLButtonElement;
+
+  /**
+   * Handles `click` event on this element.
+   * @param event The event.
+   */
+  @HostListener('shadowRoot:click')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleClick = (event: MouseEvent) => {
+    if (event.composedPath().indexOf(this._buttonNode!) >= 0) {
+      event.stopPropagation();
+    }
+  };
+
   /**
    * Text to show on filter tag "clear" buttons. Corresponds to the attribute with the same name
    */
@@ -43,15 +59,11 @@ export default class BXFilterTag extends FocusMixin(LitElement) {
   type = TAG_TYPE.RED;
 
   render() {
-    const { disabled, title, type } = this;
-    const classes = classnames(`${prefix}--tag`, `${prefix}--tag--${type}`, `${prefix}--tag--filter`, {
-      [`${prefix}--tag--disabled`]: disabled,
-    });
     return html`
-      <span class="${classes}" title="${title}" tabindex="0">
-        <slot></slot>
-        ${Close16({ 'aria-label': title })}
-      </span>
+      <slot></slot>
+      <button>
+        ${Close16({ 'aria-label': this.title })}
+      </button>
     `;
   }
 

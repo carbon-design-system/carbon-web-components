@@ -53,8 +53,55 @@ $css--plex: true !default;
   @extend .#{$prefix}--tag--warm-gray;
 }
 
-:host(#{$prefix}-tag[disabled]) {
+:host(#{$prefix}-tag[disabled]),
+:host(#{$prefix}-filter-tag[disabled]) {
   @extend .#{$prefix}--tag--disabled;
+}
+
+// tags used for filtering
+:host(#{$prefix}-filter-tag) {
+  @extend .#{$prefix}--tag;
+  @extend .#{$prefix}--tag--filter;
+}
+
+:host(#{$prefix}-filter-tag) button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: rem(20px);
+  height: rem(20px);
+  margin: 0 0 0 rem(4px);
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  border-radius: 50%;
+
+  &:hover {
+    background-color: $inverse-hover-ui;
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px $inverse-focus-ui;
+  }
+}
+
+:host(#{$prefix}-filter-tag[disabled]) button:hover {
+  background-color: transparent;
+  cursor: not-allowed;
+}
+
+:host(#{$prefix}-filter-tag[disabled]) button:focus {
+  box-shadow: none;
+}
+
+:host(#{$prefix}-filter-tag) svg {
+  fill: $inverse-01;
+}
+
+:host(#{$prefix}-filter-tag[disabled]) svg {
+  fill: $ibm-color__gray-30;
 }
 
 // Skeleton state
