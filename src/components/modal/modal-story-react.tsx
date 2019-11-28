@@ -11,7 +11,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import '../button/button';
 // Below path will be there when an application installs `carbon-custom-elements` package.
-// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXBtn from 'carbon-custom-elements/es/components-react/button/button';
 // @ts-ignore
