@@ -18,7 +18,7 @@
     "@angular/platform-browser-dynamic": "^8.0.0",
     "@angular/router": "^8.0.0",
     "@babel/runtime": "^7.5.0",
-    "carbon-components": "~10.5.0",
+    "carbon-components": "~10.7.0",
     "carbon-custom-elements": "^0.2.0",
     "classnames": "^2.2.0",
     "lit-element": "^2.1.0",
