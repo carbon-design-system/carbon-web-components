@@ -8,7 +8,6 @@
  */
 
 import { html, property, customElement, LitElement } from 'lit-element';
-import classnames from 'classnames';
 import settings from 'carbon-components/es/globals/js/settings';
 import TAG_TYPE from './types';
 import styles from './tag.scss';
@@ -35,14 +34,8 @@ export default class BXTag extends LitElement {
   type = TAG_TYPE.RED;
 
   render() {
-    const { disabled, type } = this;
-    const classes = classnames(`${prefix}--tag`, `${prefix}--tag--${type}`, {
-      [`${prefix}--tag--disabled`]: disabled,
-    });
     return html`
-      <span class="${classes}">
-        <slot></slot>
-      </span>
+      <slot></slot>
     `;
   }
 
