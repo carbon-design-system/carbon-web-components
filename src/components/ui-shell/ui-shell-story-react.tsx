@@ -11,7 +11,7 @@ import React from 'react';
 import Fade16 from '@carbon/icons-react/es/fade/16';
 import contentStyles from 'carbon-components/scss/components/ui-shell/_content.scss';
 // Below path will be there when an application installs `carbon-custom-elements` package.
-// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXSideNav from 'carbon-custom-elements/es/components-react/ui-shell/side-nav';
 // @ts-ignore

@@ -9,7 +9,7 @@
 
 import React from 'react';
 // Below path will be there when an application installs `carbon-custom-elements` package.
-// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXCopyButton from 'carbon-custom-elements/es/components-react/copy-button/copy-button';
 import { defaultStory as baseDefaultStory } from './copy-button-story';
