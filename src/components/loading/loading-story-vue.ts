@@ -7,27 +7,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { storiesOf } from '@storybook/vue';
-import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { LOADING_TYPE } from './loading';
+import { defaultStory as baseDefaultStory } from './loading-story';
 
-const types = {
-  [`Regular (${LOADING_TYPE.REGULAR})`]: LOADING_TYPE.REGULAR,
-  [`Small (${LOADING_TYPE.SMALL})`]: LOADING_TYPE.SMALL,
-  [`With overlay (${LOADING_TYPE.OVERLAY})`]: LOADING_TYPE.OVERLAY,
-};
+export { default } from './loading-story';
 
-const createProps = () => ({
-  inactive: boolean('Inactive (inactive)', false),
-  type: select('The spinner type (type)', types, LOADING_TYPE.REGULAR),
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-loading :inactive="inactive" :type="type"></bx-loading>
+  `,
+  ...createVueBindingsFromProps(parameters?.props?.['bx-loading']),
 });
 
-storiesOf('Loading', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-loading :inactive="inactive" :type="type"></bx-loading>
-    `,
-    ...createVueBindingsFromProps(createProps()),
-  }));
+defaultStory.story = baseDefaultStory.story;

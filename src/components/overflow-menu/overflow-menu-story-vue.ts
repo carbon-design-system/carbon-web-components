@@ -7,29 +7,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { storiesOf } from '@storybook/vue';
-import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
-import './overflow-menu';
-import './overflow-menu-body';
-import './overflow-menu-item';
+import { defaultStory as baseDefaultStory } from './overflow-menu-story';
 
-const directions = {
-  [`Bottom (${FLOATING_MENU_DIRECTION.BOTTOM})`]: FLOATING_MENU_DIRECTION.BOTTOM,
-  [`Top (${FLOATING_MENU_DIRECTION.TOP})`]: FLOATING_MENU_DIRECTION.TOP,
-};
+export { default } from './overflow-menu-story';
 
-const createProps = () => ({
-  open: boolean('Open (open)', false),
-  disabled: boolean('Disabled (disabled)', false),
-  direction: select('Direction (direction in <bx-overflow-menu-body>)', directions, FLOATING_MENU_DIRECTION.BOTTOM),
-});
-
-storiesOf('Overflow menu', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
+export const defaultStory = ({ parameters }) => ({
+  template: `
       <bx-overflow-menu :open="open" :disabled="disabled">
         <bx-overflow-menu-body :direction="direction">
           <bx-overflow-menu-item>Option 1</bx-overflow-menu-item>
@@ -40,5 +24,7 @@ storiesOf('Overflow menu', module)
         </bx-overflow-menu-body>
       </bx-overflow-menu>
     `,
-    ...createVueBindingsFromProps(createProps()),
-  }));
+  ...createVueBindingsFromProps(parameters?.props?.['bx-overflow-menu']),
+});
+
+defaultStory.story = baseDefaultStory.story;
