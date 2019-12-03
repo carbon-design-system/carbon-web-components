@@ -32,7 +32,7 @@ button.addEventListener('click', () => {
 Our form components can be used for Angular two-way binding syntax (`[(ngModel)]`), like below, by using Angular directives for them:
 
 ```html
-<bx-input [(ngModel)]="model.username" #username="ngModel" type="username" name="username"></bx-input>
+<bx-input [(ngModel)]="model.username" #username="ngModel" type="text" name="username"></bx-input>
 ```
 
 Such Angular directives can be used by importing `BXFormAccessorModule` from `carbon-custom-elements/es/directives-angular/esm2015` or `carbon-custom-elements/es/directives-angular/esm5` into your Angular module:
