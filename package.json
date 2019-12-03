@@ -1,12 +1,13 @@
 {
   "name": "carbon-custom-elements",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "Apache-2.0",
   "main": "es/index.js",
   "module": "es/index.js",
   "typings": "es/index.d.ts",
   "files": [
-    "es/**/*"
+    "es/**/*",
+    "scss/**/*"
   ],
   "scripts": {
     "build": "gulp build && yarn build:ngc",
