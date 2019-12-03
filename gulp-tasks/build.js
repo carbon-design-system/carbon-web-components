@@ -152,7 +152,17 @@ module.exports = {
                   '@babel/preset-env',
                   {
                     modules: false,
-                    targets: ['last 1 version', 'Firefox ESR', 'not opera > 0', 'not android > 0', 'not edge > 0', 'not ie > 0'],
+                    targets: [
+                      'last 1 version',
+                      'Firefox ESR',
+                      'not opera > 0',
+                      'not op_mini > 0',
+                      'not op_mob > 0',
+                      'not android > 0',
+                      'not edge > 0',
+                      'not ie > 0',
+                      'not ie_mob > 0',
+                    ],
                   },
                 ],
               ],
@@ -163,7 +173,7 @@ module.exports = {
           // Avoids generating `.js` from interface-only `.ts` files
           .pipe(filter(file => stripComments(file.contents.toString(), { sourceType: 'module' }).replace(/\s/g, '')))
           .on('error', log)
-          .pipe(sourcemaps.write())
+          .pipe(sourcemaps.write('.'))
           .pipe(gulp.dest(config.jsDestDir))
       );
     },

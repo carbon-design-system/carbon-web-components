@@ -6,7 +6,8 @@
   "module": "es/index.js",
   "typings": "es/index.d.ts",
   "files": [
-    "es/**/*"
+    "es/**/*",
+    "scss/**/*"
   ],
   "scripts": {
     "build": "gulp build && yarn build:ngc",
