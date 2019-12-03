@@ -4,7 +4,7 @@ Though form elements in `carbon-custom-elements` (e.g. `<bx-input>`) are not nat
 
 ## `formdata` event
 
-Browsers supporting [`formdata` event](https://docs.google.com/document/d/1JO8puctCSpW-ZYGU8lF-h4FWRIDQNDVexzHoOQ2iQmY/edit#heading=h.je8c7y5qpgki) fires that event when user clicks on `<button type="submit">` in `<form>`. Our form components listen to that event to add their values to the `<form>`.
+Browsers supporting [`formdata` event](https://docs.google.com/document/d/1JO8puctCSpW-ZYGU8lF-h4FWRIDQNDVexzHoOQ2iQmY/edit#heading=h.je8c7y5qpgki) fire that event when the user clicks on `<button type="submit">` in `<form>`. Our form components listen to that event to add their values to the `<form>`.
 
 To support other browsers, you can use a regular `<button>` and manually fire a custom event with the same name (`formdata`), like below:
 
