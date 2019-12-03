@@ -2,7 +2,7 @@
 
 As Shadow DOM (one of the Web Components specs that `carbon-custom-elements` uses) promises, styles that `carbon-custom-elements` defines does not affect styles in your application, or vice versa.
 
-However, there are cases where your application, or a Carbon-derived style guide, wants to change styles of our components. There are a couple of options for that.
+However, in cases where your application or a Carbon-derived style guide wants to change the styles of our components, there are a few options.
 
 ## Using CSS Custom Properties
 
