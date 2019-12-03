@@ -10,6 +10,7 @@
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, number } from '@storybook/addon-knobs';
+import ifNonNull from '../../globals/directives/if-non-null';
 import './pagination';
 import './page-sizes-select';
 import './pages-select';
@@ -21,7 +22,7 @@ export const defaultStory = ({ parameters }) => {
       ?at-last-page="${atLastPage || undefined}"
       page-size="${pageSize}"
       start="${start}"
-      total="${total}"
+      total="${ifNonNull(total)}"
       @bx-pagination-changed-current="${onChangedCurrent}"
       @bx-page-sizes-select-changed="${onChangedPageSizesSelect}"
     >
@@ -30,7 +31,11 @@ export const defaultStory = ({ parameters }) => {
         <option value="20">20</option>
         <option value="30">30</option>
       </bx-page-sizes-select>
-      <bx-pages-select></bx-pages-select>
+      ${total == null
+        ? undefined
+        : html`
+            <bx-pages-select></bx-pages-select>
+          `}
     </bx-pagination>
   `;
 };
