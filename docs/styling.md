@@ -6,7 +6,7 @@ However, in cases where your application or a Carbon-derived style guide wants t
 
 ## Using CSS Custom Properties
 
-Changes to CSS Custom Properties of Carbon theme are reflected to the color scheme of `carbon-custom-elements` components:
+Changes to CSS Custom Properties of the Carbon theme are reflected in the color scheme of `carbon-custom-elements` components:
 
 [![Edit carbon-custom-elements with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/styling/theme-zoning)
 
