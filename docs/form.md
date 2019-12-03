@@ -1,6 +1,6 @@
 # Having components participate in form
 
-Though form elements in `carbon-custom-elements`, e.g. `<bx-input>` are not native form elements like `<input>`, form elements in `carbon-custom-elements` have some extra APIs that align well to web/framework standards that allows those form elements to participate in form.
+Though form elements in `carbon-custom-elements` (e.g. `<bx-input>`) are not native form elements like `<input>`, form elements in `carbon-custom-elements` have some extra APIs that align well to web/framework standards that allow those form elements to participate in form.
 
 ## `formdata` event
 
