@@ -109,6 +109,11 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
+The `.d.ts` files in `carbon-custom-elements` package are compiled with TypeScript 3.7. You can use TypeScript 3.7 in your Angular application with upcoming Angular `9.0` release, or with the following instructions, so your application can use those `.d.ts` files:
+
+- Set `true` to [`angularCompilerOptions.disableTypeScriptVersionCheck`](https://angular.io/guide/angular-compiler-options#disabletypescriptversioncheck) in `tsconfig.json`
+- In `polyfills.ts`, change [`__importDefault` TypeScript helper](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#example-8) as follows: `window.__importDefault = mod => (mod?.__esModule ? mod : { default: mod })`
+
 ### React
 
 [![Edit carbon-custom-elements with React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/react)

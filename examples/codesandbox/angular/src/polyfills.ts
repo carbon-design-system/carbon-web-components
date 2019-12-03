@@ -8,3 +8,6 @@
  */
 
 import 'zone.js/dist/zone';
+
+// @ts-ignore
+window.__importDefault = mod => (mod?.__esModule ? mod : { default: mod });
