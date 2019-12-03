@@ -52,4 +52,4 @@ class MyDropdown extends BXDropdown {
 
 ## CSS Shadow Parts
 
-In future, we'd like to support [CSS Shadow Parts](https://www.w3.org/TR/css-shadow-parts-1/), too, so you can use your application's CSS to affect `carbon-custom-elements` styles in more flexible manner.
+In the future, we'd like to support [CSS Shadow Parts](https://www.w3.org/TR/css-shadow-parts-1/) too, so you can use your application's CSS to affect `carbon-custom-elements` styles in a more flexible manner.
