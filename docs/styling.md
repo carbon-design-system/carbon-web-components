@@ -18,7 +18,7 @@ footer {
 }
 ```
 
-The color of the button in below code changes to one of `g100` theme:
+The color of the button in the code below changes to the one in the `g100` theme:
 
 ```html
 <footer>
