@@ -26,7 +26,7 @@ The color of the button in below code changes to one of `g100` theme:
 </footer>
 ```
 
-The names of CSS Custom Properties you can use are ones of Carbon theme tokens prefixed with `--cds-`. The list of Carbon theme tokens can be found at [here](https://github.com/carbon-design-system/carbon/blob/v10.7.0/packages/themes/scss/generated/_themes.scss#L14-L454).
+The names of CSS Custom Properties you can use are the Carbon theme tokens prefixed with `--cds-`. The list of Carbon theme tokens can be found at [here](https://github.com/carbon-design-system/carbon/blob/v10.7.0/packages/themes/scss/generated/_themes.scss#L14-L454).
 
 ## Creating derived components with different style
 
