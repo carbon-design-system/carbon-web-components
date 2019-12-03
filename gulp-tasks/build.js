@@ -173,7 +173,7 @@ module.exports = {
           // Avoids generating `.js` from interface-only `.ts` files
           .pipe(filter(file => stripComments(file.contents.toString(), { sourceType: 'module' }).replace(/\s/g, '')))
           .on('error', log)
-          .pipe(sourcemaps.write())
+          .pipe(sourcemaps.write('.'))
           .pipe(gulp.dest(config.jsDestDir))
       );
     },
