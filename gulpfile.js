@@ -32,7 +32,7 @@ gulp.task(
   )
 );
 gulp.task('build:sass', build.sass);
-gulp.task('build', gulp.task('build:modules'), gulp.task('build:sass'));
+gulp.task('build', gulp.parallel(gulp.task('build:modules'), gulp.task('build:sass')));
 
 gulp.task('clean', clean);
 

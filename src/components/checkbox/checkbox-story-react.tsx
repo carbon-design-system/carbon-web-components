@@ -9,7 +9,7 @@
 
 import React from 'react';
 // Below path will be there when an application installs `carbon-custom-elements` package.
-// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXCheckbox from 'carbon-custom-elements/es/components-react/checkbox/checkbox';
 import { defaultStory as baseDefaultStory } from './checkbox-story';

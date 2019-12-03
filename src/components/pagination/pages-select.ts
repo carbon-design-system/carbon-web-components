@@ -42,13 +42,13 @@ class BXPagesSelect extends FocusMixin(LitElement) {
    * Should be changed upon the locale the UI is rendered with.
    */
   @property({ attribute: false })
-  formatLabelText = ({ total }) => `Page number, of ${total} page${total <= 1 ? '' : 's'}`;
+  formatLabelText = ({ count }) => `Page number, of ${count} page${count <= 1 ? '' : 's'}`;
 
   /**
    * The formatter for the text next to the select box. Should be changed upon the locale the UI is rendered with.
    */
   @property({ attribute: false })
-  formatSupplementalText = ({ total }) => `of ${total} page${total <= 1 ? '' : 's'}`;
+  formatSupplementalText = ({ count }) => `of ${count} page${count <= 1 ? '' : 's'}`;
 
   /**
    * The number of total pages. Corresponds to the attribute with the same name.
@@ -71,7 +71,7 @@ class BXPagesSelect extends FocusMixin(LitElement) {
     return html`
       <div class="${prefix}--select__page-number">
         <label for="select" class="${prefix}--label ${prefix}--visually-hidden">
-          ${formatLabelText(this)}
+          ${formatLabelText({ count: total })}
         </label>
         <select id="select" class="${prefix}--select-input" .value="${value}" @change="${handleChange}">
           ${Array.from(new Array(total)).map(
@@ -83,7 +83,7 @@ class BXPagesSelect extends FocusMixin(LitElement) {
         ${ChevronDown16({ class: `${prefix}--select__arrow` })}
       </div>
       <span class="${prefix}--pagination__text">
-        ${formatSupplementalText(this)}
+        ${formatSupplementalText({ count: total })}
       </span>
     `;
   }
