@@ -13,6 +13,22 @@ $css--plex: true !default;
 :host(#{$prefix}-date-picker) {
   @extend .#{$prefix}--date-picker;
 
+  #floating-menu-container {
+    position: absolute;
+    width: 100%;
+  }
+
+  .#{$prefix}--date-picker__calendar.open {
+    margin-top: 0;
+  }
+
+  .flatpickr-next-month,
+  .flatpickr-prev-month {
+    svg {
+      transform: rotate(0) #{'/*rtl:rotate(180deg)*/'};
+    }
+  }
+
   // _date-picker.scss#L351-L360 in `v10.6.0` tree, coping with the CSS class that latest Flatpickr has
   .#{$prefix}--date-picker__day.flatpickr-disabled,
   .flatpickr-day.flatpickr-disabled {
