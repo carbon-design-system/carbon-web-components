@@ -46,8 +46,14 @@ export enum BUTTON_KIND {
  */
 @customElement(`${prefix}-btn`)
 class BXButton extends FocusMixin(LitElement) {
+  /**
+   * `true` if there is an icon.
+   */
   private _hasIcon = false;
 
+  /**
+   * `true` if there is a non-icon content.
+   */
   private _hasMainContent = false;
 
   /**
@@ -61,6 +67,9 @@ class BXButton extends FocusMixin(LitElement) {
     }
   }
 
+  /**
+   * Handles `slotchange` event.
+   */
   private _handleSlotChange({ target }: Event) {
     const { name } = target as HTMLSlotElement;
     const hasContent = (target as HTMLSlotElement)
