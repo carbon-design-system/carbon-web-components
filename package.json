@@ -190,6 +190,7 @@
     "flatpickr": "4.6.1",
     "lit-element": "^2.1.0",
     "lit-html": "~1.0.0",
+    "lodash.debounce": "^4.0.0",
     "lodash.throttle": "^4.0.0",
     "lodash.findlast": "^4.6.0"
   },
