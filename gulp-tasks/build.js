@@ -20,6 +20,7 @@ const babel = require('gulp-babel');
 const sass = require('gulp-sass');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
+const cleanCSS = require('gulp-clean-css');
 const prettier = require('gulp-prettier');
 const typescript = require('gulp-typescript');
 const header = require('gulp-header');
@@ -51,7 +52,6 @@ const cssStream = ({ banner, dir }) =>
     .pipe(
       sass({
         includePaths: ['node_modules'],
-        outputStyle: 'compressed',
       })
     )
     .pipe(
@@ -63,6 +63,7 @@ const cssStream = ({ banner, dir }) =>
         ...(dir === 'rtl' ? [rtlcss] : []),
       ])
     )
+    .pipe(cleanCSS())
     .pipe(
       through2.obj((file, enc, done) => {
         file.contents = Buffer.from(`
