@@ -10444,7 +10444,7 @@ lodash.clonedeep@^4.3.2, lodash.clonedeep@^4.5.0:
   resolved "https://registry.npmjs.org/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
 
-lodash.debounce@^4.0.8:
+lodash.debounce@^4.0.0, lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
@@ -15762,6 +15762,11 @@ url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+use-debounce@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/use-debounce/-/use-debounce-3.2.0.tgz#9c2b1adeb0f51d0c77bd256790c0ad66edc1c577"
+  integrity sha512-qhOyE6F7KYTq4esMUCbAqnlMvGbbqXcO4jG6Q+ymGQAIAMbyqASD3y4vbDbxl/t7sOUcqTdwQila8M0g85xdvw==
 
 use@^3.1.0:
   version "3.1.1"
