@@ -126,7 +126,7 @@ module.exports = ({ config, mode }) => {
             ],
             plugins: [
               // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
-              ['@babel/plugin-transform-runtime', { version: '7.3.0' }],
+              ['@babel/plugin-transform-runtime', { useESModules: true, version: '7.3.0' }],
               [
                 'babel-plugin-emotion',
                 {

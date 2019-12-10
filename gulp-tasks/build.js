@@ -171,7 +171,10 @@ module.exports = {
                 ],
               ],
               // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
-              plugins: [['@babel/plugin-transform-runtime', { version: '7.3.0' }], babelPluginResourceJSPaths],
+              plugins: [
+                ['@babel/plugin-transform-runtime', { useESModules: true, version: '7.3.0' }],
+                babelPluginResourceJSPaths,
+              ],
             })
           )
           // Avoids generating `.js` from interface-only `.ts` files
