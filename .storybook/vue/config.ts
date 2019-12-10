@@ -18,6 +18,10 @@ import theme from './theme';
 import DocsPage from '../DocsPage';
 import containerStyles from '../_container.scss'; // eslint-disable-line import/first
 
+if (process.env.STORYBOOK_CARBON_CUSTOM_ELEMENTS_USE_RTL === 'true') {
+  document.documentElement.setAttribute('dir', 'rtl');
+}
+
 addParameters({
   docs: {
     container: DocsContainer,

@@ -9,7 +9,11 @@
 
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement } from 'lit-element';
-import BXFloatingMenu, { FLOATING_MENU_ALIGNMENT, FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
+import BXFloatingMenu, {
+  FLOATING_MENU_ALIGNMENT,
+  FLOATING_MENU_DIRECTION,
+  FLOATING_MENU_POSITION_DIRECTION,
+} from '../floating-menu/floating-menu';
 import styles from './tooltip.scss';
 
 const { prefix } = settings;
@@ -43,16 +47,21 @@ class BXTooltipBody extends BXFloatingMenu {
   get position() {
     const { direction } = this;
     const position = super.position;
+    const { direction: positionDirection, start, top } = position;
 
     if (direction === FLOATING_MENU_DIRECTION.LEFT) {
       const style = this.ownerDocument!.defaultView!.getComputedStyle(this);
-      const margin = Number((/^([\d-.]+)px$/.exec(style.getPropertyValue('margin-right')) || [])[1]);
+      const margin = Number(
+        (/^([\d-.]+)px$/.exec(
+          style.getPropertyValue(positionDirection !== FLOATING_MENU_POSITION_DIRECTION.RTL ? 'margin-right' : 'margin-left')
+        ) || [])[1]
+      );
       if (!isNaN(margin)) {
         // For direction === DIRECTION_RIGHT, the left/top margin the caret size effectively adjusts the position,
         // but for direction === DIRECTION_LEFT such thing won't happen
         return {
           ...position,
-          left: position.left - margin,
+          start: start - margin,
         };
       }
     }
@@ -65,7 +74,7 @@ class BXTooltipBody extends BXFloatingMenu {
         // but for direction === DIRECTION_TOP such thing won't happen
         return {
           ...position,
-          top: position.top - margin,
+          top: top - margin,
         };
       }
     }
