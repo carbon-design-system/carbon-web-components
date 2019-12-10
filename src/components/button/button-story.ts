@@ -11,6 +11,7 @@ import { html } from 'lit-element';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { action } from '@storybook/addon-actions';
 import { boolean, select, text } from '@storybook/addon-knobs';
+import Add16 from '@carbon/icons/lib/add/16';
 import { BUTTON_KIND } from './button';
 
 const kinds = {
@@ -31,6 +32,28 @@ export const defaultStory = ({ parameters }) => {
 
 defaultStory.story = {
   name: 'Default',
+};
+
+export const icon = ({ parameters }) => {
+  const { kind, disabled, small, href, onClick } = parameters?.props?.['bx-btn'];
+  return html`
+    <bx-btn kind=${kind} ?disabled=${disabled} ?small=${small} href=${ifDefined(href || undefined)} @click=${onClick}>
+      ${Add16({ slot: 'icon' })}
+    </bx-btn>
+  `;
+};
+
+export const textAndIcon = ({ parameters }) => {
+  const { kind, disabled, small, href, onClick } = parameters?.props?.['bx-btn'];
+  return html`
+    <bx-btn kind=${kind} ?disabled=${disabled} ?small=${small} href=${ifDefined(href || undefined)} @click=${onClick}>
+      Button ${Add16({ slot: 'icon' })}
+    </bx-btn>
+  `;
+};
+
+textAndIcon.story = {
+  name: 'Text and icon',
 };
 
 export default {
