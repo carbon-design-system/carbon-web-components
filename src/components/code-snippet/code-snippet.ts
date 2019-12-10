@@ -250,9 +250,6 @@ class BXCodeSnippet extends FocusMixin(LitElement) {
           handleClickButton: handleClickCopyButton,
           className: `${prefix}--snippet-button`,
         })}
-        ${html`
-          <div class="${prefix}-ce--snippet__overflow-gradient"></div>
-        `}
       `;
     }
 

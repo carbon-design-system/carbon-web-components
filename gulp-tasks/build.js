@@ -32,6 +32,7 @@ const rtlcss = require('rtlcss');
 const replaceExtension = require('replace-ext');
 const babelPluginCreateReactCustomElementType = require('../babel-plugin-create-react-custom-element-type');
 const babelPluginResourceJSPaths = require('../babel-plugin-resource-js-paths');
+const fixHostPseudo = require('../postcss-fix-host-pseudo');
 const createSVGResultFromCarbonIcon = require('../tools/svg-result-carbon-icon');
 
 const config = require('./config');
@@ -56,6 +57,7 @@ const cssStream = ({ banner, dir }) =>
     )
     .pipe(
       postcss([
+        fixHostPseudo(),
         autoprefixer({
           // TODO: Optimize for modern browsers here
           browsers: ['last 1 version', 'Firefox ESR', 'ie >= 11'],
