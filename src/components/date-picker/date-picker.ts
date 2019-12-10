@@ -17,6 +17,7 @@ import on from 'carbon-components/es/globals/js/misc/on';
 import Handle from '../../globals/internal/handle';
 import { getISODateString, parseISODateString } from './iso-date';
 import BXDatePickerInput from './date-picker-input';
+import appendToPlugin from './append-to-plugin';
 import cssClassPlugin from './css-class-plugin';
 import fixEventsPlugin from './fix-events-plugin';
 import focusPlugin from './focus-plugin';
@@ -114,10 +115,11 @@ class BXDatePicker extends LitElement {
       _classFlatpickrCurrentMonth: classFlatpickrCurrentMonth,
       _classFlatpickrToday: classFlatpickrToday,
     } = this.constructor as typeof BXDatePicker;
-    const { _mode: mode } = this;
+    const { _floatingMenuContainerNode: floatingMenuContainerNode, _mode: mode } = this;
     const inputFrom = this.querySelector(selectorInputFrom);
     const inputTo = this.querySelector(selectorInputTo);
     const plugins = [
+      appendToPlugin({ appendTo: floatingMenuContainerNode }),
       cssClassPlugin({
         classCalendarContainer,
         classMonth,
@@ -165,7 +167,6 @@ class BXDatePicker extends LitElement {
       locale = (this.constructor as typeof BXDatePicker).defaultLocale,
       enabledRange,
       _dateInteractNode: dateInteractNode,
-      _floatingMenuContainerNode: floatingMenuContainerNode,
       _datePickerPlugins: plugins,
       _handleFlatpickrError: handleFlatpickrError,
     } = this;
@@ -175,7 +176,6 @@ class BXDatePicker extends LitElement {
     const [minDate = undefined, maxDate = undefined] = !enabledRange ? [] : enabledRange.split('/');
     return {
       allowInput: true,
-      appendTo: floatingMenuContainerNode,
       dateFormat: this.dateFormat ?? (this.constructor as typeof BXDatePicker).defaultDateFormat,
       errorHandler: handleFlatpickrError,
       locale,

@@ -164,6 +164,7 @@ describe('bx-date-picker', function() {
         positionElement: datePickerInput!.input,
       });
       expect(loadedPlugins.sort()).toEqual([
+        'carbonFlatpickrAppendToPlugin',
         'carbonFlatpickrCSSClassPlugin',
         'carbonFlatpickrFixEventsPlugin',
         'carbonFlatpickrFocusPlugin',
@@ -210,6 +211,7 @@ describe('bx-date-picker', function() {
         positionElement: datePickerInputStart!.input,
       });
       expect(loadedPlugins.sort()).toEqual([
+        'carbonFlatpickrAppendToPlugin',
         'carbonFlatpickrCSSClassPlugin',
         'carbonFlatpickrFixEventsPlugin',
         'carbonFlatpickrFocusPlugin',

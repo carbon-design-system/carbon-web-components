@@ -11,6 +11,8 @@
 >
   <slot>
   </slot>
+  <slot name="icon">
+  </slot>
 </button>
 
 ```
@@ -27,6 +29,8 @@
 >
   <slot>
   </slot>
+  <slot name="icon">
+  </slot>
 </button>
 
 ```
@@ -41,6 +45,8 @@
   role="button"
 >
   <slot>
+  </slot>
+  <slot name="icon">
   </slot>
 </a>
 
@@ -62,6 +68,8 @@
   type="text/plain"
 >
   <slot>
+  </slot>
+  <slot name="icon">
   </slot>
 </a>
 
