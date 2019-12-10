@@ -20,6 +20,7 @@ const babel = require('gulp-babel');
 const sass = require('gulp-sass');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
+const cleanCSS = require('gulp-clean-css');
 const prettier = require('gulp-prettier');
 const typescript = require('gulp-typescript');
 const header = require('gulp-header');
@@ -27,6 +28,7 @@ const through2 = require('through2');
 const log = require('fancy-log');
 const stripComments = require('strip-comments');
 const autoprefixer = require('autoprefixer');
+const rtlcss = require('rtlcss');
 const replaceExtension = require('replace-ext');
 const babelPluginCreateReactCustomElementType = require('../babel-plugin-create-react-custom-element-type');
 const babelPluginResourceJSPaths = require('../babel-plugin-resource-js-paths');
@@ -36,6 +38,46 @@ const config = require('./config');
 
 const readFileAsync = promisify(readFile);
 const promisifyStream = promisify(asyncDone);
+
+const cssStream = ({ banner, dir }) =>
+  gulp
+    .src(`${config.srcDir}/**/*.scss`)
+    .pipe(
+      header(`
+        $feature-flags: (
+          enable-css-custom-properties: true
+        );
+      `)
+    )
+    .pipe(
+      sass({
+        includePaths: ['node_modules'],
+      })
+    )
+    .pipe(
+      postcss([
+        autoprefixer({
+          // TODO: Optimize for modern browsers here
+          browsers: ['last 1 version', 'Firefox ESR', 'ie >= 11'],
+        }),
+        ...(dir === 'rtl' ? [rtlcss] : []),
+      ])
+    )
+    .pipe(cleanCSS())
+    .pipe(
+      through2.obj((file, enc, done) => {
+        file.contents = Buffer.from(`
+        import { css } from 'lit-element';
+        export default css([${JSON.stringify(String(file.contents))}]);
+      `);
+        file.path = replaceExtension(file.path, dir === 'rtl' ? '.rtl.css.js' : '.css.js');
+        done(null, file);
+      })
+    )
+    .pipe(prettier())
+    .pipe(header(banner))
+    .on('error', log)
+    .pipe(gulp.dest(path.resolve(config.jsDestDir)));
 
 module.exports = {
   modules: {
@@ -66,45 +108,7 @@ module.exports = {
 
     async css() {
       const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
-      await promisifyStream(() =>
-        gulp
-          .src(`${config.srcDir}/**/*.scss`)
-          .pipe(
-            header(`
-              $feature-flags: (
-                enable-css-custom-properties: true
-              );
-            `)
-          )
-          .pipe(
-            sass({
-              includePaths: ['node_modules'],
-              outputStyle: 'compressed',
-            })
-          )
-          .pipe(
-            postcss([
-              autoprefixer({
-                // TODO: Optimize for modern browsers here
-                browsers: ['last 1 version', 'Firefox ESR', 'ie >= 11'],
-              }),
-            ])
-          )
-          .pipe(
-            through2.obj((file, enc, done) => {
-              file.contents = Buffer.from(`
-              import { css } from 'lit-element';
-              export default css([${JSON.stringify(String(file.contents))}]);
-            `);
-              file.path = replaceExtension(file.path, '.css.js');
-              done(null, file);
-            })
-          )
-          .pipe(prettier())
-          .pipe(header(banner))
-          .on('error', log)
-          .pipe(gulp.dest(path.resolve(config.jsDestDir)))
-      );
+      await Promise.all([promisifyStream(() => cssStream({ banner })), promisifyStream(() => cssStream({ banner, dir: 'rtl' }))]);
     },
 
     async react() {

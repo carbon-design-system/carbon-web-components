@@ -9,9 +9,11 @@
 
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const rtlcss = require('rtlcss');
 
-const useExperimentalFeatures = process.env.CARBON_USE_EXPERIMENTAL_FEATURES !== 'false';
-const useStyleSourceMap = process.env.CARBON_CUSTOM_ELEMENTS_STORYBOOK_USE_STYLE_SOURCEMAP === 'true';
+const useExperimentalFeatures = process.env.STORYBOOK_CARBON_USE_EXPERIMENTAL_FEATURES !== 'false';
+const useStyleSourceMap = process.env.STORYBOOK_CARBON_CUSTOM_ELEMENTS_USE_STYLE_SOURCEMAP === 'true';
+const useRtl = process.env.STORYBOOK_CARBON_CUSTOM_ELEMENTS_USE_RTL === 'true';
 
 module.exports = ({ config, mode }) => {
   config.devtool = useStyleSourceMap ? 'source-map' : '';
@@ -150,6 +152,7 @@ module.exports = ({ config, mode }) => {
               require('autoprefixer')({
                 browsers: ['last 1 version', 'ie >= 11'],
               }),
+              ...(useRtl ? [rtlcss] : []),
             ],
             sourceMap: useStyleSourceMap,
           },
