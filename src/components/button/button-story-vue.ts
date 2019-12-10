@@ -10,6 +10,7 @@
 import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
+import Add16 from '@carbon/icons-vue/es/add/16';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import { BUTTON_KIND } from './button';
 
@@ -34,5 +35,27 @@ storiesOf('Button', module)
     template: `
       <bx-btn :kind="kind" :disabled="disabled" :small="small" :href="href" @click="onClick">Button</bx-btn>
     `,
+    ...createVueBindingsFromProps(createProps()),
+  }))
+  .add('Icon', () => ({
+    template: `
+      <bx-btn :kind="kind" :disabled="disabled" :small="small" :href="href" @click="onClick">
+        <add-16 slot="icon"></add-16>
+      </bx-btn>
+    `,
+    components: {
+      'add-16': Add16,
+    },
+    ...createVueBindingsFromProps(createProps()),
+  }))
+  .add('Text and icon', () => ({
+    template: `
+      <bx-btn :kind="kind" :disabled="disabled" :small="small" :href="href" @click="onClick">
+        Button <add-16 slot="icon"></add-16>
+      </bx-btn>
+    `,
+    components: {
+      'add-16': Add16,
+    },
     ...createVueBindingsFromProps(createProps()),
   }));

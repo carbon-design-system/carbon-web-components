@@ -9,7 +9,8 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './button-story';
+import { Add16Module } from '@carbon/icons-angular/lib/add/16';
+import baseStory, { defaultStory as baseDefaultStory, textAndIcon as baseTextAndIcon } from './button-story';
 
 export const defaultStory = ({ parameters }) => ({
   template: `
@@ -19,6 +20,40 @@ export const defaultStory = ({ parameters }) => ({
 });
 
 defaultStory.story = baseDefaultStory.story;
+
+export const icon = ({ parameters }) => ({
+  template: `
+    <bx-btn [kind]="kind" [disabled]="disabled" [small]="small" [href]="href" (click)="onClick($event)">
+      <ibm-icon-add16 slot="icon"></ibm-icon-add16>
+    </bx-btn>
+  `,
+  props: parameters?.props?.['bx-btn'],
+});
+
+icon.story = {
+  decorators: [
+    moduleMetadata({
+      imports: [Add16Module],
+    }),
+  ],
+};
+
+export const textAndIcon = ({ parameters }) => ({
+  template: `
+    <bx-btn [kind]="kind" [disabled]="disabled" [small]="small" [href]="href" (click)="onClick($event)">
+      Button <ibm-icon-add16 slot="icon"></ibm-icon-add16>
+    </bx-btn>
+  `,
+  props: parameters?.props?.['bx-btn'],
+});
+
+textAndIcon.story = Object.assign(baseTextAndIcon.story, {
+  decorators: [
+    moduleMetadata({
+      imports: [Add16Module],
+    }),
+  ],
+});
 
 export default Object.assign(baseStory, {
   decorators: [

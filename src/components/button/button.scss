@@ -18,4 +18,22 @@ $css--plex: true !default;
     flex-grow: 1;
     max-width: none;
   }
+
+  .#{$prefix}-ce--btn--has-icon {
+    padding-right: 12px;
+  }
+
+  ::slotted([slot='icon']) {
+    fill: currentColor;
+    margin-left: $carbon--spacing-03;
+  }
+
+  .#{$prefix}--btn--icon-only ::slotted([slot='icon']) {
+    margin-left: 0;
+  }
+}
+
+:host(#{$prefix}-btn[kind='ghost']:hover) .#{$prefix}--btn--ghost,
+:host(#{$prefix}-btn[kind='ghost']) .#{$prefix}--btn--ghost:active {
+  outline: none;
 }
