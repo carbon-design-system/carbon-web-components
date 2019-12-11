@@ -69,7 +69,7 @@ export default class BXNumberInput extends BXInput {
   incrementButtonLabel = 'increase number input';
 
   @property({ attribute: 'decrement-button-assistive-text' })
-  decrementButtonLabel = 'decrease number input';
+  decrementButtonAssistiveText = 'decrease number input';
 
   @property({ type: Boolean, reflect: true })
   light = false;
