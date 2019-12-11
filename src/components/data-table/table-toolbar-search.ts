@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import HostListenerMixin from '../../globals/mixins/host-listener';
@@ -89,7 +89,8 @@ class BXTableToolbarSearch extends HostListenerMixin(BXSearch) {
   render() {
     const result = super.render();
     const { expanded, light, size, _handleSearchClick: handleSearchClick } = this;
-    const classes = classnames(`${prefix}--search`, {
+    const classes = classMap({
+      [`${prefix}--search`]: true,
       [`${prefix}--search--${size}`]: size,
       [`${prefix}--search--light`]: light,
     });
