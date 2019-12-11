@@ -142,8 +142,8 @@ abstract class BXFloatingMenu extends LitElement {
   private _resizeObserver = new ResizeObserver(() => {
     const { container, open, parent, position } = this;
     if (container && open && parent) {
-      const { left, top } = position;
-      this.style.left = `${left}px`;
+      const { direction, start, top } = position;
+      this.style[direction !== FLOATING_MENU_POSITION_DIRECTION.RTL ? 'left' : 'right'] = `${start}px`;
       this.style.top = `${top}px`;
     }
   });
