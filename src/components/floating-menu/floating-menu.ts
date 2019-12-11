@@ -7,7 +7,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import ResizeObserver from 'resize-observer-polyfill';
 import { LitElement } from 'lit-element';
+import Handle from '../../globals/internal/handle';
 import BXFloatingMenuTrigger from './floating-menu-trigger';
 
 /**
@@ -106,9 +108,46 @@ export enum FLOATING_MENU_DIRECTION_GROUP {
 }
 
 /**
+ * Observes resize of the given element with the given resize observer.
+ * @param observer The resize observer.
+ * @param elem The element to observe the resize.
+ */
+const observeResize = (observer: ResizeObserver, elem: Element) => {
+  observer.observe(elem);
+  return {
+    release() {
+      observer.unobserve(elem);
+      return null;
+    },
+  } as Handle;
+};
+
+/**
  * Floating menu.
  */
 abstract class BXFloatingMenu extends LitElement {
+  /**
+   * The handle for observing resize of the element containing the trigger button.
+   */
+  private _hObserveResizeParent: Handle | null = null;
+
+  /**
+   * The handle for observing resize of the floating menu container.
+   */
+  private _hObserveResizeContainer: Handle | null = null;
+
+  /**
+   * The `ResizeObserver` instance for observing element resizes for re-positioning floating menu position.
+   */
+  private _resizeObserver = new ResizeObserver(() => {
+    const { container, open, parent, position } = this;
+    if (container && open && parent) {
+      const { left, top } = position;
+      this.style.left = `${left}px`;
+      this.style.top = `${top}px`;
+    }
+  });
+
   /**
    * The DOM element, typically a custom element in this library, launching this floating menu.
    */
@@ -228,16 +267,41 @@ abstract class BXFloatingMenu extends LitElement {
     };
   }
 
+  disconnectedCallback() {
+    if (this._hObserveResizeContainer) {
+      this._hObserveResizeContainer = this._hObserveResizeContainer.release();
+    }
+    if (this._hObserveResizeParent) {
+      this._hObserveResizeParent = this._hObserveResizeParent.release();
+    }
+  }
+
   attributeChangedCallback(name, old, current) {
     if (old !== current) {
-      if ((name === 'open' || name === 'direction' || name === 'alignment') && this.open) {
+      const { container, open } = this;
+      if ((name === 'open' || name === 'direction' || name === 'alignment') && open) {
         if (!this.parent) {
           this.parent = this.parentElement as BXFloatingMenuTrigger;
-          this.container.appendChild(this);
+          container.appendChild(this);
         }
         const { direction, start, top } = this.position;
         this.style[direction !== FLOATING_MENU_POSITION_DIRECTION.RTL ? 'left' : 'right'] = `${start}px`;
         this.style.top = `${top}px`;
+      }
+      if (name === 'open') {
+        if (this._hObserveResizeContainer) {
+          this._hObserveResizeContainer = this._hObserveResizeContainer.release();
+        }
+        if (this._hObserveResizeParent) {
+          this._hObserveResizeParent = this._hObserveResizeParent.release();
+        }
+        if (open) {
+          const { parentElement } = this.parent ?? {};
+          this._hObserveResizeContainer = observeResize(this._resizeObserver, container);
+          if (parentElement) {
+            this._hObserveResizeParent = observeResize(this._resizeObserver, parentElement);
+          }
+        }
       }
     }
     super.attributeChangedCallback(name, old, current);
