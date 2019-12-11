@@ -18,7 +18,7 @@
 >
   <span class="bx--radio-button__appearance">
   </span>
-  <span>
+  <span class="">
     <slot>
     </slot>
   </span>
