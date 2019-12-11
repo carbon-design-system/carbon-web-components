@@ -65,7 +65,7 @@ export default class BXNumberInput extends BXInput {
   @property({ type: Boolean, reflect: true })
   mobile = false;
 
-  @property()
+  @property({ attribute: 'increment-button-assistive-text' })
   incrementButtonLabel = 'increase number input';
 
   @property()
