@@ -8,7 +8,7 @@
  */
 
 import { html, render, TemplateResult } from 'lit-html';
-import pick from 'lodash.pick';
+import pick from 'lodash-es/pick';
 import flatpickr from 'flatpickr';
 // Just importing the default export does not seem to run `customElements.define()`
 /* eslint-disable import/no-duplicates */
