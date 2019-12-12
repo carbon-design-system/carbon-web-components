@@ -15,6 +15,9 @@
     "react-dom": "^16.8.0",
     "react-scripts": "^3.0.0"
   },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

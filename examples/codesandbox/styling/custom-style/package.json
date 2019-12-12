@@ -21,6 +21,7 @@
     "@babel/core": "^7.0.0-0",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@types/lodash-es": "^4.17.0",
     "parcel-bundler": "^1.10.0"
   },
   "browserslist": [

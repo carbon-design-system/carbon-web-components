@@ -13,6 +13,7 @@
     "@babel/plugin-transform-runtime": "^7.5.0",
     "@babel/preset-env": "^7.5.0",
     "@babel/runtime": "^7.5.0",
+    "@types/lodash-es": "^4.17.0",
     "@webcomponents/custom-elements": "^1.2.0",
     "@webcomponents/shadycss": "^1.9.0",
     "@webcomponents/shadydom": "^1.6.0",
