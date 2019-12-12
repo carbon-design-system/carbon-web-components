@@ -8,7 +8,7 @@
  */
 
 import { customElement, LitElement, html, property, query } from 'lit-element';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import FormMixin from '../../globals/mixins/form';
@@ -147,15 +147,19 @@ export default class BXTextarea extends FormMixin(LitElement) {
   render() {
     const invalidIcon = WarningFilled16({ class: `${prefix}--text-area__invalid-icon` });
 
-    const textareaClasses = classnames(`${prefix}--text-area`, `${prefix}--text-area--v2`, {
+    const textareaClasses = classMap({
+      [`${prefix}--text-area`]: true,
+      [`${prefix}--text-area--v2`]: true,
       [`${prefix}--text-area--invalid`]: this.invalid,
     });
 
-    const labelClasses = classnames(`${prefix}--label`, {
+    const labelClasses = classMap({
+      [`${prefix}--label`]: true,
       [`${prefix}--label--disabled`]: this.disabled,
     });
 
-    const helperTextClasses = classnames(`${prefix}--form__helper-text`, {
+    const helperTextClasses = classMap({
+      [`${prefix}--form__helper-text`]: true,
       [`${prefix}--form__helper-text--disabled`]: this.disabled,
     });
 

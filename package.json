@@ -98,7 +98,6 @@
     "babel-preset-vue": "^2.0.0",
     "bluebird": "^3.5.0",
     "carbon-components": "^10.7.0",
-    "classnames": "^2.2.0",
     "commander": "^2.13.0",
     "core-js": "^3.0.0",
     "css-loader": "^2.0.0",
@@ -190,7 +189,6 @@
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
     "carbon-components": "~10.7.0",
-    "classnames": "^2.2.0",
     "flatpickr": "4.6.1",
     "lit-element": "^2.1.0",
     "lit-html": "~1.0.0",

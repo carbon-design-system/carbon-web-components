@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import throttle from 'lodash.throttle';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
@@ -354,10 +354,12 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
       _handleMousedownTrack: handleMousedownTrack,
       _handleMousedownThumb: handleMousedownThumb,
     } = this;
-    const labelClasses = classnames(`${prefix}--label`, {
+    const labelClasses = classMap({
+      [`${prefix}--label`]: true,
       [`${prefix}--label--disabled`]: disabled,
     });
-    const sliderClasses = classnames(`${prefix}--slider`, {
+    const sliderClasses = classMap({
+      [`${prefix}--slider`]: true,
       [`${prefix}--slider--disabled`]: disabled,
     });
     return html`
