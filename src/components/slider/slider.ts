@@ -8,7 +8,7 @@
  */
 
 import classnames from 'classnames';
-import throttle from 'lodash.throttle';
+import throttle from 'lodash-es/throttle';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import on from 'carbon-components/es/globals/js/misc/on';
