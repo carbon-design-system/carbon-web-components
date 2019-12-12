@@ -156,7 +156,7 @@ describe('bx-date-picker', function() {
       const { config, loadedPlugins } = datePicker!.calendar!;
       expect(pick(config, ['allowInput', 'appendTo', 'dateFormat', 'locale', 'maxDate', 'minDate', 'positionElement'])).toEqual({
         allowInput: true,
-        appendTo: datePicker!.shadowRoot!.getElementById('floating-menu-container'),
+        appendTo: datePicker!.shadowRoot!.getElementById('floating-menu-container')!,
         dateFormat: 'm/d/Y',
         locale: flatpickr.l10ns.default,
         maxDate: undefined,
@@ -203,7 +203,7 @@ describe('bx-date-picker', function() {
       const { config, loadedPlugins } = datePicker!.calendar!;
       expect(pick(config, ['allowInput', 'appendTo', 'dateFormat', 'locale', 'maxDate', 'minDate', 'positionElement'])).toEqual({
         allowInput: true,
-        appendTo: datePicker!.shadowRoot!.getElementById('floating-menu-container'),
+        appendTo: datePicker!.shadowRoot!.getElementById('floating-menu-container')!,
         dateFormat: 'm/d/Y',
         locale: flatpickr.l10ns.default,
         maxDate: undefined,

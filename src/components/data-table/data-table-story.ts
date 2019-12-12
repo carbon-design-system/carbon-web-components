@@ -261,7 +261,7 @@ class BXCEDemoDataTable extends LitElement {
     if (this._handleChangeSearchString) {
       this._handleChangeSearchString.cancel();
     }
-    this._handleChangeSearchString = debounce(this._handleChangeSearchStringImpl, 500);
+    this._handleChangeSearchString = debounce(this._handleChangeSearchStringImpl as () => void, 500);
   }
 
   disconnectedCallback() {

@@ -54,7 +54,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   /**
    * The handle for the throttled listener of `mousemove` event.
    */
-  private _throttledHandleMousemoveImpl: (((event: Event) => void) & Cancelable) | null = null;
+  private _throttledHandleMousemoveImpl: (((event: MouseEvent) => void) & Cancelable) | null = null;
 
   /**
    * `true` if dragging of thumb is in progress.
