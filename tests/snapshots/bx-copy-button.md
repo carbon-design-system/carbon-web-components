@@ -1,6 +1,6 @@
 # `bx-copy-button`
 
-## `Rendering titles`
+## `Rendering`
 
 #### `Should render with minimum attributes`
 

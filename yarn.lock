@@ -2143,10 +2143,10 @@
     "@nodelib/fs.scandir" "2.1.1"
     fastq "^1.6.0"
 
-"@open-wc/semantic-dom-diff@^0.14.0":
-  version "0.14.2"
-  resolved "https://registry.yarnpkg.com/@open-wc/semantic-dom-diff/-/semantic-dom-diff-0.14.2.tgz#4ad2a6fedc22992c6048729fbf7104e472f590d3"
-  integrity sha512-+ENGbkgoruTtuNGUVLi9hCC6+IJVBM/lnFDGjKBUt7T6RyAgidBTV+GPMzpQtfHhLRasVJmcjRW8D2him8HvAA==
+"@open-wc/semantic-dom-diff@^0.15.0":
+  version "0.15.4"
+  resolved "https://registry.yarnpkg.com/@open-wc/semantic-dom-diff/-/semantic-dom-diff-0.15.4.tgz#1bbf9adbbf3cb6090f525fc7d4274d17cc016457"
+  integrity sha512-Wa50FJiB26/jC++snNqOJBr3cYrzUdsFFNLL3HSA7PAscCWEGo5NAdesL/BnehXOCRyMZfpvv+uY9+F8dc7HCQ==
 
 "@reach/router@^1.2.1":
   version "1.2.1"

@@ -68,7 +68,7 @@
     "@carbon/icons-vue": "^10.5.0",
     "@commitlint/cli": "^7.5.0",
     "@commitlint/config-conventional": "^7.5.0",
-    "@open-wc/semantic-dom-diff": "^0.14.0",
+    "@open-wc/semantic-dom-diff": "^0.15.0",
     "@storybook/addon-actions": "^5.2.0",
     "@storybook/addon-docs": "^5.2.0",
     "@storybook/addon-knobs": "^5.2.0",
