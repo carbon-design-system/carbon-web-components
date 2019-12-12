@@ -150,7 +150,10 @@ class BXModal extends HostListenerMixin(LitElement) {
   open = false;
 
   render() {
-    const containerClass = this.containerClass.split(' ').filter(Boolean).reduce((acc, item) => ({ ...acc, [item]: true }), {});
+    const containerClass = this.containerClass
+      .split(' ')
+      .filter(Boolean)
+      .reduce((acc, item) => ({ ...acc, [item]: true }), {});
     const containerClasses = classMap({
       [`${prefix}--modal-container`]: true,
       ...containerClass,
