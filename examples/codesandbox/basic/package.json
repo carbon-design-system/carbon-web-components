@@ -12,7 +12,6 @@
   "dependencies": {
     "carbon-components": "~10.5.0",
     "carbon-custom-elements": "^0.1.0",
-    "classnames": "^2.2.0",
     "lit-element": "^2.1.0",
     "lit-html": "^1.1.0",
     "lodash-es": "^4.17.0"

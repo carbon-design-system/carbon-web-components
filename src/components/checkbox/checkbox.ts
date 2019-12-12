@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import ifNonNull from '../../globals/directives/if-non-null';
@@ -90,7 +90,8 @@ class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
 
   render() {
     const { checked, disabled, hideLabel, indeterminate, labelText, name, value, _handleChange: handleChange } = this;
-    const labelClasses = classnames(`${prefix}--checkbox-label`, {
+    const labelClasses = classMap({
+      [`${prefix}--checkbox-label`]: true,
       [`${prefix}--visually-hidden`]: hideLabel,
     });
     return html`

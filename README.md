@@ -51,14 +51,14 @@ To install `carbon-custom-elements` in your project, you will need to run the
 following command using [npm](https://www.npmjs.com/):
 
 ```bash
-npm install -S carbon-custom-elements carbon-components lit-html lit-element classnames lodash-es @babel/runtime
+npm install -S carbon-custom-elements carbon-components lit-html lit-element lodash-es @babel/runtime
 ```
 
 If you prefer [Yarn](https://yarnpkg.com/en/), use the following command
 instead:
 
 ```bash
-yarn add carbon-custom-elements carbon-components lit-html lit-element classnames lodash-es @babel/runtime
+yarn add carbon-custom-elements carbon-components lit-html lit-element lodash-es @babel/runtime
 ```
 
 ### Basic usage

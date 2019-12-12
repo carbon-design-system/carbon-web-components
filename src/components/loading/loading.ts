@@ -8,7 +8,7 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import LOADING_TYPE from './types';
 import getLoadingIcon from './loading-icon';
@@ -41,7 +41,8 @@ class BXLoading extends LitElement {
 
   render() {
     const { inactive, assistiveText, type } = this;
-    const innerClasses = classnames(`${prefix}--loading`, {
+    const innerClasses = classMap({
+      [`${prefix}--loading`]: true,
       [`${prefix}--loading--stop`]: inactive,
     });
     const icon = getLoadingIcon({ assistiveText, type });
