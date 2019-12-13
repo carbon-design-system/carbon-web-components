@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import debounce from 'lodash.debounce';
+import debounce from 'lodash-es/debounce';
 import Vue, { PropType } from 'vue';
 import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';

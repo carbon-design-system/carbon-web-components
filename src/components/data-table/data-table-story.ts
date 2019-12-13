@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import debounce from 'lodash.debounce';
+import debounce from 'lodash-es/debounce';
 import { html, property, LitElement } from 'lit-element';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { repeat } from 'lit-html/directives/repeat';
@@ -261,7 +261,7 @@ class BXCEDemoDataTable extends LitElement {
     if (this._handleChangeSearchString) {
       this._handleChangeSearchString.cancel();
     }
-    this._handleChangeSearchString = debounce(this._handleChangeSearchStringImpl, 500);
+    this._handleChangeSearchString = debounce(this._handleChangeSearchStringImpl as () => void, 500);
   }
 
   disconnectedCallback() {

@@ -8,7 +8,7 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './side-nav.scss';
@@ -58,7 +58,8 @@ class BXSideNavLink extends FocusMixin(LitElement) {
 
   render() {
     const { active, href, _handleSlotChangeTitleIcon: handleSlotChangeTitleIcon } = this;
-    const classes = classnames(`${prefix}--side-nav__link`, {
+    const classes = classMap({
+      [`${prefix}--side-nav__link`]: true,
       [`${prefix}--side-nav__link--current`]: active,
     });
     return html`

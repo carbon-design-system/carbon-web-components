@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { TemplateResult } from 'lit-html';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
@@ -80,8 +80,9 @@ const renderCode = ({
   expanded?: boolean;
   children: string | TemplateResult;
 }) => {
-  const classes = classnames(`${prefix}--snippet-container`, {
-    [`${prefix}-ce--snippet-container--expanded`]: expanded,
+  const classes = classMap({
+    [`${prefix}--snippet-container`]: true,
+    [`${prefix}-ce--snippet-container--expanded`]: Boolean(expanded),
   });
   // Ensures no extra whitespace text node
   // prettier-ignore

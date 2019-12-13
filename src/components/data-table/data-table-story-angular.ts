@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import debounce from 'lodash.debounce';
+import debounce from 'lodash-es/debounce';
 import { Pipe, PipeTransform, Component, Input, HostBinding, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
@@ -473,7 +473,7 @@ class BXCEDemoDataTable {
     if (this._handleChangeSearchString) {
       this._handleChangeSearchString.cancel();
     }
-    this._handleChangeSearchString = debounce(this._handleChangeSearchStringImpl, 500);
+    this._handleChangeSearchString = debounce(this._handleChangeSearchStringImpl as () => void, 500);
   }
 
   ngOnDestroy() {

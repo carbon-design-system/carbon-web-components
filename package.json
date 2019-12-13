@@ -79,6 +79,7 @@
     "@storybook/source-loader": "^5.2.0",
     "@storybook/vue": "^5.2.0",
     "@types/jasmine": "^3.3.0",
+    "@types/lodash-es": "^4.17.0",
     "@types/webpack-env": "^1.14.0",
     "@typescript-eslint/eslint-plugin": "^2.7.0",
     "@typescript-eslint/parser": "^2.7.0",
@@ -98,7 +99,6 @@
     "babel-preset-vue": "^2.0.0",
     "bluebird": "^3.5.0",
     "carbon-components": "^10.7.0",
-    "classnames": "^2.2.0",
     "commander": "^2.13.0",
     "core-js": "^3.0.0",
     "css-loader": "^2.0.0",
@@ -150,11 +150,7 @@
     "lint-staged": "^8.1.0",
     "lit-element": "^2.1.0",
     "lit-html": "~1.0.0",
-    "lodash.debounce": "^4.0.0",
-    "lodash.findlast": "^4.6.0",
-    "lodash.pick": "^4.3.0",
-    "lodash.pickby": "^4.6.0",
-    "lodash.throttle": "^4.0.0",
+    "lodash-es": "^4.17.0",
     "mini-css-extract-plugin": "^0.5.0",
     "mkdirp": "^0.5.0",
     "morgan": "^1.8.0",
@@ -170,6 +166,7 @@
     "react-dom": "^16.8.0",
     "replace-ext": "^1.0.0",
     "rtlcss": "^2.4.0",
+    "resize-observer-polyfill": "^1.5.0",
     "rxjs": "^6.4.0",
     "sass-loader": "^7.1.0",
     "strip-comments": "^1.0.0",
@@ -190,12 +187,10 @@
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
     "carbon-components": "~10.7.0",
-    "classnames": "^2.2.0",
     "flatpickr": "4.6.1",
     "lit-element": "^2.1.0",
     "lit-html": "~1.0.0",
-    "lodash.findlast": "^4.6.0",
-    "lodash.throttle": "^4.0.0"
+    "lodash-es": "^4.17.0"
   },
   "commitlint": {
     "extends": [
