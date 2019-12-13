@@ -112,7 +112,7 @@ export default class BXNumberInput extends BXInput {
     const decrementButton = html`
       <button
         class="${prefix}--number__control-btn down-icon"
-        aria-label="${this.decrementButtonLabel}"
+        aria-label="${this.decrementButtonAssistiveText}"
         aria-live="polite"
         aria-atomic="true"
         type="button"
