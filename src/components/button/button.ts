@@ -8,7 +8,7 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
@@ -169,7 +169,8 @@ class BXButton extends FocusMixin(LitElement) {
       _hasMainContent: hasMainContent,
       _handleSlotChange: handleSlotChange,
     } = this;
-    const classes = classnames(`${prefix}--btn`, {
+    const classes = classMap({
+      [`${prefix}--btn`]: true,
       [`${prefix}--btn--${kind}`]: kind,
       [`${prefix}--btn--disabled`]: disabled,
       [`${prefix}--btn--icon-only`]: hasIcon && !hasMainContent,

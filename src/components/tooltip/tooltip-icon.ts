@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, customElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import BXTooltipDefintion from './tooltip-definition';
@@ -21,7 +21,9 @@ const { prefix } = settings;
 class BXTooltipIcon extends BXTooltipDefintion {
   render() {
     const { alignment, bodyText, direction } = this;
-    const classes = classnames(`${prefix}--tooltip__trigger`, `${prefix}--tooltip--a11y`, {
+    const classes = classMap({
+      [`${prefix}--tooltip__trigger`]: true,
+      [`${prefix}--tooltip--a11y`]: true,
       [`${prefix}--tooltip--${direction}`]: direction,
       [`${prefix}--tooltip--align-${alignment}`]: alignment,
     });
