@@ -99,7 +99,7 @@ export default class BXNumberInput extends BXInput {
     const incrementButton = html`
       <button
         class="${prefix}--number__control-btn up-icon"
-        aria-label="${this.incrementButtonLabel}"
+        aria-label="${this.incrementButtonAssistiveText}"
         aria-live="polite"
         aria-atomic="true"
         type="button"
