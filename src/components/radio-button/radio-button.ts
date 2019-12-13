@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import ifNonNull from '../../globals/directives/if-non-null';
@@ -250,7 +250,7 @@ class BXRadioButton extends HostListenerMixin(FocusMixin(LitElement)) {
 
   render() {
     const { checked, hideLabel, labelText, name, value } = this;
-    const innerLabelClasses = classnames({
+    const innerLabelClasses = classMap({
       [`${prefix}--visually-hidden`]: hideLabel,
     });
     return html`

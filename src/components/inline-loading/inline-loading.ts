@@ -8,7 +8,7 @@
  */
 
 import { html, property, customElement, LitElement } from 'lit-element';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import CheckmarkFilled16 from '@carbon/icons/lib/checkmark--filled/16';
 import Error20 from '@carbon/icons/lib/error/20';
 import settings from 'carbon-components/es/globals/js/settings';
@@ -64,7 +64,8 @@ class BXInlineLoading extends LitElement {
       });
     }
     if (status === INLINE_LOADING_STATE.INACTIVE || status === INLINE_LOADING_STATE.ACTIVE) {
-      const classes = classnames(`${prefix}--loading ${prefix}--loading--small`, {
+      const classes = classMap({
+        [`${prefix}--loading ${prefix}--loading--small`]: true,
         [`${prefix}--loading--stop`]: status === INLINE_LOADING_STATE.INACTIVE,
       });
       return html`

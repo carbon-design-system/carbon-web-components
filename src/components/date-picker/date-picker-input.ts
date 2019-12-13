@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import Calendar16 from '@carbon/icons/lib/calendar/16';
 import settings from 'carbon-components/es/globals/js/settings';
@@ -203,7 +203,8 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
       _handleInput: handleInput,
     } = this;
     const hasValidity = Boolean(validityMessage);
-    const labelClasses = classnames(`${prefix}--label`, {
+    const labelClasses = classMap({
+      [`${prefix}--label`]: true,
       [`${prefix}--visually-hidden`]: hideLabel,
       [`${prefix}--label--disabled`]: disabled,
     });

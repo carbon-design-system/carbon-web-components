@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import Close16 from '@carbon/icons/lib/close/16';
 import Close20 from '@carbon/icons/lib/close/20';
@@ -148,7 +148,8 @@ class BXSearch extends FocusMixin(LitElement) {
       _handleInput: handleInput,
       _handleClearInputButtonClick: handleClearInputButtonClick,
     } = this;
-    const clearClasses = classnames(`${prefix}--search-close`, {
+    const clearClasses = classMap({
+      [`${prefix}--search-close`]: true,
       [`${prefix}--search-close--hidden`]: !this.value,
     });
     return html`

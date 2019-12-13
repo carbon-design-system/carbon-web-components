@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import settings from 'carbon-components/es/globals/js/settings';
@@ -308,10 +308,12 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
       _open: open,
       _selectedItemContent: selectedItemContent,
     } = this;
-    const triggerClasses = classnames(`${prefix}--tabs-trigger`, {
+    const triggerClasses = classMap({
+      [`${prefix}--tabs-trigger`]: true,
       [`${prefix}--tabs-trigger--open`]: open,
     });
-    const listClasses = classnames(`${prefix}--tabs__nav`, {
+    const listClasses = classMap({
+      [`${prefix}--tabs__nav`]: true,
       [`${prefix}--tabs__nav--hidden`]: !open,
     });
     return html`
