@@ -39,6 +39,7 @@ defaultStory.story = baseDefaultStory.story;
 export const singleWithCalendar = ({ parameters }) => ({
   template: `
   <bx-date-picker
+    [dateFormat]="dateFormat"
     [enabledRange]="enabledRange"
     [open]="open"
     [value]="value"
@@ -68,6 +69,7 @@ singleWithCalendar.story = baseSingleWithCalendar.story;
 export const rangeWithCalendar = ({ parameters }) => ({
   template: `
   <bx-date-picker
+    [dateFormat]="dateFormat"
     [enabledRange]="enabledRange"
     [open]="open"
     [value]="value"
