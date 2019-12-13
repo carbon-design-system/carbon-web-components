@@ -8,7 +8,7 @@
  */
 
 import { html, property, customElement, LitElement } from 'lit-element';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import Close16 from '@carbon/icons/lib/close/16';
 import FocusMixin from '../../globals/mixins/focus';
@@ -44,7 +44,10 @@ export default class BXFilterTag extends FocusMixin(LitElement) {
 
   render() {
     const { disabled, title, type } = this;
-    const classes = classnames(`${prefix}--tag`, `${prefix}--tag--${type}`, `${prefix}--tag--filter`, {
+    const classes = classMap({
+      [`${prefix}--tag`]: true,
+      [`${prefix}--tag--${type}`]: true,
+      [`${prefix}--tag--filter`]: true,
       [`${prefix}--tag--disabled`]: disabled,
     });
     return html`

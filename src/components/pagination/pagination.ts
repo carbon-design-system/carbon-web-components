@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import CaretLeft24 from '@carbon/icons/lib/caret--left/24';
 import CaretRight24 from '@carbon/icons/lib/caret--right/24';
@@ -226,10 +226,14 @@ class BXPagination extends FocusMixin(LitElement) {
     const currentPage = Math.floor(start / pageSize);
     const prevButtonDisabled = disabled || currentPage === 0;
     const nextButtonDisabled = disabled || atLastPage;
-    const prevButtonClasses = classnames(`${prefix}--pagination__button`, `${prefix}--pagination__button--backward`, {
+    const prevButtonClasses = classMap({
+      [`${prefix}--pagination__button`]: true,
+      [`${prefix}--pagination__button--backward`]: true,
       [`${prefix}--pagination__button--no-index`]: prevButtonDisabled,
     });
-    const nextButtonClasses = classnames(`${prefix}--pagination__button`, `${prefix}--pagination__button--forward`, {
+    const nextButtonClasses = classMap({
+      [`${prefix}--pagination__button`]: true,
+      [`${prefix}--pagination__button--forward`]: true,
       [`${prefix}--pagination__button--no-index`]: nextButtonDisabled,
     });
     return html`

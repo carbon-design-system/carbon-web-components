@@ -8,7 +8,7 @@
  */
 
 import { html, render, TemplateResult } from 'lit-html';
-import pick from 'lodash.pick';
+import pick from 'lodash-es/pick';
 import flatpickr from 'flatpickr';
 // Just importing the default export does not seem to run `customElements.define()`
 /* eslint-disable import/no-duplicates */
@@ -156,7 +156,7 @@ describe('bx-date-picker', function() {
       const { config, loadedPlugins } = datePicker!.calendar!;
       expect(pick(config, ['allowInput', 'appendTo', 'dateFormat', 'locale', 'maxDate', 'minDate', 'positionElement'])).toEqual({
         allowInput: true,
-        appendTo: datePicker!.shadowRoot!.getElementById('floating-menu-container'),
+        appendTo: datePicker!.shadowRoot!.getElementById('floating-menu-container')!,
         dateFormat: 'm/d/Y',
         locale: flatpickr.l10ns.default,
         maxDate: undefined,
@@ -164,6 +164,7 @@ describe('bx-date-picker', function() {
         positionElement: datePickerInput!.input,
       });
       expect(loadedPlugins.sort()).toEqual([
+        'carbonFlatpickrAppendToPlugin',
         'carbonFlatpickrCSSClassPlugin',
         'carbonFlatpickrFixEventsPlugin',
         'carbonFlatpickrFocusPlugin',
@@ -202,7 +203,7 @@ describe('bx-date-picker', function() {
       const { config, loadedPlugins } = datePicker!.calendar!;
       expect(pick(config, ['allowInput', 'appendTo', 'dateFormat', 'locale', 'maxDate', 'minDate', 'positionElement'])).toEqual({
         allowInput: true,
-        appendTo: datePicker!.shadowRoot!.getElementById('floating-menu-container'),
+        appendTo: datePicker!.shadowRoot!.getElementById('floating-menu-container')!,
         dateFormat: 'm/d/Y',
         locale: flatpickr.l10ns.default,
         maxDate: undefined,
@@ -210,6 +211,7 @@ describe('bx-date-picker', function() {
         positionElement: datePickerInputStart!.input,
       });
       expect(loadedPlugins.sort()).toEqual([
+        'carbonFlatpickrAppendToPlugin',
         'carbonFlatpickrCSSClassPlugin',
         'carbonFlatpickrFixEventsPlugin',
         'carbonFlatpickrFocusPlugin',

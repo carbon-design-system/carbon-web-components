@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import pickBy from 'lodash.pickby';
+import pickBy from 'lodash-es/pickBy';
 
 /**
  * @param props A key-value pair of properties to bind to a Vue component.

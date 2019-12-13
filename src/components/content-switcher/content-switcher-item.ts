@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import ifNonNull from '../../globals/directives/if-non-null';
@@ -71,7 +71,8 @@ class BXContentSwitcherItem extends FocusMixin(LitElement) {
 
   render() {
     const { disabled, selected, target } = this;
-    const className = classnames(`${prefix}--content-switcher-btn`, {
+    const className = classMap({
+      [`${prefix}--content-switcher-btn`]: true,
       [`${prefix}--content-switcher--selected`]: selected,
     });
     return html`

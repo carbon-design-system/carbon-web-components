@@ -8,7 +8,7 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import Close20 from '@carbon/icons/lib/close/20';
 import Menu20 from '@carbon/icons/lib/menu/20';
@@ -64,7 +64,10 @@ class BXHeaderMenuButton extends FocusMixin(LitElement) {
   render() {
     const { active, buttonLabelActive, buttonLabelInactive, disabled, _handleClick: handleClick } = this;
     const buttonLabel = active ? buttonLabelActive : buttonLabelInactive;
-    const classes = classnames(`${prefix}--header__action ${prefix}--header__menu-trigger ${prefix}--header__menu-toggle`, {
+    const classes = classMap({
+      [`${prefix}--header__action`]: true,
+      [`${prefix}--header__menu-trigger`]: true,
+      [`${prefix}--header__menu-toggle`]: true,
       [`${prefix}--header__action--active`]: active,
     });
     return html`

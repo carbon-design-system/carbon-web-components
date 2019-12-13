@@ -7,8 +7,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
-import { html, property, query, customElement, LitElement } from 'lit-element';
+import { classMap } from 'lit-html/directives/class-map';
+import { html, property, customElement, LitElement } from 'lit-element';
 import Close16 from '@carbon/icons/lib/close/16';
 import Close20 from '@carbon/icons/lib/close/20';
 import Search16 from '@carbon/icons/lib/search/16';
@@ -39,33 +39,30 @@ export enum SEARCH_SIZE {
  */
 @customElement(`${prefix}-search`)
 class BXSearch extends FocusMixin(LitElement) {
-  @query('input')
-  private _inputNode!: HTMLInputElement;
-
   /**
    * Handles `input` event on the `<input>` in the shadow DOM.
    */
   private _handleInput(event: Event) {
     const { target } = event;
+    const { value } = target as HTMLInputElement;
     this.dispatchEvent(
       new CustomEvent((this.constructor as typeof BXSearch).eventAfterInput, {
         bubbles: true,
         composed: true,
         cancelable: false,
         detail: {
-          value: (target as HTMLInputElement).value,
+          value,
         },
       })
     );
-    this.requestUpdate();
+    this.value = value;
   }
 
   /**
    * Handles `click` event on the button to clear search box content.
    */
   private _handleClearInputButtonClick() {
-    const { _inputNode: inputNode } = this;
-    if (inputNode.value) {
+    if (this.value) {
       this.dispatchEvent(
         new CustomEvent((this.constructor as typeof BXSearch).eventAfterInput, {
           bubbles: true,
@@ -76,8 +73,7 @@ class BXSearch extends FocusMixin(LitElement) {
           },
         })
       );
-      inputNode.value = '';
-      this.requestUpdate();
+      this.value = '';
     }
   }
 
@@ -98,6 +94,12 @@ class BXSearch extends FocusMixin(LitElement) {
    */
   @property({ attribute: 'label-text' })
   labelText = '';
+
+  /**
+   * `true` if this search box should use the light UI variant. Corresponds to the attribute with the same name.
+   */
+  @property({ type: Boolean, reflect: true })
+  light = false;
 
   /**
    * The form name. Corresponds to the attribute with the same name.
@@ -143,12 +145,12 @@ class BXSearch extends FocusMixin(LitElement) {
       size,
       type,
       value = '',
-      _inputNode: inputNode,
       _handleInput: handleInput,
       _handleClearInputButtonClick: handleClearInputButtonClick,
     } = this;
-    const clearClasses = classnames(`${prefix}--search-close`, {
-      [`${prefix}--search-close--hidden`]: !inputNode || !inputNode.value,
+    const clearClasses = classMap({
+      [`${prefix}--search-close`]: true,
+      [`${prefix}--search-close--hidden`]: !this.value,
     });
     return html`
       ${Search16({
@@ -165,6 +167,7 @@ class BXSearch extends FocusMixin(LitElement) {
         ?disabled="${disabled}"
         name="${ifNonNull(name)}"
         placeholder="${ifNonNull(placeholder)}"
+        role="searchbox"
         .value="${value}"
         @input="${handleInput}"
       />
