@@ -115,16 +115,19 @@ export default class BXNumberInput extends BXInput {
 
     const invalidIcon = WarningFilled16({ class: `${prefix}--number__invalid` });
 
-    const wrapperClasses = classMap(`${prefix}--number`, {
+    const wrapperClasses = classMap({
+      [`${prefix}--number`]: true,
       [`${prefix}--number--light`]: this.light,
       [`${prefix}--number--mobile`]: this.mobile,
     });
 
-    const labelClasses = classMap(`${prefix}--label`, {
+    const labelClasses = classMap({
+      [`${prefix}--label`]: true,
       [`${prefix}--label--disabled`]: this.disabled,
     });
 
-    const helperTextClasses = classMap(`${prefix}--form__helper-text`, {
+    const helperTextClasses = classMap({
+      [`${prefix}--form__helper-text`]: true,
       [`${prefix}--form__helper-text--disabled`]: this.disabled,
     });
 
