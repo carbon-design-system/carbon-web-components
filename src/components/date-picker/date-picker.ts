@@ -259,7 +259,7 @@ class BXDatePicker extends LitElement {
   calendar: FlatpickrInstance | null = null;
 
   /**
-   * The frdate format to let Flatpickr use. Corresponds to `date-format` attribute.
+   * The date format to let Flatpickr use. Corresponds to `date-format` attribute.
    */
   @property({ attribute: 'date-format' })
   dateFormat!: string;
