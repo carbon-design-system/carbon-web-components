@@ -8,7 +8,7 @@
  */
 
 import { customElement, html, property, query } from 'lit-element';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import CaretUp16 from '@carbon/icons/lib/caret--up/16';
@@ -20,6 +20,9 @@ const { prefix } = settings;
 
 @customElement(`${prefix}-number-input`)
 export default class BXNumberInput extends BXInput {
+  /**
+   * The underlying input element
+   */
   @query('input')
   protected _input!: HTMLInputElement;
 
@@ -41,7 +44,12 @@ export default class BXNumberInput extends BXInput {
 
   protected _max = '';
 
-  @property({ type: Number, reflect: true })
+  protected _step = '1';
+
+  /**
+   * The minimum value allowed in the input
+   */
+  @property({ reflect: true })
   set min(value) {
     this._min = value;
   }
@@ -50,7 +58,10 @@ export default class BXNumberInput extends BXInput {
     return this._min.toString();
   }
 
-  @property({ type: Number, reflect: true })
+  /**
+   * The maximum value allowed in the input
+   */
+  @property({ reflect: true })
   set max(value) {
     this._max = value;
   }
@@ -59,18 +70,39 @@ export default class BXNumberInput extends BXInput {
     return this._max.toString();
   }
 
-  @property({ type: Number, reflect: true })
-  step = '1';
+  /**
+   * The amount the value should increase or decrease by
+   */
+  @property({ reflect: true })
+  set step(value) {
+    this._step = value;
+  }
 
+  get step() {
+    return this._step.toString();
+  }
+
+  /**
+   * Set to `true` to enable the mobile variant of the number input
+   */
   @property({ type: Boolean, reflect: true })
   mobile = false;
 
+  /**
+   * Aria text for the button that increments the value
+   */
   @property({ attribute: 'increment-button-assistive-text' })
   incrementButtonAssistiveText = 'increase number input';
 
+  /**
+   * Aria text for the button that decrements the value
+   */
   @property({ attribute: 'decrement-button-assistive-text' })
   decrementButtonAssistiveText = 'decrease number input';
 
+  /**
+   * Set to `true` to enable the light variant for the input
+   */
   @property({ type: Boolean, reflect: true })
   light = false;
 
@@ -83,16 +115,16 @@ export default class BXNumberInput extends BXInput {
 
     const invalidIcon = WarningFilled16({ class: `${prefix}--number__invalid` });
 
-    const wrapperClasses = classnames(`${prefix}--number`, {
+    const wrapperClasses = classMap(`${prefix}--number`, {
       [`${prefix}--number--light`]: this.light,
       [`${prefix}--number--mobile`]: this.mobile,
     });
 
-    const labelClasses = classnames(`${prefix}--label`, {
+    const labelClasses = classMap(`${prefix}--label`, {
       [`${prefix}--label--disabled`]: this.disabled,
     });
 
-    const helperTextClasses = classnames(`${prefix}--form__helper-text`, {
+    const helperTextClasses = classMap(`${prefix}--form__helper-text`, {
       [`${prefix}--form__helper-text--disabled`]: this.disabled,
     });
 
