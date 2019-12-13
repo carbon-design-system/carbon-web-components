@@ -7,17 +7,39 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import ResizeObserver from 'resize-observer-polyfill';
 import { LitElement } from 'lit-element';
+import Handle from '../../globals/internal/handle';
 import BXFloatingMenuTrigger from './floating-menu-trigger';
+
+/**
+ * The LTR/RTL direction used for positioning floating menu.
+ */
+export enum FLOATING_MENU_POSITION_DIRECTION {
+  /**
+   * LTR.
+   */
+  LTR = 'ltr',
+
+  /**
+   * RTL.
+   */
+  RTL = 'rtl',
+}
 
 /**
  * Position of floating menu, or trigger button of floating menu.
  */
 export interface FloatingMenuPosition {
   /**
-   * The left position.
+   * The LTR/RTL direction used for positioning floating menu.
    */
-  left: number;
+  direction: FLOATING_MENU_POSITION_DIRECTION;
+
+  /**
+   * The start position (Left position for LTR, right position for RTL).
+   */
+  start: number;
 
   /**
    * The top position.
@@ -86,9 +108,46 @@ export enum FLOATING_MENU_DIRECTION_GROUP {
 }
 
 /**
+ * Observes resize of the given element with the given resize observer.
+ * @param observer The resize observer.
+ * @param elem The element to observe the resize.
+ */
+const observeResize = (observer: ResizeObserver, elem: Element) => {
+  observer.observe(elem);
+  return {
+    release() {
+      observer.unobserve(elem);
+      return null;
+    },
+  } as Handle;
+};
+
+/**
  * Floating menu.
  */
 abstract class BXFloatingMenu extends LitElement {
+  /**
+   * The handle for observing resize of the element containing the trigger button.
+   */
+  private _hObserveResizeParent: Handle | null = null;
+
+  /**
+   * The handle for observing resize of the floating menu container.
+   */
+  private _hObserveResizeContainer: Handle | null = null;
+
+  /**
+   * The `ResizeObserver` instance for observing element resizes for re-positioning floating menu position.
+   */
+  private _resizeObserver = new ResizeObserver(() => {
+    const { container, open, parent, position } = this;
+    if (container && open && parent) {
+      const { direction, start, top } = position;
+      this.style[direction !== FLOATING_MENU_POSITION_DIRECTION.RTL ? 'left' : 'right'] = `${start}px`;
+      this.style.top = `${top}px`;
+    }
+  });
+
   /**
    * The DOM element, typically a custom element in this library, launching this floating menu.
    */
@@ -140,14 +199,23 @@ abstract class BXFloatingMenu extends LitElement {
     const { container } = this;
     const { left: refLeft = 0, top: refTop = 0, right: refRight = 0, bottom: refBottom = 0 } = triggerPosition;
     const { width, height } = this.getBoundingClientRect();
-    const { scrollLeft, scrollTop } = container;
-    const { left: containerLeft = 0, top: containerTop = 0 } = container.getBoundingClientRect();
+    const { left: containerLeft = 0, right: containerRight = 0, top: containerTop = 0 } = container.getBoundingClientRect();
     const refCenterHorizontal = (refLeft + refRight) / 2;
     const refCenterVertical = (refTop + refBottom) / 2;
 
+    const containerComputedStyle = container.ownerDocument!.defaultView!.getComputedStyle(container);
+    const positionDirection = containerComputedStyle.getPropertyValue('direction') as FLOATING_MENU_POSITION_DIRECTION;
+    const isRtl = positionDirection === FLOATING_MENU_POSITION_DIRECTION.RTL;
+    const containerStartFromViewport = !isRtl ? containerLeft : container.ownerDocument!.defaultView!.innerWidth - containerRight;
+    const refStartFromContainer = !isRtl ? refLeft - containerLeft : containerRight - refRight;
+    const refEndFromContainer = !isRtl ? refRight - containerLeft : containerRight - refLeft;
+    const refCenterHorizontalFromContainer = !isRtl ? refCenterHorizontal - containerLeft : containerRight - refCenterHorizontal;
+    const refTopFromContainer = refTop - containerTop;
+    const refCenterVerticalFromContainer = refCenterVertical - containerTop;
+
     if (
-      (container !== this.ownerDocument!.body || containerLeft !== 0 || containerTop !== 0) &&
-      container.ownerDocument!.defaultView!.getComputedStyle(container).getPropertyValue('position') === 'static'
+      (container !== this.ownerDocument!.body || containerStartFromViewport !== 0 || containerTop !== 0) &&
+      containerComputedStyle.getPropertyValue('position') === 'static'
     ) {
       throw new Error('Floating menu container must not have `position:static`.');
     }
@@ -162,52 +230,78 @@ abstract class BXFloatingMenu extends LitElement {
 
     const alignmentStart = {
       [FLOATING_MENU_DIRECTION_GROUP.HORIZONTAL]: {
-        [FLOATING_MENU_ALIGNMENT.START]: () => refLeft,
-        [FLOATING_MENU_ALIGNMENT.CENTER]: () => refCenterHorizontal - width / 2,
-        [FLOATING_MENU_ALIGNMENT.END]: () => refRight - width,
+        [FLOATING_MENU_ALIGNMENT.START]: () => refStartFromContainer,
+        [FLOATING_MENU_ALIGNMENT.CENTER]: () => refCenterHorizontalFromContainer - width / 2,
+        [FLOATING_MENU_ALIGNMENT.END]: () => refEndFromContainer - width,
       },
       [FLOATING_MENU_DIRECTION_GROUP.VERTICAL]: {
-        [FLOATING_MENU_ALIGNMENT.START]: () => refTop,
-        [FLOATING_MENU_ALIGNMENT.CENTER]: () => refCenterVertical - height / 2,
+        [FLOATING_MENU_ALIGNMENT.START]: () => refTopFromContainer,
+        [FLOATING_MENU_ALIGNMENT.CENTER]: () => refCenterVerticalFromContainer - height / 2,
         [FLOATING_MENU_ALIGNMENT.END]: () => refBottom - height,
       },
     }[alignmentDirection][alignment]();
 
-    const { left, top } = {
+    const { start, top } = {
       [FLOATING_MENU_DIRECTION.LEFT]: () => ({
-        left: refLeft - width + scrollLeft,
-        top: alignmentStart + scrollTop,
+        start: refStartFromContainer - width,
+        top: alignmentStart,
       }),
       [FLOATING_MENU_DIRECTION.TOP]: () => ({
-        left: alignmentStart + scrollLeft,
-        top: refTop - height + scrollTop,
+        start: alignmentStart,
+        top: refTopFromContainer - height,
       }),
       [FLOATING_MENU_DIRECTION.RIGHT]: () => ({
-        left: refRight + scrollLeft,
-        top: alignmentStart + scrollTop,
+        start: refEndFromContainer,
+        top: alignmentStart,
       }),
       [FLOATING_MENU_DIRECTION.BOTTOM]: () => ({
-        left: alignmentStart + scrollLeft,
-        top: refBottom + scrollTop,
+        start: alignmentStart,
+        top: refBottom,
       }),
     }[direction]();
 
     return {
-      left: left - containerLeft,
-      top: top - containerTop,
+      direction: positionDirection,
+      start,
+      top,
     };
+  }
+
+  disconnectedCallback() {
+    if (this._hObserveResizeContainer) {
+      this._hObserveResizeContainer = this._hObserveResizeContainer.release();
+    }
+    if (this._hObserveResizeParent) {
+      this._hObserveResizeParent = this._hObserveResizeParent.release();
+    }
   }
 
   attributeChangedCallback(name, old, current) {
     if (old !== current) {
-      if ((name === 'open' || name === 'direction' || name === 'alignment') && this.open) {
+      const { container, open } = this;
+      if ((name === 'open' || name === 'direction' || name === 'alignment') && open) {
         if (!this.parent) {
           this.parent = this.parentElement as BXFloatingMenuTrigger;
-          this.container.appendChild(this);
+          container.appendChild(this);
         }
-        const { left, top } = this.position;
-        this.style.left = `${left}px`;
+        const { direction, start, top } = this.position;
+        this.style[direction !== FLOATING_MENU_POSITION_DIRECTION.RTL ? 'left' : 'right'] = `${start}px`;
         this.style.top = `${top}px`;
+      }
+      if (name === 'open') {
+        if (this._hObserveResizeContainer) {
+          this._hObserveResizeContainer = this._hObserveResizeContainer.release();
+        }
+        if (this._hObserveResizeParent) {
+          this._hObserveResizeParent = this._hObserveResizeParent.release();
+        }
+        if (open) {
+          const { parentElement } = this.parent ?? {};
+          this._hObserveResizeContainer = observeResize(this._resizeObserver, container);
+          if (parentElement) {
+            this._hObserveResizeParent = observeResize(this._resizeObserver, parentElement);
+          }
+        }
       }
     }
     super.attributeChangedCallback(name, old, current);

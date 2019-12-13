@@ -8,7 +8,7 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
@@ -31,11 +31,6 @@ export enum BUTTON_KIND {
   SECONDARY = 'secondary',
 
   /**
-   * Tertiary button.
-   */
-  TERTIARY = 'tertiary',
-
-  /**
    * Danger button.
    */
   DANGER = 'danger',
@@ -52,6 +47,16 @@ export enum BUTTON_KIND {
 @customElement(`${prefix}-btn`)
 class BXButton extends FocusMixin(LitElement) {
   /**
+   * `true` if there is an icon.
+   */
+  private _hasIcon = false;
+
+  /**
+   * `true` if there is a non-icon content.
+   */
+  private _hasMainContent = false;
+
+  /**
    * Handles `click` event on the `<a>.
    * @param event The event.
    */
@@ -60,6 +65,18 @@ class BXButton extends FocusMixin(LitElement) {
       event.preventDefault(); // Stop following the link
       event.stopPropagation(); // Stop firing `onClick`
     }
+  }
+
+  /**
+   * Handles `slotchange` event.
+   */
+  private _handleSlotChange({ target }: Event) {
+    const { name } = target as HTMLSlotElement;
+    const hasContent = (target as HTMLSlotElement)
+      .assignedNodes()
+      .some(node => node.nodeType !== Node.TEXT_NODE || node!.textContent!.trim());
+    this[name === 'icon' ? '_hasIcon' : '_hasMainContent'] = hasContent;
+    this.requestUpdate();
   }
 
   /**
@@ -136,11 +153,29 @@ class BXButton extends FocusMixin(LitElement) {
   }
 
   render() {
-    const { autofocus, disabled, download, href, hreflang, kind, ping, rel, small, target, type } = this;
-    const classes = classnames(`${prefix}--btn`, {
+    const {
+      autofocus,
+      disabled,
+      download,
+      href,
+      hreflang,
+      kind,
+      ping,
+      rel,
+      small,
+      target,
+      type,
+      _hasIcon: hasIcon,
+      _hasMainContent: hasMainContent,
+      _handleSlotChange: handleSlotChange,
+    } = this;
+    const classes = classMap({
+      [`${prefix}--btn`]: true,
       [`${prefix}--btn--${kind}`]: kind,
       [`${prefix}--btn--disabled`]: disabled,
+      [`${prefix}--btn--icon-only`]: hasIcon && !hasMainContent,
       [`${prefix}--btn--sm`]: small,
+      [`${prefix}-ce--btn--has-icon`]: hasIcon,
     });
     return href
       ? html`
@@ -156,12 +191,15 @@ class BXButton extends FocusMixin(LitElement) {
             target="${ifNonNull(target)}"
             type="${ifNonNull(type)}"
             @click="${this._handleClickLink}"
-            ><slot></slot
-          ></a>
+          >
+            <slot @slotchange="${handleSlotChange}"></slot>
+            <slot name="icon" @slotchange="${handleSlotChange}"></slot>
+          </a>
         `
       : html`
           <button id="button" class="${classes}" ?autofocus="${autofocus}" ?disabled="${disabled}" type="${ifNonNull(type)}">
-            <slot></slot>
+            <slot @slotchange="${handleSlotChange}"></slot>
+            <slot name="icon" @slotchange="${handleSlotChange}"></slot>
           </button>
         `;
   }

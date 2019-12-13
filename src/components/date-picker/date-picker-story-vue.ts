@@ -15,6 +15,7 @@ import './date-picker';
 import './date-picker-input';
 
 const createProps = () => ({
+  dateFormat: text('The date format (date-format)', 'm/d/Y'),
   enabledRange: text('Minimum/maximum dates in ISO8601 date format, separated by `/` (enabled-range)', ''),
   open: boolean('Open (open)', false),
   value: text('Value in ISO8601 date format, separated by `/` (value)', ''),
@@ -37,7 +38,7 @@ storiesOf('Date picker', module)
     'Default',
     () => ({
       template: `
-      <bx-date-picker :open="open">
+      <bx-date-picker>
         <bx-date-picker-input
           :disabled="disabled"
           :hide-label="hideLabel"
@@ -48,7 +49,7 @@ storiesOf('Date picker', module)
         </bx-date-picker-input>
       </bx-date-picker>
     `,
-      ...createVueBindingsFromProps({ ...createProps(), ...createInputProps() }),
+      ...createVueBindingsFromProps({ ...createInputProps() }),
     }),
     {
       docs: {
@@ -61,6 +62,7 @@ storiesOf('Date picker', module)
     () => ({
       template: `
       <bx-date-picker
+        :date-format="dateFormat"
         :enabled-range="enabledRange"
         :open="open"
         :value="value"
@@ -92,6 +94,7 @@ storiesOf('Date picker', module)
     () => ({
       template: `
       <bx-date-picker
+        :date-format="dateFormat"
         :enabled-range="enabledRange"
         :open="open"
         :value="value"

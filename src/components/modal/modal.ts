@@ -8,8 +8,8 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import findLast from 'lodash.findlast';
-import classnames from 'classnames';
+import findLast from 'lodash-es/findLast';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
@@ -150,8 +150,13 @@ class BXModal extends HostListenerMixin(LitElement) {
   open = false;
 
   render() {
-    const containerClasses = classnames(`${prefix}--modal-container`, {
-      [this.containerClass]: this.containerClass,
+    const containerClass = this.containerClass
+      .split(' ')
+      .filter(Boolean)
+      .reduce((acc, item) => ({ ...acc, [item]: true }), {});
+    const containerClasses = classMap({
+      [`${prefix}--modal-container`]: true,
+      ...containerClass,
     });
     return html`
       <a id="start-sentinel" class="${prefix}--visually-hidden" href="javascript:void 0" role="navigation"></a>

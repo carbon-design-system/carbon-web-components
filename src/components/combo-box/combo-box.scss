@@ -27,6 +27,11 @@ $css--plex: true !default;
   .#{$prefix}--list-box__field {
     padding: 0;
   }
+
+  .#{$prefix}--list-box__menu {
+    top: 100%;
+    margin-top: 1px;
+  }
 }
 
 :host(#{$prefix}-combo-box[type='inline']) {

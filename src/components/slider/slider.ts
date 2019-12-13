@@ -7,8 +7,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
-import throttle from 'lodash.throttle';
+import { classMap } from 'lit-html/directives/class-map';
+import throttle from 'lodash-es/throttle';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import on from 'carbon-components/es/globals/js/misc/on';
@@ -54,7 +54,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   /**
    * The handle for the throttled listener of `mousemove` event.
    */
-  private _throttledHandleMousemoveImpl: (((event: Event) => void) & Cancelable) | null = null;
+  private _throttledHandleMousemoveImpl: (((event: MouseEvent) => void) & Cancelable) | null = null;
 
   /**
    * `true` if dragging of thumb is in progress.
@@ -357,10 +357,12 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
       _handleMousedownTrack: handleMousedownTrack,
       _handleMousedownThumb: handleMousedownThumb,
     } = this;
-    const labelClasses = classnames(`${prefix}--label`, {
+    const labelClasses = classMap({
+      [`${prefix}--label`]: true,
       [`${prefix}--label--disabled`]: disabled,
     });
-    const sliderClasses = classnames(`${prefix}--slider`, {
+    const sliderClasses = classMap({
+      [`${prefix}--slider`]: true,
       [`${prefix}--slider--disabled`]: disabled,
     });
     return html`
