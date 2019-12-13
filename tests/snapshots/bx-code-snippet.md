@@ -31,8 +31,6 @@
   >
   </div>
 </button>
-<div class="bx-ce--snippet__overflow-gradient">
-</div>
 
 ```
 
@@ -118,8 +116,6 @@
   >
   </div>
 </button>
-<div class="bx-ce--snippet__overflow-gradient">
-</div>
 
 ```
 
