@@ -65,11 +65,11 @@ export default class BXNumberInput extends BXInput {
   @property({ type: Boolean, reflect: true })
   mobile = false;
 
-  @property()
-  incrementButtonLabel = 'increase number input';
+  @property({ attribute: 'increment-button-assistive-text' })
+  incrementButtonAssistiveText = 'increase number input';
 
-  @property()
-  decrementButtonLabel = 'decrease number input';
+  @property({ attribute: 'decrement-button-assistive-text' })
+  decrementButtonAssistiveText = 'decrease number input';
 
   @property({ type: Boolean, reflect: true })
   light = false;
@@ -99,7 +99,7 @@ export default class BXNumberInput extends BXInput {
     const incrementButton = html`
       <button
         class="${prefix}--number__control-btn up-icon"
-        aria-label="${this.incrementButtonLabel}"
+        aria-label="${this.incrementButtonAssistiveText}"
         aria-live="polite"
         aria-atomic="true"
         type="button"
@@ -112,7 +112,7 @@ export default class BXNumberInput extends BXInput {
     const decrementButton = html`
       <button
         class="${prefix}--number__control-btn down-icon"
-        aria-label="${this.decrementButtonLabel}"
+        aria-label="${this.decrementButtonAssistiveText}"
         aria-live="polite"
         aria-atomic="true"
         type="button"
