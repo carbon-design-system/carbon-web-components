@@ -8,7 +8,7 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import findLast from 'lodash.findlast';
+import findLast from 'lodash-es/findLast';
 import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import HostListener from '../../globals/decorators/host-listener';
