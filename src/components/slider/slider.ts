@@ -137,9 +137,11 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
    */
   private _handleMousedownTrack(event: MouseEvent) {
     if (!this.disabled) {
-      const thumbLeft = event.clientX;
-      const { left: trackLeft, width: trackWidth } = this._trackNode.getBoundingClientRect();
-      this._rate = (thumbLeft - trackLeft) / trackWidth;
+      const { _trackNode: trackNode } = this;
+      const isRtl = trackNode.ownerDocument!.defaultView!.getComputedStyle(trackNode).getPropertyValue('direction') === 'rtl';
+      const thumbPosition = event.clientX;
+      const { left: trackLeft, width: trackWidth } = trackNode.getBoundingClientRect();
+      this._rate = (isRtl ? trackLeft + trackWidth - thumbPosition : thumbPosition - trackLeft) / trackWidth;
       this.dispatchEvent(
         new CustomEvent((this.constructor as typeof BXSlider).eventAfterChange, {
           bubbles: true,
@@ -170,11 +172,12 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
    * @param event The event.
    */
   private _handleMousemoveImpl(event: MouseEvent) {
-    const { disabled, _dragging: dragging } = this;
+    const { disabled, _dragging: dragging, _trackNode: trackNode } = this;
     if (!disabled && dragging) {
-      const thumbLeft = event.clientX;
+      const isRtl = trackNode.ownerDocument!.defaultView!.getComputedStyle(trackNode).getPropertyValue('direction') === 'rtl';
+      const thumbPosition = event.clientX;
       const { left: trackLeft, width: trackWidth } = this._trackNode.getBoundingClientRect();
-      this._rate = (thumbLeft - trackLeft) / trackWidth;
+      this._rate = (isRtl ? trackLeft + trackWidth - thumbPosition : thumbPosition - trackLeft) / trackWidth;
       this.dispatchEvent(
         new CustomEvent((this.constructor as typeof BXSlider).eventAfterChange, {
           bubbles: true,
@@ -370,7 +373,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
         <span class="${prefix}--slider__range-label">
           <slot name="min-text">${formatMinText({ min })}</slot>
         </span>
-        <div class="${sliderClasses}" role="presentation" tabindex="-1">
+        <div class="${sliderClasses}" role="presentation">
           <div
             id="thumb"
             class="${prefix}--slider__thumb"
@@ -384,7 +387,9 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
             @mousedown="${handleMousedownThumb}"
           ></div>
           <div id="track" class="${prefix}--slider__track" @mousedown="${handleMousedownTrack}"></div>
-          <div class="${prefix}--slider__filled-track" style="transform: translate(0%, -50%) scaleX(${rate})"></div>
+          <div class="${prefix}-ce--slider__filled-track-container">
+            <div class="${prefix}--slider__filled-track" style="transform: translate(0%, -50%) scaleX(${rate})"></div>
+          </div>
           <input
             class="${prefix}--slider__input"
             type="hidden"
