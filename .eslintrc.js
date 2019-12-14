@@ -76,7 +76,7 @@ module.exports = {
       },
     },
     {
-      files: ['examples/codesandbox/react/**/*.js'],
+      files: ['examples/codesandbox/{react,form/redux-form}/**/*.js'],
       plugins: ['react'],
       rules: {
         'react/jsx-uses-react': 2,

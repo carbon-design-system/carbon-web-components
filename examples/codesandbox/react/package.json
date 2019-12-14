@@ -7,13 +7,15 @@
   "dependencies": {
     "carbon-components": "~10.5.0",
     "carbon-custom-elements": "^0.1.0",
-    "classnames": "^2.2.0",
     "lit-element": "^2.1.0",
     "lit-html": "^1.1.0",
-    "lodash.findlast": "^4.6.0",
+    "lodash-es": "^4.17.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-scripts": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -25,8 +27,11 @@
     "last 1 version",
     "Firefox ESR",
     "not opera > 0",
+    "not op_mini > 0",
+    "not op_mob > 0",
     "not android > 0",
     "not edge > 0",
-    "not ie > 0"    
+    "not ie > 0",
+    "not ie_mob > 0"
   ]
 }

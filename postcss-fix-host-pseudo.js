@@ -59,23 +59,24 @@ module.exports = postcss.plugin('fix-host-pseudo', function postCssPluginFixHost
                 precedingNode && precedingNode.type !== 'combinator';
                 precedingNode = precedingNode.prev()
               ) {
-                pseudosToMove.unshift(precedingNode);
+                if (precedingNode.type !== 'pseudo' || !/^::/.test(precedingNode.value)) {
+                  pseudosToMove.unshift(precedingNode);
+                }
               }
               for (
                 let followingNode = pseudo.next();
                 followingNode && followingNode.type !== 'combinator';
                 followingNode = followingNode.next()
               ) {
-                pseudosToMove.push(followingNode);
+                if (followingNode.type !== 'pseudo' || !/^::/.test(followingNode.value)) {
+                  pseudosToMove.push(followingNode);
+                }
               }
               pseudosToMove.forEach(item => {
-                if (item.type !== 'pseudo' || !/^::/.test(item.value)) {
-                  // Host node of custom elements cannot have pseudo elements, simply ignore them
-                  const newNode = item.clone();
-                  newNode.spaces.before = '';
-                  newNode.spaces.after = '';
-                  pseudo.first.append(newNode);
-                }
+                const newNode = item.clone();
+                newNode.spaces.before = '';
+                newNode.spaces.after = '';
+                pseudo.first.append(newNode);
                 item.remove();
               });
             }

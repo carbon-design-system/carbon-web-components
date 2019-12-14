@@ -7,8 +7,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import debounce from 'lodash-es/debounce';
 import Vue, { PropType } from 'vue';
 import { action } from '@storybook/addon-actions';
+import Settings16 from '@carbon/icons-vue/es/settings/16';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
@@ -98,6 +100,8 @@ Vue.component('bx-ce-demo-data-table', {
     currentSortInfo?: TDemoSortInfo;
     currentStart?: number;
     currentPageSize?: number;
+    handleChangeSearchString: ((() => void) & { cancel(): void }) | void;
+    searchString: string;
     selectedAll: boolean;
     uniqueId: string;
   } => ({
@@ -117,6 +121,16 @@ Vue.component('bx-ce-demo-data-table', {
     currentStart: undefined,
 
     /**
+     * The debounced handler for user-initiated change in search string.
+     */
+    handleChangeSearchString: undefined,
+
+    /**
+     * The search string.
+     */
+    searchString: '',
+
+    /**
      * `true` if all rows are selected.
      */
     selectedAll: false,
@@ -130,6 +144,16 @@ Vue.component('bx-ce-demo-data-table', {
   }),
 
   computed: {
+    adjustedStart() {
+      // Referring to another computed property
+      // @ts-ignore
+      const { currentStart, currentPageSize, filteredRows } = this;
+      const { length: count } = filteredRows;
+      return currentStart! < count
+        ? currentStart!
+        : Math.max(currentStart! - Math.ceil((currentStart! - count) / currentPageSize!) * currentPageSize!, 0);
+    },
+
     /**
      * @returns A ID prefix for table selection checkbox names.
      */
@@ -139,17 +163,29 @@ Vue.component('bx-ce-demo-data-table', {
     },
 
     /**
+     * @returns The filtered rows.
+     */
+    filteredRows() {
+      const { rows, searchString } = this;
+      return !searchString
+        ? rows
+        : rows.filter(row => Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0));
+    },
+
+    /**
      * @returns The sorted/windowed rows.
      */
     rowsInUse() {
-      const { rows, currentSortInfo, currentStart, currentPageSize = Infinity } = this;
+      // Referring to another computed property
+      // @ts-ignore
+      const { currentSortInfo, adjustedStart, currentPageSize = Infinity, filteredRows } = this;
       const { columnId: sortColumnId, direction: sortDirection } = currentSortInfo!;
       return sortDirection === TABLE_SORT_DIRECTION.NONE
-        ? rows.slice(currentStart, currentStart! + currentPageSize!)
-        : rows!
+        ? filteredRows.slice(adjustedStart, adjustedStart! + currentPageSize!)
+        : filteredRows
             .slice()
             .sort((lhs, rhs) => collationFactors[sortDirection] * (this as any).compare(lhs[sortColumnId!], rhs[sortColumnId!]))
-            .slice(currentStart, currentStart! + currentPageSize!);
+            .slice(adjustedStart, adjustedStart! + currentPageSize!);
     },
   },
 
@@ -213,6 +249,13 @@ Vue.component('bx-ce-demo-data-table', {
     },
 
     /**
+     * Handles user-initiated change in search string.
+     */
+    handleChangeSearchStringImpl({ detail }: CustomEvent) {
+      this.searchString = detail.value;
+    },
+
+    /**
      * Handles an event to change in selection of rows, fired from `<bx-table-row>`.
      * @param event The event.
      */
@@ -238,7 +281,9 @@ Vue.component('bx-ce-demo-data-table', {
       if (!defaultPrevented) {
         const { selected } = detail;
         this.rows!.forEach(row => {
-          row.selected = selected;
+          if (Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(this.searchString) >= 0)) {
+            row.selected = selected;
+          }
         });
         this.selectedAll = selected;
       }
@@ -282,15 +327,52 @@ Vue.component('bx-ce-demo-data-table', {
     },
   },
 
+  components: {
+    'settings-16': Settings16,
+  },
+
   created() {
     this.selectedAll = this.rows.every(row => row.selected!);
     this.currentSortInfo = this.sortInfo;
     this.currentStart = this.start;
     this.currentPageSize = this.pageSize;
+    if (this.handleChangeSearchString) {
+      this.handleChangeSearchString.cancel();
+    }
+    // Vue method reference
+    // @ts-ignore
+    this.handleChangeSearchString = debounce(this.handleChangeSearchStringImpl, 500);
+  },
+
+  destroyed() {
+    if (this.handleChangeSearchString) {
+      this.handleChangeSearchString.cancel();
+      this.handleChangeSearchString = undefined;
+    }
   },
 
   template: `
     <div>
+      <bx-table-toolbar>
+        <bx-table-toolbar-content>
+          <bx-table-toolbar-search @bx-search-input="handleChangeSearchString"></bx-table-toolbar-search>
+          <bx-overflow-menu>
+            <settings-16 slot="icon"></settings-16>
+            <bx-overflow-menu-body>
+              <bx-overflow-menu-item>
+                Action 1
+              </bx-overflow-menu-item>
+              <bx-overflow-menu-item>
+                Action 2
+              </bx-overflow-menu-item>
+              <bx-overflow-menu-item>
+                Action 3
+              </bx-overflow-menu-item>
+            </bx-overflow-menu-body>
+          </bx-overflow-menu>
+          <bx-btn>Primary Button</bx-btn>
+        </bx-table-toolbar-content>
+      </bx-table-toolbar>
       <bx-table
         :size="size"
         @bx-table-row-change-selection="handleChangeSelection"
@@ -328,10 +410,10 @@ Vue.component('bx-ce-demo-data-table', {
         </bx-table-body>
       </bx-table>
       <bx-pagination
-        v-if="pageSize !== undefined"
-        :pageSize="pageSize"
-        :start="start"
-        :total="rows.length"
+        v-if="currentPageSize !== undefined"
+        :page-size="currentPageSize"
+        :start="adjustedStart"
+        :total="filteredRows.length"
         @bx-pagination-changed-current="handleChangeStart"
         @bx-page-sizes-select-changed="handleChangePageSize"
       >

@@ -1,0 +1,83 @@
+//
+// Copyright IBM Corp. 2019
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@import 'carbon-components/scss/components/search/search';
+@import 'carbon-components/scss/components/data-table/data-table-action';
+
+//
+// Table toolbar
+//
+
+:host(#{$prefix}-table-toolbar) {
+  @extend .#{$prefix}--table-toolbar;
+}
+
+:host(#{$prefix}-table-toolbar-content) {
+  @extend .#{$prefix}--toolbar-content;
+
+  ::slotted(#{$prefix}-overflow-menu) {
+    @include button-reset;
+    display: flex;
+    cursor: pointer;
+    height: $layout-04;
+    width: $layout-04;
+    padding: $spacing-md;
+    transition: background-color $duration--fast-02 motion(entrance, productive);
+  }
+
+  ::slotted(#{$prefix}-overflow-menu:hover) {
+    background-color: $hover-field;
+  }
+
+  ::slotted(#{$prefix}-overflow-menu[disabled]:hover) {
+    background-color: transparent;
+  }
+
+  .#{$prefix}--search .#{$prefix}--search-input {
+    background-color: transparent; // For tool bar animation with (esp.) persistent search box
+  }
+}
+
+:host(#{$prefix}-table-toolbar-search) {
+  @extend .#{$prefix}--toolbar-action;
+  @extend .#{$prefix}--toolbar-search-container-expandable;
+
+  .#{$prefix}--search {
+    width: $layout-04;
+    height: 100%;
+    position: initial;
+
+    .#{$prefix}--search-magnifier {
+      height: $layout-04;
+      width: $layout-04;
+      padding: $spacing-md;
+      left: 0;
+      cursor: pointer;
+      pointer-events: all;
+      transition: background $duration--fast-02 motion(entrance, productive);
+    }
+
+    .#{$prefix}--search-close {
+      height: $layout-04;
+      width: $layout-04;
+
+      &:before {
+        top: 2px;
+        height: calc(100% - 4px);
+        background-color: $hover-ui;
+      }
+    }
+  }
+}
+
+:host(#{$prefix}-table-toolbar-search[expanded]) {
+  @extend .#{$prefix}--toolbar-search-container-active;
+}
+
+:host(#{$prefix}-table-toolbar-search[persistent]) {
+  @extend .#{$prefix}--toolbar-search-container-persistent;
+}

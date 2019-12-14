@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import ifNonNull from '../../globals/directives/if-non-null';
@@ -52,7 +52,8 @@ class BXToggle extends BXCheckbox {
 
   render() {
     const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, _handleChange: handleChange } = this;
-    const inputClasses = classnames(`${prefix}--toggle-input`, {
+    const inputClasses = classMap({
+      [`${prefix}--toggle-input`]: true,
       [`${prefix}--toggle-input--small`]: small,
     });
     return html`

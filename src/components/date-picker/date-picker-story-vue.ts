@@ -18,7 +18,7 @@ export { default } from './date-picker-story';
 
 export const defaultStory = ({ parameters }) => ({
   template: `
-    <bx-date-picker :open="open">
+    <bx-date-picker>
       <bx-date-picker-input
         :disabled="disabled"
         :hide-label="hideLabel"
@@ -29,7 +29,7 @@ export const defaultStory = ({ parameters }) => ({
       </bx-date-picker-input>
     </bx-date-picker>
   `,
-  ...createVueBindingsFromProps({ ...parameters?.props?.['bx-date-picker'], ...parameters?.props?.['bx-date-picker-input'] }),
+  ...createVueBindingsFromProps({ ...parameters?.props?.['bx-date-picker-input'] }),
 });
 
 defaultStory.story = baseDefaultStory.story;
@@ -37,6 +37,7 @@ defaultStory.story = baseDefaultStory.story;
 export const singleWithCalendar = ({ parameters }) => ({
   template: `
     <bx-date-picker
+      :date-format="dateFormat"
       :enabled-range="enabledRange"
       :open="open"
       :value="value"
@@ -63,6 +64,7 @@ singleWithCalendar.story = baseSingleWithCalendar.story;
 export const rangeWithCalendar = ({ parameters }) => ({
   template: `
     <bx-date-picker
+      :date-format="dateFormat"
       :enabled-range="enabledRange"
       :open="open"
       :value="value"

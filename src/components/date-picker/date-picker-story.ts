@@ -33,17 +33,15 @@ defaultStory.story = {
     docs: {
       storyDescription: 'A simple Date Picker consists of an input field and no calendar.',
     },
-    knobs: {
-      'bx-date-picker': () => ({}),
-    },
   },
 };
 
 export const singleWithCalendar = ({ parameters }) => {
-  const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
+  const { dateFormat, enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
   const { disabled, hideLabel, labelText, light, placeholder, onInput } = parameters?.props?.['bx-date-picker-input'];
   return html`
     <bx-date-picker
+      date-format="${dateFormat}"
       enabled-range="${enabledRange}"
       ?open="${open}"
       value="${value}"
@@ -70,14 +68,25 @@ singleWithCalendar.story = {
     docs: {
       storyDescription: 'A single Date Picker consists of an input field and a calendar.',
     },
+    knobs: {
+      'bx-date-picker': () => ({
+        dateFormat: text('The date format (date-format)', 'm/d/Y'),
+        enabledRange: text('Minimum/maximum dates in ISO8601 date format, separated by `/` (enabled-range)', ''),
+        open: boolean('Open (open)', false),
+        value: text('Value in ISO8601 date format, separated by `/` (value)', ''),
+        onAfterChanged: action('bx-date-picker-changed'),
+        onFlatpickrError: action('bx-date-picker-flatpickr-error'),
+      }),
+    },
   },
 };
 
 export const rangeWithCalendar = ({ parameters }) => {
-  const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
+  const { dateFormat, enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
   const { disabled, hideLabel, labelText, light, placeholder, onInput } = parameters?.props?.['bx-date-picker-input'];
   return html`
     <bx-date-picker
+      date-format="${dateFormat}"
       enabled-range="${enabledRange}"
       ?open="${open}"
       value="${value}"
@@ -114,6 +123,7 @@ rangeWithCalendar.story = {
     docs: {
       storyDescription: 'A range Date Picker consists of two input fields and a calendar.',
     },
+    knobs: singleWithCalendar.story.parameters.knobs,
   },
 };
 
@@ -121,13 +131,6 @@ export default {
   title: 'Date picker',
   parameters: {
     knobs: {
-      'bx-date-picker': () => ({
-        enabledRange: text('Minimum/maximum dates in ISO8601 date format, separated by `/` (enabled-range)', ''),
-        open: boolean('Open (open)', false),
-        value: text('Value in ISO8601 date format, separated by `/` (value)', ''),
-        onAfterChanged: action('bx-date-picker-changed'),
-        onFlatpickrError: action('bx-date-picker-flatpickr-error'),
-      }),
       'bx-date-picker-input': () => ({
         disabled: boolean('Disabled (disabled in <bx-date-picker-input>)', false),
         hideLabel: boolean('Hide label (hide-label in <bx-date-picker-input>)', false),

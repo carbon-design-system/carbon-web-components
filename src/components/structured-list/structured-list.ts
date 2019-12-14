@@ -8,7 +8,7 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './structured-list.scss';
@@ -38,7 +38,8 @@ class BXStructuredList extends FocusMixin(LitElement) {
 
   render() {
     const { border, hasSelection } = this;
-    const classes = classnames(`${prefix}--structured-list`, {
+    const classes = classMap({
+      [`${prefix}--structured-list`]: true,
       [`${prefix}--structured-list--border`]: border,
       [`${prefix}--structured-list--selection`]: hasSelection,
     });

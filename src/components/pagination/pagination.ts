@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import CaretLeft24 from '@carbon/icons/lib/caret--left/24';
 import CaretRight24 from '@carbon/icons/lib/caret--right/24';
@@ -41,11 +41,13 @@ class BXPagination extends FocusMixin(LitElement) {
    * @returns Page status text.
    */
   private _renderStatusText() {
-    const { start, pageSize, total, formatStatusWithDeterminateTotal, formatStatusWithIndeterminateTotal } = this;
-    const end = Math.min(start + pageSize, total);
-    const format = typeof total === 'undefined' ? formatStatusWithIndeterminateTotal : formatStatusWithDeterminateTotal;
+    const { atLastPage, start, pageSize, total, formatStatusWithDeterminateTotal, formatStatusWithIndeterminateTotal } = this;
+    // * Regular: `1-10 of 100 items`
+    // * Indeterminate total: `Item 1-10` (`Item 11-` at the last page)
+    const end = atLastPage ? undefined : Math.min(start + pageSize, total == null ? Infinity : total);
+    const format = total == null ? formatStatusWithIndeterminateTotal : formatStatusWithDeterminateTotal;
     // `start`/`end` properties starts with zero, whereas we want to show number starting with 1
-    return format({ start: start + 1, end, total });
+    return format({ start: start + 1, end, count: total });
   }
 
   /**
@@ -78,7 +80,7 @@ class BXPagination extends FocusMixin(LitElement) {
    */
   private _handleClickNextButton() {
     const { start: oldStart, pageSize, total } = this;
-    this._handleUserInitiatedChangeStart(Math.min(oldStart + pageSize, typeof total === 'undefined' ? Infinity : total - 1));
+    this._handleUserInitiatedChangeStart(Math.min(oldStart + pageSize, total == null ? Infinity : total - 1));
   }
 
   /**
@@ -103,13 +105,13 @@ class BXPagination extends FocusMixin(LitElement) {
    * The formatter, used with determinate the total pages. Should be changed upon the locale the UI is rendered with.
    */
   @property({ attribute: false })
-  formatStatusWithDeterminateTotal = ({ start, end, total }) => `${start}–${end} of ${total} item${total <= 1 ? '' : 's'}`;
+  formatStatusWithDeterminateTotal = ({ start, end, count }) => `${start}–${end} of ${count} item${count <= 1 ? '' : 's'}`;
 
   /**
    * The formatter, used with indeterminate the total pages. Should be changed upon the locale the UI is rendered with.
    */
   @property({ attribute: false })
-  formatStatusWithIndeterminateTotal = ({ start, end }) => `${start}–${end} item${end <= 1 ? '' : 's'}`;
+  formatStatusWithIndeterminateTotal = ({ start, end }) => (end == null ? `Item ${start}–` : `Item ${start}–${end}`);
 
   /**
    * `true` to explicitly state that user is at the last page. Corresponds to `at-last-page` attribute.
@@ -224,10 +226,14 @@ class BXPagination extends FocusMixin(LitElement) {
     const currentPage = Math.floor(start / pageSize);
     const prevButtonDisabled = disabled || currentPage === 0;
     const nextButtonDisabled = disabled || atLastPage;
-    const prevButtonClasses = classnames(`${prefix}--pagination__button`, `${prefix}--pagination__button--backward`, {
+    const prevButtonClasses = classMap({
+      [`${prefix}--pagination__button`]: true,
+      [`${prefix}--pagination__button--backward`]: true,
       [`${prefix}--pagination__button--no-index`]: prevButtonDisabled,
     });
-    const nextButtonClasses = classnames(`${prefix}--pagination__button`, `${prefix}--pagination__button--forward`, {
+    const nextButtonClasses = classMap({
+      [`${prefix}--pagination__button`]: true,
+      [`${prefix}--pagination__button--forward`]: true,
       [`${prefix}--pagination__button--no-index`]: nextButtonDisabled,
     });
     return html`
