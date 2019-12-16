@@ -12,6 +12,20 @@
 const postcss = require('postcss');
 const parser = require('postcss-selector-parser');
 
+const pseudoElementNames = [
+  'first-line',
+  'first-letter',
+  'selection',
+  'inactive-selection',
+  'spelling-error',
+  'grammar-error',
+  'before',
+  'after',
+  'marker',
+  'placeholder',
+];
+const rePseudoElements = new RegExp(`::?(${pseudoElementNames.join('|')})`);
+
 /**
  * Below Sass code yields `:hover:host(bx-foo) svg` and `:host(bx-foo):hover svg` selectors.
  * We want `:host(bx-foo:hover)` instead.
@@ -59,7 +73,7 @@ module.exports = postcss.plugin('fix-host-pseudo', function postCssPluginFixHost
                 precedingNode && precedingNode.type !== 'combinator';
                 precedingNode = precedingNode.prev()
               ) {
-                if (precedingNode.type !== 'pseudo' || !/^::/.test(precedingNode.value)) {
+                if (precedingNode.type !== 'pseudo' || !rePseudoElements.test(precedingNode.value)) {
                   pseudosToMove.unshift(precedingNode);
                 }
               }
@@ -68,7 +82,7 @@ module.exports = postcss.plugin('fix-host-pseudo', function postCssPluginFixHost
                 followingNode && followingNode.type !== 'combinator';
                 followingNode = followingNode.next()
               ) {
-                if (followingNode.type !== 'pseudo' || !/^::/.test(followingNode.value)) {
+                if (followingNode.type !== 'pseudo' || !rePseudoElements.test(followingNode.value)) {
                   pseudosToMove.push(followingNode);
                 }
               }
