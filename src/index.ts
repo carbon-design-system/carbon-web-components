@@ -24,6 +24,7 @@ export { default as BXTableHead } from './components/data-table/table-head';
 export { default as BXTableHeaderCell } from './components/data-table/table-header-cell';
 export { default as BXTableHeaderRow } from './components/data-table/table-header-row';
 export { default as BXTableRow } from './components/data-table/table-row';
+export { default as BXTableToolbarSearch } from './components/data-table/table-toolbar-search';
 export { default as BXDatePicker } from './components/date-picker/date-picker';
 export { default as BXDatePickerInput } from './components/date-picker/date-picker-input';
 export { default as BXDropdown } from './components/dropdown/dropdown';
@@ -65,6 +66,8 @@ export { default as BXStructuredListHeaderRow } from './components/structured-li
 export { default as BXStructuredListRow } from './components/structured-list/structured-list-row';
 export { default as BXTabs } from './components/tabs/tabs';
 export { default as BXTab } from './components/tabs/tab';
+export { default as BXTag } from './components/tag/tag';
+export { default as BXFilterTag } from './components/tag/filter-tag';
 export { default as BXTile } from './components/tile/tile';
 export { default as BXClickableTile } from './components/tile/clickable-tile';
 export { default as BXExpandableTile } from './components/tile/expandable-tile';
