@@ -18,20 +18,19 @@ const filter = require('gulp-filter');
 const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const sass = require('gulp-sass');
-const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const cleanCSS = require('gulp-clean-css');
 const prettier = require('gulp-prettier');
 const typescript = require('gulp-typescript');
 const header = require('gulp-header');
 const through2 = require('through2');
-const log = require('fancy-log');
 const stripComments = require('strip-comments');
 const autoprefixer = require('autoprefixer');
 const rtlcss = require('rtlcss');
 const replaceExtension = require('replace-ext');
 const babelPluginCreateReactCustomElementType = require('../babel-plugin-create-react-custom-element-type');
 const babelPluginResourceJSPaths = require('../babel-plugin-resource-js-paths');
+const fixHostPseudo = require('../postcss-fix-host-pseudo');
 const createSVGResultFromCarbonIcon = require('../tools/svg-result-carbon-icon');
 
 const config = require('./config');
@@ -56,6 +55,7 @@ const cssStream = ({ banner, dir }) =>
     )
     .pipe(
       postcss([
+        fixHostPseudo(),
         autoprefixer({
           // TODO: Optimize for modern browsers here
           browsers: ['last 1 version', 'Firefox ESR', 'ie >= 11'],
@@ -76,7 +76,6 @@ const cssStream = ({ banner, dir }) =>
     )
     .pipe(prettier())
     .pipe(header(banner))
-    .on('error', log)
     .pipe(gulp.dest(path.resolve(config.jsDestDir)));
 
 module.exports = {
@@ -116,7 +115,6 @@ module.exports = {
       await promisifyStream(() =>
         gulp
           .src([`${config.srcDir}/components/**/*.ts`, `!${config.srcDir}/**/*-story*.ts*`, `!${config.srcDir}/**/stories/*.ts`])
-          .pipe(plumber())
           .pipe(
             babel({
               babelrc: false,
@@ -131,7 +129,6 @@ module.exports = {
           )
           .pipe(prettier())
           .pipe(header(banner))
-          .on('error', log)
           .pipe(gulp.dest(`${config.jsDestDir}/components-react`))
       );
     },
@@ -147,7 +144,6 @@ module.exports = {
             `!${config.srcDir}/**/*.d.ts`,
             `!${config.srcDir}/index-with-polyfills.ts`,
           ])
-          .pipe(plumber())
           .pipe(sourcemaps.init())
           .pipe(
             babel({
@@ -179,7 +175,6 @@ module.exports = {
           )
           // Avoids generating `.js` from interface-only `.ts` files
           .pipe(filter(file => stripComments(file.contents.toString(), { sourceType: 'module' }).replace(/\s/g, '')))
-          .on('error', log)
           .pipe(sourcemaps.write('.'))
           .pipe(gulp.dest(config.jsDestDir))
       );
@@ -194,7 +189,6 @@ module.exports = {
           `!${config.srcDir}/**/*-story*.ts*`,
           `!${config.srcDir}/**/stories/**/*.ts*`,
         ])
-        .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(tsProject());
       return dts

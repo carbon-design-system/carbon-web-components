@@ -18,7 +18,6 @@
   <div
     class="bx--slider"
     role="presentation"
-    tabindex="-1"
   >
     <div
       aria-valuemax="100"
@@ -36,10 +35,12 @@
       id="track"
     >
     </div>
-    <div
-      class="bx--slider__filled-track"
-      style="transform: translate(0%, -50%) scaleX(0.5)"
-    >
+    <div class="bx-ce--slider__filled-track-container">
+      <div
+        class="bx--slider__filled-track"
+        style="transform: translate(0%, -50%) scaleX(0.5)"
+      >
+      </div>
     </div>
     <input
       class="bx--slider__input"
@@ -77,7 +78,6 @@
   <div
     class="bx--slider bx--slider--disabled"
     role="presentation"
-    tabindex="-1"
   >
     <div
       aria-valuemax="100"
@@ -95,10 +95,12 @@
       id="track"
     >
     </div>
-    <div
-      class="bx--slider__filled-track"
-      style="transform: translate(0%, -50%) scaleX(0.5)"
-    >
+    <div class="bx-ce--slider__filled-track-container">
+      <div
+        class="bx--slider__filled-track"
+        style="transform: translate(0%, -50%) scaleX(0.5)"
+      >
+      </div>
     </div>
     <input
       class="bx--slider__input"

@@ -7,29 +7,21 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { storiesOf } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, number, text } from '@storybook/addon-knobs';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import './copy-button';
+import { defaultStory as baseDefaultStory } from './copy-button-story';
 
-const createProps = () => ({
-  buttonAssistiveText: text('Assistive text for the button (button-assistive-text)', ''),
-  feedbackText: text('Feedback text (feedback-text)', ''),
-  feedbackTimeout: number('Feedback timeout (feedback-timeout)', 2000),
-  onClick: action('click'),
+export { default } from './copy-button-story';
+
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-copy-button
+      :button-assistive-text="buttonAssistiveText"
+      :feedback-text="feedbackText || undefined"
+      :feedback-timeout="feedbackTimeout"
+      @click="onClick"
+    ></bx-copy-button>
+  `,
+  ...createVueBindingsFromProps(parameters?.props?.['bx-copy-button']),
 });
 
-storiesOf('Copy button', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-copy-button
-        :button-assistive-text="buttonAssistiveText"
-        :feedback-text="feedbackText || undefined"
-        :feedback-timeout="feedbackTimeout"
-        @click="onClick"
-      ></bx-copy-button>
-    `,
-    ...createVueBindingsFromProps(createProps()),
-  }));
+defaultStory.story = baseDefaultStory.story;

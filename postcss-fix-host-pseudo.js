@@ -12,6 +12,20 @@
 const postcss = require('postcss');
 const parser = require('postcss-selector-parser');
 
+const pseudoElementNames = [
+  'first-line',
+  'first-letter',
+  'selection',
+  'inactive-selection',
+  'spelling-error',
+  'grammar-error',
+  'before',
+  'after',
+  'marker',
+  'placeholder',
+];
+const rePseudoElements = new RegExp(`::?(${pseudoElementNames.join('|')})`);
+
 /**
  * Below Sass code yields `:hover:host(bx-foo) svg` and `:host(bx-foo):hover svg` selectors.
  * We want `:host(bx-foo:hover)` instead.
@@ -59,23 +73,24 @@ module.exports = postcss.plugin('fix-host-pseudo', function postCssPluginFixHost
                 precedingNode && precedingNode.type !== 'combinator';
                 precedingNode = precedingNode.prev()
               ) {
-                pseudosToMove.unshift(precedingNode);
+                if (precedingNode.type !== 'pseudo' || !rePseudoElements.test(precedingNode.value)) {
+                  pseudosToMove.unshift(precedingNode);
+                }
               }
               for (
                 let followingNode = pseudo.next();
                 followingNode && followingNode.type !== 'combinator';
                 followingNode = followingNode.next()
               ) {
-                pseudosToMove.push(followingNode);
+                if (followingNode.type !== 'pseudo' || !rePseudoElements.test(followingNode.value)) {
+                  pseudosToMove.push(followingNode);
+                }
               }
               pseudosToMove.forEach(item => {
-                if (item.type !== 'pseudo' || !/^::/.test(item.value)) {
-                  // Host node of custom elements cannot have pseudo elements, simply ignore them
-                  const newNode = item.clone();
-                  newNode.spaces.before = '';
-                  newNode.spaces.after = '';
-                  pseudo.first.append(newNode);
-                }
+                const newNode = item.clone();
+                newNode.spaces.before = '';
+                newNode.spaces.after = '';
+                pseudo.first.append(newNode);
                 item.remove();
               });
             }

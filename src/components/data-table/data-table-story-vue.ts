@@ -9,30 +9,19 @@
 
 import debounce from 'lodash-es/debounce';
 import Vue, { PropType } from 'vue';
-import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 import Settings16 from '@carbon/icons-vue/es/settings/16';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import '../button/button';
-import '../overflow-menu/overflow-menu';
-import '../overflow-menu/overflow-menu-body';
-import '../overflow-menu/overflow-menu-item';
-import '../pagination/pagination';
-import '../pagination/page-sizes-select';
-import '../pagination/pages-select';
-import { TABLE_SIZE } from './table';
-import './table-head';
-import './table-header-row';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
-import './table-body';
-import './table-row';
-import './table-cell';
-import './table-toolbar';
-import './table-toolbar-content';
-import './table-toolbar-search';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
+import {
+  defaultStory as baseDefaultStory,
+  sortable as baseSortable,
+  sortableWithPagination as baseSortableWithPagination,
+} from './data-table-story';
+
+export { default } from './data-table-story';
 
 /**
  * The map of how sorting direction affects sorting order.
@@ -439,150 +428,150 @@ Vue.component('bx-ce-demo-data-table', {
   `,
 });
 
-const sizes = {
-  [`Compact size (${TABLE_SIZE.COMPACT})`]: TABLE_SIZE.COMPACT,
-  [`Short size (${TABLE_SIZE.SHORT})`]: TABLE_SIZE.SHORT,
-  [`Regular size (${TABLE_SIZE.REGULAR})`]: TABLE_SIZE.REGULAR,
-  [`Tall size (${TABLE_SIZE.TALL})`]: TABLE_SIZE.TALL,
-};
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-table :size="size">
+      <bx-table-head>
+        <bx-table-header-row>
+          <bx-table-header-cell>Name</bx-table-header-cell>
+          <bx-table-header-cell>Protocol</bx-table-header-cell>
+          <bx-table-header-cell>Port</bx-table-header-cell>
+          <bx-table-header-cell>Rule</bx-table-header-cell>
+          <bx-table-header-cell>Attached Groups</bx-table-header-cell>
+          <bx-table-header-cell>Status</bx-table-header-cell>
+        </bx-table-header-row>
+      </bx-table-head>
+      <bx-table-body :zebra="zebra">
+        <bx-table-row>
+          <bx-table-cell>Load Balancer 1</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell>Load Balancer 2</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell>Load Balancer 3</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-row>
+      </bx-table-body>
+    </bx-table>
+  `,
+  ...createVueBindingsFromProps({ ...parameters?.props?.['bx-table'], ...parameters?.props?.['bx-table-body'] }),
+});
 
-const createProps = ({ sortable }: { sortable?: boolean } = {}) => {
-  const hasSelection = sortable && boolean('Supports selection feature (hasSelection)', false);
+defaultStory.story = baseDefaultStory.story;
+
+export const sortable = ({ parameters }) => {
+  const { props = {}, methods = {} } = createVueBindingsFromProps({
+    ...parameters?.props?.['bx-table'],
+    ...parameters?.props?.['bx-table-body'],
+    ...parameters?.props?.['bx-table-row'],
+    ...parameters?.props?.['bx-header-cell'],
+  });
   return {
-    hasSelection,
-    size: select('Table size (size)', sizes, TABLE_SIZE.REGULAR),
-    zebra: boolean('Supports zebra stripe (zebra in `<bx-table-body>`)', false),
+    template: `
+      <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
+      <bx-ce-demo-data-table
+        :rows="demoRows"
+        :columns="demoColumns"
+        :sortInfo="demoSortInfo"
+        :hasSelection="hasSelection"
+        :size="size"
+        :zebra="zebra"
+        @bx-table-row-change-selection="onBeforeChangeSelection"
+        @bx-table-change-selection-all="onBeforeChangeSelection"
+        @bx-table-header-cell-sort="onBeforeChangeSort"
+      ></bx-ce-demo-data-table>
+    `,
+    data: () => ({
+      demoRows,
+      demoColumns,
+      demoSortInfo,
+    }),
+    props,
+    methods: (originalMethods => {
+      const beforeChangeSelectionAction = action('bx-table-row-change-selection');
+      const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
+      const onBeforeChangeSelection = (event: CustomEvent) => {
+        if (event.type === 'bx-table-change-selection-all') {
+          beforeChangeSelectionAllAction(event);
+        } else {
+          beforeChangeSelectionAction(event);
+        }
+      };
+      const onBeforeChangeSort = action('bx-table-header-cell-sort');
+      return {
+        ...originalMethods,
+        onBeforeChangeSelection,
+        onBeforeChangeSort,
+      };
+    })(methods),
   };
 };
 
-storiesOf('Data table', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-table :size="size">
-        <bx-table-head>
-          <bx-table-header-row>
-            <bx-table-header-cell>Name</bx-table-header-cell>
-            <bx-table-header-cell>Protocol</bx-table-header-cell>
-            <bx-table-header-cell>Port</bx-table-header-cell>
-            <bx-table-header-cell>Rule</bx-table-header-cell>
-            <bx-table-header-cell>Attached Groups</bx-table-header-cell>
-            <bx-table-header-cell>Status</bx-table-header-cell>
-          </bx-table-header-row>
-        </bx-table-head>
-        <bx-table-body :zebra="zebra">
-          <bx-table-row>
-            <bx-table-cell>Load Balancer 1</bx-table-cell>
-            <bx-table-cell>HTTP</bx-table-cell>
-            <bx-table-cell>80</bx-table-cell>
-            <bx-table-cell>Round Robin</bx-table-cell>
-            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-            <bx-table-cell>Active</bx-table-cell>
-          </bx-table-row>
-          <bx-table-row>
-            <bx-table-cell>Load Balancer 2</bx-table-cell>
-            <bx-table-cell>HTTP</bx-table-cell>
-            <bx-table-cell>80</bx-table-cell>
-            <bx-table-cell>Round Robin</bx-table-cell>
-            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-            <bx-table-cell>Active</bx-table-cell>
-          </bx-table-row>
-          <bx-table-row>
-            <bx-table-cell>Load Balancer 3</bx-table-cell>
-            <bx-table-cell>HTTP</bx-table-cell>
-            <bx-table-cell>80</bx-table-cell>
-            <bx-table-cell>Round Robin</bx-table-cell>
-            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-            <bx-table-cell>Active</bx-table-cell>
-          </bx-table-row>
-        </bx-table-body>
-      </bx-table>
-    `,
-    ...createVueBindingsFromProps(createProps()),
-  }))
-  .add('Sortable', () => {
-    const { props = {}, methods = {} } = createVueBindingsFromProps(createProps({ sortable: true }));
-    return {
-      template: `
-        <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
-        <bx-ce-demo-data-table
-          :rows="demoRows"
-          :columns="demoColumns"
-          :sortInfo="demoSortInfo"
-          :hasSelection="hasSelection"
-          :size="size"
-          :zebra="zebra"
-          @bx-table-row-change-selection="onBeforeChangeSelection"
-          @bx-table-change-selection-all="onBeforeChangeSelection"
-          @bx-table-header-cell-sort="onBeforeChangeSort"
-        ></bx-ce-demo-data-table>
-      `,
-      data: () => ({
-        demoRows,
-        demoColumns,
-        demoSortInfo,
-      }),
-      props,
-      methods: (originalMethods => {
-        const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-        const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
-        const onBeforeChangeSelection = (event: CustomEvent) => {
-          if (event.type === 'bx-table-change-selection-all') {
-            beforeChangeSelectionAllAction(event);
-          } else {
-            beforeChangeSelectionAction(event);
-          }
-        };
-        const onBeforeChangeSort = action('bx-table-header-cell-sort');
-        return {
-          ...originalMethods,
-          onBeforeChangeSelection,
-          onBeforeChangeSort,
-        };
-      })(methods),
-    };
-  })
-  .add('Sortable with pagination', () => {
-    const { props = {}, methods = {} } = createVueBindingsFromProps(createProps({ sortable: true }));
-    return {
-      template: `
-        <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
-        <bx-ce-demo-data-table
-          :rows="demoRows"
-          :columns="demoColumns"
-          :sortInfo="demoSortInfo"
-          :hasSelection="hasSelection"
-          :pageSize="5"
-          :size="size"
-          :start="0"
-          :zebra="zebra"
-          @bx-table-row-change-selection="onBeforeChangeSelection"
-          @bx-table-change-selection-all="onBeforeChangeSelection"
-          @bx-table-header-cell-sort="onBeforeChangeSort"
-        ></bx-ce-demo-data-table>
-      `,
-      data: () => ({
-        demoRows: demoRowsMany,
-        demoColumns,
-        demoSortInfo,
-      }),
-      props,
-      methods: (originalMethods => {
-        const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-        const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
-        const onBeforeChangeSelection = (event: CustomEvent) => {
-          if (event.type === 'bx-table-change-selection-all') {
-            beforeChangeSelectionAllAction(event);
-          } else {
-            beforeChangeSelectionAction(event);
-          }
-        };
-        const onBeforeChangeSort = action('bx-table-header-cell-sort');
-        return {
-          ...originalMethods,
-          onBeforeChangeSelection,
-          onBeforeChangeSort,
-        };
-      })(methods),
-    };
+sortable.story = baseSortable.story;
+
+export const sortableWithPagination = ({ parameters }) => {
+  const { props = {}, methods = {} } = createVueBindingsFromProps({
+    ...parameters?.props?.['bx-table'],
+    ...parameters?.props?.['bx-table-body'],
+    ...parameters?.props?.['bx-table-row'],
+    ...parameters?.props?.['bx-header-cell'],
   });
+  return {
+    template: `
+      <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
+      <bx-ce-demo-data-table
+        :rows="demoRows"
+        :columns="demoColumns"
+        :sortInfo="demoSortInfo"
+        :hasSelection="hasSelection"
+        :pageSize="5"
+        :size="size"
+        :start="0"
+        :zebra="zebra"
+        @bx-table-row-change-selection="onBeforeChangeSelection"
+        @bx-table-change-selection-all="onBeforeChangeSelection"
+        @bx-table-header-cell-sort="onBeforeChangeSort"
+      ></bx-ce-demo-data-table>
+    `,
+    data: () => ({
+      demoRows: demoRowsMany,
+      demoColumns,
+      demoSortInfo,
+    }),
+    props,
+    methods: (originalMethods => {
+      const beforeChangeSelectionAction = action('bx-table-row-change-selection');
+      const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
+      const onBeforeChangeSelection = (event: CustomEvent) => {
+        if (event.type === 'bx-table-change-selection-all') {
+          beforeChangeSelectionAllAction(event);
+        } else {
+          beforeChangeSelectionAction(event);
+        }
+      };
+      const onBeforeChangeSort = action('bx-table-header-cell-sort');
+      return {
+        ...originalMethods,
+        onBeforeChangeSelection,
+        onBeforeChangeSort,
+      };
+    })(methods),
+  };
+};
+
+sortableWithPagination.story = baseSortableWithPagination.story;
