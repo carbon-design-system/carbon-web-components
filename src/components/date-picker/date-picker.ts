@@ -259,7 +259,7 @@ class BXDatePicker extends LitElement {
   calendar: FlatpickrInstance | null = null;
 
   /**
-   * The date format to use. Corresponds to `date-format` attribute.
+   * The date format to let Flatpickr use. Corresponds to `date-format` attribute.
    */
   @property({ attribute: 'date-format' })
   dateFormat!: string;
@@ -318,6 +318,10 @@ class BXDatePicker extends LitElement {
 
   updated(changedProperties) {
     const { calendar, open } = this;
+    if (calendar && changedProperties.has('dateFormat')) {
+      const { dateFormat } = this;
+      calendar.set({ dateFormat });
+    }
     if (changedProperties.has('enabledRange')) {
       const { enabledRange } = this;
       const dates = enabledRange.split('/').map(item => (!item ? undefined : parseISODateString(item))); // Allows empty start/end

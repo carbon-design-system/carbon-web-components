@@ -38,7 +38,7 @@ export default class BXInput extends FormMixin(LitElement) {
    * Handles `oninput` event on the `<input>`.
    * @param event The event.
    */
-  private _handleInput({ target }: Event) {
+  protected _handleInput({ target }: Event) {
     this.value = (target as HTMLInputElement).value;
   }
 

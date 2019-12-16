@@ -7,27 +7,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { storiesOf } from '@storybook/vue';
-import { withKnobs, select } from '@storybook/addon-knobs';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { INLINE_LOADING_STATE } from './inline-loading';
+import { defaultStory as baseDefaultStory } from './inline-loading-story';
 
-const states = {
-  [`Inactive (${INLINE_LOADING_STATE.INACTIVE})`]: INLINE_LOADING_STATE.INACTIVE,
-  [`In progress (${INLINE_LOADING_STATE.ACTIVE})`]: INLINE_LOADING_STATE.ACTIVE,
-  [`Success (${INLINE_LOADING_STATE.FINISHED})`]: INLINE_LOADING_STATE.FINISHED,
-  [`Failed (${INLINE_LOADING_STATE.ERROR})`]: INLINE_LOADING_STATE.ERROR,
-};
+export { default } from './inline-loading-story';
 
-const createProps = () => ({
-  status: select('Loading status (status)', states, INLINE_LOADING_STATE.ACTIVE),
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-inline-loading :status="status">Loading data...</bx-inline-loading>
+  `,
+  ...createVueBindingsFromProps(parameters?.props?.['bx-inline-loading']),
 });
 
-storiesOf('Inline loading', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-inline-loading :status="status">Loading data...</bx-inline-loading>
-    `,
-    ...createVueBindingsFromProps(createProps()),
-  }));
+defaultStory.story = baseDefaultStory.story;

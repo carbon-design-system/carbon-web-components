@@ -14,6 +14,16 @@ $css--plex: true !default;
   @extend .#{$prefix}--snippet--single;
   outline: none;
 
+  &::after {
+    background-color: $ui-01;
+    background-image: none;
+    mask-image: linear-gradient(to right, transparent 0%, $ui-01 100%);
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      background-color: transparent;
+      background-image: linear-gradient(to right, transparent, $ui-01);
+    }
+  }
+
   .#{$prefix}--snippet-button .#{$prefix}--btn--copy__feedback {
     left: 50%;
     right: auto;
@@ -28,13 +38,8 @@ $css--plex: true !default;
     height: rem(56px);
   }
 
-  .#{$prefix}-ce--snippet__overflow-gradient {
-    width: rem(16px);
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: rem(56px);
-    background-image: linear-gradient(to right, transparent, $ui-01);
+  button.#{$prefix}--btn.#{$prefix}--snippet-btn--expand {
+    z-index: 1;
   }
 
   pre {
@@ -47,6 +52,23 @@ $css--plex: true !default;
 :host(#{$prefix}-code-snippet[type='multi']) {
   @extend .#{$prefix}--snippet--multi;
   height: auto;
+
+  &::after {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: auto;
+    bottom: rem(16px);
+    width: 100%;
+    height: rem(16px);
+    background-color: $ui-01;
+    background-image: none;
+    mask-image: linear-gradient(to bottom, transparent 0%, $ui-01 100%);
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      background-color: transparent;
+      background-image: linear-gradient(to bottom, transparent, $ui-01);
+    }
+  }
 
   .#{$prefix}--snippet-container {
     display: block;
@@ -65,13 +87,8 @@ $css--plex: true !default;
       padding-right: 0;
 
       &::after {
-        width: rem(16px);
-        height: 100%;
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-image: linear-gradient(to right, transparent, $ui-01);
+        // Use top-level pseudo element instead because `<pre>` here is inside a scrolling container
+        content: none;
       }
 
       code {
@@ -97,6 +114,10 @@ $css--plex: true !default;
   min-width: auto;
   max-width: auto;
   padding: 0;
+
+  &::after {
+    content: none;
+  }
 
   .#{$prefix}--btn--copy__feedback {
     top: rem(6.7882px); // Half of the diagonal line of `0.6rem` square
