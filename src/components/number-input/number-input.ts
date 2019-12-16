@@ -50,36 +50,36 @@ export default class BXNumberInput extends BXInput {
    * The minimum value allowed in the input
    */
   @property({ reflect: true })
-  set min(value) {
-    this._min = value;
-  }
-
   get min() {
     return this._min.toString();
+  }
+
+  set min(value) {
+    this._min = value;
   }
 
   /**
    * The maximum value allowed in the input
    */
   @property({ reflect: true })
-  set max(value) {
-    this._max = value;
-  }
-
   get max() {
     return this._max.toString();
+  }
+
+  set max(value) {
+    this._max = value;
   }
 
   /**
    * The amount the value should increase or decrease by
    */
   @property({ reflect: true })
-  set step(value) {
-    this._step = value;
-  }
-
   get step() {
     return this._step.toString();
+  }
+
+  set step(value) {
+    this._step = value;
   }
 
   /**
