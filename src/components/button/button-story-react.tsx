@@ -13,7 +13,9 @@ import Add16 from '@carbon/icons-react/es/add/16';
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXBtn from 'carbon-custom-elements/es/components-react/button/button';
-import { defaultStory as baseDefaultStory, textAndIcon as baseTextAndIcon } from './button-story';
+// @ts-ignore
+import BXBtnSkeleton from 'carbon-custom-elements/es/components-react/button/button-skeleton';
+import { defaultStory as baseDefaultStory, textAndIcon as baseTextAndIcon, skeleton as baseSkeleton } from './button-story';
 
 export { default } from './button-story';
 
@@ -46,4 +48,11 @@ export const textAndIcon = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseTextAndIcon.story;
+textAndIcon.story = baseTextAndIcon.story;
+
+export const skeleton = ({ parameters }) => {
+  const { disabled, small, href } = parameters?.props?.['bx-btn-skeleton'];
+  return <BXBtnSkeleton disabled={disabled} small={small} href={href}></BXBtnSkeleton>;
+};
+
+skeleton.story = baseSkeleton.story;

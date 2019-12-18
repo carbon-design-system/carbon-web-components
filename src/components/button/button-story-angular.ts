@@ -10,7 +10,11 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import { Add16Module } from '@carbon/icons-angular/lib/add/16';
-import baseStory, { defaultStory as baseDefaultStory, textAndIcon as baseTextAndIcon } from './button-story';
+import baseStory, {
+  defaultStory as baseDefaultStory,
+  textAndIcon as baseTextAndIcon,
+  skeleton as baseSkeleton,
+} from './button-story';
 
 export const defaultStory = ({ parameters }) => ({
   template: `
@@ -54,6 +58,15 @@ textAndIcon.story = Object.assign(baseTextAndIcon.story, {
     }),
   ],
 });
+
+export const skeleton = ({ parameters }) => ({
+  template: `
+    <bx-btn-skeleton [disabled]="disabled" [small]="small" [href]="href" (click)="onClick($event)"></bx-btn-skeleton>
+  `,
+  props: parameters?.props?.['bx-btn-skeleton'],
+});
+
+skeleton.story = baseSkeleton.story;
 
 export default Object.assign(baseStory, {
   decorators: [

@@ -13,6 +13,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, select, text } from '@storybook/addon-knobs';
 import Add16 from '@carbon/icons/lib/add/16';
 import { BUTTON_KIND } from './button';
+import './button-skeleton';
 
 const kinds = {
   [`Primary button (${BUTTON_KIND.PRIMARY})`]: BUTTON_KIND.PRIMARY,
@@ -54,6 +55,28 @@ export const textAndIcon = ({ parameters }) => {
 
 textAndIcon.story = {
   name: 'Text and icon',
+};
+
+export const skeleton = ({ parameters }) => {
+  const { disabled, small, href, onClick } = parameters?.props?.['bx-btn-skeleton'];
+  return html`
+    <bx-btn-skeleton ?disabled=${disabled} ?small=${small} href=${ifDefined(href || undefined)} @click=${onClick}>
+    </bx-btn-skeleton>
+  `;
+};
+
+skeleton.story = {
+  parameters: {
+    knobs: {
+      'bx-btn-skeleton': () => ({
+        kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
+        disabled: boolean('Disabled (disabled)', false),
+        small: boolean('Small (small)', false),
+        href: text('Link href (href)', ''),
+        onClick: action('click'),
+      }),
+    },
+  },
 };
 
 export default {
