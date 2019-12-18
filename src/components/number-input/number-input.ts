@@ -55,7 +55,9 @@ export default class BXNumberInput extends BXInput {
   }
 
   set min(value) {
+    const oldValue = this.min;
     this._min = value;
+    this.requestUpdate('min', oldValue);
   }
 
   /**
@@ -67,7 +69,9 @@ export default class BXNumberInput extends BXInput {
   }
 
   set max(value) {
+    const oldValue = this.max;
     this._max = value;
+    this.requestUpdate('max', oldValue);
   }
 
   /**
@@ -79,7 +83,9 @@ export default class BXNumberInput extends BXInput {
   }
 
   set step(value) {
+    const oldValue = this.step;
     this._step = value;
+    this.requestUpdate('step', oldValue);
   }
 
   /**
