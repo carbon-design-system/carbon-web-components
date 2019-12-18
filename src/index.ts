@@ -76,6 +76,7 @@ export { default as BXSkeletonPlaceholder } from './components/skeleton-placehol
 export { default as BXSkeletonText } from './components/skeleton-text/skeleton-text';
 export { default as BXSlider } from './components/slider/slider';
 export { default as BXSliderInput } from './components/slider/slider-input';
+export { default as BXSliderSkeleton } from './components/slider/slider-skeleton';
 export { default as BXStructuredList } from './components/structured-list/structured-list';
 export { default as BXStructuredListBody } from './components/structured-list/structured-list-body';
 export { default as BXStructuredListHead } from './components/structured-list/structured-list-head';
