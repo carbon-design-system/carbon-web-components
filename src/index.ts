@@ -85,6 +85,8 @@ export { default as BXStructuredListRow } from './components/structured-list/str
 export { default as BXStructuredListHeaderCellSkeleton } from './components/structured-list/structured-list-header-cell-skeleton';
 export { default as BXTabs } from './components/tabs/tabs';
 export { default as BXTab } from './components/tabs/tab';
+export { default as BXTabsSkeleton } from './components/tabs/tabs-skeleton';
+export { default as BXTabSkeleton } from './components/tabs/tab-skeleton';
 export { default as BXTag } from './components/tag/tag';
 export { default as BXFilterTag } from './components/tag/filter-tag';
 export { default as BXTile } from './components/tile/tile';
