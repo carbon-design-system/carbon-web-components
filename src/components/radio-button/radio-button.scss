@@ -23,8 +23,12 @@ $css--plex: true !default;
   @extend .#{$prefix}--radio-button-group--vertical;
 }
 
-:host(#{$prefix}-radio-button) {
+:host(#{$prefix}-radio-button),
+:host(#{$prefix}-radio-button-skeleton) {
   @extend .#{$prefix}--form-item;
+}
+
+:host(#{$prefix}-radio-button) {
   @extend .#{$prefix}--radio-button-wrapper;
   outline: none;
 
