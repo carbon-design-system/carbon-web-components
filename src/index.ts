@@ -71,6 +71,7 @@ export { default as BXProgressStep } from './components/progress-indicator/progr
 export { default as BXRadioButton } from './components/radio-button/radio-button';
 export { default as BXRadioButtonGroup } from './components/radio-button/radio-button-group';
 export { default as BXSearch } from './components/search/search';
+export { default as BXSearchSkeleton } from './components/search/search-skeleton';
 export { default as BXSkeletonPlaceholder } from './components/skeleton-placeholder/skeleton-placeholder';
 export { default as BXSkeletonText } from './components/skeleton-text/skeleton-text';
 export { default as BXSlider } from './components/slider/slider';

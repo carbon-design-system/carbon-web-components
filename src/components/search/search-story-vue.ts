@@ -31,3 +31,7 @@ export const defaultStory = ({ parameters }) => ({
 });
 
 defaultStory.story = baseDefaultStory.story;
+
+export const skeleton = () => ({
+  template: `<bx-search-skeleton></bx-search-skeleton>`,
+});
