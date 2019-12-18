@@ -35,6 +35,7 @@ export { default as BXDatePickerInput } from './components/date-picker/date-pick
 export { default as BXDatePickerInputSkeleton } from './components/date-picker/date-picker-input-skeleton';
 export { default as BXDropdown } from './components/dropdown/dropdown';
 export { default as BXDropdownItem } from './components/dropdown/dropdown-item';
+export { default as BXDropdownSkeleton } from './components/dropdown/dropdown-skeleton';
 export { default as BXFormItem } from './components/form/form-item';
 export { default as BXInput } from './components/input/input';
 export { default as BXInlineLoading } from './components/inline-loading/inline-loading';
