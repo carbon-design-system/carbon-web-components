@@ -65,6 +65,8 @@ export { default as BXPagination } from './components/pagination/pagination';
 export { default as BXPageSizesSelect } from './components/pagination/page-sizes-select';
 export { default as BXPagesSelect } from './components/pagination/pages-select';
 export { default as BXProgressIndicator } from './components/progress-indicator/progress-indicator';
+export { default as BXProgressIndicatorSkeleton } from './components/progress-indicator/progress-indicator-skeleton';
+export { default as BXProgressStepSkeleton } from './components/progress-indicator/progress-step-skeleton';
 export { default as BXProgressStep } from './components/progress-indicator/progress-step';
 export { default as BXRadioButton } from './components/radio-button/radio-button';
 export { default as BXRadioButtonGroup } from './components/radio-button/radio-button-group';
