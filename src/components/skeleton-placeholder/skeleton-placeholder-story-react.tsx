@@ -7,6 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import React from 'react';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
