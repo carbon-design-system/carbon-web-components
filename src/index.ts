@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,9 +10,11 @@
 export { default as BXAccordion } from './components/accordion/accordion';
 export { default as BXAccordionItem } from './components/accordion/accordion-item';
 export { default as BXButton } from './components/button/button';
+export { default as BXButtonSkeleton } from './components/button/button-skeleton';
 export { default as BXBreadcrumb } from './components/breadcrumb/breadcrumb';
 export { default as BXCheckbox } from './components/checkbox/checkbox';
 export { default as BXCodeSnippet } from './components/code-snippet/code-snippet';
+export { default as BXCodeSnippetSkeleton } from './components/code-snippet/code-snippet-skeleton';
 export { default as BXComboBox } from './components/combo-box/combo-box';
 export { default as BXComboBoxItem } from './components/combo-box/combo-box-item';
 export { default as BXContentSwitcher } from './components/content-switcher/content-switcher';
