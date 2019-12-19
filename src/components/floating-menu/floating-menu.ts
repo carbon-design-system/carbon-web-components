@@ -9,6 +9,9 @@
 
 import ResizeObserver from 'resize-observer-polyfill';
 import { LitElement } from 'lit-element';
+import HostListener from '../../globals/decorators/host-listener';
+import FocusMixin from '../../globals/mixins/focus';
+import HostListenerMixin from '../../globals/mixins/host-listener';
 import Handle from '../../globals/internal/handle';
 import BXFloatingMenuTrigger from './floating-menu-trigger';
 
@@ -125,7 +128,7 @@ const observeResize = (observer: ResizeObserver, elem: Element) => {
 /**
  * Floating menu.
  */
-abstract class BXFloatingMenu extends LitElement {
+abstract class BXFloatingMenu extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * The handle for observing resize of the element containing the trigger button.
    */
@@ -147,6 +150,18 @@ abstract class BXFloatingMenu extends LitElement {
       this.style.top = `${top}px`;
     }
   });
+
+  @HostListener('blur')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleBlur = ({ relatedTarget }: FocusEvent) => {
+    if (!this.contains(relatedTarget as Node)) {
+      const { parent } = this;
+      if (parent) {
+        parent.open = false;
+        HTMLElement.prototype.focus.call(this.parent); // SVGElement in IE11 does not have `.focus()` method
+      }
+    }
+  };
 
   /**
    * The DOM element, typically a custom element in this library, launching this floating menu.
@@ -265,6 +280,10 @@ abstract class BXFloatingMenu extends LitElement {
       start,
       top,
     };
+  }
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
 
   disconnectedCallback() {

@@ -40,8 +40,14 @@ class BXTooltip extends HostListenerMixin(LitElement) implements BXFloatingMenuT
    */
   @HostListener('click')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
-  private _handleClick = () => {
+  private _handleClick = async () => {
     this.open = !this.open;
+    const { open, updateComplete } = this;
+    if (open) {
+      await updateComplete;
+      const { _menuBody: menuBody } = this;
+      menuBody?.focus();
+    }
   };
 
   /**
