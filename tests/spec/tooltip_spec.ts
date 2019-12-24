@@ -99,10 +99,6 @@ describe('bx-tooltip', function() {
       await Promise.resolve();
       expect(trigger!.open).toBe(false);
     });
-
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
-    });
   });
 
   describe('Toggling', function() {
@@ -127,10 +123,10 @@ describe('bx-tooltip', function() {
       expect(trigger!.open).toBe(false);
       expect(body!.open).toBe(false);
     });
+  });
 
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
-    });
+  afterEach(async function() {
+    await render(template({ hasContent: false }), document.body);
   });
 });
 
@@ -154,10 +150,10 @@ describe('bx-tooltip-definition', function() {
       await Promise.resolve();
       expect(document.body.querySelector('bx-tooltip-definition')).toMatchSnapshot({ mode: 'shadow' });
     });
+  });
 
-    afterEach(function() {
-      render(definitionTemplate({ hasContent: false }), document.body);
-    });
+  afterEach(async function() {
+    await render(definitionTemplate({ hasContent: false }), document.body);
   });
 });
 
@@ -181,9 +177,9 @@ describe('bx-tooltip-icon', function() {
       await Promise.resolve();
       expect(document.body.querySelector('bx-tooltip-icon')).toMatchSnapshot({ mode: 'shadow' });
     });
+  });
 
-    afterEach(function() {
-      render(iconTemplate({ hasContent: false }), document.body);
-    });
+  afterEach(async function() {
+    await render(iconTemplate({ hasContent: false }), document.body);
   });
 });
