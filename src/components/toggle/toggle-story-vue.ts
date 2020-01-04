@@ -23,7 +23,7 @@ export const defaultStory = ({ parameters }) => ({
       :small="small"
       :unchecked-text="uncheckedText"
       :value="value"
-      @input="onInput"
+      @bx-toggle-changed="onAfterChange"
     ></bx-toggle>
   `,
   ...createVueBindingsFromProps(parameters?.props?.['bx-toggle']),

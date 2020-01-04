@@ -38,7 +38,6 @@ class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
         bubbles: true,
         composed: true,
         detail: {
-          checked,
           indeterminate,
         },
       })
