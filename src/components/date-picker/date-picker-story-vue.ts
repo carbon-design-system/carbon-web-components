@@ -22,9 +22,11 @@ export const defaultStory = ({ parameters }) => ({
       <bx-date-picker-input
         :disabled="disabled"
         :hide-label="hideLabel"
+        :invalid="invalid"
         :label-text="labelText"
         :light="light"
         :placeholder="placeholder"
+        :validity-message="validityMessage"
       >
       </bx-date-picker-input>
     </bx-date-picker>
@@ -47,10 +49,12 @@ export const singleWithCalendar = ({ parameters }) => ({
       <bx-date-picker-input
         :disabled="disabled"
         :hide-label="hideLabel"
+        :invalid="invalid"
         kind="single"
         :label-text="labelText"
         :light="light"
         :placeholder="placeholder"
+        :validity-message="validityMessage"
         @input="onInput"
       >
       </bx-date-picker-input>
@@ -74,20 +78,24 @@ export const rangeWithCalendar = ({ parameters }) => ({
       <bx-date-picker-input
         :disabled="disabled"
         :hide-label="hideLabel"
+        :invalid="invalid"
         kind="from"
         :label-text="labelText"
         :light="light"
         :placeholder="placeholder"
+        :validity-message="validityMessage"
         @input="onInput"
       >
       </bx-date-picker-input>
       <bx-date-picker-input
         :disabled="disabled"
         :hide-label="hideLabel"
+        :invalid="invalid"
         kind="to"
         :label-text="labelText"
         :light="light"
         :placeholder="placeholder"
+        :validity-message="validityMessage"
         @input="onInput"
       >
       </bx-date-picker-input>
