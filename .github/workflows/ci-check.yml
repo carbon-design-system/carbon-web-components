@@ -1,0 +1,21 @@
+name: ci-check
+
+on: [push, pull_request]
+
+jobs:
+  ci-check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: yarn install
+      - run: sudo apt-get install xvfb
+      - name: Run checks
+        run: xvfb-run --auto-servernum yarn ci-check
