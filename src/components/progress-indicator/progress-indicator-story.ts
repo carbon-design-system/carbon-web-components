@@ -12,6 +12,7 @@ import { html } from 'lit-element';
 import { boolean, text } from '@storybook/addon-knobs';
 import './progress-indicator';
 import './progress-step';
+import storyDocs from './progress-indicator-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { vertical } = parameters?.props?.['bx-progress-indicator'];
@@ -58,6 +59,7 @@ defaultStory.story = {
 export default {
   title: 'Progress indicator',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-progress-indicator': () => ({
         vertical: boolean('Vertical (vertical)', false),

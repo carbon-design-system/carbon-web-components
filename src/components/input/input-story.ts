@@ -12,6 +12,7 @@ import * as knobs from '@storybook/addon-knobs';
 import './input';
 import '../form/form-item';
 import createProps from './stories/helpers';
+import storyDocs from './input-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { disabled, value, placeholder, invalid, type, onInput } = parameters?.props?.['bx-input'];
@@ -66,6 +67,7 @@ withoutFormItemWrapper.story = {
 export default {
   title: 'Input',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-input': () => createProps(knobs),
     },

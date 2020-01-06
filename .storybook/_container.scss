@@ -35,6 +35,17 @@ body,
   height: 100%;
 }
 
+// Reverts Carbon reset style of lists for docs page
+#docs-root {
+  ol {
+    list-style-type: decimal;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+}
+
 .bx-ce-demo-devenv--container {
   padding: 3em;
   display: flex;

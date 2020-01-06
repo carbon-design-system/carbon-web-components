@@ -12,6 +12,7 @@ import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { number, text } from '@storybook/addon-knobs';
 import './code-snippet';
+import storyDocs from './code-snippet-story.mdx';
 
 const defaultKnobs = {
   'bx-code-snippet': () => ({
@@ -47,11 +48,6 @@ export const singleLine = ({ parameters }) => {
 
 singleLine.story = {
   name: 'Single line',
-  parameters: {
-    docs: {
-      storyDescription: 'The Terminal style is for single-line.',
-    },
-  },
 };
 
 export const multiLine = ({ parameters }) => {
@@ -102,9 +98,6 @@ floating: 10000
 multiLine.story = {
   name: 'Multi line',
   parameters: {
-    docs: {
-      storyDescription: 'The Code style is for larger, multi-line code snippets.',
-    },
     knobs: {
       'bx-code-snippet': () => ({
         ...defaultKnobs['bx-code-snippet'](),
@@ -138,16 +131,12 @@ export const inline = ({ parameters }) => {
 
 inline.story = {
   name: 'Inline',
-  parameters: {
-    docs: {
-      storyDescription: 'The Inline style is for code used within a block of text.',
-    },
-  },
 };
 
 export default {
   title: 'Code snippet',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: defaultKnobs,
   },
 };
