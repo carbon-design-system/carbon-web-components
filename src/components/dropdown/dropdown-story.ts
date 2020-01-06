@@ -12,6 +12,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, text } from '@storybook/addon-knobs';
 import './dropdown';
 import './dropdown-item';
+import storyDocs from './dropdown-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection } = parameters?.props?.[
@@ -52,6 +53,7 @@ defaultStory.story = {
 export default {
   title: 'Dropdown',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-dropdown': () => ({
         open: boolean('Open (open)', false),

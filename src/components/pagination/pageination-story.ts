@@ -14,6 +14,7 @@ import ifNonNull from '../../globals/directives/if-non-null';
 import './pagination';
 import './page-sizes-select';
 import './pages-select';
+import storyDocs from './pagination-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { atLastPage, pageSize, start, total, onChangedCurrent, onChangedPageSizesSelect } = parameters?.props?.['bx-pagination'];
@@ -47,6 +48,7 @@ defaultStory.story = {
 export default {
   title: 'Pagination',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-pagination': () => ({
         atLastPage: boolean('Explicitly state that the user is at the last page (at-last-apge)', false),

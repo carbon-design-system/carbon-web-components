@@ -10,6 +10,7 @@
 import { html } from 'lit-element';
 import { boolean, select } from '@storybook/addon-knobs';
 import { LOADING_TYPE } from './loading';
+import storyDocs from './loading-story.mdx';
 
 const types = {
   [`Regular (${LOADING_TYPE.REGULAR})`]: LOADING_TYPE.REGULAR,
@@ -31,6 +32,7 @@ defaultStory.story = {
 export default {
   title: 'Loading',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-loading': () => ({
         inactive: boolean('Inactive (inactive)', false),
