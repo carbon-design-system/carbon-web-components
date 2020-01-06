@@ -1,3 +1,5 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+
 # Combo box
 
 Combo box realizes a notion of "filterable dropdown".
@@ -6,3 +8,7 @@ The drawer opens on click (anywhere in the field) and the user can type to filte
 Once the user begins typing, the close (X) icon will appear to the right of the label.
 This will clear any user-inputted text.
 Selecting an item from the dropdown will close the drawer and the selected option will replace the default label.
+
+<Preview withToolbar>
+  <Story id="combo-box--default-story" height="240px" />
+</Preview>

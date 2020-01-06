@@ -1,3 +1,5 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+
 # Inline loading
 
 Inline loading spinners are used when performing actions.
@@ -8,3 +10,7 @@ Although it may not be obvious what is occurring on the back-end, we can communi
 It is best practice to use an Inline loading component for any Create, Update, or Delete actions.
 The component provides feedback to the user about the progress of the action they took.
 This could be in a table, after a primary or secondary button click, or even in a modal.
+
+<Preview withToolbar>
+  <Story id="inline-loading--default-story" height="160px" />
+</Preview>

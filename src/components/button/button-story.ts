@@ -13,6 +13,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, select, text } from '@storybook/addon-knobs';
 import Add16 from '@carbon/icons/lib/add/16';
 import { BUTTON_KIND } from './button';
+import storyDocs from './button-story.mdx';
 
 const kinds = {
   [`Primary button (${BUTTON_KIND.PRIMARY})`]: BUTTON_KIND.PRIMARY,
@@ -59,6 +60,7 @@ textAndIcon.story = {
 export default {
   title: 'Button',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-btn': () => ({
         kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
