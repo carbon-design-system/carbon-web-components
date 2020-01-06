@@ -28,6 +28,29 @@ The color of the button in the code below changes to the one in the `g100` theme
 
 The names of CSS Custom Properties you can use are the Carbon theme tokens prefixed with `--cds-`. The list of Carbon theme tokens can be found at [here](https://github.com/carbon-design-system/carbon/blob/v10.7.0/packages/themes/scss/generated/_themes.scss#L14-L454).
 
+## Dependency injection
+
+You can let our custom elements modules load alternate `CSSResult` module. Below example uses [Webpack `NormalModuleReplacementPlugin`](https://webpack.js.org/plugins/normal-module-replacement-plugin/) to let our custom elements modules load RTL version of `CSSResult` module that is shipped alongside with default `CSSResult` modules, instead of loading the default version:
+
+[![Edit carbon-custom-elements with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/rtl)
+
+```javascript
+const reCssBundle = /\.css\.js$/i;
+
+...
+
+module.exports = {
+  ...
+  plugins: [
+    ...
+    new webpack.NormalModuleReplacementPlugin(reCssBundle, resource => {
+      resource.request = resource.request.replace(reCssBundle, '.rtl.css.js');
+    }),
+  ],
+  ...
+};
+```
+
 ## Creating derived components with different style
 
 You can create a derived class of our component and override [static `styles` property](https://lit-element.polymer-project.org/guide/styles#static-styles), like:

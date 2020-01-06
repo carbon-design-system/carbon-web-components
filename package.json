@@ -5,9 +5,21 @@
   "main": "es/index.js",
   "module": "es/index.js",
   "typings": "es/index.d.ts",
+  "repository": "https://github.com/carbon-design-system/carbon-custom-elements",
+  "bugs": "https://github.com/carbon-design-system/carbon-custom-elements/issues",
   "files": [
     "es/**/*",
     "scss/**/*"
+  ],
+  "keywords": [
+    "carbon",
+    "component",
+    "components",
+    "pattern",
+    "patterns",
+    "style guide",
+    "carbon-design-system",
+    "web components"
   ],
   "scripts": {
     "build": "gulp build && yarn build:ngc",
