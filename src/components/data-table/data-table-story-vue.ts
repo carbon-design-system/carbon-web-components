@@ -10,8 +10,11 @@
 import debounce from 'lodash-es/debounce';
 import Vue, { PropType } from 'vue';
 import { action } from '@storybook/addon-actions';
+import Delete16 from '@carbon/icons-vue/es/delete/16';
+import Download16 from '@carbon/icons-vue/es/download/16';
 import Settings16 from '@carbon/icons-vue/es/settings/16';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
+import BXBtn from '../button/button';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
@@ -22,6 +25,14 @@ import {
 } from './data-table-story';
 
 export { default } from './data-table-story';
+
+/**
+ * @param row A table row.
+ * @param searchString A search string.
+ * @returns `true` if the given table row matches the given search string.
+ */
+const doesRowMatchSearchString = (row: TDemoTableRow, searchString: string) =>
+  Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0);
 
 /**
  * The map of how sorting direction affects sorting order.
@@ -102,7 +113,8 @@ Vue.component('bx-ce-demo-data-table', {
     currentPageSize?: number;
     handleChangeSearchString: ((() => void) & { cancel(): void }) | void;
     searchString: string;
-    selectedAll: boolean;
+    selectedAllInFiltered: boolean;
+    selectedRowsCountInFiltered: number;
     uniqueId: string;
   } => ({
     /**
@@ -131,9 +143,14 @@ Vue.component('bx-ce-demo-data-table', {
     searchString: '',
 
     /**
-     * `true` if all rows are selected.
+     * `true` if all filtered rows are selected.
      */
-    selectedAll: false,
+    selectedAllInFiltered: false,
+
+    /**
+     * The count of the selected filtered rows.
+     */
+    selectedRowsCountInFiltered: 0,
 
     /**
      * Unique ID used for ID refs.
@@ -149,7 +166,7 @@ Vue.component('bx-ce-demo-data-table', {
       // @ts-ignore
       const { currentStart, currentPageSize, filteredRows } = this;
       const { length: count } = filteredRows;
-      return currentStart! < count
+      return count === 0 || currentStart! < count
         ? currentStart!
         : Math.max(currentStart! - Math.ceil((currentStart! - count) / currentPageSize!) * currentPageSize!, 0);
     },
@@ -167,9 +184,7 @@ Vue.component('bx-ce-demo-data-table', {
      */
     filteredRows() {
       const { rows, searchString } = this;
-      return !searchString
-        ? rows
-        : rows.filter(row => Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0));
+      return !searchString ? rows : rows.filter(row => doesRowMatchSearchString(row, searchString));
     },
 
     /**
@@ -202,8 +217,10 @@ Vue.component('bx-ce-demo-data-table', {
       this.currentStart = current;
     },
 
-    rows(current: TDemoTableRow[]) {
-      this.selectedAll = current.every(row => row.selected!);
+    rows() {
+      // Vue method reference
+      // @ts-ignore
+      this.recomputeSelected();
     },
   },
 
@@ -249,10 +266,27 @@ Vue.component('bx-ce-demo-data-table', {
     },
 
     /**
+     * Handles Cancel button in batch action bar.
+     */
+    handleCancelSelection() {
+      const { searchString } = this;
+      this.rows!.forEach(row => {
+        if (!searchString || doesRowMatchSearchString(row, searchString)) {
+          row.selected = false;
+        }
+      });
+      this.selectedRowsCountInFiltered = 0;
+      this.selectedAllInFiltered = false;
+    },
+
+    /**
      * Handles user-initiated change in search string.
      */
     handleChangeSearchStringImpl({ detail }: CustomEvent) {
       this.searchString = detail.value;
+      // Vue method reference
+      // @ts-ignore
+      this.recomputeSelected();
     },
 
     /**
@@ -269,7 +303,9 @@ Vue.component('bx-ce-demo-data-table', {
             row.selected = selected;
           }
         });
-        this.selectedAll = this.rows!.every(row => row.selected!);
+        // Vue method reference
+        // @ts-ignore
+        this.recomputeSelected();
       }
     },
 
@@ -281,11 +317,13 @@ Vue.component('bx-ce-demo-data-table', {
       if (!defaultPrevented) {
         const { selected } = detail;
         this.rows!.forEach(row => {
-          if (Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(this.searchString) >= 0)) {
+          if (doesRowMatchSearchString(row, this.searchString)) {
             row.selected = selected;
           }
         });
-        this.selectedAll = selected;
+        // Vue method reference
+        // @ts-ignore
+        this.recomputeSelected();
       }
     },
 
@@ -325,14 +363,60 @@ Vue.component('bx-ce-demo-data-table', {
     handleChangePageSize({ detail }: CustomEvent) {
       this.currentPageSize = detail.value;
     },
+
+    /**
+     * Handles Delete batch action button.
+     */
+    handleDeleteRows() {
+      const { rows, searchString } = this;
+      for (let i = rows.length - 1; i >= 0; --i) {
+        if (rows[i].selected && doesRowMatchSearchString(rows[i], searchString)) {
+          rows.splice(i, 1);
+        }
+      }
+      this.selectedRowsCountInFiltered = 0;
+      this.selectedAllInFiltered = false;
+    },
+
+    /**
+     * Handles Download batch action button.
+     * @param event The event triggering this action.
+     */
+    handleDownloadRows({ target }: MouseEvent) {
+      const { searchString } = this;
+      const blob = new Blob(
+        [JSON.stringify(this.rows!.filter(row => row.selected && doesRowMatchSearchString(row, searchString)))],
+        { type: 'application/json' }
+      );
+      (target as BXBtn).href = URL.createObjectURL(blob);
+      // Vue method reference
+      // @ts-ignore
+      this.handleCancelSelection();
+    },
+
+    /**
+     * Re-computes `selectedRowsCount` and `selectedAllInFiltered` properties.
+     */
+    recomputeSelected() {
+      // Vue computed property reference
+      // @ts-ignore
+      const { filteredRows } = this;
+      const selectedRowsCount = filteredRows!.filter(row => row.selected).length;
+      this.selectedRowsCountInFiltered = selectedRowsCount;
+      this.selectedAllInFiltered = selectedRowsCount > 0 && selectedRowsCount === filteredRows.length;
+    },
   },
 
   components: {
+    'delete-16': Delete16,
+    'download-16': Download16,
     'settings-16': Settings16,
   },
 
   created() {
-    this.selectedAll = this.rows.every(row => row.selected!);
+    // Vue method reference
+    // @ts-ignore
+    this.recomputeSelected();
     this.currentSortInfo = this.sortInfo;
     this.currentStart = this.start;
     this.currentPageSize = this.pageSize;
@@ -354,7 +438,17 @@ Vue.component('bx-ce-demo-data-table', {
   template: `
     <div>
       <bx-table-toolbar>
-        <bx-table-toolbar-content>
+        <bx-table-batch-actions
+          :active="hasSelection && !!selectedRowsCountInFiltered"
+          :selected-rows-count="selectedRowsCountInFiltered"
+          @bx-table-batch-actions-cancel-clicked="handleCancelSelection"
+        >
+          <bx-btn @click="handleDeleteRows">Delete <delete-16 slot="icon"></delete-16></bx-btn>
+          <bx-btn @click="handleDownloadRows" href="javascript:void 0" download="table-data.json">
+            Download <download-16 slot="icon"></download-16>
+          </bx-btn>
+        </bx-table-batch-actions>
+        <bx-table-toolbar-content :has-batch-actions="hasSelection && !!selectedRowsCountInFiltered">
           <bx-table-toolbar-search @bx-search-input="handleChangeSearchString"></bx-table-toolbar-search>
           <bx-overflow-menu>
             <settings-16 slot="icon"></settings-16>
@@ -381,7 +475,7 @@ Vue.component('bx-ce-demo-data-table', {
       >
         <bx-table-head>
           <bx-table-header-row
-            :selected="selectedAll"
+            :selected="selectedAllInFiltered"
             :selection-name="!hasSelection ? undefined : selectionId"
             :selection-value="!hasSelection ? undefined : selectionId"
           >
