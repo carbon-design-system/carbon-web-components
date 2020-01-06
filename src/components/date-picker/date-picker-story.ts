@@ -10,17 +10,22 @@ import { action } from '@storybook/addon-actions';
 import { boolean, text } from '@storybook/addon-knobs';
 import './date-picker';
 import './date-picker-input';
+import storyDocs from './date-picker-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, hideLabel, labelText, light, placeholder } = parameters?.props?.['bx-date-picker-input'];
+  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage } = parameters?.props?.[
+    'bx-date-picker-input'
+  ];
   return html`
     <bx-date-picker>
       <bx-date-picker-input
         ?disabled="${disabled}"
         ?hide-label="${hideLabel}"
+        ?invalid="${invalid}"
         label-text="${labelText}"
         ?light="${light}"
         placeholder="${placeholder}"
+        validity-message="${validityMessage}"
       >
       </bx-date-picker-input>
     </bx-date-picker>
@@ -29,16 +34,13 @@ export const defaultStory = ({ parameters }) => {
 
 defaultStory.story = {
   name: 'Default',
-  parameters: {
-    docs: {
-      storyDescription: 'A simple Date Picker consists of an input field and no calendar.',
-    },
-  },
 };
 
 export const singleWithCalendar = ({ parameters }) => {
   const { dateFormat, enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
-  const { disabled, hideLabel, labelText, light, placeholder, onInput } = parameters?.props?.['bx-date-picker-input'];
+  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage, onInput } = parameters?.props?.[
+    'bx-date-picker-input'
+  ];
   return html`
     <bx-date-picker
       date-format="${dateFormat}"
@@ -51,10 +53,12 @@ export const singleWithCalendar = ({ parameters }) => {
       <bx-date-picker-input
         ?disabled="${disabled}"
         ?hide-label="${hideLabel}"
+        ?invalid="${invalid}"
         kind="single"
         label-text="${labelText}"
         ?light="${light}"
         placeholder="${placeholder}"
+        validity-message="${validityMessage}"
         @input="${onInput}"
       >
       </bx-date-picker-input>
@@ -65,9 +69,6 @@ export const singleWithCalendar = ({ parameters }) => {
 singleWithCalendar.story = {
   name: 'Single with calendar',
   parameters: {
-    docs: {
-      storyDescription: 'A single Date Picker consists of an input field and a calendar.',
-    },
     knobs: {
       'bx-date-picker': () => ({
         dateFormat: text('The date format (date-format)', 'm/d/Y'),
@@ -83,7 +84,9 @@ singleWithCalendar.story = {
 
 export const rangeWithCalendar = ({ parameters }) => {
   const { dateFormat, enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
-  const { disabled, hideLabel, labelText, light, placeholder, onInput } = parameters?.props?.['bx-date-picker-input'];
+  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage, onInput } = parameters?.props?.[
+    'bx-date-picker-input'
+  ];
   return html`
     <bx-date-picker
       date-format="${dateFormat}"
@@ -96,20 +99,24 @@ export const rangeWithCalendar = ({ parameters }) => {
       <bx-date-picker-input
         ?disabled="${disabled}"
         ?hide-label="${hideLabel}"
+        ?invalid="${invalid}"
         kind="from"
         label-text="${labelText}"
         ?light="${light}"
         placeholder="${placeholder}"
+        validity-message="${validityMessage}"
         @input="${onInput}"
       >
       </bx-date-picker-input>
       <bx-date-picker-input
         ?disabled="${disabled}"
         ?hide-label="${hideLabel}"
+        ?invalid="${invalid}"
         kind="to"
         label-text="${labelText}"
         ?light="${light}"
         placeholder="${placeholder}"
+        validity-message="${validityMessage}"
         @input="${onInput}"
       >
       </bx-date-picker-input>
@@ -120,9 +127,6 @@ export const rangeWithCalendar = ({ parameters }) => {
 rangeWithCalendar.story = {
   name: 'Range with calendar',
   parameters: {
-    docs: {
-      storyDescription: 'A range Date Picker consists of two input fields and a calendar.',
-    },
     knobs: singleWithCalendar.story.parameters.knobs,
   },
 };
@@ -130,13 +134,16 @@ rangeWithCalendar.story = {
 export default {
   title: 'Date picker',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-date-picker-input': () => ({
         disabled: boolean('Disabled (disabled in <bx-date-picker-input>)', false),
         hideLabel: boolean('Hide label (hide-label in <bx-date-picker-input>)', false),
+        invalid: boolean('Show invalid state  (invalid)', false),
         labelText: text('Label text (label-text in <bx-date-picker-input>)', 'Date Picker label'),
         light: boolean('Light variant (light in <bx-date-picker-input>)', false),
         placeholder: text('Placeholder text (placeholder in <bx-date-picker-input>)', 'mm/dd/yyyy'),
+        validityMessage: text('The validity message (validity-message)', ''),
         onInput: action('input'),
       }),
     },

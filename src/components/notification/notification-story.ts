@@ -13,6 +13,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, select, text } from '@storybook/addon-knobs';
 import { NOTIFICATION_KIND } from './inline-notification';
 import './toast-notification';
+import storyDocs from './notification-story.mdx';
 
 const kinds = {
   [`Success (${NOTIFICATION_KIND.SUCCESS})`]: NOTIFICATION_KIND.SUCCESS,
@@ -51,12 +52,6 @@ export const inline = ({ parameters }) => {
 
 inline.story = {
   parameters: {
-    docs: {
-      storyDescription: `
-Inline notifications show up in task flows, to notify users of the status of an action.
-They usually appear at the top of the primary content area.
-    `,
-    },
     knobs: {
       'bx-inline-notification': () => ({
         kind: select('The notification kind (kind)', kinds, NOTIFICATION_KIND.INFO),
@@ -114,12 +109,6 @@ export const toast = ({ parameters }) => {
 
 toast.story = {
   parameters: {
-    docs: {
-      storyDescription: `
-Toasts are non-modal, time-based window elements used to display short messages;
-they usually appear at the bottom of the screen and disappear after a few seconds.
-    `,
-    },
     knobs: {
       'bx-toast-notification': () => ({
         ...inline.story.parameters.knobs['bx-inline-notification'](),
@@ -131,4 +120,7 @@ they usually appear at the bottom of the screen and disappear after a few second
 
 export default {
   title: 'Notifications',
+  parameters: {
+    docs: storyDocs.parameters.docs,
+  },
 };

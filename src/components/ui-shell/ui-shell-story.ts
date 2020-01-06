@@ -23,6 +23,7 @@ import './header-menu';
 import './header-menu-item';
 import './header-menu-button';
 import './header-name';
+import storyDocs from './ui-shell-story.mdx';
 
 const StoryContent = () => html`
   <style type="text/css">
@@ -231,4 +232,7 @@ header.story = {
 
 export default {
   title: 'UI Shell',
+  parameters: {
+    docs: storyDocs.parameters.docs,
+  },
 };
