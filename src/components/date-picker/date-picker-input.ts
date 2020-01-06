@@ -129,6 +129,13 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
   hideLabel = false;
 
   /**
+   * Controls the invalid state and visibility of the `validityMessage`.
+   * Corresponds to the attribute with the same name.
+   */
+  @property({ type: Boolean, reflect: true })
+  invalid = false;
+
+  /**
    * Date picker input kind. Corresponds to the attribute with the same name.
    */
   @property({ reflect: true })
@@ -194,15 +201,14 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
     const {
       disabled,
       hideLabel,
+      invalid,
       labelText,
       pattern = constructor.defaultPattern,
       placeholder,
       type = constructor.defaultType,
-      validityMessage,
       value,
       _handleInput: handleInput,
     } = this;
-    const hasValidity = Boolean(validityMessage);
     const labelClasses = classMap({
       [`${prefix}--label`]: true,
       [`${prefix}--visually-hidden`]: hideLabel,
@@ -221,7 +227,7 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
           pattern="${pattern}"
           placeholder="${ifNonNull(placeholder)}"
           .value="${ifNonNull(value)}"
-          ?data-invalid="${hasValidity}"
+          ?data-invalid="${invalid}"
           @input="${handleInput}"
         />
         ${this._renderIcon()}
