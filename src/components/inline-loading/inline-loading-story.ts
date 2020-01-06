@@ -10,6 +10,7 @@
 import { html } from 'lit-element';
 import { select } from '@storybook/addon-knobs';
 import { INLINE_LOADING_STATE } from './inline-loading';
+import storyDocs from './inline-loading-story.mdx';
 
 const states = {
   [`Inactive (${INLINE_LOADING_STATE.INACTIVE})`]: INLINE_LOADING_STATE.INACTIVE,
@@ -32,6 +33,7 @@ defaultStory.story = {
 export default {
   title: 'Inline loading',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-inline-loading': () => ({
         status: select('Loading status (status)', states, INLINE_LOADING_STATE.ACTIVE),

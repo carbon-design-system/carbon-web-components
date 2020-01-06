@@ -304,7 +304,8 @@ describe('bx-radio-button', function() {
     });
   });
 
-  afterEach(function() {
+  afterEach(async function() {
     render(template({ hasContent: false }), document.body);
+    await Promise.resolve();
   });
 });

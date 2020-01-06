@@ -1,0 +1,58 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+
+# Tile
+
+Tiles are a highly flexible component for displaying a wide variety of content, including informational, getting started, how-to, next steps, and more.
+
+Carbon ships a basic tile structure that responds to the grid.
+Tiles have no pre-set styles for the content within them. You can customize tiles to fit your specific use case.
+
+When using a call-to-action (CTA) within a tile, use a secondary button.
+Primary buttons should be reserved for the most important action a user can take on the page.
+
+# Read-only tile
+
+Read-only tiles are used to display information to the user, such as features or services offered.
+Read-only tiles are often seen on marketing pages to promote content.
+These tiles can have internal calls-to-action (CTAs), such as a button or a link.
+
+<Preview withToolbar>
+  <Story id="tile--default-story" height="160px" />
+</Preview>
+
+# Clickable tile
+
+Clickable tiles can be used as navigational items, where the entire tile is a clickable state,
+which redirects the user to a new page.
+Clickable tiles cannot contain separate internal CTAs.
+
+<Preview withToolbar>
+  <Story id="tile--clickable" height="160px" />
+</Preview>
+
+# Selectable tile
+
+Selectable tiles work like a radio button, where the entire tile is a click target.
+Selectable tiles may contain internal CTAs (like links to docs) if the internal CTA is given its own click target.
+Selectable tiles work well for presenting options to a user in a structured manner, such as a set of pricing plans.
+
+<Preview withToolbar>
+  <Story id="tile--single-selectable" height="320px" />
+</Preview>
+
+# Multi-selectable tile
+
+<Preview withToolbar>
+  <Story id="tile--multi-selectable" height="160px" />
+</Preview>
+
+# Expandable tile
+
+Expandable tiles are helpful for hiding/showing larger amounts of content to a user.
+They can only be stacked in a single column, and cannot live in a row or horizontal grid.
+When expanded, tiles push content down the page.
+Expandable tiles may contain internal CTAs (like links to docs) if the internal CTA is given its own click target.
+
+<Preview withToolbar>
+  <Story id="tile--expandable" />
+</Preview>

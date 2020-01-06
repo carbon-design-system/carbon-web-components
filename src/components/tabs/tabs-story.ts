@@ -13,6 +13,7 @@ import { boolean, text } from '@storybook/addon-knobs';
 import './tabs';
 import './tab';
 import styles from './tabs-story.scss';
+import storyDocs from './tabs-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { disabled, triggerContent, value, disableSelection } = parameters?.props?.['bx-tabs'];
@@ -87,6 +88,7 @@ defaultStory.story = {
 export default {
   title: 'Tabs',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-tabs': () => ({
         disabled: boolean('Disabled (disabled)', false),

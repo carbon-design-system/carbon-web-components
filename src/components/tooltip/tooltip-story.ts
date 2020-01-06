@@ -18,6 +18,7 @@ import './tooltip-footer';
 import { TOOLTIP_ALIGNMENT, TOOLTIP_DIRECTION } from './tooltip-definition';
 import './tooltip-icon';
 import styles from './tooltip-story.scss';
+import storyDocs from './tooltip-story.mdx';
 
 const tooltipBodyDirections = {
   [`Bottom (${FLOATING_MENU_DIRECTION.BOTTOM})`]: FLOATING_MENU_DIRECTION.BOTTOM,
@@ -61,12 +62,6 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = {
   name: 'Default',
   parameters: {
-    docs: {
-      storyDescription: `
-Interactive tooltip should be used if there are actions a user can take in the tooltip (e.g. a link or a button).
-For more regular use cases, e.g. giving the user more text information about something, use definition tooltip or icon tooltip.
-    `,
-    },
     knobs: {
       'bx-tooltip': () => ({
         open: boolean('Open (open)', false),
@@ -124,4 +119,7 @@ icon.story = {
 
 export default {
   title: 'Tooltip',
+  parameters: {
+    docs: storyDocs.parameters.docs,
+  },
 };

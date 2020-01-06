@@ -65,8 +65,8 @@ describe('bx-progress-step', function() {
       expect(document.body.querySelector('bx-progress-step')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
+    afterEach(async function() {
+      await render(template({ hasContent: false }), document.body);
     });
   });
 });
