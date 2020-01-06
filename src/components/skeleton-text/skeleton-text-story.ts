@@ -1,0 +1,54 @@
+/**
+ * @license
+ *
+ * Copyright IBM Corp. 2019
+ *
+ * This source code is licensed under the Apache-2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+import { html } from 'lit-element';
+import { select } from '@storybook/addon-knobs';
+import { SKELETON_TEXT_TYPE } from './skeleton-text';
+
+const types = {
+  [`Regular (${SKELETON_TEXT_TYPE.REGULAR})`]: SKELETON_TEXT_TYPE.REGULAR,
+  [`Heading (${SKELETON_TEXT_TYPE.HEADING})`]: SKELETON_TEXT_TYPE.HEADING,
+};
+
+export const defaultStory = ({ parameters }) => {
+  const { type } = parameters?.props?.['bx-skeleton-text'];
+  return html`
+    <bx-skeleton-text type="${type}"></bx-skeleton-text>
+  `;
+};
+
+defaultStory.story = {
+  name: 'Default',
+  parameters: {
+    knobs: {
+      'bx-skeleton-text': () => ({
+        type: select('Skeleton text type (type)', types, SKELETON_TEXT_TYPE.REGULAR),
+      }),
+    },
+  },
+};
+
+export const lines = () => html`
+  <bx-skeleton-text type="line"></bx-skeleton-text>
+  <bx-skeleton-text type="line"></bx-skeleton-text>
+  <bx-skeleton-text type="line"></bx-skeleton-text>
+`;
+
+lines.story = {
+  decorators: [
+    story =>
+      html`
+        <div style="width:300px">${story()}</div>
+      `,
+  ],
+};
+
+export default {
+  title: 'Skeleton text',
+};
