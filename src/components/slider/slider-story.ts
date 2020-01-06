@@ -13,6 +13,7 @@ import { boolean, number, text } from '@storybook/addon-knobs';
 import ifNonNull from '../../globals/directives/if-non-null';
 import './slider';
 import './slider-input';
+import storyDocs from './slider-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'];
@@ -59,6 +60,7 @@ withInputBox.story = {
 export default {
   title: 'Slider',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-slider': () => ({
         disabled: boolean('Disabled (disabled)', false),

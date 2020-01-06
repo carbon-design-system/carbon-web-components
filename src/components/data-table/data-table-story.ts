@@ -36,6 +36,7 @@ import './table-toolbar-search';
 import './table-batch-actions';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
+import storyDocs from './data-table-story.mdx';
 
 /**
  * @param row A table row.
@@ -671,4 +672,7 @@ sortableWithPagination.story = {
 
 export default {
   title: 'Data table',
+  parameters: {
+    docs: storyDocs.parameters.docs,
+  },
 };

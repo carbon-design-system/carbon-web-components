@@ -12,6 +12,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, text } from '@storybook/addon-knobs';
 import './content-switcher';
 import './content-switcher-item';
+import storyDocs from './content-switcher-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { disabled, value, disableSelection } = parameters?.props?.['bx-content-switcher'];
@@ -45,6 +46,7 @@ defaultStory.story = {
 export default {
   title: 'Content switcher',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-content-switcher': () => ({
         disabled: boolean('Disabled (disabled)', false),

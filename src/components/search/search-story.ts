@@ -12,6 +12,7 @@ import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, select, text } from '@storybook/addon-knobs';
 import { SEARCH_SIZE } from './search';
+import storyDocs from './search-story.mdx';
 
 const sizes = {
   [`Small size (${SEARCH_SIZE.SMALL})`]: SEARCH_SIZE.SMALL,
@@ -54,6 +55,7 @@ defaultStory.story = {
 export default {
   title: 'Search',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-search': () => ({
         closeButtonAssistiveText: text('The label text for the close button (close-button-assistive-text)', 'Clear search input'),

@@ -30,7 +30,10 @@ $css--plex: true !default;
 :host(#{$prefix}-side-nav-link) {
   @extend .#{$prefix}--side-nav__item;
 
+  display: block;
   outline: none;
+  width: auto;
+  height: auto;
 
   .#{$prefix}--side-nav__icon[hidden] {
     display: none;
@@ -40,7 +43,10 @@ $css--plex: true !default;
 :host(#{$prefix}-side-nav-menu) {
   @extend .#{$prefix}--side-nav__item;
 
+  display: block;
   outline: none;
+  width: auto;
+  height: auto;
 
   .#{$prefix}--side-nav__icon[hidden] {
     display: none;
@@ -82,7 +88,10 @@ $css--plex: true !default;
 :host(#{$prefix}-side-nav-menu-item) {
   @extend .#{$prefix}--side-nav__menu-item;
 
+  display: block;
   outline: none;
+  width: auto;
+  height: auto;
 
   a.#{$prefix}--side-nav__link[role='menuitem'] {
     height: mini-units(4);

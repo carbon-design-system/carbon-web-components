@@ -12,6 +12,7 @@ import * as knobs from '@storybook/addon-knobs';
 import './textarea';
 import '../form/form-item';
 import createProps from './stories/helpers';
+import storyDocs from './textarea-story.mdx';
 
 export const defaultStory = () => {
   const { disabled, value, placeholder, invalid, onInput, rows, cols } = createProps(knobs);
@@ -86,6 +87,7 @@ withoutFormItemWrapper.story = {
 export default {
   title: 'Textarea',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-textarea': () => createProps(knobs),
     },
