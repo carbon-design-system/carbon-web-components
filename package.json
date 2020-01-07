@@ -26,7 +26,7 @@
     "build:ngc": "yarn build:ngc:esm2015 && yarn build:ngc:esm5",
     "build:ngc:esm2015": "ngc -p tsconfig-angular-esm2015.json",
     "build:ngc:esm5": "ngc -p tsconfig-angular-esm5.json",
-    "ci-check": "yarn format:diff && yarn lint:src && yarn typecheck && yarn test -b ChromeHeadless -b Firefox && yarn build && yarn lint:dist",
+    "ci-check": "yarn format:diff && yarn lint:src && yarn typecheck && yarn test && yarn build && yarn lint:dist",
     "clean": "gulp clean",
     "format": "prettier --write \"**/*.{css,js,md,scss}\"",
     "format:diff": "prettier --check \"**/*.{css,js,md,scss}\"",
