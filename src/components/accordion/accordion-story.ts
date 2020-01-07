@@ -12,6 +12,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, text } from '@storybook/addon-knobs';
 import './accordion';
 import './accordion-item';
+import storyDocs from './accordion-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { open, titleText, disableToggle } = parameters?.props?.['bx-accordion'];
@@ -57,6 +58,7 @@ defaultStory.story = {
 export default {
   title: 'Accordion',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-accordion': () => ({
         open: boolean('Open the section (open)', false),

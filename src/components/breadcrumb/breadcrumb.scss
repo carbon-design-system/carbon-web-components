@@ -1,0 +1,41 @@
+//
+// Copyright IBM Corp. 2019
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+$css--plex: true !default;
+
+@import 'carbon-components/scss/components/link/link';
+@import 'carbon-components/scss/components/breadcrumb/breadcrumb';
+
+:host(#{$prefix}-breadcrumb) {
+  @extend .#{$prefix}--breadcrumb;
+}
+
+:host(#{$prefix}-breadcrumb-item) {
+  @extend .#{$prefix}--breadcrumb-item;
+}
+
+:host(#{$prefix}-breadcrumb-item:last-of-type)::after {
+  content: '';
+}
+
+:host(#{$prefix}-breadcrumb-link) {
+  outline: none;
+
+  // Re-define the ruleset so this wins over `.bx--link:visited`, etc.
+  .#{$prefix}--link--disabled {
+    color: $disabled-02;
+  }
+}
+
+:host(#{$prefix}-breadcrumb-link[aria-current='page']) .#{$prefix}--link {
+  color: $text-01;
+  cursor: auto;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

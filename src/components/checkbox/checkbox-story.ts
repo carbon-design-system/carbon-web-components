@@ -12,6 +12,7 @@ import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, text } from '@storybook/addon-knobs';
 import './checkbox';
+import storyDocs from './checkbox-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onAfterChange } = parameters?.props?.[
@@ -38,6 +39,7 @@ defaultStory.story = {
 export default {
   title: 'Checkbox',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-checkbox': () => ({
         checked: boolean('Checked (checked)', false),

@@ -12,6 +12,7 @@ import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, text } from '@storybook/addon-knobs';
 import './toggle';
+import storyDocs from './toggle-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, onAfterChange } = parameters?.props?.[
@@ -39,6 +40,7 @@ defaultStory.story = {
 export default {
   title: 'Toggle',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-toggle': () => ({
         checked: boolean('Checked (checked)', false),

@@ -16,6 +16,7 @@ import './clickable-tile';
 import './radio-tile';
 import './selectable-tile';
 import './expandable-tile';
+import storyDocs from './tile-story.mdx';
 
 export const defaultStory = () => html`
   <bx-tile>Default tile</bx-tile>
@@ -23,15 +24,6 @@ export const defaultStory = () => html`
 
 defaultStory.story = {
   name: 'Default',
-  parameters: {
-    docs: {
-      storyDescription: `
-Read-only tiles are used to display information to the user, such as features or services offered.
-Read-only tiles are often seen on marketing pages to promote content.
-These tiles can have internal calls-to-action (CTAs), such as a button or a link.
-    `,
-    },
-  },
 };
 
 export const clickable = ({ parameters }) => {
@@ -43,13 +35,6 @@ export const clickable = ({ parameters }) => {
 
 clickable.story = {
   parameters: {
-    docs: {
-      storyDescription: `
-Clickable tiles can be used as navigational items, where the entire tile is a clickable state,
-which redirects the user to a new page.
-Clickable tiles cannot contain separate internal CTAs.
-    `,
-    },
     knobs: {
       'bx-clickable-tile': () => ({
         href: text('Href for clickable UI (href)', ''),
@@ -94,13 +79,6 @@ export const singleSelectable = ({ parameters }) => {
 singleSelectable.story = {
   name: 'Single-selectable',
   parameters: {
-    docs: {
-      storyDescription: `
-Selectable tiles work like a radio button, where the entire tile is a click target.
-Selectable tiles may contain internal CTAs (like links to docs) if the internal CTA is given its own click target.
-Selectable tiles work well for presenting options to a user in a structured manner, such as a set of pricing plans.
-    `,
-    },
     knobs: {
       'bx-radio-tile': () => ({
         checkmarkLabel: text('Label text for the checkmark icon (checkmark-label)', ''),
@@ -166,14 +144,6 @@ export const expandable = ({ parameters }) => {
 
 expandable.story = {
   parameters: {
-    docs: {
-      storyDescription: `
-Expandable tiles are helpful for hiding/showing larger amounts of content to a user.
-They can only be stacked in a single column, and cannot live in a row or horizontal grid.
-When expanded, tiles push content down the page.
-Expandable tiles may contain internal CTAs (like links to docs) if the internal CTA is given its own click target.
-    `,
-    },
     knobs: {
       'bx-expandable-tile': () => ({
         expanded: boolean('Expanded (expanded)', false),
@@ -195,4 +165,7 @@ export default {
         <div>${story()}</div>
       `,
   ],
+  parameters: {
+    docs: storyDocs.parameters.docs,
+  },
 };

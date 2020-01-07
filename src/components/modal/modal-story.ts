@@ -18,6 +18,7 @@ import './modal-heading';
 import './modal-label';
 import './modal-body';
 import './modal-footer';
+import storyDocs from './modal-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { danger, open, disableClose } = parameters?.props?.['bx-modal'];
@@ -56,6 +57,7 @@ defaultStory.story = {
 export default {
   title: 'Modal',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-modal': () => ({
         open: boolean('Open (open)', true),

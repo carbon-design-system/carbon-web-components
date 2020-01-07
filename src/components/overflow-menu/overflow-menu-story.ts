@@ -13,6 +13,7 @@ import { FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
 import './overflow-menu';
 import './overflow-menu-body';
 import './overflow-menu-item';
+import storyDocs from './overflow-menu-story.mdx';
 
 const directions = {
   [`Bottom (${FLOATING_MENU_DIRECTION.BOTTOM})`]: FLOATING_MENU_DIRECTION.BOTTOM,
@@ -41,6 +42,7 @@ defaultStory.story = {
 export default {
   title: 'Overflow menu',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-overflow-menu': () => ({
         open: boolean('Open (open)', false),

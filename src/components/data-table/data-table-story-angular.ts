@@ -11,7 +11,10 @@ import debounce from 'lodash-es/debounce';
 import { Pipe, PipeTransform, Component, Input, HostBinding, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
+import { Delete16Module } from '@carbon/icons-angular/lib/delete/16';
+import { Download16Module } from '@carbon/icons-angular/lib/download/16';
 import { Settings16Module } from '@carbon/icons-angular/lib/settings/16';
+import BXBtn from '../button/button';
 import { TABLE_SIZE } from './table';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import baseStory, {
@@ -21,6 +24,14 @@ import baseStory, {
 } from './data-table-story';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
+
+/**
+ * @param row A table row.
+ * @param searchString A search string.
+ * @returns `true` if the given table row matches the given search string.
+ */
+const doesRowMatchSearchString = (row: TDemoTableRow, searchString: string) =>
+  Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0);
 
 /**
  * Table filtering options.
@@ -47,9 +58,7 @@ class BXCETableRowsFilterPipe implements PipeTransform {
    */
   transform(rows: TDemoTableRow[], options: IBXCETableFilterOptions): TDemoTableRow[] {
     const { searchString } = options;
-    return !searchString
-      ? rows
-      : rows!.filter(row => Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0));
+    return !searchString ? rows : rows!.filter(row => doesRowMatchSearchString(row, searchString));
   }
   /* eslint-enable class-methods-use-this */
 }
@@ -192,7 +201,17 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
   selector: 'bx-ce-demo-data-table',
   template: `
     <bx-table-toolbar>
-      <bx-table-toolbar-content>
+      <bx-table-batch-actions
+        [active]="hasSelection && _selectedRowsCountInFiltered"
+        [selectedRowsCount]="_selectedRowsCountInFiltered"
+        (bx-table-batch-actions-cancel-clicked)="_handleCancelSelection($event)"
+      >
+        <bx-btn (click)="_handleDeleteRows($event)">Delete <ibm-icon-delete16 slot="icon"></ibm-icon-delete16></bx-btn>
+        <bx-btn (click)="_handleDownloadRows($event)" href="javascript:void 0" download="table-data.json">
+          Download <ibm-icon-download16 slot="icon"></ibm-icon-download16>
+        </bx-btn>
+      </bx-table-batch-actions>
+      <bx-table-toolbar-content [hasBatchActions]="hasSelection && _selectedRowsCountInFiltered">
         <bx-table-toolbar-search (bx-search-input)="_handleChangeSearchString($event)"></bx-table-toolbar-search>
         <bx-overflow-menu>
           <ibm-icon-settings16 slot="icon"></ibm-icon-settings16>
@@ -219,7 +238,7 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
     >
       <bx-table-head>
         <bx-table-header-row
-          [selected]="_selectedAll"
+          [selected]="_selectedAllInFiltered"
           [selectionName]="!hasSelection ? undefined : _selectionId"
           [selectionValue]="!hasSelection ? undefined : _selectionId"
         >
@@ -289,9 +308,14 @@ class BXCEDemoDataTable {
   _rows?: TDemoTableRow[];
 
   /**
-   * `true` if all rows are selected.
+   * `true` if all filtered rows are selected.
    */
-  _selectedAll?: boolean;
+  _selectedAllInFiltered?: boolean;
+
+  /**
+   * The count of the selected filtered rows.
+   */
+  _selectedRowsCountInFiltered = 0;
 
   /**
    * Unique ID used for ID refs.
@@ -324,6 +348,20 @@ class BXCEDemoDataTable {
   };
 
   /**
+   * Handles Cancel button in batch action bar.
+   */
+  _handleCancelSelection() {
+    const { _searchString: searchString } = this;
+    this._rows!.forEach(row => {
+      if (!searchString || doesRowMatchSearchString(row, searchString)) {
+        row.selected = false;
+      }
+    });
+    this._selectedRowsCountInFiltered = 0;
+    this._selectedAllInFiltered = false;
+  }
+
+  /**
    * Handles user-initiated change in search string.
    */
   _handleChangeSearchStringImpl({ detail }: CustomEvent) {
@@ -332,10 +370,11 @@ class BXCEDemoDataTable {
     const { length: count } = this._rows!.filter(row =>
       Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0)
     );
-    if (start >= count) {
+    if (count > 0 && start >= count) {
       this.start = Math.max(start - Math.ceil((start - count) / pageSize) * pageSize, 0);
     }
     this._searchString = searchString;
+    this._recomputeSelected();
   }
 
   /**
@@ -352,7 +391,7 @@ class BXCEDemoDataTable {
           row.selected = selected;
         }
       });
-      this._selectedAll = this._rows!.every(row => row.selected!);
+      this._recomputeSelected();
     }
   }
 
@@ -365,11 +404,11 @@ class BXCEDemoDataTable {
       const { _searchString: searchString } = this;
       const { selected } = detail;
       this._rows!.forEach(row => {
-        if (Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0)) {
+        if (!searchString || doesRowMatchSearchString(row, searchString)) {
           row.selected = selected;
         }
       });
-      this._selectedAll = selected;
+      this._recomputeSelected();
     }
   }
 
@@ -408,6 +447,43 @@ class BXCEDemoDataTable {
    */
   _handleChangePageSize({ detail }: CustomEvent) {
     this.pageSize = detail.value;
+  }
+
+  /**
+   * Handles Delete batch action button.
+   */
+  _handleDeleteRows() {
+    const { _searchString: searchString } = this;
+    this._rows = this._rows!.filter(row => !row.selected || !doesRowMatchSearchString(row, searchString));
+    this._selectedRowsCountInFiltered = 0;
+    this._selectedAllInFiltered = false;
+  }
+
+  /**
+   * Handles Download batch action button.
+   * @param event The event triggering this action.
+   */
+  _handleDownloadRows({ target }: MouseEvent) {
+    const { _searchString: searchString } = this;
+    const blob = new Blob(
+      [JSON.stringify(this._rows!.filter(row => row.selected && doesRowMatchSearchString(row, searchString)))],
+      { type: 'application/json' }
+    );
+    (target as BXBtn).href = URL.createObjectURL(blob);
+    this._handleCancelSelection();
+  }
+
+  /**
+   * Re-computes `_selectedRowsCount` and `_selectedAllInFiltered` properties.
+   */
+  _recomputeSelected() {
+    const { _searchString: searchString, _rows: rows } = this;
+    const selectedRowsCount = rows!.filter(row => row.selected && (!searchString || doesRowMatchSearchString(row, searchString)))
+      .length;
+    this._selectedRowsCountInFiltered = selectedRowsCount;
+    this._selectedAllInFiltered =
+      selectedRowsCount > 0 &&
+      (!searchString ? rows! : rows!.filter(row => doesRowMatchSearchString(row, searchString))).length === selectedRowsCount;
   }
 
   /**
@@ -489,7 +565,7 @@ class BXCEDemoDataTable {
     }
     if ('rows' in changes) {
       this._rows = this.rows;
-      this._selectedAll = this.rows!.every(row => row.selected!);
+      this._recomputeSelected();
     }
   }
 
@@ -602,7 +678,7 @@ sortable.story = Object.assign(baseSortable.story, {
         BXCETableColumnSortDirectionPipe,
         BXCETableRowSelectionIdPipe,
       ],
-      imports: [Settings16Module],
+      imports: [Delete16Module, Download16Module, Settings16Module],
     }),
   ],
 });
@@ -663,7 +739,7 @@ sortableWithPagination.story = Object.assign(baseSortableWithPagination.story, {
         BXCETableColumnSortDirectionPipe,
         BXCETableRowSelectionIdPipe,
       ],
-      imports: [Settings16Module],
+      imports: [Delete16Module, Download16Module, Settings16Module],
     }),
   ],
 });
