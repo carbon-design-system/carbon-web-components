@@ -42,6 +42,7 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 - [Iteration plans](#iteration-plans)
 - [Creating build](#creating-build)
 - [Running unit test](#running-unit-test)
+- [Running build integration test](#running-build-integration-test)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -245,4 +246,24 @@ Above options can be used together. This is useful to debug your code as you tes
 
 ```
 > gulp test:unit -s tests/spec/dropdown_spec.ts -b Chrome -d -k
+```
+
+## Running build integration test
+
+You can run build integration test by:
+
+```
+> yarn test:integration
+```
+
+You can run a specific set of UI test steps (e.g. running `tests/integration/form-angular_steps.js` only) by:
+
+```
+> yarn test:integration form-angular_steps
+```
+
+By default Chrome runs in headless mode. You can show Chrome UI by:
+
+```
+> CI=false yarn test:integration
 ```
