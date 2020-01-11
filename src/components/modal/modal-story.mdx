@@ -9,3 +9,16 @@ While effective when used correctly, modals should be used sparingly to limit di
 <Preview withToolbar>
   <Story id="modal--default-story" height="320px" />
 </Preview>
+
+## Focus management
+
+`<bx-modal>` puts focus on one of the following elements (in priority order) once it gets open:
+
+1. An programmatic-focusable element with `data-modal-primary-focus` attribute
+2. The primary button in modal footer
+3. The first sequential-focusable child element
+
+`<bx-modal>` enables "focus-wrapping" behavior after then.
+It means that hitting tab key at the last sequential-focusable element in `<bx-modal>` puts focus on the first sequential-focusable element, and hitting Shift-tab key at the first sequential-focusable element in `<bx-modal>` puts focus on the last sequential-focusable element.
+
+Once `<bx-modal>` gets closed, it puts focus on the last focused element before it got open, typically the launcher button.
