@@ -77,6 +77,8 @@ module.exports = function setupKarma(config) {
             test: /\.ts$/,
             use: [
               {
+                // Build note: Locking down `@babel/plugin-transform-typescript` to `~7.6.0`
+                // given `7.7` or later versions seems to have a problem with using decorator with fields without an initializer
                 loader: 'babel-loader',
                 options: {
                   configFile: path.resolve(__dirname, '..', '.babelrc'),

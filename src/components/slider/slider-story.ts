@@ -60,7 +60,9 @@ withInputBox.story = {
 export default {
   title: 'Slider',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-slider': () => ({
         disabled: boolean('Disabled (disabled)', false),

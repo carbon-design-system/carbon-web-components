@@ -233,6 +233,8 @@ header.story = {
 export default {
   title: 'UI Shell',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
   },
 };

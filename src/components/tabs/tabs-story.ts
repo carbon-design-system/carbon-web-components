@@ -88,7 +88,9 @@ defaultStory.story = {
 export default {
   title: 'Tabs',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-tabs': () => ({
         disabled: boolean('Disabled (disabled)', false),

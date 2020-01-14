@@ -64,7 +64,9 @@ defaultStory.story = {
 export default {
   title: 'Combo box',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-combo-box': () => ({
         open: boolean('Open (open)', false),

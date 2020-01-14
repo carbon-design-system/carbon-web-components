@@ -76,7 +76,9 @@ defaultStory.story = {
 export default {
   title: 'Multi select',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-multi-select': () => ({
         clearSelectionLabel: text('a11y label for the icon to clear selection (clear-selection-label)', ''),

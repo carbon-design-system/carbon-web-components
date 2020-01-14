@@ -55,7 +55,9 @@ defaultStory.story = {
 export default {
   title: 'Search',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-search': () => ({
         closeButtonAssistiveText: text('The label text for the close button (close-button-assistive-text)', 'Clear search input'),

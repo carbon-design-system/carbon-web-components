@@ -121,6 +121,8 @@ toast.story = {
 export default {
   title: 'Notifications',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
   },
 };

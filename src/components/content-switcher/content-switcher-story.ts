@@ -46,7 +46,9 @@ defaultStory.story = {
 export default {
   title: 'Content switcher',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-content-switcher': () => ({
         disabled: boolean('Disabled (disabled)', false),

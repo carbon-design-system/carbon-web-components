@@ -120,6 +120,8 @@ icon.story = {
 export default {
   title: 'Tooltip',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
   },
 };
