@@ -9,26 +9,15 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './toggle-story';
+import baseStory, { defaultStory as baseDefaultStory } from './link-story';
 
 export const defaultStory = ({ parameters }) => ({
   template: `
-    <bx-toggle
-      [checked]="checked"
-      [checkedText]="checkedText"
-      [disabled]="disabled"
-      [labelText]="labelText"
-      [name]="name"
-      [small]="small"
-      [uncheckedText]="uncheckedText"
-      [value]="value"
-      (bx-toggle-changed)="onAfterChange($event)"
-    ></bx-toggle>
+    <bx-link [disabled]="disabled" href="href" (click)="onClick($event)">
+      Link
+    </bx-link>
   `,
-  props: parameters?.props?.['bx-toggle'],
-  moduleMetadata: {
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  },
+  props: parameters?.props?.['bx-link'],
 });
 
 defaultStory.story = baseDefaultStory.story;

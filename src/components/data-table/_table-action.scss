@@ -5,6 +5,7 @@
 // LICENSE file in the root directory of this source tree.
 //
 
+@import 'carbon-components/scss/components/button/button';
 @import 'carbon-components/scss/components/search/search';
 @import 'carbon-components/scss/components/data-table/data-table-action';
 
@@ -18,6 +19,8 @@
 
 :host(#{$prefix}-table-toolbar-content) {
   @extend .#{$prefix}--toolbar-content;
+
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 
   ::slotted(#{$prefix}-overflow-menu) {
     @include button-reset;
@@ -40,6 +43,12 @@
   .#{$prefix}--search .#{$prefix}--search-input {
     background-color: transparent; // For tool bar animation with (esp.) persistent search box
   }
+}
+
+:host(#{$prefix}-table-toolbar-content[has-batch-actions]) {
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  transform: translate3d(0, 48px, 0);
+  transition: transform $duration--fast-02 motion(standard, productive), clip-path $duration--fast-02 motion(standard, productive);
 }
 
 :host(#{$prefix}-table-toolbar-search) {
@@ -80,4 +89,14 @@
 
 :host(#{$prefix}-table-toolbar-search[persistent]) {
   @extend .#{$prefix}--toolbar-search-container-persistent;
+}
+
+:host(#{$prefix}-table-batch-actions) {
+  @extend .#{$prefix}--batch-actions;
+
+  box-sizing: border-box;
+}
+
+:host(#{$prefix}-table-batch-actions[active]) {
+  @extend .#{$prefix}--batch-actions--active;
 }

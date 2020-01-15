@@ -19,19 +19,19 @@ const host = {
 
 // NOTE: Referring `BXCheckbox.eventAfterChange` seems to cause ng-packagr to package up `src/components/checkbox.ts` code,
 // Which is not desirable
-host[`(${prefix}-checkbox-changed)`] = 'onChange($event.target.checked)';
+host[`(${prefix}-toggle-changed)`] = 'onChange($event.target.checked)';
 
 @Directive({
   selector: `
-    ${prefix}-checkbox[formControlName],${prefix}-checkbox[formControl],${prefix}-checkbox[ngModel],
+    ${prefix}-toggle[formControlName],${prefix}-toggle[formControl],${prefix}-toggle[ngModel],
   `,
   host,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => BXCheckboxDirective), // eslint-disable-line no-use-before-define
+      useExisting: forwardRef(() => BXToggleDirective), // eslint-disable-line no-use-before-define
       multi: true,
     },
   ],
 })
-export class BXCheckboxDirective extends CheckboxControlValueAccessor {} // eslint-disable-line import/prefer-default-export
+export class BXToggleDirective extends CheckboxControlValueAccessor {} // eslint-disable-line import/prefer-default-export
