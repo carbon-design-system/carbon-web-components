@@ -17,7 +17,9 @@ import { defaultStory as baseDefaultStory } from './checkbox-story';
 export { default } from './checkbox-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onInput } = parameters?.props?.['bx-checkbox'];
+  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onAfterChange } = parameters?.props?.[
+    'bx-checkbox'
+  ];
   return (
     <BXCheckbox
       checked={checked}
@@ -27,7 +29,7 @@ export const defaultStory = ({ parameters }) => {
       labelText={labelText}
       name={name || undefined}
       value={value || undefined}
-      onInput={onInput}
+      onAfterChange={onAfterChange}
     />
   );
 };

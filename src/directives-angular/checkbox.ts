@@ -13,15 +13,19 @@ import settings from 'carbon-components/es/globals/js/settings';
 
 const prefix = settings.prefix; // eslint-disable-line prefer-destructuring
 
+const host = {
+  '(blur)': 'onTouched()',
+};
+
+// NOTE: Referring `BXCheckbox.eventAfterChange` seems to cause ng-packagr to package up `src/components/checkbox.ts` code,
+// Which is not desirable
+host[`(${prefix}-checkbox-changed)`] = 'onChange($event.target.checked)';
+
 @Directive({
   selector: `
     ${prefix}-checkbox[formControlName],${prefix}-checkbox[formControl],${prefix}-checkbox[ngModel],
-    ${prefix}-toggle[formControlName],${prefix}-toggle[formControl],${prefix}-toggle[ngModel],
   `,
-  host: {
-    '(input)': 'onChange($event.target.checked)',
-    '(blur)': 'onTouched()',
-  },
+  host,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

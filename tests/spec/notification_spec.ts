@@ -72,10 +72,6 @@ describe('bx-inline-notification', function() {
       await Promise.resolve();
       expect(document.body.querySelector('bx-inline-notification')).toMatchSnapshot({ mode: 'shadow' });
     });
-
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
-    });
   });
 
   describe('Closing', function() {
@@ -93,9 +89,9 @@ describe('bx-inline-notification', function() {
       await Promise.resolve();
       expect(notification!.open).toBe(false);
     });
+  });
 
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
-    });
+  afterEach(async function() {
+    await render(template({ hasContent: false }), document.body);
   });
 });
