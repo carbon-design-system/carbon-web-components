@@ -33,7 +33,8 @@ describe('bx-modal', function() {
       const input = elem!.querySelector('input');
       spyOn(input!, 'focus');
       ((elem as unknown) as BXModal).open = true;
-      await Promise.resolve();
+      await Promise.resolve(); // For triggering the update cycle of `<bx-modal>`
+      await Promise.resolve(); // `update()` in `<bx-modal>` waits for child nodes' update cycles to run
       expect(input!.focus).not.toHaveBeenCalled();
     });
 
@@ -42,7 +43,8 @@ describe('bx-modal', function() {
       const input = elem!.querySelector('input');
       spyOn(input!, 'focus');
       ((elem as unknown) as BXModal).open = true;
-      await Promise.resolve();
+      await Promise.resolve(); // For triggering the update cycle of `<bx-modal>`
+      await Promise.resolve(); // `update()` in `<bx-modal>` waits for child nodes' update cycles to run
       expect(input!.focus).toHaveBeenCalled();
     });
 
@@ -53,7 +55,8 @@ describe('bx-modal', function() {
       spyOn(input!, 'focus');
       spyOn(button!, 'focus');
       ((elem as unknown) as BXModal).open = true;
-      await Promise.resolve();
+      await Promise.resolve(); // For triggering the update cycle of `<bx-modal>`
+      await Promise.resolve(); // `update()` in `<bx-modal>` waits for child nodes' update cycles to run
       expect(input!.focus).not.toHaveBeenCalled();
       expect(button!.focus).toHaveBeenCalled();
     });
@@ -65,7 +68,8 @@ describe('bx-modal', function() {
       spyOn(input!, 'focus');
       spyOn(button as HTMLButtonElement, 'focus');
       ((elem as unknown) as BXModal).open = true;
-      await Promise.resolve();
+      await Promise.resolve(); // For triggering the update cycle of `<bx-modal>`
+      await Promise.resolve(); // `update()` in `<bx-modal>` waits for child nodes' update cycles to run
       expect(input!.focus).not.toHaveBeenCalled();
       expect((button as HTMLButtonElement).focus).toHaveBeenCalled();
     });
@@ -91,6 +95,20 @@ describe('bx-modal', function() {
       await Promise.resolve();
       expect(spyBeforeClosed).toHaveBeenCalled();
       expect(spyAfterClosed).toHaveBeenCalled();
+    });
+
+    it('Should focus on the launcher button upon hiding', async function() {
+      elem = document.body.appendChild(document.createElement('div'));
+      const button = elem.appendChild(document.createElement('button'));
+      button.focus();
+      spyOn(button, 'focus');
+      const modal = elem.appendChild(document.createElement('bx-modal'));
+      await Promise.resolve(); // Wait for initial render
+      (modal as BXModal).open = true;
+      await Promise.resolve();
+      (modal as BXModal).open = false;
+      await Promise.resolve();
+      expect(button.focus).toHaveBeenCalled();
     });
 
     it('Should support preventing modal from being closed upon user gesture', async function() {

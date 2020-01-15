@@ -276,35 +276,33 @@ abstract class BXFloatingMenu extends LitElement {
     }
   }
 
-  attributeChangedCallback(name, old, current) {
-    if (old !== current) {
-      const { container, open } = this;
-      if ((name === 'open' || name === 'direction' || name === 'alignment') && open) {
-        if (!this.parent) {
-          this.parent = this.parentElement as BXFloatingMenuTrigger;
-          container.appendChild(this);
-        }
-        const { direction, start, top } = this.position;
-        this.style[direction !== FLOATING_MENU_POSITION_DIRECTION.RTL ? 'left' : 'right'] = `${start}px`;
-        this.style.top = `${top}px`;
+  updated(changedProperties) {
+    const { container, open, parent } = this;
+    if ((changedProperties.has('alignment') || changedProperties.has('direction') || changedProperties.has('open')) && open) {
+      if (!parent) {
+        this.parent = this.parentElement as BXFloatingMenuTrigger;
+        container.appendChild(this);
       }
-      if (name === 'open') {
-        if (this._hObserveResizeContainer) {
-          this._hObserveResizeContainer = this._hObserveResizeContainer.release();
-        }
-        if (this._hObserveResizeParent) {
-          this._hObserveResizeParent = this._hObserveResizeParent.release();
-        }
-        if (open) {
-          const { parentElement } = this.parent ?? {};
-          this._hObserveResizeContainer = observeResize(this._resizeObserver, container);
-          if (parentElement) {
-            this._hObserveResizeParent = observeResize(this._resizeObserver, parentElement);
-          }
+      // Note: `this.position` cannot be referenced until `this.parent` is set
+      const { direction, start, top } = this.position;
+      this.style[direction !== FLOATING_MENU_POSITION_DIRECTION.RTL ? 'left' : 'right'] = `${start}px`;
+      this.style.top = `${top}px`;
+    }
+    if (changedProperties.has('open')) {
+      if (this._hObserveResizeContainer) {
+        this._hObserveResizeContainer = this._hObserveResizeContainer.release();
+      }
+      if (this._hObserveResizeParent) {
+        this._hObserveResizeParent = this._hObserveResizeParent.release();
+      }
+      if (open) {
+        const { parentElement } = this.parent ?? {};
+        this._hObserveResizeContainer = observeResize(this._resizeObserver, container);
+        if (parentElement) {
+          this._hObserveResizeParent = observeResize(this._resizeObserver, parentElement);
         }
       }
     }
-    super.attributeChangedCallback(name, old, current);
   }
 
   /**
