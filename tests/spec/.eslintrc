@@ -11,7 +11,8 @@
     "it": true,
     "expect": true,
     "jasmine": true,
-    "spyOn": true
+    "spyOn": true,
+    "spyOnProperty": true
   },
   "rules": {
     "func-names": 0,

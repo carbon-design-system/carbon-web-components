@@ -174,29 +174,32 @@ class BXModal extends HostListenerMixin(LitElement) {
     super.connectedCallback();
   }
 
-  attributeChangedCallback(name, old, current) {
-    super.attributeChangedCallback(name, old, current);
-    if (name === 'open') {
-      if (old == null && current != null) {
+  async updated(changedProperties) {
+    if (changedProperties.has('open')) {
+      if (this.open) {
         this._launcher = this.ownerDocument!.activeElement;
         const primaryFocusNode = this.querySelector((this.constructor as typeof BXModal).selectorPrimaryFocus);
         if (primaryFocusNode) {
+          // For cases where a `carbon-custom-elements` component (e.g. `<bx-btn>`) being `primaryFocusNode`,
+          // where its first update/render cycle that makes it focusable happens after `<bx-modal>`'s first update/render cycle
+          await 0;
           (primaryFocusNode as HTMLElement).focus();
         } else {
           const tabbable = find(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), elem =>
             Boolean((elem as HTMLElement).offsetParent)
           );
           if (tabbable) {
+            // For cases where a `carbon-custom-elements` component (e.g. `<bx-btn>`) being `tabbable`,
+            // where its first update/render cycle that makes it focusable happens after `<bx-modal>`'s first update/render cycle
+            await 0;
             (tabbable as HTMLElement).focus();
           } else {
             this.focus();
           }
         }
-      } else if (old != null && current == null) {
-        if (this._launcher && typeof (this._launcher as HTMLElement).focus === 'function') {
-          (this._launcher as HTMLElement).focus();
-          this._launcher = null;
-        }
+      } else if (this._launcher && typeof (this._launcher as HTMLElement).focus === 'function') {
+        (this._launcher as HTMLElement).focus();
+        this._launcher = null;
       }
     }
   }
