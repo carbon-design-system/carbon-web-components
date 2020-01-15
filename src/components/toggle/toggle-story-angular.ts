@@ -22,7 +22,7 @@ export const defaultStory = ({ parameters }) => ({
       [small]="small"
       [uncheckedText]="uncheckedText"
       [value]="value"
-      (input)="onInput($event)"
+      (bx-toggle-changed)="onAfterChange($event)"
     ></bx-toggle>
   `,
   props: parameters?.props?.['bx-toggle'],

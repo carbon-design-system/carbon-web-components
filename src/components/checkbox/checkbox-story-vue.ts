@@ -22,7 +22,7 @@ export const defaultStory = ({ parameters }) => ({
       :label-text="labelText"
       :name="name"
       :value="value"
-      @input="onInput"
+      @bx-checkbox-changed="onAfterChange"
     ></bx-checkbox>
   `,
   ...createVueBindingsFromProps(parameters?.props?.['bx-checkbox']),

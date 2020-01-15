@@ -133,10 +133,6 @@ describe('bx-date-picker', function() {
       const { calendar } = datePicker!;
       expect(calendar).toBeFalsy();
     });
-
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
-    });
   });
 
   describe('Single mode', function() {
@@ -179,10 +175,6 @@ describe('bx-date-picker', function() {
       datePicker!.value = '2000-07-15';
       await Promise.resolve();
       expect(datePicker!.calendar!.selectedDates.map(item => item.getTime())).toEqual([new Date(2000, 6, 15).getTime()]);
-    });
-
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
     });
   });
 
@@ -231,9 +223,9 @@ describe('bx-date-picker', function() {
         new Date(2000, 6, 20).getTime(),
       ]);
     });
+  });
 
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
-    });
+  afterEach(async function() {
+    await render(template({ hasContent: false }), document.body);
   });
 });

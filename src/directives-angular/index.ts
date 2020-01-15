@@ -11,9 +11,10 @@ import { NgModule } from '@angular/core';
 import { BXCheckboxDirective } from './checkbox';
 import { BXInputDirective } from './input';
 import { BXSliderDirective } from './slider';
+import { BXToggleDirective } from './toggle';
 
 @NgModule({
-  declarations: [BXCheckboxDirective, BXInputDirective, BXSliderDirective],
-  exports: [BXCheckboxDirective, BXInputDirective, BXSliderDirective],
+  declarations: [BXCheckboxDirective, BXInputDirective, BXSliderDirective, BXToggleDirective],
+  exports: [BXCheckboxDirective, BXInputDirective, BXSliderDirective, BXToggleDirective],
 })
 export class BXFormAccessorsModule {} // eslint-disable-line import/prefer-default-export
