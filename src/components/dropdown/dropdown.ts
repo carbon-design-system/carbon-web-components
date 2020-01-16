@@ -160,9 +160,6 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
           // If this menu gets open with an arrow key, reset the highlight
           this._clearHighlight();
           break;
-        case DROPDOWN_KEYBOARD_ACTION.TRIGGERING:
-          this._handleUserInitiatedToggle(true);
-          break;
         default:
           break;
       }
@@ -174,6 +171,28 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
         case DROPDOWN_KEYBOARD_ACTION.NAVIGATING:
           this._navigate(NAVIGATION_DIRECTION[key]);
           break;
+        default:
+          break;
+      }
+    }
+  }
+
+  /**
+   * Handler for the `keypress` event on the top-level element in the shadow DOM.
+   */
+  protected _handleKeypressInner(event: KeyboardEvent) {
+    const { key } = event;
+    const action = (this.constructor as typeof BXDropdown).getAction(key);
+    if (!this.open) {
+      switch (action) {
+        case DROPDOWN_KEYBOARD_ACTION.TRIGGERING:
+          this._handleUserInitiatedToggle(true);
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (action) {
         case DROPDOWN_KEYBOARD_ACTION.TRIGGERING:
           {
             const constructor = this.constructor as typeof BXDropdown;
@@ -480,6 +499,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       _shouldTriggerBeFocusable: shouldTriggerBeFocusable,
       _handleClickInner: handleClickInner,
       _handleKeydownInner: handleKeydownInner,
+      _handleKeypressInner: handleKeypressInner,
       _handleSlotchangeHelperText: handleSlotchangeHelperText,
       _handleSlotchangeLabelText: handleSlotchangeLabelText,
       _slotHelperTextNode: slotHelperTextNode,
@@ -535,7 +555,14 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       <div class="${helperClasses}" ?hidden="${!hasHelperText}">
         <slot name="helper-text" @slotchange="${handleSlotchangeHelperText}">${helperText}</slot>
       </div>
-      <div role="listbox" class="${classes}" ?data-invalid=${invalid} @click=${handleClickInner} @keydown=${handleKeydownInner}>
+      <div
+        role="listbox"
+        class="${classes}"
+        ?data-invalid=${invalid}
+        @click=${handleClickInner}
+        @keydown=${handleKeydownInner}
+        @keypress=${handleKeypressInner}
+      >
         ${validityIcon}
         <div
           role="${ifDefined(!shouldTriggerBeFocusable ? undefined : 'button')}"
