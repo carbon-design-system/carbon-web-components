@@ -11,6 +11,7 @@ import { html, render, TemplateResult } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import Filter16 from '@carbon/icons/lib/filter/16';
 
+import ResizeObserver from 'resize-observer-polyfill';
 // Just importing the default export does not seem to run `customElements.define()`
 /* eslint-disable import/no-duplicates */
 import '../../src/components/tooltip/tooltip';
@@ -26,9 +27,12 @@ const bodyTemplate = () => html`
 `;
 const contentTemplate = ({ hasBody = true }: { hasBody?: boolean } = {}) => html`
   <div data-floating-menu-container style="position:relative">
-    <bx-tooltip>
-      ${!hasBody ? undefined : bodyTemplate()}
-    </bx-tooltip>
+    <!-- <div> for resize testing, distinguishing the parent node of <bx-tooltip> vs. the floating menu container -->
+    <div>
+      <bx-tooltip>
+        ${!hasBody ? undefined : bodyTemplate()}
+      </bx-tooltip>
+    </div>
   </div>
 `;
 const template = ({ hasContent = true, hasBody = true }: { hasContent?: boolean; hasBody?: boolean } = {}) =>
@@ -117,11 +121,56 @@ describe('bx-tooltip', function() {
       await Promise.resolve();
       expect(trigger!.open).toBe(true);
       expect(body!.open).toBe(true);
+      expect(trigger?.getAttribute('aria-expanded')).toBe('true');
 
       trigger!.shadowRoot!.firstElementChild!.dispatchEvent(new CustomEvent('click', { bubbles: true, composed: true }));
       await Promise.resolve();
       expect(trigger!.open).toBe(false);
       expect(body!.open).toBe(false);
+      expect(trigger?.getAttribute('aria-expanded')).toBe('false');
+    });
+
+    it('Should start observing element resizes when tooltip gets open', async function() {
+      spyOn(ResizeObserver.prototype, 'observe');
+      spyOn(ResizeObserver.prototype, 'unobserve');
+      trigger!.shadowRoot!.firstElementChild!.dispatchEvent(new CustomEvent('click', { bubbles: true, composed: true }));
+      await Promise.resolve(); // Calls `update()` of `<bx-tooltip>`
+      await Promise.resolve(); // Calls `update()` of `<bx-tooltip-body>`
+      const floatingMenuContainer = document.body.querySelector('div[data-floating-menu-container]');
+      expect(ResizeObserver.prototype.observe).toHaveBeenCalledWith(floatingMenuContainer);
+      expect(ResizeObserver.prototype.observe).toHaveBeenCalledWith(trigger?.parentElement);
+      trigger!.shadowRoot!.firstElementChild!.dispatchEvent(new CustomEvent('click', { bubbles: true, composed: true }));
+      await Promise.resolve(); // Calls `update()` of `<bx-tooltip>`
+      await Promise.resolve(); // Calls `update()` of `<bx-tooltip-body>`
+      expect(ResizeObserver.prototype.unobserve).toHaveBeenCalledWith(trigger?.parentElement);
+      expect(ResizeObserver.prototype.unobserve).toHaveBeenCalledWith(floatingMenuContainer);
+    });
+  });
+
+  describe('Placing', function() {
+    let trigger: BXTooltip | null;
+    let body: BXTooltipBody | null;
+
+    beforeEach(async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      trigger = document.body.querySelector('bx-tooltip');
+      body = document.body.querySelector('bx-tooltip-body');
+    });
+
+    it('Should place and position', async function() {
+      // TODO: Figure out why `spyOnProperty()` with a property name that actually exists causes a TS error
+      // @ts-ignore
+      spyOnProperty(body, 'position').and.returnValue({
+        start: 1,
+        top: 2,
+      });
+      trigger!.shadowRoot!.firstElementChild!.dispatchEvent(new CustomEvent('click', { bubbles: true, composed: true }));
+      await Promise.resolve(); // Calls `update()` of `<bx-tooltip>`
+      await Promise.resolve(); // Calls `update()` of `<bx-tooltip-body>`
+      expect(body!.parentElement).toBe(document.body.querySelector('div[data-floating-menu-container]') as HTMLElement);
+      expect(body!.style.left).toBe('1px');
+      expect(body!.style.top).toBe('2px');
     });
   });
 

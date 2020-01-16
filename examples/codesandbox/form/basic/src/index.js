@@ -37,7 +37,7 @@ const submit = async formData => {
   } else if (formData.get('password') !== 'form') {
     throw Object.assign(new Error('Login failed'), {
       errors: {
-        password: 'Wrong password (Has to be the name of this example directory)',
+        password: 'Wrong password (Has to be the name of the parent directory of this example directory)',
       },
     });
   } else {
