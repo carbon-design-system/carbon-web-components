@@ -16,16 +16,16 @@ import './slider-input';
 import storyDocs from './slider-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'];
+  const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'] || {};
   return html`
     <bx-slider
       ?disabled="${disabled}"
-      label-text="${labelText}"
-      max="${max}"
-      min="${min}"
+      label-text="${ifNonNull(labelText)}"
+      max="${ifNonNull(max)}"
+      min="${ifNonNull(min)}"
       name="${ifNonNull(name)}"
-      step="${step}"
-      value="${value}"
+      step="${ifNonNull(step)}"
+      value="${ifNonNull(value)}"
       @bx-slider-changed="${onAfterChange}"
     ></bx-slider>
   `;
@@ -36,16 +36,16 @@ defaultStory.story = {
 };
 
 export const withInputBox = ({ parameters }) => {
-  const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'];
+  const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'] || {};
   return html`
     <bx-slider
       ?disabled="${disabled}"
       label-text="${labelText}"
-      max="${max}"
-      min="${min}"
+      max="${ifNonNull(max)}"
+      min="${ifNonNull(min)}"
       name="${ifNonNull(name)}"
-      step="${step}"
-      value="${value}"
+      step="${ifNonNull(step)}"
+      value="${ifNonNull(value)}"
       @bx-slider-changed="${onAfterChange}"
     >
       <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
@@ -60,7 +60,7 @@ withInputBox.story = {
 export default {
   title: 'Slider',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: storyDocs?.parameters?.docs,
     knobs: {
       'bx-slider': () => ({
         disabled: boolean('Disabled (disabled)', false),

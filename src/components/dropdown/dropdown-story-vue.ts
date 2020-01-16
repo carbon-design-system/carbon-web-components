@@ -7,17 +7,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { action } from '@storybook/addon-actions';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import { defaultStory as baseDefaultStory } from './dropdown-story';
 
 export { default } from './dropdown-story';
 
 export const defaultStory = ({ parameters }) => {
-  const props = (original => {
-    const beforeSelectedAction = action('bx-dropdown-beingselected');
-    function onBeforeSelect(this: any, event: CustomEvent) {
-      beforeSelectedAction(event);
+  const props = (({ onBeforeSelect, onAfterSelect, ...rest }) => {
+    function handleBeforeSelect(this: any, event: CustomEvent) {
+      onBeforeSelect(event);
       // NOTE: Using class property ref instead of closure ref (from `original`)
       // because updating event handlers via Storybook Vue `methods` (upon knob update) does not seem to work
       if (this.disableSelection) {
@@ -25,9 +23,9 @@ export const defaultStory = ({ parameters }) => {
       }
     }
     return {
-      ...original,
-      onBeforeSelect,
-      onSelect: action('bx-dropdown-selected'),
+      ...rest,
+      handleBeforeSelect,
+      handleAfterSelect: onAfterSelect,
     };
   })(parameters?.props?.['bx-dropdown']);
   return {
@@ -40,8 +38,8 @@ export const defaultStory = ({ parameters }) => {
         :label-text="labelText"
         :value="value"
         :trigger-content="triggerContent"
-        @bx-dropdown-beingselected="onBeforeSelect"
-        @bx-dropdown-selected="onSelect"
+        @bx-dropdown-beingselected="handleBeforeSelect"
+        @bx-dropdown-selected="handleAfterSelect"
       >
         <bx-dropdown-item value="all">Option 1</bx-dropdown-item>
         <bx-dropdown-item value="cloudFoundry">Option 2</bx-dropdown-item>

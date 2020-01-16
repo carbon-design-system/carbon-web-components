@@ -8,7 +8,6 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { defaultStory as baseDefaultStory } from './multi-select-story';
 
@@ -37,19 +36,16 @@ export const defaultStory = ({ parameters }) => ({
       <bx-multi-select-item value="router">Option 5</bx-multi-select-item>
     </bx-multi-select>
   `,
-  props: (({ disableSelection, ...rest }) => {
-    const beforeSelectedAction = action('bx-multi-select-beingselected');
-    return {
-      ...rest,
-      handleBeforeSelected: (event: CustomEvent) => {
-        beforeSelectedAction(event);
-        if (disableSelection) {
-          event.preventDefault();
-        }
-      },
-      handleSelected: action('bx-multi-select-selected'),
-    };
-  })(parameters?.props?.['bx-multi-select']),
+  props: (({ disableSelection, onBeforeSelect, onAfterSelect, ...rest }) => ({
+    ...rest,
+    handleBeforeSelected: (event: CustomEvent) => {
+      onBeforeSelect(event);
+      if (disableSelection) {
+        event.preventDefault();
+      }
+    },
+    handleSelected: onAfterSelect,
+  }))(parameters?.props?.['bx-multi-select']),
 });
 
 defaultStory.story = baseDefaultStory.story;

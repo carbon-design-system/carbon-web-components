@@ -9,7 +9,6 @@
 
 import debounce from 'lodash-es/debounce';
 import { Pipe, PipeTransform, Component, Input, HostBinding, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import { Delete16Module } from '@carbon/icons-angular/lib/delete/16';
 import { Download16Module } from '@carbon/icons-angular/lib/download/16';
@@ -634,30 +633,30 @@ export const sortable = ({ parameters }) => ({
       [hasSelection]="hasSelection"
       [size]="size"
       [zebra]="zebra"
-      (bx-table-row-change-selection)="onBeforeChangeSelection($event)"
-      (bx-table-change-selection-all)="onBeforeChangeSelection($event)"
-      (bx-table-header-cell-sort)="onBeforeChangeSort($event)"
+      (bx-table-row-change-selection)="handleBeforeChangeSelection($event)"
+      (bx-table-change-selection-all)="handleBeforeChangeSelection($event)"
+      (bx-table-header-cell-sort)="handleBeforeSort($event)"
     >
     </bx-ce-demo-data-table>
   `,
   props: (props => {
-    const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-    const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
-    const onBeforeChangeSelection = (event: CustomEvent) => {
+    const { onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
+    const { onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
+    const { onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
+    const handleBeforeChangeSelection = (event: CustomEvent) => {
       if (event.type === 'bx-table-change-selection-all') {
-        beforeChangeSelectionAllAction(event);
+        onBeforeChangeSelectionAll(event);
       } else {
-        beforeChangeSelectionAction(event);
+        onBeforeChangeSelection(event);
       }
     };
-    const onBeforeChangeSort = action('bx-table-header-cell-sort');
     return {
       ...props,
       demoColumns,
       demoRows,
       demoSortInfo,
-      onBeforeChangeSelection,
-      onBeforeChangeSort,
+      handleBeforeChangeSelection,
+      handleBeforeSort: onBeforeSort,
     };
   })({
     ...parameters?.props?.['bx-table'],
@@ -695,30 +694,30 @@ export const sortableWithPagination = ({ parameters }) => ({
       [size]="size"
       [start]="0"
       [zebra]="zebra"
-      (bx-table-row-change-selection)="onBeforeChangeSelection($event)"
-      (bx-table-change-selection-all)="onBeforeChangeSelection($event)"
-      (bx-table-header-cell-sort)="onBeforeChangeSort($event)"
+      (bx-table-row-change-selection)="handleBeforeChangeSelection($event)"
+      (bx-table-change-selection-all)="handleBeforeChangeSelection($event)"
+      (bx-table-header-cell-sort)="handleBeforeSort($event)"
     >
     </bx-ce-demo-data-table>
   `,
   props: (props => {
-    const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-    const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
-    const onBeforeChangeSelection = (event: CustomEvent) => {
+    const { onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
+    const { onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
+    const { onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
+    const handleBeforeChangeSelection = (event: CustomEvent) => {
       if (event.type === 'bx-table-change-selection-all') {
-        beforeChangeSelectionAllAction(event);
+        onBeforeChangeSelectionAll(event);
       } else {
-        beforeChangeSelectionAction(event);
+        onBeforeChangeSelection(event);
       }
     };
-    const onBeforeChangeSort = action('bx-table-header-cell-sort');
     return {
       ...props,
       demoColumns,
       demoRows: demoRowsMany,
       demoSortInfo,
-      onBeforeChangeSelection,
-      onBeforeChangeSort,
+      handleBeforeChangeSelection,
+      handleBeforeSort: onBeforeSort,
     };
   })({
     ...parameters?.props?.['bx-table'],
