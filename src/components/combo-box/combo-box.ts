@@ -81,20 +81,17 @@ class BXComboBox extends BXDropdown {
     }
   }
 
-  protected _handleKeydownInner(event: KeyboardEvent) {
+  protected _handleKeypressInner(event: KeyboardEvent) {
     const { key } = event;
     const action = (this.constructor as typeof BXDropdown).getAction(key);
-    const { NAVIGATING, TRIGGERING } = DROPDOWN_KEYBOARD_ACTION;
+    const { TRIGGERING } = DROPDOWN_KEYBOARD_ACTION;
     if (
       (event.target as Element).closest((this.constructor as typeof BXComboBox).selectorSelectionButton) &&
       action === TRIGGERING
     ) {
       this._handleUserInitiatedClearInput();
     } else {
-      super._handleKeydownInner(event);
-      if (action === NAVIGATING) {
-        event.preventDefault(); // Prevents default behavior in `<input>`
-      }
+      super._handleKeypressInner(event);
     }
   }
 

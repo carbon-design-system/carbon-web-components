@@ -5,8 +5,8 @@
   "description": "Sample project for getting started with the Web Components from the Carbon Design System with React.",
   "license": "Apache-2",
   "dependencies": {
-    "carbon-components": "~10.5.0",
-    "carbon-custom-elements": "^0.1.0",
+    "carbon-components": "~10.7.0",
+    "carbon-custom-elements": "^0.3.0",
     "lit-element": "^2.1.0",
     "lit-html": "^1.1.0",
     "lodash-es": "^4.17.0",

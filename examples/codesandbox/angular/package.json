@@ -19,7 +19,7 @@
     "@angular/router": "^8.0.0",
     "@babel/runtime": "^7.5.0",
     "carbon-components": "~10.7.0",
-    "carbon-custom-elements": "^0.2.0",
+    "carbon-custom-elements": "^0.3.0",
     "lit-element": "^2.1.0",
     "lit-html": "^1.1.0",
     "lodash-es": "^4.17.0",
