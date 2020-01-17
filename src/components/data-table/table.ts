@@ -63,14 +63,13 @@ class BXTable extends LitElement {
     super.connectedCallback();
   }
 
-  attributeChangedCallback(name, old, current) {
-    if (name === 'size') {
+  updated(changedProperties) {
+    if (changedProperties.has('size')) {
       // Propagate `size` attribute to descendants until `:host-context()` gets supported in all major browsers
       forEach(this.querySelectorAll((this.constructor as typeof BXTable).selectorRowsWithHeader), elem => {
-        elem.setAttribute('size', current);
+        elem.setAttribute('size', this.size);
       });
     }
-    super.attributeChangedCallback(name, old, current);
   }
 
   render() {

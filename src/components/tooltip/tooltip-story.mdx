@@ -1,0 +1,40 @@
+import { Preview, Story } from '@storybook/addon-docs/blocks';
+
+# Tooltip
+
+Tooltips provide additional information upon hover or focus.
+The information should be contextual, useful, and nonessential information.
+Keep tooltips short.
+
+## Interactive tooltip
+
+Interactive tooltips may contain rich text and other interactive elements like buttons or links. In general, hiding interactive content in a tooltip is discouraged. Interactive tooltips are best used for onboarding experiences and product tours.
+
+* If a user may need to visit an external resource, like while using a form, include a link in your interactive tooltip
+* Don’t use without a label. Consider the context a user needs before clicking a link
+
+<Preview withToolbar>
+  <Story id="tooltip--default-story" height="320px" />
+</Preview>
+
+## Definition tooltip
+
+The definition tooltip provides additional help or defines an item or term. It may be used on the label of a UI element, or on a word embedded in a paragraph.
+
+* Should contain brief, read-only text
+* Use on proper nouns, technical terms, or acronyms with two letters or more
+* Do not use a definition tooltip on words with fewer than two letters
+
+<Preview withToolbar>
+  <Story id="tooltip--definition" height="200px" />
+</Preview>
+
+## Icon tooltip
+
+An icon tooltip is used to clarify the action or name of an interactive icon button.
+
+* The tooltip content should only contain one or two words.
+
+<Preview withToolbar>
+  <Story id="tooltip--icon" height="160px" />
+</Preview>

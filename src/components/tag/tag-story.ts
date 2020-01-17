@@ -12,6 +12,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
 import { TAG_TYPE } from './tag';
 import './filter-tag';
+import storyDocs from './tag-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { type, title, disabled } = parameters?.props?.['bx-tag'];
@@ -66,5 +67,8 @@ filter.story = {
 };
 
 export default {
+  parameters: {
+    docs: storyDocs.parameters.docs,
+  },
   title: 'Tag',
 };

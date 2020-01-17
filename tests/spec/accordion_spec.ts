@@ -120,8 +120,8 @@ describe('bx-accordion', function() {
       expect(spyAfterToggle).not.toHaveBeenCalled();
     });
 
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
+    afterEach(async function() {
+      await render(template({ hasContent: false }), document.body);
       events.reset();
     });
   });

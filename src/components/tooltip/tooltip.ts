@@ -87,9 +87,9 @@ class BXTooltip extends HostListenerMixin(LitElement) implements BXFloatingMenuT
     super.connectedCallback();
   }
 
-  attributeChangedCallback(name, old, current) {
-    if (old !== current) {
-      if (name === 'open' && !this._menuBody) {
+  updated(changedProperties) {
+    if (changedProperties.has('open')) {
+      if (!this._menuBody) {
         this._menuBody = find(this.childNodes, elem => (elem.constructor as typeof BXFloatingMenu).FLOATING_MENU);
       }
       if (this._menuBody) {
@@ -97,7 +97,6 @@ class BXTooltip extends HostListenerMixin(LitElement) implements BXFloatingMenuT
       }
       this.setAttribute('aria-expanded', String(Boolean(this.open)));
     }
-    super.attributeChangedCallback(name, old, current);
   }
 
   render() {

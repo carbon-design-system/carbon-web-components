@@ -14,9 +14,12 @@
   height: rem(24px);
 }
 
-:host(#{$prefix}-table-row[size='compact']) ::slotted(#{$prefix}-table-cell) {
-  padding-top: rem(2px);
-  padding-bottom: rem(2px);
+:host(#{$prefix}-table-row[size='compact']) {
+  ::slotted(#{$prefix}-table-cell),
+  ::slotted(#{$prefix}-table-cell-skeleton) {
+    padding-top: rem(2px);
+    padding-bottom: rem(2px);
+  }
 }
 
 //
@@ -28,9 +31,12 @@
   height: rem(32px);
 }
 
-:host(#{$prefix}-table-row[size='short']) ::slotted(#{$prefix}-table-cell) {
-  padding-top: rem(7px);
-  padding-bottom: rem(6px);
+:host(#{$prefix}-table-row[size='short']) {
+  ::slotted(#{$prefix}-table-cell),
+  ::slotted(#{$prefix}-table-cell-skeleton) {
+    padding-top: rem(7px);
+    padding-bottom: rem(6px);
+  }
 }
 
 //
@@ -42,6 +48,9 @@
   height: rem(64px);
 }
 
-:host(#{$prefix}-table-row[size='tall']) ::slotted(#{$prefix}-table-cell) {
-  padding-top: rem(16px);
+:host(#{$prefix}-table-row[size='tall']) {
+  ::slotted(#{$prefix}-table-cell),
+  ::slotted(#{$prefix}-table-cell-skeleton) {
+    padding-top: rem(16px);
+  }
 }

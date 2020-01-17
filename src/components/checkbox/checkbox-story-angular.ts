@@ -21,7 +21,7 @@ export const defaultStory = ({ parameters }) => ({
       [labelText]="labelText"
       [name]="name"
       [value]="value"
-      (input)="onInput($event)"
+      (bx-checkbox-changed)="onAfterChange($event)"
     ></bx-checkbox>
   `,
   props: parameters?.props?.['bx-checkbox'],

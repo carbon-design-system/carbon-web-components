@@ -93,7 +93,7 @@ describe('bx-copy-button', function() {
     });
   });
 
-  afterEach(function() {
-    render(template({ hasContent: false }), document.body);
+  afterEach(async function() {
+    await render(template({ hasContent: false }), document.body);
   });
 });
