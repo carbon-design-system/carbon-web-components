@@ -74,10 +74,6 @@ class BXOverflowMenu extends HostListenerMixin(FocusMixin(LitElement)) implement
     super.connectedCallback();
   }
 
-  createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
-  }
-
   updated(changedProperties) {
     if (changedProperties.has('open')) {
       const { open } = this;
