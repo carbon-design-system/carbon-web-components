@@ -12,6 +12,11 @@
  */
 interface BXFloatingMenuTrigger extends HTMLElement {
   /**
+   * `true` if the menu should be open. Corresponds to the attribute with the same name.
+   */
+  open: boolean;
+
+  /**
    * The position of the trigger button.
    */
   triggerPosition: ClientRect;

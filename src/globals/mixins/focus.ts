@@ -23,7 +23,12 @@ const FocusMixin = <T extends Constructor<HTMLElement>>(Base: T) =>
       if (this.shadowRoot!.delegatesFocus) {
         super.focus();
       } else {
-        (this.shadowRoot!.querySelector(selectorTabbable) as HTMLElement)?.focus();
+        const delegateTarget = this.shadowRoot!.querySelector(selectorTabbable) || this.querySelector(selectorTabbable);
+        if (delegateTarget) {
+          (delegateTarget as HTMLElement).focus();
+        } else {
+          super.focus();
+        }
       }
     }
   };
