@@ -11,6 +11,8 @@ import PropTypes from 'prop-types';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import { action } from '@storybook/addon-actions';
+import Delete16 from '@carbon/icons-react/es/delete/16';
+import Download16 from '@carbon/icons-react/es/download/16';
 import Settings16 from '@carbon/icons-react/es/settings/16';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
@@ -50,6 +52,9 @@ import BXTableToolbar from 'carbon-custom-elements/es/components-react/data-tabl
 import BXTableToolbarContent from 'carbon-custom-elements/es/components-react/data-table/table-toolbar-content';
 // @ts-ignore
 import BXTableToolbarSearch from 'carbon-custom-elements/es/components-react/data-table/table-toolbar-search';
+// @ts-ignore
+import BXTableBatchActions from 'carbon-custom-elements/es/components-react/data-table/table-batch-actions';
+import BXBtnElement from '../button/button';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 import {
@@ -67,6 +72,14 @@ const collationFactors = {
   [TABLE_SORT_DIRECTION.ASCENDING]: 1,
   [TABLE_SORT_DIRECTION.DESCENDING]: -1,
 };
+
+/**
+ * @param row A table row.
+ * @param searchString A search string.
+ * @returns `true` if the given table row matches the given search string.
+ */
+const doesRowMatchSearchString = (row: TDemoTableRow, searchString: string) =>
+  Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0);
 
 /**
  * A class to manage table states, like selection and sorting.
@@ -121,20 +134,18 @@ const BXCEDemoDataTable = ({
   const [start, setStart] = useState(propStart);
 
   const filteredRows = useMemo(
-    () =>
-      !debouncedSearchString
-        ? rows
-        : rows.filter(row =>
-            Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(debouncedSearchString) >= 0)
-          ),
+    () => (!debouncedSearchString ? rows : rows.filter(row => doesRowMatchSearchString(row, debouncedSearchString))),
     [debouncedSearchString, rows]
   );
+  const selectedRowsCountInFiltered = filteredRows!.filter(({ selected }) => selected!).length;
+  const hasBatchActions = hasSelection && selectedRowsCountInFiltered > 0;
   const { length: count } = filteredRows;
-  const adjustedStart = start! < count ? start! : Math.max(start! - Math.ceil((start! - count) / pageSize!) * pageSize!, 0);
+  const adjustedStart =
+    count === 0 || start! < count ? start! : Math.max(start! - Math.ceil((start! - count) / pageSize!) * pageSize!, 0);
 
   const { columnId: sortColumnId, direction: sortDirection } = sortInfo;
   const selectionAllName = !hasSelection ? undefined : `__bx-ce-demo-data-table_select-all_${elementId}`;
-  const selectedAll = rows.every(({ selected }) => !!selected);
+  const selectedAllInFiltered = selectedRowsCountInFiltered > 0 && filteredRows!.length === selectedRowsCountInFiltered;
 
   const compare = useCallback(
     (lhs, rhs) => {
@@ -152,6 +163,14 @@ const BXCEDemoDataTable = ({
       : filteredRows
           .slice()
           .sort((lhs, rhs) => collationFactors[sortDirection] * compare(lhs[sortColumnId!], rhs[sortColumnId!]));
+
+  const handleCancelSelection = useCallback(() => {
+    setRows(
+      rows!.map(row =>
+        debouncedSearchString && !doesRowMatchSearchString(row, debouncedSearchString) ? row : { ...row, selected: false }
+      )
+    );
+  }, [rows, debouncedSearchString]);
 
   const handleChangeSearchString = useCallback(
     ({ detail }: CustomEvent) => {
@@ -190,9 +209,7 @@ const BXCEDemoDataTable = ({
         const { selected } = detail;
         setRows(
           rows!.map(row =>
-            Object.keys(row).every(key => key === 'id' || String(row[key] ?? '').indexOf(debouncedSearchString) < 0)
-              ? row
-              : { ...row, selected }
+            debouncedSearchString && !doesRowMatchSearchString(row, debouncedSearchString) ? row : { ...row, selected }
           )
         );
       }
@@ -228,6 +245,19 @@ const BXCEDemoDataTable = ({
     setStart(detail.start);
   }, []);
 
+  const handleDeleteRows = useCallback(() => {
+    setRows(rows.filter(row => !row.selected || !doesRowMatchSearchString(row, debouncedSearchString)));
+  }, [rows, debouncedSearchString]);
+
+  const handleDownloadRows = useCallback(
+    ({ target }: MouseEvent) => {
+      const blob = new Blob([JSON.stringify(filteredRows.filter(row => row.selected))], { type: 'application/json' });
+      (target as BXBtnElement).href = URL.createObjectURL(blob);
+      handleCancelSelection();
+    },
+    [filteredRows]
+  );
+
   const pagination =
     typeof pageSize === 'undefined' ? (
       undefined
@@ -246,10 +276,22 @@ const BXCEDemoDataTable = ({
       </BXPagination>
     );
 
+  /* eslint-disable no-script-url */
   return (
     <div>
       <BXTableToolbar>
-        <BXTableToolbarContent>
+        <BXTableBatchActions
+          active={hasBatchActions}
+          selectedRowsCount={selectedRowsCountInFiltered}
+          onAfterClickCancel={handleCancelSelection}>
+          <BXBtn onClick={handleDeleteRows}>
+            Delete <Delete16 slot="icon" />
+          </BXBtn>
+          <BXBtn onClick={handleDownloadRows} href="javascript:void 0" download="table-data.json">
+            Download <Download16 slot="icon" />
+          </BXBtn>
+        </BXTableBatchActions>
+        <BXTableToolbarContent hasBatchActions={hasBatchActions}>
           <BXTableToolbarSearch onAfterInput={handleChangeSearchString}></BXTableToolbarSearch>
           <BXOverflowMenu>
             <Settings16 slot="icon" />
@@ -265,7 +307,7 @@ const BXCEDemoDataTable = ({
       <BXTable size={size}>
         <BXTableHead>
           <BXTableHeaderRow
-            selected={selectedAll}
+            selected={selectedAllInFiltered}
             selectionName={selectionAllName}
             selectionValue={selectionAllName}
             onBeforeChangeSelection={handleChangeSelectionAll}>
@@ -309,6 +351,7 @@ const BXCEDemoDataTable = ({
       {pagination}
     </div>
   );
+  /* eslint-enable no-script-url */
 };
 
 BXCEDemoDataTable.propTypes = {

@@ -13,8 +13,10 @@ import { ifDefined } from 'lit-html/directives/if-defined';
 import { repeat } from 'lit-html/directives/repeat';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
+import Delete16 from '@carbon/icons/lib/delete/16';
+import Download16 from '@carbon/icons/lib/download/16';
 import Settings16 from '@carbon/icons/lib/settings/16';
-import '../button/button';
+import BXBtn from '../button/button';
 import '../overflow-menu/overflow-menu';
 import '../overflow-menu/overflow-menu-body';
 import '../overflow-menu/overflow-menu-item';
@@ -31,8 +33,20 @@ import './table-cell';
 import './table-toolbar';
 import './table-toolbar-content';
 import './table-toolbar-search';
+import './table-batch-actions';
+import './table-header-cell-skeleton';
+import './table-cell-skeleton';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
+import storyDocs from './data-table-story.mdx';
+
+/**
+ * @param row A table row.
+ * @param searchString A search string.
+ * @returns `true` if the given table row matches the given search string.
+ */
+const doesRowMatchSearchString = (row: TDemoTableRow, searchString: string) =>
+  Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0);
 
 /**
  * A class to manage table states, like selection and sorting.
@@ -92,6 +106,17 @@ class BXCEDemoDataTable extends LitElement {
   }
 
   /**
+   * Handles Cancel button in batch action bar.
+   */
+  private _handleCancelSelection() {
+    const { _rows: oldRows, _searchString: searchString } = this;
+    this._rows = this._rows!.map(row =>
+      searchString && !doesRowMatchSearchString(row, searchString) ? row : { ...row, selected: false }
+    );
+    this.requestUpdate('_rows', oldRows);
+  }
+
+  /**
    * Handles user-initiated change in search string.
    */
   private _handleChangeSearchStringImpl({ detail }: CustomEvent) {
@@ -109,7 +134,7 @@ class BXCEDemoDataTable extends LitElement {
       const { rowId: changedRowId } = (target as HTMLElement).dataset;
       const { selected } = detail;
       const { _rows: oldRows } = this;
-      this._rows = this.rows!.map(row => (Number(changedRowId) !== row.id ? row : { ...row, selected }));
+      this._rows = oldRows!.map(row => (Number(changedRowId) !== row.id ? row : { ...row, selected }));
       this.requestUpdate('_rows', oldRows);
     }
   }
@@ -123,9 +148,7 @@ class BXCEDemoDataTable extends LitElement {
       const { selected } = detail;
       const { _rows: oldRows, _searchString: searchString } = this;
       this._rows = this._rows!.map(row =>
-        searchString && Object.keys(row).every(key => key === 'id' || String(row[key] ?? '').indexOf(searchString) < 0)
-          ? row
-          : { ...row, selected }
+        searchString && !doesRowMatchSearchString(row, searchString) ? row : { ...row, selected }
       );
       this.requestUpdate('_rows', oldRows);
     }
@@ -168,6 +191,25 @@ class BXCEDemoDataTable extends LitElement {
    */
   private _handleChangePageSize({ detail }: CustomEvent) {
     this.pageSize = detail.value;
+  }
+
+  /**
+   * Handles Delete batch action button.
+   */
+  private _handleDeleteRows() {
+    const { _rows: oldRows, _searchString: searchString } = this;
+    this._rows = oldRows!.filter(row => !row.selected || !doesRowMatchSearchString(row, searchString));
+    this.requestUpdate('_rows', oldRows);
+  }
+
+  /**
+   * Handles Download batch action button.
+   * @param event The event triggering this action.
+   */
+  private _handleDownloadRows({ target }: MouseEvent) {
+    const blob = new Blob([JSON.stringify(this._filteredRows!.filter(row => row.selected))], { type: 'application/json' });
+    (target as BXBtn).href = URL.createObjectURL(blob);
+    this._handleCancelSelection();
   }
 
   /**
@@ -281,11 +323,9 @@ class BXCEDemoDataTable extends LitElement {
     }
     if (changedProperties.has('rows') || changedProperties.has('_rows') || changedProperties.has('_searchString')) {
       const { pageSize, start, _rows: rows, _searchString: searchString } = this;
-      this._filteredRows = !searchString
-        ? rows!
-        : rows!.filter(row => Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0));
+      this._filteredRows = !searchString ? rows! : rows!.filter(row => doesRowMatchSearchString(row, searchString));
       const count = this._filteredRows.length;
-      if (start >= count) {
+      if (count > 0 && start >= count) {
         this.start = Math.max(start - Math.ceil((start - count) / pageSize) * pageSize, 0);
       }
     }
@@ -302,9 +342,14 @@ class BXCEDemoDataTable extends LitElement {
       columns,
       zebra,
       _filteredRows: filteredRows,
+      _handleCancelSelection: handleCancelSelection,
+      _handleDeleteRows: handleDeleteRows,
+      _handleDownloadRows: handleDownloadRows,
     } = this;
     const selectionAllName = !hasSelection ? undefined : `__bx-ce-demo-data-table_select-all_${elementId || this._uniqueId}`;
-    const selectedAll = filteredRows!.every(({ selected }) => selected!);
+    const selectedRowsCountInFiltered = filteredRows!.filter(({ selected }) => selected!).length;
+    const selectedAllInFiltered = selectedRowsCountInFiltered > 0 && filteredRows!.length === selectedRowsCountInFiltered;
+    const hasBatchActions = hasSelection && selectedRowsCountInFiltered > 0;
     const { columnId: sortColumnId, direction: sortDirection } = this._sortInfo!;
     const sortedRows =
       sortDirection === TABLE_SORT_DIRECTION.NONE
@@ -318,7 +363,17 @@ class BXCEDemoDataTable extends LitElement {
             );
     return html`
       <bx-table-toolbar>
-        <bx-table-toolbar-content>
+        <bx-table-batch-actions
+          ?active="${hasBatchActions}"
+          selected-rows-count="${selectedRowsCountInFiltered}"
+          @bx-table-batch-actions-cancel-clicked="${handleCancelSelection}"
+        >
+          <bx-btn @click="${handleDeleteRows}">Delete ${Delete16({ slot: 'icon' })}</bx-btn>
+          <bx-btn @click="${handleDownloadRows}" href="javascript:void 0" download="table-data.json">
+            Download ${Download16({ slot: 'icon' })}
+          </bx-btn>
+        </bx-table-batch-actions>
+        <bx-table-toolbar-content ?has-batch-actions="${hasBatchActions}">
           <bx-table-toolbar-search @bx-search-input="${this._handleChangeSearchString}"></bx-table-toolbar-search>
           <bx-overflow-menu>
             ${Settings16({ slot: 'icon' })}
@@ -345,7 +400,7 @@ class BXCEDemoDataTable extends LitElement {
       >
         <bx-table-head>
           <bx-table-header-row
-            ?selected=${selectedAll}
+            ?selected=${selectedAllInFiltered}
             selection-name=${ifDefined(selectionAllName)}
             selection-value=${ifDefined(selectionAllName)}
           >
@@ -617,6 +672,62 @@ sortableWithPagination.story = {
   },
 };
 
+export const skeleton = ({ parameters }) => {
+  const { size } = parameters?.props?.['bx-table'];
+  const { zebra } = parameters?.props?.['bx-table-body'];
+  return html`
+    <bx-table size="${size}">
+      <bx-table-head>
+        <bx-table-header-row>
+          <bx-table-header-cell-skeleton>Name</bx-table-header-cell-skeleton>
+          <bx-table-header-cell-skeleton>Protocol</bx-table-header-cell-skeleton>
+          <bx-table-header-cell-skeleton>Port</bx-table-header-cell-skeleton>
+          <bx-table-header-cell-skeleton>Rule</bx-table-header-cell-skeleton>
+          <bx-table-header-cell-skeleton>Attached Groups</bx-table-header-cell-skeleton>
+          <bx-table-header-cell-skeleton>Status</bx-table-header-cell-skeleton>
+        </bx-table-header-row>
+      </bx-table-head>
+      <bx-table-body ?zebra="${zebra}">
+        <bx-table-row>
+          <bx-table-cell-skeleton></bx-table-cell-skeleton>
+          <bx-table-cell-skeleton></bx-table-cell-skeleton>
+          <bx-table-cell-skeleton></bx-table-cell-skeleton>
+          <bx-table-cell-skeleton></bx-table-cell-skeleton>
+          <bx-table-cell-skeleton></bx-table-cell-skeleton>
+          <bx-table-cell-skeleton></bx-table-cell-skeleton>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+        </bx-table-row>
+      </bx-table-body>
+    </bx-table>
+  `;
+};
+
+skeleton.story = {
+  parameters: {
+    knobs: {
+      ...defaultStory.story.parameters.knobs,
+    },
+  },
+};
+
 export default {
   title: 'Data table',
+  parameters: {
+    docs: storyDocs.parameters.docs,
+  },
 };

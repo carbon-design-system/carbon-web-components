@@ -9,6 +9,9 @@
 
 import ResizeObserver from 'resize-observer-polyfill';
 import { LitElement } from 'lit-element';
+import HostListener from '../../globals/decorators/host-listener';
+import FocusMixin from '../../globals/mixins/focus';
+import HostListenerMixin from '../../globals/mixins/host-listener';
 import Handle from '../../globals/internal/handle';
 import BXFloatingMenuTrigger from './floating-menu-trigger';
 
@@ -125,7 +128,7 @@ const observeResize = (observer: ResizeObserver, elem: Element) => {
 /**
  * Floating menu.
  */
-abstract class BXFloatingMenu extends LitElement {
+abstract class BXFloatingMenu extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * The handle for observing resize of the element containing the trigger button.
    */
@@ -147,6 +150,18 @@ abstract class BXFloatingMenu extends LitElement {
       this.style.top = `${top}px`;
     }
   });
+
+  @HostListener('blur')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleBlur = ({ relatedTarget }: FocusEvent) => {
+    if (!this.contains(relatedTarget as Node)) {
+      const { parent } = this;
+      if (parent) {
+        parent.open = false;
+        HTMLElement.prototype.focus.call(this.parent); // SVGElement in IE11 does not have `.focus()` method
+      }
+    }
+  };
 
   /**
    * The DOM element, typically a custom element in this library, launching this floating menu.
@@ -267,6 +282,10 @@ abstract class BXFloatingMenu extends LitElement {
     };
   }
 
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
+
   disconnectedCallback() {
     if (this._hObserveResizeContainer) {
       this._hObserveResizeContainer = this._hObserveResizeContainer.release();
@@ -276,35 +295,33 @@ abstract class BXFloatingMenu extends LitElement {
     }
   }
 
-  attributeChangedCallback(name, old, current) {
-    if (old !== current) {
-      const { container, open } = this;
-      if ((name === 'open' || name === 'direction' || name === 'alignment') && open) {
-        if (!this.parent) {
-          this.parent = this.parentElement as BXFloatingMenuTrigger;
-          container.appendChild(this);
-        }
-        const { direction, start, top } = this.position;
-        this.style[direction !== FLOATING_MENU_POSITION_DIRECTION.RTL ? 'left' : 'right'] = `${start}px`;
-        this.style.top = `${top}px`;
+  updated(changedProperties) {
+    const { container, open, parent } = this;
+    if ((changedProperties.has('alignment') || changedProperties.has('direction') || changedProperties.has('open')) && open) {
+      if (!parent) {
+        this.parent = this.parentElement as BXFloatingMenuTrigger;
+        container.appendChild(this);
       }
-      if (name === 'open') {
-        if (this._hObserveResizeContainer) {
-          this._hObserveResizeContainer = this._hObserveResizeContainer.release();
-        }
-        if (this._hObserveResizeParent) {
-          this._hObserveResizeParent = this._hObserveResizeParent.release();
-        }
-        if (open) {
-          const { parentElement } = this.parent ?? {};
-          this._hObserveResizeContainer = observeResize(this._resizeObserver, container);
-          if (parentElement) {
-            this._hObserveResizeParent = observeResize(this._resizeObserver, parentElement);
-          }
+      // Note: `this.position` cannot be referenced until `this.parent` is set
+      const { direction, start, top } = this.position;
+      this.style[direction !== FLOATING_MENU_POSITION_DIRECTION.RTL ? 'left' : 'right'] = `${start}px`;
+      this.style.top = `${top}px`;
+    }
+    if (changedProperties.has('open')) {
+      if (this._hObserveResizeContainer) {
+        this._hObserveResizeContainer = this._hObserveResizeContainer.release();
+      }
+      if (this._hObserveResizeParent) {
+        this._hObserveResizeParent = this._hObserveResizeParent.release();
+      }
+      if (open) {
+        const { parentElement } = this.parent ?? {};
+        this._hObserveResizeContainer = observeResize(this._resizeObserver, container);
+        if (parentElement) {
+          this._hObserveResizeParent = observeResize(this._resizeObserver, parentElement);
         }
       }
     }
-    super.attributeChangedCallback(name, old, current);
   }
 
   /**

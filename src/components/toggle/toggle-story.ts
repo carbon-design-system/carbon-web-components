@@ -12,9 +12,10 @@ import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, text } from '@storybook/addon-knobs';
 import './toggle';
+import storyDocs from './toggle-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, onInput } = parameters?.props?.[
+  const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, onAfterChange } = parameters?.props?.[
     'bx-toggle'
   ];
   return html`
@@ -27,7 +28,7 @@ export const defaultStory = ({ parameters }) => {
       ?small="${small}"
       unchecked-text="${uncheckedText}"
       value="${ifDefined(!value ? undefined : value)}"
-      @input="${onInput}"
+      @bx-toggle-changed="${onAfterChange}"
     ></bx-toggle>
   `;
 };
@@ -39,6 +40,7 @@ defaultStory.story = {
 export default {
   title: 'Toggle',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-toggle': () => ({
         checked: boolean('Checked (checked)', false),
@@ -49,7 +51,7 @@ export default {
         small: boolean('Use small variant (small)', false),
         uncheckedText: text('Text for unchecked state (unchecked-text)', 'Off'),
         value: text('Value (value)', ''),
-        onInput: action('input'),
+        onAfterChange: action('bx-toggle-changed'),
       }),
     },
   },

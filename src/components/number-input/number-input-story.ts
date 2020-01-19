@@ -12,6 +12,7 @@ import * as knobs from '@storybook/addon-knobs';
 import './number-input';
 import '../form/form-item';
 import createProps from './stories/helpers';
+import storyDocs from './number-input-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
@@ -98,6 +99,7 @@ withoutFormItemWrapper.story = {
 export default {
   title: 'Number Input',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-number-input': () => createProps(knobs),
     },

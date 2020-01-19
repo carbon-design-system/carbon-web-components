@@ -13,6 +13,7 @@ import { boolean, select, text } from '@storybook/addon-knobs';
 import { DROPDOWN_TYPE } from '../dropdown/dropdown';
 import './multi-select';
 import './multi-select-item';
+import storyDocs from './multi-select-story.mdx';
 
 const types = {
   [`Regular (${DROPDOWN_TYPE.REGULAR})`]: DROPDOWN_TYPE.REGULAR,
@@ -75,6 +76,7 @@ defaultStory.story = {
 export default {
   title: 'Multi select',
   parameters: {
+    docs: storyDocs.parameters.docs,
     knobs: {
       'bx-multi-select': () => ({
         clearSelectionLabel: text('a11y label for the icon to clear selection (clear-selection-label)', ''),
