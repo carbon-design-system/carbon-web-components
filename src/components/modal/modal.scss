@@ -11,10 +11,10 @@
   // `@extend .#{$prefix}--modal` seems to cause `&.is-visible` style to be brought into `:host(#{$prefix}-modal)` with ShadyCSS
   position: fixed;
   top: 0;
-  right: 0;
   bottom: 0;
-  left: 0;
-  z-index: z('hidden');
+  width: 100vw;
+  height: 100vh;
+  z-index: z('modal');
   display: flex;
   align-items: center;
   justify-content: center;
