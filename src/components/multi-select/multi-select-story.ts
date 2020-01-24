@@ -81,7 +81,7 @@ export default {
       'bx-multi-select': () => ({
         clearSelectionLabel: text('a11y label for the icon to clear selection (clear-selection-label)', ''),
         disabled: boolean('Disabled (disabled)', false),
-        helperText: text('Helper text (helper-text)', 'This is not helper text'),
+        helperText: text('Helper text (helper-text)', 'Optional helper text'),
         invalid: boolean('Show invalid state  (invalid)', false),
         labelText: text('Label text (label-text)', 'Multiselect title'),
         light: boolean('Light variant (light)', false),

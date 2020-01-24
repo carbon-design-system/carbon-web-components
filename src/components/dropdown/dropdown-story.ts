@@ -9,13 +9,18 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean, text } from '@storybook/addon-knobs';
-import './dropdown';
+import { boolean, select, text } from '@storybook/addon-knobs';
+import { DROPDOWN_TYPE } from './dropdown';
 import './dropdown-item';
 import storyDocs from './dropdown-story.mdx';
 
+const types = {
+  [`Regular (${DROPDOWN_TYPE.REGULAR})`]: DROPDOWN_TYPE.REGULAR,
+  [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
+};
+
 export const defaultStory = ({ parameters }) => {
-  const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection } = parameters?.props?.[
+  const { open, disabled, helperText, labelText, light, type, value, triggerContent, disableSelection } = parameters?.props?.[
     'bx-dropdown'
   ];
   const beforeSelectedAction = action('bx-dropdown-beingselected');
@@ -32,6 +37,7 @@ export const defaultStory = ({ parameters }) => {
       ?light=${light}
       helper-text=${helperText}
       label-text=${labelText}
+      type="${type}"
       value=${value}
       trigger-content=${triggerContent}
       @bx-dropdown-beingselected=${handleBeforeSelected}
@@ -58,9 +64,10 @@ export default {
       'bx-dropdown': () => ({
         open: boolean('Open (open)', false),
         disabled: boolean('Disabled (disabled)', false),
-        helperText: text('Helper text (helper-text)', ''),
-        labelText: text('Label text (label-text)', ''),
+        helperText: text('Helper text (helper-text)', 'Optional helper text'),
+        labelText: text('Label text (label-text)', 'Dropdown title'),
         light: boolean('Light variant (light)', false),
+        type: select('Dropdown type (type)', types, DROPDOWN_TYPE.REGULAR),
         value: text('The value of the selected item (value)', ''),
         triggerContent: text('The default content of the trigger button (trigger-content)', 'Select an item'),
         disableSelection: boolean(
