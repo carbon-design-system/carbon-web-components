@@ -18,11 +18,11 @@ $css--plex: true !default;
   @extend .#{$prefix}--structured-list-row.#{$prefix}--structured-list-row--header-row;
 }
 
-:host(#{$prefix}-structured-list-header-row) ::slotted(#{$prefix}-structured-list-header) {
+:host(#{$prefix}-structured-list-header-row) ::slotted(#{$prefix}-structured-list-header-cell) {
   @extend .#{$prefix}--structured-list-th;
 }
 
-.#{$prefix}--structured-list ::slotted(#{$prefix}-structured-list-header[nowrap]) {
+.#{$prefix}--structured-list ::slotted(#{$prefix}-structured-list-header-cell[nowrap]) {
   @extend .#{$prefix}--structured-list-content--nowrap;
 }
 

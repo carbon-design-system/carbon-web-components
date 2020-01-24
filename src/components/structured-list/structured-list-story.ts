@@ -13,8 +13,10 @@ import { boolean } from '@storybook/addon-knobs';
 import './structured-list';
 import './structured-list-head';
 import './structured-list-header-row';
+import './structured-list-header-cell';
 import './structured-list-body';
 import './structured-list-row';
+import './structured-list-cell';
 import storyDocs from './structured-list-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
@@ -27,9 +29,9 @@ export const defaultStory = ({ parameters }) => {
     <bx-structured-list ?has-selection=${hasSelection}>
       <bx-structured-list-head>
         <bx-structured-list-header-row ?has-selection=${hasSelection}>
-          <bx-structured-list-header>ColumnA</bx-structured-list-header>
-          <bx-structured-list-header>ColumnB</bx-structured-list-header>
-          <bx-structured-list-header>ColumnC</bx-structured-list-header>
+          <bx-structured-list-header-cell>ColumnA</bx-structured-list-header-cell>
+          <bx-structured-list-header-cell>ColumnB</bx-structured-list-header-cell>
+          <bx-structured-list-header-cell>ColumnC</bx-structured-list-header-cell>
         </bx-structured-list-header-row>
       </bx-structured-list-head>
       <bx-structured-list-body>

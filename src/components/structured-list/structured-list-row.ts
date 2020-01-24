@@ -152,6 +152,9 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
   selectionIconTitle = '';
 
   connectedCallback() {
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'row');
+    }
     super.connectedCallback();
     if (!this._manager) {
       this._manager = RadioGroupManager.get(this.getRootNode({ composed: true }) as Document);
