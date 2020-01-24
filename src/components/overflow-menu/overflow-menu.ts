@@ -35,9 +35,13 @@ class BXOverflowMenu extends HostListenerMixin(FocusMixin(LitElement)) implement
    */
   @HostListener('click')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
-  private _handleClickTrigger = (event: MouseEvent) => {
-    if (event.composedPath().indexOf(this.shadowRoot!) >= 0) {
-      this.open = !this.open;
+  private _handleClickTrigger = async () => {
+    this.open = !this.open;
+    const { open, updateComplete } = this;
+    if (open) {
+      await updateComplete;
+      const { _menuBody: menuBody } = this;
+      menuBody?.focus();
     }
   };
 
