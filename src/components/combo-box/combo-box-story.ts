@@ -26,10 +26,11 @@ export const defaultStory = ({ parameters }) => {
     triggerContent,
     validityMessage,
     disableSelection,
-  } = parameters?.props?.['bx-combo-box'];
-  const beforeSelectedAction = action('bx-combo-box-beingselected');
+    onBeforeSelect,
+    onAfterSelect,
+  } = parameters?.props?.['bx-combo-box'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeSelect(event);
     if (disableSelection) {
       event.preventDefault();
     }
@@ -46,7 +47,7 @@ export const defaultStory = ({ parameters }) => {
       value=${value}
       trigger-content=${triggerContent}
       @bx-combo-box-beingselected=${handleBeforeSelected}
-      @bx-combo-box-selected=${action('bx-combo-box-selected')}
+      @bx-combo-box-selected=${onAfterSelect}
     >
       <bx-combo-box-item value="all">Option 1</bx-combo-box-item>
       <bx-combo-box-item value="cloudFoundry">Option 2</bx-combo-box-item>
@@ -64,7 +65,7 @@ defaultStory.story = {
 export default {
   title: 'Combo box',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: storyDocs?.parameters?.docs,
     knobs: {
       'bx-combo-box': () => ({
         open: boolean('Open (open)', false),
@@ -80,6 +81,8 @@ export default {
           'Disable user-initiated selection change (Call event.preventDefault() in bx-combo-box-beingselected event)',
           false
         ),
+        onBeforeSelect: action('bx-combo-box-beingselected'),
+        onAfterSelect: action('bx-combo-box-selected'),
       }),
     },
   },

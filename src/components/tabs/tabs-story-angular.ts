@@ -9,7 +9,6 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
 import baseStory, { defaultStory as baseDefaultStory } from './tabs-story';
 
 export const defaultStory = ({ parameters }) => ({
@@ -18,8 +17,8 @@ export const defaultStory = ({ parameters }) => ({
       [disabled]="disabled"
       [triggerContent]="triggerContent"
       [value]="value"
-      (bx-tabs-beingselected)="onBeforeSelect($event)"
-      (bx-tabs-selected)="onSelect($event)"
+      (bx-tabs-beingselected)="handleBeforeSelect($event)"
+      (bx-tabs-selected)="handleAfterSelect($event)"
     >
       <bx-tab id="tab-all" target="panel-all" value="all">Option 1</bx-tab>
       <bx-tab id="tab-cloudFoundry" target="panel-cloudFoundry" disabled value="cloudFoundry">Option 2</bx-tab>
@@ -29,18 +28,17 @@ export const defaultStory = ({ parameters }) => ({
     </bx-tabs>
     <!-- TODO: Figure out how to style the tab panels demo -->
   `,
-  props: (({ disableSelection, ...rest }) => {
-    const beforeSelectedAction = action('bx-tabs-beingselected');
-    const onBeforeSelect = (event: CustomEvent) => {
-      beforeSelectedAction(event);
+  props: (({ disableSelection, onBeforeSelect, onAfterSelect, ...rest }) => {
+    const handleBeforeSelect = (event: CustomEvent) => {
+      onBeforeSelect(event);
       if (disableSelection) {
         event.preventDefault();
       }
     };
     return {
       ...rest,
-      onBeforeSelect,
-      onSelect: action('bx-tabs-selected'),
+      handleBeforeSelect,
+      handleAfterSelect: onAfterSelect,
     };
   })(parameters?.props?.['bx-tabs']),
 });

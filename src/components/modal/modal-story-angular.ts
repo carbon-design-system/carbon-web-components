@@ -8,7 +8,6 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { defaultStory as baseDefaultStory } from './modal-story';
 
@@ -32,19 +31,16 @@ export const defaultStory = ({ parameters }) => ({
       </bx-modal-footer>
     </bx-modal>
   `,
-  props: (({ disableClose, ...rest }) => {
-    const beforeSelectedAction = action('bx-modal-beingclosed');
-    return {
-      ...rest,
-      handleBeforeClose: (event: CustomEvent) => {
-        beforeSelectedAction(event);
-        if (disableClose) {
-          event.preventDefault();
-        }
-      },
-      handleClose: action('bx-modal-closed'),
-    };
-  })(parameters?.props?.['bx-modal']),
+  props: (({ disableClose, onBeforeClose, onAfterClose, ...rest }) => ({
+    ...rest,
+    handleBeforeClose: (event: CustomEvent) => {
+      onBeforeClose(event);
+      if (disableClose) {
+        event.preventDefault();
+      }
+    },
+    handleClose: onAfterClose,
+  }))(parameters?.props?.['bx-modal']),
 });
 
 defaultStory.story = baseDefaultStory.story;

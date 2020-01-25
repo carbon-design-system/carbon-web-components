@@ -21,21 +21,15 @@ import './modal-footer';
 import storyDocs from './modal-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { danger, open, disableClose } = parameters?.props?.['bx-modal'];
-  const beforeSelectedAction = action('bx-modal-beingclosed');
+  const { danger, open, disableClose, onBeforeClose, onAfterClose } = parameters?.props?.['bx-modal'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeClose(event);
     if (disableClose) {
       event.preventDefault();
     }
   };
   return html`
-    <bx-modal
-      ?danger="${danger}"
-      ?open="${open}"
-      @bx-modal-beingclosed=${handleBeforeClose}
-      @bx-modal-closed=${action('bx-modal-closed')}
-    >
+    <bx-modal ?danger="${danger}" ?open="${open}" @bx-modal-beingclosed=${handleBeforeClose} @bx-modal-closed=${onAfterClose}>
       <bx-modal-header>
         <bx-modal-close-button></bx-modal-close-button>
         <bx-modal-label>Label (Optional)</bx-modal-label>
@@ -57,7 +51,7 @@ defaultStory.story = {
 export default {
   title: 'Modal',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: storyDocs?.parameters?.docs,
     knobs: {
       'bx-modal': () => ({
         open: boolean('Open (open)', true),
@@ -66,6 +60,8 @@ export default {
           'Disable user-initiated close action (Call event.preventDefault() in bx-modal-beingclosed event)',
           false
         ),
+        onBeforeClose: action('bx-modal-beingclosed'),
+        onAfterClose: action('bx-modal-closed'),
       }),
     },
   },

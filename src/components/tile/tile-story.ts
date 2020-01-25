@@ -7,10 +7,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean, text } from '@storybook/addon-knobs';
+import { boolean } from '@storybook/addon-knobs';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import './tile';
 import './clickable-tile';
 import './radio-tile';
@@ -27,9 +28,9 @@ defaultStory.story = {
 };
 
 export const clickable = ({ parameters }) => {
-  const { href } = parameters?.props?.['bx-clickable-tile'];
+  const { href } = parameters?.props?.['bx-clickable-tile'] ?? {};
   return html`
-    <bx-clickable-tile href="${href}">Clickable tile</bx-clickable-tile>
+    <bx-clickable-tile href="${ifNonNull(href)}">Clickable tile</bx-clickable-tile>
   `;
 };
 
@@ -37,37 +38,37 @@ clickable.story = {
   parameters: {
     knobs: {
       'bx-clickable-tile': () => ({
-        href: text('Href for clickable UI (href)', ''),
+        href: textNullable('Href for clickable UI (href)', ''),
       }),
     },
   },
 };
 
 export const singleSelectable = ({ parameters }) => {
-  const { checkmarkLabel, name, value, onInput } = parameters?.props?.['bx-radio-tile'];
+  const { checkmarkLabel, name, value, onInput } = parameters?.props?.['bx-radio-tile'] ?? {};
   return html`
     <fieldset>
       <legend>Single-select tiles</legend>
       <bx-radio-tile
-        checkmark-label="${ifDefined(!checkmarkLabel ? undefined : checkmarkLabel)}"
-        name="${ifDefined(!name ? undefined : name)}"
-        value="${ifDefined(!value ? undefined : value)}"
+        checkmark-label="${ifNonNull(checkmarkLabel)}"
+        name="${ifNonNull(name)}"
+        value="${ifNonNull(value)}"
         @input="${onInput}"
       >
         Single-select Tile
       </bx-radio-tile>
       <bx-radio-tile
-        checkmark-label="${ifDefined(!checkmarkLabel ? undefined : checkmarkLabel)}"
-        name="${ifDefined(!name ? undefined : name)}"
-        value="${ifDefined(!value ? undefined : value)}"
+        checkmark-label="${ifNonNull(checkmarkLabel)}"
+        name="${ifNonNull(name)}"
+        value="${ifNonNull(value)}"
         @input="${onInput}"
       >
         Single-select Tile
       </bx-radio-tile>
       <bx-radio-tile
-        checkmark-label="${ifDefined(!checkmarkLabel ? undefined : checkmarkLabel)}"
-        name="${ifDefined(!name ? undefined : name)}"
-        value="${ifDefined(!value ? undefined : value)}"
+        checkmark-label="${ifNonNull(checkmarkLabel)}"
+        name="${ifNonNull(name)}"
+        value="${ifNonNull(value)}"
         @input="${onInput}"
       >
         Single-select Tile
@@ -81,9 +82,9 @@ singleSelectable.story = {
   parameters: {
     knobs: {
       'bx-radio-tile': () => ({
-        checkmarkLabel: text('Label text for the checkmark icon (checkmark-label)', ''),
-        name: text('Name (name)', 'selectable-tile'),
-        value: text('Value (value)', ''),
+        checkmarkLabel: textNullable('Label text for the checkmark icon (checkmark-label)', ''),
+        name: textNullable('Name (name)', 'selectable-tile'),
+        value: textNullable('Value (value)', ''),
         onInput: action('input'),
       }),
     },
@@ -91,13 +92,13 @@ singleSelectable.story = {
 };
 
 export const multiSelectable = ({ parameters }) => {
-  const { checkmarkLabel, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'];
+  const { checkmarkLabel, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'] ?? {};
   return html`
     <bx-selectable-tile
-      checkmark-label="${ifDefined(!checkmarkLabel ? undefined : checkmarkLabel)}"
-      name="${ifDefined(!name ? undefined : name)}"
+      checkmark-label="${ifNonNull(checkmarkLabel)}"
+      name="${ifNonNull(name)}"
       ?selected="${selected}"
-      value="${ifDefined(!value ? undefined : value)}"
+      value="${ifNonNull(value)}"
       @input="${onInput}"
     >
       Multi-select Tile
@@ -118,10 +119,9 @@ multiSelectable.story = {
 };
 
 export const expandable = ({ parameters }) => {
-  const { expanded, disableChange } = parameters?.props?.['bx-expandable-tile'];
-  const beforeChangedAction = action('bx-expandable-tile-beingchanged');
+  const { expanded, disableChange, onBeforeChange, onAfterChange } = parameters?.props?.['bx-expandable-tile'] ?? {};
   const handleBeforeChanged = (event: CustomEvent) => {
-    beforeChangedAction(event);
+    onBeforeChange(event);
     if (disableChange) {
       event.preventDefault();
     }
@@ -130,7 +130,7 @@ export const expandable = ({ parameters }) => {
     <bx-expandable-tile
       ?expanded="${expanded}"
       @bx-expandable-tile-beingchanged=${handleBeforeChanged}
-      @bx-expandable-tile-changed=${action('bx-expandable-tile-changed')}
+      @bx-expandable-tile-changed=${onAfterChange}
     >
       <bx-tile-above-the-fold-content style="height: 200px">
         Above the fold content here
@@ -152,6 +152,8 @@ expandable.story = {
             '(Call event.preventDefault() in bx-expandable-tile-beingchanged event)',
           false
         ),
+        onBeforeChange: action('bx-expandable-tile-beingchanged'),
+        onAfterChange: action('bx-expandable-tile-changed'),
       }),
     },
   },
@@ -166,6 +168,6 @@ export default {
       `,
   ],
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: storyDocs?.parameters?.docs,
   },
 };

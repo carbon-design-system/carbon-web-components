@@ -17,12 +17,13 @@ import './pages-select';
 import storyDocs from './pagination-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { atLastPage, pageSize, start, total, onChangedCurrent, onChangedPageSizesSelect } = parameters?.props?.['bx-pagination'];
+  const { atLastPage, pageSize, start, total, onChangedCurrent, onChangedPageSizesSelect } =
+    parameters?.props?.['bx-pagination'] ?? {};
   return html`
     <bx-pagination
       ?at-last-page="${atLastPage || undefined}"
-      page-size="${pageSize}"
-      start="${start}"
+      page-size="${ifNonNull(pageSize)}"
+      start="${ifNonNull(start)}"
       total="${ifNonNull(total)}"
       @bx-pagination-changed-current="${onChangedCurrent}"
       @bx-page-sizes-select-changed="${onChangedPageSizesSelect}"
@@ -48,7 +49,7 @@ defaultStory.story = {
 export default {
   title: 'Pagination',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: storyDocs?.parameters?.docs,
     knobs: {
       'bx-pagination': () => ({
         atLastPage: boolean('Explicitly state that the user is at the last page (at-last-apge)', false),

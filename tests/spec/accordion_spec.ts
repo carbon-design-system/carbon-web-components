@@ -7,23 +7,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render, TemplateResult } from 'lit-html';
+import { render } from 'lit-html';
 import EventManager from '../utils/event-manager';
-import '../../src/components/accordion/accordion';
-// Just importing the default export does not seem to run `customElements.define()`
-/* eslint-disable import/no-duplicates */
-import '../../src/components/accordion/accordion-item';
 import BXAccordionItem from '../../src/components/accordion/accordion-item';
-/* eslint-enable import/no-duplicates */
+import { defaultStory } from '../../src/components/accordion/accordion-story';
 
-const template = ({ hasContent = true, open }: { hasContent?: boolean; open?: boolean } = {}) =>
-  !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-accordion>
-          <bx-accordion-item ?open="${open}">Foo</bx-accordion-item>
-        </bx-accordion>
-      `;
+const template = (props?) =>
+  defaultStory({
+    parameters: {
+      props: {
+        'bx-accordion': props,
+      },
+    },
+  });
 
 describe('bx-accordion', function() {
   describe('Toggling', function() {
@@ -121,7 +117,7 @@ describe('bx-accordion', function() {
     });
 
     afterEach(async function() {
-      await render(template({ hasContent: false }), document.body);
+      await render(undefined!, document.body);
       events.reset();
     });
   });

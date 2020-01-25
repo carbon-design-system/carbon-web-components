@@ -9,17 +9,21 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean, text } from '@storybook/addon-knobs';
+import { boolean } from '@storybook/addon-knobs';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import './tabs';
 import './tab';
 import styles from './tabs-story.scss';
 import storyDocs from './tabs-story.mdx';
 
+const noop = () => {};
+
 export const defaultStory = ({ parameters }) => {
-  const { disabled, triggerContent, value, disableSelection } = parameters?.props?.['bx-tabs'];
-  const beforeSelectedAction = action('bx-tabs-beingselected');
+  const { disabled, triggerContent, value, disableSelection, onBeforeSelect = noop, onAfterSelect = noop } =
+    parameters?.props?.['bx-tabs'] || {};
   const handleBeforeSelected = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeSelect(event);
     if (disableSelection) {
       event.preventDefault();
     }
@@ -30,10 +34,10 @@ export const defaultStory = ({ parameters }) => {
     </style>
     <bx-tabs
       ?disabled="${disabled}"
-      trigger-content="${triggerContent}"
-      value="${value}"
+      trigger-content="${ifNonNull(triggerContent)}"
+      value="${ifNonNull(value)}"
       @bx-tabs-beingselected="${handleBeforeSelected}"
-      @bx-tabs-selected="${action('bx-tabs-selected')}"
+      @bx-tabs-selected="${onAfterSelect}"
     >
       <bx-tab id="tab-all" target="panel-all" value="all">Option 1</bx-tab>
       <bx-tab id="tab-cloudFoundry" target="panel-cloudFoundry" disabled value="cloudFoundry">Option 2</bx-tab>
@@ -88,16 +92,21 @@ defaultStory.story = {
 export default {
   title: 'Tabs',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: storyDocs?.parameters?.docs,
     knobs: {
       'bx-tabs': () => ({
         disabled: boolean('Disabled (disabled)', false),
-        triggerContent: text('The default content of the trigger button for narrow screen (trigger-content)', 'Select an item'),
-        value: text('The value of the selected item (value)', 'staging'),
+        triggerContent: textNullable(
+          'The default content of the trigger button for narrow screen (trigger-content)',
+          'Select an item'
+        ),
+        value: textNullable('The value of the selected item (value)', 'staging'),
         disableSelection: boolean(
           'Disable user-initiated selection change (Call event.preventDefault() in bx-content-switcher-beingselected event)',
           false
         ),
+        onBeforeSelect: action('bx-tabs-beingselected'),
+        onAfterSelect: action('bx-tabs-selected'),
       }),
     },
   },
