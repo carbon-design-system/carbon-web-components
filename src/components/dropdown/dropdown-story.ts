@@ -20,7 +20,9 @@ export const defaultStory = ({ parameters }) => {
   const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection, onBeforeSelect, onAfterSelect } =
     parameters?.props?.['bx-dropdown'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
-    onBeforeSelect(event);
+    if (onBeforeSelect) {
+      onBeforeSelect(event);
+    }
     if (disableSelection) {
       event.preventDefault();
     }
