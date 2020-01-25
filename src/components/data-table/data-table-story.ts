@@ -34,6 +34,8 @@ import './table-toolbar';
 import './table-toolbar-content';
 import './table-toolbar-search';
 import './table-batch-actions';
+import './table-header-cell-skeleton';
+import './table-cell-skeleton';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 import storyDocs from './data-table-story.mdx';
@@ -668,6 +670,59 @@ sortableWithPagination.story = {
   name: 'Sortable with pagination',
   parameters: {
     knobs: sortable.story.parameters.knobs,
+  },
+};
+
+export const skeleton = ({ parameters }) => {
+  const { size } = parameters?.props?.['bx-table'];
+  const { zebra } = parameters?.props?.['bx-table-body'];
+  return html`
+    <bx-table size="${size}">
+      <bx-table-head>
+        <bx-table-header-row>
+          <bx-table-header-cell-skeleton>Name</bx-table-header-cell-skeleton>
+          <bx-table-header-cell-skeleton>Protocol</bx-table-header-cell-skeleton>
+          <bx-table-header-cell-skeleton>Port</bx-table-header-cell-skeleton>
+          <bx-table-header-cell-skeleton>Rule</bx-table-header-cell-skeleton>
+          <bx-table-header-cell-skeleton>Attached Groups</bx-table-header-cell-skeleton>
+          <bx-table-header-cell-skeleton>Status</bx-table-header-cell-skeleton>
+        </bx-table-header-row>
+      </bx-table-head>
+      <bx-table-body ?zebra="${zebra}">
+        <bx-table-row>
+          <bx-table-cell-skeleton></bx-table-cell-skeleton>
+          <bx-table-cell-skeleton></bx-table-cell-skeleton>
+          <bx-table-cell-skeleton></bx-table-cell-skeleton>
+          <bx-table-cell-skeleton></bx-table-cell-skeleton>
+          <bx-table-cell-skeleton></bx-table-cell-skeleton>
+          <bx-table-cell-skeleton></bx-table-cell-skeleton>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+          <bx-table-cell></bx-table-cell>
+        </bx-table-row>
+      </bx-table-body>
+    </bx-table>
+  `;
+};
+
+skeleton.story = {
+  parameters: {
+    knobs: {
+      ...defaultStory.story.parameters.knobs,
+    },
   },
 };
 
