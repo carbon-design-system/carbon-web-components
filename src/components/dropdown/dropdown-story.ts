@@ -22,8 +22,19 @@ const types = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { open, disabled, helperText, labelText, light, type, value, triggerContent, disableSelection, onBeforeSelect, onAfterSelect } =
-    parameters?.props?.['bx-dropdown'] ?? {};
+  const {
+    open,
+    disabled,
+    helperText,
+    labelText,
+    light,
+    type,
+    value,
+    triggerContent,
+    disableSelection,
+    onBeforeSelect,
+    onAfterSelect,
+  } = parameters?.props?.['bx-dropdown'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
