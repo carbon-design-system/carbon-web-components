@@ -16,7 +16,7 @@ import FocusMixin from '../../globals/mixins/focus';
 import FormMixin from '../../globals/mixins/form';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
-import ifNonNull from '../../globals/directives/if-non-null';
+import ifNonEmpty from '../../globals/directives/if-non-empty';
 import Handle from '../../globals/internal/handle';
 import BXSliderInput from './slider-input';
 import styles from './slider.scss';
@@ -446,10 +446,10 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
           <input
             class="${prefix}--slider__input"
             type="hidden"
-            name="${ifNonNull(name)}"
-            value="${value}"
-            min="${min}"
-            max="${max}"
+            name="${ifNonEmpty(name)}"
+            .value="${value}"
+            min="${ifNonEmpty(min)}"
+            max="${ifNonEmpty(max)}"
           />
         </div>
         <span class="${prefix}--slider__range-label">
