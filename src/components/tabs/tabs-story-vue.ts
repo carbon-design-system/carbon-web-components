@@ -7,17 +7,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { action } from '@storybook/addon-actions';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import { defaultStory as baseDefaultStory } from './tabs-story';
 
 export { default } from './tabs-story';
 
 export const defaultStory = ({ parameters }) => {
-  const props = (original => {
-    const beforeSelectedAction = action('bx-tabs-beingselected');
-    function onBeforeSelect(this: any, event: CustomEvent) {
-      beforeSelectedAction(event);
+  const props = (({ onBeforeSelect, onAfterSelect, ...rest }) => {
+    function handleBeforeSelect(this: any, event: CustomEvent) {
+      onBeforeSelect(event);
       // NOTE: Using class property ref instead of closure ref (from `original`)
       // because updating event handlers via Storybook Vue `methods` (upon knob update) does not seem to work
       if (this.disableSelection) {
@@ -25,9 +23,9 @@ export const defaultStory = ({ parameters }) => {
       }
     }
     return {
-      ...original,
-      onBeforeSelect,
-      onSelect: action('bx-tabs-selected'),
+      ...rest,
+      handleBeforeSelect,
+      handleAfterSelect: onAfterSelect,
     };
   })(parameters?.props?.['bx-tabs']);
   return {
@@ -36,8 +34,8 @@ export const defaultStory = ({ parameters }) => {
           :disabled="disabled"
           :trigger-content="triggerContent"
           :value="value"
-          @bx-tabs-beingselected="onBeforeSelect"
-          @bx-tabs-selected="onSelect"
+          @bx-tabs-beingselected="handleBeforeSelect"
+          @bx-tabs-selected="handleAfterSelect"
         >
           <bx-tab value="all">Option 1</bx-tab>
           <bx-tab value="cloudFoundry" disabled>Option 2</bx-tab>

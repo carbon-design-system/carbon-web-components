@@ -65,7 +65,8 @@ class BXInlineLoading extends LitElement {
     }
     if (status === INLINE_LOADING_STATE.INACTIVE || status === INLINE_LOADING_STATE.ACTIVE) {
       const classes = classMap({
-        [`${prefix}--loading ${prefix}--loading--small`]: true,
+        [`${prefix}--loading`]: true,
+        [`${prefix}--loading--small`]: true,
         [`${prefix}--loading--stop`]: status === INLINE_LOADING_STATE.INACTIVE,
       });
       return html`

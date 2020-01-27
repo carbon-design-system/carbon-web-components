@@ -9,7 +9,7 @@
 // Table
 //
 
-.#{$prefix}--data-table_inner-container ::slotted(#{$prefix}-table) {
+:host(#{$prefix}-table) {
   @extend .#{$prefix}--data-table;
   display: table;
 }
