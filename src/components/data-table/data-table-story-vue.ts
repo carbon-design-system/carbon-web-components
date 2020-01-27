@@ -576,6 +576,7 @@ export const sortable = ({ parameters }) => {
   });
   return {
     template: `
+      <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
       <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
       <bx-ce-demo-data-table
         :rows="demoRows"
@@ -623,6 +624,7 @@ export const sortableWithPagination = ({ parameters }) => {
   });
   return {
     template: `
+      <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
       <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
       <bx-ce-demo-data-table
         :rows="demoRows"
