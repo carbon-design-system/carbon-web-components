@@ -11,6 +11,7 @@ import { customElement, LitElement, html, property } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
+import ifNonEmpty from '../../globals/directives/if-non-empty';
 import FormMixin from '../../globals/mixins/form';
 import styles from './input.scss';
 
@@ -179,12 +180,12 @@ export default class BXInput extends FormMixin(LitElement) {
           ?data-invalid="${this.invalid}"
           ?disabled="${this.disabled}"
           id="input"
-          name="${this.name}"
-          pattern="${this.pattern}"
-          placeholder="${this.placeholder}"
+          name="${ifNonEmpty(this.name)}"
+          pattern="${ifNonEmpty(this.pattern)}"
+          placeholder="${ifNonEmpty(this.placeholder)}"
           ?readonly="${this.readonly}"
           ?required="${this.required}"
-          type="${this.type}"
+          type="${ifNonEmpty(this.type)}"
           .value="${this.value}"
           @input="${handleInput}"
         />

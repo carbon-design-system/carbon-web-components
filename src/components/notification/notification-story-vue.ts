@@ -7,7 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { action } from '@storybook/addon-actions';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import { inline as baseInline, toast as baseToast } from './notification-story';
 
@@ -30,19 +29,16 @@ export const inline = ({ parameters }) => ({
     </bx-inline-notification>
   `,
   ...createVueBindingsFromProps(
-    (({ disableClose, ...rest }) => {
-      const beforeSelectedAction = action('bx-notification-beingclosed');
-      return {
-        ...rest,
-        handleBeforeClose: (event: CustomEvent) => {
-          beforeSelectedAction(event);
-          if (disableClose) {
-            event.preventDefault();
-          }
-        },
-        handleClose: action('bx-notification-closed'),
-      };
-    })(parameters?.props?.['bx-inline-notification'])
+    (({ disableClose, onBeforeClose, onAfterClose, ...rest }) => ({
+      ...rest,
+      handleBeforeClose: (event: CustomEvent) => {
+        onBeforeClose(event);
+        if (disableClose) {
+          event.preventDefault();
+        }
+      },
+      handleClose: onAfterClose,
+    }))(parameters?.props?.['bx-inline-notification'])
   ),
 });
 
@@ -66,19 +62,16 @@ export const toast = ({ parameters }) => ({
     </bx-toast-notification>
   `,
   ...createVueBindingsFromProps(
-    (({ disableClose, ...rest }) => {
-      const beforeSelectedAction = action('bx-notification-beingclosed');
-      return {
-        ...rest,
-        handleBeforeClose: (event: CustomEvent) => {
-          beforeSelectedAction(event);
-          if (disableClose) {
-            event.preventDefault();
-          }
-        },
-        handleClose: action('bx-notification-closed'),
-      };
-    })(parameters?.props?.['bx-toast-notification'])
+    (({ disableClose, onBeforeClose, onAfterClose, ...rest }) => ({
+      ...rest,
+      handleBeforeClose: (event: CustomEvent) => {
+        onBeforeClose(event);
+        if (disableClose) {
+          event.preventDefault();
+        }
+      },
+      handleClose: onAfterClose,
+    }))(parameters?.props?.['bx-toast-notification'])
   ),
 });
 

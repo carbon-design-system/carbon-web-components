@@ -8,7 +8,6 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { defaultStory as baseDefaultStory } from './dropdown-story';
 
@@ -22,8 +21,8 @@ export const defaultStory = ({ parameters }) => ({
       [labelText]="labelText"
       [value]="value"
       [triggerContent]="triggerContent"
-      (bx-dropdown-beingselected)="onBeforeSelect($event)"
-      (bx-dropdown-selected)="onSelect($event)"
+      (bx-dropdown-beingselected)="handleBeforeSelect($event)"
+      (bx-dropdown-selected)="handleAfterSelect($event)"
     >
       <bx-dropdown-item value="all">Option 1</bx-dropdown-item>
       <bx-dropdown-item value="cloudFoundry">Option 2</bx-dropdown-item>
@@ -32,18 +31,17 @@ export const defaultStory = ({ parameters }) => ({
       <bx-dropdown-item value="router">Option 5</bx-dropdown-item>
     </bx-dropdown>
   `,
-  props: (({ disableSelection, ...rest }) => {
-    const beforeSelectedAction = action('bx-dropdown-beingselected');
-    const onBeforeSelect = (event: CustomEvent) => {
-      beforeSelectedAction(event);
+  props: (({ disableSelection, onBeforeSelect, onAfterSelect, ...rest }) => {
+    const handleBeforeSelect = (event: CustomEvent) => {
+      onBeforeSelect(event);
       if (disableSelection) {
         event.preventDefault();
       }
     };
     return {
       ...rest,
-      onBeforeSelect,
-      onSelect: action('bx-dropdown-selected'),
+      handleBeforeSelect,
+      handleAfterSelect: onAfterSelect,
     };
   })(parameters?.props?.['bx-dropdown']),
 });

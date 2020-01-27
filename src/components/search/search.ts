@@ -13,7 +13,7 @@ import Close16 from '@carbon/icons/lib/close/16';
 import Close20 from '@carbon/icons/lib/close/20';
 import Search16 from '@carbon/icons/lib/search/16';
 import settings from 'carbon-components/es/globals/js/settings';
-import ifNonNull from '../../globals/directives/if-non-null';
+import ifNonEmpty from '../../globals/directives/if-non-empty';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './search.scss';
 
@@ -105,13 +105,13 @@ class BXSearch extends FocusMixin(LitElement) {
    * The form name. Corresponds to the attribute with the same name.
    */
   @property()
-  name!: string;
+  name = '';
 
   /**
    * The placeholder text. Corresponds to the attribute with the same name.
    */
   @property()
-  placeholder!: string;
+  placeholder = '';
 
   /**
    * The search box size. Corresponds to the attribute with the same name.
@@ -123,13 +123,13 @@ class BXSearch extends FocusMixin(LitElement) {
    * The `<input>` name. Corresponds to the attribute with the same name.
    */
   @property()
-  type!: string;
+  type = '';
 
   /**
    * The value. Corresponds to the attribute with the same name.
    */
   @property({ type: String })
-  value!: string;
+  value = '';
 
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
@@ -162,11 +162,11 @@ class BXSearch extends FocusMixin(LitElement) {
       </label>
       <input
         id="input"
-        type="${ifNonNull(type)}"
+        type="${ifNonEmpty(type)}"
         class="${prefix}--search-input"
         ?disabled="${disabled}"
-        name="${ifNonNull(name)}"
-        placeholder="${ifNonNull(placeholder)}"
+        name="${ifNonEmpty(name)}"
+        placeholder="${ifNonEmpty(placeholder)}"
         role="searchbox"
         .value="${value}"
         @input="${handleInput}"

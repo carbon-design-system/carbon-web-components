@@ -9,7 +9,6 @@
 
 import debounce from 'lodash-es/debounce';
 import Vue, { PropType } from 'vue';
-import { action } from '@storybook/addon-actions';
 import Delete16 from '@carbon/icons-vue/es/delete/16';
 import Download16 from '@carbon/icons-vue/es/download/16';
 import Settings16 from '@carbon/icons-vue/es/settings/16';
@@ -577,6 +576,7 @@ export const sortable = ({ parameters }) => {
   });
   return {
     template: `
+      <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
       <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
       <bx-ce-demo-data-table
         :rows="demoRows"
@@ -585,9 +585,9 @@ export const sortable = ({ parameters }) => {
         :hasSelection="hasSelection"
         :size="size"
         :zebra="zebra"
-        @bx-table-row-change-selection="onBeforeChangeSelection"
-        @bx-table-change-selection-all="onBeforeChangeSelection"
-        @bx-table-header-cell-sort="onBeforeChangeSort"
+        @bx-table-row-change-selection="handleBeforeChangeSelection"
+        @bx-table-change-selection-all="handleBeforeChangeSelection"
+        @bx-table-header-cell-sort="handleBeforeSort"
       ></bx-ce-demo-data-table>
     `,
     data: () => ({
@@ -596,21 +596,18 @@ export const sortable = ({ parameters }) => {
       demoSortInfo,
     }),
     props,
-    methods: (originalMethods => {
-      const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-      const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
-      const onBeforeChangeSelection = (event: CustomEvent) => {
+    methods: (({ onBeforeChangeSelection, onBeforeChangeSelectionAll, onBeforeSort, ...rest }) => {
+      const handleBeforeChangeSelection = (event: CustomEvent) => {
         if (event.type === 'bx-table-change-selection-all') {
-          beforeChangeSelectionAllAction(event);
+          onBeforeChangeSelectionAll(event);
         } else {
-          beforeChangeSelectionAction(event);
+          onBeforeChangeSelection(event);
         }
       };
-      const onBeforeChangeSort = action('bx-table-header-cell-sort');
       return {
-        ...originalMethods,
-        onBeforeChangeSelection,
-        onBeforeChangeSort,
+        ...rest,
+        handleBeforeChangeSelection,
+        handleBeforeSort: onBeforeSort,
       };
     })(methods),
   };
@@ -627,6 +624,7 @@ export const sortableWithPagination = ({ parameters }) => {
   });
   return {
     template: `
+      <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
       <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
       <bx-ce-demo-data-table
         :rows="demoRows"
@@ -637,9 +635,9 @@ export const sortableWithPagination = ({ parameters }) => {
         :size="size"
         :start="0"
         :zebra="zebra"
-        @bx-table-row-change-selection="onBeforeChangeSelection"
-        @bx-table-change-selection-all="onBeforeChangeSelection"
-        @bx-table-header-cell-sort="onBeforeChangeSort"
+        @bx-table-row-change-selection="handleBeforeChangeSelection"
+        @bx-table-change-selection-all="handleBeforeChangeSelection"
+        @bx-table-header-cell-sort="handleBeforeSort"
       ></bx-ce-demo-data-table>
     `,
     data: () => ({
@@ -648,21 +646,18 @@ export const sortableWithPagination = ({ parameters }) => {
       demoSortInfo,
     }),
     props,
-    methods: (originalMethods => {
-      const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-      const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
-      const onBeforeChangeSelection = (event: CustomEvent) => {
+    methods: (({ onBeforeChangeSelection, onBeforeChangeSelectionAll, onBeforeSort, ...rest }) => {
+      const handleBeforeChangeSelection = (event: CustomEvent) => {
         if (event.type === 'bx-table-change-selection-all') {
-          beforeChangeSelectionAllAction(event);
+          onBeforeChangeSelectionAll(event);
         } else {
-          beforeChangeSelectionAction(event);
+          onBeforeChangeSelection(event);
         }
       };
-      const onBeforeChangeSort = action('bx-table-header-cell-sort');
       return {
-        ...originalMethods,
-        onBeforeChangeSelection,
-        onBeforeChangeSort,
+        ...rest,
+        handleBeforeChangeSelection,
+        handleBeforeSort: onBeforeSort,
       };
     })(methods),
   };

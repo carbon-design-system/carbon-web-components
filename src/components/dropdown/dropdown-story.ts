@@ -9,23 +9,23 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean, select, text } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import { DROPDOWN_TYPE } from './dropdown';
 import './dropdown-item';
 import storyDocs from './dropdown-story.mdx';
 
 const types = {
-  [`Regular (${DROPDOWN_TYPE.REGULAR})`]: DROPDOWN_TYPE.REGULAR,
+  [`Regular (${DROPDOWN_TYPE.REGULAR})`]: null,
   [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { open, disabled, helperText, labelText, light, type, value, triggerContent, disableSelection } = parameters?.props?.[
-    'bx-dropdown'
-  ];
-  const beforeSelectedAction = action('bx-dropdown-beingselected');
+  const { open, disabled, helperText, labelText, light, type, value, triggerContent, disableSelection, onBeforeSelect, onAfterSelect } =
+    parameters?.props?.['bx-dropdown'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeSelect(event);
     if (disableSelection) {
       event.preventDefault();
     }
@@ -35,13 +35,13 @@ export const defaultStory = ({ parameters }) => {
       ?open=${open}
       ?disabled=${disabled}
       ?light=${light}
-      helper-text=${helperText}
-      label-text=${labelText}
-      type="${type}"
-      value=${value}
-      trigger-content=${triggerContent}
+      helper-text=${ifNonNull(helperText)}
+      label-text=${ifNonNull(labelText)}
+      type="${ifNonNull(type)}"
+      value=${ifNonNull(value)}
+      trigger-content=${ifNonNull(triggerContent)}
       @bx-dropdown-beingselected=${handleBeforeSelected}
-      @bx-dropdown-selected=${action('bx-dropdown-selected')}
+      @bx-dropdown-selected=${onAfterSelect}
     >
       <bx-dropdown-item value="all">Option 1</bx-dropdown-item>
       <bx-dropdown-item value="cloudFoundry">Option 2</bx-dropdown-item>
@@ -59,21 +59,25 @@ defaultStory.story = {
 export default {
   title: 'Dropdown',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-dropdown': () => ({
         open: boolean('Open (open)', false),
         disabled: boolean('Disabled (disabled)', false),
-        helperText: text('Helper text (helper-text)', 'Optional helper text'),
-        labelText: text('Label text (label-text)', 'Dropdown title'),
+        helperText: textNullable('Helper text (helper-text)', 'Optional helper text'),
+        labelText: textNullable('Label text (label-text)', 'Dropdown title'),
         light: boolean('Light variant (light)', false),
-        type: select('Dropdown type (type)', types, DROPDOWN_TYPE.REGULAR),
-        value: text('The value of the selected item (value)', ''),
-        triggerContent: text('The default content of the trigger button (trigger-content)', 'Select an item'),
+        type: select('Dropdown type (type)', types, null),
+        value: textNullable('The value of the selected item (value)', ''),
+        triggerContent: textNullable('The default content of the trigger button (trigger-content)', 'Select an item'),
         disableSelection: boolean(
           'Disable user-initiated selection change (Call event.preventDefault() in bx-dropdown-beingselected event)',
           false
         ),
+        onBeforeSelect: action('bx-dropdown-beingselected'),
+        onAfterSelect: action('bx-dropdown-selected'),
       }),
     },
   },
