@@ -7,7 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { action } from '@storybook/addon-actions';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import { defaultStory as baseDefaultStory } from './combo-box-story';
 
@@ -25,8 +24,8 @@ export const defaultStory = ({ parameters }) => ({
       :validity-message="validityMessage"
       :value="value"
       :trigger-content="triggerContent"
-      @bx-combo-box-beingselected="onBeforeSelect"
-      @bx-combo-box-selected="onSelect"
+      @bx-combo-box-beingselected="handleBeforeSelect"
+      @bx-combo-box-selected="handleAfterSelect"
     >
       <bx-combo-box-item value="all">Option 1</bx-combo-box-item>
       <bx-combo-box-item value="cloudFoundry">Option 2</bx-combo-box-item>
@@ -36,18 +35,17 @@ export const defaultStory = ({ parameters }) => ({
     </bx-combo-box>
   `,
   ...createVueBindingsFromProps(
-    (({ disableSelection, ...rest }) => {
-      const beforeSelectedAction = action('bx-dropdown-beingselected');
-      const onBeforeSelect = (event: CustomEvent) => {
-        beforeSelectedAction(event);
+    (({ disableSelection, onBeforeSelect, onAfterSelect, ...rest }) => {
+      const handleBeforeSelect = (event: CustomEvent) => {
+        onBeforeSelect(event);
         if (disableSelection) {
           event.preventDefault();
         }
       };
       return {
         ...rest,
-        onBeforeSelect,
-        onSelect: action('bx-dropdown-selected'),
+        handleBeforeSelect,
+        handleAfterSelect: onAfterSelect,
       };
     })(parameters?.props?.['bx-combo-box'])
   ),

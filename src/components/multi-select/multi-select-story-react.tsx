@@ -8,7 +8,6 @@
  */
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
@@ -34,10 +33,11 @@ export const defaultStory = ({ parameters }) => {
     type,
     validityMessage,
     disableSelection,
+    onBeforeSelect,
+    onAfterSelect,
   } = parameters?.props?.['bx-multi-select'];
-  const beforeSelectedAction = action('onBeforeSelect');
   const handleBeforeSelect = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeSelect(event);
     if (disableSelection) {
       event.preventDefault();
     }
@@ -57,7 +57,7 @@ export const defaultStory = ({ parameters }) => {
       type={type}
       validityMessage={validityMessage}
       onBeforeSelect={handleBeforeSelect}
-      onAfterSelect={action('onAfterSelect')}>
+      onAfterSelect={onAfterSelect}>
       <BXMultiSelectItem value="all">Option 1</BXMultiSelectItem>
       <BXMultiSelectItem value="cloudFoundry">Option 2</BXMultiSelectItem>
       <BXMultiSelectItem value="staging">Option 3</BXMultiSelectItem>

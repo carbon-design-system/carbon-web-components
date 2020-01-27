@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,7 +10,6 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const rtlcss = require('rtlcss');
-const createCompiler = require('@storybook/addon-docs/mdx-compiler-plugin');
 
 const useExperimentalFeatures = process.env.STORYBOOK_CARBON_USE_EXPERIMENTAL_FEATURES !== 'false';
 const useStyleSourceMap = process.env.STORYBOOK_CARBON_CUSTOM_ELEMENTS_USE_STYLE_SOURCEMAP === 'true';
@@ -79,18 +78,6 @@ module.exports = ({ config, mode }) => {
       use: [...babelLoaderRule.use, require.resolve('../svg-result-carbon-icon-loader')],
     },
     {
-      test: /-story\.ts$/,
-      use: [
-        {
-          loader: 'babel-loader',
-          options: {
-            babelrc: false,
-            plugins: [require.resolve('../babel-plugin-story-add-readme')],
-          },
-        },
-      ],
-    },
-    {
       test: /-story(-(angular|react|vue))?\.[jt]sx?$/,
       use: [
         {
@@ -113,6 +100,8 @@ module.exports = ({ config, mode }) => {
       test: /\.tsx?$/,
       use: [
         {
+          // Build note: Locking down `@babel/plugin-transform-typescript` to `~7.6.0`
+          // given `7.7` or later versions seems to have a problem with using decorator with fields without an initializer
           loader: 'babel-loader',
           options: {
             presets: [
@@ -136,43 +125,6 @@ module.exports = ({ config, mode }) => {
                 },
               ],
             ],
-          },
-        },
-      ],
-    },
-    {
-      test: /\.mdx$/,
-      use: [
-        {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-react',
-              [
-                '@babel/preset-env',
-                {
-                  modules: false,
-                  targets: ['last 1 version', 'Firefox ESR', 'ie >= 11'],
-                },
-              ],
-            ],
-            plugins: [
-              // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
-              ['@babel/plugin-transform-runtime', { version: '7.3.0' }],
-              [
-                'babel-plugin-emotion',
-                {
-                  sourceMap: true,
-                  autoLabel: true,
-                },
-              ],
-            ],
-          },
-        },
-        {
-          loader: '@mdx-js/loader',
-          options: {
-            compilers: [createCompiler({})],
           },
         },
       ],

@@ -9,7 +9,6 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
 import baseStory, { defaultStory as baseDefaultStory } from './accordion-story';
 
 export const defaultStory = ({ parameters }) => ({
@@ -39,19 +38,16 @@ export const defaultStory = ({ parameters }) => ({
       </bx-accordion-item>
     </bx-accordion>
   `,
-  props: (({ disableToggle, ...rest }) => {
-    const beforeSelectedAction = action('bx-accordion-item-beingtoggled');
-    return {
-      ...rest,
-      handleBeforeToggle: (event: CustomEvent) => {
-        beforeSelectedAction(event);
-        if (disableToggle) {
-          event.preventDefault();
-        }
-      },
-      handleToggle: action('bx-accordion-item-toggled'),
-    };
-  })(parameters?.props?.['bx-accordion']),
+  props: (({ disableToggle, onBeforeToggle, onAfterToggle, ...rest }) => ({
+    ...rest,
+    handleBeforeToggle: (event: CustomEvent) => {
+      onBeforeToggle(event);
+      if (disableToggle) {
+        event.preventDefault();
+      }
+    },
+    handleToggle: onAfterToggle,
+  }))(parameters?.props?.['bx-accordion']),
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },

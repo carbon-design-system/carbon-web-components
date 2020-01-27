@@ -9,6 +9,7 @@
 
 import { html } from 'lit-element';
 import { boolean, select } from '@storybook/addon-knobs';
+import ifNonNull from '../../globals/directives/if-non-null';
 import { FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
 import './overflow-menu';
 import './overflow-menu-body';
@@ -21,10 +22,10 @@ const directions = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { open, disabled, direction } = parameters?.props?.['bx-overflow-menu'];
+  const { open, disabled, direction } = parameters?.props?.['bx-overflow-menu'] ?? {};
   return html`
     <bx-overflow-menu ?open="${open}" ?disabled="${disabled}">
-      <bx-overflow-menu-body direction="${direction}">
+      <bx-overflow-menu-body direction="${ifNonNull(direction)}">
         <bx-overflow-menu-item>Option 1</bx-overflow-menu-item>
         <bx-overflow-menu-item>Option 2</bx-overflow-menu-item>
         <bx-overflow-menu-item>Option 3</bx-overflow-menu-item>
@@ -42,7 +43,9 @@ defaultStory.story = {
 export default {
   title: 'Overflow menu',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-overflow-menu': () => ({
         open: boolean('Open (open)', false),
