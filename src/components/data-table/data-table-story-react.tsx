@@ -10,7 +10,6 @@
 import PropTypes from 'prop-types';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useDebounce } from 'use-debounce';
-import { action } from '@storybook/addon-actions';
 import Delete16 from '@carbon/icons-react/es/delete/16';
 import Download16 from '@carbon/icons-react/es/download/16';
 import Settings16 from '@carbon/icons-react/es/settings/16';
@@ -484,31 +483,23 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = baseDefaultStory.story;
 
 export const sortable = ({ parameters }) => {
-  const {
-    'bx-table': tableProps,
-    'bx-table-body': tableBodyProps,
-    'bx-table-row': tableRowProps,
-    'bx-table-header-cell': tableHeaderCellProps,
-  } = parameters.props || ({} as typeof parameters.props);
-  const { size } = tableProps || ({} as typeof tableProps);
-  const { zebra } = tableBodyProps || ({} as typeof tableBodyProps);
-  const { hasSelection, disableChangeSelection } = tableRowProps || ({} as typeof tableRowProps);
-  const { disableChangeSort } = tableHeaderCellProps || ({} as typeof tableHeaderCellProps);
-  const beforeChangeSelectionAction = action('onBeforeChangeSelection');
-  const beforeChangeSelectionAllAction = action('onBeforeChangeSelection (for selecting all rows)');
+  const { size } = parameters?.props?.['bx-table'];
+  const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
+  const { zebra } = parameters?.props?.['bx-table-body'];
+  const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
+  const { disableChangeSort, onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
   const beforeChangeSelectionHandler = (event: CustomEvent) => {
     if (event.type === 'bx-table-change-selection-all') {
-      beforeChangeSelectionAllAction(event);
+      onBeforeChangeSelectionAll(event);
     } else {
-      beforeChangeSelectionAction(event);
+      onBeforeChangeSelection(event);
     }
     if (disableChangeSelection) {
       event.preventDefault();
     }
   };
-  const beforeChangeSortAction = action('onBeforeSort');
   const beforeChangeSortHandler = (event: CustomEvent) => {
-    beforeChangeSortAction(event);
+    onBeforeSort(event);
     if (disableChangeSort) {
       event.preventDefault();
     }
@@ -534,31 +525,23 @@ export const sortable = ({ parameters }) => {
 sortable.story = baseSortable.story;
 
 export const sortableWithPagination = ({ parameters }) => {
-  const {
-    'bx-table': tableProps,
-    'bx-table-body': tableBodyProps,
-    'bx-table-row': tableRowProps,
-    'bx-table-header-cell': tableHeaderCellProps,
-  } = parameters.props || ({} as typeof parameters.props);
-  const { size } = tableProps || ({} as typeof tableProps);
-  const { zebra } = tableBodyProps || ({} as typeof tableBodyProps);
-  const { hasSelection, disableChangeSelection } = tableRowProps || ({} as typeof tableRowProps);
-  const { disableChangeSort } = tableHeaderCellProps || ({} as typeof tableHeaderCellProps);
-  const beforeChangeSelectionAction = action('onBeforeChangeSelection');
-  const beforeChangeSelectionAllAction = action('onBeforeChangeSelection (for selecting all rows)');
+  const { size } = parameters?.props?.['bx-table'];
+  const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
+  const { zebra } = parameters?.props?.['bx-table-body'];
+  const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
+  const { disableChangeSort, onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
   const beforeChangeSelectionHandler = (event: CustomEvent) => {
     if (event.type === 'bx-table-change-selection-all') {
-      beforeChangeSelectionAllAction(event);
+      onBeforeChangeSelectionAll(event);
     } else {
-      beforeChangeSelectionAction(event);
+      onBeforeChangeSelection(event);
     }
     if (disableChangeSelection) {
       event.preventDefault();
     }
   };
-  const beforeChangeSortAction = action('onBeforeSort');
   const beforeChangeSortHandler = (event: CustomEvent) => {
-    beforeChangeSortAction(event);
+    onBeforeSort(event);
     if (disableChangeSort) {
       event.preventDefault();
     }

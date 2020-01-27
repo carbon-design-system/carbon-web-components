@@ -9,10 +9,10 @@
 
 import { action } from '@storybook/addon-actions';
 
-const createProps = ({ boolean, text, number }) => ({
+const createProps = ({ boolean, textNonEmpty, number }) => ({
   disabled: boolean('Disabled (disabled)', false),
-  value: text('Input value (value)', ''),
-  placeholder: text('Placeholder text (placeholder)', 'Optional placeholder text'),
+  value: textNonEmpty('Input value (value)', ''),
+  placeholder: textNonEmpty('Placeholder text (placeholder)', 'Optional placeholder text'),
   invalid: boolean('Invalid (invalid)', false),
   onInput: action('input'),
   rows: number('Number of rows (rows)', 4),

@@ -9,22 +9,50 @@
 
 import { html } from 'lit-element';
 import * as knobs from '@storybook/addon-knobs';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import './textarea';
 import '../form/form-item';
 import createProps from './stories/helpers';
 import storyDocs from './textarea-story.mdx';
 
-export const defaultStory = () => {
-  const { disabled, value, placeholder, invalid, onInput, rows, cols } = createProps(knobs);
+export const defaultStory = ({ parameters }) => {
+  const {
+    autocomplete,
+    autofocus,
+    disabled,
+    helperText,
+    labelText,
+    name,
+    value,
+    pattern,
+    placeholder,
+    readonly,
+    required,
+    invalid,
+    validityMessage,
+    onInput,
+    rows,
+    cols,
+  } = parameters?.props?.['bx-textarea'] ?? {};
   return html`
     <bx-textarea
+      autocomplete="${ifNonNull(autocomplete)}"
+      ?autofocus="${autofocus}"
       ?disabled="${disabled}"
-      value="${value}"
-      placeholder="${placeholder}"
+      helper-text="${ifNonNull(helperText)}"
+      label-text="${ifNonNull(labelText)}"
+      name="${ifNonNull(name)}"
+      value="${ifNonNull(value)}"
+      pattern="${ifNonNull(pattern)}"
+      placeholder="${ifNonNull(placeholder)}"
+      ?readonly="${readonly}"
+      ?required="${required}"
       ?invalid="${invalid}"
+      validity-message="${ifNonNull(validityMessage)}"
       @input="${onInput}"
-      rows="${rows}"
-      cols="${cols}"
+      rows="${ifNonNull(rows)}"
+      cols="${ifNonNull(cols)}"
     >
     </bx-textarea>
   `;
@@ -35,17 +63,17 @@ defaultStory.story = {
 };
 
 export const formItem = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'];
+  const { disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'] ?? {};
   return html`
     <bx-form-item>
       <bx-textarea
-        placeholder="${placeholder}"
+        placeholder="${ifNonNull(placeholder)}"
         @input="${onInput}"
         ?invalid="${invalid}"
         ?disabled="${disabled}"
-        value="${value}"
-        rows="${rows}"
-        cols="${cols}"
+        value="${ifNonNull(value)}"
+        rows="${ifNonNull(rows)}"
+        cols="${ifNonNull(cols)}"
       >
         <span slot="label-text">Label text</span>
         <span slot="helper-text">Optional helper text</span>
@@ -61,16 +89,16 @@ formItem.story = {
 };
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'];
+  const { disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'] ?? {};
   return html`
     <bx-textarea
-      placeholder="${placeholder}"
+      placeholder="${ifNonNull(placeholder)}"
       @input="${onInput}"
       ?invalid="${invalid}"
       ?disabled="${disabled}"
-      value="${value}"
-      rows="${rows}"
-      cols="${cols}"
+      value="${ifNonNull(value)}"
+      rows="${ifNonNull(rows)}"
+      cols="${ifNonNull(cols)}"
     >
       <span slot="label-text">Label text</span>
       <span slot="helper-text">Optional helper text</span>
@@ -91,7 +119,7 @@ export default {
       page: storyDocs,
     },
     knobs: {
-      'bx-textarea': () => createProps(knobs),
+      'bx-textarea': () => createProps({ ...knobs, textNonEmpty: textNullable }),
     },
   },
 };

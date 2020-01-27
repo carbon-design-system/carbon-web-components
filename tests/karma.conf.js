@@ -70,6 +70,10 @@ module.exports = function setupKarma(config) {
       module: {
         rules: [
           {
+            test: /@storybook[\\/]addon-/i,
+            use: 'null-loader',
+          },
+          {
             test: /@carbon[\\/]icons[\\/]/i,
             use: [require.resolve('../svg-result-carbon-icon-loader')],
           },
@@ -161,6 +165,10 @@ module.exports = function setupKarma(config) {
                 },
               },
             ],
+          },
+          {
+            test: /\.mdx$/,
+            use: 'null-loader',
           },
         ],
       },

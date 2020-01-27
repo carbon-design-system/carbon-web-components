@@ -14,20 +14,19 @@ import './accordion';
 import './accordion-item';
 import storyDocs from './accordion-story.mdx';
 
+const noop = () => {};
+
 export const defaultStory = ({ parameters }) => {
-  const { open, titleText, disableToggle } = parameters?.props?.['bx-accordion'];
-  const beforeToggleAction = action('bx-accordion-item-beingtoggled');
+  const { open, titleText, disableToggle, onBeforeToggle = noop, onAfterToggle = noop } =
+    parameters?.props?.['bx-accordion'] ?? {};
   const handleBeforeToggle = (event: CustomEvent) => {
-    beforeToggleAction(event);
+    onBeforeToggle(event);
     if (disableToggle) {
       event.preventDefault();
     }
   };
   return html`
-    <bx-accordion
-      @bx-accordion-item-beingtoggled="${handleBeforeToggle}"
-      @bx-accordion-item-toggled="${action('bx-accordion-item-toggled')}"
-    >
+    <bx-accordion @bx-accordion-item-beingtoggled="${handleBeforeToggle}" @bx-accordion-item-toggled="${onAfterToggle}">
       <bx-accordion-item ?open="${open}" title-text=${titleText}>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -69,6 +68,8 @@ export default {
           'Disable user-initiated toggle action (Call event.preventDefault() in bx-accordion-beingtoggled event)',
           false
         ),
+        onBeforeToggle: action('bx-accordion-item-beingtoggled'),
+        onAfterToggle: action('bx-accordion-item-toggled'),
       }),
     },
   },

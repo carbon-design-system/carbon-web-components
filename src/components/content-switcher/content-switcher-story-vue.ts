@@ -7,17 +7,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { action } from '@storybook/addon-actions';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import { defaultStory as baseDefaultStory } from './content-switcher-story';
 
 export { default } from './content-switcher-story';
 
 export const defaultStory = ({ parameters }) => {
-  const props = (original => {
-    const beforeSelectedAction = action('bx-content-switcher-beingselected');
-    function onBeforeSelect(this: any, event: CustomEvent) {
-      beforeSelectedAction(event);
+  const props = (({ onBeforeSelect, onAfterSelect, ...rest }) => {
+    function handleBeforeSelect(this: any, event: CustomEvent) {
+      onBeforeSelect(event);
       // NOTE: Using class property ref instead of closure ref (from `original`)
       // because updating event handlers via Storybook Vue `methods` (upon knob update) does not seem to work
       if (this.disableSelection) {
@@ -25,9 +23,9 @@ export const defaultStory = ({ parameters }) => {
       }
     }
     return {
-      ...original,
-      onBeforeSelect,
-      onSelect: action('bx-content-switcher-selected'),
+      ...rest,
+      handleBeforeSelect,
+      handleAfterSelect: onAfterSelect,
     };
   })(parameters?.props?.['bx-content-switcher']);
   return {
@@ -35,8 +33,8 @@ export const defaultStory = ({ parameters }) => {
       <bx-content-switcher
         :disabled="disabled"
         :value="value"
-        @bx-content-switcher-beingselected="onBeforeSelect"
-        @bx-content-switcher-selected="onSelect"
+        @bx-content-switcher-beingselected="handleBeforeSelect"
+        @bx-content-switcher-selected="handleAfterSelect"
       >
         <bx-content-switcher-item value="all">Option 1</bx-content-switcher-item>
         <bx-content-switcher-item value="cloudFoundry" disabled>Option 2</bx-content-switcher-item>

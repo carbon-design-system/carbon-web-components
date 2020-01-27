@@ -9,6 +9,7 @@
 
 import { html } from 'lit-element';
 import { select } from '@storybook/addon-knobs';
+import ifNonNull from '../../globals/directives/if-non-null';
 import { INLINE_LOADING_STATE } from './inline-loading';
 import storyDocs from './inline-loading-story.mdx';
 
@@ -20,9 +21,9 @@ const states = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { status } = parameters?.props?.['bx-inline-loading'];
+  const { status } = parameters?.props?.['bx-inline-loading'] ?? {};
   return html`
-    <bx-inline-loading status="${status}">Loading data...</bx-inline-loading>
+    <bx-inline-loading status="${ifNonNull(status)}">Loading data...</bx-inline-loading>
   `;
 };
 

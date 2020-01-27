@@ -10,14 +10,16 @@
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import { TAG_TYPE } from './tag';
 import './filter-tag';
 import storyDocs from './tag-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { type, title, disabled } = parameters?.props?.['bx-tag'];
+  const { type, title, disabled } = parameters?.props?.['bx-tag'] ?? {};
   return html`
-    <bx-tag type=${type} ?title=${title} ?disabled=${disabled}>
+    <bx-tag type=${ifNonNull(type)} title=${ifNonNull(title)} ?disabled=${disabled}>
       This is not a tag
     </bx-tag>
   `;
@@ -29,7 +31,7 @@ defaultStory.story = {
     knobs: {
       'bx-tag': () => ({
         disabled: boolean('Disabled (disabled)', false),
-        title: 'Clear Selection',
+        title: textNullable('Title (title)', 'Clear Selection'),
         type: select(
           'Tag type (type)',
           Object.values(TAG_TYPE).reduce(
@@ -47,9 +49,9 @@ defaultStory.story = {
 };
 
 export const filter = ({ parameters }) => {
-  const { type, title, disabled, onClick } = parameters?.props?.['bx-filter-tag'];
+  const { type, title, disabled, onClick } = parameters?.props?.['bx-filter-tag'] ?? {};
   return html`
-    <bx-filter-tag type=${type} ?title=${title} ?disabled=${disabled} @click=${onClick} filter>
+    <bx-filter-tag type=${ifNonNull(type)} title=${ifNonNull(title)} ?disabled=${disabled} @click=${onClick} filter>
       This is not a tag
     </bx-filter-tag>
   `;

@@ -7,27 +7,27 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean, text } from '@storybook/addon-knobs';
+import { boolean } from '@storybook/addon-knobs';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import './toggle';
 import storyDocs from './toggle-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, onAfterChange } = parameters?.props?.[
-    'bx-toggle'
-  ];
+  const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, onAfterChange } =
+    parameters?.props?.['bx-toggle'] ?? {};
   return html`
     <bx-toggle
       ?checked="${checked}"
-      checked-text="${checkedText}"
+      checked-text="${ifNonNull(checkedText)}"
       ?disabled="${disabled}"
-      label-text="${labelText}"
-      name="${ifDefined(!name ? undefined : name)}"
+      label-text="${ifNonNull(labelText)}"
+      name="${ifNonNull(name)}"
       ?small="${small}"
-      unchecked-text="${uncheckedText}"
-      value="${ifDefined(!value ? undefined : value)}"
+      unchecked-text="${ifNonNull(uncheckedText)}"
+      value="${ifNonNull(value)}"
       @bx-toggle-changed="${onAfterChange}"
     ></bx-toggle>
   `;
@@ -46,13 +46,13 @@ export default {
     knobs: {
       'bx-toggle': () => ({
         checked: boolean('Checked (checked)', false),
-        checkedText: text('Text for checked state (checked-text)', 'On'),
+        checkedText: textNullable('Text for checked state (checked-text)', 'On'),
         disabled: boolean('Disabled (disabled)', false),
-        labelText: text('Label text (label-text)', 'Toggle'),
-        name: text('Name (name)', ''),
+        labelText: textNullable('Label text (label-text)', 'Toggle'),
+        name: textNullable('Name (name)', ''),
         small: boolean('Use small variant (small)', false),
-        uncheckedText: text('Text for unchecked state (unchecked-text)', 'Off'),
-        value: text('Value (value)', ''),
+        uncheckedText: textNullable('Text for unchecked state (unchecked-text)', 'Off'),
+        value: textNullable('Value (value)', ''),
         onAfterChange: action('bx-toggle-changed'),
       }),
     },

@@ -9,26 +9,27 @@
 
 import { html } from 'lit-element';
 import * as knobs from '@storybook/addon-knobs';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import './number-input';
 import '../form/form-item';
 import createProps from './stories/helpers';
 import storyDocs from './number-input-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
-    'bx-number-input'
-  ];
+  const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } =
+    parameters?.props?.['bx-number-input'] ?? {};
   return html`
     <bx-number-input
       ?disabled="${disabled}"
-      value="${value}"
-      placeholder="${placeholder}"
+      value="${ifNonNull(value)}"
+      placeholder="${ifNonNull(placeholder)}"
       ?invalid="${invalid}"
       ?mobile="${mobile}"
-      min="${min}"
-      max="${max}"
-      step="${step}"
-      light="${light}"
+      min="${ifNonNull(min)}"
+      max="${ifNonNull(max)}"
+      step="${ifNonNull(step)}"
+      ?light="${light}"
       @input="${onInput}"
     ></bx-number-input>
   `;
@@ -39,20 +40,19 @@ defaultStory.story = {
 };
 
 export const formItem = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
-    'bx-number-input'
-  ];
+  const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } =
+    parameters?.props?.['bx-number-input'] ?? {};
   return html`
     <bx-form-item>
       <bx-number-input
-        value="${value}"
-        placeholder="${placeholder}"
+        value="${ifNonNull(value)}"
+        placeholder="${ifNonNull(placeholder)}"
         ?invalid="${invalid}"
         ?disabled="${disabled}"
         ?mobile="${mobile}"
-        min="${min}"
-        max="${max}"
-        step="${step}"
+        min="${ifNonNull(min)}"
+        max="${ifNonNull(max)}"
+        step="${ifNonNull(step)}"
         ?light="${light}"
         @input="${onInput}"
       >
@@ -69,20 +69,19 @@ formItem.story = {
 };
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
-    'bx-number-input'
-  ];
+  const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } =
+    parameters?.props?.['bx-number-input'] ?? {};
   return html`
     <bx-number-input
-      value="${value}"
-      placeholder="${placeholder}"
+      value="${ifNonNull(value)}"
+      placeholder="${ifNonNull(placeholder)}"
       ?invalid="${invalid}"
       ?disabled="${disabled}"
       ?mobile="${mobile}"
-      min="${min}"
-      max="${max}"
-      step="${step}"
-      light="${light}"
+      min="${ifNonNull(min)}"
+      max="${ifNonNull(max)}"
+      step="${ifNonNull(step)}"
+      ?light="${light}"
       @input="${onInput}"
     >
       <span slot="label-text">Label text</span>
@@ -103,7 +102,7 @@ export default {
       page: storyDocs,
     },
     knobs: {
-      'bx-number-input': () => createProps(knobs),
+      'bx-number-input': () => createProps({ ...knobs, textNonEmpty: textNullable }),
     },
   },
 };
