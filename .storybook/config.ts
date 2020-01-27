@@ -10,7 +10,7 @@
 import '../src/polyfills';
 import { html } from 'lit-html'; // eslint-disable-line import/first
 import addons from '@storybook/addons';
-import { configure, addDecorator, addParameters } from '@storybook/polymer'; // eslint-disable-line import/first
+import { configure, addDecorator, addParameters } from '@storybook/web-components'; // eslint-disable-line import/first
 import { withKnobs } from '@storybook/addon-knobs';
 import './components/focus-trap/focus-trap';
 import { CURRENT_THEME } from './addon-carbon-theme/shared';
@@ -27,6 +27,9 @@ addParameters({
   },
 });
 
+// The TS configuration for `@storybook/web-components` does not seem to allow returning `TemplateResult` in decorators,
+// using `TemplateResult` in decorators seems to work with `@storybook/web-components` actually
+// @ts-ignore
 addDecorator(story => {
   const result = story();
   const { hasMainTag } = result as any;

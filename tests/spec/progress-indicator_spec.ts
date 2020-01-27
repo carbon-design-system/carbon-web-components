@@ -7,40 +7,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render, TemplateResult } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined';
-// Just importing the default export does not seem to run `customElements.define()`
-/* eslint-disable import/no-duplicates */
+import { render } from 'lit-html';
 import { PROGRESS_STEP_STAT } from '../../src/components/progress-indicator/progress-step';
-import '../../src/components/progress-indicator/progress-step';
-/* eslint-enable import/no-duplicates */
+import { defaultStory } from '../../src/components/progress-indicator/progress-indicator-story';
 
-const template = ({
-  hasContent = true,
-  disabled,
-  iconLabel,
-  labelText,
-  secondaryLabelText,
-  state,
-}: {
-  hasContent?: boolean;
-  disabled?: boolean;
-  iconLabel?: string;
-  labelText?: string;
-  secondaryLabelText?: string;
-  state?: PROGRESS_STEP_STAT;
-} = {}) =>
-  !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-progress-step
-          ?disabled="${ifDefined(disabled)}"
-          icon-label="${ifDefined(iconLabel)}"
-          label-text="${ifDefined(labelText)}"
-          secondary-label-text="${ifDefined(secondaryLabelText)}"
-          state="${ifDefined(state)}"
-        ></bx-progress-step>
-      `;
+const template = (props?) =>
+  defaultStory({
+    parameters: {
+      props: {
+        'bx-progress-step': props,
+      },
+    },
+  });
 
 describe('bx-progress-step', function() {
   describe('Rendering', function() {
@@ -62,11 +40,11 @@ describe('bx-progress-step', function() {
         document.body
       );
       await Promise.resolve();
-      expect(document.body.querySelector('bx-progress-step')).toMatchSnapshot({ mode: 'shadow' });
+      expect(document.body.querySelector('bx-progress-step[state="complete"]')).toMatchSnapshot({ mode: 'shadow' });
     });
 
     afterEach(async function() {
-      await render(template({ hasContent: false }), document.body);
+      await render(undefined!, document.body);
     });
   });
 });
