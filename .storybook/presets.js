@@ -11,4 +11,4 @@
 
 const path = require('path');
 
-module.exports = [path.resolve(__dirname, 'preset')];
+module.exports = [path.resolve(__dirname, 'preset'), '@storybook/addon-docs/preset'];

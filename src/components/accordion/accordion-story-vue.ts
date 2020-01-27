@@ -7,7 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { action } from '@storybook/addon-actions';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import { defaultStory as baseDefaultStory } from './accordion-story';
 
@@ -41,19 +40,16 @@ export const defaultStory = ({ parameters }) => ({
     </bx-accordion>
   `,
   ...createVueBindingsFromProps(
-    (({ disableToggle, ...rest }) => {
-      const beforeSelectedAction = action('bx-accordion-item-beingtoggled');
-      return {
-        ...rest,
-        handleBeforeToggle: (event: CustomEvent) => {
-          beforeSelectedAction(event);
-          if (disableToggle) {
-            event.preventDefault();
-          }
-        },
-        handleToggle: action('bx-accordion-item-toggled'),
-      };
-    })(parameters?.props?.['bx-accordion'])
+    (({ disableToggle, onBeforeToggle, onAfterToggle, ...rest }) => ({
+      ...rest,
+      handleBeforeToggle: (event: CustomEvent) => {
+        onBeforeToggle(event);
+        if (disableToggle) {
+          event.preventDefault();
+        }
+      },
+      handleToggle: onAfterToggle,
+    }))(parameters?.props?.['bx-accordion'])
   ),
 });
 

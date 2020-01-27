@@ -8,8 +8,10 @@
  */
 
 import { html } from 'lit-element';
-import { boolean, select, text } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
 import Filter16 from '@carbon/icons/lib/filter/16';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import '../button/button';
 import './tooltip';
 import { FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
@@ -41,14 +43,14 @@ const tooltipDefinitionDirections = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { open } = parameters?.props?.['bx-tooltip'];
-  const { direction } = parameters?.props?.['bx-tooltip-body'];
+  const { open } = parameters?.props?.['bx-tooltip'] ?? {};
+  const { direction } = parameters?.props?.['bx-tooltip-body'] ?? {};
   return html`
     <style>
       ${styles}
     </style>
     <bx-tooltip ?open="${open}">
-      <bx-tooltip-body direction="${direction}">
+      <bx-tooltip-body direction="${ifNonNull(direction)}">
         <p>
           This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is needed
           please use a modal instead.
@@ -74,9 +76,13 @@ defaultStory.story = {
 };
 
 export const definition = ({ parameters }) => {
-  const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-definition'];
+  const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-definition'] ?? {};
   return html`
-    <bx-tooltip-definition alignment="${alignment}" body-text="${bodyText}" direction="${direction}">
+    <bx-tooltip-definition
+      alignment="${ifNonNull(alignment)}"
+      body-text="${ifNonNull(bodyText)}"
+      direction="${ifNonNull(direction)}"
+    >
       Definition Tooltip
     </bx-tooltip-definition>
   `;
@@ -92,7 +98,7 @@ definition.story = {
           tooltipDefinitionAlignments,
           TOOLTIP_ALIGNMENT.CENTER
         ),
-        bodyText: text('Tooltip content (bodyText)', 'Brief description of the dotted, underlined word above.'),
+        bodyText: textNullable('Tooltip content (bodyText)', 'Brief description of the dotted, underlined word above.'),
         direction: select('Tooltip direction (direction)', tooltipDefinitionDirections, TOOLTIP_DIRECTION.BOTTOM),
       }),
     },
@@ -100,9 +106,9 @@ definition.story = {
 };
 
 export const icon = ({ parameters }) => {
-  const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-icon'];
+  const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-icon'] ?? {};
   return html`
-    <bx-tooltip-icon alignment="${alignment}" body-text="${bodyText}" direction="${direction}">
+    <bx-tooltip-icon alignment="${ifNonNull(alignment)}" body-text="${ifNonNull(bodyText)}" direction="${ifNonNull(direction)}">
       ${Filter16()}
     </bx-tooltip-icon>
   `;
@@ -120,6 +126,8 @@ icon.story = {
 export default {
   title: 'Tooltip',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
   },
 };

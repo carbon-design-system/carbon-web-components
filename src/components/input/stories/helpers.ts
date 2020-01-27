@@ -19,10 +19,10 @@ for (let i = 0; i < keys.length; i++) {
   inputTypes[key.toLowerCase()] = value;
 }
 
-const createProps = ({ boolean, text, select }) => ({
+const createProps = ({ boolean, textNonEmpty, select }) => ({
   disabled: boolean('Disabled (disabled)', false),
-  value: text('Input value (value)', ''),
-  placeholder: text('Placeholder text (placeholder)', 'Optional placeholder text'),
+  value: textNonEmpty('Input value (value)', ''),
+  placeholder: textNonEmpty('Placeholder text (placeholder)', 'Optional placeholder text'),
   invalid: boolean('Invalid (invalid)', false),
   onInput: action('input'),
   type: select('Input type (type)', inputTypes, INPUT_TYPE.TEXT),
