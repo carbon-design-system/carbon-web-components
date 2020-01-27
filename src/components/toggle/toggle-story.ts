@@ -40,7 +40,9 @@ defaultStory.story = {
 export default {
   title: 'Toggle',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-toggle': () => ({
         checked: boolean('Checked (checked)', false),

@@ -33,7 +33,9 @@ defaultStory.story = {
 export default {
   title: 'Loading',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-loading': () => ({
         inactive: boolean('Inactive (inactive)', false),

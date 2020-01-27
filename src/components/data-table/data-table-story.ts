@@ -729,6 +729,8 @@ skeleton.story = {
 export default {
   title: 'Data table',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
   },
 };

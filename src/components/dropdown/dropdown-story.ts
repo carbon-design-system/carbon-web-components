@@ -53,7 +53,9 @@ defaultStory.story = {
 export default {
   title: 'Dropdown',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-dropdown': () => ({
         open: boolean('Open (open)', false),

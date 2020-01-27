@@ -69,7 +69,9 @@ defaultStory.story = {
 export default {
   title: 'Structured list',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-structured-list': () => ({
         hasSelection: boolean('Supports selection feature (has-selection)', false),
