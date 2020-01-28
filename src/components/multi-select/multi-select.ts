@@ -139,6 +139,13 @@ class BXMultiSelect extends BXDropdown {
   }
 
   /**
+   * A selector that will return highlighted items.
+   */
+  static get selectorItemHighlighted() {
+    return `${prefix}-multi-select-item[highlighted]`;
+  }
+
+  /**
    * A selector to ignore the `click` events from.
    * Primary for the checkbox label where the `click` event will happen from the associated check box.
    */
@@ -152,13 +159,6 @@ class BXMultiSelect extends BXDropdown {
    */
   static get selectorItem() {
     return `${prefix}-multi-select-item`;
-  }
-
-  /**
-   * A selector that will return highlighted items.
-   */
-  static get selectorItemHighlighted() {
-    return `${prefix}-multi-select-item[highlighted]`;
   }
 
   /**
