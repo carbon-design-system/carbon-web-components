@@ -94,7 +94,8 @@ export const expandable = ({ parameters }) => {
 
 expandable.story = baseExpandable.story;
 
-export default {
-  ...baseStory,
+// Creating a shallow clone with spread operator seems to cause
+// `Cannot read property 'name' of undefined` error in `@storybook/source-loader`
+export default Object.assign({}, baseStory, {
   decorators: [story => <div>{story()}</div>],
-};
+});

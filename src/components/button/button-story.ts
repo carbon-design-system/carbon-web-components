@@ -75,7 +75,9 @@ textAndIcon.story = {
 export default {
   title: 'Button',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-btn': () => ({
         kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),

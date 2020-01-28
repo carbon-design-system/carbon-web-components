@@ -36,6 +36,13 @@ class BXStructuredList extends FocusMixin(LitElement) {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
 
+  connectedCallback() {
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'table');
+    }
+    super.connectedCallback();
+  }
+
   render() {
     const { border, hasSelection } = this;
     const classes = classMap({

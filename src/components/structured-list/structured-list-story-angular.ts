@@ -16,9 +16,9 @@ export const defaultStory = ({ parameters }) => ({
     <bx-structured-list [hasSelection]="hasSelection">
       <bx-structured-list-head>
         <bx-structured-list-header-row [hasSelection]="hasSelection">
-          <bx-structured-list-header>ColumnA</bx-structured-list-header>
-          <bx-structured-list-header>ColumnB</bx-structured-list-header>
-          <bx-structured-list-header>ColumnC</bx-structured-list-header>
+          <bx-structured-list-header-cell>ColumnA</bx-structured-list-header-cell>
+          <bx-structured-list-header-cell>ColumnB</bx-structured-list-header-cell>
+          <bx-structured-list-header-cell>ColumnC</bx-structured-list-header-cell>
         </bx-structured-list-header-row>
       </bx-structured-list-head>
       <bx-structured-list-body>

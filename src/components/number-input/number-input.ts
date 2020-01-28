@@ -13,6 +13,7 @@ import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import CaretUp16 from '@carbon/icons/lib/caret--up/16';
 import CaretDown16 from '@carbon/icons/lib/caret--down/16';
+import ifNonEmpty from '../../globals/directives/if-non-empty';
 import styles from './number-input.scss';
 import BXInput from '../input/input';
 
@@ -171,17 +172,17 @@ export default class BXNumberInput extends BXInput {
         ?data-invalid="${this.invalid}"
         ?disabled="${this.disabled}"
         id="input"
-        name="${this.name}"
-        pattern="${this.pattern}"
-        placeholder="${this.placeholder}"
+        name="${ifNonEmpty(this.name)}"
+        pattern="${ifNonEmpty(this.pattern)}"
+        placeholder="${ifNonEmpty(this.placeholder)}"
         ?readonly="${this.readonly}"
         ?required="${this.required}"
         type="number"
         .value="${this.value}"
         @input="${handleInput}"
-        min="${this.min}"
-        max="${this.max}"
-        step="${this.step}"
+        min="${ifNonEmpty(this.min)}"
+        max="${ifNonEmpty(this.max)}"
+        step="${ifNonEmpty(this.step)}"
         role="alert"
         aria-atomic="true"
       />

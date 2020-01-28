@@ -115,7 +115,9 @@ withoutFormItemWrapper.story = {
 export default {
   title: 'Textarea',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-textarea': () => createProps({ ...knobs, textNonEmpty: textNullable }),
     },
