@@ -49,7 +49,9 @@ defaultStory.story = {
 export default {
   title: 'Pagination',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-pagination': () => ({
         atLastPage: boolean('Explicitly state that the user is at the last page (at-last-apge)', false),

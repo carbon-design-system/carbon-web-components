@@ -51,7 +51,9 @@ defaultStory.story = {
 export default {
   title: 'Modal',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-modal': () => ({
         open: boolean('Open (open)', true),

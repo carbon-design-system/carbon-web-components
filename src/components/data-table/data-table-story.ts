@@ -38,6 +38,7 @@ import './table-header-cell-skeleton';
 import './table-cell-skeleton';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
+import styles from './data-table-story.scss';
 import storyDocs from './data-table-story.mdx';
 
 /**
@@ -570,6 +571,9 @@ export const sortable = ({ parameters }) => {
   };
   defineDemoDataTable();
   return html`
+    <style>
+      ${styles}
+    </style>
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
     <bx-ce-demo-data-table
       .columns=${demoColumns}
@@ -648,6 +652,9 @@ export const sortableWithPagination = ({ parameters }) => {
   };
   defineDemoDataTable();
   return html`
+    <style>
+      ${styles}
+    </style>
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
     <bx-ce-demo-data-table
       .columns=${demoColumns}
@@ -729,6 +736,8 @@ skeleton.story = {
 export default {
   title: 'Data table',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
   },
 };

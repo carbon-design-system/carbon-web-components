@@ -60,7 +60,9 @@ defaultStory.story = {
 export default {
   title: 'Progress indicator',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-progress-indicator': () => ({
         vertical: boolean('Vertical (vertical)', false),

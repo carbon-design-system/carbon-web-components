@@ -52,7 +52,9 @@ defaultStory.story = {
 export default {
   title: 'Radio button',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-radio-button-group': () => ({
         disabled: boolean('Disabled (disabled)', false),

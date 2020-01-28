@@ -70,7 +70,9 @@ filter.story = {
 
 export default {
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
   },
   title: 'Tag',
 };

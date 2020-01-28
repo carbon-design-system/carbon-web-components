@@ -34,7 +34,9 @@ defaultStory.story = {
 export default {
   title: 'Inline loading',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-inline-loading': () => ({
         status: select('Loading status (status)', states, INLINE_LOADING_STATE.ACTIVE),

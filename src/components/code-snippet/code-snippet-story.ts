@@ -133,7 +133,9 @@ inline.story = {
 export default {
   title: 'Code snippet',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: defaultKnobs,
   },
 };

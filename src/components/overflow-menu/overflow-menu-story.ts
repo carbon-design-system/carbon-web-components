@@ -43,7 +43,9 @@ defaultStory.story = {
 export default {
   title: 'Overflow menu',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-overflow-menu': () => ({
         open: boolean('Open (open)', false),
