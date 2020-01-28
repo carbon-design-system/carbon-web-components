@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -22,6 +22,11 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-multi-select`)
 class BXMultiSelect extends BXDropdown {
+  /**
+   * The count of selected items.
+   */
+  private _selectedItemsCount = 0;
+
   /**
    * The trigger button.
    */
@@ -83,8 +88,7 @@ class BXMultiSelect extends BXDropdown {
   }
 
   protected _renderPrecedingTriggerContent() {
-    const { clearSelectionLabel } = this;
-    const selectedItemsCount = this.querySelectorAll((this.constructor as typeof BXMultiSelect).selectorItemSelected).length;
+    const { clearSelectionLabel, _selectedItemsCount: selectedItemsCount } = this;
     return selectedItemsCount === 0
       ? undefined
       : html`
@@ -123,20 +127,15 @@ class BXMultiSelect extends BXDropdown {
       const values = !value ? [] : value.split(',');
       const { selectorItem } = this.constructor as typeof BXMultiSelect;
       // Updates selection beforehand because our rendering logic for `<bx-multi-select>` looks for selected items via `qSA()`
-      forEach(this.querySelectorAll(selectorItem), elem => {
+      const items = this.querySelectorAll(selectorItem);
+      forEach(items, elem => {
         (elem as BXMultiSelectItem).selected = values.indexOf((elem as BXMultiSelectItem).value) >= 0;
       });
+      this._selectedItemsCount = filter(items, elem => values.indexOf((elem as BXMultiSelectItem).value) >= 0).length;
     } else {
       super.shouldUpdate(changedProperties);
     }
     return true;
-  }
-
-  /**
-   * A selector that will return highlighted items.
-   */
-  static get selectorItemHighlighted() {
-    return `${prefix}-multi-select-item[highlighted]`;
   }
 
   /**
@@ -153,6 +152,13 @@ class BXMultiSelect extends BXDropdown {
    */
   static get selectorItem() {
     return `${prefix}-multi-select-item`;
+  }
+
+  /**
+   * A selector that will return highlighted items.
+   */
+  static get selectorItemHighlighted() {
+    return `${prefix}-multi-select-item[highlighted]`;
   }
 
   /**

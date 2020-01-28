@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -36,12 +36,15 @@ export const defaultStory = ({ parameters }) => {
     triggerContent,
     type,
     validityMessage,
+    value,
     disableSelection,
     onBeforeSelect,
     onAfterSelect,
   } = parameters?.props?.['bx-multi-select'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
-    onBeforeSelect(event);
+    if (onBeforeSelect) {
+      onBeforeSelect(event);
+    }
     if (disableSelection) {
       event.preventDefault();
     }
@@ -60,6 +63,7 @@ export const defaultStory = ({ parameters }) => {
       trigger-content=${ifNonNull(triggerContent)}
       type=${ifNonNull(type)}
       validity-message=${ifNonNull(validityMessage)}
+      value="${ifNonNull(value)}"
       @bx-multi-select-beingselected=${handleBeforeSelected}
       @bx-multi-select-selected=${onAfterSelect}
     >
