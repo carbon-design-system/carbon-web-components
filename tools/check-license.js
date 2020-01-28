@@ -18,16 +18,19 @@ const reLicense = require('./license-text');
 
 const readFile = promisify(fs.readFile);
 
-const check = paths =>
+const check = (paths, { currentYear }) =>
   Promise.all(
     paths.map(async item => {
-      if (!reLicense.test(await readFile(item, 'utf8'))) {
+      if (!(currentYear ? reLicense.reLicenseTextCurrentYear : reLicense).test(await readFile(item, 'utf8'))) {
         throw new Error(`Could not find license text in: ${item}`);
       }
     })
   );
 
-check(commander.parse(process.argv).args).then(
+const { args, ...options } = commander
+  .option('-c, --current-year', 'Ensures the license header represents the current year')
+  .parse(process.argv);
+check(args, options).then(
   () => {
     process.exit(0);
   },
