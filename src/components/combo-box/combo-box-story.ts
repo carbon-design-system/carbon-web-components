@@ -72,9 +72,9 @@ export default {
       'bx-combo-box': () => ({
         open: boolean('Open (open)', false),
         disabled: boolean('Disabled (disabled)', false),
-        helperText: text('Helper text (helper-text)', ''),
+        helperText: text('Helper text (helper-text)', 'Optional helper text'),
         invalid: boolean('Show invalid state  (invalid)', false),
-        labelText: text('Label text (label-text)', ''),
+        labelText: text('Label text (label-text)', 'Combo box title'),
         light: boolean('Light variant (light)', false),
         value: text('The value of the selected item (value)', ''),
         triggerContent: text('The placeholder content (trigger-content)', 'Filter...'),

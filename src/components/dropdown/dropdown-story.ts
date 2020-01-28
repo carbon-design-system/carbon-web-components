@@ -9,16 +9,32 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import './dropdown';
+import { DROPDOWN_TYPE } from './dropdown';
 import './dropdown-item';
 import storyDocs from './dropdown-story.mdx';
 
+const types = {
+  [`Regular (${DROPDOWN_TYPE.REGULAR})`]: null,
+  [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
+};
+
 export const defaultStory = ({ parameters }) => {
-  const { open, disabled, helperText, labelText, light, value, triggerContent, disableSelection, onBeforeSelect, onAfterSelect } =
-    parameters?.props?.['bx-dropdown'] ?? {};
+  const {
+    open,
+    disabled,
+    helperText,
+    labelText,
+    light,
+    type,
+    value,
+    triggerContent,
+    disableSelection,
+    onBeforeSelect,
+    onAfterSelect,
+  } = parameters?.props?.['bx-dropdown'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -32,6 +48,7 @@ export const defaultStory = ({ parameters }) => {
       ?light=${light}
       helper-text=${ifNonNull(helperText)}
       label-text=${ifNonNull(labelText)}
+      type="${ifNonNull(type)}"
       value=${ifNonNull(value)}
       trigger-content=${ifNonNull(triggerContent)}
       @bx-dropdown-beingselected=${handleBeforeSelected}
@@ -60,9 +77,10 @@ export default {
       'bx-dropdown': () => ({
         open: boolean('Open (open)', false),
         disabled: boolean('Disabled (disabled)', false),
-        helperText: textNullable('Helper text (helper-text)', ''),
-        labelText: textNullable('Label text (label-text)', ''),
+        helperText: textNullable('Helper text (helper-text)', 'Optional helper text'),
+        labelText: textNullable('Label text (label-text)', 'Dropdown title'),
         light: boolean('Light variant (light)', false),
+        type: select('Dropdown type (type)', types, null),
         value: textNullable('The value of the selected item (value)', ''),
         triggerContent: textNullable('The default content of the trigger button (trigger-content)', 'Select an item'),
         disableSelection: boolean(
