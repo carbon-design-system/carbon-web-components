@@ -74,7 +74,7 @@ declare global {
       'bx-structured-list': any;
       'bx-structured-list-head': any;
       'bx-structured-list-header-row': any;
-      'bx-structured-list-header': any;
+      'bx-structured-list-header-cell': any;
       'bx-structured-list-body': any;
       'bx-structured-list-row': any;
       'bx-structured-list-cell': any;
