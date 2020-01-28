@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -75,7 +75,7 @@ module.exports = function setupKarma(config) {
           },
           {
             test: /@carbon[\\/]icons[\\/]/i,
-            use: [require.resolve('../svg-result-carbon-icon-loader')],
+            use: [require.resolve('../tools/svg-result-carbon-icon-loader')],
           },
           {
             test: /\.ts$/,
@@ -141,7 +141,7 @@ module.exports = function setupKarma(config) {
             test: /\.scss$/,
             sideEffects: true,
             use: [
-              require.resolve('../css-result-loader'),
+              require.resolve('../tools/css-result-loader'),
               {
                 loader: 'postcss-loader',
                 options: {
