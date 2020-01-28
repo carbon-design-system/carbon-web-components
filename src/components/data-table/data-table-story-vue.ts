@@ -7,23 +7,31 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import debounce from 'lodash-es/debounce';
 import Vue, { PropType } from 'vue';
-import { storiesOf } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, select } from '@storybook/addon-knobs';
+import Delete16 from '@carbon/icons-vue/es/delete/16';
+import Download16 from '@carbon/icons-vue/es/download/16';
+import Settings16 from '@carbon/icons-vue/es/settings/16';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import '../pagination/pagination';
-import '../pagination/page-sizes-select';
-import '../pagination/pages-select';
-import { TABLE_SIZE } from './table';
-import './table-head';
-import './table-header-row';
+import BXBtn from '../button/button';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
-import './table-body';
-import './table-row';
-import './table-cell';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
+import {
+  defaultStory as baseDefaultStory,
+  sortable as baseSortable,
+  sortableWithPagination as baseSortableWithPagination,
+} from './data-table-story';
+
+export { default } from './data-table-story';
+
+/**
+ * @param row A table row.
+ * @param searchString A search string.
+ * @returns `true` if the given table row matches the given search string.
+ */
+const doesRowMatchSearchString = (row: TDemoTableRow, searchString: string) =>
+  Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0);
 
 /**
  * The map of how sorting direction affects sorting order.
@@ -102,7 +110,10 @@ Vue.component('bx-ce-demo-data-table', {
     currentSortInfo?: TDemoSortInfo;
     currentStart?: number;
     currentPageSize?: number;
-    selectedAll: boolean;
+    handleChangeSearchString: ((() => void) & { cancel(): void }) | void;
+    searchString: string;
+    selectedAllInFiltered: boolean;
+    selectedRowsCountInFiltered: number;
     uniqueId: string;
   } => ({
     /**
@@ -121,9 +132,24 @@ Vue.component('bx-ce-demo-data-table', {
     currentStart: undefined,
 
     /**
-     * `true` if all rows are selected.
+     * The debounced handler for user-initiated change in search string.
      */
-    selectedAll: false,
+    handleChangeSearchString: undefined,
+
+    /**
+     * The search string.
+     */
+    searchString: '',
+
+    /**
+     * `true` if all filtered rows are selected.
+     */
+    selectedAllInFiltered: false,
+
+    /**
+     * The count of the selected filtered rows.
+     */
+    selectedRowsCountInFiltered: 0,
 
     /**
      * Unique ID used for ID refs.
@@ -134,6 +160,16 @@ Vue.component('bx-ce-demo-data-table', {
   }),
 
   computed: {
+    adjustedStart() {
+      // Referring to another computed property
+      // @ts-ignore
+      const { currentStart, currentPageSize, filteredRows } = this;
+      const { length: count } = filteredRows;
+      return count === 0 || currentStart! < count
+        ? currentStart!
+        : Math.max(currentStart! - Math.ceil((currentStart! - count) / currentPageSize!) * currentPageSize!, 0);
+    },
+
     /**
      * @returns A ID prefix for table selection checkbox names.
      */
@@ -143,17 +179,27 @@ Vue.component('bx-ce-demo-data-table', {
     },
 
     /**
+     * @returns The filtered rows.
+     */
+    filteredRows() {
+      const { rows, searchString } = this;
+      return !searchString ? rows : rows.filter(row => doesRowMatchSearchString(row, searchString));
+    },
+
+    /**
      * @returns The sorted/windowed rows.
      */
     rowsInUse() {
-      const { rows, currentSortInfo, currentStart, currentPageSize = Infinity } = this;
+      // Referring to another computed property
+      // @ts-ignore
+      const { currentSortInfo, adjustedStart, currentPageSize = Infinity, filteredRows } = this;
       const { columnId: sortColumnId, direction: sortDirection } = currentSortInfo!;
       return sortDirection === TABLE_SORT_DIRECTION.NONE
-        ? rows.slice(currentStart, currentStart! + currentPageSize!)
-        : rows!
+        ? filteredRows.slice(adjustedStart, adjustedStart! + currentPageSize!)
+        : filteredRows
             .slice()
             .sort((lhs, rhs) => collationFactors[sortDirection] * (this as any).compare(lhs[sortColumnId!], rhs[sortColumnId!]))
-            .slice(currentStart, currentStart! + currentPageSize!);
+            .slice(adjustedStart, adjustedStart! + currentPageSize!);
     },
   },
 
@@ -170,8 +216,10 @@ Vue.component('bx-ce-demo-data-table', {
       this.currentStart = current;
     },
 
-    rows(current: TDemoTableRow[]) {
-      this.selectedAll = current.every(row => row.selected!);
+    rows() {
+      // Vue method reference
+      // @ts-ignore
+      this.recomputeSelected();
     },
   },
 
@@ -217,6 +265,30 @@ Vue.component('bx-ce-demo-data-table', {
     },
 
     /**
+     * Handles Cancel button in batch action bar.
+     */
+    handleCancelSelection() {
+      const { searchString } = this;
+      this.rows!.forEach(row => {
+        if (!searchString || doesRowMatchSearchString(row, searchString)) {
+          row.selected = false;
+        }
+      });
+      this.selectedRowsCountInFiltered = 0;
+      this.selectedAllInFiltered = false;
+    },
+
+    /**
+     * Handles user-initiated change in search string.
+     */
+    handleChangeSearchStringImpl({ detail }: CustomEvent) {
+      this.searchString = detail.value;
+      // Vue method reference
+      // @ts-ignore
+      this.recomputeSelected();
+    },
+
+    /**
      * Handles an event to change in selection of rows, fired from `<bx-table-row>`.
      * @param event The event.
      */
@@ -230,7 +302,9 @@ Vue.component('bx-ce-demo-data-table', {
             row.selected = selected;
           }
         });
-        this.selectedAll = this.rows!.every(row => row.selected!);
+        // Vue method reference
+        // @ts-ignore
+        this.recomputeSelected();
       }
     },
 
@@ -242,9 +316,13 @@ Vue.component('bx-ce-demo-data-table', {
       if (!defaultPrevented) {
         const { selected } = detail;
         this.rows!.forEach(row => {
-          row.selected = selected;
+          if (doesRowMatchSearchString(row, this.searchString)) {
+            row.selected = selected;
+          }
         });
-        this.selectedAll = selected;
+        // Vue method reference
+        // @ts-ignore
+        this.recomputeSelected();
       }
     },
 
@@ -284,17 +362,110 @@ Vue.component('bx-ce-demo-data-table', {
     handleChangePageSize({ detail }: CustomEvent) {
       this.currentPageSize = detail.value;
     },
+
+    /**
+     * Handles Delete batch action button.
+     */
+    handleDeleteRows() {
+      const { rows, searchString } = this;
+      for (let i = rows.length - 1; i >= 0; --i) {
+        if (rows[i].selected && doesRowMatchSearchString(rows[i], searchString)) {
+          rows.splice(i, 1);
+        }
+      }
+      this.selectedRowsCountInFiltered = 0;
+      this.selectedAllInFiltered = false;
+    },
+
+    /**
+     * Handles Download batch action button.
+     * @param event The event triggering this action.
+     */
+    handleDownloadRows({ target }: MouseEvent) {
+      const { searchString } = this;
+      const blob = new Blob(
+        [JSON.stringify(this.rows!.filter(row => row.selected && doesRowMatchSearchString(row, searchString)))],
+        { type: 'application/json' }
+      );
+      (target as BXBtn).href = URL.createObjectURL(blob);
+      // Vue method reference
+      // @ts-ignore
+      this.handleCancelSelection();
+    },
+
+    /**
+     * Re-computes `selectedRowsCount` and `selectedAllInFiltered` properties.
+     */
+    recomputeSelected() {
+      // Vue computed property reference
+      // @ts-ignore
+      const { filteredRows } = this;
+      const selectedRowsCount = filteredRows!.filter(row => row.selected).length;
+      this.selectedRowsCountInFiltered = selectedRowsCount;
+      this.selectedAllInFiltered = selectedRowsCount > 0 && selectedRowsCount === filteredRows.length;
+    },
+  },
+
+  components: {
+    'delete-16': Delete16,
+    'download-16': Download16,
+    'settings-16': Settings16,
   },
 
   created() {
-    this.selectedAll = this.rows.every(row => row.selected!);
+    // Vue method reference
+    // @ts-ignore
+    this.recomputeSelected();
     this.currentSortInfo = this.sortInfo;
     this.currentStart = this.start;
     this.currentPageSize = this.pageSize;
+    if (this.handleChangeSearchString) {
+      this.handleChangeSearchString.cancel();
+    }
+    // Vue method reference
+    // @ts-ignore
+    this.handleChangeSearchString = debounce(this.handleChangeSearchStringImpl, 500);
+  },
+
+  destroyed() {
+    if (this.handleChangeSearchString) {
+      this.handleChangeSearchString.cancel();
+      this.handleChangeSearchString = undefined;
+    }
   },
 
   template: `
     <div>
+      <bx-table-toolbar>
+        <bx-table-batch-actions
+          :active="hasSelection && !!selectedRowsCountInFiltered"
+          :selected-rows-count="selectedRowsCountInFiltered"
+          @bx-table-batch-actions-cancel-clicked="handleCancelSelection"
+        >
+          <bx-btn @click="handleDeleteRows">Delete <delete-16 slot="icon"></delete-16></bx-btn>
+          <bx-btn @click="handleDownloadRows" href="javascript:void 0" download="table-data.json">
+            Download <download-16 slot="icon"></download-16>
+          </bx-btn>
+        </bx-table-batch-actions>
+        <bx-table-toolbar-content :has-batch-actions="hasSelection && !!selectedRowsCountInFiltered">
+          <bx-table-toolbar-search @bx-search-input="handleChangeSearchString"></bx-table-toolbar-search>
+          <bx-overflow-menu>
+            <settings-16 slot="icon"></settings-16>
+            <bx-overflow-menu-body>
+              <bx-overflow-menu-item>
+                Action 1
+              </bx-overflow-menu-item>
+              <bx-overflow-menu-item>
+                Action 2
+              </bx-overflow-menu-item>
+              <bx-overflow-menu-item>
+                Action 3
+              </bx-overflow-menu-item>
+            </bx-overflow-menu-body>
+          </bx-overflow-menu>
+          <bx-btn>Primary Button</bx-btn>
+        </bx-table-toolbar-content>
+      </bx-table-toolbar>
       <bx-table
         :size="size"
         @bx-table-row-change-selection="handleChangeSelection"
@@ -303,7 +474,7 @@ Vue.component('bx-ce-demo-data-table', {
       >
         <bx-table-head>
           <bx-table-header-row
-            :selected="selectedAll"
+            :selected="selectedAllInFiltered"
             :selection-name="!hasSelection ? undefined : selectionId"
             :selection-value="!hasSelection ? undefined : selectionId"
           >
@@ -332,10 +503,10 @@ Vue.component('bx-ce-demo-data-table', {
         </bx-table-body>
       </bx-table>
       <bx-pagination
-        v-if="pageSize !== undefined"
-        :pageSize="pageSize"
-        :start="start"
-        :total="rows.length"
+        v-if="currentPageSize !== undefined"
+        :page-size="currentPageSize"
+        :start="adjustedStart"
+        :total="filteredRows.length"
         @bx-pagination-changed-current="handleChangeStart"
         @bx-page-sizes-select-changed="handleChangePageSize"
       >
@@ -350,150 +521,146 @@ Vue.component('bx-ce-demo-data-table', {
   `,
 });
 
-const sizes = {
-  [`Compact size (${TABLE_SIZE.COMPACT})`]: TABLE_SIZE.COMPACT,
-  [`Short size (${TABLE_SIZE.SHORT})`]: TABLE_SIZE.SHORT,
-  [`Regular size (${TABLE_SIZE.REGULAR})`]: TABLE_SIZE.REGULAR,
-  [`Tall size (${TABLE_SIZE.TALL})`]: TABLE_SIZE.TALL,
-};
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-table :size="size">
+      <bx-table-head>
+        <bx-table-header-row>
+          <bx-table-header-cell>Name</bx-table-header-cell>
+          <bx-table-header-cell>Protocol</bx-table-header-cell>
+          <bx-table-header-cell>Port</bx-table-header-cell>
+          <bx-table-header-cell>Rule</bx-table-header-cell>
+          <bx-table-header-cell>Attached Groups</bx-table-header-cell>
+          <bx-table-header-cell>Status</bx-table-header-cell>
+        </bx-table-header-row>
+      </bx-table-head>
+      <bx-table-body :zebra="zebra">
+        <bx-table-row>
+          <bx-table-cell>Load Balancer 1</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell>Load Balancer 2</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-row>
+        <bx-table-row>
+          <bx-table-cell>Load Balancer 3</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-row>
+      </bx-table-body>
+    </bx-table>
+  `,
+  ...createVueBindingsFromProps({ ...parameters?.props?.['bx-table'], ...parameters?.props?.['bx-table-body'] }),
+});
 
-const createProps = ({ sortable }: { sortable?: boolean } = {}) => {
-  const hasSelection = sortable && boolean('Supports selection feature (hasSelection)', false);
+defaultStory.story = baseDefaultStory.story;
+
+export const sortable = ({ parameters }) => {
+  const { props = {}, methods = {} } = createVueBindingsFromProps({
+    ...parameters?.props?.['bx-table'],
+    ...parameters?.props?.['bx-table-body'],
+    ...parameters?.props?.['bx-table-row'],
+    ...parameters?.props?.['bx-header-cell'],
+  });
   return {
-    hasSelection,
-    size: select('Table size (size)', sizes, TABLE_SIZE.REGULAR),
-    zebra: boolean('Supports zebra stripe (zebra in `<bx-table-body>`)', false),
+    template: `
+      <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
+      <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
+      <bx-ce-demo-data-table
+        :rows="demoRows"
+        :columns="demoColumns"
+        :sortInfo="demoSortInfo"
+        :hasSelection="hasSelection"
+        :size="size"
+        :zebra="zebra"
+        @bx-table-row-change-selection="handleBeforeChangeSelection"
+        @bx-table-change-selection-all="handleBeforeChangeSelection"
+        @bx-table-header-cell-sort="handleBeforeSort"
+      ></bx-ce-demo-data-table>
+    `,
+    data: () => ({
+      demoRows,
+      demoColumns,
+      demoSortInfo,
+    }),
+    props,
+    methods: (({ onBeforeChangeSelection, onBeforeChangeSelectionAll, onBeforeSort, ...rest }) => {
+      const handleBeforeChangeSelection = (event: CustomEvent) => {
+        if (event.type === 'bx-table-change-selection-all') {
+          onBeforeChangeSelectionAll(event);
+        } else {
+          onBeforeChangeSelection(event);
+        }
+      };
+      return {
+        ...rest,
+        handleBeforeChangeSelection,
+        handleBeforeSort: onBeforeSort,
+      };
+    })(methods),
   };
 };
 
-storiesOf('Data table', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-table :size="size">
-        <bx-table-head>
-          <bx-table-header-row>
-            <bx-table-header-cell>Name</bx-table-header-cell>
-            <bx-table-header-cell>Protocol</bx-table-header-cell>
-            <bx-table-header-cell>Port</bx-table-header-cell>
-            <bx-table-header-cell>Rule</bx-table-header-cell>
-            <bx-table-header-cell>Attached Groups</bx-table-header-cell>
-            <bx-table-header-cell>Status</bx-table-header-cell>
-          </bx-table-header-row>
-        </bx-table-head>
-        <bx-table-body :zebra="zebra">
-          <bx-table-row>
-            <bx-table-cell>Load Balancer 1</bx-table-cell>
-            <bx-table-cell>HTTP</bx-table-cell>
-            <bx-table-cell>80</bx-table-cell>
-            <bx-table-cell>Round Robin</bx-table-cell>
-            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-            <bx-table-cell>Active</bx-table-cell>
-          </bx-table-row>
-          <bx-table-row>
-            <bx-table-cell>Load Balancer 2</bx-table-cell>
-            <bx-table-cell>HTTP</bx-table-cell>
-            <bx-table-cell>80</bx-table-cell>
-            <bx-table-cell>Round Robin</bx-table-cell>
-            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-            <bx-table-cell>Active</bx-table-cell>
-          </bx-table-row>
-          <bx-table-row>
-            <bx-table-cell>Load Balancer 3</bx-table-cell>
-            <bx-table-cell>HTTP</bx-table-cell>
-            <bx-table-cell>80</bx-table-cell>
-            <bx-table-cell>Round Robin</bx-table-cell>
-            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
-            <bx-table-cell>Active</bx-table-cell>
-          </bx-table-row>
-        </bx-table-body>
-      </bx-table>
-    `,
-    ...createVueBindingsFromProps(createProps()),
-  }))
-  .add('Sortable', () => {
-    const { props = {}, methods = {} } = createVueBindingsFromProps(createProps({ sortable: true }));
-    return {
-      template: `
-        <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
-        <bx-ce-demo-data-table
-          :rows="demoRows"
-          :columns="demoColumns"
-          :sortInfo="demoSortInfo"
-          :hasSelection="hasSelection"
-          :size="size"
-          :zebra="zebra"
-          @bx-table-row-change-selection="onBeforeChangeSelection"
-          @bx-table-change-selection-all="onBeforeChangeSelection"
-          @bx-table-header-cell-sort="onBeforeChangeSort"
-        ></bx-ce-demo-data-table>
-      `,
-      data: () => ({
-        demoRows,
-        demoColumns,
-        demoSortInfo,
-      }),
-      props,
-      methods: (originalMethods => {
-        const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-        const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
-        const onBeforeChangeSelection = (event: CustomEvent) => {
-          if (event.type === 'bx-table-change-selection-all') {
-            beforeChangeSelectionAllAction(event);
-          } else {
-            beforeChangeSelectionAction(event);
-          }
-        };
-        const onBeforeChangeSort = action('bx-table-header-cell-sort');
-        return {
-          ...originalMethods,
-          onBeforeChangeSelection,
-          onBeforeChangeSort,
-        };
-      })(methods),
-    };
-  })
-  .add('Sortable with pagination', () => {
-    const { props = {}, methods = {} } = createVueBindingsFromProps(createProps({ sortable: true }));
-    return {
-      template: `
-        <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
-        <bx-ce-demo-data-table
-          :rows="demoRows"
-          :columns="demoColumns"
-          :sortInfo="demoSortInfo"
-          :hasSelection="hasSelection"
-          :pageSize="5"
-          :size="size"
-          :start="0"
-          :zebra="zebra"
-          @bx-table-row-change-selection="onBeforeChangeSelection"
-          @bx-table-change-selection-all="onBeforeChangeSelection"
-          @bx-table-header-cell-sort="onBeforeChangeSort"
-        ></bx-ce-demo-data-table>
-      `,
-      data: () => ({
-        demoRows: demoRowsMany,
-        demoColumns,
-        demoSortInfo,
-      }),
-      props,
-      methods: (originalMethods => {
-        const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-        const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
-        const onBeforeChangeSelection = (event: CustomEvent) => {
-          if (event.type === 'bx-table-change-selection-all') {
-            beforeChangeSelectionAllAction(event);
-          } else {
-            beforeChangeSelectionAction(event);
-          }
-        };
-        const onBeforeChangeSort = action('bx-table-header-cell-sort');
-        return {
-          ...originalMethods,
-          onBeforeChangeSelection,
-          onBeforeChangeSort,
-        };
-      })(methods),
-    };
+sortable.story = baseSortable.story;
+
+export const sortableWithPagination = ({ parameters }) => {
+  const { props = {}, methods = {} } = createVueBindingsFromProps({
+    ...parameters?.props?.['bx-table'],
+    ...parameters?.props?.['bx-table-body'],
+    ...parameters?.props?.['bx-table-row'],
+    ...parameters?.props?.['bx-header-cell'],
   });
+  return {
+    template: `
+      <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
+      <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
+      <bx-ce-demo-data-table
+        :rows="demoRows"
+        :columns="demoColumns"
+        :sortInfo="demoSortInfo"
+        :hasSelection="hasSelection"
+        :pageSize="5"
+        :size="size"
+        :start="0"
+        :zebra="zebra"
+        @bx-table-row-change-selection="handleBeforeChangeSelection"
+        @bx-table-change-selection-all="handleBeforeChangeSelection"
+        @bx-table-header-cell-sort="handleBeforeSort"
+      ></bx-ce-demo-data-table>
+    `,
+    data: () => ({
+      demoRows: demoRowsMany,
+      demoColumns,
+      demoSortInfo,
+    }),
+    props,
+    methods: (({ onBeforeChangeSelection, onBeforeChangeSelectionAll, onBeforeSort, ...rest }) => {
+      const handleBeforeChangeSelection = (event: CustomEvent) => {
+        if (event.type === 'bx-table-change-selection-all') {
+          onBeforeChangeSelectionAll(event);
+        } else {
+          onBeforeChangeSelection(event);
+        }
+      };
+      return {
+        ...rest,
+        handleBeforeChangeSelection,
+        handleBeforeSort: onBeforeSort,
+      };
+    })(methods),
+  };
+};
+
+sortableWithPagination.story = baseSortableWithPagination.story;

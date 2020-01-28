@@ -8,8 +8,8 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import findLast from 'lodash.findlast';
-import classnames from 'classnames';
+import findLast from 'lodash-es/findLast';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
@@ -150,8 +150,13 @@ class BXModal extends HostListenerMixin(LitElement) {
   open = false;
 
   render() {
-    const containerClasses = classnames(`${prefix}--modal-container`, {
-      [this.containerClass]: this.containerClass,
+    const containerClass = this.containerClass
+      .split(' ')
+      .filter(Boolean)
+      .reduce((acc, item) => ({ ...acc, [item]: true }), {});
+    const containerClasses = classMap({
+      [`${prefix}--modal-container`]: true,
+      ...containerClass,
     });
     return html`
       <a id="start-sentinel" class="${prefix}--visually-hidden" href="javascript:void 0" role="navigation"></a>
@@ -169,29 +174,32 @@ class BXModal extends HostListenerMixin(LitElement) {
     super.connectedCallback();
   }
 
-  attributeChangedCallback(name, old, current) {
-    super.attributeChangedCallback(name, old, current);
-    if (name === 'open') {
-      if (old == null && current != null) {
+  async updated(changedProperties) {
+    if (changedProperties.has('open')) {
+      if (this.open) {
         this._launcher = this.ownerDocument!.activeElement;
         const primaryFocusNode = this.querySelector((this.constructor as typeof BXModal).selectorPrimaryFocus);
         if (primaryFocusNode) {
+          // For cases where a `carbon-custom-elements` component (e.g. `<bx-btn>`) being `primaryFocusNode`,
+          // where its first update/render cycle that makes it focusable happens after `<bx-modal>`'s first update/render cycle
+          await 0;
           (primaryFocusNode as HTMLElement).focus();
         } else {
           const tabbable = find(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), elem =>
             Boolean((elem as HTMLElement).offsetParent)
           );
           if (tabbable) {
+            // For cases where a `carbon-custom-elements` component (e.g. `<bx-btn>`) being `tabbable`,
+            // where its first update/render cycle that makes it focusable happens after `<bx-modal>`'s first update/render cycle
+            await 0;
             (tabbable as HTMLElement).focus();
           } else {
             this.focus();
           }
         }
-      } else if (old != null && current == null) {
-        if (this._launcher && typeof (this._launcher as HTMLElement).focus === 'function') {
-          (this._launcher as HTMLElement).focus();
-          this._launcher = null;
-        }
+      } else if (this._launcher && typeof (this._launcher as HTMLElement).focus === 'function') {
+        (this._launcher as HTMLElement).focus();
+        this._launcher = null;
       }
     }
   }

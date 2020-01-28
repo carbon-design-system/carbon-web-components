@@ -8,9 +8,10 @@
  */
 
 import { customElement, LitElement, html, property } from 'lit-element';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
+import ifNonEmpty from '../../globals/directives/if-non-empty';
 import FormMixin from '../../globals/mixins/form';
 import styles from './input.scss';
 
@@ -38,7 +39,7 @@ export default class BXInput extends FormMixin(LitElement) {
    * Handles `oninput` event on the `<input>`.
    * @param event The event.
    */
-  private _handleInput({ target }: Event) {
+  protected _handleInput({ target }: Event) {
     this.value = (target as HTMLInputElement).value;
   }
 
@@ -144,15 +145,18 @@ export default class BXInput extends FormMixin(LitElement) {
 
     const invalidIcon = WarningFilled16({ class: `${prefix}--text-input__invalid-icon` });
 
-    const inputClasses = classnames(`${prefix}--text-input`, {
+    const inputClasses = classMap({
+      [`${prefix}--text-input`]: true,
       [`${prefix}--text-input--invalid`]: this.invalid,
     });
 
-    const labelClasses = classnames(`${prefix}--label`, {
+    const labelClasses = classMap({
+      [`${prefix}--label`]: true,
       [`${prefix}--label--disabled`]: this.disabled,
     });
 
-    const helperTextClasses = classnames(`${prefix}--form__helper-text`, {
+    const helperTextClasses = classMap({
+      [`${prefix}--form__helper-text`]: true,
       [`${prefix}--form__helper-text--disabled`]: this.disabled,
     });
 
@@ -176,12 +180,12 @@ export default class BXInput extends FormMixin(LitElement) {
           ?data-invalid="${this.invalid}"
           ?disabled="${this.disabled}"
           id="input"
-          name="${this.name}"
-          pattern="${this.pattern}"
-          placeholder="${this.placeholder}"
+          name="${ifNonEmpty(this.name)}"
+          pattern="${ifNonEmpty(this.pattern)}"
+          placeholder="${ifNonEmpty(this.placeholder)}"
           ?readonly="${this.readonly}"
           ?required="${this.required}"
-          type="${this.type}"
+          type="${ifNonEmpty(this.type)}"
           .value="${this.value}"
           @input="${handleInput}"
         />

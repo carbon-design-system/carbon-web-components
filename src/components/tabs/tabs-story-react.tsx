@@ -8,9 +8,8 @@
  */
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 // Below path will be there when an application installs `carbon-custom-elements` package.
-// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXTabs from 'carbon-custom-elements/es/components-react/tabs/tabs';
 // @ts-ignore
@@ -21,10 +20,9 @@ import styles from './tabs-story.scss';
 export { default } from './tabs-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, triggerContent, value, disableSelection } = parameters?.props?.['bx-tabs'];
-  const beforeSelectedAction = action('bx-tabs-beingselected');
+  const { disabled, triggerContent, value, disableSelection, onBeforeSelect, onAfterSelect } = parameters?.props?.['bx-tabs'];
   const handleBeforeSelected = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeSelect(event);
     if (disableSelection) {
       event.preventDefault();
     }
@@ -37,7 +35,7 @@ export const defaultStory = ({ parameters }) => {
         triggerContent={triggerContent}
         value={value}
         onBeforeSelect={handleBeforeSelected}
-        onAfterSelect={action('bx-tabs-selected')}>
+        onAfterSelect={onAfterSelect}>
         <BXTab id="tab-all" target="panel-all" value="all">
           Option 1
         </BXTab>

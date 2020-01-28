@@ -62,11 +62,9 @@ class BXComboBox extends BXDropdown {
   protected _handleInput() {
     const items = this.querySelectorAll((this.constructor as typeof BXComboBox).selectorItem);
     const index = !this._filterInput.value ? -1 : findIndex(items, this._testItemWithQueryText, this);
-    if (index >= 0) {
-      forEach(items, (item, i) => {
-        (item as BXComboBoxItem).highlighted = i === index;
-      });
-    }
+    forEach(items, (item, i) => {
+      (item as BXComboBoxItem).highlighted = i === index;
+    });
     const { _filterInput: filterInput } = this;
     this._filterInputValue = !filterInput ? '' : filterInput.value;
     this.open = true;
@@ -81,20 +79,18 @@ class BXComboBox extends BXDropdown {
     }
   }
 
-  protected _handleKeydownInner(event: KeyboardEvent) {
+  protected _handleKeypressInner(event: KeyboardEvent) {
     const { key } = event;
     const action = (this.constructor as typeof BXDropdown).getAction(key);
-    const { NAVIGATING, TRIGGERING } = DROPDOWN_KEYBOARD_ACTION;
+    const { TRIGGERING } = DROPDOWN_KEYBOARD_ACTION;
     if (
       (event.target as Element).closest((this.constructor as typeof BXComboBox).selectorSelectionButton) &&
-      action === TRIGGERING
+      // Space key should be handled by `<input>` unless "clear selection" button has focus
+      (action === TRIGGERING || key === ' ')
     ) {
       this._handleUserInitiatedClearInput();
     } else {
-      super._handleKeydownInner(event);
-      if (action === NAVIGATING) {
-        event.preventDefault(); // Prevents default behavior in `<input>`
-      }
+      super._handleKeypressInner(event);
     }
   }
 
@@ -102,6 +98,9 @@ class BXComboBox extends BXDropdown {
    * Handles user-initiated clearing the `<input>` for filtering.
    */
   protected _handleUserInitiatedClearInput() {
+    forEach(this.querySelectorAll((this.constructor as typeof BXComboBox).selectorItem), item => {
+      (item as BXComboBoxItem).highlighted = false;
+    });
     this._filterInputValue = '';
     this._filterInput.focus();
     this.open = false;
@@ -111,12 +110,15 @@ class BXComboBox extends BXDropdown {
   protected _handleUserInitiatedSelectItem(item?: BXComboBoxItem) {
     if (item && !this._selectionShouldChange(item)) {
       // Escape hatch for `shouldUpdate()` logic that updates `._filterInputValue()` when selection changes,
-      // given we want to update the `<input>` even if selection doesn't update.
+      // given we want to update the `<input>` and close the dropdown even if selection doesn't update.
       // Use case:
       // 1. Select the 2nd item in combo box drop down
       // 2. Type some text in the `<input>`
-      // 3. Re-select the 2nd item in combo box drop down, the `<input>` has to updated with the 2nd item
+      // 3. Re-select the 2nd item in combo box drop down,
+      //    the `<input>` has to updated with the 2nd item and the dropdown should be closed,
+      //    even if there is no change in the selected value
       this._filterInputValue = item.textContent || '';
+      this.open = false;
       this.requestUpdate();
     }
     super._handleUserInitiatedSelectItem(item);
@@ -186,14 +188,6 @@ class BXComboBox extends BXDropdown {
    */
   static get selectorItemHighlighted() {
     return `${prefix}-combo-box-item[highlighted]`;
-  }
-
-  /**
-   * A selector to ignore the `click` events from.
-   * Primary for the checkbox label where the `click` event will happen from the associated check box.
-   */
-  static get selectorIgnoreClickInner() {
-    return `.${prefix}--checkbox-label`;
   }
 
   /**

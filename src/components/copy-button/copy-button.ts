@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { TemplateResult } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, customElement, LitElement } from 'lit-element';
@@ -61,7 +61,8 @@ export const _renderButton = ({
   children?: TemplateResult;
   handleClickButton: EventListener;
 }) => {
-  const feedbackClasses = classnames(`${prefix}--btn--copy__feedback`, {
+  const feedbackClasses = classMap({
+    [`${prefix}--btn--copy__feedback`]: true,
     [`${prefix}--btn--copy__feedback--displayed`]: showFeedback,
   });
   return html`

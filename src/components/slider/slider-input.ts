@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import ifNonNull from '../../globals/directives/if-non-null';
@@ -86,7 +86,9 @@ class BXSliderInput extends FocusMixin(LitElement) {
     // but there doesn't seem a corresponding style to the thumb.
     // Because of that, in addition to the mininum/maximum constraint enforced,
     // the code here start without `invalid` styling option for now.
-    const classes = classnames(`${prefix}--text-input`, `${prefix}--slider-text-input`, {
+    const classes = classMap({
+      [`${prefix}--text-input`]: true,
+      [`${prefix}--slider-text-input`]: true,
       [`${prefix}--text-input--light`]: light,
     });
     return html`

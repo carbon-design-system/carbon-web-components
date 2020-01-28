@@ -7,12 +7,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean, select, text } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import { NOTIFICATION_KIND } from './inline-notification';
 import './toast-notification';
+import storyDocs from './notification-story.mdx';
 
 const kinds = {
   [`Success (${NOTIFICATION_KIND.SUCCESS})`]: NOTIFICATION_KIND.SUCCESS,
@@ -21,13 +23,23 @@ const kinds = {
   [`Error (${NOTIFICATION_KIND.ERROR})`]: NOTIFICATION_KIND.ERROR,
 };
 
+const noop = () => {};
+
 export const inline = ({ parameters }) => {
-  const { kind, title, subtitle, hideCloseButton, closeButtonLabel, iconLabel, open, disableClose } = parameters?.props?.[
-    'bx-inline-notification'
-  ];
-  const beforeSelectedAction = action('bx-notification-beingclosed');
+  const {
+    kind,
+    title,
+    subtitle,
+    hideCloseButton,
+    closeButtonLabel,
+    iconLabel,
+    open,
+    disableClose,
+    onBeforeClose = noop,
+    onAfterClose = noop,
+  } = parameters?.props?.['bx-inline-notification'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeClose(event);
     if (disableClose) {
       event.preventDefault();
     }
@@ -35,15 +47,15 @@ export const inline = ({ parameters }) => {
   return html`
     <bx-inline-notification
       style="min-width: 30rem; margin-bottom: .5rem"
-      kind="${kind}"
-      title="${title}"
-      subtitle="${subtitle}"
+      kind="${ifNonNull(kind)}"
+      title="${ifNonNull(title)}"
+      subtitle="${ifNonNull(subtitle)}"
       ?hide-close-button="${hideCloseButton}"
-      close-button-label="${ifDefined(!closeButtonLabel ? undefined : closeButtonLabel)}"
-      icon-label="${ifDefined(!iconLabel ? undefined : iconLabel)}"
+      close-button-label="${ifNonNull(closeButtonLabel)}"
+      icon-label="${ifNonNull(iconLabel)}"
       ?open="${open}"
       @bx-notification-beingclosed="${handleBeforeClose}"
-      @bx-notification-closed="${action('bx-notification-closed')}"
+      @bx-notification-closed="${onAfterClose}"
     >
     </bx-inline-notification>
   `;
@@ -51,25 +63,21 @@ export const inline = ({ parameters }) => {
 
 inline.story = {
   parameters: {
-    docs: {
-      storyDescription: `
-Inline notifications show up in task flows, to notify users of the status of an action.
-They usually appear at the top of the primary content area.
-    `,
-    },
     knobs: {
       'bx-inline-notification': () => ({
         kind: select('The notification kind (kind)', kinds, NOTIFICATION_KIND.INFO),
-        title: text('Title (title)', 'Notification title'),
-        subtitle: text('Subtitle (subtitle)', 'Subtitle text goes here.'),
+        title: textNullable('Title (title)', 'Notification title'),
+        subtitle: textNullable('Subtitle (subtitle)', 'Subtitle text goes here.'),
         hideCloseButton: boolean('Hide the close button (hide-close-button)', false),
-        closeButtonLabel: text('a11y label for the close button (close-button-label)', ''),
-        iconLabel: text('a11y label for the icon (icon-label)', ''),
+        closeButtonLabel: textNullable('a11y label for the close button (close-button-label)', ''),
+        iconLabel: textNullable('a11y label for the icon (icon-label)', ''),
         open: boolean('Open (open)', true),
         disableClose: boolean(
           'Disable user-initiated close action (Call event.preventDefault() in bx-notification-beingclosed event)',
           false
         ),
+        onBeforeClose: action('bx-notification-beingclosed'),
+        onAfterClose: action('bx-notification-closed'),
       }),
     },
   },
@@ -86,10 +94,11 @@ export const toast = ({ parameters }) => {
     iconLabel,
     open,
     disableClose,
-  } = parameters?.props?.['bx-toast-notification'];
-  const beforeSelectedAction = action('bx-notification-beingclosed');
+    onBeforeClose = noop,
+    onAfterClose = noop,
+  } = parameters?.props?.['bx-toast-notification'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeClose(event);
     if (disableClose) {
       event.preventDefault();
     }
@@ -97,16 +106,16 @@ export const toast = ({ parameters }) => {
   return html`
     <bx-toast-notification
       style="min-width: 30rem; margin-bottom: .5rem"
-      kind="${kind}"
-      title="${title}"
-      subtitle="${subtitle}"
-      caption="${caption}"
+      kind="${ifNonNull(kind)}"
+      title="${ifNonNull(title)}"
+      subtitle="${ifNonNull(subtitle)}"
+      caption="${ifNonNull(caption)}"
       ?hide-close-button="${hideCloseButton}"
-      close-button-label="${ifDefined(!closeButtonLabel ? undefined : closeButtonLabel)}"
-      icon-label="${ifDefined(!iconLabel ? undefined : iconLabel)}"
+      close-button-label="${ifNonNull(closeButtonLabel)}"
+      icon-label="${ifNonNull(iconLabel)}"
       ?open="${open}"
       @bx-notification-beingclosed="${handleBeforeClose}"
-      @bx-notification-closed="${action('bx-notification-closed')}"
+      @bx-notification-closed="${onAfterClose}"
     >
     </bx-toast-notification>
   `;
@@ -114,16 +123,10 @@ export const toast = ({ parameters }) => {
 
 toast.story = {
   parameters: {
-    docs: {
-      storyDescription: `
-Toasts are non-modal, time-based window elements used to display short messages;
-they usually appear at the bottom of the screen and disappear after a few seconds.
-    `,
-    },
     knobs: {
       'bx-toast-notification': () => ({
         ...inline.story.parameters.knobs['bx-inline-notification'](),
-        caption: text('Caption (caption)', 'Time stamp [00:00:00]'),
+        caption: textNullable('Caption (caption)', 'Time stamp [00:00:00]'),
       }),
     },
   },
@@ -131,4 +134,9 @@ they usually appear at the bottom of the screen and disappear after a few second
 
 export default {
   title: 'Notifications',
+  parameters: {
+    docs: {
+      page: storyDocs,
+    },
+  },
 };

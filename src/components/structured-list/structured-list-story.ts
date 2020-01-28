@@ -8,16 +8,19 @@
  */
 
 import { html } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { boolean } from '@storybook/addon-knobs';
+import ifNonNull from '../../globals/directives/if-non-null';
 import './structured-list';
 import './structured-list-head';
 import './structured-list-header-row';
+import './structured-list-header-cell';
 import './structured-list-body';
 import './structured-list-row';
+import './structured-list-cell';
+import storyDocs from './structured-list-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { hasSelection } = parameters?.props?.['bx-structured-list'];
+  const { hasSelection } = parameters?.props?.['bx-structured-list'] ?? {};
   const selectionName = !hasSelection ? undefined : 'structured-list-selection';
   const selectionValues = !hasSelection
     ? []
@@ -26,13 +29,13 @@ export const defaultStory = ({ parameters }) => {
     <bx-structured-list ?has-selection=${hasSelection}>
       <bx-structured-list-head>
         <bx-structured-list-header-row ?has-selection=${hasSelection}>
-          <bx-structured-list-header>ColumnA</bx-structured-list-header>
-          <bx-structured-list-header>ColumnB</bx-structured-list-header>
-          <bx-structured-list-header>ColumnC</bx-structured-list-header>
+          <bx-structured-list-header-cell>ColumnA</bx-structured-list-header-cell>
+          <bx-structured-list-header-cell>ColumnB</bx-structured-list-header-cell>
+          <bx-structured-list-header-cell>ColumnC</bx-structured-list-header-cell>
         </bx-structured-list-header-row>
       </bx-structured-list-head>
       <bx-structured-list-body>
-        <bx-structured-list-row selection-name=${ifDefined(selectionName)} selection-value=${ifDefined(selectionValues[0])}>
+        <bx-structured-list-row selection-name=${ifNonNull(selectionName)} selection-value=${ifNonNull(selectionValues[0])}>
           <bx-structured-list-cell>Row 1</bx-structured-list-cell>
           <bx-structured-list-cell>Row 1</bx-structured-list-cell>
           <bx-structured-list-cell
@@ -40,7 +43,7 @@ export const defaultStory = ({ parameters }) => {
             augue. Aenean posuere sem vel euismod dignissim.</bx-structured-list-cell
           >
         </bx-structured-list-row>
-        <bx-structured-list-row selection-name=${ifDefined(selectionName)} selection-value=${ifDefined(selectionValues[1])}>
+        <bx-structured-list-row selection-name=${ifNonNull(selectionName)} selection-value=${ifNonNull(selectionValues[1])}>
           <bx-structured-list-cell>Row 2</bx-structured-list-cell>
           <bx-structured-list-cell>Row 2</bx-structured-list-cell>
           <bx-structured-list-cell
@@ -48,7 +51,7 @@ export const defaultStory = ({ parameters }) => {
             augue. Aenean posuere sem vel euismod dignissim.</bx-structured-list-cell
           >
         </bx-structured-list-row>
-        <bx-structured-list-row selection-name=${ifDefined(selectionName)} selection-value=${ifDefined(selectionValues[2])}>
+        <bx-structured-list-row selection-name=${ifNonNull(selectionName)} selection-value=${ifNonNull(selectionValues[2])}>
           <bx-structured-list-cell>Row 3</bx-structured-list-cell>
           <bx-structured-list-cell>Row 3</bx-structured-list-cell>
           <bx-structured-list-cell
@@ -68,6 +71,9 @@ defaultStory.story = {
 export default {
   title: 'Structured list',
   parameters: {
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-structured-list': () => ({
         hasSelection: boolean('Supports selection feature (has-selection)', false),

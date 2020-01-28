@@ -42,6 +42,7 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 - [Iteration plans](#iteration-plans)
 - [Creating build](#creating-build)
 - [Running unit test](#running-unit-test)
+- [Running build integration test](#running-build-integration-test)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -51,14 +52,14 @@ To install `carbon-custom-elements` in your project, you will need to run the
 following command using [npm](https://www.npmjs.com/):
 
 ```bash
-npm install -S carbon-custom-elements carbon-components lit-html lit-element classnames lodash.findlast @babel/runtime
+npm install -S carbon-custom-elements carbon-components lit-html lit-element lodash-es resize-observer-polyfill @babel/runtime
 ```
 
 If you prefer [Yarn](https://yarnpkg.com/en/), use the following command
 instead:
 
 ```bash
-yarn add carbon-custom-elements carbon-components lit-html lit-element classnames lodash.findlast @babel/runtime
+yarn add carbon-custom-elements carbon-components lit-html lit-element lodash-es resize-observer-polyfill @babel/runtime
 ```
 
 ### Basic usage
@@ -109,6 +110,11 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
+The `.d.ts` files in `carbon-custom-elements` package are compiled with TypeScript 3.7. You can use TypeScript 3.7 in your Angular application with upcoming Angular `9.0` release, or with the following instructions, so your application can use those `.d.ts` files:
+
+- Set `true` to [`angularCompilerOptions.disableTypeScriptVersionCheck`](https://angular.io/guide/angular-compiler-options#disabletypescriptversioncheck) in `tsconfig.json`
+- In `polyfills.ts`, change [`__importDefault` TypeScript helper](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#example-8) as follows: `window.__importDefault = mod => (mod?.__esModule ? mod : { default: mod })`
+
 ### React
 
 [![Edit carbon-custom-elements with React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/react)
@@ -142,7 +148,8 @@ Vue users can use our components in the same manner as native HTML tags, without
 
 ### Other usage guides
 
-- [Using custom styles in components](./docs/custom-style.md)
+- [Having components participate in form](./docs/form.md)
+- [Using custom styles in components](./docs/styling.md)
 - [Using `carbon-custom-elements` with old build toolchain](./docs/old-build-toolchain.md)
 
 ## Getting started with development
@@ -239,4 +246,24 @@ Above options can be used together. This is useful to debug your code as you tes
 
 ```
 > gulp test:unit -s tests/spec/dropdown_spec.ts -b Chrome -d -k
+```
+
+## Running build integration test
+
+You can run build integration test by:
+
+```
+> yarn test:integration
+```
+
+You can run a specific set of UI test steps (e.g. running `tests/integration/form-angular_steps.js` only) by:
+
+```
+> yarn test:integration form-angular_steps
+```
+
+By default Chrome runs in headless mode. You can show Chrome UI by:
+
+```
+> CI=false yarn test:integration
 ```

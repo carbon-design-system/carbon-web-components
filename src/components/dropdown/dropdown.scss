@@ -24,6 +24,11 @@ $css--plex: true !default;
   .#{$prefix}--label[hidden] {
     display: none;
   }
+
+  .#{$prefix}--list-box__menu {
+    top: 100%;
+    margin-top: 1px;
+  }
 }
 
 :host(#{$prefix}-dropdown[type='inline']) {

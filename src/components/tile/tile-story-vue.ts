@@ -7,86 +7,124 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { storiesOf } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import './tile';
-import './clickable-tile';
-import './selectable-tile';
+import {
+  defaultStory as baseDefaultStory,
+  clickable as baseClickable,
+  singleSelectable as baseSingleSelectable,
+  multiSelectable as baseMultiSelectable,
+  expandable as basEexpandable,
+} from './tile-story';
 
-const createClickableProps = () => ({
-  href: text('Href for clickable UI (href)', ''),
+export const defaultStory = () => ({
+  template: `
+    <bx-tile>Default tile</bx-tile>
+  `,
 });
 
-const createSelectableProps = () => ({
-  checkmarkLabel: text('Label text for the checkmark icon (checkmark-label)', ''),
-  name: text('Name (name)', ''),
-  selected: boolean('Selected (selected)', false),
-  value: text('Value (value)', ''),
-  onInput: action('input'),
+defaultStory.story = baseDefaultStory.story;
+
+export const clickable = ({ parameters }) => ({
+  template: `
+    <bx-clickable-tile :href="href">Clickable tile</bx-clickable-tile>
+  `,
+  ...createVueBindingsFromProps(parameters?.props?.['bx-clickable-tile']),
 });
 
-storiesOf('Tile', module)
-  .addDecorator(withKnobs)
-  .add(
-    'Default',
-    () => ({
-      template: `
-      <bx-tile>Default tile</bx-tile>
-    `,
-    }),
-    {
-      docs: {
-        storyDescription: `
-Read-only tiles are used to display information to the user, such as features or services offered.
-Read-only tiles are often seen on marketing pages to promote content.
-These tiles can have internal calls-to-action (CTAs), such as a button or a link.
-      `,
-      },
-    }
-  )
-  .add(
-    'Clickable',
-    () => ({
-      template: `
-      <bx-clickable-tile :href="href">Clickable tile</bx-clickable-tile>
-    `,
-      ...createVueBindingsFromProps(createClickableProps()),
-    }),
-    {
-      docs: {
-        storyDescription: `
-Clickable tiles can be used as navigational items, where the entire tile is a clickable state,
-which redirects the user to a new page.
-Clickable tiles cannot contain separate internal CTAs.
-      `,
-      },
-    }
-  )
-  .add(
-    'Selectable',
-    () => ({
-      template: `
-      <bx-selectable-tile
+clickable.story = baseClickable.story;
+
+export const singleSelectable = ({ parameters }) => ({
+  template: `
+    <fieldset>
+      <legend>Single-select tiles</legend>
+      <bx-radio-tile
         :checkmark-label="checkmarkLabel"
         :name="name"
-        :selected="selected"
         :value="value"
         @input="onInput"
       >
-        Multi-select Tile
-      </bx-selectable-tile>
+        Single-select Tile
+      </bx-radio-tile>
+      <bx-radio-tile
+        :checkmark-label="checkmarkLabel"
+        :name="name"
+        :value="value"
+        @input="onInput"
+      >
+        Single-select Tile
+      </bx-radio-tile>
+      <bx-radio-tile
+        :checkmark-label="checkmarkLabel"
+        :name="name"
+        :value="value"
+        @input="onInput"
+      >
+        Single-select Tile
+      </bx-radio-tile>
+    </fieldset>
+  `,
+  ...createVueBindingsFromProps(parameters?.props?.['bx-radio-tile']),
+});
+
+singleSelectable.story = baseSingleSelectable.story;
+
+export const multiSelectable = ({ parameters }) => ({
+  template: `
+    <bx-selectable-tile
+      :checkmark-label="checkmarkLabel"
+      :name="name"
+      :selected="selected"
+      :value="value"
+      @input="onInput"
+    >
+      Multi-select Tile
+    </bx-selectable-tile>
+  `,
+  ...createVueBindingsFromProps(parameters?.props?.['bx-selectable-tile']),
+});
+
+multiSelectable.story = baseMultiSelectable.story;
+
+export const expandable = ({ parameters }) => {
+  const props = (({ disableChange, onBeforeChange, onAfterChange, ...rest }) => {
+    const handleBeforeChange = (event: CustomEvent) => {
+      onBeforeChange(event);
+      if (disableChange) {
+        event.preventDefault();
+      }
+    };
+    return {
+      ...rest,
+      handleBeforeChange,
+      handleAfterChange: onAfterChange,
+    };
+  })(parameters?.props?.['bx-expandable-tile']);
+  return {
+    template: `
+      <bx-expandable-tile
+        :expanded="expanded"
+        @bx-expandable-tile-beingchanged="handleBeforeChange"
+        @bx-expandable-tile-changed="handleAfterChange"
+      >
+        <bx-tile-above-the-fold-content style="height: 200px">
+          Above the fold content here
+        </bx-tile-above-the-fold-content>
+        <bx-tile-below-the-fold-content style="height: 300px">
+          Below the fold content here
+        </bx-tile-below-the-fold-content>
+      </bx-expandable-tile>
     `,
-      ...createVueBindingsFromProps(createSelectableProps()),
+    ...createVueBindingsFromProps(props),
+  };
+};
+
+expandable.story = basEexpandable.story;
+
+export default {
+  title: 'Tile',
+  decorators: [
+    () => ({
+      template: `<div><story /></div>`,
     }),
-    {
-      docs: {
-        storyDescription: `
-Selectable tiles work like a radio button, where the entire tile is a click target.
-Selectable tiles may contain internal CTAs (like links to docs) if the internal CTA is given its own click target.
-Selectable tiles work well for presenting options to a user in a structured manner, such as a set of pricing plans.
-      `,
-      },
-    }
-  );
+  ],
+};

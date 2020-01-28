@@ -8,9 +8,8 @@
  */
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 // Below path will be there when an application installs `carbon-custom-elements` package.
-// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXTile from 'carbon-custom-elements/es/components-react/tile/tile';
 // @ts-ignore
@@ -77,20 +76,16 @@ export const multiSelectable = ({ parameters }) => {
 multiSelectable.story = baseMultiSelectable.story;
 
 export const expandable = ({ parameters }) => {
-  const { expanded, disableChange } =
+  const { expanded, disableChange, onBeforeChange, onAfterChange } =
     (parameters.props && parameters.props['bx-expandable-tile']) || ({} as typeof parameters.props['bx-expandable-tile']);
-  const beforeChangedAction = action('bx-expandable-tile-beingchanged');
   const handleBeforeChanged = (event: CustomEvent) => {
-    beforeChangedAction(event);
+    onBeforeChange(event);
     if (disableChange) {
       event.preventDefault();
     }
   };
   return (
-    <BXExpandableTile
-      expanded={expanded}
-      onBeforeChange={handleBeforeChanged}
-      onAfterChange={action('bx-expandable-tile-changed')}>
+    <BXExpandableTile expanded={expanded} onBeforeChange={handleBeforeChanged} onAfterChange={onAfterChange}>
       <BXTileAboveTheFoldContent style={{ height: '200px' }}>Above the fold content here</BXTileAboveTheFoldContent>
       <BXTileBelowTheFoldContent style={{ height: '300px' }}>Below the fold content here</BXTileBelowTheFoldContent>
     </BXExpandableTile>
@@ -99,7 +94,8 @@ export const expandable = ({ parameters }) => {
 
 expandable.story = baseExpandable.story;
 
-export default {
-  ...baseStory,
+// Creating a shallow clone with spread operator seems to cause
+// `Cannot read property 'name' of undefined` error in `@storybook/source-loader`
+export default Object.assign({}, baseStory, {
   decorators: [story => <div>{story()}</div>],
-};
+});

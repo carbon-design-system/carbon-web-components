@@ -9,9 +9,20 @@
 
 import PropTypes from 'prop-types';
 import React, { useCallback, useMemo, useState } from 'react';
-import { action } from '@storybook/addon-actions';
+import { useDebounce } from 'use-debounce';
+import Delete16 from '@carbon/icons-react/es/delete/16';
+import Download16 from '@carbon/icons-react/es/download/16';
+import Settings16 from '@carbon/icons-react/es/settings/16';
 // Below path will be there when an application installs `carbon-custom-elements` package.
-// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
+// @ts-ignore
+import BXBtn from 'carbon-custom-elements/es/components-react/button/button';
+// @ts-ignore
+import BXOverflowMenu from 'carbon-custom-elements/es/components-react/overflow-menu/overflow-menu';
+// @ts-ignore
+import BXOverflowMenuBody from 'carbon-custom-elements/es/components-react/overflow-menu/overflow-menu-body';
+// @ts-ignore
+import BXOverflowMenuItem from 'carbon-custom-elements/es/components-react/overflow-menu/overflow-menu-item';
 // @ts-ignore
 import BXPagination from 'carbon-custom-elements/es/components-react/pagination/pagination';
 // @ts-ignore
@@ -34,6 +45,15 @@ import BXTableBody from 'carbon-custom-elements/es/components-react/data-table/t
 import BXTableRow from 'carbon-custom-elements/es/components-react/data-table/table-row';
 // @ts-ignore
 import BXTableCell from 'carbon-custom-elements/es/components-react/data-table/table-cell';
+// @ts-ignore
+import BXTableToolbar from 'carbon-custom-elements/es/components-react/data-table/table-toolbar';
+// @ts-ignore
+import BXTableToolbarContent from 'carbon-custom-elements/es/components-react/data-table/table-toolbar-content';
+// @ts-ignore
+import BXTableToolbarSearch from 'carbon-custom-elements/es/components-react/data-table/table-toolbar-search';
+// @ts-ignore
+import BXTableBatchActions from 'carbon-custom-elements/es/components-react/data-table/table-batch-actions';
+import BXBtnElement from '../button/button';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 import {
@@ -41,6 +61,7 @@ import {
   sortable as baseSortable,
   sortableWithPagination as baseSortableWithPagination,
 } from './data-table-story';
+import styles from './data-table-story.scss';
 
 export { default } from './data-table-story';
 
@@ -51,6 +72,14 @@ const collationFactors = {
   [TABLE_SORT_DIRECTION.ASCENDING]: 1,
   [TABLE_SORT_DIRECTION.DESCENDING]: -1,
 };
+
+/**
+ * @param row A table row.
+ * @param searchString A search string.
+ * @returns `true` if the given table row matches the given search string.
+ */
+const doesRowMatchSearchString = (row: TDemoTableRow, searchString: string) =>
+  Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0);
 
 /**
  * A class to manage table states, like selection and sorting.
@@ -99,12 +128,24 @@ const BXCEDemoDataTable = ({
 
   const [pageSize, setPageSize] = useState(propPageSize);
   const [rows, setRows] = useState(propRows);
+  const [searchString, setSearchString] = useState('');
+  const [debouncedSearchString] = useDebounce(searchString, 500);
   const [sortInfo, setSortInfo] = useState(propSortInfo);
   const [start, setStart] = useState(propStart);
 
+  const filteredRows = useMemo(
+    () => (!debouncedSearchString ? rows : rows.filter(row => doesRowMatchSearchString(row, debouncedSearchString))),
+    [debouncedSearchString, rows]
+  );
+  const selectedRowsCountInFiltered = filteredRows!.filter(({ selected }) => selected!).length;
+  const hasBatchActions = hasSelection && selectedRowsCountInFiltered > 0;
+  const { length: count } = filteredRows;
+  const adjustedStart =
+    count === 0 || start! < count ? start! : Math.max(start! - Math.ceil((start! - count) / pageSize!) * pageSize!, 0);
+
   const { columnId: sortColumnId, direction: sortDirection } = sortInfo;
   const selectionAllName = !hasSelection ? undefined : `__bx-ce-demo-data-table_select-all_${elementId}`;
-  const selectedAll = rows.every(({ selected }) => !!selected);
+  const selectedAllInFiltered = selectedRowsCountInFiltered > 0 && filteredRows!.length === selectedRowsCountInFiltered;
 
   const compare = useCallback(
     (lhs, rhs) => {
@@ -118,8 +159,26 @@ const BXCEDemoDataTable = ({
 
   const sortedRows =
     sortDirection === TABLE_SORT_DIRECTION.NONE
-      ? rows!.slice()
-      : rows!.slice().sort((lhs, rhs) => collationFactors[sortDirection] * compare(lhs[sortColumnId!], rhs[sortColumnId!]));
+      ? filteredRows
+      : filteredRows
+          .slice()
+          .sort((lhs, rhs) => collationFactors[sortDirection] * compare(lhs[sortColumnId!], rhs[sortColumnId!]));
+
+  const handleCancelSelection = useCallback(() => {
+    setRows(
+      rows!.map(row =>
+        debouncedSearchString && !doesRowMatchSearchString(row, debouncedSearchString) ? row : { ...row, selected: false }
+      )
+    );
+  }, [rows, debouncedSearchString]);
+
+  const handleChangeSearchString = useCallback(
+    ({ detail }: CustomEvent) => {
+      const { value } = detail;
+      setSearchString(value);
+    },
+    [pageSize, setSearchString]
+  );
 
   const handleChangePageSize = useCallback(({ detail }: CustomEvent) => {
     setPageSize(detail.value);
@@ -148,10 +207,14 @@ const BXCEDemoDataTable = ({
       const { defaultPrevented, detail } = event;
       if (!defaultPrevented) {
         const { selected } = detail;
-        setRows(rows!.map(row => ({ ...row, selected })));
+        setRows(
+          rows!.map(row =>
+            debouncedSearchString && !doesRowMatchSearchString(row, debouncedSearchString) ? row : { ...row, selected }
+          )
+        );
       }
     },
-    [rows, onChangeSelectionAll]
+    [rows, debouncedSearchString, onChangeSelectionAll]
   );
 
   const handleChangeSort = useCallback(
@@ -182,11 +245,28 @@ const BXCEDemoDataTable = ({
     setStart(detail.start);
   }, []);
 
+  const handleDeleteRows = useCallback(() => {
+    setRows(rows.filter(row => !row.selected || !doesRowMatchSearchString(row, debouncedSearchString)));
+  }, [rows, debouncedSearchString]);
+
+  const handleDownloadRows = useCallback(
+    ({ target }: MouseEvent) => {
+      const blob = new Blob([JSON.stringify(filteredRows.filter(row => row.selected))], { type: 'application/json' });
+      (target as BXBtnElement).href = URL.createObjectURL(blob);
+      handleCancelSelection();
+    },
+    [filteredRows]
+  );
+
   const pagination =
     typeof pageSize === 'undefined' ? (
       undefined
     ) : (
-      <BXPagination page-size={pageSize} start={start} total={rows!.length} onAfterChangeCurrent={handleChangeStart}>
+      <BXPagination
+        page-size={pageSize}
+        start={adjustedStart}
+        total={filteredRows.length}
+        onAfterChangeCurrent={handleChangeStart}>
         <BXPageSizesSelect slot="page-sizes-select" onAfterChange={handleChangePageSize}>
           <option value="5">5</option>
           <option value="10">10</option>
@@ -196,12 +276,38 @@ const BXCEDemoDataTable = ({
       </BXPagination>
     );
 
+  /* eslint-disable no-script-url */
   return (
-    <div>
+    <div className="bx-ce-demo--data-table">
+      <BXTableToolbar>
+        <BXTableBatchActions
+          active={hasBatchActions}
+          selectedRowsCount={selectedRowsCountInFiltered}
+          onAfterClickCancel={handleCancelSelection}>
+          <BXBtn onClick={handleDeleteRows}>
+            Delete <Delete16 slot="icon" />
+          </BXBtn>
+          <BXBtn onClick={handleDownloadRows} href="javascript:void 0" download="table-data.json">
+            Download <Download16 slot="icon" />
+          </BXBtn>
+        </BXTableBatchActions>
+        <BXTableToolbarContent hasBatchActions={hasBatchActions}>
+          <BXTableToolbarSearch onAfterInput={handleChangeSearchString}></BXTableToolbarSearch>
+          <BXOverflowMenu>
+            <Settings16 slot="icon" />
+            <BXOverflowMenuBody>
+              <BXOverflowMenuItem>Action 1</BXOverflowMenuItem>
+              <BXOverflowMenuItem>Action 2</BXOverflowMenuItem>
+              <BXOverflowMenuItem>Action 3</BXOverflowMenuItem>
+            </BXOverflowMenuBody>
+          </BXOverflowMenu>
+          <BXBtn>Primary Button</BXBtn>
+        </BXTableToolbarContent>
+      </BXTableToolbar>
       <BXTable size={size}>
         <BXTableHead>
           <BXTableHeaderRow
-            selected={selectedAll}
+            selected={selectedAllInFiltered}
             selectionName={selectionAllName}
             selectionValue={selectionAllName}
             onBeforeChangeSelection={handleChangeSelectionAll}>
@@ -222,7 +328,7 @@ const BXCEDemoDataTable = ({
           </BXTableHeaderRow>
         </BXTableHead>
         <BXTableBody zebra={zebra}>
-          {sortedRows.slice(start, start! + (typeof pageSize === 'undefined' ? Infinity : pageSize)).map(row => {
+          {sortedRows.slice(adjustedStart, adjustedStart! + (typeof pageSize === 'undefined' ? Infinity : pageSize)).map(row => {
             const { id: rowId, selected } = row;
             const selectionName = !hasSelection ? undefined : `__bx-ce-demo-data-table_${elementId}_${rowId}`;
             const selectionValue = !hasSelection ? undefined : 'selected';
@@ -245,6 +351,7 @@ const BXCEDemoDataTable = ({
       {pagination}
     </div>
   );
+  /* eslint-enable no-script-url */
 };
 
 BXCEDemoDataTable.propTypes = {
@@ -377,37 +484,30 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = baseDefaultStory.story;
 
 export const sortable = ({ parameters }) => {
-  const {
-    'bx-table': tableProps,
-    'bx-table-body': tableBodyProps,
-    'bx-table-row': tableRowProps,
-    'bx-table-header-cell': tableHeaderCellProps,
-  } = parameters.props || ({} as typeof parameters.props);
-  const { size } = tableProps || ({} as typeof tableProps);
-  const { zebra } = tableBodyProps || ({} as typeof tableBodyProps);
-  const { hasSelection, disableChangeSelection } = tableRowProps || ({} as typeof tableRowProps);
-  const { disableChangeSort } = tableHeaderCellProps || ({} as typeof tableHeaderCellProps);
-  const beforeChangeSelectionAction = action('onBeforeChangeSelection');
-  const beforeChangeSelectionAllAction = action('onBeforeChangeSelection (for selecting all rows)');
+  const { size } = parameters?.props?.['bx-table'];
+  const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
+  const { zebra } = parameters?.props?.['bx-table-body'];
+  const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
+  const { disableChangeSort, onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
   const beforeChangeSelectionHandler = (event: CustomEvent) => {
     if (event.type === 'bx-table-change-selection-all') {
-      beforeChangeSelectionAllAction(event);
+      onBeforeChangeSelectionAll(event);
     } else {
-      beforeChangeSelectionAction(event);
+      onBeforeChangeSelection(event);
     }
     if (disableChangeSelection) {
       event.preventDefault();
     }
   };
-  const beforeChangeSortAction = action('onBeforeSort');
   const beforeChangeSortHandler = (event: CustomEvent) => {
-    beforeChangeSortAction(event);
+    onBeforeSort(event);
     if (disableChangeSort) {
       event.preventDefault();
     }
   };
   return (
     <>
+      <style type="text/css">{styles.cssText}</style>
       {/* Refer to <bx-ce-demo-data-table> implementation at the top for details */}
       <BXCEDemoDataTable
         columns={demoColumns}
@@ -427,37 +527,30 @@ export const sortable = ({ parameters }) => {
 sortable.story = baseSortable.story;
 
 export const sortableWithPagination = ({ parameters }) => {
-  const {
-    'bx-table': tableProps,
-    'bx-table-body': tableBodyProps,
-    'bx-table-row': tableRowProps,
-    'bx-table-header-cell': tableHeaderCellProps,
-  } = parameters.props || ({} as typeof parameters.props);
-  const { size } = tableProps || ({} as typeof tableProps);
-  const { zebra } = tableBodyProps || ({} as typeof tableBodyProps);
-  const { hasSelection, disableChangeSelection } = tableRowProps || ({} as typeof tableRowProps);
-  const { disableChangeSort } = tableHeaderCellProps || ({} as typeof tableHeaderCellProps);
-  const beforeChangeSelectionAction = action('onBeforeChangeSelection');
-  const beforeChangeSelectionAllAction = action('onBeforeChangeSelection (for selecting all rows)');
+  const { size } = parameters?.props?.['bx-table'];
+  const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
+  const { zebra } = parameters?.props?.['bx-table-body'];
+  const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
+  const { disableChangeSort, onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
   const beforeChangeSelectionHandler = (event: CustomEvent) => {
     if (event.type === 'bx-table-change-selection-all') {
-      beforeChangeSelectionAllAction(event);
+      onBeforeChangeSelectionAll(event);
     } else {
-      beforeChangeSelectionAction(event);
+      onBeforeChangeSelection(event);
     }
     if (disableChangeSelection) {
       event.preventDefault();
     }
   };
-  const beforeChangeSortAction = action('onBeforeSort');
   const beforeChangeSortHandler = (event: CustomEvent) => {
-    beforeChangeSortAction(event);
+    onBeforeSort(event);
     if (disableChangeSort) {
       event.preventDefault();
     }
   };
   return (
     <>
+      <style type="text/css">{styles.cssText}</style>
       {/* Refer to <bx-ce-demo-data-table> implementation at the top for details */}
       <BXCEDemoDataTable
         columns={demoColumns}

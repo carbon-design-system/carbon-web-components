@@ -8,9 +8,11 @@
  */
 
 import { customElement, LitElement, html, property, query } from 'lit-element';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
+import ifNonEmpty from '../../globals/directives/if-non-empty';
+import ifNonNull from '../../globals/directives/if-non-null';
 import FormMixin from '../../globals/mixins/form';
 import styles from './textarea.scss';
 
@@ -147,15 +149,19 @@ export default class BXTextarea extends FormMixin(LitElement) {
   render() {
     const invalidIcon = WarningFilled16({ class: `${prefix}--text-area__invalid-icon` });
 
-    const textareaClasses = classnames(`${prefix}--text-area`, `${prefix}--text-area--v2`, {
+    const textareaClasses = classMap({
+      [`${prefix}--text-area`]: true,
+      [`${prefix}--text-area--v2`]: true,
       [`${prefix}--text-area--invalid`]: this.invalid,
     });
 
-    const labelClasses = classnames(`${prefix}--label`, {
+    const labelClasses = classMap({
+      [`${prefix}--label`]: true,
       [`${prefix}--label--disabled`]: this.disabled,
     });
 
-    const helperTextClasses = classnames(`${prefix}--form__helper-text`, {
+    const helperTextClasses = classMap({
+      [`${prefix}--form__helper-text`]: true,
       [`${prefix}--form__helper-text--disabled`]: this.disabled,
     });
 
@@ -176,16 +182,16 @@ export default class BXTextarea extends FormMixin(LitElement) {
           ?autocomplete="${this.autocomplete}"
           ?autofocus="${this.autofocus}"
           class="${textareaClasses}"
-          cols="${this.cols}"
+          cols="${ifNonNull(this.cols)}"
           ?data-invalid="${this.invalid}"
           ?disabled="${this.disabled}"
           id="input"
-          name="${this.name}"
-          pattern="${this.pattern}"
-          placeholder="${this.placeholder}"
+          name="${ifNonEmpty(this.name)}"
+          pattern="${ifNonEmpty(this.pattern)}"
+          placeholder="${ifNonEmpty(this.placeholder)}"
           ?readonly="${this.readonly}"
           ?required="${this.required}"
-          rows="${this.rows}"
+          rows="${ifNonNull(this.rows)}"
           .value="${this.value}"
           @input="${this._handleInput}"
         ></textarea>

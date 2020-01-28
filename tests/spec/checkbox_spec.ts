@@ -7,12 +7,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render, TemplateResult } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined';
-// Just importing the default export does not seem to run `customElements.define()`
-/* eslint-disable import/no-duplicates */
-import '../../src/components/checkbox/checkbox';
-/* eslint-enable import/no-duplicates */
+import { html, render } from 'lit-html';
+import { defaultStory } from '../../src/components/checkbox/checkbox-story';
 
 /**
  * @param formData A `FormData` instance.
@@ -27,49 +23,14 @@ const getValues = (formData: FormData) => {
   return values;
 };
 
-const template = ({
-  hasContent = true,
-  hasForm,
-  checked,
-  disabled,
-  hideLabel,
-  id,
-  indeterminate,
-  labelText,
-  name,
-  value,
-}: {
-  hasContent?: boolean;
-  hasForm?: boolean;
-  checked?: boolean;
-  disabled?: boolean;
-  hideLabel?: boolean;
-  id?: string;
-  indeterminate?: boolean;
-  labelText?: string;
-  name?: string;
-  value?: string;
-} = {}) => {
-  const inner = !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-checkbox
-          id="${ifDefined(id)}"
-          ?checked="${ifDefined(checked)}"
-          ?disabled="${ifDefined(disabled)}"
-          ?hide-label="${ifDefined(hideLabel)}"
-          ?indeterminate="${ifDefined(indeterminate)}"
-          label-text="${ifDefined(labelText)}"
-          name="${ifDefined(name)}"
-          value="${ifDefined(value)}"
-        ></bx-checkbox>
-      `;
-  return !hasContent || !hasForm
-    ? inner
-    : html`
-        <form>${inner}</form>
-      `;
-};
+const template = (props?) =>
+  defaultStory({
+    parameters: {
+      props: {
+        'bx-checkbox': props,
+      },
+    },
+  });
 
 describe('bx-checkbox', function() {
   describe('Rendering', function() {
@@ -106,12 +67,15 @@ describe('bx-checkbox', function() {
   describe('Event-based form participation', function() {
     it('Should respond to `formdata` event', async function() {
       render(
-        template({
-          hasForm: true,
-          checked: true,
-          name: 'name-foo',
-          value: 'value-foo',
-        }),
+        html`
+          <form>
+            ${template({
+              checked: true,
+              name: 'name-foo',
+              value: 'value-foo',
+            })}
+          </form>
+        `,
         document.body
       );
       await Promise.resolve();
@@ -125,11 +89,9 @@ describe('bx-checkbox', function() {
 
     it('Should respond to `formdata` event with default value', async function() {
       render(
-        template({
-          hasForm: true,
-          checked: true,
-          name: 'name-foo',
-        }),
+        html`
+          <form>${template({ checked: true, name: 'name-foo' })}</form>
+        `,
         document.body
       );
       await Promise.resolve();
@@ -143,11 +105,14 @@ describe('bx-checkbox', function() {
 
     it('Should not respond to `formdata` event if unchecked', async function() {
       render(
-        template({
-          hasForm: true,
-          name: 'name-foo',
-          value: 'value-foo',
-        }),
+        html`
+          <form>
+            ${template({
+              name: 'name-foo',
+              value: 'value-foo',
+            })}
+          </form>
+        `,
         document.body
       );
       await Promise.resolve();
@@ -161,13 +126,16 @@ describe('bx-checkbox', function() {
 
     it('Should not respond to `formdata` event if disabled', async function() {
       render(
-        template({
-          hasForm: true,
-          disabled: true,
-          checked: true,
-          name: 'name-foo',
-          value: 'value-foo',
-        }),
+        html`
+          <form>
+            ${template({
+              disabled: true,
+              checked: true,
+              name: 'name-foo',
+              value: 'value-foo',
+            })}
+          </form>
+        `,
         document.body
       );
       await Promise.resolve();
@@ -180,7 +148,7 @@ describe('bx-checkbox', function() {
     });
   });
 
-  afterEach(function() {
-    render(template({ hasContent: false }), document.body);
+  afterEach(async function() {
+    await render(undefined!, document.body);
   });
 });

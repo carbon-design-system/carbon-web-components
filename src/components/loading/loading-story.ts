@@ -9,18 +9,20 @@
 
 import { html } from 'lit-element';
 import { boolean, select } from '@storybook/addon-knobs';
+import ifNonNull from '../../globals/directives/if-non-null';
 import { LOADING_TYPE } from './loading';
+import storyDocs from './loading-story.mdx';
 
 const types = {
-  [`Regular (${LOADING_TYPE.REGULAR})`]: LOADING_TYPE.REGULAR,
+  [`Regular (${LOADING_TYPE.REGULAR})`]: null,
   [`Small (${LOADING_TYPE.SMALL})`]: LOADING_TYPE.SMALL,
   [`With overlay (${LOADING_TYPE.OVERLAY})`]: LOADING_TYPE.OVERLAY,
 };
 
 export const defaultStory = ({ parameters }) => {
-  const props = parameters?.props?.['bx-loading'];
+  const { inactive, type } = parameters?.props?.['bx-loading'] ?? {};
   return html`
-    <bx-loading ?inactive=${props.inactive} type=${props.type}></bx-loading>
+    <bx-loading ?inactive=${inactive} type=${ifNonNull(type)}></bx-loading>
   `;
 };
 
@@ -31,10 +33,13 @@ defaultStory.story = {
 export default {
   title: 'Loading',
   parameters: {
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-loading': () => ({
         inactive: boolean('Inactive (inactive)', false),
-        type: select('The spinner type (type)', types, LOADING_TYPE.REGULAR),
+        type: select('The spinner type (type)', types, null),
       }),
     },
   },

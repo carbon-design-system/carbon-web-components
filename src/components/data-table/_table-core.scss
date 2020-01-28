@@ -9,7 +9,7 @@
 // Table
 //
 
-.#{$prefix}--data-table_inner-container ::slotted(#{$prefix}-table) {
+:host(#{$prefix}-table) {
   @extend .#{$prefix}--data-table;
   display: table;
 }
@@ -38,8 +38,10 @@
 //
 
 :host(#{$prefix}-table-header-row) ::slotted(#{$prefix}-table-header-cell),
+:host(#{$prefix}-table-header-row) ::slotted(#{$prefix}-table-header-cell-skeleton),
 :host(#{$prefix}-table-header-row) .#{$prefix}--table-column-checkbox,
 :host(#{$prefix}-table-row) ::slotted(#{$prefix}-table-cell),
+:host(#{$prefix}-table-row) ::slotted(#{$prefix}-table-cell-skeleton),
 :host(#{$prefix}-table-row) .#{$prefix}--table-column-checkbox {
   display: table-cell;
 }
@@ -58,7 +60,8 @@
 //
 
 :host(#{$prefix}-table-header-row) {
-  ::slotted(#{$prefix}-table-header-cell) {
+  ::slotted(#{$prefix}-table-header-cell),
+  ::slotted(#{$prefix}-table-header-cell-skeleton) {
     color: $text-01;
     background-color: $ui-03;
     text-align: left;
@@ -66,16 +69,19 @@
     outline: none;
   }
 
-  ::slotted(#{$prefix}-table-header-cell:first-of-type) {
+  ::slotted(#{$prefix}-table-header-cell:first-of-type),
+  ::slotted(#{$prefix}-table-header-cell-skeleton:first-of-type) {
     padding-left: $spacing-05;
   }
 
-  ::slotted(#{$prefix}-table-header-cell:last-of-type) {
+  ::slotted(#{$prefix}-table-header-cell:last-of-type),
+  ::slotted(#{$prefix}-table-header-cell-skeleton:last-of-type) {
     position: relative;
     width: auto;
   }
 
   ::slotted(#{$prefix}-table-header-cell),
+  ::slotted(#{$prefix}-table-header-cell-skeleton),
   .#{$prefix}--table-column-checkbox {
     padding-left: $spacing-04;
     padding-right: $spacing-04;
@@ -101,6 +107,7 @@
 
 :host(#{$prefix}-table-row) {
   ::slotted(#{$prefix}-table-cell),
+  ::slotted(#{$prefix}-table-cell-skeleton),
   .#{$prefix}--table-column-checkbox {
     color: $text-02;
     border-top: 1px solid $ui-01;
@@ -110,27 +117,36 @@
     vertical-align: top;
   }
 
-  ::slotted(#{$prefix}-table-cell:first-of-type) {
+  ::slotted(#{$prefix}-table-cell:first-of-type),
+  ::slotted(#{$prefix}-table-cell-skeleton:first-of-type) {
     padding-left: $spacing-05;
   }
 
-  ::slotted(#{$prefix}-table-cell:last-of-type) {
+  ::slotted(#{$prefix}-table-cell:last-of-type),
+  ::slotted(#{$prefix}-table-cell-skeleton:last-of-type) {
     padding-right: $spacing-05;
   }
 }
 
-:host(#{$prefix}-table-row[even]) ::slotted(#{$prefix}-table-cell) {
-  border-bottom: 1px solid $ui-01;
+:host(#{$prefix}-table-row[even]) {
+  ::slotted(#{$prefix}-table-cell),
+  ::slotted(#{$prefix}-table-cell-skeleton) {
+    border-bottom: 1px solid $ui-01;
+  }
 }
 
-:host(#{$prefix}-table-row[odd]) ::slotted(#{$prefix}-table-cell) {
-  background-color: $data-table-zebra-color;
-  border-bottom: 1px solid $data-table-zebra-color;
-  border-top: 1px solid $data-table-zebra-color;
+:host(#{$prefix}-table-row[odd]) {
+  ::slotted(#{$prefix}-table-cell),
+  ::slotted(#{$prefix}-table-cell-skeleton) {
+    background-color: $data-table-zebra-color;
+    border-bottom: 1px solid $data-table-zebra-color;
+    border-top: 1px solid $data-table-zebra-color;
+  }
 }
 
 :host(#{$prefix}-table-row:hover) {
   ::slotted(#{$prefix}-table-cell),
+  ::slotted(#{$prefix}-table-cell-skeleton),
   .#{$prefix}--table-column-checkbox {
     color: $text-01;
     background-color: $hover-field;
@@ -141,7 +157,8 @@
 
 :host(#{$prefix}-table-row[even]:hover),
 :host(#{$prefix}-table-row[odd]:hover) {
-  ::slotted(#{$prefix}-table-cell) {
+  ::slotted(#{$prefix}-table-cell),
+  ::slotted(#{$prefix}-table-cell-skeleton) {
     background-color: $hover-field;
     border-bottom: 1px solid $hover-field;
     border-top: 1px solid $hover-field;

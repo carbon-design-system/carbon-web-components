@@ -7,24 +7,27 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean, text } from '@storybook/addon-knobs';
+import { boolean } from '@storybook/addon-knobs';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import './checkbox';
+import storyDocs from './checkbox-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onInput } = parameters?.props?.['bx-checkbox'];
+  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onAfterChange } =
+    parameters?.props?.['bx-checkbox'] ?? {};
   return html`
     <bx-checkbox
       ?checked="${checked}"
       ?disabled="${disabled}"
       ?hide-label="${hideLabel}"
       ?indeterminate="${indeterminate}"
-      label-text="${labelText}"
-      name="${ifDefined(!name ? undefined : name)}"
-      value="${ifDefined(!value ? undefined : value)}"
-      @input="${onInput}"
+      label-text="${ifNonNull(labelText)}"
+      name="${ifNonNull(name)}"
+      value="${ifNonNull(value)}"
+      @bx-checkbox-changed="${onAfterChange}"
     ></bx-checkbox>
   `;
 };
@@ -36,16 +39,19 @@ defaultStory.story = {
 export default {
   title: 'Checkbox',
   parameters: {
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-checkbox': () => ({
         checked: boolean('Checked (checked)', false),
         disabled: boolean('Disabled (disabled)', false),
         hideLabel: boolean('Hide label (hide-label)', false),
         indeterminate: boolean('Indeterminate state (indeterminate)', false),
-        labelText: text('Label text (label-text)', 'Checkbox'),
-        name: text('Name (name)', ''),
-        value: text('Value (value)', ''),
-        onInput: action('input'),
+        labelText: textNullable('Label text (label-text)', 'Checkbox'),
+        name: textNullable('Name (name)', ''),
+        value: textNullable('Value (value)', ''),
+        onAfterChange: action('bx-checkbox-changed'),
       }),
     },
   },

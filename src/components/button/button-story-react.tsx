@@ -8,11 +8,12 @@
  */
 
 import React from 'react';
+import Add16 from '@carbon/icons-react/es/add/16';
 // Below path will be there when an application installs `carbon-custom-elements` package.
-// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXBtn from 'carbon-custom-elements/es/components-react/button/button';
-import { defaultStory as baseDefaultStory } from './button-story';
+import { defaultStory as baseDefaultStory, textAndIcon as baseTextAndIcon } from './button-story';
 
 export { default } from './button-story';
 
@@ -26,3 +27,23 @@ export const defaultStory = ({ parameters }) => {
 };
 
 defaultStory.story = baseDefaultStory.story;
+
+export const icon = ({ parameters }) => {
+  const { kind, disabled, small, href } = parameters?.props?.['bx-btn'];
+  return (
+    <BXBtn kind={kind} disabled={disabled} small={small} href={href}>
+      <Add16 slot="icon" />
+    </BXBtn>
+  );
+};
+
+export const textAndIcon = ({ parameters }) => {
+  const { kind, disabled, small, href } = parameters?.props?.['bx-btn'];
+  return (
+    <BXBtn kind={kind} disabled={disabled} small={small} href={href}>
+      Button <Add16 slot="icon" />
+    </BXBtn>
+  );
+};
+
+defaultStory.story = baseTextAndIcon.story;

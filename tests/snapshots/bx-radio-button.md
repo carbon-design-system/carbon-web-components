@@ -10,7 +10,7 @@
   id="input"
   tabindex="-1"
   type="radio"
-  value="value-baz"
+  value="staging"
 >
 <label
   class="bx--radio-button__label"
@@ -35,7 +35,7 @@
   name="name-foo"
   tabindex="0"
   type="radio"
-  value="value-baz"
+  value="staging"
 >
 <label
   class="bx--radio-button__label"

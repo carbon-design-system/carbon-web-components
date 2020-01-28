@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import Calendar16 from '@carbon/icons/lib/calendar/16';
 import settings from 'carbon-components/es/globals/js/settings';
@@ -129,6 +129,13 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
   hideLabel = false;
 
   /**
+   * Controls the invalid state and visibility of the `validityMessage`.
+   * Corresponds to the attribute with the same name.
+   */
+  @property({ type: Boolean, reflect: true })
+  invalid = false;
+
+  /**
    * Date picker input kind. Corresponds to the attribute with the same name.
    */
   @property({ reflect: true })
@@ -194,16 +201,16 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
     const {
       disabled,
       hideLabel,
+      invalid,
       labelText,
       pattern = constructor.defaultPattern,
       placeholder,
       type = constructor.defaultType,
-      validityMessage,
       value,
       _handleInput: handleInput,
     } = this;
-    const hasValidity = Boolean(validityMessage);
-    const labelClasses = classnames(`${prefix}--label`, {
+    const labelClasses = classMap({
+      [`${prefix}--label`]: true,
       [`${prefix}--visually-hidden`]: hideLabel,
       [`${prefix}--label--disabled`]: disabled,
     });
@@ -220,7 +227,7 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
           pattern="${pattern}"
           placeholder="${ifNonNull(placeholder)}"
           .value="${ifNonNull(value)}"
-          ?data-invalid="${hasValidity}"
+          ?data-invalid="${invalid}"
           @input="${handleInput}"
         />
         ${this._renderIcon()}

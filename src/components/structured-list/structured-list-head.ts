@@ -18,6 +18,13 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-structured-list-head`)
 class BXStructuredListHeader extends LitElement {
+  connectedCallback() {
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'rowgroup');
+    }
+    super.connectedCallback();
+  }
+
   render() {
     return html`
       <slot></slot>

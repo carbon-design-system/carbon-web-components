@@ -9,7 +9,7 @@
 
 import React from 'react';
 // Below path will be there when an application installs `carbon-custom-elements` package.
-// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXDatePicker from 'carbon-custom-elements/es/components-react/date-picker/date-picker';
 // @ts-ignore
@@ -23,16 +23,19 @@ import {
 export { default } from './date-picker-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { open } = parameters?.props?.['bx-date-picker'];
-  const { disabled, hideLabel, labelText, light, placeholder } = parameters?.props?.['bx-date-picker-input'];
+  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage } = parameters?.props?.[
+    'bx-date-picker-input'
+  ];
   return (
-    <BXDatePicker open={open}>
+    <BXDatePicker>
       <BXDatePickerInput
         disabled={disabled}
         hideLabel={hideLabel}
+        invalid={invalid}
         labelText={labelText}
         light={light}
         placeholder={placeholder}
+        validityMessage={validityMessage}
       />
     </BXDatePicker>
   );
@@ -41,10 +44,13 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = baseDefaultStory.story;
 
 export const singleWithCalendar = ({ parameters }) => {
-  const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
-  const { disabled, hideLabel, labelText, light, placeholder, onInput } = parameters?.props?.['bx-date-picker-input'];
+  const { dateFormat, enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
+  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage, onInput } = parameters?.props?.[
+    'bx-date-picker-input'
+  ];
   return (
     <BXDatePicker
+      dateFormat={dateFormat}
       enabledRange={enabledRange}
       open={open}
       value={value}
@@ -53,10 +59,12 @@ export const singleWithCalendar = ({ parameters }) => {
       <BXDatePickerInput
         disabled={disabled}
         hideLabel={hideLabel}
+        invalid={invalid}
         kind="single"
         labelText={labelText}
         light={light}
         placeholder={placeholder}
+        validityMessage={validityMessage}
         onInput={onInput}
       />
     </BXDatePicker>
@@ -66,10 +74,13 @@ export const singleWithCalendar = ({ parameters }) => {
 singleWithCalendar.story = baseSingleWithCalendar.story;
 
 export const rangeWithCalendar = ({ parameters }) => {
-  const { enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
-  const { disabled, hideLabel, labelText, light, placeholder, onInput } = parameters?.props?.['bx-date-picker-input'];
+  const { dateFormat, enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
+  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage, onInput } = parameters?.props?.[
+    'bx-date-picker-input'
+  ];
   return (
     <BXDatePicker
+      dateFormat={dateFormat}
       enabledRange={enabledRange}
       open={open}
       value={value}
@@ -78,19 +89,23 @@ export const rangeWithCalendar = ({ parameters }) => {
       <BXDatePickerInput
         disabled={disabled}
         hideLabel={hideLabel}
+        invalid={invalid}
         kind="from"
         labelText={labelText}
         light={light}
         placeholder={placeholder}
+        validityMessage={validityMessage}
         onInput={onInput}
       />
       <BXDatePickerInput
         disabled={disabled}
         hideLabel={hideLabel}
+        invalid={invalid}
         kind="to"
         labelText={labelText}
         light={light}
         placeholder={placeholder}
+        validityMessage={validityMessage}
         onInput={onInput}
       />
     </BXDatePicker>

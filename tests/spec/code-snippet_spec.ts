@@ -7,66 +7,59 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render, TemplateResult } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined';
-import { CODE_SNIPPET_TYPE } from '../../src/components/code-snippet/code-snippet';
+import { render } from 'lit-html';
+import { singleLine, multiLine, inline } from '../../src/components/code-snippet/code-snippet-story';
 
-const template = ({
-  hasContent = true,
-  codeAssistiveText,
-  collapseButtonText,
-  copyButtonAssistiveText,
-  copyButtonFeedbackText,
-  copyButtonFeedbackTimeout,
-  expandButtonText,
-  type,
-}: {
-  hasContent?: boolean;
-  codeAssistiveText?: string;
-  collapseButtonText?: string;
-  copyButtonAssistiveText?: string;
-  copyButtonFeedbackText?: string;
-  copyButtonFeedbackTimeout?: number;
-  expandButtonText?: string;
-  type?: CODE_SNIPPET_TYPE;
-} = {}) =>
-  !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-code-snippet
-          code-assistive-text="${ifDefined(codeAssistiveText)}"
-          collapse-button-text="${ifDefined(collapseButtonText)}"
-          copy-button-assistive-text="${ifDefined(copyButtonAssistiveText)}"
-          copy-button-feedback-text="${ifDefined(copyButtonFeedbackText)}"
-          copy-button-feedback-timeout="${copyButtonFeedbackTimeout}"
-          expand-button-text="${ifDefined(expandButtonText)}"
-          type="${ifDefined(type)}"
-        ></bx-code-snippet>
-      `;
+const singleLineTemplate = (props?) =>
+  singleLine({
+    parameters: {
+      props: {
+        'bx-code-snippet': props,
+      },
+    },
+  });
+
+const multiLineTemplate = (props?) =>
+  multiLine({
+    parameters: {
+      props: {
+        'bx-code-snippet': props,
+      },
+    },
+  });
+
+const inlineTemplate = (props?) =>
+  inline({
+    parameters: {
+      props: {
+        'bx-code-snippet': props,
+      },
+    },
+  });
 
 describe('bx-code-snippet', function() {
   describe('Rendering', function() {
     it('Should render with minimum attributes for single line mode', async function() {
-      render(template(), document.body);
+      render(singleLineTemplate(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-code-snippet')).toMatchSnapshot({ mode: 'shadow' });
     });
 
     it('Should render with minimum attributes for multi line mode', async function() {
-      render(template({ type: CODE_SNIPPET_TYPE.MULTI }), document.body);
+      render(multiLineTemplate(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-code-snippet')).toMatchSnapshot({ mode: 'shadow' });
     });
 
     it('Should render with minimum attributes for inline mode', async function() {
-      render(template({ type: CODE_SNIPPET_TYPE.INLINE }), document.body);
+      render(inlineTemplate(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-code-snippet')).toMatchSnapshot({ mode: 'shadow' });
     });
 
     it('Should render with various attributes for single line mode', async function() {
       render(
-        template({
+        singleLineTemplate({
           codeAssistiveText: 'code-assistive-text-foo',
           copyButtonAssistiveText: 'copy-button-assistive-text-foo',
           copyButtonFeedbackText: 'copy-button-feedback-text-foo',
@@ -80,8 +73,7 @@ describe('bx-code-snippet', function() {
 
     it('Should render with various attributes for multi line mode', async function() {
       render(
-        template({
-          type: CODE_SNIPPET_TYPE.MULTI,
+        multiLineTemplate({
           codeAssistiveText: 'code-assistive-text-foo',
           copyButtonAssistiveText: 'copy-button-assistive-text-foo',
           copyButtonFeedbackText: 'copy-button-feedback-text-foo',
@@ -95,8 +87,7 @@ describe('bx-code-snippet', function() {
 
     it('Should render with various attributes for inline mode', async function() {
       render(
-        template({
-          type: CODE_SNIPPET_TYPE.INLINE,
+        inlineTemplate({
           codeAssistiveText: 'code-assistive-text-foo',
           copyButtonAssistiveText: 'copy-button-assistive-text-foo',
           copyButtonFeedbackText: 'copy-button-feedback-text-foo',
@@ -118,7 +109,7 @@ describe('bx-code-snippet', function() {
     });
 
     it('Should show the tooltip for 2 seconds by default', async function() {
-      render(template(), document.body);
+      render(singleLineTemplate(), document.body);
       await Promise.resolve();
       const button = document.body.querySelector('bx-code-snippet')!.shadowRoot!.querySelector('.bx--snippet-button');
       (button as HTMLElement).click();
@@ -131,7 +122,7 @@ describe('bx-code-snippet', function() {
     });
 
     it('Should show the tooltip on the code snippet itself for inline mode', async function() {
-      render(template({ type: CODE_SNIPPET_TYPE.INLINE }), document.body);
+      render(inlineTemplate(), document.body);
       await Promise.resolve();
       const button = document.body.querySelector('bx-code-snippet')!.shadowRoot!.querySelector('.bx--snippet--inline');
       (button as HTMLElement).click();
@@ -144,7 +135,7 @@ describe('bx-code-snippet', function() {
     });
 
     it('Should support changing the duration', async function() {
-      render(template({ copyButtonFeedbackTimeout: 500 }), document.body);
+      render(singleLineTemplate({ copyButtonFeedbackTimeout: 500 }), document.body);
       await Promise.resolve();
       const button = document.body.querySelector('bx-code-snippet')!.shadowRoot!.querySelector('.bx--snippet-button');
       (button as HTMLElement).click();
@@ -164,8 +155,7 @@ describe('bx-code-snippet', function() {
   describe('Expand/collapse button in multi line mode', function() {
     it('Should render the expando', async function() {
       render(
-        template({
-          type: CODE_SNIPPET_TYPE.MULTI,
+        multiLineTemplate({
           collapseButtonText: 'collapse-button-text-foo',
           expandButtonText: 'expand-button-text-foo',
         }),
@@ -183,8 +173,7 @@ describe('bx-code-snippet', function() {
 
     it('Should change the button text by expanding/collapsing', async function() {
       render(
-        template({
-          type: CODE_SNIPPET_TYPE.MULTI,
+        multiLineTemplate({
           collapseButtonText: 'collapse-button-text-foo',
           expandButtonText: 'expand-button-text-foo',
         }),
@@ -211,7 +200,7 @@ describe('bx-code-snippet', function() {
     });
   });
 
-  afterEach(function() {
-    render(template({ hasContent: false }), document.body);
+  afterEach(async function() {
+    await render(undefined!, document.body);
   });
 });

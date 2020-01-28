@@ -9,7 +9,7 @@
 
 import React from 'react';
 // Below path will be there when an application installs `carbon-custom-elements` package.
-// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXStructuredList from 'carbon-custom-elements/es/components-react/structured-list/structured-list';
 // @ts-ignore
@@ -34,9 +34,9 @@ export const defaultStory = ({ parameters }) => {
     <BXStructuredList hasSelection={hasSelection}>
       <BXStructuredListHead>
         <BXStructuredListHeaderRow hasSelection={hasSelection}>
-          <bx-structured-list-header>ColumnA</bx-structured-list-header>
-          <bx-structured-list-header>ColumnB</bx-structured-list-header>
-          <bx-structured-list-header>ColumnC</bx-structured-list-header>
+          <bx-structured-list-header-cell>ColumnA</bx-structured-list-header-cell>
+          <bx-structured-list-header-cell>ColumnB</bx-structured-list-header-cell>
+          <bx-structured-list-header-cell>ColumnC</bx-structured-list-header-cell>
         </BXStructuredListHeaderRow>
       </BXStructuredListHead>
       <BXStructuredListBody>

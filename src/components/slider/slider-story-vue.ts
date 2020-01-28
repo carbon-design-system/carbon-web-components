@@ -7,55 +7,45 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { storiesOf } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, number, text } from '@storybook/addon-knobs';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import './slider';
-import './slider-input';
+import { defaultStory as baseDefaultStory, withInputBox as baseWithInputBox } from './slider-story';
 
-const createProps = () => ({
-  disabled: boolean('Disabled (disabled)', false),
-  labelText: text('Label text (label-text)', 'Slider'),
-  name: text('Name (name)', ''),
-  max: number('The maximum value (max)', 100),
-  min: number('The minimum value (min)', 0),
-  step: number('The step (step)', 1),
-  value: number('Value (value)', 50),
-  onAfterChange: action('bx-slider-changed'),
+export { default } from './slider-story';
+
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-slider
+      :disabled="disabled"
+      :label-text="labelText"
+      :max="max"
+      :min="min"
+      :name="name"
+      :step="step"
+      :value="value"
+      @bx-slider-changed="onAfterChange"
+    ></bx-slider>
+  `,
+  ...createVueBindingsFromProps(parameters?.props?.['bx-slider']),
 });
 
-storiesOf('Slider', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-slider
-        :disabled="disabled"
-        :label-text="labelText"
-        :max="max"
-        :min="min"
-        :name="name"
-        :step="step"
-        :value="value"
-        @bx-slider-changed="onAfterChange"
-      ></bx-slider>
-    `,
-    ...createVueBindingsFromProps(createProps()),
-  }))
-  .add('With input box', () => ({
-    template: `
-      <bx-slider
-        :disabled="disabled"
-        :label-text="labelText"
-        :max="max"
-        :min="min"
-        :name="name"
-        :step="step"
-        :value="value"
-        @bx-slider-changed="onAfterChange"
-      >
-        <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
-      </bx-slider>
-    `,
-    ...createVueBindingsFromProps(createProps()),
-  }));
+defaultStory.story = baseDefaultStory.story;
+
+export const withInputBox = ({ parameters }) => ({
+  template: `
+    <bx-slider
+      :disabled="disabled"
+      :label-text="labelText"
+      :max="max"
+      :min="min"
+      :name="name"
+      :step="step"
+      :value="value"
+      @bx-slider-changed="onAfterChange"
+    >
+      <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
+    </bx-slider>
+  `,
+  ...createVueBindingsFromProps(parameters?.props?.['bx-slider']),
+});
+
+withInputBox.story = baseWithInputBox.story;

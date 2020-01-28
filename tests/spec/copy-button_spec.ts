@@ -7,30 +7,17 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render, TemplateResult } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined';
-import '../../src/components/copy-button/copy-button';
+import { render } from 'lit-html';
+import { defaultStory } from '../../src/components/copy-button/copy-button-story';
 
-const template = ({
-  hasContent = true,
-  buttonAssistiveText,
-  feedbackText,
-  feedbackTimeout,
-}: {
-  hasContent?: boolean;
-  buttonAssistiveText?: string;
-  feedbackText?: string;
-  feedbackTimeout?: number;
-} = {}) =>
-  !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-copy-button
-          button-assistive-text="${ifDefined(buttonAssistiveText)}"
-          feedback-text="${ifDefined(feedbackText)}"
-          feedback-timeout="${feedbackTimeout}"
-        ></bx-copy-button>
-      `;
+const template = (props?) =>
+  defaultStory({
+    parameters: {
+      props: {
+        'bx-copy-button': props,
+      },
+    },
+  });
 
 describe('bx-copy-button', function() {
   describe('Rendering', function() {
@@ -93,7 +80,7 @@ describe('bx-copy-button', function() {
     });
   });
 
-  afterEach(function() {
-    render(template({ hasContent: false }), document.body);
+  afterEach(async function() {
+    await render(undefined!, document.body);
   });
 });

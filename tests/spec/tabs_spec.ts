@@ -7,39 +7,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render, TemplateResult } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined';
+import { render } from 'lit-html';
 import EventManager from '../utils/event-manager';
-
-/* eslint-disable import/no-duplicates */
 import BXTabs from '../../src/components/tabs/tabs';
-// Above import is interface-only ref and thus code won't be brought into the build
-import '../../src/components/tabs/tabs';
-/* eslint-enable import/no-duplicates */
-import '../../src/components/tabs/tab';
+import { defaultStory } from '../../src/components/tabs/tabs-story';
 
-const template = ({
-  hasContent = true,
-  disabled,
-  triggerContent,
-  value,
-}: {
-  hasContent?: boolean;
-  disabled?: boolean;
-  triggerContent?: string;
-  value?: string;
-} = {}) =>
-  !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-tabs ?disabled=${disabled} trigger-content="${ifDefined(triggerContent)}" value=${ifDefined(value)}>
-          ${[0, 1, 2].map(
-            item => html`
-              <bx-tab value="value-${item}">Option ${item}</bx-tab>
-            `
-          )}
-        </bx-tabs>
-      `;
+const template = (props?) =>
+  defaultStory({
+    parameters: {
+      props: {
+        'bx-tabs': props,
+      },
+    },
+  });
 
 describe('bx-tabs', function() {
   describe('Toggling', function() {
@@ -86,11 +66,13 @@ describe('bx-tabs', function() {
       render(template(), document.body);
       await Promise.resolve();
       const itemNodes = document.body.querySelectorAll('bx-tab');
-      (itemNodes[1] as HTMLElement).click();
+      (itemNodes[2] as HTMLElement).click();
       await Promise.resolve();
       expect(itemNodes[0].hasAttribute('selected')).toBe(false);
-      expect(itemNodes[1].hasAttribute('selected')).toBe(true);
-      expect(itemNodes[2].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[1].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[2].hasAttribute('selected')).toBe(true);
+      expect(itemNodes[3].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[4].hasAttribute('selected')).toBe(false);
     });
 
     it('should update text', async function() {
@@ -98,30 +80,32 @@ describe('bx-tabs', function() {
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
       const itemNodes = document.body.querySelectorAll('bx-tab');
-      (itemNodes[1] as HTMLElement).click();
+      (itemNodes[2] as HTMLElement).click();
       await Promise.resolve();
-      expect(elem!.shadowRoot!.getElementById('trigger-label')!.textContent!.trim()).toBe('Option 1');
+      expect(elem!.shadowRoot!.getElementById('trigger-label')!.textContent!.trim()).toBe('Option 3');
     });
 
     it('should update value', async function() {
       render(template(), document.body);
       await Promise.resolve();
       const itemNodes = document.body.querySelectorAll('bx-tab');
-      (itemNodes[1] as HTMLElement).click();
+      (itemNodes[2] as HTMLElement).click();
       await Promise.resolve();
-      expect((document.body.querySelector('bx-tabs') as BXTabs).value).toBe('value-1');
+      expect((document.body.querySelector('bx-tabs') as BXTabs).value).toBe('staging');
     });
 
     it('should provide a way to switch item with a value', async function() {
       render(template(), document.body);
       await Promise.resolve();
-      (document.body.querySelector('bx-tabs') as BXTabs).value = 'value-1';
+      (document.body.querySelector('bx-tabs') as BXTabs).value = 'staging';
       await Promise.resolve(); // Update cycle for `<bx-tabs>`
       await Promise.resolve(); // Update cycle for `<bx-tab>`
       const itemNodes = document.body.querySelectorAll('bx-tab');
       expect(itemNodes[0].hasAttribute('selected')).toBe(false);
-      expect(itemNodes[1].hasAttribute('selected')).toBe(true);
-      expect(itemNodes[2].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[1].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[2].hasAttribute('selected')).toBe(true);
+      expect(itemNodes[3].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[4].hasAttribute('selected')).toBe(false);
     });
 
     it('should provide a way to cancel switching item', async function() {
@@ -129,18 +113,20 @@ describe('bx-tabs', function() {
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
       const itemNodes = document.body.querySelectorAll('bx-tab');
-      (document.body.querySelector('bx-tabs') as BXTabs).value = 'value-0';
+      (document.body.querySelector('bx-tabs') as BXTabs).value = 'all';
       await Promise.resolve();
       events.on(elem!, 'bx-tabs-beingselected', (event: CustomEvent) => {
-        expect(event.detail.item).toBe(itemNodes[1]);
+        expect(event.detail.item).toBe(itemNodes[2]);
         event.preventDefault();
       });
-      (itemNodes[1] as HTMLElement).click();
+      (itemNodes[2] as HTMLElement).click();
       await Promise.resolve();
       expect(itemNodes[0].hasAttribute('selected')).toBe(true);
       expect(itemNodes[1].hasAttribute('selected')).toBe(false);
       expect(itemNodes[2].hasAttribute('selected')).toBe(false);
-      expect(elem!.shadowRoot!.getElementById('trigger-label')!.textContent!.trim()).toBe('Option 0');
+      expect(itemNodes[3].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[4].hasAttribute('selected')).toBe(false);
+      expect(elem!.shadowRoot!.getElementById('trigger-label')!.textContent!.trim()).toBe('Option 1');
     });
 
     afterEach(async function() {
@@ -148,7 +134,7 @@ describe('bx-tabs', function() {
     });
   });
 
-  afterEach(function() {
-    render(template({ hasContent: false }), document.body);
+  afterEach(async function() {
+    await render(undefined!, document.body);
   });
 });

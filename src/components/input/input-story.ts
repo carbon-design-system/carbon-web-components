@@ -9,19 +9,47 @@
 
 import { html } from 'lit-element';
 import * as knobs from '@storybook/addon-knobs';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import './input';
 import '../form/form-item';
 import createProps from './stories/helpers';
+import storyDocs from './input-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, type, onInput } = parameters?.props?.['bx-input'];
+  const {
+    autocomplete,
+    autofocus,
+    disabled,
+    helperText,
+    invalid,
+    labelText,
+    name,
+    pattern,
+    placeholder,
+    readonly,
+    required,
+    type,
+    validityMessage,
+    value,
+    onInput,
+  } = parameters?.props?.['bx-input'] ?? {};
   return html`
     <bx-input
+      autocomplete="${ifNonNull(autocomplete)}"
+      ?autofocus="${autofocus}"
       ?disabled="${disabled}"
-      value="${value}"
-      type="${type}"
-      placeholder="${placeholder}"
+      helper-text="${ifNonNull(helperText)}"
       ?invalid="${invalid}"
+      label-text="${ifNonNull(labelText)}"
+      name="${ifNonNull(name)}"
+      pattern="${ifNonNull(pattern)}"
+      placeholder="${ifNonNull(placeholder)}"
+      ?readonly="${readonly}"
+      ?required="${required}"
+      type="${ifNonNull(type)}"
+      validity-message="${ifNonNull(validityMessage)}"
+      value="${ifNonNull(value)}"
       @input="${onInput}"
     ></bx-input>
   `;
@@ -32,10 +60,16 @@ defaultStory.story = {
 };
 
 export const formItem = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-input'];
+  const { disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-input'] ?? {};
   return html`
     <bx-form-item>
-      <bx-input value="${value}" placeholder="${placeholder}" @input="${onInput}" ?invalid="${invalid}" ?disabled="${disabled}">
+      <bx-input
+        value="${ifNonNull(value)}"
+        placeholder="${ifNonNull(placeholder)}"
+        @input="${onInput}"
+        ?invalid="${invalid}"
+        ?disabled="${disabled}"
+      >
         <span slot="label-text">Label text</span>
         <span slot="helper-text">Optional helper text</span>
         <span slot="validity-message">Something isn't right</span>
@@ -49,9 +83,15 @@ formItem.story = {
 };
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-input'];
+  const { disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-input'] ?? {};
   return html`
-    <bx-input value="${value}" placeholder="${placeholder}" @input="${onInput}" ?invalid="${invalid}" ?disabled="${disabled}">
+    <bx-input
+      value="${ifNonNull(value)}"
+      placeholder="${ifNonNull(placeholder)}"
+      @input="${onInput}"
+      ?invalid="${invalid}"
+      ?disabled="${disabled}"
+    >
       <span slot="label-text">Label text</span>
       <span slot="helper-text">Optional helper text</span>
       <span slot="validity-message">Something isn't right</span>
@@ -66,8 +106,11 @@ withoutFormItemWrapper.story = {
 export default {
   title: 'Input',
   parameters: {
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
-      'bx-input': () => createProps(knobs),
+      'bx-input': () => createProps({ ...knobs, textNonEmpty: textNullable }),
     },
   },
 };

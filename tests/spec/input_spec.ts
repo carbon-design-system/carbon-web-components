@@ -7,9 +7,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render, TemplateResult } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined';
+import { html, render } from 'lit-html';
 import { INPUT_TYPE } from '../../src/components/input/input';
+import { defaultStory } from '../../src/components/input/input-story';
 
 /**
  * @param formData A `FormData` instance.
@@ -24,64 +24,14 @@ const getValues = (formData: FormData) => {
   return values;
 };
 
-const template = ({
-  hasContent = true,
-  hasForm,
-  autocomplete,
-  autofocus,
-  disabled,
-  helperText,
-  labelText,
-  name,
-  pattern,
-  placeholder,
-  readonly,
-  required,
-  type,
-  validityMessage,
-  value,
-}: {
-  hasContent?: boolean;
-  hasForm?: boolean;
-  autocomplete?: string;
-  autofocus?: boolean;
-  disabled?: boolean;
-  helperText?: string;
-  labelText?: string;
-  name?: string;
-  pattern?: string;
-  placeholder?: string;
-  readonly?: boolean;
-  required?: boolean;
-  type?: INPUT_TYPE;
-  validityMessage?: string;
-  value?: string;
-} = {}) => {
-  const inner = !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-input
-          autocomplete="${ifDefined(autocomplete)}"
-          ?autofocus="${autofocus}"
-          ?disabled="${disabled}"
-          helper-text="${ifDefined(helperText)}"
-          label-text="${ifDefined(labelText)}"
-          name="${ifDefined(name)}"
-          pattern="${ifDefined(pattern)}"
-          placeholder="${ifDefined(placeholder)}"
-          ?readonly="${readonly}"
-          ?required="${required}"
-          type="${ifDefined(type)}"
-          validity-message="${ifDefined(validityMessage)}"
-          value="${ifDefined(value)}"
-        ></bx-input>
-      `;
-  return !hasContent || !hasForm
-    ? inner
-    : html`
-        <form>${inner}</form>
-      `;
-};
+const template = (props?) =>
+  defaultStory({
+    parameters: {
+      props: {
+        'bx-input': props,
+      },
+    },
+  });
 
 describe('bx-input', function() {
   describe('Rendering', function() {
@@ -112,11 +62,14 @@ describe('bx-input', function() {
   describe('Event-based form participation', function() {
     it('Should respond to `formdata` event', async function() {
       render(
-        template({
-          hasForm: true,
-          name: 'name-foo',
-          value: 'value-foo',
-        }),
+        html`
+          <form>
+            ${template({
+              name: 'name-foo',
+              value: 'value-foo',
+            })}
+          </form>
+        `,
         document.body
       );
       await Promise.resolve();
@@ -130,12 +83,15 @@ describe('bx-input', function() {
 
     it('Should not respond to `formdata` event if disabled', async function() {
       render(
-        template({
-          hasForm: true,
-          disabled: true,
-          name: 'name-foo',
-          value: 'value-foo',
-        }),
+        html`
+          <form>
+            ${template({
+              disabled: true,
+              name: 'name-foo',
+              value: 'value-foo',
+            })}
+          </form>
+        `,
         document.body
       );
       await Promise.resolve();
@@ -148,7 +104,7 @@ describe('bx-input', function() {
     });
   });
 
-  afterEach(function() {
-    render(template({ hasContent: false }), document.body);
+  afterEach(async function() {
+    await render(undefined!, document.body);
   });
 });

@@ -8,7 +8,7 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './tile.scss';
@@ -32,7 +32,11 @@ class BXClickableTile extends FocusMixin(LitElement) {
 
   render() {
     const { href } = this;
-    const classes = classnames(`${prefix}--link`, `${prefix}--tile`, `${prefix}--tile--clickable`);
+    const classes = classMap({
+      [`${prefix}--link`]: true,
+      [`${prefix}--tile`]: true,
+      [`${prefix}--tile--clickable`]: true,
+    });
     return html`
       <a class="${classes}" href="${href}">
         <slot></slot>

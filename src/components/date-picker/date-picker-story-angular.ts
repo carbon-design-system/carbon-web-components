@@ -21,9 +21,11 @@ export const defaultStory = ({ parameters }) => ({
     <bx-date-picker-input
       [disabled]="disabled"
       [hideLabel]="hideLabel"
+      [invalid]="invalid"
       [labelText]="labelText"
       [light]="light"
       [placeholder]="placeholder"
+      [validityMessage]="validityMessage"
     >
     </bx-date-picker-input>
   </bx-date-picker>
@@ -39,6 +41,7 @@ defaultStory.story = baseDefaultStory.story;
 export const singleWithCalendar = ({ parameters }) => ({
   template: `
   <bx-date-picker
+    [dateFormat]="dateFormat"
     [enabledRange]="enabledRange"
     [open]="open"
     [value]="value"
@@ -48,10 +51,12 @@ export const singleWithCalendar = ({ parameters }) => ({
     <bx-date-picker-input
       [disabled]="disabled"
       [hideLabel]="hideLabel"
+      [invalid]="invalid"
       kind="single"
       [labelText]="labelText"
       [light]="light"
       [placeholder]="placeholder"
+      [validityMessage]="validityMessage"
       (input)="onInput($event)"
     >
     </bx-date-picker-input>
@@ -68,6 +73,7 @@ singleWithCalendar.story = baseSingleWithCalendar.story;
 export const rangeWithCalendar = ({ parameters }) => ({
   template: `
   <bx-date-picker
+    [dateFormat]="dateFormat"
     [enabledRange]="enabledRange"
     [open]="open"
     [value]="value"
@@ -77,20 +83,24 @@ export const rangeWithCalendar = ({ parameters }) => ({
     <bx-date-picker-input
       [disabled]="disabled"
       [hideLabel]="hideLabel"
+      [invalid]="invalid"
       kind="from"
       [labelText]="labelText"
       [light]="light"
       [placeholder]="placeholder"
+      [validityMessage]="validityMessage"
       (input)="onInput($event)"
     >
     </bx-date-picker-input>
     <bx-date-picker-input
       [disabled]="disabled"
       [hideLabel]="hideLabel"
+      [invalid]="invalid"
       kind="to"
       [labelText]="labelText"
       [light]="light"
       [placeholder]="placeholder"
+      [validityMessage]="validityMessage"
       (input)="onInput($event)"
     >
     </bx-date-picker-input>

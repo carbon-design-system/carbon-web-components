@@ -8,7 +8,7 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import classnames from 'classnames';
+import { classMap } from 'lit-html/directives/class-map';
 import { TemplateResult } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, query, customElement, LitElement } from 'lit-element';
@@ -160,9 +160,6 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
           // If this menu gets open with an arrow key, reset the highlight
           this._clearHighlight();
           break;
-        case DROPDOWN_KEYBOARD_ACTION.TRIGGERING:
-          this._handleUserInitiatedToggle(true);
-          break;
         default:
           break;
       }
@@ -174,6 +171,28 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
         case DROPDOWN_KEYBOARD_ACTION.NAVIGATING:
           this._navigate(NAVIGATION_DIRECTION[key]);
           break;
+        default:
+          break;
+      }
+    }
+  }
+
+  /**
+   * Handler for the `keypress` event on the top-level element in the shadow DOM.
+   */
+  protected _handleKeypressInner(event: KeyboardEvent) {
+    const { key } = event;
+    const action = (this.constructor as typeof BXDropdown).getAction(key);
+    if (!this.open) {
+      switch (action) {
+        case DROPDOWN_KEYBOARD_ACTION.TRIGGERING:
+          this._handleUserInitiatedToggle(true);
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (action) {
         case DROPDOWN_KEYBOARD_ACTION.TRIGGERING:
           {
             const constructor = this.constructor as typeof BXDropdown;
@@ -480,6 +499,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       _shouldTriggerBeFocusable: shouldTriggerBeFocusable,
       _handleClickInner: handleClickInner,
       _handleKeydownInner: handleKeydownInner,
+      _handleKeypressInner: handleKeypressInner,
       _handleSlotchangeHelperText: handleSlotchangeHelperText,
       _handleSlotchangeLabelText: handleSlotchangeLabelText,
       _slotHelperTextNode: slotHelperTextNode,
@@ -487,7 +507,9 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
     } = this;
     const inline = type === DROPDOWN_TYPE.INLINE;
     const selectedItemsCount = this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItemSelected).length;
-    const classes = classnames(`${prefix}--dropdown`, `${prefix}--list-box`, {
+    const classes = classMap({
+      [`${prefix}--dropdown`]: true,
+      [`${prefix}--list-box`]: true,
       [`${prefix}--list-box--disabled`]: disabled,
       [`${prefix}--list-box--inline`]: inline,
       [`${prefix}--list-box--light`]: light,
@@ -496,13 +518,16 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       [`${prefix}--dropdown--inline`]: inline,
       [`${prefix}--dropdown--selected`]: selectedItemsCount > 0,
     });
-    const labelClasses = classnames(`${prefix}--label`, {
+    const labelClasses = classMap({
+      [`${prefix}--label`]: true,
       [`${prefix}--label--disabled`]: disabled,
     });
-    const helperClasses = classnames(`${prefix}--form__helper-text`, {
+    const helperClasses = classMap({
+      [`${prefix}--form__helper-text`]: true,
       [`${prefix}--form__helper-text--disabled`]: disabled,
     });
-    const iconContainerClasses = classnames(`${prefix}--list-box__menu-icon`, {
+    const iconContainerClasses = classMap({
+      [`${prefix}--list-box__menu-icon`]: true,
       [`${prefix}--list-box__menu-icon--open`]: open,
     });
     const toggleLabel = (open ? toggleLabelOpen : toggleLabelClosed) || undefined;
@@ -527,10 +552,17 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       <label class="${labelClasses}" ?hidden="${!hasLabelText}">
         <slot name="label-text" @slotchange="${handleSlotchangeLabelText}">${labelText}</slot>
       </label>
-      <div class="${helperClasses}" ?hidden="${!hasHelperText}">
+      <div class="${helperClasses}" ?hidden="${inline || !hasHelperText}">
         <slot name="helper-text" @slotchange="${handleSlotchangeHelperText}">${helperText}</slot>
       </div>
-      <div role="listbox" class="${classes}" ?data-invalid=${invalid} @click=${handleClickInner} @keydown=${handleKeydownInner}>
+      <div
+        role="listbox"
+        class="${classes}"
+        ?data-invalid=${invalid}
+        @click=${handleClickInner}
+        @keydown=${handleKeydownInner}
+        @keypress=${handleKeypressInner}
+      >
         ${validityIcon}
         <div
           role="${ifDefined(!shouldTriggerBeFocusable ? undefined : 'button')}"

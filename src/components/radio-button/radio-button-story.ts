@@ -7,12 +7,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ifDefined } from 'lit-html/directives/if-defined';
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean, select, text } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import { RADIO_BUTTON_ORIENTATION } from './radio-button-group';
 import { RADIO_BUTTON_LABEL_POSITION } from './radio-button';
+import storyDocs from './radio-button-story.mdx';
 
 const orientations = {
   [`Horizontal (${RADIO_BUTTON_ORIENTATION.HORIZONTAL})`]: RADIO_BUTTON_ORIENTATION.HORIZONTAL,
@@ -25,20 +27,20 @@ const labelPositions = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, labelPosition, orientation, name, value, onAfterChange } = parameters?.props?.['bx-radio-button-group'];
-  const { hideLabel, labelText } = parameters?.props?.['bx-radio-button'];
+  const { disabled, labelPosition, orientation, name, value, onAfterChange } = parameters?.props?.['bx-radio-button-group'] ?? {};
+  const { hideLabel, labelText } = parameters?.props?.['bx-radio-button'] ?? {};
   return html`
     <bx-radio-button-group
       ?disabled="${disabled}"
-      label-position="${labelPosition}"
-      orientation="${orientation}"
-      name="${ifDefined(!name ? undefined : name)}"
-      value="${ifDefined(!value ? undefined : value)}"
+      label-position="${ifNonNull(labelPosition)}"
+      orientation="${ifNonNull(orientation)}"
+      name="${ifNonNull(name)}"
+      value="${ifNonNull(value)}"
       @bx-radio-button-group-changed="${onAfterChange}"
     >
-      <bx-radio-button ?hide-label="${hideLabel}" label-text="${labelText}" value="all"></bx-radio-button>
-      <bx-radio-button ?hide-label="${hideLabel}" label-text="${labelText}" value="cloudFoundry"></bx-radio-button>
-      <bx-radio-button ?hide-label="${hideLabel}" label-text="${labelText}" value="staging"></bx-radio-button>
+      <bx-radio-button ?hide-label="${hideLabel}" label-text="${ifNonNull(labelText)}" value="all"></bx-radio-button>
+      <bx-radio-button ?hide-label="${hideLabel}" label-text="${ifNonNull(labelText)}" value="cloudFoundry"></bx-radio-button>
+      <bx-radio-button ?hide-label="${hideLabel}" label-text="${ifNonNull(labelText)}" value="staging"></bx-radio-button>
     </bx-radio-button-group>
   `;
 };
@@ -50,18 +52,21 @@ defaultStory.story = {
 export default {
   title: 'Radio button',
   parameters: {
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-radio-button-group': () => ({
         disabled: boolean('Disabled (disabled)', false),
         labelPosition: select('Label position (label-position)', labelPositions, RADIO_BUTTON_LABEL_POSITION.RIGHT),
         orientation: select('Orientation (orientation)', orientations, RADIO_BUTTON_ORIENTATION.HORIZONTAL),
-        name: text('Name (name)', 'radio-group'),
-        value: text('Value (value)', ''),
+        name: textNullable('Name (name)', 'radio-group'),
+        value: textNullable('Value (value)', ''),
         onAfterChange: action('bx-radio-button-group-changed'),
       }),
       'bx-radio-button': () => ({
         hideLabel: boolean('Hide label (hide-label)', false),
-        labelText: text('Label text (label-text)', 'Radio button'),
+        labelText: textNullable('Label text (label-text)', 'Radio button'),
       }),
     },
   },

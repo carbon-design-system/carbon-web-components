@@ -1,0 +1,37 @@
+{
+  "name": "carbon-custom-elements-getting-started-with-custom-styles",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sample project for getting started with the Web Components from the Carbon Design System, with custom styles.",
+  "license": "Apache-2",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "carbon-components": "~10.7.0",
+    "carbon-custom-elements": "^0.3.0",
+    "lit-element": "^2.2.0",
+    "lit-html": "^1.1.0",
+    "lodash-es": "^4.17.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@types/lodash-es": "^4.17.0",
+    "parcel-bundler": "^1.10.0"
+  },
+  "browserslist": [
+    "last 1 version",
+    "Firefox ESR",
+    "not opera > 0",
+    "not op_mini > 0",
+    "not op_mob > 0",
+    "not android > 0",
+    "not edge > 0",
+    "not ie > 0",
+    "not ie_mob > 0"
+  ]
+}

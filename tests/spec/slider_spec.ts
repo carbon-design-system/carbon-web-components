@@ -7,9 +7,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render, TemplateResult } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined';
-import '../../src/components/slider/slider';
+import { html, render } from 'lit-html';
+import { defaultStory } from '../../src/components/slider/slider-story';
 
 /**
  * @param formData A `FormData` instance.
@@ -24,46 +23,14 @@ const getValues = (formData: FormData) => {
   return values;
 };
 
-const template = ({
-  hasContent = true,
-  hasForm,
-  disabled,
-  labelText,
-  max,
-  min,
-  name,
-  step,
-  value,
-}: {
-  hasContent?: boolean;
-  hasForm?: boolean;
-  disabled?: boolean;
-  labelText?: string;
-  max?: number;
-  min?: number;
-  name?: string;
-  step?: number;
-  value?: number;
-} = {}) => {
-  const inner = !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-slider
-          ?disabled="${disabled}"
-          label-text="${ifDefined(labelText)}"
-          max="${ifDefined(max)}"
-          min="${ifDefined(min)}"
-          name="${ifDefined(name)}"
-          step="${ifDefined(step)}"
-          value="${ifDefined(value)}"
-        ></bx-slider>
-      `;
-  return !hasContent || !hasForm
-    ? inner
-    : html`
-        <form>${inner}</form>
-      `;
-};
+const template = (props?) =>
+  defaultStory({
+    parameters: {
+      props: {
+        'bx-slider': props,
+      },
+    },
+  });
 
 describe('bx-slider', function() {
   describe('Rendering', function() {
@@ -94,11 +61,14 @@ describe('bx-slider', function() {
   describe('Event-based form participation', function() {
     it('Should respond to `formdata` event', async function() {
       render(
-        template({
-          hasForm: true,
-          name: 'name-foo',
-          value: 5,
-        }),
+        html`
+          <form>
+            ${template({
+              name: 'name-foo',
+              value: 5,
+            })}
+          </form>
+        `,
         document.body
       );
       await Promise.resolve();
@@ -112,12 +82,15 @@ describe('bx-slider', function() {
 
     it('Should not respond to `formdata` event if disabled', async function() {
       render(
-        template({
-          hasForm: true,
-          disabled: true,
-          name: 'name-foo',
-          value: 5,
-        }),
+        html`
+          <form>
+            ${template({
+              disabled: true,
+              name: 'name-foo',
+              value: 5,
+            })}
+          </form>
+        `,
         document.body
       );
       await Promise.resolve();
@@ -130,7 +103,7 @@ describe('bx-slider', function() {
     });
   });
 
-  afterEach(function() {
-    render(template({ hasContent: false }), document.body);
+  afterEach(async function() {
+    await render(undefined!, document.body);
   });
 });

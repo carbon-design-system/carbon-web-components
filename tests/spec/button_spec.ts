@@ -7,54 +7,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render, TemplateResult } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined';
+import { render } from 'lit-html';
 import { BUTTON_KIND } from '../../src/components/button/button';
+import { defaultStory } from '../../src/components/button/button-story';
 
-const template = ({
-  hasContent = true,
-  autofocus,
-  disabled,
-  download,
-  href,
-  hreflang,
-  kind,
-  ping,
-  rel,
-  small,
-  target,
-  type,
-}: {
-  hasContent?: boolean;
-  autofocus?: boolean;
-  disabled?: boolean;
-  download?: string;
-  href?: string;
-  hreflang?: string;
-  kind?: BUTTON_KIND;
-  ping?: string;
-  rel?: string;
-  small?: boolean;
-  target?: string;
-  type?: string;
-} = {}) =>
-  !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-btn
-          ?autofocus="${autofocus}"
-          ?disabled="${disabled}"
-          download="${ifDefined(download)}"
-          href="${ifDefined(href)}"
-          hreflang="${ifDefined(hreflang)}"
-          kind="${ifDefined(kind)}"
-          ping="${ifDefined(ping)}"
-          rel="${ifDefined(rel)}"
-          ?small="${small}"
-          target="${ifDefined(target)}"
-          type="${ifDefined(type)}"
-        ></bx-btn>
-      `;
+const template = (props?) =>
+  defaultStory({
+    parameters: {
+      props: {
+        'bx-btn': props,
+      },
+    },
+  });
 
 describe('bx-btn', function() {
   describe('Changing button type', function() {
@@ -165,7 +129,7 @@ describe('bx-btn', function() {
     });
   });
 
-  afterEach(function() {
-    render(template({ hasContent: false }), document.body);
+  afterEach(async function() {
+    await render(undefined!, document.body);
   });
 });

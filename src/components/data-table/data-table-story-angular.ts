@@ -7,9 +7,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import debounce from 'lodash-es/debounce';
 import { Pipe, PipeTransform, Component, Input, HostBinding, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
+import { Delete16Module } from '@carbon/icons-angular/lib/delete/16';
+import { Download16Module } from '@carbon/icons-angular/lib/download/16';
+import { Settings16Module } from '@carbon/icons-angular/lib/settings/16';
+import BXBtn from '../button/button';
 import { TABLE_SIZE } from './table';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import baseStory, {
@@ -19,6 +23,44 @@ import baseStory, {
 } from './data-table-story';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
+
+/**
+ * @param row A table row.
+ * @param searchString A search string.
+ * @returns `true` if the given table row matches the given search string.
+ */
+const doesRowMatchSearchString = (row: TDemoTableRow, searchString: string) =>
+  Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0);
+
+/**
+ * Table filtering options.
+ */
+interface IBXCETableFilterOptions {
+  /**
+   * Search string.
+   */
+  searchString: string;
+}
+
+/**
+ * Angular filter for filtering table rows.
+ */
+@Pipe({
+  name: 'BXCETableRowsFilterWith',
+})
+class BXCETableRowsFilterPipe implements PipeTransform {
+  /* eslint-disable class-methods-use-this */
+  /**
+   * @param rows The table rows to window.
+   * @param options The table windowing options.
+   * @returns The windowed table rows.
+   */
+  transform(rows: TDemoTableRow[], options: IBXCETableFilterOptions): TDemoTableRow[] {
+    const { searchString } = options;
+    return !searchString ? rows : rows!.filter(row => doesRowMatchSearchString(row, searchString));
+  }
+  /* eslint-enable class-methods-use-this */
+}
 
 /**
  * Table sorting options.
@@ -157,6 +199,36 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
 @Component({
   selector: 'bx-ce-demo-data-table',
   template: `
+    <bx-table-toolbar>
+      <bx-table-batch-actions
+        [active]="hasSelection && _selectedRowsCountInFiltered"
+        [selectedRowsCount]="_selectedRowsCountInFiltered"
+        (bx-table-batch-actions-cancel-clicked)="_handleCancelSelection($event)"
+      >
+        <bx-btn (click)="_handleDeleteRows($event)">Delete <ibm-icon-delete16 slot="icon"></ibm-icon-delete16></bx-btn>
+        <bx-btn (click)="_handleDownloadRows($event)" href="javascript:void 0" download="table-data.json">
+          Download <ibm-icon-download16 slot="icon"></ibm-icon-download16>
+        </bx-btn>
+      </bx-table-batch-actions>
+      <bx-table-toolbar-content [hasBatchActions]="hasSelection && _selectedRowsCountInFiltered">
+        <bx-table-toolbar-search (bx-search-input)="_handleChangeSearchString($event)"></bx-table-toolbar-search>
+        <bx-overflow-menu>
+          <ibm-icon-settings16 slot="icon"></ibm-icon-settings16>
+          <bx-overflow-menu-body>
+            <bx-overflow-menu-item>
+              Action 1
+            </bx-overflow-menu-item>
+            <bx-overflow-menu-item>
+              Action 2
+            </bx-overflow-menu-item>
+            <bx-overflow-menu-item>
+              Action 3
+            </bx-overflow-menu-item>
+          </bx-overflow-menu-body>
+        </bx-overflow-menu>
+        <bx-btn>Primary Button</bx-btn>
+      </bx-table-toolbar-content>
+    </bx-table-toolbar>
     <bx-table
       [size]="size"
       (bx-table-row-change-selection)="_handleChangeSelection($event)"
@@ -165,7 +237,7 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
     >
       <bx-table-head>
         <bx-table-header-row
-          [selected]="_selectedAll"
+          [selected]="_selectedAllInFiltered"
           [selectionName]="!hasSelection ? undefined : _selectionId"
           [selectionValue]="!hasSelection ? undefined : _selectionId"
         >
@@ -183,6 +255,7 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
         <bx-table-row
           *ngFor="
             let row of _rows
+              | BXCETableRowsFilterWith: { searchString: _searchString }
               | BXCETableRowsSortWith: { compare: _compare, sortInfo: _sortInfo }
               | BXCETableRowsSliceWith: { start: start, pageSize: pageSize }
           "
@@ -199,7 +272,7 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
       *ngIf="pageSize !== undefined"
       [pageSize]="pageSize"
       [start]="start"
-      [total]="rows.length"
+      [total]="(rows | BXCETableRowsFilterWith: { searchString: _searchString }).length"
       (bx-pagination-changed-current)="_handleChangeStart($event)"
       (bx-page-sizes-select-changed)="_handleChangePageSize($event)"
     >
@@ -214,6 +287,16 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
 })
 class BXCEDemoDataTable {
   /**
+   * The debounced handler for user-initiated change in search string.
+   */
+  _handleChangeSearchString: ((() => void) & { cancel(): void }) | void = undefined;
+
+  /**
+   * The search string.
+   */
+  _searchString = '';
+
+  /**
    * The table sorting info reflecting user-initiated changes.
    */
   _sortInfo?: TDemoSortInfo;
@@ -224,9 +307,14 @@ class BXCEDemoDataTable {
   _rows?: TDemoTableRow[];
 
   /**
-   * `true` if all rows are selected.
+   * `true` if all filtered rows are selected.
    */
-  _selectedAll?: boolean;
+  _selectedAllInFiltered?: boolean;
+
+  /**
+   * The count of the selected filtered rows.
+   */
+  _selectedRowsCountInFiltered = 0;
 
   /**
    * Unique ID used for ID refs.
@@ -259,6 +347,36 @@ class BXCEDemoDataTable {
   };
 
   /**
+   * Handles Cancel button in batch action bar.
+   */
+  _handleCancelSelection() {
+    const { _searchString: searchString } = this;
+    this._rows!.forEach(row => {
+      if (!searchString || doesRowMatchSearchString(row, searchString)) {
+        row.selected = false;
+      }
+    });
+    this._selectedRowsCountInFiltered = 0;
+    this._selectedAllInFiltered = false;
+  }
+
+  /**
+   * Handles user-initiated change in search string.
+   */
+  _handleChangeSearchStringImpl({ detail }: CustomEvent) {
+    const { pageSize, start } = this;
+    const { value: searchString } = detail;
+    const { length: count } = this._rows!.filter(row =>
+      Object.keys(row).some(key => key !== 'id' && String(row[key] ?? '').indexOf(searchString) >= 0)
+    );
+    if (count > 0 && start >= count) {
+      this.start = Math.max(start - Math.ceil((start - count) / pageSize) * pageSize, 0);
+    }
+    this._searchString = searchString;
+    this._recomputeSelected();
+  }
+
+  /**
    * Handles an event to change in selection of rows, fired from `<bx-table-row>`.
    * @param event The event.
    */
@@ -272,7 +390,7 @@ class BXCEDemoDataTable {
           row.selected = selected;
         }
       });
-      this._selectedAll = this._rows!.every(row => row.selected!);
+      this._recomputeSelected();
     }
   }
 
@@ -282,11 +400,14 @@ class BXCEDemoDataTable {
    */
   _handleChangeSelectionAll({ defaultPrevented, detail }: CustomEvent) {
     if (!defaultPrevented) {
+      const { _searchString: searchString } = this;
       const { selected } = detail;
       this._rows!.forEach(row => {
-        row.selected = selected;
+        if (!searchString || doesRowMatchSearchString(row, searchString)) {
+          row.selected = selected;
+        }
       });
-      this._selectedAll = selected;
+      this._recomputeSelected();
     }
   }
 
@@ -325,6 +446,43 @@ class BXCEDemoDataTable {
    */
   _handleChangePageSize({ detail }: CustomEvent) {
     this.pageSize = detail.value;
+  }
+
+  /**
+   * Handles Delete batch action button.
+   */
+  _handleDeleteRows() {
+    const { _searchString: searchString } = this;
+    this._rows = this._rows!.filter(row => !row.selected || !doesRowMatchSearchString(row, searchString));
+    this._selectedRowsCountInFiltered = 0;
+    this._selectedAllInFiltered = false;
+  }
+
+  /**
+   * Handles Download batch action button.
+   * @param event The event triggering this action.
+   */
+  _handleDownloadRows({ target }: MouseEvent) {
+    const { _searchString: searchString } = this;
+    const blob = new Blob(
+      [JSON.stringify(this._rows!.filter(row => row.selected && doesRowMatchSearchString(row, searchString)))],
+      { type: 'application/json' }
+    );
+    (target as BXBtn).href = URL.createObjectURL(blob);
+    this._handleCancelSelection();
+  }
+
+  /**
+   * Re-computes `_selectedRowsCount` and `_selectedAllInFiltered` properties.
+   */
+  _recomputeSelected() {
+    const { _searchString: searchString, _rows: rows } = this;
+    const selectedRowsCount = rows!.filter(row => row.selected && (!searchString || doesRowMatchSearchString(row, searchString)))
+      .length;
+    this._selectedRowsCountInFiltered = selectedRowsCount;
+    this._selectedAllInFiltered =
+      selectedRowsCount > 0 &&
+      (!searchString ? rows! : rows!.filter(row => doesRowMatchSearchString(row, searchString))).length === selectedRowsCount;
   }
 
   /**
@@ -386,13 +544,27 @@ class BXCEDemoDataTable {
   @Input()
   start = 0;
 
+  ngOnInit() {
+    if (this._handleChangeSearchString) {
+      this._handleChangeSearchString.cancel();
+    }
+    this._handleChangeSearchString = debounce(this._handleChangeSearchStringImpl as () => void, 500);
+  }
+
+  ngOnDestroy() {
+    if (this._handleChangeSearchString) {
+      this._handleChangeSearchString.cancel();
+      this._handleChangeSearchString = undefined;
+    }
+  }
+
   ngOnChanges(changes) {
     if ('sortInfo' in changes) {
       this._sortInfo = this.sortInfo;
     }
     if ('rows' in changes) {
       this._rows = this.rows;
-      this._selectedAll = this.rows!.every(row => row.selected!);
+      this._recomputeSelected();
     }
   }
 
@@ -453,6 +625,7 @@ defaultStory.story = baseDefaultStory.story;
 
 export const sortable = ({ parameters }) => ({
   template: `
+    <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
     <bx-ce-demo-data-table
       [columns]="demoColumns"
@@ -461,30 +634,30 @@ export const sortable = ({ parameters }) => ({
       [hasSelection]="hasSelection"
       [size]="size"
       [zebra]="zebra"
-      (bx-table-row-change-selection)="onBeforeChangeSelection($event)"
-      (bx-table-change-selection-all)="onBeforeChangeSelection($event)"
-      (bx-table-header-cell-sort)="onBeforeChangeSort($event)"
+      (bx-table-row-change-selection)="handleBeforeChangeSelection($event)"
+      (bx-table-change-selection-all)="handleBeforeChangeSelection($event)"
+      (bx-table-header-cell-sort)="handleBeforeSort($event)"
     >
     </bx-ce-demo-data-table>
   `,
   props: (props => {
-    const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-    const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
-    const onBeforeChangeSelection = (event: CustomEvent) => {
+    const { onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
+    const { onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
+    const { onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
+    const handleBeforeChangeSelection = (event: CustomEvent) => {
       if (event.type === 'bx-table-change-selection-all') {
-        beforeChangeSelectionAllAction(event);
+        onBeforeChangeSelectionAll(event);
       } else {
-        beforeChangeSelectionAction(event);
+        onBeforeChangeSelection(event);
       }
     };
-    const onBeforeChangeSort = action('bx-table-header-cell-sort');
     return {
       ...props,
       demoColumns,
       demoRows,
       demoSortInfo,
-      onBeforeChangeSelection,
-      onBeforeChangeSort,
+      handleBeforeChangeSelection,
+      handleBeforeSort: onBeforeSort,
     };
   })({
     ...parameters?.props?.['bx-table'],
@@ -499,17 +672,20 @@ sortable.story = Object.assign(baseSortable.story, {
     moduleMetadata({
       declarations: [
         BXCEDemoDataTable,
+        BXCETableRowsFilterPipe,
         BXCETableRowsSortPipe,
         BXCETableRowsSlicePipe,
         BXCETableColumnSortDirectionPipe,
         BXCETableRowSelectionIdPipe,
       ],
+      imports: [Delete16Module, Download16Module, Settings16Module],
     }),
   ],
 });
 
 export const sortableWithPagination = ({ parameters }) => ({
   template: `
+    <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
     <bx-ce-demo-data-table
       [columns]="demoColumns"
@@ -520,30 +696,30 @@ export const sortableWithPagination = ({ parameters }) => ({
       [size]="size"
       [start]="0"
       [zebra]="zebra"
-      (bx-table-row-change-selection)="onBeforeChangeSelection($event)"
-      (bx-table-change-selection-all)="onBeforeChangeSelection($event)"
-      (bx-table-header-cell-sort)="onBeforeChangeSort($event)"
+      (bx-table-row-change-selection)="handleBeforeChangeSelection($event)"
+      (bx-table-change-selection-all)="handleBeforeChangeSelection($event)"
+      (bx-table-header-cell-sort)="handleBeforeSort($event)"
     >
     </bx-ce-demo-data-table>
   `,
   props: (props => {
-    const beforeChangeSelectionAction = action('bx-table-row-change-selection');
-    const beforeChangeSelectionAllAction = action('bx-table-change-selection-all');
-    const onBeforeChangeSelection = (event: CustomEvent) => {
+    const { onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
+    const { onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
+    const { onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
+    const handleBeforeChangeSelection = (event: CustomEvent) => {
       if (event.type === 'bx-table-change-selection-all') {
-        beforeChangeSelectionAllAction(event);
+        onBeforeChangeSelectionAll(event);
       } else {
-        beforeChangeSelectionAction(event);
+        onBeforeChangeSelection(event);
       }
     };
-    const onBeforeChangeSort = action('bx-table-header-cell-sort');
     return {
       ...props,
       demoColumns,
       demoRows: demoRowsMany,
       demoSortInfo,
-      onBeforeChangeSelection,
-      onBeforeChangeSort,
+      handleBeforeChangeSelection,
+      handleBeforeSort: onBeforeSort,
     };
   })({
     ...parameters?.props?.['bx-table'],
@@ -558,11 +734,13 @@ sortableWithPagination.story = Object.assign(baseSortableWithPagination.story, {
     moduleMetadata({
       declarations: [
         BXCEDemoDataTable,
+        BXCETableRowsFilterPipe,
         BXCETableRowsSortPipe,
         BXCETableRowsSlicePipe,
         BXCETableColumnSortDirectionPipe,
         BXCETableRowSelectionIdPipe,
       ],
+      imports: [Delete16Module, Download16Module, Settings16Module],
     }),
   ],
 });

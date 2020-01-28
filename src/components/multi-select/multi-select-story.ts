@@ -9,13 +9,16 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean, select, text } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
 import { DROPDOWN_TYPE } from '../dropdown/dropdown';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import './multi-select';
 import './multi-select-item';
+import storyDocs from './multi-select-story.mdx';
 
 const types = {
-  [`Regular (${DROPDOWN_TYPE.REGULAR})`]: DROPDOWN_TYPE.REGULAR,
+  [`Regular (${DROPDOWN_TYPE.REGULAR})`]: null,
   [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
 };
 
@@ -34,10 +37,11 @@ export const defaultStory = ({ parameters }) => {
     type,
     validityMessage,
     disableSelection,
-  } = parameters?.props?.['bx-multi-select'];
-  const beforeSelectedAction = action('bx-multi-select-beingselected');
+    onBeforeSelect,
+    onAfterSelect,
+  } = parameters?.props?.['bx-multi-select'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeSelect(event);
     if (disableSelection) {
       event.preventDefault();
     }
@@ -48,16 +52,16 @@ export const defaultStory = ({ parameters }) => {
       ?invalid=${invalid}
       ?light=${light}
       ?open=${open}
-      clear-selection-label=${clearSelectionLabel}
-      helper-text=${helperText}
-      label-text=${labelText}
-      toggle-label-closed=${toggleLabelClosed}
-      toggle-label-open=${toggleLabelOpen}
-      trigger-content=${triggerContent}
-      type=${type}
-      validity-message=${validityMessage}
+      clear-selection-label=${ifNonNull(clearSelectionLabel)}
+      helper-text=${ifNonNull(helperText)}
+      label-text=${ifNonNull(labelText)}
+      toggle-label-closed=${ifNonNull(toggleLabelClosed)}
+      toggle-label-open=${ifNonNull(toggleLabelOpen)}
+      trigger-content=${ifNonNull(triggerContent)}
+      type=${ifNonNull(type)}
+      validity-message=${ifNonNull(validityMessage)}
       @bx-multi-select-beingselected=${handleBeforeSelected}
-      @bx-multi-select-selected=${action('bx-multi-select-selected')}
+      @bx-multi-select-selected=${onAfterSelect}
     >
       <bx-multi-select-item value="all">Option 1</bx-multi-select-item>
       <bx-multi-select-item value="cloudFoundry">Option 2</bx-multi-select-item>
@@ -75,24 +79,29 @@ defaultStory.story = {
 export default {
   title: 'Multi select',
   parameters: {
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-multi-select': () => ({
-        clearSelectionLabel: text('a11y label for the icon to clear selection (clear-selection-label)', ''),
+        clearSelectionLabel: textNullable('a11y label for the icon to clear selection (clear-selection-label)', ''),
         disabled: boolean('Disabled (disabled)', false),
-        helperText: text('Helper text (helper-text)', 'This is not helper text'),
+        helperText: textNullable('Helper text (helper-text)', 'Optional helper text'),
         invalid: boolean('Show invalid state  (invalid)', false),
-        labelText: text('Label text (label-text)', 'Multiselect title'),
+        labelText: textNullable('Label text (label-text)', 'Multiselect title'),
         light: boolean('Light variant (light)', false),
         open: boolean('Open (open)', false),
-        toggleLabelClosed: text('a11y label for the UI indicating the closed state (toggle-label-closed)', ''),
-        toggleLabelOpen: text('a11y label for the UI indicating the closed state (toggle-label-open)', ''),
-        triggerContent: text('The default content of the trigger button (trigger-content)', 'Select items'),
-        type: select('UI type (type)', types, DROPDOWN_TYPE.REGULAR),
-        validityMessage: text('The validity message (validity-message)', ''),
+        toggleLabelClosed: textNullable('a11y label for the UI indicating the closed state (toggle-label-closed)', ''),
+        toggleLabelOpen: textNullable('a11y label for the UI indicating the closed state (toggle-label-open)', ''),
+        triggerContent: textNullable('The default content of the trigger button (trigger-content)', 'Select items'),
+        type: select('UI type (type)', types, null),
+        validityMessage: textNullable('The validity message (validity-message)', ''),
         disableSelection: boolean(
           'Disable user-initiated selection change (Call event.preventDefault() in bx-multi-select-beingselected event)',
           false
         ),
+        onBeforeSelect: action('bx-multi-select-beingselected'),
+        onAfterSelect: action('bx-multi-select-selected'),
       }),
     },
   },

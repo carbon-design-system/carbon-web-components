@@ -40,8 +40,14 @@ class BXTooltip extends HostListenerMixin(LitElement) implements BXFloatingMenuT
    */
   @HostListener('click')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
-  private _handleClick = () => {
+  private _handleClick = async () => {
     this.open = !this.open;
+    const { open, updateComplete } = this;
+    if (open) {
+      await updateComplete;
+      const { _menuBody: menuBody } = this;
+      menuBody?.focus();
+    }
   };
 
   /**
@@ -81,9 +87,9 @@ class BXTooltip extends HostListenerMixin(LitElement) implements BXFloatingMenuT
     super.connectedCallback();
   }
 
-  attributeChangedCallback(name, old, current) {
-    if (old !== current) {
-      if (name === 'open' && !this._menuBody) {
+  updated(changedProperties) {
+    if (changedProperties.has('open')) {
+      if (!this._menuBody) {
         this._menuBody = find(this.childNodes, elem => (elem.constructor as typeof BXFloatingMenu).FLOATING_MENU);
       }
       if (this._menuBody) {
@@ -91,7 +97,6 @@ class BXTooltip extends HostListenerMixin(LitElement) implements BXFloatingMenuT
       }
       this.setAttribute('aria-expanded', String(Boolean(this.open)));
     }
-    super.attributeChangedCallback(name, old, current);
   }
 
   render() {

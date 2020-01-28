@@ -9,15 +9,20 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean, text } from '@storybook/addon-knobs';
+import { boolean } from '@storybook/addon-knobs';
+import textNullable from '../../../.storybook/knob-text-nullable';
+import ifNonNull from '../../globals/directives/if-non-null';
 import './content-switcher';
 import './content-switcher-item';
+import storyDocs from './content-switcher-story.mdx';
+
+const noop = () => {};
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, disableSelection } = parameters?.props?.['bx-content-switcher'];
-  const beforeSelectedAction = action('bx-content-switcher-beingselected');
+  const { disabled, value, disableSelection, onBeforeSelect = noop, onAfterSelect = noop } =
+    parameters?.props?.['bx-content-switcher'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeSelect(event);
     if (disableSelection) {
       event.preventDefault();
     }
@@ -25,9 +30,9 @@ export const defaultStory = ({ parameters }) => {
   return html`
     <bx-content-switcher
       ?disabled="${disabled}"
-      value="${value}"
+      value="${ifNonNull(value)}"
       @bx-content-switcher-beingselected="${handleBeforeSelected}"
-      @bx-content-switcher-selected="${action('bx-content-switcher-selected')}"
+      @bx-content-switcher-selected="${onAfterSelect}"
     >
       <bx-content-switcher-item value="all">Option 1</bx-content-switcher-item>
       <bx-content-switcher-item value="cloudFoundry" disabled>Option 2</bx-content-switcher-item>
@@ -45,14 +50,19 @@ defaultStory.story = {
 export default {
   title: 'Content switcher',
   parameters: {
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-content-switcher': () => ({
         disabled: boolean('Disabled (disabled)', false),
-        value: text('The value of the selected item (value)', ''),
+        value: textNullable('The value of the selected item (value)', ''),
         disableSelection: boolean(
           'Disable user-initiated selection change (Call event.preventDefault() in bx-content-switcher-beingselected event)',
           false
         ),
+        onBeforeSelect: action('bx-content-switcher-beingselected'),
+        onAfterSelect: action('bx-content-switcher-selected'),
       }),
     },
   },

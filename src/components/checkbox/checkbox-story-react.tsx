@@ -9,7 +9,7 @@
 
 import React from 'react';
 // Below path will be there when an application installs `carbon-custom-elements` package.
-// In our dev env, we auto-generate the file and re-map below path to to point to the genrated file.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXCheckbox from 'carbon-custom-elements/es/components-react/checkbox/checkbox';
 import { defaultStory as baseDefaultStory } from './checkbox-story';
@@ -17,7 +17,9 @@ import { defaultStory as baseDefaultStory } from './checkbox-story';
 export { default } from './checkbox-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onInput } = parameters?.props?.['bx-checkbox'];
+  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onAfterChange } = parameters?.props?.[
+    'bx-checkbox'
+  ];
   return (
     <BXCheckbox
       checked={checked}
@@ -27,7 +29,7 @@ export const defaultStory = ({ parameters }) => {
       labelText={labelText}
       name={name || undefined}
       value={value || undefined}
-      onInput={onInput}
+      onAfterChange={onAfterChange}
     />
   );
 };

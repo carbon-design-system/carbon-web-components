@@ -24,6 +24,10 @@ $css--plex: true !default;
     width: $spacing-4xs;
     background-color: $ui-03;
   }
+
+  .#{$prefix}--pagination__button svg {
+    transform: rotate(0) #{'/*rtl:rotate(180deg)*/'};
+  }
 }
 
 :host(#{$prefix}-pages-select) {

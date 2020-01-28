@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -9,9 +9,11 @@
 
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const rtlcss = require('rtlcss');
 
-const useExperimentalFeatures = process.env.CARBON_USE_EXPERIMENTAL_FEATURES !== 'false';
-const useStyleSourceMap = process.env.CARBON_CUSTOM_ELEMENTS_STORYBOOK_USE_STYLE_SOURCEMAP === 'true';
+const useExperimentalFeatures = process.env.STORYBOOK_CARBON_USE_EXPERIMENTAL_FEATURES !== 'false';
+const useStyleSourceMap = process.env.STORYBOOK_CARBON_CUSTOM_ELEMENTS_USE_STYLE_SOURCEMAP === 'true';
+const useRtl = process.env.STORYBOOK_CARBON_CUSTOM_ELEMENTS_USE_RTL === 'true';
 
 module.exports = ({ config, mode }) => {
   config.devtool = useStyleSourceMap ? 'source-map' : '';
@@ -76,18 +78,6 @@ module.exports = ({ config, mode }) => {
       use: [...babelLoaderRule.use, require.resolve('../svg-result-carbon-icon-loader')],
     },
     {
-      test: /-story\.ts$/,
-      use: [
-        {
-          loader: 'babel-loader',
-          options: {
-            babelrc: false,
-            plugins: [require.resolve('../babel-plugin-story-add-readme')],
-          },
-        },
-      ],
-    },
-    {
       test: /-story(-(angular|react|vue))?\.[jt]sx?$/,
       use: [
         {
@@ -110,6 +100,8 @@ module.exports = ({ config, mode }) => {
       test: /\.tsx?$/,
       use: [
         {
+          // Build note: Locking down `@babel/plugin-transform-typescript` to `~7.6.0`
+          // given `7.7` or later versions seems to have a problem with using decorator with fields without an initializer
           loader: 'babel-loader',
           options: {
             presets: [
@@ -124,7 +116,7 @@ module.exports = ({ config, mode }) => {
             ],
             plugins: [
               // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
-              ['@babel/plugin-transform-runtime', { version: '7.3.0' }],
+              ['@babel/plugin-transform-runtime', { useESModules: true, version: '7.3.0' }],
               [
                 'babel-plugin-emotion',
                 {
@@ -150,6 +142,7 @@ module.exports = ({ config, mode }) => {
               require('autoprefixer')({
                 browsers: ['last 1 version', 'ie >= 11'],
               }),
+              ...(useRtl ? [rtlcss] : []),
             ],
             sourceMap: useStyleSourceMap,
           },

@@ -7,50 +7,35 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { storiesOf } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import './tabs';
-import './tab';
+import { defaultStory as baseDefaultStory } from './tabs-story';
 
-const createProps = () => ({
-  disabled: boolean('Disabled (disabled)', false),
-  triggerContent: text('The default content of the trigger button for narrow screen (trigger-content)', 'Select an item'),
-  value: text('The value of the selected item (value)', ''),
-  disableSelection: boolean(
-    'Disable user-initiated selection change (Call event.preventDefault() in bx-tabs-beingselected event)',
-    false
-  ),
-});
+export { default } from './tabs-story';
 
-storiesOf('Tabs', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
-    const props = (original => {
-      const beforeSelectedAction = action('bx-tabs-beingselected');
-      function onBeforeSelect(this: any, event: CustomEvent) {
-        beforeSelectedAction(event);
-        // NOTE: Using class property ref instead of closure ref (from `original`)
-        // because updating event handlers via Storybook Vue `methods` (upon knob update) does not seem to work
-        if (this.disableSelection) {
-          event.preventDefault();
-        }
+export const defaultStory = ({ parameters }) => {
+  const props = (({ onBeforeSelect, onAfterSelect, ...rest }) => {
+    function handleBeforeSelect(this: any, event: CustomEvent) {
+      onBeforeSelect(event);
+      // NOTE: Using class property ref instead of closure ref (from `original`)
+      // because updating event handlers via Storybook Vue `methods` (upon knob update) does not seem to work
+      if (this.disableSelection) {
+        event.preventDefault();
       }
-      return {
-        ...original,
-        onBeforeSelect,
-        onSelect: action('bx-tabs-selected'),
-      };
-    })(createProps());
+    }
     return {
-      template: `
+      ...rest,
+      handleBeforeSelect,
+      handleAfterSelect: onAfterSelect,
+    };
+  })(parameters?.props?.['bx-tabs']);
+  return {
+    template: `
         <bx-tabs
           :disabled="disabled"
           :trigger-content="triggerContent"
           :value="value"
-          @bx-tabs-beingselected="onBeforeSelect"
-          @bx-tabs-selected="onSelect"
+          @bx-tabs-beingselected="handleBeforeSelect"
+          @bx-tabs-selected="handleAfterSelect"
         >
           <bx-tab value="all">Option 1</bx-tab>
           <bx-tab value="cloudFoundry" disabled>Option 2</bx-tab>
@@ -60,6 +45,8 @@ storiesOf('Tabs', module)
         </bx-tabs>
         <!-- TODO: Figure out how to style the tab panels demo -->
       `,
-      ...createVueBindingsFromProps(props),
-    };
-  });
+    ...createVueBindingsFromProps(props),
+  };
+};
+
+defaultStory.story = baseDefaultStory.story;

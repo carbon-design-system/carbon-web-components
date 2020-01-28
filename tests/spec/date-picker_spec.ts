@@ -7,124 +7,40 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render, TemplateResult } from 'lit-html';
-import pick from 'lodash.pick';
+import { render } from 'lit-html';
+import pick from 'lodash-es/pick';
 import flatpickr from 'flatpickr';
-// Just importing the default export does not seem to run `customElements.define()`
-/* eslint-disable import/no-duplicates */
-import '../../src/components/date-picker/date-picker';
 import BXDatePicker from '../../src/components/date-picker/date-picker';
-import '../../src/components/date-picker/date-picker-input';
 import BXDatePickerInput from '../../src/components/date-picker/date-picker-input';
-/* eslint-enable import/no-duplicates */
+import { defaultStory, singleWithCalendar, rangeWithCalendar } from '../../src/components/date-picker/date-picker-story';
 
-const inputTemplate = ({
-  mode = 'simple',
-  disabled,
-  hideLabel,
-  labelText = '',
-  light,
-  onInput,
-}: {
-  mode?: string;
-  disabled?: boolean;
-  hideLabel?: boolean;
-  labelText?: string;
-  light?: boolean;
-  onInput: EventListener;
-}) => {
-  if (mode === 'single') {
-    return html`
-      <bx-date-picker-input
-        ?disabled="${disabled}"
-        ?hide-label="${hideLabel}"
-        kind="single"
-        label-text="${labelText}"
-        ?light="${light}"
-        @input="${onInput}"
-      >
-      </bx-date-picker-input>
-    `;
-  }
-  if (mode === 'range') {
-    return html`
-      <bx-date-picker-input
-        ?disabled="${disabled}"
-        ?hide-label="${hideLabel}"
-        kind="from"
-        label-text="${labelText}"
-        ?light="${light}"
-        @input="${onInput}"
-      >
-      </bx-date-picker-input>
-      <bx-date-picker-input
-        ?disabled="${disabled}"
-        ?hide-label="${hideLabel}"
-        kind="to"
-        label-text="${labelText}"
-        ?light="${light}"
-        @input="${onInput}"
-      >
-      </bx-date-picker-input>
-    `;
-  }
-  return html`
-    <bx-date-picker-input ?disabled="${disabled}" ?hide-label="${hideLabel}" label-text="${labelText}" ?light="${light}">
-    </bx-date-picker-input>
-  `;
-};
+const defaultTemplate = (props?) =>
+  defaultStory({
+    parameters: {
+      props,
+    },
+  });
 
-const template = ({
-  hasContent = true,
-  mode = 'simple',
-  enabledRange = '',
-  open,
-  value = '',
-  disabled,
-  hideLabel,
-  labelText = '',
-  light,
-  onAfterChanged = () => {},
-  onInput = () => {},
-}: {
-  hasContent?: boolean;
-  mode?: string;
-  enabledRange?: string;
-  open?: boolean;
-  value?: string;
-  disabled?: boolean;
-  hideLabel?: boolean;
-  labelText?: string;
-  light?: boolean;
-  onAfterChanged?: EventListener;
-  onInput?: EventListener;
-} = {}) =>
-  !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-date-picker
-          enabled-range="${enabledRange}"
-          ?open="${open}"
-          value="${value}"
-          @bx-date-picker-changed="${onAfterChanged}"
-        >
-          ${inputTemplate({
-            mode,
-            disabled,
-            hideLabel,
-            labelText,
-            light,
-            onInput,
-          })}
-        </bx-date-picker>
-      `;
+const singleWithCalendarTemplate = (props?) =>
+  singleWithCalendar({
+    parameters: {
+      props,
+    },
+  });
+
+const rangeWithCalendarTemplate = (props?) =>
+  rangeWithCalendar({
+    parameters: {
+      props,
+    },
+  });
 
 describe('bx-date-picker', function() {
   describe('Simple mode', function() {
     let datePicker: BXDatePicker | null;
 
     beforeEach(async function() {
-      render(template({ mode: 'simple' }), document.body);
+      render(defaultTemplate(), document.body);
       await Promise.resolve();
       datePicker = document.body.querySelector('bx-date-picker');
     });
@@ -133,10 +49,6 @@ describe('bx-date-picker', function() {
       const { calendar } = datePicker!;
       expect(calendar).toBeFalsy();
     });
-
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
-    });
   });
 
   describe('Single mode', function() {
@@ -144,7 +56,7 @@ describe('bx-date-picker', function() {
     let datePickerInput: BXDatePickerInput | null;
 
     beforeEach(async function() {
-      render(template({ mode: 'single' }), document.body);
+      render(singleWithCalendarTemplate(), document.body);
       await Promise.resolve();
       datePicker = document.body.querySelector('bx-date-picker');
       datePickerInput = document.body.querySelector('bx-date-picker-input');
@@ -156,7 +68,7 @@ describe('bx-date-picker', function() {
       const { config, loadedPlugins } = datePicker!.calendar!;
       expect(pick(config, ['allowInput', 'appendTo', 'dateFormat', 'locale', 'maxDate', 'minDate', 'positionElement'])).toEqual({
         allowInput: true,
-        appendTo: datePicker!.shadowRoot!.getElementById('floating-menu-container'),
+        appendTo: datePicker!.shadowRoot!.getElementById('floating-menu-container')!,
         dateFormat: 'm/d/Y',
         locale: flatpickr.l10ns.default,
         maxDate: undefined,
@@ -164,6 +76,7 @@ describe('bx-date-picker', function() {
         positionElement: datePickerInput!.input,
       });
       expect(loadedPlugins.sort()).toEqual([
+        'carbonFlatpickrAppendToPlugin',
         'carbonFlatpickrCSSClassPlugin',
         'carbonFlatpickrFixEventsPlugin',
         'carbonFlatpickrFocusPlugin',
@@ -179,10 +92,6 @@ describe('bx-date-picker', function() {
       await Promise.resolve();
       expect(datePicker!.calendar!.selectedDates.map(item => item.getTime())).toEqual([new Date(2000, 6, 15).getTime()]);
     });
-
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
-    });
   });
 
   describe('Range mode', function() {
@@ -190,7 +99,7 @@ describe('bx-date-picker', function() {
     let datePickerInputStart: BXDatePickerInput | null;
 
     beforeEach(async function() {
-      render(template({ mode: 'range' }), document.body);
+      render(rangeWithCalendarTemplate(), document.body);
       await Promise.resolve();
       datePicker = document.body.querySelector('bx-date-picker');
       datePickerInputStart = document.body.querySelector('bx-date-picker-input[kind="from"]');
@@ -202,7 +111,7 @@ describe('bx-date-picker', function() {
       const { config, loadedPlugins } = datePicker!.calendar!;
       expect(pick(config, ['allowInput', 'appendTo', 'dateFormat', 'locale', 'maxDate', 'minDate', 'positionElement'])).toEqual({
         allowInput: true,
-        appendTo: datePicker!.shadowRoot!.getElementById('floating-menu-container'),
+        appendTo: datePicker!.shadowRoot!.getElementById('floating-menu-container')!,
         dateFormat: 'm/d/Y',
         locale: flatpickr.l10ns.default,
         maxDate: undefined,
@@ -210,6 +119,7 @@ describe('bx-date-picker', function() {
         positionElement: datePickerInputStart!.input,
       });
       expect(loadedPlugins.sort()).toEqual([
+        'carbonFlatpickrAppendToPlugin',
         'carbonFlatpickrCSSClassPlugin',
         'carbonFlatpickrFixEventsPlugin',
         'carbonFlatpickrFocusPlugin',
@@ -229,9 +139,9 @@ describe('bx-date-picker', function() {
         new Date(2000, 6, 20).getTime(),
       ]);
     });
+  });
 
-    afterEach(function() {
-      render(template({ hasContent: false }), document.body);
-    });
+  afterEach(async function() {
+    await render(undefined!, document.body);
   });
 });

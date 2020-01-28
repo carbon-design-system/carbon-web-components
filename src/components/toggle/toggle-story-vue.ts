@@ -7,39 +7,26 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { storiesOf } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import './toggle';
+import { defaultStory as baseDefaultStory } from './toggle-story';
 
-const createProps = () => ({
-  checked: boolean('Checked (checked)', false),
-  checkedText: text('Text for checked state (checked-text)', 'On'),
-  disabled: boolean('Disabled (disabled)', false),
-  labelText: text('Label text (label-text)', 'Toggle'),
-  name: text('Name (name)', ''),
-  small: boolean('Use small variant (small)', false),
-  uncheckedText: text('Text for unchecked state (unchecked-text)', 'Off'),
-  value: text('Value (value)', ''),
-  onInput: action('input'),
+export { default } from './toggle-story';
+
+export const defaultStory = ({ parameters }) => ({
+  template: `
+    <bx-toggle
+      :checked="checked"
+      :checked-text="checkedText"
+      :disabled="disabled"
+      :label-text="labelText"
+      :name="name"
+      :small="small"
+      :unchecked-text="uncheckedText"
+      :value="value"
+      @bx-toggle-changed="onAfterChange"
+    ></bx-toggle>
+  `,
+  ...createVueBindingsFromProps(parameters?.props?.['bx-toggle']),
 });
 
-storiesOf('Toggle', module)
-  .addDecorator(withKnobs)
-  .add('Default', () => ({
-    template: `
-      <bx-toggle
-        :checked="checked"
-        :checked-text="checkedText"
-        :disabled="disabled"
-        :label-text="labelText"
-        :name="name"
-        :small="small"
-        :unchecked-text="uncheckedText"
-        :value="value"
-        @input="onInput"
-      ></bx-toggle>
-    `,
-    ...createVueBindingsFromProps(createProps()),
-  }));
+defaultStory.story = baseDefaultStory.story;
