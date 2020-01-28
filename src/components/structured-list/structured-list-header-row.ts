@@ -24,6 +24,13 @@ class BXStructuredListHeaderRow extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'has-selection' })
   hasSelection = false;
 
+  connectedCallback() {
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'row');
+    }
+    super.connectedCallback();
+  }
+
   render() {
     // We could look up in DOM for `bx-structured-list[hasSelection]`,
     // but uses `hasSelection` prop to utilize attribute change callback

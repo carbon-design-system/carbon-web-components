@@ -57,7 +57,9 @@ defaultStory.story = {
 export default {
   title: 'Accordion',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-accordion': () => ({
         open: boolean('Open the section (open)', false),

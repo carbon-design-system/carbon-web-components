@@ -98,7 +98,9 @@ withoutFormItemWrapper.story = {
 export default {
   title: 'Number Input',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-number-input': () => createProps({ ...knobs, textNonEmpty: textNullable }),
     },

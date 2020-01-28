@@ -39,7 +39,9 @@ defaultStory.story = {
 export default {
   title: 'Checkbox',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-checkbox': () => ({
         checked: boolean('Checked (checked)', false),

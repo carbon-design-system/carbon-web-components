@@ -61,6 +61,7 @@ import {
   sortable as baseSortable,
   sortableWithPagination as baseSortableWithPagination,
 } from './data-table-story';
+import styles from './data-table-story.scss';
 
 export { default } from './data-table-story';
 
@@ -277,7 +278,7 @@ const BXCEDemoDataTable = ({
 
   /* eslint-disable no-script-url */
   return (
-    <div>
+    <div className="bx-ce-demo--data-table">
       <BXTableToolbar>
         <BXTableBatchActions
           active={hasBatchActions}
@@ -506,6 +507,7 @@ export const sortable = ({ parameters }) => {
   };
   return (
     <>
+      <style type="text/css">{styles.cssText}</style>
       {/* Refer to <bx-ce-demo-data-table> implementation at the top for details */}
       <BXCEDemoDataTable
         columns={demoColumns}
@@ -548,6 +550,7 @@ export const sortableWithPagination = ({ parameters }) => {
   };
   return (
     <>
+      <style type="text/css">{styles.cssText}</style>
       {/* Refer to <bx-ce-demo-data-table> implementation at the top for details */}
       <BXCEDemoDataTable
         columns={demoColumns}

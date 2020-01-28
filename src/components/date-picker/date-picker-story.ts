@@ -133,7 +133,9 @@ rangeWithCalendar.story = {
 export default {
   title: 'Date picker',
   parameters: {
-    docs: storyDocs?.parameters?.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-date-picker-input': () => ({
         disabled: boolean('Disabled (disabled in <bx-date-picker-input>)', false),
