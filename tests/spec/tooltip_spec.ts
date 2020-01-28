@@ -8,19 +8,12 @@
  */
 
 import { html, render, TemplateResult } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined';
-import Filter16 from '@carbon/icons/lib/filter/16';
 
 import ResizeObserver from 'resize-observer-polyfill';
-// Just importing the default export does not seem to run `customElements.define()`
-/* eslint-disable import/no-duplicates */
-import '../../src/components/tooltip/tooltip';
 import BXTooltip from '../../src/components/tooltip/tooltip';
-import '../../src/components/tooltip/tooltip-body';
 import BXTooltipBody from '../../src/components/tooltip/tooltip-body';
-/* eslint-enable import/no-duplicates */
 import { TOOLTIP_ALIGNMENT, TOOLTIP_DIRECTION } from '../../src/components/tooltip/tooltip-definition';
-import '../../src/components/tooltip/tooltip-icon';
+import { definition, icon } from '../../src/components/tooltip/tooltip-story';
 
 const bodyTemplate = () => html`
   <bx-tooltip-body></bx-tooltip-body>
@@ -38,51 +31,23 @@ const contentTemplate = ({ hasBody = true }: { hasBody?: boolean } = {}) => html
 const template = ({ hasContent = true, hasBody = true }: { hasContent?: boolean; hasBody?: boolean } = {}) =>
   !hasContent ? (undefined! as TemplateResult) : contentTemplate({ hasBody });
 
-const definitionTemplate = ({
-  hasContent = true,
-  alignment,
-  bodyText,
-  direction,
-}: {
-  hasContent?: boolean;
-  alignment?: TOOLTIP_ALIGNMENT;
-  bodyText?: string;
-  direction?: TOOLTIP_DIRECTION;
-} = {}) =>
-  !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-tooltip-definition
-          alignment="${ifDefined(alignment)}"
-          body-text="${ifDefined(bodyText)}"
-          direction="${ifDefined(direction)}"
-        >
-          Definition Tooltip
-        </bx-tooltip-definition>
-      `;
+const definitionTemplate = (props?) =>
+  definition({
+    parameters: {
+      props: {
+        'bx-tooltip-definition': props,
+      },
+    },
+  });
 
-const iconTemplate = ({
-  hasContent = true,
-  alignment,
-  bodyText,
-  direction,
-}: {
-  hasContent?: boolean;
-  alignment?: TOOLTIP_ALIGNMENT;
-  bodyText?: string;
-  direction?: TOOLTIP_DIRECTION;
-} = {}) =>
-  !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-tooltip-icon
-          alignment="${ifDefined(alignment)}"
-          body-text="${ifDefined(bodyText)}"
-          direction="${ifDefined(direction)}"
-        >
-          ${Filter16()}
-        </bx-tooltip-icon>
-      `;
+const iconTemplate = (props?) =>
+  icon({
+    parameters: {
+      props: {
+        'bx-tooltip-icon': props,
+      },
+    },
+  });
 
 describe('bx-tooltip', function() {
   describe('Missing menu body', function() {

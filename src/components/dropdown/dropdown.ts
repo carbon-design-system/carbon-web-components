@@ -552,7 +552,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       <label class="${labelClasses}" ?hidden="${!hasLabelText}">
         <slot name="label-text" @slotchange="${handleSlotchangeLabelText}">${labelText}</slot>
       </label>
-      <div class="${helperClasses}" ?hidden="${!hasHelperText}">
+      <div class="${helperClasses}" ?hidden="${inline || !hasHelperText}">
         <slot name="helper-text" @slotchange="${handleSlotchangeHelperText}">${helperText}</slot>
       </div>
       <div

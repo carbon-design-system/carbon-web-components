@@ -26,10 +26,11 @@ export const defaultStory = ({ parameters }) => {
     triggerContent,
     validityMessage,
     disableSelection,
-  } = parameters?.props?.['bx-combo-box'];
-  const beforeSelectedAction = action('bx-combo-box-beingselected');
+    onBeforeSelect,
+    onAfterSelect,
+  } = parameters?.props?.['bx-combo-box'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeSelect(event);
     if (disableSelection) {
       event.preventDefault();
     }
@@ -46,7 +47,7 @@ export const defaultStory = ({ parameters }) => {
       value=${value}
       trigger-content=${triggerContent}
       @bx-combo-box-beingselected=${handleBeforeSelected}
-      @bx-combo-box-selected=${action('bx-combo-box-selected')}
+      @bx-combo-box-selected=${onAfterSelect}
     >
       <bx-combo-box-item value="all">Option 1</bx-combo-box-item>
       <bx-combo-box-item value="cloudFoundry">Option 2</bx-combo-box-item>
@@ -64,14 +65,16 @@ defaultStory.story = {
 export default {
   title: 'Combo box',
   parameters: {
-    docs: storyDocs.parameters.docs,
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-combo-box': () => ({
         open: boolean('Open (open)', false),
         disabled: boolean('Disabled (disabled)', false),
-        helperText: text('Helper text (helper-text)', ''),
+        helperText: text('Helper text (helper-text)', 'Optional helper text'),
         invalid: boolean('Show invalid state  (invalid)', false),
-        labelText: text('Label text (label-text)', ''),
+        labelText: text('Label text (label-text)', 'Combo box title'),
         light: boolean('Light variant (light)', false),
         value: text('The value of the selected item (value)', ''),
         triggerContent: text('The placeholder content (trigger-content)', 'Filter...'),
@@ -80,6 +83,8 @@ export default {
           'Disable user-initiated selection change (Call event.preventDefault() in bx-combo-box-beingselected event)',
           false
         ),
+        onBeforeSelect: action('bx-combo-box-beingselected'),
+        onAfterSelect: action('bx-combo-box-selected'),
       }),
     },
   },

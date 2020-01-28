@@ -9,17 +9,18 @@
 
 import { html } from 'lit-element';
 import { select } from '@storybook/addon-knobs';
+import ifNonNull from '../../globals/directives/if-non-null';
 import { SKELETON_TEXT_TYPE } from './skeleton-text';
 
 const types = {
-  [`Regular (${SKELETON_TEXT_TYPE.REGULAR})`]: SKELETON_TEXT_TYPE.REGULAR,
+  Regular: null,
   [`Heading (${SKELETON_TEXT_TYPE.HEADING})`]: SKELETON_TEXT_TYPE.HEADING,
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { type } = parameters?.props?.['bx-skeleton-text'];
+  const { type } = parameters?.props?.['bx-skeleton-text'] ?? {};
   return html`
-    <bx-skeleton-text type="${type}"></bx-skeleton-text>
+    <bx-skeleton-text type="${ifNonNull(type)}"></bx-skeleton-text>
   `;
 };
 
@@ -28,7 +29,7 @@ defaultStory.story = {
   parameters: {
     knobs: {
       'bx-skeleton-text': () => ({
-        type: select('Skeleton text type (type)', types, SKELETON_TEXT_TYPE.REGULAR),
+        type: select('Skeleton text type (type)', types, null),
       }),
     },
   },
