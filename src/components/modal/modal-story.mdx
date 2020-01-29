@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Modal
 
@@ -22,3 +22,9 @@ While effective when used correctly, modals should be used sparingly to limit di
 It means that hitting tab key at the last sequential-focusable element in `<bx-modal>` puts focus on the first sequential-focusable element, and hitting Shift-tab key at the first sequential-focusable element in `<bx-modal>` puts focus on the last sequential-focusable element.
 
 Once `<bx-modal>` gets closed, it puts focus on the last focused element before it got open, typically the launcher button.
+
+## `<bx-modal>` attributes and properties
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-modal open>`) and `false` means not setting the attribute (e.g. `<bx-modal>` without `open` attribute).
+
+<Props of="bx-modal" />

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -20,6 +20,7 @@ const { prefix } = settings;
 
 /**
  * Header menu.
+ * @element bx-header-menu
  */
 @customElement(`${prefix}-header-menu`)
 class BXHeaderMenu extends HostListenerMixin(FocusMixin(LitElement)) {
@@ -68,19 +69,19 @@ class BXHeaderMenu extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   /**
-   * `true` if the menu should be expanded. Corresponds to the attribute with the same name.
+   * `true` if the menu should be expanded.
    */
   @property({ type: Boolean, reflect: true })
   expanded = false;
 
   /**
-   * The content of the trigger button. Corresponds to `trigger-content` attribute.
+   * The content of the trigger button.
    */
   @property({ attribute: 'trigger-content' })
   triggerContent = '';
 
   /**
-   * The `aria-label` attribute for the menu UI. Corresponds to `menu-label` attribute.
+   * The `aria-label` attribute for the menu UI.
    */
   @property({ attribute: 'menu-label' })
   menuLabel!: string;

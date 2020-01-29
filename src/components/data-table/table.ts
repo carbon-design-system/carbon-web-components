@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -41,17 +41,18 @@ export enum TABLE_SIZE {
 
 /**
  * Data table.
+ * @element bx-table
  */
 @customElement(`${prefix}-table`)
 class BXTable extends LitElement {
   /**
-   * The table size. Corresponds to the attribute with the same name.
+   * The table size.
    */
   @property({ reflect: true })
   size = TABLE_SIZE.REGULAR;
 
   /**
-   * `true` if this table should support sorting. Corresponds to the attribute with the same name.
+   * `true` if this table should support sorting.
    */
   @property({ type: Boolean, reflect: true })
   sort = false;

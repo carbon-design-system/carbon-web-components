@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Input
 
@@ -8,3 +8,9 @@ A single line field is used when the input anticipated by the user is a single l
 <Preview withToolbar>
   <Story id="input--default-story" height="160px" />
 </Preview>
+
+## `<bx-input>` attributes and properties
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-input required>`) and `false` means not setting the attribute (e.g. `<bx-input>` without `required` attribute).
+
+<Props of="bx-input" />

@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Date picker
 
@@ -27,3 +27,15 @@ A range Date Picker consists of two input fields and a calendar.
 <Preview withToolbar>
   <Story id="date-picker--range-with-calendar" height="480px" />
 </Preview>
+
+## `<bx-date-picker>` attributes, properties and events
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-date-picker open>`) and `false` means not setting the attribute (e.g. `<bx-date-picker>` without `open` attribute).
+
+<Props of="bx-date-picker" />
+
+## `<bx-date-picker-input>` attributes and properties
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-date-picker-input light>`) and `false` means not setting the attribute (e.g. `<bx-date-picker-input>` without `light` attribute).
+
+<Props of="bx-date-picker-input" />

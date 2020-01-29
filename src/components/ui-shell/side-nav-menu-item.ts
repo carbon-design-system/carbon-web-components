@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,17 +17,18 @@ const { prefix } = settings;
 
 /**
  * Side nav menu item.
+ * @element bx-side-nav-menu-item
  */
 @customElement(`${prefix}-side-nav-menu-item`)
 class BXSideNavMenuItem extends FocusMixin(LitElement) {
   /**
-   * `true` if the menu item should be active. Corresponds to the attribute with the same name.
+   * `true` if the menu item should be active.
    */
   @property({ type: Boolean, reflect: true })
   active = false;
 
   /**
-   * Link `href`. Corresponds to the attribute with the same name.
+   * Link `href`.
    */
   @property()
   href = '';

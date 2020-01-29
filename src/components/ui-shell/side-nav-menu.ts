@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -18,6 +18,8 @@ const { prefix } = settings;
 
 /**
  * Side nav menu.
+ * @element bx-side-nav-menu
+ * @slot title-icon - The icon.
  */
 @customElement(`${prefix}-side-nav-menu`)
 class BXSideNavMenu extends FocusMixin(LitElement) {
@@ -77,25 +79,25 @@ class BXSideNavMenu extends FocusMixin(LitElement) {
   }
 
   /**
-   * `true` if the menu has active menu item. Corresponds to the attribute with the same name.
+   * `true` if the menu has active menu item.
    */
   @property({ type: Boolean, reflect: true })
   active = false;
 
   /**
-   * `true` if the menu should be open. Corresponds to the attribute with the same name.
+   * `true` if the menu should be open.
    */
   @property({ type: Boolean, reflect: true })
   expanded = false;
 
   /**
-   * `true` if the menu should be forced collapsed upon side nav's expanded state. Corresponds to `force-collapsed` attribute.
+   * `true` if the menu should be forced collapsed upon side nav's expanded state.
    */
   @property({ type: Boolean, reflect: true, attribute: 'force-collapsed' })
   forceCollapsed = false;
 
   /**
-   * The title text. Corresponds to the attribute with the same name.
+   * The title text.
    */
   @property()
   title = '';

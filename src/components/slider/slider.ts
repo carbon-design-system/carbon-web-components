@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -43,6 +43,11 @@ const THUMB_DIRECTION = {
 
 /**
  * Slider.
+ * @element bx-slider
+ * @slot label-text - The label text.
+ * @slot max-text - The text for maximum value.
+ * @slot min-text - The text for minimum value.
+ * @fires bx-slider-changed - The custom event fired after the value is changed by user gesture.
  */
 @customElement(`${prefix}-slider`)
 class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
@@ -251,7 +256,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   };
 
   /**
-   * `true` if the check box should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the check box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
@@ -271,7 +276,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   formatMinText = ({ min }: { min: string }) => min;
 
   /**
-   * The label text. Corresponds to `label-text` attribute.
+   * The label text.
    */
   @property({ attribute: 'label-text' })
   labelText = '';
@@ -305,13 +310,13 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   }
 
   /**
-   * The form name. Corresponds to the attribute with the same name.
+   * The form name.
    */
   @property()
   name!: string;
 
   /**
-   * The snapping step of the value. Corresponds to the attribute with the same name.
+   * The snapping step of the value.
    */
   @property({ type: Number, reflect: true })
   get step() {
@@ -327,7 +332,6 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   /**
    * A value determining how much the value should increase/decrease by Shift+arrow keys,
    * which will be `(max - min) / stepRatio`.
-   * Corresponds to `step-ratio` attribute.
    */
   @property({ type: Number, reflect: true, attribute: 'step-ratio' })
   get stepRatio() {
@@ -341,7 +345,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   }
 
   /**
-   * The value. Corresponds to the attribute with the same name.
+   * The value.
    */
   @property({ type: Number })
   value = 50;
