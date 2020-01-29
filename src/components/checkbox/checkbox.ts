@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -32,9 +32,9 @@ class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
     const { checked, indeterminate } = this._checkboxNode;
     this.checked = checked;
     this.indeterminate = indeterminate;
-    const { eventAfterChange } = this.constructor as typeof BXCheckbox;
+    const { eventChange } = this.constructor as typeof BXCheckbox;
     this.dispatchEvent(
-      new CustomEvent(eventAfterChange, {
+      new CustomEvent(eventChange, {
         bubbles: true,
         composed: true,
         detail: {
@@ -124,7 +124,7 @@ class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
   /**
    * The name of the custom event fired after this changebox changes its checked state.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-checkbox-changed`;
   }
 

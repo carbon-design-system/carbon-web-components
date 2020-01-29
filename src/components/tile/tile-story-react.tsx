@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -76,7 +76,7 @@ export const multiSelectable = ({ parameters }) => {
 multiSelectable.story = baseMultiSelectable.story;
 
 export const expandable = ({ parameters }) => {
-  const { expanded, disableChange, onBeforeChange, onAfterChange } =
+  const { expanded, disableChange, onBeforeChange, onChange } =
     (parameters.props && parameters.props['bx-expandable-tile']) || ({} as typeof parameters.props['bx-expandable-tile']);
   const handleBeforeChanged = (event: CustomEvent) => {
     onBeforeChange(event);
@@ -85,7 +85,7 @@ export const expandable = ({ parameters }) => {
     }
   };
   return (
-    <BXExpandableTile expanded={expanded} onBeforeChange={handleBeforeChanged} onAfterChange={onAfterChange}>
+    <BXExpandableTile expanded={expanded} onBeforeChange={handleBeforeChanged} onChange={onChange}>
       <BXTileAboveTheFoldContent style={{ height: '200px' }}>Above the fold content here</BXTileAboveTheFoldContent>
       <BXTileBelowTheFoldContent style={{ height: '300px' }}>Below the fold content here</BXTileBelowTheFoldContent>
     </BXExpandableTile>

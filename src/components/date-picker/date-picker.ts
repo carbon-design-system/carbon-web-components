@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -301,11 +301,7 @@ class BXDatePicker extends LitElement {
     super.connectedCallback();
     this._instantiateDatePicker();
     // Manually hooks the event listeners on the host element to make the event names configurable
-    this._hAfterChange = on(
-      this,
-      (this.constructor as typeof BXDatePicker).eventAfterChange,
-      this._handleChange as EventListener
-    );
+    this._hAfterChange = on(this, (this.constructor as typeof BXDatePicker).eventChange, this._handleChange as EventListener);
   }
 
   disconnectedCallback() {
@@ -521,7 +517,7 @@ class BXDatePicker extends LitElement {
   /**
    * The name of the custom event fired on this element when Flatpickr updates its value.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-date-picker-changed`;
   }
 

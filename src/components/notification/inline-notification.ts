@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -105,7 +105,7 @@ class BXInlineNotification extends FocusMixin(LitElement) {
       };
       if (this.dispatchEvent(new CustomEvent((this.constructor as typeof BXInlineNotification).eventBeforeClose, init))) {
         this.open = false;
-        this.dispatchEvent(new CustomEvent((this.constructor as typeof BXInlineNotification).eventAfterClose, init));
+        this.dispatchEvent(new CustomEvent((this.constructor as typeof BXInlineNotification).eventClose, init));
       }
     }
   }
@@ -232,7 +232,7 @@ class BXInlineNotification extends FocusMixin(LitElement) {
   /**
    * The name of the custom event fired after this notification is closed upon a user gesture.
    */
-  static get eventAfterClose() {
+  static get eventClose() {
     return `${prefix}-notification-closed`;
   }
 

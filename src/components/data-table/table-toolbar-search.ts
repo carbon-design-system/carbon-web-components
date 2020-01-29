@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -102,7 +102,7 @@ class BXTableToolbarSearch extends HostListenerMixin(BXSearch) {
   /**
    * The name of the custom event fired after the search content is changed upon a user gesture.
    */
-  static get eventAfterInput() {
+  static get eventInput() {
     // The code uses on in `<bx-search>`, but definition is done also here for React event generation
     return `${prefix}-search-input`;
   }

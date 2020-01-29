@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -46,7 +46,7 @@ class BXSearch extends FocusMixin(LitElement) {
     const { target } = event;
     const { value } = target as HTMLInputElement;
     this.dispatchEvent(
-      new CustomEvent((this.constructor as typeof BXSearch).eventAfterInput, {
+      new CustomEvent((this.constructor as typeof BXSearch).eventInput, {
         bubbles: true,
         composed: true,
         cancelable: false,
@@ -64,7 +64,7 @@ class BXSearch extends FocusMixin(LitElement) {
   private _handleClearInputButtonClick() {
     if (this.value) {
       this.dispatchEvent(
-        new CustomEvent((this.constructor as typeof BXSearch).eventAfterInput, {
+        new CustomEvent((this.constructor as typeof BXSearch).eventInput, {
           bubbles: true,
           composed: true,
           cancelable: false,
@@ -188,7 +188,7 @@ class BXSearch extends FocusMixin(LitElement) {
   /**
    * The name of the custom event fired after the search content is changed upon a user gesture.
    */
-  static get eventAfterInput() {
+  static get eventInput() {
     return `${prefix}-search-input`;
   }
 

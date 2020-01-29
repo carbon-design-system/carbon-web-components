@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -52,9 +52,9 @@ class BXRadioButtonGroup extends FormMixin(LitElement) {
     const oldValue = this.value;
     this.value = selected && selected.value;
     if (oldValue !== this.value) {
-      const { eventAfterChange } = this.constructor as typeof BXRadioButtonGroup;
+      const { eventChange } = this.constructor as typeof BXRadioButtonGroup;
       this.dispatchEvent(
-        new CustomEvent(eventAfterChange, {
+        new CustomEvent(eventChange, {
           bubbles: true,
           composed: true,
           detail: {
@@ -108,7 +108,7 @@ class BXRadioButtonGroup extends FormMixin(LitElement) {
     // Manually hooks the event listeners on the host element to make the event names configurable
     this._hAfterChangeRadioButton = on(
       this,
-      (this.constructor as typeof BXRadioButtonGroup).eventAfterChangeRadioButton,
+      (this.constructor as typeof BXRadioButtonGroup).eventChangeRadioButton,
       this._handleAfterChangeRadioButton as EventListener
     );
   }
@@ -155,14 +155,14 @@ class BXRadioButtonGroup extends FormMixin(LitElement) {
   /**
    * The name of the custom event fired after this radio button group changes its selected item.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-radio-button-group-changed`;
   }
 
   /**
    * The name of the custom event fired after a radio button changes its checked state.
    */
-  static get eventAfterChangeRadioButton() {
+  static get eventChangeRadioButton() {
     return `${prefix}-radio-button-changed`;
   }
 

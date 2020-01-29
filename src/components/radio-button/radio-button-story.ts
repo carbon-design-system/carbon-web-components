@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -27,7 +27,7 @@ const labelPositions = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, labelPosition, orientation, name, value, onAfterChange } = parameters?.props?.['bx-radio-button-group'] ?? {};
+  const { disabled, labelPosition, orientation, name, value, onChange } = parameters?.props?.['bx-radio-button-group'] ?? {};
   const { hideLabel, labelText } = parameters?.props?.['bx-radio-button'] ?? {};
   return html`
     <bx-radio-button-group
@@ -36,7 +36,7 @@ export const defaultStory = ({ parameters }) => {
       orientation="${ifNonNull(orientation)}"
       name="${ifNonNull(name)}"
       value="${ifNonNull(value)}"
-      @bx-radio-button-group-changed="${onAfterChange}"
+      @bx-radio-button-group-changed="${onChange}"
     >
       <bx-radio-button ?hide-label="${hideLabel}" label-text="${ifNonNull(labelText)}" value="all"></bx-radio-button>
       <bx-radio-button ?hide-label="${hideLabel}" label-text="${ifNonNull(labelText)}" value="cloudFoundry"></bx-radio-button>
@@ -62,7 +62,7 @@ export default {
         orientation: select('Orientation (orientation)', orientations, RADIO_BUTTON_ORIENTATION.HORIZONTAL),
         name: textNullable('Name (name)', 'radio-group'),
         value: textNullable('Value (value)', ''),
-        onAfterChange: action('bx-radio-button-group-changed'),
+        onChange: action('bx-radio-button-group-changed'),
       }),
       'bx-radio-button': () => ({
         hideLabel: boolean('Hide label (hide-label)', false),

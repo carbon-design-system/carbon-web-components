@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -40,7 +40,7 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
     });
     if (this.dispatchEvent(beforeChangeEvent)) {
       this.expanded = expanded;
-      const afterChangeEvent = new CustomEvent(constructor.eventAfterChange, init);
+      const afterChangeEvent = new CustomEvent(constructor.eventChange, init);
       this.dispatchEvent(afterChangeEvent);
     }
   };
@@ -124,7 +124,7 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * The name of the custom event fired after a the expanded state is changed upon a user gesture.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-expandable-tile-changed`;
   }
 

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -22,8 +22,8 @@ class BXTableBatchActions extends LitElement {
    * Handles `click` event on the Cancel button.
    */
   private _handleCancel() {
-    const { eventAfterClickCancel } = this.constructor as typeof BXTableBatchActions;
-    this.dispatchEvent(new CustomEvent(eventAfterClickCancel, { bubbles: true, composed: true }));
+    const { eventClickCancel } = this.constructor as typeof BXTableBatchActions;
+    this.dispatchEvent(new CustomEvent(eventClickCancel, { bubbles: true, composed: true }));
   }
 
   /**
@@ -70,7 +70,7 @@ class BXTableBatchActions extends LitElement {
   /**
    * The name of the custom event fired after the Cancel button is clicked.
    */
-  static get eventAfterClickCancel() {
+  static get eventClickCancel() {
     return `${prefix}-table-batch-actions-cancel-clicked`;
   }
 

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -16,7 +16,7 @@ import './toggle';
 import storyDocs from './toggle-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, onAfterChange } =
+  const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, onChange } =
     parameters?.props?.['bx-toggle'] ?? {};
   return html`
     <bx-toggle
@@ -28,7 +28,7 @@ export const defaultStory = ({ parameters }) => {
       ?small="${small}"
       unchecked-text="${ifNonNull(uncheckedText)}"
       value="${ifNonNull(value)}"
-      @bx-toggle-changed="${onAfterChange}"
+      @bx-toggle-changed="${onChange}"
     ></bx-toggle>
   `;
 };
@@ -53,7 +53,7 @@ export default {
         small: boolean('Use small variant (small)', false),
         uncheckedText: textNullable('Text for unchecked state (unchecked-text)', 'Off'),
         value: textNullable('Value (value)', ''),
-        onAfterChange: action('bx-toggle-changed'),
+        onChange: action('bx-toggle-changed'),
       }),
     },
   },

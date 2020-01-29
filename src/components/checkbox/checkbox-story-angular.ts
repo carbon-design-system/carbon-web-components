@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -21,7 +21,7 @@ export const defaultStory = ({ parameters }) => ({
       [labelText]="labelText"
       [name]="name"
       [value]="value"
-      (bx-checkbox-changed)="onAfterChange($event)"
+      (bx-checkbox-changed)="onChange($event)"
     ></bx-checkbox>
   `,
   props: parameters?.props?.['bx-checkbox'],

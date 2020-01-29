@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -38,7 +38,7 @@ export const defaultStory = ({ parameters }) => ({
     </bx-multi-select>
   `,
   ...createVueBindingsFromProps(
-    (({ disableSelection, onBeforeSelect, onAfterSelect, ...rest }) => ({
+    (({ disableSelection, onBeforeSelect, onSelect, ...rest }) => ({
       ...rest,
       handleBeforeSelected: (event: CustomEvent) => {
         onBeforeSelect(event);
@@ -46,7 +46,7 @@ export const defaultStory = ({ parameters }) => ({
           event.preventDefault();
         }
       },
-      handleSelected: onAfterSelect,
+      handleSelected: onSelect,
     }))(parameters?.props?.['bx-multi-select'])
   ),
 });

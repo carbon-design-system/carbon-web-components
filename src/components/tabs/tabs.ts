@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -385,7 +385,7 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
   /**
    * The name of the custom event fired after a a tab is selected upon a user gesture.
    */
-  static get eventAfterSelect() {
+  static get eventSelect() {
     return `${prefix}-tabs-selected`;
   }
 

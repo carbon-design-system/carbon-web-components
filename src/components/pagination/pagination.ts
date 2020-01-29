@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -57,7 +57,7 @@ class BXPagination extends FocusMixin(LitElement) {
   private _handleUserInitiatedChangeStart(start: number) {
     this.start = start;
     this.dispatchEvent(
-      new CustomEvent((this.constructor as typeof BXPagination).eventAfterChangeCurrent, {
+      new CustomEvent((this.constructor as typeof BXPagination).eventChangeCurrent, {
         bubbles: true,
         composed: true,
         detail: {
@@ -170,12 +170,12 @@ class BXPagination extends FocusMixin(LitElement) {
     // Manually hooks the event listeners on the host element to make the event names configurable
     this._hChangePage = on(
       this,
-      (this.constructor as typeof BXPagination).eventAfterChangePage,
+      (this.constructor as typeof BXPagination).eventChangePage,
       this._handleChangePage as EventListener
     );
     this._hChangePageSize = on(
       this,
-      (this.constructor as typeof BXPagination).eventAfterChangePageSize,
+      (this.constructor as typeof BXPagination).eventChangePageSize,
       this._handleChangePageSize as EventListener
     );
   }
@@ -282,21 +282,21 @@ class BXPagination extends FocusMixin(LitElement) {
   /**
    * The name of the custom event fired after the current row number is changed.
    */
-  static get eventAfterChangeCurrent() {
+  static get eventChangeCurrent() {
     return `${prefix}-pagination-changed-current`;
   }
 
   /**
    * The name of the custom event fired after the current page is changed from `<bx-pages-select>`.
    */
-  static get eventAfterChangePage() {
+  static get eventChangePage() {
     return `${prefix}-pages-select-changed`;
   }
 
   /**
    * The name of the custom event fired after the number of rows per page is changed from `<bx-page-sizes-select>`.
    */
-  static get eventAfterChangePageSize() {
+  static get eventChangePageSize() {
     return `${prefix}-page-sizes-select-changed`;
   }
 

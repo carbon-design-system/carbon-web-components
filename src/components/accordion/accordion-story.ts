@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,8 +17,7 @@ import storyDocs from './accordion-story.mdx';
 const noop = () => {};
 
 export const defaultStory = ({ parameters }) => {
-  const { open, titleText, disableToggle, onBeforeToggle = noop, onAfterToggle = noop } =
-    parameters?.props?.['bx-accordion'] ?? {};
+  const { open, titleText, disableToggle, onBeforeToggle = noop, onToggle = noop } = parameters?.props?.['bx-accordion'] ?? {};
   const handleBeforeToggle = (event: CustomEvent) => {
     onBeforeToggle(event);
     if (disableToggle) {
@@ -26,7 +25,7 @@ export const defaultStory = ({ parameters }) => {
     }
   };
   return html`
-    <bx-accordion @bx-accordion-item-beingtoggled="${handleBeforeToggle}" @bx-accordion-item-toggled="${onAfterToggle}">
+    <bx-accordion @bx-accordion-item-beingtoggled="${handleBeforeToggle}" @bx-accordion-item-toggled="${onToggle}">
       <bx-accordion-item ?open="${open}" title-text=${titleText}>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -69,7 +68,7 @@ export default {
           false
         ),
         onBeforeToggle: action('bx-accordion-item-beingtoggled'),
-        onAfterToggle: action('bx-accordion-item-toggled'),
+        onToggle: action('bx-accordion-item-toggled'),
       }),
     },
   },
