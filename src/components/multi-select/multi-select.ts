@@ -19,6 +19,11 @@ const { prefix } = settings;
 
 /**
  * Multi select.
+ * @element bx-multi-select
+ * @fires bx-multi-select-beingselected
+ *   The custom event fired before a multi select item is selected upon a user gesture.
+ *   Cancellation of this event stops changing the user-initiated selection.
+ * @fires bx-multi-select-selected - The custom event fired after a a multi select item is selected upon a user gesture.
  */
 @customElement(`${prefix}-multi-select`)
 class BXMultiSelect extends BXDropdown {
@@ -104,7 +109,7 @@ class BXMultiSelect extends BXDropdown {
   }
 
   /**
-   * The `aria-label` attribute for the icon to clear selection. Corresponds to `clear-selection-label` attribute.
+   * The `aria-label` attribute for the icon to clear selection.
    */
   @property({ attribute: 'clear-selection-label' })
   clearSelectionLabel = '';
@@ -186,7 +191,7 @@ class BXMultiSelect extends BXDropdown {
   /**
    * The name of the custom event fired after a a multi select item is selected upon a user gesture.
    */
-  static get eventAfterSelect() {
+  static get eventSelect() {
     return `${prefix}-multi-select-selected`;
   }
 

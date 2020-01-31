@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -42,6 +42,11 @@ export const NAVIGATION_DIRECTION = {
 
 /**
  * Content switcher.
+ * @element bx-content-switcher
+ * @fires bx-content-switcher-beingselected
+ *   The custom event fired before a content switcher item is selected upon a user gesture.
+ *   Cancellation of this event stops changing the user-initiated selection.
+ * @fires bx-content-switcher-selected - The custom event fired after a a content switcher item is selected upon a user gesture.
  */
 @customElement(`${prefix}-content-switcher`)
 class BXContentSwitcher extends LitElement {
@@ -111,7 +116,7 @@ class BXContentSwitcher extends LitElement {
       });
       if (this.dispatchEvent(beforeSelectEvent)) {
         this._selectionDidChange(item);
-        const afterSelectEvent = new CustomEvent(constructor.eventAfterSelect, init);
+        const afterSelectEvent = new CustomEvent(constructor.eventSelect, init);
         this.dispatchEvent(afterSelectEvent);
       }
     }
@@ -147,7 +152,7 @@ class BXContentSwitcher extends LitElement {
   }
 
   /**
-   * The value of the selected item. Corresponds to the attribute with the same name.
+   * The value of the selected item.
    */
   @property({ reflect: true })
   value = '';
@@ -194,7 +199,7 @@ class BXContentSwitcher extends LitElement {
   /**
    * The name of the custom event fired after a a content switcher item is selected upon a user gesture.
    */
-  static get eventAfterSelect() {
+  static get eventSelect() {
     return `${prefix}-content-switcher-selected`;
   }
 

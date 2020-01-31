@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -16,18 +16,21 @@ const { prefix } = settings;
 
 /**
  * Basic tab.
+ * @element bx-tab
  */
 @customElement(`${prefix}-tab`)
 class BXTab extends BXContentSwitcherItem {
   /**
-   * `true` if this tab should be highlighted. Corresponds to the attribute with the same name.
+   * `true` if this tab should be highlighted.
    * If `true`, parent `<bx-tabs>` selects/deselects this tab upon keyboard interaction.
+   * @private
    */
   @property({ type: Boolean, reflect: true })
   highlighted = false;
 
   /**
-   * `true` if this tab is in a focused `<bx-tabs>`. Corresponds to `in-focus` attribute.
+   * `true` if this tab is in a focused `<bx-tabs>`.
+   * @private
    */
   @property({ type: Boolean, reflect: true, attribute: 'in-focus' })
   inFocus = false;

@@ -1,14 +1,13 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import { html, property, customElement, LitElement } from 'lit-element';
-import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import TAG_TYPE from './types';
 import styles from './tag.scss';
@@ -19,6 +18,7 @@ const { prefix } = settings;
 
 /**
  * Tag.
+ * @element bx-tag
  */
 @customElement(`${prefix}-tag`)
 export default class BXTag extends LitElement {
@@ -35,16 +35,8 @@ export default class BXTag extends LitElement {
   type = TAG_TYPE.RED;
 
   render() {
-    const { disabled, type } = this;
-    const classes = classMap({
-      [`${prefix}--tag`]: true,
-      [`${prefix}--tag--${type}`]: true,
-      [`${prefix}--tag--disabled`]: disabled,
-    });
     return html`
-      <span class="${classes}">
-        <slot></slot>
-      </span>
+      <slot></slot>
     `;
   }
 

@@ -9,86 +9,103 @@ $css--plex: true !default;
 
 @import 'carbon-components/scss/components/tag/tag';
 
-:host(#{$prefix}--tag--red) {
-  @include tag-theme($ibm-color__red-20, $ibm-color__red-70);
+:host(#{$prefix}-tag) {
+  @extend .#{$prefix}--tag;
 }
 
-:host(#{$prefix}--tag--magenta) {
-  @include tag-theme($ibm-color__magenta-20, $ibm-color__magenta-70);
+:host(#{$prefix}-tag[type='red']) {
+  @extend .#{$prefix}--tag--red;
 }
 
-:host(#{$prefix}--tag--purple) {
-  @include tag-theme($ibm-color__purple-20, $ibm-color__purple-70);
+:host(#{$prefix}-tag[type='magenta']) {
+  @extend .#{$prefix}--tag--magenta;
 }
 
-:host(#{$prefix}--tag--blue) {
-  @include tag-theme($ibm-color__blue-20, $ibm-color__blue-70);
+:host(#{$prefix}-tag[type='purple']) {
+  @extend .#{$prefix}--tag--purple;
 }
 
-:host(#{$prefix}--tag--cyan) {
-  @include tag-theme($ibm-color__cyan-20, $ibm-color__cyan-70);
+:host(#{$prefix}-tag[type='blue']) {
+  @extend .#{$prefix}--tag--blue;
 }
 
-:host(#{$prefix}--tag--teal) {
-  @include tag-theme($ibm-color__teal-20, $ibm-color__teal-70);
+:host(#{$prefix}-tag[type='cyan']) {
+  @extend .#{$prefix}--tag--cyan;
 }
 
-:host(#{$prefix}--tag--green) {
-  @include tag-theme($ibm-color__green-20, $ibm-color__green-70);
+:host(#{$prefix}-tag[type='teal']) {
+  @extend .#{$prefix}--tag--teal;
 }
 
-:host(#{$prefix}--tag--gray) {
-  @include tag-theme($ibm-color__gray-20, $ibm-color__gray-100);
+:host(#{$prefix}-tag[type='green']) {
+  @extend .#{$prefix}--tag--green;
 }
 
-:host(#{$prefix}--tag--cool-gray) {
-  @include tag-theme($ibm-color__cool-gray-20, $ibm-color__cool-gray-100);
+:host(#{$prefix}-tag[type='gray']) {
+  @extend .#{$prefix}--tag--gray;
 }
 
-:host(#{$prefix}--tag--warm-gray) {
-  @include tag-theme($ibm-color__warm-gray-20, $ibm-color__warm-gray-100);
+:host(#{$prefix}-tag[type='cool-gray']) {
+  @extend .#{$prefix}--tag--cool-gray;
 }
 
-:host(#{$prefix}--tag--disabled) {
-  @include tag-theme($ibm-color__gray-10, $ibm-color__gray-30);
+:host(#{$prefix}-tag[type='warm-gray']) {
+  @extend .#{$prefix}--tag--warm-gray;
+}
 
-  &:hover {
-    cursor: not-allowed;
-  }
+:host(#{$prefix}-tag[disabled]),
+:host(#{$prefix}-filter-tag[disabled]) {
+  @extend .#{$prefix}--tag--disabled;
 }
 
 // tags used for filtering
-:host(#{$prefix}--tag--filter) {
-  @include tag-theme($inverse-02, $inverse-01);
-  cursor: pointer;
-  padding-right: rem(2px); // Align with hover circle of X button
+:host(#{$prefix}-filter-tag) {
+  @extend .#{$prefix}--tag;
+  @extend .#{$prefix}--tag--filter;
 }
 
-:host(#{$prefix}--tag--filter > svg) {
-  fill: $inverse-01;
-  margin-left: rem(4px);
-  padding: rem(2px);
+:host(#{$prefix}-filter-tag) button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: rem(20px);
   height: rem(20px);
-}
-
-:host(#{$prefix}--tag--filter > svg:hover) {
+  margin: 0 0 0 rem(4px);
+  padding: 0;
+  border: 0;
+  background-color: transparent;
   border-radius: 50%;
-  background-color: $inverse-hover-ui;
+
+  &:hover {
+    background-color: $inverse-hover-ui;
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px $inverse-focus-ui;
+  }
 }
 
-:host(#{$prefix}--tag--filter:focus),
-:host(#{$prefix}--tag--filter:hover) {
-  outline: none;
+:host(#{$prefix}-filter-tag[disabled]) button:hover {
+  background-color: transparent;
+  cursor: not-allowed;
 }
 
-:host(#{$prefix}--tag--filter:focus > svg) {
-  box-shadow: inset 0 0 0 2px $inverse-focus-ui;
-  border-radius: 50%;
+:host(#{$prefix}-filter-tag[disabled]) button:focus {
+  box-shadow: none;
+}
+
+:host(#{$prefix}-filter-tag) svg {
+  fill: $inverse-01;
+}
+
+:host(#{$prefix}-filter-tag[disabled]) svg {
+  fill: $ibm-color__gray-30;
 }
 
 // Skeleton state
-:host(#{$prefix}--tag.#{$prefix}--skeleton) {
+:host(#{$prefix}-tag.#{$prefix}--skeleton) {
   @include skeleton;
   width: rem(60px);
   overflow: hidden;

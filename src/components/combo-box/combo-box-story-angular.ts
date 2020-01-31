@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -33,7 +33,7 @@ export const defaultStory = ({ parameters }) => ({
       <bx-combo-box-item value="router">Option 5</bx-combo-box-item>
     </bx-combo-box>
   `,
-  props: (({ disableSelection, onBeforeSelect, onAfterSelect, ...rest }) => {
+  props: (({ disableSelection, onBeforeSelect, onSelect, ...rest }) => {
     const handleBeforeSelect = (event: CustomEvent) => {
       onBeforeSelect(event);
       if (disableSelection) {
@@ -43,7 +43,7 @@ export const defaultStory = ({ parameters }) => ({
     return {
       ...rest,
       handleBeforeSelect,
-      handleAfterSelect: onAfterSelect,
+      handleAfterSelect: onSelect,
     };
   })(parameters?.props?.['bx-combo-box']),
 });

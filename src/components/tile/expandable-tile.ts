@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,6 +19,11 @@ const { prefix } = settings;
 
 /**
  * Expandable tile.
+ * @element bx-expandable-tile
+ * @fires bx-expandable-tile-beingchanged
+ *   The custom event fired before the expanded state is changed upon a user gesture.
+ *   Cancellation of this event stops changing the user-initiated change in expanded state.
+ * @fires bx-expandable-tile-changed - The custom event fired after a the expanded state is changed upon a user gesture.
  */
 @customElement(`${prefix}-expandable-tile`)
 class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
@@ -40,27 +45,25 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
     });
     if (this.dispatchEvent(beforeChangeEvent)) {
       this.expanded = expanded;
-      const afterChangeEvent = new CustomEvent(constructor.eventAfterChange, init);
+      const afterChangeEvent = new CustomEvent(constructor.eventChange, init);
       this.dispatchEvent(afterChangeEvent);
     }
   };
 
   /**
    * An assistive text for screen reader to announce, telling the collapsed state.
-   * Corresponds to `collapsed-assistive-text` attribute.
    */
   @property({ attribute: 'collapsed-assistive-text' })
   collapsedAssistiveText!: string;
 
   /**
    * An assistive text for screen reader to announce, telling the expanded state.
-   * Corresponds to `expanded-assistive-text` attribute.
    */
   @property({ attribute: 'expanded-assistive-text' })
   expandedAssistiveText!: string;
 
   /**
-   * `true` to expand this expandable tile. Corresponds to the attribute with the same name.
+   * `true` to expand this expandable tile.
    */
   @property({ type: Boolean, reflect: true })
   expanded = false;
@@ -124,7 +127,7 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * The name of the custom event fired after a the expanded state is changed upon a user gesture.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-expandable-tile-changed`;
   }
 

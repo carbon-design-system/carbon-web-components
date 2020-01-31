@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -43,6 +43,7 @@ export enum BUTTON_KIND {
 
 /**
  * Button.
+ * @element bx-btn
  */
 @customElement(`${prefix}-btn`)
 class BXButton extends FocusMixin(LitElement) {
@@ -80,70 +81,68 @@ class BXButton extends FocusMixin(LitElement) {
   }
 
   /**
-   * `true` if the button should have input focus when the page loads. Corresponds to the attribute with the same name.
+   * `true` if the button should have input focus when the page loads.
    */
   @property({ type: Boolean, reflect: true })
   autofocus = false;
 
   /**
-   * `true` if the button should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the button should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * The default file name, used if this button is rendered as `<a>`. Corresponds to the attribute with the same name.
+   * The default file name, used if this button is rendered as `<a>`.
    */
   @property()
   download!: string;
 
   /**
-   * Link `href`. Corresponds to the attribute with the same name. If present, this button is rendered as `<a>`.
-   * Corresponds to the attribute with the same name.
+   * Link `href`. If present, this button is rendered as `<a>`.
    */
   @property()
   href!: string;
 
   /**
-   * The language of what `href` points to, if this button is rendered as `<a>`. Corresponds to the attribute with the same name.
+   * The language of what `href` points to, if this button is rendered as `<a>`.
    * @type {[type]}
    */
   @property()
   hreflang!: string;
 
   /**
-   * Button kind. Corresponds to the attribute with the same name.
+   * Button kind.
    */
   @property({ reflect: true })
   kind = BUTTON_KIND.PRIMARY;
 
   /**
-   * URLs to ping, if this button is rendered as `<a>`. Corresponds to the attribute with the same name.
+   * URLs to ping, if this button is rendered as `<a>`.
    */
   @property()
   ping!: string;
 
   /**
-   * The link type, if this button is rendered as `<a>`. Corresponds to the attribute with the same name.
+   * The link type, if this button is rendered as `<a>`.
    */
   @property()
   rel!: string;
 
   /**
-   * `true` if the button should be a small variant. Corresponds to the attribute with the same name.
+   * `true` if the button should be a small variant.
    */
   @property({ type: Boolean, reflect: true })
   small = false;
 
   /**
-   * The link target, if this button is rendered as `<a>`. Corresponds to the attribute with the same name.
+   * The link target, if this button is rendered as `<a>`.
    */
   @property()
   target!: string;
 
   /**
    * The default behavior if the button is rendered as `<button>`. MIME type of the `target`if this button is rendered as `<a>`.
-   * Corresponds to the attribute with the same name.
    */
   @property()
   type!: string;

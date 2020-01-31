@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Tooltip
 
@@ -17,6 +17,12 @@ Interactive tooltips may contain rich text and other interactive elements like b
   <Story id="tooltip--default-story" height="320px" />
 </Preview>
 
+### `<bx-tooltip>` attributes and properties
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-tooltip open>`) and `false` means not setting the attribute (e.g. `<bx-tooltip>` without `open` attribute).
+
+<Props of="bx-tooltip" />
+
 ## Definition tooltip
 
 The definition tooltip provides additional help or defines an item or term. It may be used on the label of a UI element, or on a word embedded in a paragraph.
@@ -29,6 +35,10 @@ The definition tooltip provides additional help or defines an item or term. It m
   <Story id="tooltip--definition" height="200px" />
 </Preview>
 
+### `<bx-tooltip-definition>` attributes and properties
+
+<Props of="bx-tooltip-definition" />
+
 ## Icon tooltip
 
 An icon tooltip is used to clarify the action or name of an interactive icon button.
@@ -38,3 +48,7 @@ An icon tooltip is used to clarify the action or name of an interactive icon but
 <Preview withToolbar>
   <Story id="tooltip--icon" height="160px" />
 </Preview>
+
+### `<bx-tooltip-icon>` attributes and properties
+
+<Props of="bx-tooltip-icon" />

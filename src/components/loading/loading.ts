@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -18,23 +18,24 @@ const { prefix } = settings;
 
 /**
  * Spinner indicating loading state.
+ * @element bx-loading
  */
 @customElement(`${prefix}-loading`)
 class BXLoading extends LitElement {
   /**
-   * The assistive text for the spinner icon. Corresponds to 'assistive-text' attribute.
+   * The assistive text for the spinner icon.
    */
   @property({ attribute: 'assistive-text' })
   assistiveText = 'Loading';
 
   /**
-   * Spinner type. Corresponds to the attribute with the same name.
+   * Spinner type.
    */
   @property()
   type = LOADING_TYPE.REGULAR;
 
   /**
-   * `true` if spinner should stop. Corresponds to the attribute with the same name.
+   * `true` if spinner should stop.
    */
   @property({ type: Boolean, reflect: true })
   inactive = false;

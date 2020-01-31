@@ -39,7 +39,7 @@ export const defaultStory = ({ parameters }) => {
     value,
     disableSelection,
     onBeforeSelect,
-    onAfterSelect,
+    onSelect,
   } = parameters?.props?.['bx-multi-select'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     if (onBeforeSelect) {
@@ -65,7 +65,7 @@ export const defaultStory = ({ parameters }) => {
       validity-message=${ifNonNull(validityMessage)}
       value="${ifNonNull(value)}"
       @bx-multi-select-beingselected=${handleBeforeSelected}
-      @bx-multi-select-selected=${onAfterSelect}
+      @bx-multi-select-selected=${onSelect}
     >
       <bx-multi-select-item value="all">Option 1</bx-multi-select-item>
       <bx-multi-select-item value="cloudFoundry">Option 2</bx-multi-select-item>
@@ -105,7 +105,7 @@ export default {
           false
         ),
         onBeforeSelect: action('bx-multi-select-beingselected'),
-        onAfterSelect: action('bx-multi-select-selected'),
+        onSelect: action('bx-multi-select-selected'),
       }),
     },
   },

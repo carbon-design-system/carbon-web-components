@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -35,9 +35,9 @@ export default (datePicker: BXDatePicker): Plugin => (fp: FlatpickrInstance) => 
    * @param selectedDates The latest selected dates.
    */
   const handleChange = (selectedDates: Date[]) => {
-    const { eventAfterChange } = datePicker.constructor as typeof BXDatePicker;
+    const { eventChange } = datePicker.constructor as typeof BXDatePicker;
     datePicker.dispatchEvent(
-      new CustomEvent(eventAfterChange, {
+      new CustomEvent(eventChange, {
         bubbles: true,
         cancelable: true,
         composed: true,

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -93,6 +93,7 @@ const renderCode = ({
 
 /**
  * Basic code snippet.
+ * @element bx-code-snippet
  */
 @customElement(`${prefix}-code-snippet`)
 class BXCodeSnippet extends FocusMixin(LitElement) {
@@ -172,45 +173,43 @@ class BXCodeSnippet extends FocusMixin(LitElement) {
   private _preNode!: HTMLPreElement;
 
   /**
-   * An assistive text for screen reader to advice a DOM node is for code snippet. Corresponds to `code-assistive-text` attribute.
+   * An assistive text for screen reader to advice a DOM node is for code snippet.
    */
   @property({ attribute: 'code-assistive-text' })
   codeAssistiveText = 'code-snippet';
 
   /**
-   * The context content for the collapse button. Corresponds to `collapse-button-text` attribute.
+   * The context content for the collapse button.
    */
   @property({ attribute: 'collapse-button-text' })
   collapseButtonText = 'Show less';
 
   /**
    * An assistive text for screen reader to announce, telling that the button copies the content to the clipboard.
-   * Corresponds to `copy-button-assistive-text` attribute.
    */
   @property({ attribute: 'copy-button-assistive-text' })
   copyButtonAssistiveText = 'Copy to clipboard';
 
   /**
-   * The feedback text for the copy button. Corresponds to `copy-button-feedback-text` attribute.
+   * The feedback text for the copy button.
    */
   @property({ attribute: 'copy-button-feedback-text' })
   copyButtonFeedbackText = 'Copied!';
 
   /**
    * The number in milliseconds to determine how long the tooltip for the copy button should remain.
-   * Corresponds to `copy-button-feedback-timeout` attribute.
    */
   @property({ type: Number, attribute: 'copy-button-feedback-timeout' })
   copyButtonFeedbackTimeout = 2000;
 
   /**
-   * The context content for the expand button. Corresponds to `expand-button-text` attribute.
+   * The context content for the expand button.
    */
   @property({ attribute: 'expand-button-text' })
   expandButtonText = 'Show more';
 
   /**
-   * The type of code snippet. Corresponds to the attribute with the same name.
+   * The type of code snippet.
    */
   @property({ reflect: true })
   type = CODE_SNIPPET_TYPE.SINGLE;

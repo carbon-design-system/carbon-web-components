@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -21,7 +21,7 @@ const sizes = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { closeButtonAssistiveText, disabled, light, labelText, name, placeholder, size, type, value, onAfterInput } =
+  const { closeButtonAssistiveText, disabled, light, labelText, name, placeholder, size, type, value, onInput } =
     parameters?.props?.['bx-search'] ?? {};
   return html`
     <bx-search
@@ -34,7 +34,7 @@ export const defaultStory = ({ parameters }) => {
       size="${ifNonNull(size)}"
       type="${ifNonNull(type)}"
       value="${ifNonNull(value)}"
-      @bx-search-input="${onAfterInput}"
+      @bx-search-input="${onInput}"
     ></bx-search>
   `;
 };
@@ -63,7 +63,7 @@ export default {
         size: select('Searh size (size)', sizes, null),
         type: textNullable('The type of the <input> (type)', ''),
         value: textNullable('Value (value)', ''),
-        onAfterInput: action('bx-search-input'),
+        onInput: action('bx-search-input'),
       }),
     },
   },

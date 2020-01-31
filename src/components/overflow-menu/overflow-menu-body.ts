@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -16,23 +16,25 @@ const { prefix } = settings;
 
 /**
  * Overflow menu body.
+ * @element bx-overflow-menu-body
  */
 @customElement(`${prefix}-overflow-menu-body`)
 class BXOverflowMenuBody extends BXFloatingMenu {
   /**
-   * How the menu is aligned to the trigger button. Corresponds to the attribute with the same name.
+   * How the menu is aligned to the trigger button.
    */
   @property()
   alignment = FLOATING_MENU_ALIGNMENT.START;
 
   /**
-   * The menu direction. Corresponds to the attribute with the same name.
+   * The menu direction.
    */
   @property()
   direction = FLOATING_MENU_DIRECTION.BOTTOM;
 
   /**
-   * `true` if the menu should be open. Corresponds to the attribute with the same name.
+   * `true` if the menu should be open.
+   * @private
    */
   @property({ type: Boolean, reflect: true })
   open = false;

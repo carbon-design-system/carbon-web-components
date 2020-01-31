@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Number input
 
@@ -7,3 +7,9 @@ Number inputs are similar to text inputs, but contain controls used to increase 
 <Preview withToolbar>
   <Story id="number-input--default-story" height="160px" />
 </Preview>
+
+## `<bx-number-input>` attributes and properties
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-number-input mobile>`) and `false` means not setting the attribute (e.g. `<bx-number-input>` without `mobile` attribute).
+
+<Props of="bx-number-input" />

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -33,7 +33,7 @@ export const defaultStory = ({ parameters }) => ({
     </bx-modal>
   `,
   ...createVueBindingsFromProps(
-    (({ disableClose, onBeforeClose, onAfterClose, ...rest }) => ({
+    (({ disableClose, onBeforeClose, onClose, ...rest }) => ({
       ...rest,
       handleBeforeClose: (event: CustomEvent) => {
         onBeforeClose(event);
@@ -41,7 +41,7 @@ export const defaultStory = ({ parameters }) => ({
           event.preventDefault();
         }
       },
-      handleClose: onAfterClose,
+      handleClose: onClose,
     }))(parameters?.props?.['bx-modal'])
   ),
 });

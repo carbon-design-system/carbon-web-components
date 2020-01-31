@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Accordion
 
@@ -14,3 +14,9 @@ A chevron is used to indicate the “expand/collapse” action, though the entir
 <Preview withToolbar>
   <Story id="accordion--default-story" height="200px" />
 </Preview>
+
+## `<bx-accordion-item>` attributes, properties and events
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-accordion-item open>`) and `false` means not setting the attribute (e.g. `<bx-accordion-item>` without `open` attribute).
+
+<Props of="bx-accordion-item" />

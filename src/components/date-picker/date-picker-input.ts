@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -44,6 +44,7 @@ export enum DATE_PICKER_INPUT_KIND {
 
 /**
  * The input box for date picker.
+ * @element bx-date-picker-input
  */
 @customElement(`${prefix}-date-picker-input`)
 class BXDatePickerInput extends FocusMixin(LitElement) {
@@ -117,50 +118,49 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
   input!: HTMLInputElement;
 
   /**
-   * `true` if the check box should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the check box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * `true` if the label should be hidden. Corresponds to the attribute with the same name.
+   * `true` if the label should be hidden.
    */
   @property({ type: Boolean, reflect: true, attribute: 'hide-label' })
   hideLabel = false;
 
   /**
    * Controls the invalid state and visibility of the `validityMessage`.
-   * Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
   invalid = false;
 
   /**
-   * Date picker input kind. Corresponds to the attribute with the same name.
+   * Date picker input kind.
    */
   @property({ reflect: true })
   kind = DATE_PICKER_INPUT_KIND.SIMPLE;
 
   /**
-   * The label text. Corresponds to `label-text` attribute.
+   * The label text.
    */
   @property({ attribute: 'label-text' })
   labelText!: string;
 
   /**
-   * `true` if this date picker input should use the light UI variant. Corresponds to the attribute with the same name.
+   * `true` if this date picker input should use the light UI variant.
    */
   @property({ type: Boolean, reflect: true })
   light = false;
 
   /**
-   * The `pattern` attribute for the `<input>` in the shadow DOM. Corresponds to the attribute with the same name.
+   * The `pattern` attribute for the `<input>` in the shadow DOM.
    */
   @property()
   pattern!: string;
 
   /**
-   * The placeholder text. Corresponds to the attribute with the same name.
+   * The placeholder text.
    */
   @property()
   placeholder!: string;
@@ -168,26 +168,25 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
   /**
    * `true` if this date picker input should use the short UI variant.
    * Effective only when `kind` property is `DATE_PICKER_INPUT_KIND.SIMPLE`.
-   * Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
   short = false;
 
   /**
-   * The `type` attribute for the `<input>` in the shadow DOM. Corresponds to the attribute with the same name.
+   * The `type` attribute for the `<input>` in the shadow DOM.
    */
   @property()
   type!: string;
 
   /**
-   * The validity message. Corresponds to `validity-message` attribute.
+   * The validity message.
    * If present and non-empty, this date picker input shows the UI of its invalid state.
    */
   @property({ attribute: 'validity-message' })
   validityMessage = '';
 
   /**
-   * The value. Corresponds to the attribute with the same name.
+   * The value.
    */
   @property()
   value!: string;
