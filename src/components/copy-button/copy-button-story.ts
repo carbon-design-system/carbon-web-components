@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -13,6 +13,7 @@ import { number } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
 import './copy-button';
+import storyDocs from './copy-button-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
   const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } = parameters?.props?.['bx-copy-button'] ?? {};
@@ -33,6 +34,9 @@ defaultStory.story = {
 export default {
   title: 'Copy button',
   parameters: {
+    docs: {
+      page: storyDocs,
+    },
     knobs: {
       'bx-copy-button': () => ({
         buttonAssistiveText: textNullable('Assistive text for the button (button-assistive-text)', ''),

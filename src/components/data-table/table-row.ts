@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,6 +17,10 @@ const { prefix } = settings;
 
 /**
  * Data table row.
+ * @element bx-table-row
+ * @fires bx-table-row-change-selection
+ *   The custom event fired before this row is selected/unselected upon a user gesture.
+ *   Cancellation of this event stops the user-initiated change in selection.
  */
 @customElement(`${prefix}-table-row`)
 class BXTableRow extends FocusMixin(LitElement) {
@@ -42,7 +46,7 @@ class BXTableRow extends FocusMixin(LitElement) {
   }
 
   /**
-   * `true` if this table row should be disabled. Corresponds to the attribute with the same name.
+   * `true` if this table row should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
@@ -50,7 +54,7 @@ class BXTableRow extends FocusMixin(LitElement) {
   /**
    * `true` if this table row is placed at an even position in parent `<bx-table-body>`.
    * `<bx-table-body>` sets this property, _only_ in zebra stripe mode.
-   * Corresponds to the attribute with the same name.
+   * @private
    */
   @property({ type: Boolean, reflect: true })
   even = false;
@@ -58,38 +62,38 @@ class BXTableRow extends FocusMixin(LitElement) {
   /**
    * `true` if this table row is placed at an odd position in parent `<bx-table-body>`.
    * `<bx-table-body>` sets this property, _only_ in zebra stripe mode.
-   * Corresponds to the attribute with the same name.
+   * @private
    */
   @property({ type: Boolean, reflect: true })
   odd = false;
 
   /**
-   * `true` if this table row should work as an expando. Corresponds to the attribute with the same name.
+   * `true` if this table row should work as an expando.
    */
   @property({ type: Boolean, reflect: true })
   section = false;
 
   /**
-   * `true` if this table row should be selected. Corresponds to the attribute with the same name.
+   * `true` if this table row should be selected.
    */
   @property({ type: Boolean, reflect: true })
   selected = false;
 
   /**
-   * The `aria-label` attribute for the `<label>` for selection. Corresponds to `selection-label` attribute.
+   * The `aria-label` attribute for the `<label>` for selection.
    */
   @property({ attribute: 'selection-label' })
   selectionLabel = '';
 
   /**
-   * The `name` attribute for the `<input>` for selection. Corresponds to `selection-name` attribute.
+   * The `name` attribute for the `<input>` for selection.
    * If present, this table row will be a selectable one.
    */
   @property({ attribute: 'selection-name' })
   selectionName = '';
 
   /**
-   * The `value` attribute for the `<input>` for selection. Corresponds to `selection-value` attribute.
+   * The `value` attribute for the `<input>` for selection.
    */
   @property({ attribute: 'selection-value' })
   selectionValue = '';

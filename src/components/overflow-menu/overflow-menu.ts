@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -22,6 +22,8 @@ const { prefix } = settings;
 
 /**
  * Overflow menu.
+ * @element bx-overflow-menu
+ * @slot icon - The icon for the trigger button.
  */
 @customElement(`${prefix}-overflow-menu`)
 class BXOverflowMenu extends HostListenerMixin(FocusMixin(LitElement)) implements BXFloatingMenuTrigger {
@@ -46,7 +48,7 @@ class BXOverflowMenu extends HostListenerMixin(FocusMixin(LitElement)) implement
   };
 
   /**
-   * `true` if the dropdown should be open. Corresponds to the attribute with the same name.
+   * `true` if the dropdown should be open.
    */
   @property({ type: Boolean, reflect: true })
   open = false;

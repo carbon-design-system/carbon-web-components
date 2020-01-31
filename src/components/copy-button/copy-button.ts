@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -75,6 +75,7 @@ export const _renderButton = ({
 
 /**
  * Copy button.
+ * @element bx-copy-button
  */
 @customElement(`${prefix}-copy-button`)
 class BXCopyButton extends FocusMixin(LitElement) {
@@ -100,19 +101,18 @@ class BXCopyButton extends FocusMixin(LitElement) {
 
   /**
    * An assistive text for screen reader to announce, telling that the button copies the content to the clipboard.
-   * Corresponds to `button-assistive-text` attribute.
    */
   @property({ attribute: 'button-assistive-text' })
   buttonAssistiveText = 'Copy to clipboard';
 
   /**
-   * The feedback text. Corresponds to `feedback-text` attribute.
+   * The feedback text.
    */
   @property({ attribute: 'feedback-text' })
   feedbackText = 'Copied!';
 
   /**
-   * The number in milliseconds to determine how long the tooltip should remain. Corresponds to `feedback-timeout` attribute.
+   * The number in milliseconds to determine how long the tooltip should remain.
    */
   @property({ type: Number, attribute: 'feedback-timeout' })
   feedbackTimeout = 2000;

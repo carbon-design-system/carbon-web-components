@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -31,7 +31,7 @@ export const inline = ({ parameters }) => {
     open,
     disableClose,
     onBeforeClose,
-    onAfterClose,
+    onClose,
   } = parameters?.props?.['bx-inline-notification'];
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
@@ -50,7 +50,7 @@ export const inline = ({ parameters }) => {
       iconLabel={iconLabel}
       open={open}
       onBeforeClose={handleBeforeClose}
-      onClose={onAfterClose}
+      onClose={onClose}
     />
   );
 };
@@ -69,7 +69,7 @@ export const toast = ({ parameters }) => {
     open,
     disableClose,
     onBeforeClose,
-    onAfterClose,
+    onClose,
   } = parameters?.props?.['bx-toast-notification'];
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
@@ -89,7 +89,7 @@ export const toast = ({ parameters }) => {
       iconLabel={iconLabel}
       open={open}
       onBeforeClose={handleBeforeClose}
-      onClose={onAfterClose}
+      onClose={onClose}
     />
   );
 };

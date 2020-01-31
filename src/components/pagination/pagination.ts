@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -24,6 +24,11 @@ const { prefix } = settings;
 
 /**
  * Pagination UI.
+ * @element bx-pagination
+ * @slot page-sizes-select - Where to put in the `<page-sizes-select>`.
+ * @fires bx-pages-select-changed - The custom event fired after the current page is changed from `<bx-pages-select>`.
+ * @fires bx-page-sizes-select-changed
+ *   The custom event fired after the number of rows per page is changed from `<bx-page-sizes-select>`.
  */
 @customElement(`${prefix}-pagination`)
 class BXPagination extends FocusMixin(LitElement) {
@@ -57,7 +62,7 @@ class BXPagination extends FocusMixin(LitElement) {
   private _handleUserInitiatedChangeStart(start: number) {
     this.start = start;
     this.dispatchEvent(
-      new CustomEvent((this.constructor as typeof BXPagination).eventAfterChangeCurrent, {
+      new CustomEvent((this.constructor as typeof BXPagination).eventChangeCurrent, {
         bubbles: true,
         composed: true,
         detail: {
@@ -114,49 +119,49 @@ class BXPagination extends FocusMixin(LitElement) {
   formatStatusWithIndeterminateTotal = ({ start, end }) => (end == null ? `Item ${start}–` : `Item ${start}–${end}`);
 
   /**
-   * `true` to explicitly state that user is at the last page. Corresponds to `at-last-page` attribute.
+   * `true` to explicitly state that user is at the last page.
    */
   @property({ type: Boolean, attribute: 'at-last-page' })
   atLastPage!: boolean;
 
   /**
-   * `true` if the pagination UI should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the pagination UI should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * The assistive text for the button to go to next page. Corresponds to `next-button-text` attribute.
+   * The assistive text for the button to go to next page.
    */
   @property({ attribute: 'next-button-text' })
   nextButtonText = 'Next page';
 
   /**
-   * Number of items per page. Corresponds to `page-size` attribute.
+   * Number of items per page.
    */
   @property({ type: Number, attribute: 'page-size' })
   pageSize = 10;
 
   /**
-   * The label text for the UI to select page size. Corresponds to `page-size-label-text` attribute.
+   * The label text for the UI to select page size.
    */
   @property({ attribute: 'page-size-label-text' })
   pageSizeLabelText!: string;
 
   /**
-   * The assistive text for the button to go to previous page. Corresponds to `prev-button-text` attribute.
+   * The assistive text for the button to go to previous page.
    */
   @property({ attribute: 'prev-button-text' })
   prevButtonText = 'Previous page';
 
   /**
-   * The row number where current page start with, index that starts with zero. Corresponds to the attribute with the same name.
+   * The row number where current page start with, index that starts with zero.
    */
   @property({ type: Number })
   start = 0;
 
   /**
-   * The number of total items. Corresponds to the attribute with the same name.
+   * The number of total items.
    */
   @property({ type: Number })
   total!: number;
@@ -170,12 +175,12 @@ class BXPagination extends FocusMixin(LitElement) {
     // Manually hooks the event listeners on the host element to make the event names configurable
     this._hChangePage = on(
       this,
-      (this.constructor as typeof BXPagination).eventAfterChangePage,
+      (this.constructor as typeof BXPagination).eventChangePage,
       this._handleChangePage as EventListener
     );
     this._hChangePageSize = on(
       this,
-      (this.constructor as typeof BXPagination).eventAfterChangePageSize,
+      (this.constructor as typeof BXPagination).eventChangePageSize,
       this._handleChangePageSize as EventListener
     );
   }
@@ -282,21 +287,21 @@ class BXPagination extends FocusMixin(LitElement) {
   /**
    * The name of the custom event fired after the current row number is changed.
    */
-  static get eventAfterChangeCurrent() {
+  static get eventChangeCurrent() {
     return `${prefix}-pagination-changed-current`;
   }
 
   /**
    * The name of the custom event fired after the current page is changed from `<bx-pages-select>`.
    */
-  static get eventAfterChangePage() {
+  static get eventChangePage() {
     return `${prefix}-pages-select-changed`;
   }
 
   /**
    * The name of the custom event fired after the number of rows per page is changed from `<bx-page-sizes-select>`.
    */
-  static get eventAfterChangePageSize() {
+  static get eventChangePageSize() {
     return `${prefix}-page-sizes-select-changed`;
   }
 

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,6 +17,11 @@ const { prefix } = settings;
 
 /**
  * Accordion item.
+ * @element bx-accordion-item
+ * @fires bx-accordion-item-beingtoggled
+ *   The custom event fired before this accordion item is being toggled upon a user gesture.
+ *   Cancellation of this event stops the user-initiated action of toggling this accordion item.
+ * @fires bx-accordion-item-toggled - The custom event fired after this accordion item is toggled upon a user gesture.
  */
 @customElement(`${prefix}-accordion-item`)
 class BXAccordionItem extends FocusMixin(LitElement) {
@@ -35,7 +40,7 @@ class BXAccordionItem extends FocusMixin(LitElement) {
     };
     if (this.dispatchEvent(new CustomEvent((this.constructor as typeof BXAccordionItem).eventBeforeToggle, init))) {
       this.open = open;
-      this.dispatchEvent(new CustomEvent((this.constructor as typeof BXAccordionItem).eventAfterToggle, init));
+      this.dispatchEvent(new CustomEvent((this.constructor as typeof BXAccordionItem).eventToggle, init));
     }
   }
 
@@ -56,19 +61,19 @@ class BXAccordionItem extends FocusMixin(LitElement) {
   };
 
   /**
-   * The assistive text for the expando button. Corresponds to `expando-assistive-text` attribute.
+   * The assistive text for the expando button.
    */
   @property({ attribute: 'expando-assistive-text' })
   expandoAssistiveText = 'Expand/Collapse';
 
   /**
-   * `true` if the check box should be open. Corresponds to the attribute with the same name.
+   * `true` if the check box should be open.
    */
   @property({ type: Boolean, reflect: true })
   open = false;
 
   /**
-   * The title text. Corresponds to `title-text` attribute.
+   * The title text.
    */
   @property({ attribute: 'title-text' })
   titleText = '';
@@ -122,7 +127,7 @@ class BXAccordionItem extends FocusMixin(LitElement) {
   /**
    * The name of the custom event fired after this accordion item is toggled upon a user gesture.
    */
-  static get eventAfterToggle() {
+  static get eventToggle() {
     return `${prefix}-accordion-item-toggled`;
   }
 

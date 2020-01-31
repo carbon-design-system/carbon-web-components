@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,7 +17,7 @@ const host = {
   '(blur)': 'onTouched()',
 };
 
-// NOTE: Referring `BXSlider.eventAfterChange` seems to cause ng-packagr to package up `src/components/slider.ts` code,
+// NOTE: Referring `BXSlider.eventChange` seems to cause ng-packagr to package up `src/components/slider.ts` code,
 // Which is not desirable
 host[`(${prefix}-slider-changed)`] = 'onChange($event.detail.value)';
 
