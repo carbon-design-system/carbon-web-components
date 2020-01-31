@@ -36,12 +36,15 @@ export const defaultStory = ({ parameters }) => {
     triggerContent,
     type,
     validityMessage,
+    value,
     disableSelection,
     onBeforeSelect,
     onSelect,
   } = parameters?.props?.['bx-multi-select'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
-    onBeforeSelect(event);
+    if (onBeforeSelect) {
+      onBeforeSelect(event);
+    }
     if (disableSelection) {
       event.preventDefault();
     }
@@ -60,6 +63,7 @@ export const defaultStory = ({ parameters }) => {
       trigger-content=${ifNonNull(triggerContent)}
       type=${ifNonNull(type)}
       validity-message=${ifNonNull(validityMessage)}
+      value="${ifNonNull(value)}"
       @bx-multi-select-beingselected=${handleBeforeSelected}
       @bx-multi-select-selected=${onSelect}
     >
