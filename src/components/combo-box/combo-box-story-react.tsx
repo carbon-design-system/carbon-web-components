@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -31,7 +31,7 @@ export const defaultStory = ({ parameters }) => {
     triggerContent,
     disableSelection,
     onBeforeSelect,
-    onAfterSelect,
+    onSelect,
   } = parameters?.props?.['bx-combo-box'];
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
@@ -51,7 +51,7 @@ export const defaultStory = ({ parameters }) => {
       value={value}
       triggerContent={triggerContent}
       onBeforeSelect={handleBeforeSelected}
-      onAfterSelect={onAfterSelect}>
+      onSelect={onSelect}>
       <BXComboBoxItem value="all">Option 1</BXComboBoxItem>
       <BXComboBoxItem value="cloudFoundry">Option 2</BXComboBoxItem>
       <BXComboBoxItem value="staging">Option 3</BXComboBoxItem>

@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Multi select
 
@@ -52,3 +52,15 @@ When user attempts to change selection in multi select item, `bx-multi-select-be
 ## Note on keyboard navigation
 
 Similar to native `<select>`, `<bx-multi-select>` keeps focusing on itself even while the menu is open and user is navigating through arrow keys. Given that, `<bx-multi-select-item>` does not handle keyboard events by itself. `<bx-multi-select>` takes care of handling keyboard events for multi select items and updates `<bx-multi-select-item>`.
+
+## `<bx-multi-select>` attributes, properties and events
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-multi-select open>`) and `false` means not setting the attribute (e.g. `<bx-multi-select>` without `open` attribute).
+
+<Props of="bx-multi-select" />
+
+## `<bx-multi-select-item>` attributes and properties
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-multi-select-item disabled>`) and `false` means not setting the attribute (e.g. `<bx-multi-select-item>` without `disabled` attribute).
+
+<Props of="bx-multi-select-item" />

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,6 +17,8 @@ const { prefix } = settings;
 
 /**
  * The select box for the current page.
+ * @element bx-pages-select
+ * @fires bx-pages-select-changed - The custom event fired after the page is changed.
  */
 @customElement(`${prefix}-pages-select`)
 class BXPagesSelect extends FocusMixin(LitElement) {
@@ -26,7 +28,7 @@ class BXPagesSelect extends FocusMixin(LitElement) {
   protected _handleChange({ target }: Event) {
     const value = Number((target as HTMLSelectElement).value);
     this.dispatchEvent(
-      new CustomEvent((this.constructor as typeof BXPagesSelect).eventAfterChange, {
+      new CustomEvent((this.constructor as typeof BXPagesSelect).eventChange, {
         bubbles: true,
         composed: true,
         detail: {
@@ -51,13 +53,13 @@ class BXPagesSelect extends FocusMixin(LitElement) {
   formatSupplementalText = ({ count }) => `of ${count} page${count <= 1 ? '' : 's'}`;
 
   /**
-   * The number of total pages. Corresponds to the attribute with the same name.
+   * The number of total pages.
    */
   @property({ type: Number })
   total!: number;
 
   /**
-   * The value, working as the current page, index that starts with zero. Corresponds to the attribute with the same name.
+   * The value, working as the current page, index that starts with zero.
    */
   @property({ type: Number })
   value!: number;
@@ -91,7 +93,7 @@ class BXPagesSelect extends FocusMixin(LitElement) {
   /**
    * The name of the custom event fired after the page is changed.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-pages-select-changed`;
   }
 

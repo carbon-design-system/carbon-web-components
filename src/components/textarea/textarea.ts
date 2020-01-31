@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,7 +19,11 @@ import styles from './textarea.scss';
 const { prefix } = settings;
 
 /**
- * Input element. Supports all the usual attributes for textual input types
+ * Text area.
+ * @element bx-textarea
+ * @slot helper-text - The helper text.
+ * @slot label-text - The label text.
+ * @slot validity-message - The validity message. If present and non-empty, this input shows the UI of its invalid state.
  */
 @customElement(`${prefix}-textarea`)
 export default class BXTextarea extends FormMixin(LitElement) {
@@ -64,7 +68,7 @@ export default class BXTextarea extends FormMixin(LitElement) {
   disabled = false;
 
   /**
-   * The helper text. Corresponds to `helper-text` attribute.
+   * The helper text.
    */
   @property({ attribute: 'helper-text' })
   helperText = '';
@@ -82,7 +86,7 @@ export default class BXTextarea extends FormMixin(LitElement) {
   invalid = false;
 
   /**
-   * The label text. Corresponds to `label-text` attribute.
+   * The label text.
    */
   @property({ attribute: 'label-text' })
   labelText = '';
@@ -124,7 +128,7 @@ export default class BXTextarea extends FormMixin(LitElement) {
   rows = 4;
 
   /**
-   * The validity message. Corresponds to `validity-message` attribute.
+   * The validity message.
    */
   @property({ attribute: 'validity-message' })
   validityMessage = '';

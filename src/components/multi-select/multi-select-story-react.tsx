@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -34,7 +34,7 @@ export const defaultStory = ({ parameters }) => {
     validityMessage,
     disableSelection,
     onBeforeSelect,
-    onAfterSelect,
+    onSelect,
   } = parameters?.props?.['bx-multi-select'];
   const handleBeforeSelect = (event: CustomEvent) => {
     onBeforeSelect(event);
@@ -57,7 +57,7 @@ export const defaultStory = ({ parameters }) => {
       type={type}
       validityMessage={validityMessage}
       onBeforeSelect={handleBeforeSelect}
-      onAfterSelect={onAfterSelect}>
+      onSelect={onSelect}>
       <BXMultiSelectItem value="all">Option 1</BXMultiSelectItem>
       <BXMultiSelectItem value="cloudFoundry">Option 2</BXMultiSelectItem>
       <BXMultiSelectItem value="staging">Option 3</BXMultiSelectItem>

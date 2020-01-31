@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -44,7 +44,7 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = baseDefaultStory.story;
 
 export const singleWithCalendar = ({ parameters }) => {
-  const { dateFormat, enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
+  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
   const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage, onInput } = parameters?.props?.[
     'bx-date-picker-input'
   ];
@@ -54,7 +54,7 @@ export const singleWithCalendar = ({ parameters }) => {
       enabledRange={enabledRange}
       open={open}
       value={value}
-      onAfterChanged={onAfterChanged}
+      onChanged={onChanged}
       onFlatpickrError={onFlatpickrError}>
       <BXDatePickerInput
         disabled={disabled}
@@ -74,7 +74,7 @@ export const singleWithCalendar = ({ parameters }) => {
 singleWithCalendar.story = baseSingleWithCalendar.story;
 
 export const rangeWithCalendar = ({ parameters }) => {
-  const { dateFormat, enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
+  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
   const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage, onInput } = parameters?.props?.[
     'bx-date-picker-input'
   ];
@@ -84,7 +84,7 @@ export const rangeWithCalendar = ({ parameters }) => {
       enabledRange={enabledRange}
       open={open}
       value={value}
-      onAfterChanged={onAfterChanged}
+      onChanged={onChanged}
       onFlatpickrError={onFlatpickrError}>
       <BXDatePickerInput
         disabled={disabled}

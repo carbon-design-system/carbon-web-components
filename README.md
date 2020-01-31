@@ -156,7 +156,7 @@ Vue users can use our components in the same manner as native HTML tags, without
 
 1. Fork this repository and clone it
 2. `yarn install`
-3. `yarn storybook`
+3. `yarn wca && yarn storybook`
 
 ## Running React/Angular/Vue Storybook demo
 
@@ -168,8 +168,9 @@ Vue users can use our components in the same manner as native HTML tags, without
 
 View available web components at: https://carbon-custom-elements.netlify.com/. You can see usage information in several ways:
 
-1. Clicking the **KNOBS** tab at the bottom and changing values there. Most knobs are shown as something like `Button kind (kind)`, where `kind` is the attribute name
-2. Clicking the **ACTION LOGGER** tab at the bottom and interacting with the selected component. You may see something like `bx-modal-closed` which typically indicates that an event with such event type is fired. You can also expand the twistie to see the details of the event
+1. Going to Docs tab, where it shows the usage and available attributes, properties and custom events.
+2. Clicking the **KNOBS** tab at the bottom and changing values there. Most knobs are shown as something like `Button kind (kind)`, where `kind` is the attribute name
+3. Clicking the **ACTION LOGGER** tab at the bottom and interacting with the selected component. You may see something like `bx-modal-closed` which typically indicates that an event with such event type is fired. You can also expand the twistie to see the details of the event
 
 ## Browser support
 

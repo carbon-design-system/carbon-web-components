@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Notification
 
@@ -19,3 +19,15 @@ Toasts are a non-modal, time-based window elements used to display short message
 <Preview withToolbar>
   <Story id="notifications--toast" height="240px" />
 </Preview>
+
+## `<bx-inline-notification>` attributes, properties and events
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-inline-notification open>`) and `false` means not setting the attribute (e.g. `<bx-inline-notification>` without `open` attribute).
+
+<Props of="bx-inline-notification" />
+
+## `<bx-toast-notification>` attributes, properties and events
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-toast-notification open>`) and `false` means not setting the attribute (e.g. `<bx-toast-notification>` without `open` attribute).
+
+<Props of="bx-toast-notification" />

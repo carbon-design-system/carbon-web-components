@@ -14,7 +14,7 @@
   >
   </p>
 </slot>
-<slot name="secondary-label">
+<slot name="secondary-label-text">
 </slot>
 <span class="bx--progress-line">
 </span>
@@ -34,7 +34,7 @@
     label-text-foo
   </p>
 </slot>
-<slot name="secondary-label">
+<slot name="secondary-label-text">
   <p class="bx--progress-optional">
     secondary-label-text-foo
   </p>

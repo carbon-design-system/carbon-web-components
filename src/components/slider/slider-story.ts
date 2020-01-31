@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -16,7 +16,7 @@ import './slider-input';
 import storyDocs from './slider-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'] || {};
+  const { disabled, labelText, max, min, name, step, value, onChange } = parameters?.props?.['bx-slider'] || {};
   return html`
     <bx-slider
       ?disabled="${disabled}"
@@ -26,7 +26,7 @@ export const defaultStory = ({ parameters }) => {
       name="${ifNonNull(name)}"
       step="${ifNonNull(step)}"
       value="${ifNonNull(value)}"
-      @bx-slider-changed="${onAfterChange}"
+      @bx-slider-changed="${onChange}"
     ></bx-slider>
   `;
 };
@@ -36,7 +36,7 @@ defaultStory.story = {
 };
 
 export const withInputBox = ({ parameters }) => {
-  const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'] || {};
+  const { disabled, labelText, max, min, name, step, value, onChange } = parameters?.props?.['bx-slider'] || {};
   return html`
     <bx-slider
       ?disabled="${disabled}"
@@ -46,7 +46,7 @@ export const withInputBox = ({ parameters }) => {
       name="${ifNonNull(name)}"
       step="${ifNonNull(step)}"
       value="${ifNonNull(value)}"
-      @bx-slider-changed="${onAfterChange}"
+      @bx-slider-changed="${onChange}"
     >
       <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
     </bx-slider>
@@ -72,7 +72,7 @@ export default {
         min: number('The minimum value (min)', 0),
         step: number('The step (step)', 1),
         value: number('Value (value)', 50),
-        onAfterChange: action('bx-slider-changed'),
+        onChange: action('bx-slider-changed'),
       }),
     },
   },

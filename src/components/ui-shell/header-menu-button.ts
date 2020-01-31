@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -21,6 +21,7 @@ const { prefix } = settings;
 
 /**
  * The trigger button for side nav in header nav.
+ * @element bx-header-menu-button
  */
 @customElement(`${prefix}-header-menu-button`)
 class BXHeaderMenuButton extends FocusMixin(LitElement) {
@@ -34,25 +35,25 @@ class BXHeaderMenuButton extends FocusMixin(LitElement) {
   }
 
   /**
-   * `true` if the button should represent its active state. Corresponds to the attribute with the same name.
+   * `true` if the button should represent its active state.
    */
   @property({ type: Boolean, reflect: true })
   active = false;
 
   /**
-   * The `aria-label` attribute for the button in its active state. Corresponds to `button-label-active` attribute.
+   * The `aria-label` attribute for the button in its active state.
    */
   @property()
   buttonLabelActive!: string;
 
   /**
-   * The `aria-label` attribute for the button in its active state. Corresponds to `button-label-inactive` attribute.
+   * The `aria-label` attribute for the button in its active state.
    */
   @property()
   buttonLabelInactive!: string;
 
   /**
-   * `true` if the button should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the button should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;

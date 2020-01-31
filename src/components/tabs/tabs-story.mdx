@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Tabs
 
@@ -7,3 +7,15 @@ Tabs are used to quickly navigate between views within the same context.
 <Preview withToolbar>
   <Story id="tabs--default-story" height="320px" />
 </Preview>
+
+## `<bx-tabs>` attributes, properties and events
+
+Note: `bx-content-switcher-*` events are not fired from `<bx-tabs>`.
+
+<Props of="bx-tabs" />
+
+## `<bx-tab>` attributes, properties and events
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-tab disabled>`) and `false` means not setting the attribute (e.g. `<bx-tab>` without `disabled` attribute).
+
+<Props of="bx-tab" />
