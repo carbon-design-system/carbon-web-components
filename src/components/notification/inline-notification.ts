@@ -112,7 +112,7 @@ class BXInlineNotification extends FocusMixin(LitElement) {
       };
       if (this.dispatchEvent(new CustomEvent((this.constructor as typeof BXInlineNotification).eventBeforeClose, init))) {
         this.open = false;
-        this.dispatchEvent(new CustomEvent((this.constructor as typeof BXInlineNotification).eventAfterClose, init));
+        this.dispatchEvent(new CustomEvent((this.constructor as typeof BXInlineNotification).eventClose, init));
       }
     }
   }
@@ -239,7 +239,7 @@ class BXInlineNotification extends FocusMixin(LitElement) {
   /**
    * The name of the custom event fired after this notification is closed upon a user gesture.
    */
-  static get eventAfterClose() {
+  static get eventClose() {
     return `${prefix}-notification-closed`;
   }
 

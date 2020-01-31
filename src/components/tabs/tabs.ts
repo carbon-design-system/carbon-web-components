@@ -390,7 +390,7 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
   /**
    * The name of the custom event fired after a a tab is selected upon a user gesture.
    */
-  static get eventAfterSelect() {
+  static get eventSelect() {
     return `${prefix}-tabs-selected`;
   }
 

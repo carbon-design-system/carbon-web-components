@@ -91,7 +91,7 @@ class BXToggle extends BXCheckbox {
   /**
    * The name of the custom event fired after this changebox changes its checked state.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-toggle-changed`;
   }
 

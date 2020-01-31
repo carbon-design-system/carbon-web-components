@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -21,7 +21,7 @@ import './modal-footer';
 import storyDocs from './modal-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { danger, open, disableClose, onBeforeClose, onAfterClose } = parameters?.props?.['bx-modal'] ?? {};
+  const { danger, open, disableClose, onBeforeClose, onClose } = parameters?.props?.['bx-modal'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -29,7 +29,7 @@ export const defaultStory = ({ parameters }) => {
     }
   };
   return html`
-    <bx-modal ?danger="${danger}" ?open="${open}" @bx-modal-beingclosed=${handleBeforeClose} @bx-modal-closed=${onAfterClose}>
+    <bx-modal ?danger="${danger}" ?open="${open}" @bx-modal-beingclosed=${handleBeforeClose} @bx-modal-closed=${onClose}>
       <bx-modal-header>
         <bx-modal-close-button></bx-modal-close-button>
         <bx-modal-label>Label (Optional)</bx-modal-label>
@@ -63,7 +63,7 @@ export default {
           false
         ),
         onBeforeClose: action('bx-modal-beingclosed'),
-        onAfterClose: action('bx-modal-closed'),
+        onClose: action('bx-modal-closed'),
       }),
     },
   },

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -27,7 +27,7 @@ export const defaultStory = ({ parameters }) => {
     validityMessage,
     disableSelection,
     onBeforeSelect,
-    onAfterSelect,
+    onSelect,
   } = parameters?.props?.['bx-combo-box'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     if (onBeforeSelect) {
@@ -49,7 +49,7 @@ export const defaultStory = ({ parameters }) => {
       value=${value}
       trigger-content=${triggerContent}
       @bx-combo-box-beingselected=${handleBeforeSelected}
-      @bx-combo-box-selected=${onAfterSelect}
+      @bx-combo-box-selected=${onSelect}
     >
       <bx-combo-box-item value="all">Option 1</bx-combo-box-item>
       <bx-combo-box-item value="cloudFoundry">Option 2</bx-combo-box-item>
@@ -86,7 +86,7 @@ export default {
           false
         ),
         onBeforeSelect: action('bx-combo-box-beingselected'),
-        onAfterSelect: action('bx-combo-box-selected'),
+        onSelect: action('bx-combo-box-selected'),
       }),
     },
   },

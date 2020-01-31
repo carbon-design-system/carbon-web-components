@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -31,7 +31,7 @@ export const defaultStory = ({ parameters }) => {
     value,
     disableSelection,
     onBeforeSelect,
-    onAfterSelect,
+    onSelect,
   } = parameters?.props?.['bx-dropdown'];
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
@@ -51,7 +51,7 @@ export const defaultStory = ({ parameters }) => {
       triggerContent={triggerContent}
       value={value}
       onBeforeSelect={handleBeforeSelected}
-      onAfterSelect={onAfterSelect}>
+      onSelect={onSelect}>
       <BXDropdownItem value="all">Option 1</BXDropdownItem>
       <BXDropdownItem value="cloudFoundry">Option 2</BXDropdownItem>
       <BXDropdownItem value="staging">Option 3</BXDropdownItem>

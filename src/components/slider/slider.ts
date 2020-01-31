@@ -138,7 +138,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
         const { max, min, step, stepRatio } = this;
         this.value += (!shiftKey ? Number(step) : (Number(max) - Number(min)) / Number(stepRatio)) * THUMB_DIRECTION[key];
         this.dispatchEvent(
-          new CustomEvent((this.constructor as typeof BXSlider).eventAfterChange, {
+          new CustomEvent((this.constructor as typeof BXSlider).eventChange, {
             bubbles: true,
             composed: true,
             detail: {
@@ -169,7 +169,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
       const { left: trackLeft, width: trackWidth } = trackNode.getBoundingClientRect();
       this._rate = (isRtl ? trackLeft + trackWidth - thumbPosition : thumbPosition - trackLeft) / trackWidth;
       this.dispatchEvent(
-        new CustomEvent((this.constructor as typeof BXSlider).eventAfterChange, {
+        new CustomEvent((this.constructor as typeof BXSlider).eventChange, {
           bubbles: true,
           composed: true,
           detail: {
@@ -205,7 +205,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
       const { left: trackLeft, width: trackWidth } = this._trackNode.getBoundingClientRect();
       this._rate = (isRtl ? trackLeft + trackWidth - thumbPosition : thumbPosition - trackLeft) / trackWidth;
       this.dispatchEvent(
-        new CustomEvent((this.constructor as typeof BXSlider).eventAfterChange, {
+        new CustomEvent((this.constructor as typeof BXSlider).eventChange, {
           bubbles: true,
           composed: true,
           detail: {
@@ -225,7 +225,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   private _handleMouseup = () => {
     if (this._dragging) {
       this.dispatchEvent(
-        new CustomEvent((this.constructor as typeof BXSlider).eventAfterChange, {
+        new CustomEvent((this.constructor as typeof BXSlider).eventChange, {
           bubbles: true,
           composed: true,
           detail: {
@@ -244,7 +244,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
     const { intermediate, value } = detail;
     this.value = value;
     this.dispatchEvent(
-      new CustomEvent((this.constructor as typeof BXSlider).eventAfterChange, {
+      new CustomEvent((this.constructor as typeof BXSlider).eventChange, {
         bubbles: true,
         composed: true,
         detail: {
@@ -362,7 +362,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
     // Manually hooks the event listeners on the host element to make the event names configurable
     this._hChangeInput = on(
       this,
-      (this.constructor as typeof BXSlider).eventAfterChangeInput,
+      (this.constructor as typeof BXSlider).eventChangeInput,
       this._handleChangeInput as EventListener
     );
   }
@@ -474,14 +474,14 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   /**
    * The name of the custom event fired after the value is changed by user gesture.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-slider-changed`;
   }
 
   /**
    * The name of the custom event fired after the value is changed in `<bx-slider-input>` by user gesture.
    */
-  static get eventAfterChangeInput() {
+  static get eventChangeInput() {
     return `${prefix}-slider-input-changed`;
   }
 

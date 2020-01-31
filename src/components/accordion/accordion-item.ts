@@ -40,7 +40,7 @@ class BXAccordionItem extends FocusMixin(LitElement) {
     };
     if (this.dispatchEvent(new CustomEvent((this.constructor as typeof BXAccordionItem).eventBeforeToggle, init))) {
       this.open = open;
-      this.dispatchEvent(new CustomEvent((this.constructor as typeof BXAccordionItem).eventAfterToggle, init));
+      this.dispatchEvent(new CustomEvent((this.constructor as typeof BXAccordionItem).eventToggle, init));
     }
   }
 
@@ -127,7 +127,7 @@ class BXAccordionItem extends FocusMixin(LitElement) {
   /**
    * The name of the custom event fired after this accordion item is toggled upon a user gesture.
    */
-  static get eventAfterToggle() {
+  static get eventToggle() {
     return `${prefix}-accordion-item-toggled`;
   }
 

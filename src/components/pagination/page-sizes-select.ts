@@ -32,7 +32,7 @@ class BXPageSizesSelect extends FocusMixin(LitElement) {
   private _handleChange({ target }: Event) {
     const value = Number((target as HTMLSelectElement).value);
     this.dispatchEvent(
-      new CustomEvent((this.constructor as typeof BXPageSizesSelect).eventAfterChange, {
+      new CustomEvent((this.constructor as typeof BXPageSizesSelect).eventChange, {
         bubbles: true,
         composed: true,
         detail: {
@@ -88,7 +88,7 @@ class BXPageSizesSelect extends FocusMixin(LitElement) {
   /**
    * The name of the custom event fired after the page size is changed.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-page-sizes-select-changed`;
   }
 

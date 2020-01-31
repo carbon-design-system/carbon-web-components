@@ -261,7 +261,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
       });
       if (this.dispatchEvent(beforeSelectEvent)) {
         this._selectionDidChange(item);
-        const afterSelectEvent = new CustomEvent(constructor.eventAfterSelect, init);
+        const afterSelectEvent = new CustomEvent(constructor.eventSelect, init);
         this.dispatchEvent(afterSelectEvent);
       }
     }
@@ -630,7 +630,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * The name of the custom event fired after a a dropdown item is selected upon a user gesture.
    */
-  static get eventAfterSelect() {
+  static get eventSelect() {
     return `${prefix}-dropdown-selected`;
   }
 

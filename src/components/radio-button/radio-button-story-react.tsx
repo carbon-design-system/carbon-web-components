@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,7 +19,7 @@ import { defaultStory as baseDefaultStory } from './radio-button-story';
 export { default } from './radio-button-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, labelPosition, orientation, name, value, onAfterChange } = parameters?.props?.['bx-radio-button-group'];
+  const { disabled, labelPosition, orientation, name, value, onChange } = parameters?.props?.['bx-radio-button-group'];
   const { hideLabel, labelText } = parameters?.props?.['bx-radio-button'];
   return (
     <BXRadioButtonGroup
@@ -28,7 +28,7 @@ export const defaultStory = ({ parameters }) => {
       orientation={orientation}
       name={name}
       value={value}
-      onAfterChange={onAfterChange}>
+      onChange={onChange}>
       <BXRadioButton hideLabel={hideLabel} labelText={labelText} value="all" />
       <BXRadioButton hideLabel={hideLabel} labelText={labelText} value="cloudFoundry" />
       <BXRadioButton hideLabel={hideLabel} labelText={labelText} value="staging" />

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -43,7 +43,7 @@ export const singleWithCalendar = ({ parameters }) => ({
       :enabled-range="enabledRange"
       :open="open"
       :value="value"
-      @bx-date-picker-changed="onAfterChanged"
+      @bx-date-picker-changed="onChanged"
       @bx-date-picker-flatpickr-error="onFlatpickrError"
     >
       <bx-date-picker-input
@@ -72,7 +72,7 @@ export const rangeWithCalendar = ({ parameters }) => ({
       :enabled-range="enabledRange"
       :open="open"
       :value="value"
-      @bx-date-picker-changed="onAfterChanged"
+      @bx-date-picker-changed="onChanged"
       @bx-date-picker-flatpickr-error="onFlatpickrError"
     >
       <bx-date-picker-input

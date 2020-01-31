@@ -185,7 +185,7 @@ class BXMultiSelect extends BXDropdown {
   /**
    * The name of the custom event fired after a a multi select item is selected upon a user gesture.
    */
-  static get eventAfterSelect() {
+  static get eventSelect() {
     return `${prefix}-multi-select-selected`;
   }
 

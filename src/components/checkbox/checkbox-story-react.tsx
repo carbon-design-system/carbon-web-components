@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,9 +17,7 @@ import { defaultStory as baseDefaultStory } from './checkbox-story';
 export { default } from './checkbox-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onAfterChange } = parameters?.props?.[
-    'bx-checkbox'
-  ];
+  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onChange } = parameters?.props?.['bx-checkbox'];
   return (
     <BXCheckbox
       checked={checked}
@@ -29,7 +27,7 @@ export const defaultStory = ({ parameters }) => {
       labelText={labelText}
       name={name || undefined}
       value={value || undefined}
-      onAfterChange={onAfterChange}
+      onChange={onChange}
     />
   );
 };

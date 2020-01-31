@@ -140,7 +140,7 @@ class BXModal extends HostListenerMixin(LitElement) {
       };
       if (this.dispatchEvent(new CustomEvent((this.constructor as typeof BXModal).eventBeforeClose, init))) {
         this.open = false;
-        this.dispatchEvent(new CustomEvent((this.constructor as typeof BXModal).eventAfterClose, init));
+        this.dispatchEvent(new CustomEvent((this.constructor as typeof BXModal).eventClose, init));
       }
     }
   }
@@ -238,7 +238,7 @@ class BXModal extends HostListenerMixin(LitElement) {
   /**
    * The name of the custom event fired after this modal is closed upon a user gesture.
    */
-  static get eventAfterClose() {
+  static get eventClose() {
     return `${prefix}-modal-closed`;
   }
 

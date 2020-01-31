@@ -116,7 +116,7 @@ class BXContentSwitcher extends LitElement {
       });
       if (this.dispatchEvent(beforeSelectEvent)) {
         this._selectionDidChange(item);
-        const afterSelectEvent = new CustomEvent(constructor.eventAfterSelect, init);
+        const afterSelectEvent = new CustomEvent(constructor.eventSelect, init);
         this.dispatchEvent(afterSelectEvent);
       }
     }
@@ -199,7 +199,7 @@ class BXContentSwitcher extends LitElement {
   /**
    * The name of the custom event fired after a a content switcher item is selected upon a user gesture.
    */
-  static get eventAfterSelect() {
+  static get eventSelect() {
     return `${prefix}-content-switcher-selected`;
   }
 

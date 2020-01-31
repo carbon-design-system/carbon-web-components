@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -20,7 +20,7 @@ import storyDocs from './tabs-story.mdx';
 const noop = () => {};
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, triggerContent, value, disableSelection, onBeforeSelect = noop, onAfterSelect = noop } =
+  const { disabled, triggerContent, value, disableSelection, onBeforeSelect = noop, onSelect = noop } =
     parameters?.props?.['bx-tabs'] || {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
@@ -37,7 +37,7 @@ export const defaultStory = ({ parameters }) => {
       trigger-content="${ifNonNull(triggerContent)}"
       value="${ifNonNull(value)}"
       @bx-tabs-beingselected="${handleBeforeSelected}"
-      @bx-tabs-selected="${onAfterSelect}"
+      @bx-tabs-selected="${onSelect}"
     >
       <bx-tab id="tab-all" target="panel-all" value="all">Option 1</bx-tab>
       <bx-tab id="tab-cloudFoundry" target="panel-cloudFoundry" disabled value="cloudFoundry">Option 2</bx-tab>
@@ -108,7 +108,7 @@ export default {
           false
         ),
         onBeforeSelect: action('bx-tabs-beingselected'),
-        onAfterSelect: action('bx-tabs-selected'),
+        onSelect: action('bx-tabs-selected'),
       }),
     },
   },

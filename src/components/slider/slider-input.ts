@@ -28,7 +28,7 @@ class BXSliderInput extends FocusMixin(LitElement) {
    */
   private _handleChange({ target }: Event) {
     this.dispatchEvent(
-      new CustomEvent((this.constructor as typeof BXSliderInput).eventAfterChange, {
+      new CustomEvent((this.constructor as typeof BXSliderInput).eventChange, {
         bubbles: true,
         composed: true,
         detail: {
@@ -43,7 +43,7 @@ class BXSliderInput extends FocusMixin(LitElement) {
    */
   private _handleInput({ target }: Event) {
     this.dispatchEvent(
-      new CustomEvent((this.constructor as typeof BXSliderInput).eventAfterChange, {
+      new CustomEvent((this.constructor as typeof BXSliderInput).eventChange, {
         bubbles: true,
         composed: true,
         detail: {
@@ -115,7 +115,7 @@ class BXSliderInput extends FocusMixin(LitElement) {
   /**
    * The name of the custom event fired after the value is changed by user gesture.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-slider-input-changed`;
   }
 

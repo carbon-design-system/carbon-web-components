@@ -1,5 +1,5 @@
 /**
- * Copyright IBM Corp. 2016, 2018
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -38,7 +38,7 @@ defaultStory.story = {
 };
 
 export const singleWithCalendar = ({ parameters }) => {
-  const { dateFormat, enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'] ?? {};
+  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'] ?? {};
   const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage, onInput } =
     parameters?.props?.['bx-date-picker-input'] ?? {};
   return html`
@@ -47,7 +47,7 @@ export const singleWithCalendar = ({ parameters }) => {
       enabled-range="${ifNonNull(enabledRange)}"
       ?open="${open}"
       value="${ifNonNull(value)}"
-      @bx-date-picker-changed="${onAfterChanged}"
+      @bx-date-picker-changed="${onChanged}"
       @bx-date-picker-flatpickr-error="${onFlatpickrError}"
     >
       <bx-date-picker-input
@@ -75,7 +75,7 @@ singleWithCalendar.story = {
         enabledRange: textNullable('Minimum/maximum dates in ISO8601 date format, separated by `/` (enabled-range)', ''),
         open: boolean('Open (open)', false),
         value: textNullable('Value in ISO8601 date format, separated by `/` (value)', ''),
-        onAfterChanged: action('bx-date-picker-changed'),
+        onChanged: action('bx-date-picker-changed'),
         onFlatpickrError: action('bx-date-picker-flatpickr-error'),
       }),
     },
@@ -83,7 +83,7 @@ singleWithCalendar.story = {
 };
 
 export const rangeWithCalendar = ({ parameters }) => {
-  const { dateFormat, enabledRange, open, value, onAfterChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'] ?? {};
+  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'] ?? {};
   const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage, onInput } =
     parameters?.props?.['bx-date-picker-input'] ?? {};
   return html`
@@ -92,7 +92,7 @@ export const rangeWithCalendar = ({ parameters }) => {
       enabled-range="${ifNonNull(enabledRange)}"
       ?open="${open}"
       value="${ifNonNull(value)}"
-      @bx-date-picker-changed="${onAfterChanged}"
+      @bx-date-picker-changed="${onChanged}"
       @bx-date-picker-flatpickr-error="${onFlatpickrError}"
     >
       <bx-date-picker-input

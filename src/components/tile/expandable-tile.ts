@@ -45,7 +45,7 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
     });
     if (this.dispatchEvent(beforeChangeEvent)) {
       this.expanded = expanded;
-      const afterChangeEvent = new CustomEvent(constructor.eventAfterChange, init);
+      const afterChangeEvent = new CustomEvent(constructor.eventChange, init);
       this.dispatchEvent(afterChangeEvent);
     }
   };
@@ -127,7 +127,7 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * The name of the custom event fired after a the expanded state is changed upon a user gesture.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-expandable-tile-changed`;
   }
 

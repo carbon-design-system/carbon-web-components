@@ -74,11 +74,11 @@ class RadioButtonDelegate implements ManagedRadioButtonDelegate {
 
   set checked(checked) {
     const { host } = this._radio.getRootNode() as ShadowRoot;
-    const { eventAfterChange } = host.constructor as typeof BXRadioButton; // eslint-disable-line no-use-before-define
+    const { eventChange } = host.constructor as typeof BXRadioButton; // eslint-disable-line no-use-before-define
     (host as BXRadioButton).checked = checked;
     this._radio.tabIndex = checked ? 0 : -1;
     host.dispatchEvent(
-      new CustomEvent(eventAfterChange, {
+      new CustomEvent(eventChange, {
         bubbles: true,
         composed: true,
         detail: {
@@ -274,7 +274,7 @@ class BXRadioButton extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * The name of the custom event fired after this radio button changes its checked state.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-radio-button-changed`;
   }
 

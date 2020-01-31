@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -36,7 +36,7 @@ export const inline = ({ parameters }) => {
     open,
     disableClose,
     onBeforeClose = noop,
-    onAfterClose = noop,
+    onClose = noop,
   } = parameters?.props?.['bx-inline-notification'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
@@ -55,7 +55,7 @@ export const inline = ({ parameters }) => {
       icon-label="${ifNonNull(iconLabel)}"
       ?open="${open}"
       @bx-notification-beingclosed="${handleBeforeClose}"
-      @bx-notification-closed="${onAfterClose}"
+      @bx-notification-closed="${onClose}"
     >
     </bx-inline-notification>
   `;
@@ -77,7 +77,7 @@ inline.story = {
           false
         ),
         onBeforeClose: action('bx-notification-beingclosed'),
-        onAfterClose: action('bx-notification-closed'),
+        onClose: action('bx-notification-closed'),
       }),
     },
   },
@@ -95,7 +95,7 @@ export const toast = ({ parameters }) => {
     open,
     disableClose,
     onBeforeClose = noop,
-    onAfterClose = noop,
+    onClose = noop,
   } = parameters?.props?.['bx-toast-notification'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
@@ -115,7 +115,7 @@ export const toast = ({ parameters }) => {
       icon-label="${ifNonNull(iconLabel)}"
       ?open="${open}"
       @bx-notification-beingclosed="${handleBeforeClose}"
-      @bx-notification-closed="${onAfterClose}"
+      @bx-notification-closed="${onClose}"
     >
     </bx-toast-notification>
   `;
