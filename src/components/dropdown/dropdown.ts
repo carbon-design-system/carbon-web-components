@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -75,6 +75,11 @@ export enum DROPDOWN_TYPE {
 
 /**
  * Dropdown.
+ * @element bx-dropdown
+ * @fires bx-dropdown-beingselected
+ *   The custom event fired before a dropdown item is selected upon a user gesture.
+ *   Cancellation of this event stops changing the user-initiated selection.
+ * @fires bx-dropdown-selected - The custom event fired after a a dropdown item is selected upon a user gesture.
  */
 @customElement(`${prefix}-dropdown`)
 class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
@@ -359,13 +364,13 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   /* eslint-enable class-methods-use-this */
 
   /**
-   * `true` if this dropdown should be disabled. Corresponds to the attribute with the same name.
+   * `true` if this dropdown should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * The helper text. Corresponds to `helper-text` attribute.
+   * The helper text.
    */
   @property({ attribute: 'helper-text' })
   helperText = '';
@@ -377,19 +382,19 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   invalid = false;
 
   /**
-   * The label text. Corresponds to `label-text` attribute.
+   * The label text.
    */
   @property({ attribute: 'label-text' })
   labelText = '';
 
   /**
-   * `true` if this dropdown should use the light UI variant. Corresponds to the attribute with the same name.
+   * `true` if this dropdown should use the light UI variant.
    */
   @property({ type: Boolean, reflect: true })
   light = false;
 
   /**
-   * `true` if this dropdown should be open. Corresponds to the attribute with the same name.
+   * `true` if this dropdown should be open.
    */
   @property({ type: Boolean, reflect: true })
   open = false;
@@ -407,37 +412,37 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   selectedItemAssistiveText = 'Selected an item.';
 
   /**
-   * The `aria-label` attribute for the UI indicating the closed state. Corresponds to `toggle-label-closed` attribute.
+   * The `aria-label` attribute for the UI indicating the closed state.
    */
   @property({ attribute: 'toggle-label-closed' })
   toggleLabelClosed = '';
 
   /**
-   * The `aria-label` attribute for the UI indicating the open state. Corresponds to `toggle-label-open` attribute.
+   * The `aria-label` attribute for the UI indicating the open state.
    */
   @property({ attribute: 'toggle-label-open' })
   toggleLabelOpen = '';
 
   /**
-   * The content of the trigger button. Corresponds to `trigger-content` attribute.
+   * The content of the trigger button.
    */
   @property({ attribute: 'trigger-content' })
   triggerContent = '';
 
   /**
-   * `true` if this dropdown should use the inline UI variant. Corresponds to the attribute with the same name.
+   * `true` if this dropdown should use the inline UI variant.
    */
   @property({ reflect: true })
   type = DROPDOWN_TYPE.REGULAR;
 
   /**
-   * The validity message. Corresponds to `validity-message` attribute.
+   * The validity message.
    */
   @property({ attribute: 'validity-message' })
   validityMessage = '';
 
   /**
-   * The value of the selected item. Corresponds to the attribute with the same name.
+   * The value of the selected item.
    */
   @property({ reflect: true })
   value = '';

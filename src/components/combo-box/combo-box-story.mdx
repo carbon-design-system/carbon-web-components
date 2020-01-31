@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Combo box
 
@@ -12,3 +12,15 @@ Selecting an item from the dropdown will close the drawer and the selected optio
 <Preview withToolbar>
   <Story id="combo-box--default-story" height="240px" />
 </Preview>
+
+## `<bx-combo-box>` attributes, properties and events
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-combo-box open>`) and `false` means not setting the attribute (e.g. `<bx-combo-box>` without `open` attribute).
+
+<Props of="bx-combo-box" />
+
+## `<bx-combo-box-item>` attributes and properties
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-combo-box-item disabled>`) and `false` means not setting the attribute (e.g. `<bx-combo-box-item>` without `disabled` attribute).
+
+<Props of="bx-combo-box-item" />

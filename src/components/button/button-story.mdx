@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Button
 
@@ -17,3 +17,9 @@ When words are not enough, icons can be used in buttons to better communicate wh
 <Preview withToolbar>
   <Story id="button--default-story" height="160px" />
 </Preview>
+
+## `<bx-btn>` attributes and properties
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-btn autofocus>`) and `false` means not setting the attribute (e.g. `<bx-btn>` without `autofocus` attribute).
+
+<Props of="bx-btn" />

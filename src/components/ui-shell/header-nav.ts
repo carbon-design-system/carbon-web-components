@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -15,11 +15,12 @@ const { prefix } = settings;
 
 /**
  * Header.
+ * @element bx-header-nav
  */
 @customElement(`${prefix}-header-nav`)
 class BXHeaderNav extends LitElement {
   /**
-   * The `aria-label` attribute for the menu bar UI. Corresponds to `menu-bar-label` attribute.
+   * The `aria-label` attribute for the menu bar UI.
    */
   @property({ attribute: 'menu-bar-label' })
   menuBarLabel!: string;

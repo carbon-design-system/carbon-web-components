@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -36,6 +36,8 @@ export enum SEARCH_SIZE {
 
 /**
  * Search box.
+ * @element bx-search
+ * @fires bx-search-input - The custom event fired after the search content is changed upon a user gesture.
  */
 @customElement(`${prefix}-search`)
 class BXSearch extends FocusMixin(LitElement) {
@@ -78,55 +80,55 @@ class BXSearch extends FocusMixin(LitElement) {
   }
 
   /**
-   * The assistive text for the close button. Corresponds to `close-button-assistive-text` attribute.
+   * The assistive text for the close button.
    */
   @property({ attribute: 'close-button-assistive-text' })
   closeButtonAssistiveText = '';
 
   /**
-   * `true` if the search box should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the search box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * The label text. Corresponds to `label-text` attribute.
+   * The label text.
    */
   @property({ attribute: 'label-text' })
   labelText = '';
 
   /**
-   * `true` if this search box should use the light UI variant. Corresponds to the attribute with the same name.
+   * `true` if this search box should use the light UI variant.
    */
   @property({ type: Boolean, reflect: true })
   light = false;
 
   /**
-   * The form name. Corresponds to the attribute with the same name.
+   * The form name.
    */
   @property()
   name = '';
 
   /**
-   * The placeholder text. Corresponds to the attribute with the same name.
+   * The placeholder text.
    */
   @property()
   placeholder = '';
 
   /**
-   * The search box size. Corresponds to the attribute with the same name.
+   * The search box size.
    */
   @property({ reflect: true })
   size = SEARCH_SIZE.REGULAR;
 
   /**
-   * The `<input>` name. Corresponds to the attribute with the same name.
+   * The `<input>` name.
    */
   @property()
   type = '';
 
   /**
-   * The value. Corresponds to the attribute with the same name.
+   * The value.
    */
   @property({ type: String })
   value = '';

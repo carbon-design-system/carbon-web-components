@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -270,31 +270,31 @@ class BXCEDemoDataTable extends LitElement {
   sortInfo?: TDemoSortInfo;
 
   /**
-   * `true` if the the table should support selection UI. Corresponds to `has-selection` attribute.
+   * `true` if the the table should support selection UI.
    */
   @property({ type: Boolean, reflect: true, attribute: 'has-selection' })
   hasSelection = false;
 
   /**
-   * Number of items per page. Corresponds to `page-size` attribute.
+   * Number of items per page.
    */
   @property({ type: Number, attribute: 'page-size' })
   pageSize!: number;
 
   /**
-   * The table size. Corresponds to the attribute with the same name.
+   * The table size.
    */
   @property({ reflect: true })
   size = TABLE_SIZE.REGULAR;
 
   /**
-   * `true` if the zebra stripe should be shown. Corresponds to the attribute with the same name.
+   * `true` if the zebra stripe should be shown.
    */
   @property({ type: Boolean, reflect: true })
   zebra = false;
 
   /**
-   * The row number where current page start with, index that starts with zero. Corresponds to the attribute with the same name.
+   * The row number where current page start with, index that starts with zero.
    */
   @property({ type: Number })
   start = 0;
@@ -477,7 +477,9 @@ const defineDemoDataTable = (() => {
   return () => {
     if (!hasDemoDataTableDefined) {
       hasDemoDataTableDefined = true;
-      customElements.define('bx-ce-demo-data-table', BXCEDemoDataTable);
+      const ce = customElements;
+      // Prevents `web-component-analyzer` from harvesting `<bx-ce-demo-data-table>`
+      ce.define('bx-ce-demo-data-table', BXCEDemoDataTable);
     }
   };
 })();

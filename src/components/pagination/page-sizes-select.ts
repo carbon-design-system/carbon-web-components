@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,6 +17,9 @@ const { prefix } = settings;
 
 /**
  * The select box for page sizes.
+ * @element bx-page-sizes-select
+ * @slot label-text - The label text.
+ * @fires bx-page-sizes-select-changed - The custom event fired after the page size is changed.
  */
 @customElement(`${prefix}-page-sizes-select`)
 class BXPageSizesSelect extends FocusMixin(LitElement) {
@@ -55,13 +58,13 @@ class BXPageSizesSelect extends FocusMixin(LitElement) {
   }
 
   /**
-   * The label text. Corresponds to `label-text` attribute.
+   * The label text.
    */
   @property({ attribute: 'label-text' })
   labelText = 'Items per page:';
 
   /**
-   * The value, working as the current page size. Corresponds to the attribute with the same name.
+   * The value, working as the current page size.
    */
   @property({ type: Number })
   value!: number;

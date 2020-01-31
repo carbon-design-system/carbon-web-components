@@ -1,19 +1,19 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
-import settings from 'carbon-components/es/globals/js/settings';
-import { ifDefined } from 'lit-html/directives/if-defined';
-import { html, svg, property, customElement, LitElement } from 'lit-element';
-import Close20 from '@carbon/icons/lib/close/20';
 import CheckmarkFilled20 from '@carbon/icons/lib/checkmark--filled/20';
-import WarningFilled20 from '@carbon/icons/lib/warning--filled/20';
+import Close20 from '@carbon/icons/lib/close/20';
 import ErrorFilled20 from '@carbon/icons/lib/error--filled/20';
+import WarningFilled20 from '@carbon/icons/lib/warning--filled/20';
+import settings from 'carbon-components/es/globals/js/settings';
+import { customElement, html, LitElement, property, svg } from 'lit-element';
+import { ifDefined } from 'lit-html/directives/if-defined';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './inline-notification.scss';
 
@@ -73,6 +73,13 @@ const iconsForKinds = {
 
 /**
  * Inline notification.
+ * @element bx-inline-notification
+ * @slot subtitle - The subtitle.
+ * @slot title - The title.
+ * @fires bx-notification-beingclosed
+ *   The custom event fired before this notification is being closed upon a user gesture.
+ *   Cancellation of this event stops the user-initiated action of closing this notification.
+ * @fires bx-notification-closed - The custom event fired after this notification is closed upon a user gesture.
  */
 @customElement(`${prefix}-inline-notification`)
 class BXInlineNotification extends FocusMixin(LitElement) {
@@ -159,31 +166,31 @@ class BXInlineNotification extends FocusMixin(LitElement) {
   }
 
   /**
-   * The a11y text for the close button. Corresponds to `close-button-label` attribute.
+   * The a11y text for the close button.
    */
   @property({ attribute: 'close-button-label' })
   closeButtonLabel!: string;
 
   /**
-   * `true` to hide the close button. Corresponds to `hide-close-button` attribute.
+   * `true` to hide the close button.
    */
   @property({ type: Boolean, reflect: true, attribute: 'hide-close-button' })
   hideCloseButton = false;
 
   /**
-   * The a11y text for the icon. Corresponds to `icon-label` attribute.
+   * The a11y text for the icon.
    */
   @property({ attribute: 'icon-label' })
   iconLabel!: string;
 
   /**
-   * Notification kind. Corresponds to the attribute with the same name.
+   * Notification kind.
    */
   @property({ reflect: true })
   kind = NOTIFICATION_KIND.SUCCESS;
 
   /**
-   * `true` if the notification should be open. Corresponds to the attribute with the same name.
+   * `true` if the notification should be open.
    */
   @property({ type: Boolean, reflect: true })
   open = true;

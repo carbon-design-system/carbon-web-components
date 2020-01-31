@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -18,6 +18,7 @@ const { prefix } = settings;
 
 /**
  * Multi-selectable tile.
+ * @element bx-selectable-tile
  */
 @customElement(`${prefix}-selectable-tile`)
 class BXSelectableTile extends FocusMixin(LitElement) {
@@ -37,25 +38,25 @@ class BXSelectableTile extends FocusMixin(LitElement) {
   }
 
   /**
-   * The a11y text for the checkmark icon of the selected state. Corresponds to `checkmark-label` attribute.
+   * The a11y text for the checkmark icon of the selected state.
    */
   @property({ attribute: 'checkmark-label' })
   checkmarkLabel!: string;
 
   /**
-   * The form name. Corresponds to the attribute with the same name.
+   * The form name.
    */
   @property()
   name!: string;
 
   /**
-   * `true` to show the selected state. Corresponds to the attribute with the same name.
+   * `true` to show the selected state.
    */
   @property({ type: Boolean, reflect: true })
   selected = false;
 
   /**
-   * The form value. Corresponds to the attribute with the same name.
+   * The form value.
    */
   @property()
   value!: string;

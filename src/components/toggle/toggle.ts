@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -18,6 +18,11 @@ const { prefix } = settings;
 
 /**
  * Basic toggle.
+ * @element bx-toggle
+ * @slot label-text - The label text.
+ * @slot checked-text - The text for the checked state.
+ * @slot unchecked-text - The text for the unchecked state.
+ * @fires bx-toggle-changed - The custom event fired after this changebox changes its checked state.
  */
 @customElement(`${prefix}-toggle`)
 class BXToggle extends BXCheckbox {
@@ -33,19 +38,19 @@ class BXToggle extends BXCheckbox {
   }
 
   /**
-   * The text for the checked state. Corresponds to `checked-text` attribute.
+   * The text for the checked state.
    */
   @property({ attribute: 'checked-text' })
   checkedText = '';
 
   /**
-   * `true` to use the small variant. Corresponds to the attribute with the same name.
+   * `true` to use the small variant.
    */
   @property({ type: Boolean, reflect: true })
   small = false;
 
   /**
-   * The text for the unchecked state. Corresponds to `unchecked-text` attribute.
+   * The text for the unchecked state.
    */
   @property({ attribute: 'unchecked-text' })
   uncheckedText = '';
