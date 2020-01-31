@@ -35,7 +35,7 @@ export default class BXFilterTag extends HostListenerMixin(FocusMixin(LitElement
   @HostListener('shadowRoot:click')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleClick = (event: MouseEvent) => {
-    if (event.composedPath().indexOf(this._buttonNode!) >= 0) {
+    if (this.disabled && event.composedPath().indexOf(this._buttonNode!) >= 0) {
       event.stopPropagation();
     }
   };
