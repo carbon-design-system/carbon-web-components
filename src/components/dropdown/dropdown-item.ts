@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -15,31 +15,33 @@ const { prefix } = settings;
 
 /**
  * Dropdown item.
+ * @element bx-dropdown-item
  */
 @customElement(`${prefix}-dropdown-item`)
 class BXDropdownItem extends LitElement {
   /**
-   * `true` if this dropdown item should be disabled. Corresponds to the attribute with the same name.
+   * `true` if this dropdown item should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * `true` if this dropdown item should be highlighted. Corresponds to the attribute with the same name.
+   * `true` if this dropdown item should be highlighted.
    * If `true`, parent `<dropdown>` selects/deselects this dropdown item upon keyboard interaction.
+   * @private
    */
   @property({ type: Boolean, reflect: true })
   highlighted = false;
 
   /**
-   * `true` if this dropdown item should be selected. Corresponds to the attribute with the same name.
+   * `true` if this dropdown item should be selected.
+   * @private
    */
   @property({ type: Boolean, reflect: true })
   selected = false;
 
   /**
    * The `value` attribute that is set to the parent `<bx-dropdown>` when this dropdown item is selected.
-   * Corresponds to the attribute with the same name.
    */
   @property()
   value = '';

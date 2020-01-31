@@ -19,6 +19,8 @@ const { prefix } = settings;
 
 /**
  * Table toolbar search.
+ * @element bx-table-toolbar-search
+ * @fires bx-search-input - The custom event fired after the search content is changed upon a user gesture.
  */
 @customElement(`${prefix}-table-toolbar-search`)
 class BXTableToolbarSearch extends HostListenerMixin(BXSearch) {
@@ -64,13 +66,13 @@ class BXTableToolbarSearch extends HostListenerMixin(BXSearch) {
   }
 
   /**
-   * `true` if the search box should be expanded. Corresponds to the attribute with the same name.
+   * `true` if the search box should be expanded.
    */
   @property({ type: Boolean, reflect: true })
   expanded = false;
 
   /**
-   * The search box size. Corresponds to the attribute with the same name.
+   * The search box size.
    */
   @property({ reflect: true })
   size = SEARCH_SIZE.SMALL;

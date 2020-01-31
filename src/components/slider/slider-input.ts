@@ -18,6 +18,8 @@ const { prefix } = settings;
 
 /**
  * The `<input>` box for slider.
+ * @element bx-slider-input
+ * @fires bx-slider-input-changed - The custom event fired after the value is changed by user gesture.
  */
 @customElement(`${prefix}-slider-input`)
 class BXSliderInput extends FocusMixin(LitElement) {
@@ -53,25 +55,25 @@ class BXSliderInput extends FocusMixin(LitElement) {
   }
 
   /**
-   * `true` if the check box should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the check box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * `true` if this slider input should use the light UI variant. Corresponds to the attribute with the same name.
+   * `true` if this slider input should use the light UI variant.
    */
   @property({ type: Boolean, reflect: true })
   light = false;
 
   /**
-   * The type of the `<input>`. Corresponds to the attribute with the same name.
+   * The type of the `<input>`.
    */
   @property()
   type!: string;
 
   /**
-   * The value. Corresponds to the attribute with the same name.
+   * The value.
    */
   @property({ type: Number })
   value!: number;

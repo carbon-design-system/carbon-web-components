@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,17 +17,18 @@ const { prefix } = settings;
 
 /**
  * The product name UI in header nav.
+ * @element bx-header-name
  */
 @customElement(`${prefix}-header-name`)
 class BXHeaderName extends FocusMixin(LitElement) {
   /**
-   * Link `href`. Corresponds to the attribute with the same name.
+   * Link `href`.
    */
   @property()
   href!: string;
 
   /**
-   * The product name prefix. Corresponds to the attribute with the same name.
+   * The product name prefix.
    */
   @property()
   prefix!: string;

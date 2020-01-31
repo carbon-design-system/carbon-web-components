@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -66,6 +66,10 @@ export const TABLE_SORT_CYCLES = {
 
 /**
  * Data table header cell.
+ * @element bx-table-header-cell
+ * @fires bx-table-header-cell-sort
+ *   The custom event fired before a new sort direction is set upon a user gesture.
+ *   Cancellation of this event stops the user-initiated change in sort direction.
  */
 @customElement(`${prefix}-table-header-cell`)
 class BXTableHeaderCell extends FocusMixin(LitElement) {
@@ -123,19 +127,19 @@ class BXTableHeaderCell extends FocusMixin(LitElement) {
   }
 
   /**
-   * `true` if this table header cell is of a primary sorting column. Corresponds to `sort-active` attribute.
+   * `true` if this table header cell is of a primary sorting column.
    */
   @property({ type: Boolean, reflect: true, attribute: 'sort-active' })
   sortActive = false;
 
   /**
-   * The table sort cycle in use. Corresponds to `sort-cycle` attribute.
+   * The table sort cycle in use.
    */
   @property({ reflect: true, attribute: 'sort-cycle' })
   sortCycle?: TABLE_SORT_CYCLE;
 
   /**
-   * The table sort direction. Corresponds to `sort-direction` attribute.
+   * The table sort direction.
    * If present, this table header cell will have a sorting UI.
    */
   @property({ reflect: true, attribute: 'sort-direction' })

@@ -15,6 +15,7 @@ const { prefix } = settings;
 
 /**
  * Structured list header cell.
+ * @element bx-structured-list-header-cell
  */
 @customElement(`${prefix}-structured-list-header-cell`)
 class BXStructuredListHeaderCell extends LitElement {

@@ -52,6 +52,8 @@ enum DATE_PICKER_MODE {
 
 /**
  * Date picker.
+ * @element bx-date-picker
+ * @fires bx-date-picker-changed - The custom event fired on this element when Flatpickr updates its value.
  */
 @customElement(`${prefix}-date-picker`)
 class BXDatePicker extends LitElement {
@@ -259,7 +261,7 @@ class BXDatePicker extends LitElement {
   calendar: FlatpickrInstance | null = null;
 
   /**
-   * The date format to let Flatpickr use. Corresponds to `date-format` attribute.
+   * The date format to let Flatpickr use.
    */
   @property({ attribute: 'date-format' })
   dateFormat!: string;
@@ -271,20 +273,19 @@ class BXDatePicker extends LitElement {
   locale!: FlatpickrLocale;
 
   /**
-   * The date range that a user can pick in calendar dropdown. Corresponds to `enabled-range` attribute.
+   * The date range that a user can pick in calendar dropdown.
    */
   @property({ attribute: 'enabled-range' })
   enabledRange!: string;
 
   /**
-   * `true` if the date picker should be open. Corresponds to the attribute with the same name.
+   * `true` if the date picker should be open.
    */
   @property({ type: Boolean, reflect: true })
   open = false;
 
   /**
    * The date(s) in ISO8601 format (date portion only), for range mode, '/' is used for separate start/end dates.
-   * Corresponds to the attribute with the same name.
    */
   @property()
   get value() {
@@ -505,13 +506,6 @@ class BXDatePicker extends LitElement {
    */
   static get eventFlatpickrError() {
     return `${prefix}-date-picker-flatpickr-error`;
-  }
-
-  /**
-   * The name of the custom event fired once the shadow DOM content if `<bx-date-picker-input>` is ready.
-   */
-  static get eventInputContentLoaded() {
-    return `${prefix}-date-picker-input-content-loaded`;
   }
 
   /**

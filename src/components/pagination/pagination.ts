@@ -24,6 +24,11 @@ const { prefix } = settings;
 
 /**
  * Pagination UI.
+ * @element bx-pagination
+ * @slot page-sizes-select - Where to put in the `<page-sizes-select>`.
+ * @fires bx-pages-select-changed - The custom event fired after the current page is changed from `<bx-pages-select>`.
+ * @fires bx-page-sizes-select-changed
+ *   The custom event fired after the number of rows per page is changed from `<bx-page-sizes-select>`.
  */
 @customElement(`${prefix}-pagination`)
 class BXPagination extends FocusMixin(LitElement) {
@@ -114,49 +119,49 @@ class BXPagination extends FocusMixin(LitElement) {
   formatStatusWithIndeterminateTotal = ({ start, end }) => (end == null ? `Item ${start}–` : `Item ${start}–${end}`);
 
   /**
-   * `true` to explicitly state that user is at the last page. Corresponds to `at-last-page` attribute.
+   * `true` to explicitly state that user is at the last page.
    */
   @property({ type: Boolean, attribute: 'at-last-page' })
   atLastPage!: boolean;
 
   /**
-   * `true` if the pagination UI should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the pagination UI should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * The assistive text for the button to go to next page. Corresponds to `next-button-text` attribute.
+   * The assistive text for the button to go to next page.
    */
   @property({ attribute: 'next-button-text' })
   nextButtonText = 'Next page';
 
   /**
-   * Number of items per page. Corresponds to `page-size` attribute.
+   * Number of items per page.
    */
   @property({ type: Number, attribute: 'page-size' })
   pageSize = 10;
 
   /**
-   * The label text for the UI to select page size. Corresponds to `page-size-label-text` attribute.
+   * The label text for the UI to select page size.
    */
   @property({ attribute: 'page-size-label-text' })
   pageSizeLabelText!: string;
 
   /**
-   * The assistive text for the button to go to previous page. Corresponds to `prev-button-text` attribute.
+   * The assistive text for the button to go to previous page.
    */
   @property({ attribute: 'prev-button-text' })
   prevButtonText = 'Previous page';
 
   /**
-   * The row number where current page start with, index that starts with zero. Corresponds to the attribute with the same name.
+   * The row number where current page start with, index that starts with zero.
    */
   @property({ type: Number })
   start = 0;
 
   /**
-   * The number of total items. Corresponds to the attribute with the same name.
+   * The number of total items.
    */
   @property({ type: Number })
   total!: number;

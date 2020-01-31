@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -11,6 +11,7 @@ import { html } from 'lit-element';
 import { select } from '@storybook/addon-knobs';
 import ifNonNull from '../../globals/directives/if-non-null';
 import { SKELETON_TEXT_TYPE } from './skeleton-text';
+import storyDocs from './skeleton-text-story.mdx';
 
 const types = {
   Regular: null,
@@ -52,4 +53,9 @@ lines.story = {
 
 export default {
   title: 'Skeleton text',
+  parameters: {
+    docs: {
+      page: storyDocs,
+    },
+  },
 };

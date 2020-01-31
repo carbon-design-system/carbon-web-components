@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Toggle
 
@@ -11,3 +11,11 @@ Use `small` property/attribute to make it more compact in size, so they can be u
 <Preview withToolbar>
   <Story id="toggle--default-story" height="160px" />
 </Preview>
+
+## `<bx-toggle>` attributes, properties and events
+
+Note: `bx-checkbox-*` events are not fired from `<bx-toggle>`.
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-toggle small>`) and `false` means not setting the attribute (e.g. `<bx-toggle>` without `small` attribute).
+
+<Props of="bx-toggle" />

@@ -15,6 +15,8 @@ const { prefix } = settings;
 
 /**
  * Table batch actions.
+ * @element bx-table-batch-actions
+ * @fires bx-table-batch-actions-cancel-clicked - The custom event fired after the Cancel button is clicked.
  */
 @customElement(`${prefix}-table-batch-actions`)
 class BXTableBatchActions extends LitElement {
@@ -27,7 +29,7 @@ class BXTableBatchActions extends LitElement {
   }
 
   /**
-   * `true` if this batch actions bar should be active. Corresponds to the attribute with the same name.
+   * `true` if this batch actions bar should be active.
    */
   @property({ type: Boolean, reflect: true })
   active = false;
@@ -41,7 +43,6 @@ class BXTableBatchActions extends LitElement {
   /**
    * Numeric representation of the total number of items selected in a table.
    * This number is used to derive the selection message.
-   * Corresponds to `selected-rows-count` attribute.
    */
   @property({ type: Number, attribute: 'selected-rows-count' })
   selectedRowsCount = 0;

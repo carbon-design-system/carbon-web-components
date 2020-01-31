@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Textarea
 
@@ -9,3 +9,9 @@ Textarea is a multi-line variant of text input.
 <Preview withToolbar>
   <Story id="textarea--default-story" height="240px" />
 </Preview>
+
+## `<bx-textarea>` attributes and properties
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-textarea autofocus>`) and `false` means not setting the attribute (e.g. `<bx-textarea>` without `autofocus` attribute).
+
+<Props of="bx-textarea" />

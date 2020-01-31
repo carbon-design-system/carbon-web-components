@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,6 +19,7 @@ const { prefix } = settings;
 
 /**
  * Side nav.
+ * @element bx-side-nav
  */
 @customElement(`${prefix}-side-nav`)
 class BXSideNav extends HostListenerMixin(LitElement) {
@@ -58,13 +59,13 @@ class BXSideNav extends HostListenerMixin(LitElement) {
   }
 
   /**
-   * `true` to expand the side nav. Corresponds to the attribute with the same name.
+   * `true` to expand the side nav.
    */
   @property({ type: Boolean, reflect: true })
   expanded = false;
 
   /**
-   * `true` to make the side nav non-collapsible. Corresponds to the attribute with the same name.
+   * `true` to make the side nav non-collapsible.
    */
   @property({ type: Boolean, reflect: true })
   fixed = false;

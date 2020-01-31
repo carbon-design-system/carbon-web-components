@@ -42,6 +42,11 @@ export const NAVIGATION_DIRECTION = {
 
 /**
  * Content switcher.
+ * @element bx-content-switcher
+ * @fires bx-content-switcher-beingselected
+ *   The custom event fired before a content switcher item is selected upon a user gesture.
+ *   Cancellation of this event stops changing the user-initiated selection.
+ * @fires bx-content-switcher-selected - The custom event fired after a a content switcher item is selected upon a user gesture.
  */
 @customElement(`${prefix}-content-switcher`)
 class BXContentSwitcher extends LitElement {
@@ -147,7 +152,7 @@ class BXContentSwitcher extends LitElement {
   }
 
   /**
-   * The value of the selected item. Corresponds to the attribute with the same name.
+   * The value of the selected item.
    */
   @property({ reflect: true })
   value = '';

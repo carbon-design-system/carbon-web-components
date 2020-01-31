@@ -20,6 +20,11 @@ const { prefix } = settings;
 
 /**
  * Combo box.
+ * @element bx-combo-box
+ * @fires bx-combo-box-beingselected
+ *   The custom event fired before a combo box item is selected upon a user gesture.
+ *   Cancellation of this event stops changing the user-initiated selection.
+ * @fires bx-combo-box-selected - The custom event fired after a a combo box item is selected upon a user gesture.
  */
 @customElement(`${prefix}-combo-box`)
 class BXComboBox extends BXDropdown {
@@ -154,13 +159,13 @@ class BXComboBox extends BXDropdown {
   }
 
   /**
-   * The `aria-label` attribute for the icon to clear selection. Corresponds to `clear-selection-label` attribute.
+   * The `aria-label` attribute for the icon to clear selection.
    */
   @property({ attribute: 'clear-selection-label' })
   clearSelectionLabel = '';
 
   /**
-   * The `aria-label` attribute for the `<input>` for filtering. Corresponds to `input-label` attribute.
+   * The `aria-label` attribute for the `<input>` for filtering.
    */
   @property({ attribute: 'input-label' })
   inputLabel = '';

@@ -111,6 +111,8 @@ class RadioButtonDelegate implements ManagedRadioButtonDelegate {
 
 /**
  * Radio button.
+ * @element bx-radio-button
+ * @fires bx-radio-button-changed - The custom event fired after this radio button changes its checked state.
  */
 @customElement(`${prefix}-radio-button`)
 class BXRadioButton extends HostListenerMixin(FocusMixin(LitElement)) {
@@ -169,49 +171,49 @@ class BXRadioButton extends HostListenerMixin(FocusMixin(LitElement)) {
   };
 
   /**
-   * `true` if this radio button should be checked. Corresponds to the attribute with the same name.
+   * `true` if this radio button should be checked.
    */
   @property({ type: Boolean, reflect: true })
   checked = false;
 
   /**
-   * `true` if the check box should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the check box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * `true` if the label should be hidden. Corresponds to the attribute with the same name.
+   * `true` if the label should be hidden.
    */
   @property({ type: Boolean, reflect: true, attribute: 'hide-label' })
   hideLabel = false;
 
   /**
-   * The label position. Corresponds to `label-text` attribute.
+   * The label position.
    */
   @property({ reflect: true, attribute: 'label-position' })
   labelPosition = RADIO_BUTTON_LABEL_POSITION.RIGHT;
 
   /**
-   * The label text. Corresponds to `label-text` attribute.
+   * The label text.
    */
   @property({ attribute: 'label-text' })
   labelText = '';
 
   /**
-   * The `name` attribute for the `<input>` for selection. Corresponds to the attribute with the same name.
+   * The `name` attribute for the `<input>` for selection.
    */
   @property()
   name!: string;
 
   /**
-   * The orientation to lay out radio buttons. Corresponds to the attribute with the same name.
+   * The orientation to lay out radio buttons.
    */
   @property({ reflect: true })
   orientation = RADIO_BUTTON_ORIENTATION.HORIZONTAL;
 
   /**
-   * The `value` attribute for the `<input>` for selection. Corresponds to the attribute with the same name.
+   * The `value` attribute for the `<input>` for selection.
    */
   @property()
   value!: string;

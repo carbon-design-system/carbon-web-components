@@ -35,6 +35,8 @@ export enum RADIO_BUTTON_ORIENTATION {
 
 /**
  * Radio button group.
+ * @element bx-radio-button-group
+ * @fires bx-radio-button-group-changed - The custom event fired after this radio button group changes its selected item.
  */
 @customElement(`${prefix}-radio-button-group`)
 class BXRadioButtonGroup extends FormMixin(LitElement) {
@@ -74,31 +76,31 @@ class BXRadioButtonGroup extends FormMixin(LitElement) {
   }
 
   /**
-   * `true` if the check box should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the check box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * The label position. Corresponds to `label-text` attribute.
+   * The label position.
    */
   @property({ reflect: true, attribute: 'label-position' })
   labelPosition = RADIO_BUTTON_LABEL_POSITION.RIGHT;
 
   /**
-   * The `name` attribute for the `<input>` for selection. Corresponds to the attribute with the same name.
+   * The `name` attribute for the `<input>` for selection.
    */
   @property()
   name!: string;
 
   /**
-   * The orientation to lay out radio buttons. Corresponds to the attribute with the same name.
+   * The orientation to lay out radio buttons.
    */
   @property({ reflect: true })
   orientation = RADIO_BUTTON_ORIENTATION.HORIZONTAL;
 
   /**
-   * The `value` attribute for the `<input>` for selection. Corresponds to the attribute with the same name.
+   * The `value` attribute for the `<input>` for selection.
    */
   @property()
   value!: string;

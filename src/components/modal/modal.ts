@@ -24,6 +24,14 @@ const PRECEDING = Node.DOCUMENT_POSITION_PRECEDING | Node.DOCUMENT_POSITION_CONT
 // eslint-disable-next-line no-bitwise
 const FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING | Node.DOCUMENT_POSITION_CONTAINED_BY;
 
+/**
+ * Modal.
+ * @element bx-modal
+ * @fires bx-modal-beingclosed
+ *   The custom event fired before this modal is being closed upon a user gesture.
+ *   Cancellation of this event stops the user-initiated action of closing this modal.
+ * @fires bx-modal-closed - The custom event fired after this modal is closed upon a user gesture.
+ */
 @customElement(`${prefix}-modal`)
 class BXModal extends HostListenerMixin(LitElement) {
   /**
@@ -138,13 +146,13 @@ class BXModal extends HostListenerMixin(LitElement) {
   }
 
   /**
-   * The additional CSS class names for the container <div> of the element. Corresponds to `container-class` attribute.
+   * The additional CSS class names for the container <div> of the element.
    */
   @property({ attribute: 'container-class' })
   containerClass = '';
 
   /**
-   * `true` if the modal should be open. Corresponds to the attribute with the same name.
+   * `true` if the modal should be open.
    */
   @property({ type: Boolean, reflect: true })
   open = false;

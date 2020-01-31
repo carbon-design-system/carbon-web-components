@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -73,41 +73,44 @@ const icons = {
 
 /**
  * Progress step.
+ * @element bx-progress-step
+ * @slot secondary-label-text - The secondary progress label.
  */
 @customElement(`${prefix}-progress-step`)
 class BXProgressStep extends FocusMixin(LitElement) {
   /**
-   * `true` if the progress step should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the progress step should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * The a11y text for the icon. Corresponds to `icon-label` attribute.
+   * The a11y text for the icon.
    */
   @property({ attribute: 'icon-label' })
   iconLabel!: string;
 
   /**
-   * The primary progress label. Corresponds to `label-text` attribute.
+   * The primary progress label.
    */
   @property({ attribute: 'label-text' })
   labelText!: string;
 
   /**
-   * The secondary progress label. Corresponds to `secondary-label-text` attribute.
+   * The secondary progress label.
    */
   @property({ attribute: 'secondary-label-text' })
   secondaryLabelText!: string;
 
   /**
-   * The progress state. Corresponds to the attribute with the same name.
+   * The progress state.
    */
   @property()
   state = PROGRESS_STEP_STAT.QUEUED;
 
   /**
-   * `true` if the progress step should be vertical. Corresponds to the attribute with the same name.
+   * `true` if the progress step should be vertical.
+   * @private
    */
   @property({ type: Boolean, reflect: true })
   vertical = false;
@@ -141,7 +144,7 @@ class BXProgressStep extends FocusMixin(LitElement) {
       <slot>
         <p role="button" class="${prefix}--progress-label" tabindex="0" aria-describedby="label-tooltip">${labelText}</p>
       </slot>
-      <slot name="secondary-label">
+      <slot name="secondary-label-text">
         ${!secondaryLabelText
           ? undefined
           : html`
