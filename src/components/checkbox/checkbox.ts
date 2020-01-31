@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,6 +19,8 @@ const { prefix } = settings;
 
 /**
  * Check box.
+ * @element bx-checkbox
+ * @fires bx-checkbox-changed - The custom event fired after this changebox changes its checked state.
  */
 @customElement(`${prefix}-checkbox`)
 class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
@@ -32,9 +34,9 @@ class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
     const { checked, indeterminate } = this._checkboxNode;
     this.checked = checked;
     this.indeterminate = indeterminate;
-    const { eventAfterChange } = this.constructor as typeof BXCheckbox;
+    const { eventChange } = this.constructor as typeof BXCheckbox;
     this.dispatchEvent(
-      new CustomEvent(eventAfterChange, {
+      new CustomEvent(eventChange, {
         bubbles: true,
         composed: true,
         detail: {
@@ -53,43 +55,43 @@ class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
   }
 
   /**
-   * `true` if the check box should be checked. Corresponds to the attribute with the same name.
+   * `true` if the check box should be checked.
    */
   @property({ type: Boolean, reflect: true })
   checked = false;
 
   /**
-   * `true` if the check box should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the check box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * `true` if the label should be hidden. Corresponds to the attribute with the same name.
+   * `true` if the label should be hidden.
    */
   @property({ type: Boolean, reflect: true, attribute: 'hide-label' })
   hideLabel = false;
 
   /**
-   * `true` if the check box should show its UI of the indeterminate state. Corresponds to the attribute with the same name.
+   * `true` if the check box should show its UI of the indeterminate state.
    */
   @property({ type: Boolean, reflect: true })
   indeterminate = false;
 
   /**
-   * The label text. Corresponds to `label-text` attribute.
+   * The label text.
    */
   @property({ attribute: 'label-text' })
   labelText = '';
 
   /**
-   * The form name. Corresponds to the attribute with the same name.
+   * The form name.
    */
   @property()
   name!: string;
 
   /**
-   * The value. Corresponds to the attribute with the same name.
+   * The value.
    */
   @property()
   value!: string;
@@ -124,7 +126,7 @@ class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
   /**
    * The name of the custom event fired after this changebox changes its checked state.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-checkbox-changed`;
   }
 

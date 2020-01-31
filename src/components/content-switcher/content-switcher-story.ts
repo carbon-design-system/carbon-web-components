@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,7 +19,7 @@ import storyDocs from './content-switcher-story.mdx';
 const noop = () => {};
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, disableSelection, onBeforeSelect = noop, onAfterSelect = noop } =
+  const { disabled, value, disableSelection, onBeforeSelect = noop, onSelect = noop } =
     parameters?.props?.['bx-content-switcher'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
@@ -32,7 +32,7 @@ export const defaultStory = ({ parameters }) => {
       ?disabled="${disabled}"
       value="${ifNonNull(value)}"
       @bx-content-switcher-beingselected="${handleBeforeSelected}"
-      @bx-content-switcher-selected="${onAfterSelect}"
+      @bx-content-switcher-selected="${onSelect}"
     >
       <bx-content-switcher-item value="all">Option 1</bx-content-switcher-item>
       <bx-content-switcher-item value="cloudFoundry" disabled>Option 2</bx-content-switcher-item>
@@ -62,7 +62,7 @@ export default {
           false
         ),
         onBeforeSelect: action('bx-content-switcher-beingselected'),
-        onAfterSelect: action('bx-content-switcher-selected'),
+        onSelect: action('bx-content-switcher-selected'),
       }),
     },
   },

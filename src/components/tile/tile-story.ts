@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -119,7 +119,7 @@ multiSelectable.story = {
 };
 
 export const expandable = ({ parameters }) => {
-  const { expanded, disableChange, onBeforeChange, onAfterChange } = parameters?.props?.['bx-expandable-tile'] ?? {};
+  const { expanded, disableChange, onBeforeChange, onChange } = parameters?.props?.['bx-expandable-tile'] ?? {};
   const handleBeforeChanged = (event: CustomEvent) => {
     onBeforeChange(event);
     if (disableChange) {
@@ -130,7 +130,7 @@ export const expandable = ({ parameters }) => {
     <bx-expandable-tile
       ?expanded="${expanded}"
       @bx-expandable-tile-beingchanged=${handleBeforeChanged}
-      @bx-expandable-tile-changed=${onAfterChange}
+      @bx-expandable-tile-changed=${onChange}
     >
       <bx-tile-above-the-fold-content style="height: 200px">
         Above the fold content here
@@ -153,7 +153,7 @@ expandable.story = {
           false
         ),
         onBeforeChange: action('bx-expandable-tile-beingchanged'),
-        onAfterChange: action('bx-expandable-tile-changed'),
+        onChange: action('bx-expandable-tile-changed'),
       }),
     },
   },

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,17 +17,18 @@ const { prefix } = settings;
 
 /**
  * Structured list wrapper.
+ * @element bx-structured-list
  */
 @customElement(`${prefix}-structured-list`)
 class BXStructuredList extends FocusMixin(LitElement) {
   /**
-   * `true` if border should be used. Corresponds to the attribute with the same name.
+   * `true` if border should be used.
    */
   @property({ type: Boolean, reflect: true })
   border = false;
 
   /**
-   * `true` if selection should be supported. Corresponds to `has-selection` attribute.
+   * `true` if selection should be supported.
    */
   @property({ type: Boolean, reflect: true, attribute: 'has-selection' })
   hasSelection = false;

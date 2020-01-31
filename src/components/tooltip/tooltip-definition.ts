@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -62,23 +62,25 @@ export enum TOOLTIP_DIRECTION {
 
 /**
  * Definition tooltip.
+ * @element bx-tooltip-definition
+ * @slot body - The tooltip body content.
  */
 @customElement(`${prefix}-tooltip-definition`)
 class BXTooltipDefinition extends FocusMixin(LitElement) {
   /**
-   * How the tooltip is aligned to the trigger button. Corresponds to the attribute with the same name.
+   * How the tooltip is aligned to the trigger button.
    */
   @property()
   alignment = TOOLTIP_ALIGNMENT.CENTER;
 
   /**
-   * The text for the tooltip body. Corresponds to `body-text` attribute.
+   * The text for the tooltip body.
    */
   @property({ attribute: 'body-text' })
   bodyText = '';
 
   /**
-   * The tooltip direction. Corresponds to the attribute with the same name.
+   * The tooltip direction.
    */
   @property()
   direction = TOOLTIP_DIRECTION.BOTTOM;

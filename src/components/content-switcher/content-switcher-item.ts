@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -18,36 +18,38 @@ const { prefix } = settings;
 
 /**
  * Content switcher button.
+ * @element bx-content-switcher-item
  */
 @customElement(`${prefix}-content-switcher-item`)
 class BXContentSwitcherItem extends FocusMixin(LitElement) {
   /**
-   * `true` if this content switcher item should be disabled. Corresponds to the attribute with the same name.
+   * `true` if this content switcher item should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * `true` to hide the divider at the left. Corresponds to `hide-divider` attribute.
+   * `true` to hide the divider at the left.
+   * @private
    */
   @property({ type: Boolean, reflect: true, attribute: 'hide-divider' })
   hideDivider = false;
 
   /**
-   * `true` if the content switcher button should be selected. Corresponds to the attribute with the same name.
+   * `true` if the content switcher button should be selected.
+   * @private
    */
   @property({ type: Boolean, reflect: true })
   selected = false;
 
   /**
-   * The element ID of target panel. Corresponds to the attribute with the same name.
+   * The element ID of target panel.
    */
   @property()
   target!: string;
 
   /**
    * The `value` attribute that is set to the parent `<bx-content-switcher>` when this content switcher item is selected.
-   * Corresponds to the attribute with the same name.
    */
   @property()
   value = '';

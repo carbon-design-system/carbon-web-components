@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -16,23 +16,24 @@ const { prefix } = settings;
 
 /**
  * Overflow menu item.
+ * @element bx-overflow-menu-item
  */
 @customElement(`${prefix}-overflow-menu-item`)
 class BXOverflowMenuItem extends FocusMixin(LitElement) {
   /**
-   * `true` if the action is danger. Corresponds to the attribute with the same name.
+   * `true` if the action is danger.
    */
   @property({ type: Boolean, reflect: true })
   danger = false;
 
   /**
-   * `true` if the overflow menu item should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the overflow menu item should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * The link href of the overflow menu item. Corresponds to the attribute with the same name.
+   * The link href of the overflow menu item.
    */
   @property()
   href = '';

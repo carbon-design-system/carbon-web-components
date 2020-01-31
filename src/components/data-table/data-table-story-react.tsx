@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -262,12 +262,8 @@ const BXCEDemoDataTable = ({
     typeof pageSize === 'undefined' ? (
       undefined
     ) : (
-      <BXPagination
-        page-size={pageSize}
-        start={adjustedStart}
-        total={filteredRows.length}
-        onAfterChangeCurrent={handleChangeStart}>
-        <BXPageSizesSelect slot="page-sizes-select" onAfterChange={handleChangePageSize}>
+      <BXPagination page-size={pageSize} start={adjustedStart} total={filteredRows.length} onChangeCurrent={handleChangeStart}>
+        <BXPageSizesSelect slot="page-sizes-select" onChange={handleChangePageSize}>
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="15">15</option>
@@ -283,7 +279,7 @@ const BXCEDemoDataTable = ({
         <BXTableBatchActions
           active={hasBatchActions}
           selectedRowsCount={selectedRowsCountInFiltered}
-          onAfterClickCancel={handleCancelSelection}>
+          onClickCancel={handleCancelSelection}>
           <BXBtn onClick={handleDeleteRows}>
             Delete <Delete16 slot="icon" />
           </BXBtn>
@@ -292,7 +288,7 @@ const BXCEDemoDataTable = ({
           </BXBtn>
         </BXTableBatchActions>
         <BXTableToolbarContent hasBatchActions={hasBatchActions}>
-          <BXTableToolbarSearch onAfterInput={handleChangeSearchString}></BXTableToolbarSearch>
+          <BXTableToolbarSearch onInput={handleChangeSearchString}></BXTableToolbarSearch>
           <BXOverflowMenu>
             <Settings16 slot="icon" />
             <BXOverflowMenuBody>

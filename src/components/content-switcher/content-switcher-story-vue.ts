@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -13,7 +13,7 @@ import { defaultStory as baseDefaultStory } from './content-switcher-story';
 export { default } from './content-switcher-story';
 
 export const defaultStory = ({ parameters }) => {
-  const props = (({ onBeforeSelect, onAfterSelect, ...rest }) => {
+  const props = (({ onBeforeSelect, onSelect, ...rest }) => {
     function handleBeforeSelect(this: any, event: CustomEvent) {
       onBeforeSelect(event);
       // NOTE: Using class property ref instead of closure ref (from `original`)
@@ -25,7 +25,7 @@ export const defaultStory = ({ parameters }) => {
     return {
       ...rest,
       handleBeforeSelect,
-      handleAfterSelect: onAfterSelect,
+      handleAfterSelect: onSelect,
     };
   })(parameters?.props?.['bx-content-switcher']);
   return {

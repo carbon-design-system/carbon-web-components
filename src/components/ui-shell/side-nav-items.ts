@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -15,6 +15,7 @@ const { prefix } = settings;
 
 /**
  * Side nav items.
+ * @element bx-side-nav-items
  */
 @customElement(`${prefix}-side-nav-items`)
 class BXSideNavItems extends LitElement {

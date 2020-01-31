@@ -1,6 +1,6 @@
 {
   "name": "carbon-custom-elements",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "license": "Apache-2.0",
   "main": "es/index.js",
   "module": "es/index.js",
@@ -9,7 +9,8 @@
   "bugs": "https://github.com/carbon-design-system/carbon-custom-elements/issues",
   "files": [
     "es/**/*",
-    "scss/**/*"
+    "scss/**/*",
+    "custom-elements.json"
   ],
   "keywords": [
     "carbon",
@@ -22,11 +23,11 @@
     "web components"
   ],
   "scripts": {
-    "build": "gulp build && yarn build:ngc",
+    "build": "gulp build && yarn build:ngc && yarn wca",
     "build:ngc": "yarn build:ngc:esm2015 && yarn build:ngc:esm5",
     "build:ngc:esm2015": "ngc -p tsconfig-angular-esm2015.json",
     "build:ngc:esm5": "ngc -p tsconfig-angular-esm5.json",
-    "ci-check": "yarn format:diff && yarn lint:src && yarn typecheck && yarn build && yarn test && yarn lint:dist",
+    "ci-check": "yarn wca && yarn format:diff && yarn lint:src && yarn typecheck && yarn build && yarn test && yarn lint:dist",
     "clean": "gulp clean",
     "format": "prettier --write \"**/*.{css,js,md,scss}\"",
     "format:diff": "prettier --check \"**/*.{css,js,md,scss}\"",
@@ -47,11 +48,17 @@
     "storybook": "start-storybook -p 9000",
     "storybook:angular": "start-storybook -p 9001 -c .storybook/angular",
     "storybook:react": "start-storybook -p 9002 -c .storybook/react",
-    "storybook:vue": "node node_modules/@storybook/vue/bin/index.js -p 9003 -c .storybook/vue"
+    "storybook:vue": "node node_modules/@storybook/vue/bin/index.js -p 9003 -c .storybook/vue",
+    "wca": "web-component-analyzer analyze src --outFile custom-elements.json"
   },
   "resolutions": {
     "babel-plugin-transform-vue-jsx": "^4.0.0",
     "prettier": "^1.19.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.8.0",
+    "lodash-es": "^4.17.0",
+    "resize-observer-polyfill": "^1.5.0"
   },
   "devDependencies": {
     "@angular-devkit/core": "^8.0.0",
@@ -166,7 +173,6 @@
     "lint-staged": "^8.1.0",
     "lit-element": "^2.2.0",
     "lit-html": "^1.1.0",
-    "lodash-es": "^4.17.0",
     "mini-css-extract-plugin": "^0.5.0",
     "mkdirp": "^0.5.0",
     "morgan": "^1.8.0",
@@ -183,7 +189,6 @@
     "react-dom": "^16.8.0",
     "replace-ext": "^1.0.0",
     "rtlcss": "^2.4.0",
-    "resize-observer-polyfill": "^1.5.0",
     "rxjs": "^6.4.0",
     "sass-loader": "^7.1.0",
     "strip-comments": "^1.0.0",
@@ -199,17 +204,15 @@
     "vue-eslint-parser": "^6.0.0",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.0",
+    "web-component-analyzer": "^1.0.0",
     "webpack": "^4.28.0",
     "zone.js": "^0.8.0"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.8.0",
     "carbon-components": "~10.9.0",
     "flatpickr": "4.6.1",
     "lit-element": "^2.2.0",
-    "lit-html": "^1.1.0",
-    "lodash-es": "^4.17.0",
-    "resize-observer-polyfill": "^1.5.0"
+    "lit-html": "^1.1.0"
   },
   "commitlint": {
     "extends": [

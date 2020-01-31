@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -20,7 +20,7 @@ import styles from './tabs-story.scss';
 export { default } from './tabs-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, triggerContent, value, disableSelection, onBeforeSelect, onAfterSelect } = parameters?.props?.['bx-tabs'];
+  const { disabled, triggerContent, value, disableSelection, onBeforeSelect, onSelect } = parameters?.props?.['bx-tabs'];
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -35,7 +35,7 @@ export const defaultStory = ({ parameters }) => {
         triggerContent={triggerContent}
         value={value}
         onBeforeSelect={handleBeforeSelected}
-        onAfterSelect={onAfterSelect}>
+        onSelect={onSelect}>
         <BXTab id="tab-all" target="panel-all" value="all">
           Option 1
         </BXTab>

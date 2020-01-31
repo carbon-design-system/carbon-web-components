@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -35,6 +35,8 @@ export enum RADIO_BUTTON_ORIENTATION {
 
 /**
  * Radio button group.
+ * @element bx-radio-button-group
+ * @fires bx-radio-button-group-changed - The custom event fired after this radio button group changes its selected item.
  */
 @customElement(`${prefix}-radio-button-group`)
 class BXRadioButtonGroup extends FormMixin(LitElement) {
@@ -52,9 +54,9 @@ class BXRadioButtonGroup extends FormMixin(LitElement) {
     const oldValue = this.value;
     this.value = selected && selected.value;
     if (oldValue !== this.value) {
-      const { eventAfterChange } = this.constructor as typeof BXRadioButtonGroup;
+      const { eventChange } = this.constructor as typeof BXRadioButtonGroup;
       this.dispatchEvent(
-        new CustomEvent(eventAfterChange, {
+        new CustomEvent(eventChange, {
           bubbles: true,
           composed: true,
           detail: {
@@ -74,31 +76,31 @@ class BXRadioButtonGroup extends FormMixin(LitElement) {
   }
 
   /**
-   * `true` if the check box should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the check box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * The label position. Corresponds to `label-text` attribute.
+   * The label position.
    */
   @property({ reflect: true, attribute: 'label-position' })
   labelPosition = RADIO_BUTTON_LABEL_POSITION.RIGHT;
 
   /**
-   * The `name` attribute for the `<input>` for selection. Corresponds to the attribute with the same name.
+   * The `name` attribute for the `<input>` for selection.
    */
   @property()
   name!: string;
 
   /**
-   * The orientation to lay out radio buttons. Corresponds to the attribute with the same name.
+   * The orientation to lay out radio buttons.
    */
   @property({ reflect: true })
   orientation = RADIO_BUTTON_ORIENTATION.HORIZONTAL;
 
   /**
-   * The `value` attribute for the `<input>` for selection. Corresponds to the attribute with the same name.
+   * The `value` attribute for the `<input>` for selection.
    */
   @property()
   value!: string;
@@ -108,7 +110,7 @@ class BXRadioButtonGroup extends FormMixin(LitElement) {
     // Manually hooks the event listeners on the host element to make the event names configurable
     this._hAfterChangeRadioButton = on(
       this,
-      (this.constructor as typeof BXRadioButtonGroup).eventAfterChangeRadioButton,
+      (this.constructor as typeof BXRadioButtonGroup).eventChangeRadioButton,
       this._handleAfterChangeRadioButton as EventListener
     );
   }
@@ -155,14 +157,14 @@ class BXRadioButtonGroup extends FormMixin(LitElement) {
   /**
    * The name of the custom event fired after this radio button group changes its selected item.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-radio-button-group-changed`;
   }
 
   /**
    * The name of the custom event fired after a radio button changes its checked state.
    */
-  static get eventAfterChangeRadioButton() {
+  static get eventChangeRadioButton() {
     return `${prefix}-radio-button-changed`;
   }
 

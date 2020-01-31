@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -73,6 +73,7 @@ class StructuredListRowRadioButtonDelegate implements ManagedRadioButtonDelegate
 
 /**
  * Structured list row.
+ * @element bx-structured-list-row
  */
 @customElement(`${prefix}-structured-list-row`)
 class BXStructuredListRow extends HostListenerMixin(LitElement) {
@@ -127,20 +128,20 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
   };
 
   /**
-   * `true` if this structured list row should be selectable and selected. Corresponds to the attribute with the same name.
+   * `true` if this structured list row should be selectable and selected.
    */
   @property({ type: Boolean, reflect: true })
   selected = false;
 
   /**
-   * The `name` attribute for the `<input>` for selection. Corresponds to `selection-name` attribute.
+   * The `name` attribute for the `<input>` for selection.
    * If present, this structured list row will be a selectable one.
    */
   @property({ attribute: 'selection-name' })
   selectionName = '';
 
   /**
-   * The `value` attribute for the `<input>` for selection. Corresponds to `selection-value` attribute.
+   * The `value` attribute for the `<input>` for selection.
    */
   @property({ attribute: 'selection-value' })
   selectionValue = '';

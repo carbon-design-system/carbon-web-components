@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -38,7 +38,7 @@ export const defaultStory = ({ parameters }) => ({
       </bx-accordion-item>
     </bx-accordion>
   `,
-  props: (({ disableToggle, onBeforeToggle, onAfterToggle, ...rest }) => ({
+  props: (({ disableToggle, onBeforeToggle, onToggle, ...rest }) => ({
     ...rest,
     handleBeforeToggle: (event: CustomEvent) => {
       onBeforeToggle(event);
@@ -46,7 +46,7 @@ export const defaultStory = ({ parameters }) => ({
         event.preventDefault();
       }
     },
-    handleToggle: onAfterToggle,
+    handleToggle: onToggle,
   }))(parameters?.props?.['bx-accordion']),
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

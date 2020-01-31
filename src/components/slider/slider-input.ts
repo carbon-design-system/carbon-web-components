@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -18,6 +18,8 @@ const { prefix } = settings;
 
 /**
  * The `<input>` box for slider.
+ * @element bx-slider-input
+ * @fires bx-slider-input-changed - The custom event fired after the value is changed by user gesture.
  */
 @customElement(`${prefix}-slider-input`)
 class BXSliderInput extends FocusMixin(LitElement) {
@@ -26,7 +28,7 @@ class BXSliderInput extends FocusMixin(LitElement) {
    */
   private _handleChange({ target }: Event) {
     this.dispatchEvent(
-      new CustomEvent((this.constructor as typeof BXSliderInput).eventAfterChange, {
+      new CustomEvent((this.constructor as typeof BXSliderInput).eventChange, {
         bubbles: true,
         composed: true,
         detail: {
@@ -41,7 +43,7 @@ class BXSliderInput extends FocusMixin(LitElement) {
    */
   private _handleInput({ target }: Event) {
     this.dispatchEvent(
-      new CustomEvent((this.constructor as typeof BXSliderInput).eventAfterChange, {
+      new CustomEvent((this.constructor as typeof BXSliderInput).eventChange, {
         bubbles: true,
         composed: true,
         detail: {
@@ -53,25 +55,25 @@ class BXSliderInput extends FocusMixin(LitElement) {
   }
 
   /**
-   * `true` if the check box should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the check box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * `true` if this slider input should use the light UI variant. Corresponds to the attribute with the same name.
+   * `true` if this slider input should use the light UI variant.
    */
   @property({ type: Boolean, reflect: true })
   light = false;
 
   /**
-   * The type of the `<input>`. Corresponds to the attribute with the same name.
+   * The type of the `<input>`.
    */
   @property()
   type!: string;
 
   /**
-   * The value. Corresponds to the attribute with the same name.
+   * The value.
    */
   @property({ type: Number })
   value!: number;
@@ -113,7 +115,7 @@ class BXSliderInput extends FocusMixin(LitElement) {
   /**
    * The name of the custom event fired after the value is changed by user gesture.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-slider-input-changed`;
   }
 

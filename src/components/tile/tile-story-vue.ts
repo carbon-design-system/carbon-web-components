@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -86,7 +86,7 @@ export const multiSelectable = ({ parameters }) => ({
 multiSelectable.story = baseMultiSelectable.story;
 
 export const expandable = ({ parameters }) => {
-  const props = (({ disableChange, onBeforeChange, onAfterChange, ...rest }) => {
+  const props = (({ disableChange, onBeforeChange, onChange, ...rest }) => {
     const handleBeforeChange = (event: CustomEvent) => {
       onBeforeChange(event);
       if (disableChange) {
@@ -96,7 +96,7 @@ export const expandable = ({ parameters }) => {
     return {
       ...rest,
       handleBeforeChange,
-      handleAfterChange: onAfterChange,
+      handleAfterChange: onChange,
     };
   })(parameters?.props?.['bx-expandable-tile']);
   return {

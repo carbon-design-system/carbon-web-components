@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -59,6 +59,11 @@ export enum TABS_KEYBOARD_ACTION {
 
 /**
  * Tabs.
+ * @element bx-tabs
+ * @fires bx-tabs-beingselected
+ *   The custom event fired before a tab is selected upon a user gesture.
+ *   Cancellation of this event stops changing the user-initiated selection.
+ * @fires bx-tabs-selected - The custom event fired after a a tab is selected upon a user gesture.
  */
 @customElement(`${prefix}-tabs`)
 class BXTabs extends HostListenerMixin(BXContentSwitcher) {
@@ -273,7 +278,7 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
   selectedItemAssistiveText = 'Selected an item.';
 
   /**
-   * The content of the trigger button for narrow mode. Corresponds to `trigger-content` attribute.
+   * The content of the trigger button for narrow mode.
    */
   @property({ attribute: 'trigger-content' })
   triggerContent = '';
@@ -385,7 +390,7 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
   /**
    * The name of the custom event fired after a a tab is selected upon a user gesture.
    */
-  static get eventAfterSelect() {
+  static get eventSelect() {
     return `${prefix}-tabs-selected`;
   }
 

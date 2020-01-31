@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -32,6 +32,10 @@ export enum INPUT_TYPE {
 
 /**
  * Input element. Supports all the usual attributes for textual input types
+ * @element bx-input
+ * @slot helper-text - The helper text.
+ * @slot label-text - The label text.
+ * @slot validity-message - The validity message. If present and non-empty, this input shows the UI of its invalid state.
  */
 @customElement(`${prefix}-input`)
 export default class BXInput extends FormMixin(LitElement) {
@@ -70,7 +74,7 @@ export default class BXInput extends FormMixin(LitElement) {
   disabled = false;
 
   /**
-   * The helper text. Corresponds to `helper-text` attribute.
+   * The helper text.
    */
   @property({ attribute: 'helper-text' })
   helperText = '';
@@ -82,7 +86,7 @@ export default class BXInput extends FormMixin(LitElement) {
   invalid = false;
 
   /**
-   * The label text. Corresponds to `label-text` attribute.
+   * The label text.
    */
   @property({ attribute: 'label-text' })
   labelText = '';
@@ -124,8 +128,7 @@ export default class BXInput extends FormMixin(LitElement) {
   type = INPUT_TYPE.TEXT;
 
   /**
-   * The validity message. Corresponds to `validity-message` attribute.
-   * If present and non-empty, this multi select shows the UI of its invalid state.
+   * The validity message. If present and non-empty, this input shows the UI of its invalid state.
    */
   @property({ attribute: 'validity-message' })
   validityMessage = '';

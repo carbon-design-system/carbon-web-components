@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -52,6 +52,8 @@ enum DATE_PICKER_MODE {
 
 /**
  * Date picker.
+ * @element bx-date-picker
+ * @fires bx-date-picker-changed - The custom event fired on this element when Flatpickr updates its value.
  */
 @customElement(`${prefix}-date-picker`)
 class BXDatePicker extends LitElement {
@@ -259,7 +261,7 @@ class BXDatePicker extends LitElement {
   calendar: FlatpickrInstance | null = null;
 
   /**
-   * The date format to let Flatpickr use. Corresponds to `date-format` attribute.
+   * The date format to let Flatpickr use.
    */
   @property({ attribute: 'date-format' })
   dateFormat!: string;
@@ -271,20 +273,19 @@ class BXDatePicker extends LitElement {
   locale!: FlatpickrLocale;
 
   /**
-   * The date range that a user can pick in calendar dropdown. Corresponds to `enabled-range` attribute.
+   * The date range that a user can pick in calendar dropdown.
    */
   @property({ attribute: 'enabled-range' })
   enabledRange!: string;
 
   /**
-   * `true` if the date picker should be open. Corresponds to the attribute with the same name.
+   * `true` if the date picker should be open.
    */
   @property({ type: Boolean, reflect: true })
   open = false;
 
   /**
    * The date(s) in ISO8601 format (date portion only), for range mode, '/' is used for separate start/end dates.
-   * Corresponds to the attribute with the same name.
    */
   @property()
   get value() {
@@ -301,11 +302,7 @@ class BXDatePicker extends LitElement {
     super.connectedCallback();
     this._instantiateDatePicker();
     // Manually hooks the event listeners on the host element to make the event names configurable
-    this._hAfterChange = on(
-      this,
-      (this.constructor as typeof BXDatePicker).eventAfterChange,
-      this._handleChange as EventListener
-    );
+    this._hAfterChange = on(this, (this.constructor as typeof BXDatePicker).eventChange, this._handleChange as EventListener);
   }
 
   disconnectedCallback() {
@@ -512,16 +509,9 @@ class BXDatePicker extends LitElement {
   }
 
   /**
-   * The name of the custom event fired once the shadow DOM content if `<bx-date-picker-input>` is ready.
-   */
-  static get eventInputContentLoaded() {
-    return `${prefix}-date-picker-input-content-loaded`;
-  }
-
-  /**
    * The name of the custom event fired on this element when Flatpickr updates its value.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-date-picker-changed`;
   }
 
