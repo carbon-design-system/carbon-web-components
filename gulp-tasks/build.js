@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -28,9 +28,9 @@ const stripComments = require('strip-comments');
 const autoprefixer = require('autoprefixer');
 const rtlcss = require('rtlcss');
 const replaceExtension = require('replace-ext');
-const babelPluginCreateReactCustomElementType = require('../babel-plugin-create-react-custom-element-type');
-const babelPluginResourceJSPaths = require('../babel-plugin-resource-js-paths');
-const fixHostPseudo = require('../postcss-fix-host-pseudo');
+const babelPluginCreateReactCustomElementType = require('../tools/babel-plugin-create-react-custom-element-type');
+const babelPluginResourceJSPaths = require('../tools/babel-plugin-resource-js-paths');
+const fixHostPseudo = require('../tools/postcss-fix-host-pseudo');
 const createSVGResultFromCarbonIcon = require('../tools/svg-result-carbon-icon');
 
 const config = require('./config');

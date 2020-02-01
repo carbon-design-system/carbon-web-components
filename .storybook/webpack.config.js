@@ -75,7 +75,7 @@ module.exports = ({ config, mode }) => {
     },
     {
       test: /@carbon[\\/]icons[\\/]/i,
-      use: [...babelLoaderRule.use, require.resolve('../svg-result-carbon-icon-loader')],
+      use: [...babelLoaderRule.use, require.resolve('../tools/svg-result-carbon-icon-loader')],
     },
     {
       test: /-story(-(angular|react|vue))?\.[jt]sx?$/,
@@ -133,12 +133,12 @@ module.exports = ({ config, mode }) => {
       test: /\.scss$/,
       sideEffects: true,
       use: [
-        require.resolve('../css-result-loader'),
+        require.resolve('../tools/css-result-loader'),
         {
           loader: 'postcss-loader',
           options: {
             plugins: () => [
-              require('../postcss-fix-host-pseudo')(),
+              require('../tools/postcss-fix-host-pseudo')(),
               require('autoprefixer')({
                 browsers: ['last 1 version', 'ie >= 11'],
               }),

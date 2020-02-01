@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,7 +10,7 @@
 'use strict';
 
 const path = require('path');
-const createSVGResultFromCarbonIcon = require('./tools/svg-result-carbon-icon');
+const createSVGResultFromCarbonIcon = require('./svg-result-carbon-icon');
 
 /**
  * A WebPack loader to generate `lit-html`'s `SVGResult` from an icon descriptor from `@carbon/icons`.
@@ -20,7 +20,7 @@ function svgResultCarbonIconLoader() {
   const descriptor = require(this.resourcePath); // eslint-disable-line global-require,import/no-dynamic-require
   return `
     import { svg } from 'lit-html';
-    import spread from '${path.resolve(__dirname, 'src/globals/directives/spread')}';
+    import spread from '${path.resolve(__dirname, '../src/globals/directives/spread')}';
     const svgResultCarbonIcon = ${createSVGResultFromCarbonIcon(descriptor)};
     export default svgResultCarbonIcon;
   `;
