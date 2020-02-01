@@ -117,6 +117,8 @@ The `.d.ts` files in `carbon-custom-elements` package are compiled with TypeScri
 
 ### React
 
+(Note: Below link does not work live for now, but can be run by downloading and `yarn install`/`yarn start`)
+
 [![Edit carbon-custom-elements with React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/react)
 
 You can use wrapper React components in `carbon-custom-elements/es/components-react` generated [automatically from the custom elements](./src/globals/wrappers/createReactCustomElementType.ts) which allows you to use our components seamlessly in your React code. Here's an example:

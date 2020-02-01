@@ -10,16 +10,16 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "carbon-components": "~10.7.0",
+    "carbon-components": "~10.9.0",
     "carbon-custom-elements": "^1.0.0-beta.0",
     "lit-element": "^2.2.0",
     "lit-html": "^1.1.0",
     "lodash-es": "^4.17.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-0",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@babel/core": "^7.8.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.0",
+    "@babel/plugin-proposal-decorators": "^7.8.0",
     "@types/lodash-es": "^4.17.0",
     "parcel-bundler": "^1.10.0"
   },
