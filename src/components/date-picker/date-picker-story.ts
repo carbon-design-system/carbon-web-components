@@ -7,11 +7,11 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
 import './date-picker';
-import './date-picker-input';
+import { DATE_PICKER_INPUT_SIZE_HORIZONTAL } from './date-picker-input';
 import storyDocs from './date-picker-story.mdx';
 import './date-picker-input-skeleton';
 
@@ -34,8 +34,24 @@ const knobs = {
   }),
 };
 
+const sizesHorizontal = {
+  [`Regular size`]: null,
+  [`Short size (${DATE_PICKER_INPUT_SIZE_HORIZONTAL.SHORT})`]: DATE_PICKER_INPUT_SIZE_HORIZONTAL.SHORT,
+};
+
+const getInputKnobs = () => ({
+  disabled: boolean('Disabled (disabled in <bx-date-picker-input>)', false),
+  hideLabel: boolean('Hide label (hide-label in <bx-date-picker-input>)', false),
+  invalid: boolean('Show invalid state  (invalid)', false),
+  labelText: textNullable('Label text (label-text in <bx-date-picker-input>)', 'Date Picker label'),
+  light: boolean('Light variant (light in <bx-date-picker-input>)', false),
+  placeholder: textNullable('Placeholder text (placeholder in <bx-date-picker-input>)', 'mm/dd/yyyy'),
+  validityMessage: textNullable('The validity message (validity-message)', ''),
+  onInput: action('input'),
+});
+
 export const defaultStory = ({ parameters }) => {
-  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage } =
+  const { disabled, hideLabel, invalid, labelText, light, placeholder, sizeHorizontal, validityMessage } =
     parameters?.props?.['bx-date-picker-input'] ?? {};
   return html`
     <bx-date-picker>
@@ -46,6 +62,7 @@ export const defaultStory = ({ parameters }) => {
         label-text="${ifNonNull(labelText)}"
         ?light="${light}"
         placeholder="${ifNonNull(placeholder)}"
+        size-horizontal="${ifNonNull(sizeHorizontal)}"
         validity-message="${ifNonNull(validityMessage)}"
       >
       </bx-date-picker-input>
@@ -57,7 +74,10 @@ defaultStory.story = {
   name: 'Default',
   parameters: {
     knobs: {
-      'bx-date-picker-input': knobs['bx-date-picker-input'],
+      'bx-date-picker-input': () => ({
+        ...getInputKnobs(),
+        sizeHorizontal: select('Horizontal size (size-horizontal)', sizesHorizontal, null),
+      }),
     },
   },
 };

@@ -20,7 +20,7 @@ export const defaultStory = ({ parameters }) => ({
       :disabled="disabled"
       :label-text="labelText"
       :name="name"
-      :small="small"
+      :size="size"
       :unchecked-text="uncheckedText"
       :value="value"
       @bx-toggle-changed="onChange"

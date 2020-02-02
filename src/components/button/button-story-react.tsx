@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -20,9 +20,9 @@ import { defaultStory as baseDefaultStory, textAndIcon as baseTextAndIcon, skele
 export { default } from './button-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { kind, disabled, small, href } = parameters?.props?.['bx-btn'];
+  const { kind, disabled, size, href } = parameters?.props?.['bx-btn'];
   return (
-    <BXBtn kind={kind} disabled={disabled} small={small} href={href}>
+    <BXBtn kind={kind} disabled={disabled} size={size} href={href}>
       Button
     </BXBtn>
   );
@@ -31,18 +31,18 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = baseDefaultStory.story;
 
 export const icon = ({ parameters }) => {
-  const { kind, disabled, small, href } = parameters?.props?.['bx-btn'];
+  const { kind, disabled, size, href } = parameters?.props?.['bx-btn'];
   return (
-    <BXBtn kind={kind} disabled={disabled} small={small} href={href}>
+    <BXBtn kind={kind} disabled={disabled} size={size} href={href}>
       <Add16 slot="icon" />
     </BXBtn>
   );
 };
 
 export const textAndIcon = ({ parameters }) => {
-  const { kind, disabled, small, href } = parameters?.props?.['bx-btn'];
+  const { kind, disabled, size, href } = parameters?.props?.['bx-btn'];
   return (
-    <BXBtn kind={kind} disabled={disabled} small={small} href={href}>
+    <BXBtn kind={kind} disabled={disabled} size={size} href={href}>
       Button <Add16 slot="icon" />
     </BXBtn>
   );
@@ -51,8 +51,8 @@ export const textAndIcon = ({ parameters }) => {
 textAndIcon.story = baseTextAndIcon.story;
 
 export const skeleton = ({ parameters }) => {
-  const { disabled, small, href } = parameters?.props?.['bx-btn-skeleton'];
-  return <BXBtnSkeleton disabled={disabled} small={small} href={href}></BXBtnSkeleton>;
+  const { disabled, size, href } = parameters?.props?.['bx-btn-skeleton'];
+  return <BXBtnSkeleton disabled={disabled} size={size} href={href}></BXBtnSkeleton>;
 };
 
 skeleton.story = baseSkeleton.story;
