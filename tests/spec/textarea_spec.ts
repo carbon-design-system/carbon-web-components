@@ -1,14 +1,14 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import { html, render } from 'lit-html';
-import BXTextarea from '../../src/components/textarea/textarea';
+import BXTextarea, { TEXTAREA_COLOR_SCHEME } from '../../src/components/textarea/textarea';
 import { defaultStory } from '../../src/components/textarea/textarea-story';
 
 /**
@@ -40,6 +40,7 @@ describe('bx-textarea', function() {
         template({
           autocomplete: 'on',
           autofocus: true,
+          colorScheme: TEXTAREA_COLOR_SCHEME.LIGHT,
           disabled: true,
           helperText: 'helper-text-foo',
           labelText: 'label-text-foo',

@@ -11,9 +11,14 @@ import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
 import './date-picker';
-import { DATE_PICKER_INPUT_SIZE_HORIZONTAL } from './date-picker-input';
+import { DATE_PICKER_INPUT_COLOR_SCHEME, DATE_PICKER_INPUT_SIZE_HORIZONTAL } from './date-picker-input';
 import storyDocs from './date-picker-story.mdx';
 import './date-picker-input-skeleton';
+
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${DATE_PICKER_INPUT_COLOR_SCHEME.LIGHT})`]: DATE_PICKER_INPUT_COLOR_SCHEME.LIGHT,
+};
 
 const knobs = {
   'bx-date-picker': () => ({
@@ -25,11 +30,13 @@ const knobs = {
     onFlatpickrError: action('bx-date-picker-flatpickr-error'),
   }),
   'bx-date-picker-input': () => ({
+    colorScheme: select('Color scheme (color-scheme in <bx-date-picker-input>)', colorSchemes, null),
     disabled: boolean('Disabled (disabled in <bx-date-picker-input>)', false),
     hideLabel: boolean('Hide label (hide-label in <bx-date-picker-input>)', false),
+    invalid: boolean('Show invalid state  (invalid)', false),
     labelText: textNullable('Label text (label-text in <bx-date-picker-input>)', 'Date Picker label'),
-    light: boolean('Light variant (light in <bx-date-picker-input>)', false),
     placeholder: textNullable('Placeholder text (placeholder in <bx-date-picker-input>)', 'mm/dd/yyyy'),
+    validityMessage: textNullable('The validity message (validity-message)', ''),
     onInput: action('input'),
   }),
 };
@@ -39,28 +46,17 @@ const sizesHorizontal = {
   [`Short size (${DATE_PICKER_INPUT_SIZE_HORIZONTAL.SHORT})`]: DATE_PICKER_INPUT_SIZE_HORIZONTAL.SHORT,
 };
 
-const getInputKnobs = () => ({
-  disabled: boolean('Disabled (disabled in <bx-date-picker-input>)', false),
-  hideLabel: boolean('Hide label (hide-label in <bx-date-picker-input>)', false),
-  invalid: boolean('Show invalid state  (invalid)', false),
-  labelText: textNullable('Label text (label-text in <bx-date-picker-input>)', 'Date Picker label'),
-  light: boolean('Light variant (light in <bx-date-picker-input>)', false),
-  placeholder: textNullable('Placeholder text (placeholder in <bx-date-picker-input>)', 'mm/dd/yyyy'),
-  validityMessage: textNullable('The validity message (validity-message)', ''),
-  onInput: action('input'),
-});
-
 export const defaultStory = ({ parameters }) => {
-  const { disabled, hideLabel, invalid, labelText, light, placeholder, sizeHorizontal, validityMessage } =
+  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, sizeHorizontal, validityMessage } =
     parameters?.props?.['bx-date-picker-input'] ?? {};
   return html`
     <bx-date-picker>
       <bx-date-picker-input
+        color-scheme="${colorScheme}"
         ?disabled="${disabled}"
         ?hide-label="${hideLabel}"
         ?invalid="${invalid}"
         label-text="${ifNonNull(labelText)}"
-        ?light="${light}"
         placeholder="${ifNonNull(placeholder)}"
         size-horizontal="${ifNonNull(sizeHorizontal)}"
         validity-message="${ifNonNull(validityMessage)}"
@@ -75,7 +71,7 @@ defaultStory.story = {
   parameters: {
     knobs: {
       'bx-date-picker-input': () => ({
-        ...getInputKnobs(),
+        ...knobs['bx-date-picker-input'](),
         sizeHorizontal: select('Horizontal size (size-horizontal)', sizesHorizontal, null),
       }),
     },
@@ -84,7 +80,7 @@ defaultStory.story = {
 
 export const singleWithCalendar = ({ parameters }) => {
   const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'] ?? {};
-  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage, onInput } =
+  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, validityMessage, onInput } =
     parameters?.props?.['bx-date-picker-input'] ?? {};
   return html`
     <bx-date-picker
@@ -96,12 +92,12 @@ export const singleWithCalendar = ({ parameters }) => {
       @bx-date-picker-flatpickr-error="${onFlatpickrError}"
     >
       <bx-date-picker-input
+        color-scheme="${colorScheme}"
         ?disabled="${disabled}"
         ?hide-label="${hideLabel}"
         ?invalid="${invalid}"
         kind="single"
         label-text="${ifNonNull(labelText)}"
-        ?light="${light}"
         placeholder="${ifNonNull(placeholder)}"
         validity-message="${ifNonNull(validityMessage)}"
         @input="${onInput}"
@@ -120,7 +116,7 @@ singleWithCalendar.story = {
 
 export const rangeWithCalendar = ({ parameters }) => {
   const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'] ?? {};
-  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage, onInput } =
+  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, validityMessage, onInput } =
     parameters?.props?.['bx-date-picker-input'] ?? {};
   return html`
     <bx-date-picker
@@ -132,24 +128,24 @@ export const rangeWithCalendar = ({ parameters }) => {
       @bx-date-picker-flatpickr-error="${onFlatpickrError}"
     >
       <bx-date-picker-input
+        color-scheme="${colorScheme}"
         ?disabled="${disabled}"
         ?hide-label="${hideLabel}"
         ?invalid="${invalid}"
         kind="from"
         label-text="${ifNonNull(labelText)}"
-        ?light="${light}"
         placeholder="${ifNonNull(placeholder)}"
         validity-message="${ifNonNull(validityMessage)}"
         @input="${onInput}"
       >
       </bx-date-picker-input>
       <bx-date-picker-input
+        color-scheme="${colorScheme}"
         ?disabled="${disabled}"
         ?hide-label="${hideLabel}"
         ?invalid="${invalid}"
         kind="to"
         label-text="${ifNonNull(labelText)}"
-        ?light="${light}"
         placeholder="${ifNonNull(placeholder)}"
         validity-message="${ifNonNull(validityMessage)}"
         @input="${onInput}"

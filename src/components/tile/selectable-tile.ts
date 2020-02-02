@@ -8,8 +8,10 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, svg, property, query, customElement, LitElement } from 'lit-element';
 import CheckmarkFilled16 from '@carbon/icons/lib/checkmark--filled/16';
+import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './tile.scss';
@@ -44,6 +46,12 @@ class BXSelectableTile extends FocusMixin(LitElement) {
   checkmarkLabel!: string;
 
   /**
+   * The color scheme.
+   */
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+
+  /**
    * The form name.
    */
   @property()
@@ -66,7 +74,12 @@ class BXSelectableTile extends FocusMixin(LitElement) {
   }
 
   render() {
-    const { checkmarkLabel, name, selected, value, _inputType: inputType, _handleChange: handleChange } = this;
+    const { checkmarkLabel, colorScheme, name, selected, value, _inputType: inputType, _handleChange: handleChange } = this;
+    const classes = classMap({
+      [`${prefix}--tile`]: true,
+      [`${prefix}--tile--selectable`]: true,
+      [`${prefix}--tile--${colorScheme}`]: colorScheme,
+    });
     return html`
       <input
         type="${inputType}"
@@ -78,7 +91,7 @@ class BXSelectableTile extends FocusMixin(LitElement) {
         .checked=${selected}
         @change=${handleChange}
       />
-      <label for="input" class="${prefix}--tile ${prefix}--tile--selectable" tabindex="0">
+      <label for="input" class="${classes}" tabindex="0">
         <div class="${prefix}--tile__checkmark">
           ${CheckmarkFilled16({
             children: !checkmarkLabel ? undefined : svg`<title>${checkmarkLabel}</title>`,

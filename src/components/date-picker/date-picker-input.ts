@@ -11,9 +11,12 @@ import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import Calendar16 from '@carbon/icons/lib/calendar/16';
 import settings from 'carbon-components/es/globals/js/settings';
+import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './date-picker.scss';
+
+export { FORM_ELEMENT_COLOR_SCHEME as DATE_PICKER_INPUT_COLOR_SCHEME } from '../../globals/shared-enums';
 
 const { prefix } = settings;
 
@@ -133,6 +136,12 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
   input!: HTMLInputElement;
 
   /**
+   * The color scheme.
+   */
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+
+  /**
    * `true` if the check box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
@@ -161,12 +170,6 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
    */
   @property({ attribute: 'label-text' })
   labelText!: string;
-
-  /**
-   * `true` if this date picker input should use the light UI variant.
-   */
-  @property({ type: Boolean, reflect: true })
-  light = false;
 
   /**
    * The `pattern` attribute for the `<input>` in the shadow DOM.

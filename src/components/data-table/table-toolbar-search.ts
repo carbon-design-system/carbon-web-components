@@ -90,11 +90,10 @@ class BXTableToolbarSearch extends HostListenerMixin(BXSearch) {
 
   render() {
     const result = super.render();
-    const { expanded, light, size, _handleSearchClick: handleSearchClick } = this;
+    const { expanded, size, _handleSearchClick: handleSearchClick } = this;
     const classes = classMap({
       [`${prefix}--search`]: true,
       [`${prefix}--search--${size}`]: size,
-      [`${prefix}--search--light`]: light,
     });
     return html`
       <div class="${classes}" tabindex="${expanded ? '-1' : '0'}" @click="${handleSearchClick}">${result}</div>
