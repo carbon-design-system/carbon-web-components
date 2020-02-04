@@ -46,8 +46,8 @@
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "start": "yarn storybook",
     "storybook": "start-storybook -p 9000",
-    "storybook:angular": "start-storybook -p 9001 -c .storybook/angular",
-    "storybook:react": "start-storybook -p 9002 -c .storybook/react",
+    "storybook:angular": "node node_modules/@storybook/vue/bin/index.js -p 9001 -c .storybook/angular",
+    "storybook:react": "node node_modules/@storybook/vue/bin/index.js -p 9002 -c .storybook/react",
     "storybook:vue": "node node_modules/@storybook/vue/bin/index.js -p 9003 -c .storybook/vue",
     "wca": "web-component-analyzer analyze src --outFile custom-elements.json"
   },
