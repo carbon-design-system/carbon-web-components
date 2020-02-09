@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -31,16 +31,16 @@ export const defaultStory = ({ parameters }) => {
     ? []
     : ['structured-list-selection-0', 'structured-list-selection-1', 'structured-list-selection-2'];
   return (
-    <BXStructuredList hasSelection={hasSelection}>
+    <BXStructuredList selectionName={selectionName}>
       <BXStructuredListHead>
-        <BXStructuredListHeaderRow hasSelection={hasSelection}>
+        <BXStructuredListHeaderRow>
           <bx-structured-list-header-cell>ColumnA</bx-structured-list-header-cell>
           <bx-structured-list-header-cell>ColumnB</bx-structured-list-header-cell>
           <bx-structured-list-header-cell>ColumnC</bx-structured-list-header-cell>
         </BXStructuredListHeaderRow>
       </BXStructuredListHead>
       <BXStructuredListBody>
-        <BXStructuredListRow selectionName={selectionName} selectionValue={selectionValues[0]}>
+        <BXStructuredListRow selectionValue={selectionValues[0]}>
           <bx-structured-list-cell>Row 1</bx-structured-list-cell>
           <bx-structured-list-cell>Row 1</bx-structured-list-cell>
           <bx-structured-list-cell>
@@ -48,7 +48,7 @@ export const defaultStory = ({ parameters }) => {
             augue. Aenean posuere sem vel euismod dignissim.
           </bx-structured-list-cell>
         </BXStructuredListRow>
-        <BXStructuredListRow selectionName={selectionName} selectionValue={selectionValues[1]}>
+        <BXStructuredListRow selectionValue={selectionValues[1]}>
           <bx-structured-list-cell>Row 2</bx-structured-list-cell>
           <bx-structured-list-cell>Row 2</bx-structured-list-cell>
           <bx-structured-list-cell>
@@ -56,7 +56,7 @@ export const defaultStory = ({ parameters }) => {
             augue. Aenean posuere sem vel euismod dignissim.
           </bx-structured-list-cell>
         </BXStructuredListRow>
-        <BXStructuredListRow selectionName={selectionName} selectionValue={selectionValues[2]}>
+        <BXStructuredListRow selectionValue={selectionValues[2]}>
           <bx-structured-list-cell>Row 3</bx-structured-list-cell>
           <bx-structured-list-cell>Row 3</bx-structured-list-cell>
           <bx-structured-list-cell>
