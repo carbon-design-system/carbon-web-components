@@ -16,28 +16,29 @@ LICENSE file in the root directory of this source tree.
     <style type="text/css">
       body {
         font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
-        padding: 2rem;
       }
 
-      bx-btn + bx-btn {
-        margin: 0 1rem;
+      #app {
+        width: 300px;
       }
 
-      bx-form-item, bx-inline-notification {
-        margin-bottom: 2rem;
+      bx-dropdown,
+      bx-dropdown-item {
+        visibility: hidden;
       }
 
-      .bx-ce-demo-redux-form--btn-container {
-        display: flex;
-        align-items: center;
+      bx-dropdown:defined,
+      bx-dropdown-item:defined {
+        visibility: inherit;
       }
     </style>
-    <title>carbon-custom-elements example with redux-form</title>
+    <title>carbon-custom-elements example with React</title>
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root"></div>
+    <script src="src/index.js"></script>
   </body>
 </html>

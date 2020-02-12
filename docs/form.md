@@ -90,6 +90,4 @@ const FieldImpl = ({ input, label, type, meta: { touched, error } }) => {
 <Field name="username" type="text" component={FieldImpl} label="Username" />
 ```
 
-(Note: Below link does not work live for now, but can be run by downloading and `yarn install`/`yarn start`)
-
 [![Edit carbon-custom-elements with Redux Form](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/form/redux-form)
