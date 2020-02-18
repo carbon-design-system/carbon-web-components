@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -13,6 +13,7 @@ import { boolean, select } from '@storybook/addon-knobs';
 import Add16 from '@carbon/icons/lib/add/16';
 import ifNonNull from '../../globals/directives/if-non-null';
 import { BUTTON_KIND } from './button';
+import './button-skeleton';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import storyDocs from './button-story.mdx';
 
@@ -70,6 +71,28 @@ export const textAndIcon = ({ parameters }) => {
 
 textAndIcon.story = {
   name: 'Text and icon',
+};
+
+export const skeleton = ({ parameters }) => {
+  const { disabled, small, href, onClick } = parameters?.props?.['bx-btn-skeleton'];
+  return html`
+    <bx-btn-skeleton ?disabled=${disabled} ?small=${small} href=${ifNonNull(href || undefined)} @click=${onClick}>
+    </bx-btn-skeleton>
+  `;
+};
+
+skeleton.story = {
+  parameters: {
+    knobs: {
+      'bx-btn-skeleton': () => ({
+        kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
+        disabled: boolean('Disabled (disabled)', false),
+        small: boolean('Small (small)', false),
+        href: textNullable('Link href (href)', ''),
+        onClick: action('click'),
+      }),
+    },
+  },
 };
 
 export default {

@@ -9,7 +9,7 @@
 
 import Add16 from '@carbon/icons-vue/es/add/16';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory, textAndIcon as baseTextAndIcon } from './button-story';
+import { defaultStory as baseDefaultStory, textAndIcon as baseTextAndIcon, skeleton as baseSkeleton } from './button-story';
 
 export { default } from './button-story';
 
@@ -47,3 +47,12 @@ export const textAndIcon = ({ parameters }) => ({
 });
 
 textAndIcon.story = baseTextAndIcon.story;
+
+export const skeleton = ({ parameters }) => ({
+  template: `
+    <bx-btn :disabled="disabled" :small="small" :href="href" @click="onClick"></bx-btn>
+  `,
+  ...createVueBindingsFromProps(parameters?.props?.['bx-btn-skeleton']),
+});
+
+skeleton.story = baseSkeleton.story;
