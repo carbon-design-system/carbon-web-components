@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -169,17 +169,17 @@ abstract class BXFloatingMenu extends HostListenerMixin(FocusMixin(LitElement)) 
   protected parent: BXFloatingMenuTrigger | null = null;
 
   /**
-   * How the menu is aligned to the trigger button. Corresponds to the attribute with the same name.
+   * How the menu is aligned to the trigger button.
    */
   abstract alignment: FLOATING_MENU_ALIGNMENT;
 
   /**
-   * The menu direction. Corresponds to the attribute with the same name.
+   * The menu direction.
    */
   abstract direction: FLOATING_MENU_DIRECTION;
 
   /**
-   * `true` if the menu should be open. Corresponds to the attribute with the same name.
+   * `true` if the menu should be open.
    */
   abstract open: boolean;
 

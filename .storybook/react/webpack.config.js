@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -14,7 +14,7 @@ const path = require('path');
 const { promisify } = require('util');
 const mkdirp = require('mkdirp');
 const { transformAsync } = require('@babel/core');
-const babelPluginCreateReactCustomElementType = require('../../babel-plugin-create-react-custom-element-type');
+const babelPluginCreateReactCustomElementType = require('../../tools/babel-plugin-create-react-custom-element-type');
 const configure = require('../webpack.config');
 
 const regexComponentsReactPath = /carbon-custom-elements[\\/]es[\\/]components-react[\\/](.*)$/;

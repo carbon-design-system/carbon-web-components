@@ -7,13 +7,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render, TemplateResult } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined';
-// Just importing the default export does not seem to run `customElements.define()`
-/* eslint-disable import/no-duplicates */
-import '../../src/components/textarea/textarea';
+import { html, render } from 'lit-html';
 import BXTextarea from '../../src/components/textarea/textarea';
-/* eslint-enable import/no-duplicates */
+import { defaultStory } from '../../src/components/textarea/textarea-story';
 
 /**
  * @param formData A `FormData` instance.
@@ -28,61 +24,14 @@ const getValues = (formData: FormData) => {
   return values;
 };
 
-const template = ({
-  hasContent = true,
-  hasForm,
-  autocomplete,
-  autofocus,
-  disabled,
-  helperText,
-  labelText,
-  name,
-  pattern,
-  placeholder,
-  readonly,
-  required,
-  validityMessage,
-  value,
-}: {
-  hasContent?: boolean;
-  hasForm?: boolean;
-  autocomplete?: string;
-  autofocus?: boolean;
-  disabled?: boolean;
-  helperText?: string;
-  labelText?: string;
-  name?: string;
-  pattern?: string;
-  placeholder?: string;
-  readonly?: boolean;
-  required?: boolean;
-  validityMessage?: string;
-  value?: string;
-} = {}) => {
-  const inner = !hasContent
-    ? (undefined! as TemplateResult)
-    : html`
-        <bx-textarea
-          autocomplete="${ifDefined(autocomplete)}"
-          ?autofocus="${autofocus}"
-          ?disabled="${disabled}"
-          helper-text="${ifDefined(helperText)}"
-          label-text="${ifDefined(labelText)}"
-          name="${ifDefined(name)}"
-          pattern="${ifDefined(pattern)}"
-          placeholder="${ifDefined(placeholder)}"
-          ?readonly="${readonly}"
-          ?required="${required}"
-          validity-message="${ifDefined(validityMessage)}"
-          value="${ifDefined(value)}"
-        ></bx-textarea>
-      `;
-  return !hasContent || !hasForm
-    ? inner
-    : html`
-        <form>${inner}</form>
-      `;
-};
+const template = (props?) =>
+  defaultStory({
+    parameters: {
+      props: {
+        'bx-textarea': props,
+      },
+    },
+  });
 
 describe('bx-textarea', function() {
   describe('Rendering', function() {
@@ -140,11 +89,14 @@ describe('bx-textarea', function() {
   describe('Event-based form participation', function() {
     it('Should respond to `formdata` event', async function() {
       render(
-        template({
-          hasForm: true,
-          name: 'name-foo',
-          value: 'value-foo',
-        }),
+        html`
+          <form>
+            ${template({
+              name: 'name-foo',
+              value: 'value-foo',
+            })}
+          </form>
+        `,
         document.body
       );
       await Promise.resolve();
@@ -158,12 +110,15 @@ describe('bx-textarea', function() {
 
     it('Should not respond to `formdata` event if disabled', async function() {
       render(
-        template({
-          hasForm: true,
-          disabled: true,
-          name: 'name-foo',
-          value: 'value-foo',
-        }),
+        html`
+          <form>
+            ${template({
+              disabled: true,
+              name: 'name-foo',
+              value: 'value-foo',
+            })}
+          </form>
+        `,
         document.body
       );
       await Promise.resolve();

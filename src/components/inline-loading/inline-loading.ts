@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -45,6 +45,7 @@ export enum INLINE_LOADING_STATE {
 
 /**
  * Lnline loading spinner.
+ * @element bx-inline-loading
  */
 @customElement(`${prefix}-inline-loading`)
 class BXInlineLoading extends LitElement {
@@ -65,7 +66,8 @@ class BXInlineLoading extends LitElement {
     }
     if (status === INLINE_LOADING_STATE.INACTIVE || status === INLINE_LOADING_STATE.ACTIVE) {
       const classes = classMap({
-        [`${prefix}--loading ${prefix}--loading--small`]: true,
+        [`${prefix}--loading`]: true,
+        [`${prefix}--loading--small`]: true,
         [`${prefix}--loading--stop`]: status === INLINE_LOADING_STATE.INACTIVE,
       });
       return html`
@@ -78,7 +80,7 @@ class BXInlineLoading extends LitElement {
   }
 
   /**
-   * The loading status. Corresponds to the attribute with the same name.
+   * The loading status.
    */
   @property({ reflect: true })
   status = INLINE_LOADING_STATE.ACTIVE;

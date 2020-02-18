@@ -1,14 +1,13 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
@@ -20,20 +19,15 @@ import { defaultStory as baseDefaultStory } from './content-switcher-story';
 export { default } from './content-switcher-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, disableSelection } = parameters?.props?.['bx-content-switcher'];
-  const beforeSelectedAction = action('bx-content-switcher-beingselected');
+  const { disabled, value, disableSelection, onBeforeSelect, onSelect } = parameters?.props?.['bx-content-switcher'];
   const handleBeforeSelected = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeSelect(event);
     if (disableSelection) {
       event.preventDefault();
     }
   };
   return (
-    <BXContentSwitcher
-      disabled={disabled}
-      value={value}
-      onBeforeSelect={handleBeforeSelected}
-      onAfterSelect={action('bx-content-switcher-selected')}>
+    <BXContentSwitcher disabled={disabled} value={value} onBeforeSelect={handleBeforeSelected} onSelect={onSelect}>
       <BXContentSwitcherItem value="all">Option 1</BXContentSwitcherItem>
       <BXContentSwitcherItem value="cloudFoundry" disabled>
         Option 2

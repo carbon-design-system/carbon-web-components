@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -16,6 +16,7 @@ const { prefix } = settings;
 
 /**
  * Data table body.
+ * @element bx-table-body
  */
 @customElement(`${prefix}-table-body`)
 class BXTableBody extends LitElement {
@@ -47,7 +48,7 @@ class BXTableBody extends LitElement {
   };
 
   /**
-   * `true` if the zebra stripe should be shown. Corresponds to the attribute with the same name.
+   * `true` if the zebra stripe should be shown.
    */
   @property({ type: Boolean, reflect: true })
   zebra = false;

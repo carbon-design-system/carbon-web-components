@@ -1,14 +1,13 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, {
   defaultStory as baseDefaultStory,
@@ -91,8 +90,8 @@ export const expandable = ({ parameters }) => ({
   template: `
     <bx-expandable-tile
       [expanded]="expanded"
-      (bx-expandable-tile-beingchanged)="onBeforeChange($event)"
-      (bx-expandable-tile-changed)="onChange($event)"
+      (bx-expandable-tile-beingchanged)="handleBeforeChange($event)"
+      (bx-expandable-tile-changed)="handleAfterChange($event)"
     >
       <bx-tile-above-the-fold-content style="height: 200px">
         Above the fold content here
@@ -102,18 +101,17 @@ export const expandable = ({ parameters }) => ({
       </bx-tile-below-the-fold-content>
     </bx-expandable-tile>
   `,
-  props: (({ disableChange, ...rest }) => {
-    const beforeChangedAction = action('bx-expandable-tile-beingchanged');
-    const onBeforeChange = (event: CustomEvent) => {
-      beforeChangedAction(event);
+  props: (({ disableChange, onBeforeChange, onChange, ...rest }) => {
+    const handleBeforeChange = (event: CustomEvent) => {
+      onBeforeChange(event);
       if (disableChange) {
         event.preventDefault();
       }
     };
     return {
       ...rest,
-      onBeforeChange,
-      onChange: action('bx-expandable-tile-changed'),
+      handleBeforeChange,
+      handleAfterChange: onChange,
     };
   })(parameters?.props?.['bx-expandable-tile']),
 });

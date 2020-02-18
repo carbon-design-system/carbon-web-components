@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -20,6 +20,11 @@ const { prefix } = settings;
 
 /**
  * Combo box.
+ * @element bx-combo-box
+ * @fires bx-combo-box-beingselected
+ *   The custom event fired before a combo box item is selected upon a user gesture.
+ *   Cancellation of this event stops changing the user-initiated selection.
+ * @fires bx-combo-box-selected - The custom event fired after a a combo box item is selected upon a user gesture.
  */
 @customElement(`${prefix}-combo-box`)
 class BXComboBox extends BXDropdown {
@@ -62,11 +67,9 @@ class BXComboBox extends BXDropdown {
   protected _handleInput() {
     const items = this.querySelectorAll((this.constructor as typeof BXComboBox).selectorItem);
     const index = !this._filterInput.value ? -1 : findIndex(items, this._testItemWithQueryText, this);
-    if (index >= 0) {
-      forEach(items, (item, i) => {
-        (item as BXComboBoxItem).highlighted = i === index;
-      });
-    }
+    forEach(items, (item, i) => {
+      (item as BXComboBoxItem).highlighted = i === index;
+    });
     const { _filterInput: filterInput } = this;
     this._filterInputValue = !filterInput ? '' : filterInput.value;
     this.open = true;
@@ -87,7 +90,8 @@ class BXComboBox extends BXDropdown {
     const { TRIGGERING } = DROPDOWN_KEYBOARD_ACTION;
     if (
       (event.target as Element).closest((this.constructor as typeof BXComboBox).selectorSelectionButton) &&
-      action === TRIGGERING
+      // Space key should be handled by `<input>` unless "clear selection" button has focus
+      (action === TRIGGERING || key === ' ')
     ) {
       this._handleUserInitiatedClearInput();
     } else {
@@ -99,6 +103,9 @@ class BXComboBox extends BXDropdown {
    * Handles user-initiated clearing the `<input>` for filtering.
    */
   protected _handleUserInitiatedClearInput() {
+    forEach(this.querySelectorAll((this.constructor as typeof BXComboBox).selectorItem), item => {
+      (item as BXComboBoxItem).highlighted = false;
+    });
     this._filterInputValue = '';
     this._filterInput.focus();
     this.open = false;
@@ -108,12 +115,15 @@ class BXComboBox extends BXDropdown {
   protected _handleUserInitiatedSelectItem(item?: BXComboBoxItem) {
     if (item && !this._selectionShouldChange(item)) {
       // Escape hatch for `shouldUpdate()` logic that updates `._filterInputValue()` when selection changes,
-      // given we want to update the `<input>` even if selection doesn't update.
+      // given we want to update the `<input>` and close the dropdown even if selection doesn't update.
       // Use case:
       // 1. Select the 2nd item in combo box drop down
       // 2. Type some text in the `<input>`
-      // 3. Re-select the 2nd item in combo box drop down, the `<input>` has to updated with the 2nd item
+      // 3. Re-select the 2nd item in combo box drop down,
+      //    the `<input>` has to updated with the 2nd item and the dropdown should be closed,
+      //    even if there is no change in the selected value
       this._filterInputValue = item.textContent || '';
+      this.open = false;
       this.requestUpdate();
     }
     super._handleUserInitiatedSelectItem(item);
@@ -149,13 +159,13 @@ class BXComboBox extends BXDropdown {
   }
 
   /**
-   * The `aria-label` attribute for the icon to clear selection. Corresponds to `clear-selection-label` attribute.
+   * The `aria-label` attribute for the icon to clear selection.
    */
   @property({ attribute: 'clear-selection-label' })
   clearSelectionLabel = '';
 
   /**
-   * The `aria-label` attribute for the `<input>` for filtering. Corresponds to `input-label` attribute.
+   * The `aria-label` attribute for the `<input>` for filtering.
    */
   @property({ attribute: 'input-label' })
   inputLabel = '';
@@ -183,14 +193,6 @@ class BXComboBox extends BXDropdown {
    */
   static get selectorItemHighlighted() {
     return `${prefix}-combo-box-item[highlighted]`;
-  }
-
-  /**
-   * A selector to ignore the `click` events from.
-   * Primary for the checkbox label where the `click` event will happen from the associated check box.
-   */
-  static get selectorIgnoreClickInner() {
-    return `.${prefix}--checkbox-label`;
   }
 
   /**
@@ -225,7 +227,7 @@ class BXComboBox extends BXDropdown {
   /**
    * The name of the custom event fired after a a combo box item is selected upon a user gesture.
    */
-  static get eventAfterSelect() {
+  static get eventSelect() {
     return `${prefix}-combo-box-selected`;
   }
 

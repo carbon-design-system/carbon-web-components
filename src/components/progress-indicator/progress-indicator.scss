@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019
+// Copyright IBM Corp. 2019, 2020
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -19,12 +19,9 @@ $css--plex: true !default;
 
 :host(#{$prefix}-progress-step) {
   @extend .#{$prefix}--progress-step;
+  @extend .#{$prefix}--progress-step--incomplete;
 
   outline: none;
-
-  .#{$prefix}--progress-line {
-    background-color: $ui-03;
-  }
 }
 
 :host(#{$prefix}-progress-step[disabled]) {
@@ -70,16 +67,12 @@ $css--plex: true !default;
 
 :host(#{$prefix}-progress-step[state='current']) {
   @extend .#{$prefix}--progress-step--current;
-
-  .#{$prefix}--progress-line {
-    background-color: $interactive-01;
-  }
 }
 
 :host(#{$prefix}-progress-step[state='complete']) {
   @extend .#{$prefix}--progress-step--complete;
 
-  .#{$prefix}--progress-line {
-    background-color: $interactive-01;
+  svg {
+    fill: $interactive-01;
   }
 }

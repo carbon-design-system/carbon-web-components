@@ -1,4 +1,4 @@
-import { Preview, Story } from '@storybook/addon-docs/blocks';
+import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
 
 # Loading
 
@@ -9,3 +9,9 @@ Although it may not be obvious what is occurring on the back-end, we can communi
 <Preview withToolbar>
   <Story id="loading--default-story" height="320px" />
 </Preview>
+
+## `<bx-loading>` attributes and properties
+
+Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-loading inactive>`) and `false` means not setting the attribute (e.g. `<bx-loading>` without `inactive` attribute).
+
+<Props of="bx-loading" />

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -24,19 +24,19 @@ const { prefix } = settings;
 @customElement(`${prefix}-tooltip-body`)
 class BXTooltipBody extends BXFloatingMenu {
   /**
-   * How the menu is aligned to the trigger button. Corresponds to the attribute with the same name.
+   * How the menu is aligned to the trigger button.
    */
   @property()
   alignment = FLOATING_MENU_ALIGNMENT.CENTER;
 
   /**
-   * The menu direction. Corresponds to the attribute with the same name.
+   * The menu direction.
    */
   @property()
   direction = FLOATING_MENU_DIRECTION.BOTTOM;
 
   /**
-   * `true` if the dropdown should be open. Corresponds to the attribute with the same name.
+   * `true` if the dropdown should be open.
    */
   @property({ type: Boolean, reflect: true })
   open = false;

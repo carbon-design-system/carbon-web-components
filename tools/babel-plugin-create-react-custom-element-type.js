@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -181,7 +181,7 @@ module.exports = function generateCreateReactCustomElementType(api) {
         const parentClassImportSource = getParentClassImportSource(superClass.scope.getBinding(superClass.node.name).path);
         if (parentClassImportSource) {
           const relativeTarget = relative(
-            resolve(__dirname, 'src/components'),
+            resolve(__dirname, '../src/components'),
             resolve(dirname(file.opts.filename), parentClassImportSource)
           );
           if (!isAbsolute(relativeTarget) && !relativeTarget.startsWith('..')) {
@@ -257,7 +257,7 @@ module.exports = function generateCreateReactCustomElementType(api) {
       // Gathers metadata of custom element properties and events, into `context`
       path.traverse(metadataVisitor, context);
 
-      const relativePath = relative(resolve(__dirname, 'src/components'), file.opts.filename);
+      const relativePath = relative(resolve(__dirname, '../src/components'), file.opts.filename);
       const retargedPath = t.stringLiteral(`../../components/${join(dirname(relativePath), basename(relativePath, '.ts'))}`);
 
       // Creates a module with `createReactCustomElementType()`

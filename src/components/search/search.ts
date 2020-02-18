@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -13,7 +13,7 @@ import Close16 from '@carbon/icons/lib/close/16';
 import Close20 from '@carbon/icons/lib/close/20';
 import Search16 from '@carbon/icons/lib/search/16';
 import settings from 'carbon-components/es/globals/js/settings';
-import ifNonNull from '../../globals/directives/if-non-null';
+import ifNonEmpty from '../../globals/directives/if-non-empty';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './search.scss';
 
@@ -36,6 +36,8 @@ export enum SEARCH_SIZE {
 
 /**
  * Search box.
+ * @element bx-search
+ * @fires bx-search-input - The custom event fired after the search content is changed upon a user gesture.
  */
 @customElement(`${prefix}-search`)
 class BXSearch extends FocusMixin(LitElement) {
@@ -46,7 +48,7 @@ class BXSearch extends FocusMixin(LitElement) {
     const { target } = event;
     const { value } = target as HTMLInputElement;
     this.dispatchEvent(
-      new CustomEvent((this.constructor as typeof BXSearch).eventAfterInput, {
+      new CustomEvent((this.constructor as typeof BXSearch).eventInput, {
         bubbles: true,
         composed: true,
         cancelable: false,
@@ -64,7 +66,7 @@ class BXSearch extends FocusMixin(LitElement) {
   private _handleClearInputButtonClick() {
     if (this.value) {
       this.dispatchEvent(
-        new CustomEvent((this.constructor as typeof BXSearch).eventAfterInput, {
+        new CustomEvent((this.constructor as typeof BXSearch).eventInput, {
           bubbles: true,
           composed: true,
           cancelable: false,
@@ -78,58 +80,58 @@ class BXSearch extends FocusMixin(LitElement) {
   }
 
   /**
-   * The assistive text for the close button. Corresponds to `close-button-assistive-text` attribute.
+   * The assistive text for the close button.
    */
   @property({ attribute: 'close-button-assistive-text' })
   closeButtonAssistiveText = '';
 
   /**
-   * `true` if the search box should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the search box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
   /**
-   * The label text. Corresponds to `label-text` attribute.
+   * The label text.
    */
   @property({ attribute: 'label-text' })
   labelText = '';
 
   /**
-   * `true` if this search box should use the light UI variant. Corresponds to the attribute with the same name.
+   * `true` if this search box should use the light UI variant.
    */
   @property({ type: Boolean, reflect: true })
   light = false;
 
   /**
-   * The form name. Corresponds to the attribute with the same name.
+   * The form name.
    */
   @property()
-  name!: string;
+  name = '';
 
   /**
-   * The placeholder text. Corresponds to the attribute with the same name.
+   * The placeholder text.
    */
   @property()
-  placeholder!: string;
+  placeholder = '';
 
   /**
-   * The search box size. Corresponds to the attribute with the same name.
+   * The search box size.
    */
   @property({ reflect: true })
   size = SEARCH_SIZE.REGULAR;
 
   /**
-   * The `<input>` name. Corresponds to the attribute with the same name.
+   * The `<input>` name.
    */
   @property()
-  type!: string;
+  type = '';
 
   /**
-   * The value. Corresponds to the attribute with the same name.
+   * The value.
    */
   @property({ type: String })
-  value!: string;
+  value = '';
 
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
@@ -162,11 +164,11 @@ class BXSearch extends FocusMixin(LitElement) {
       </label>
       <input
         id="input"
-        type="${ifNonNull(type)}"
+        type="${ifNonEmpty(type)}"
         class="${prefix}--search-input"
         ?disabled="${disabled}"
-        name="${ifNonNull(name)}"
-        placeholder="${ifNonNull(placeholder)}"
+        name="${ifNonEmpty(name)}"
+        placeholder="${ifNonEmpty(placeholder)}"
         role="searchbox"
         .value="${value}"
         @input="${handleInput}"
@@ -188,7 +190,7 @@ class BXSearch extends FocusMixin(LitElement) {
   /**
    * The name of the custom event fired after the search content is changed upon a user gesture.
    */
-  static get eventAfterInput() {
+  static get eventInput() {
     return `${prefix}-search-input`;
   }
 

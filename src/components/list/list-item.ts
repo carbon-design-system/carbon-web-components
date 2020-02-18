@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -15,6 +15,8 @@ const { prefix } = settings;
 
 /**
  * List item.
+ * @element bx-list-item
+ * @slot nested - The nested child list.
  */
 @customElement(`${prefix}-list-item`)
 class BXListItem extends LitElement {
@@ -35,7 +37,6 @@ class BXListItem extends LitElement {
   /**
    * `true` if this list item is a child of a nested list.
    * `<bx-ordered-list>` or `<bx-unordered-list>` automatically sets this property.
-   * Corresponds to the attribute with the same name.
    */
   @property({ type: Boolean, reflect: true })
   nested = false;

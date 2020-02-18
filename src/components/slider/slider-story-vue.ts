@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -22,7 +22,7 @@ export const defaultStory = ({ parameters }) => ({
       :name="name"
       :step="step"
       :value="value"
-      @bx-slider-changed="onAfterChange"
+      @bx-slider-changed="onChange"
     ></bx-slider>
   `,
   ...createVueBindingsFromProps(parameters?.props?.['bx-slider']),
@@ -40,7 +40,7 @@ export const withInputBox = ({ parameters }) => ({
       :name="name"
       :step="step"
       :value="value"
-      @bx-slider-changed="onAfterChange"
+      @bx-slider-changed="onChange"
     >
       <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
     </bx-slider>

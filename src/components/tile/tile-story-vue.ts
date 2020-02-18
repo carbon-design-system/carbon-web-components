@@ -1,13 +1,12 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
-import { action } from '@storybook/addon-actions';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import {
   defaultStory as baseDefaultStory,
@@ -87,26 +86,25 @@ export const multiSelectable = ({ parameters }) => ({
 multiSelectable.story = baseMultiSelectable.story;
 
 export const expandable = ({ parameters }) => {
-  const props = (({ disableChange, ...rest }) => {
-    const beforeChangedAction = action('bx-expandable-tile-beingchanged');
-    const onBeforeChange = (event: CustomEvent) => {
-      beforeChangedAction(event);
+  const props = (({ disableChange, onBeforeChange, onChange, ...rest }) => {
+    const handleBeforeChange = (event: CustomEvent) => {
+      onBeforeChange(event);
       if (disableChange) {
         event.preventDefault();
       }
     };
     return {
       ...rest,
-      onBeforeChange,
-      onChange: action('bx-expandable-tile-changed'),
+      handleBeforeChange,
+      handleAfterChange: onChange,
     };
   })(parameters?.props?.['bx-expandable-tile']);
   return {
     template: `
       <bx-expandable-tile
         :expanded="expanded"
-        @bx-expandable-tile-beingchanged="onBeforeChange"
-        @bx-expandable-tile-changed="onChange"
+        @bx-expandable-tile-beingchanged="handleBeforeChange"
+        @bx-expandable-tile-changed="handleAfterChange"
       >
         <bx-tile-above-the-fold-content style="height: 200px">
           Above the fold content here

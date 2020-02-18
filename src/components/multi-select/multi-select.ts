@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,9 +19,19 @@ const { prefix } = settings;
 
 /**
  * Multi select.
+ * @element bx-multi-select
+ * @fires bx-multi-select-beingselected
+ *   The custom event fired before a multi select item is selected upon a user gesture.
+ *   Cancellation of this event stops changing the user-initiated selection.
+ * @fires bx-multi-select-selected - The custom event fired after a a multi select item is selected upon a user gesture.
  */
 @customElement(`${prefix}-multi-select`)
 class BXMultiSelect extends BXDropdown {
+  /**
+   * The count of selected items.
+   */
+  private _selectedItemsCount = 0;
+
   /**
    * The trigger button.
    */
@@ -83,8 +93,7 @@ class BXMultiSelect extends BXDropdown {
   }
 
   protected _renderPrecedingTriggerContent() {
-    const { clearSelectionLabel } = this;
-    const selectedItemsCount = this.querySelectorAll((this.constructor as typeof BXMultiSelect).selectorItemSelected).length;
+    const { clearSelectionLabel, _selectedItemsCount: selectedItemsCount } = this;
     return selectedItemsCount === 0
       ? undefined
       : html`
@@ -100,7 +109,7 @@ class BXMultiSelect extends BXDropdown {
   }
 
   /**
-   * The `aria-label` attribute for the icon to clear selection. Corresponds to `clear-selection-label` attribute.
+   * The `aria-label` attribute for the icon to clear selection.
    */
   @property({ attribute: 'clear-selection-label' })
   clearSelectionLabel = '';
@@ -123,9 +132,11 @@ class BXMultiSelect extends BXDropdown {
       const values = !value ? [] : value.split(',');
       const { selectorItem } = this.constructor as typeof BXMultiSelect;
       // Updates selection beforehand because our rendering logic for `<bx-multi-select>` looks for selected items via `qSA()`
-      forEach(this.querySelectorAll(selectorItem), elem => {
+      const items = this.querySelectorAll(selectorItem);
+      forEach(items, elem => {
         (elem as BXMultiSelectItem).selected = values.indexOf((elem as BXMultiSelectItem).value) >= 0;
       });
+      this._selectedItemsCount = filter(items, elem => values.indexOf((elem as BXMultiSelectItem).value) >= 0).length;
     } else {
       super.shouldUpdate(changedProperties);
     }
@@ -180,7 +191,7 @@ class BXMultiSelect extends BXDropdown {
   /**
    * The name of the custom event fired after a a multi select item is selected upon a user gesture.
    */
-  static get eventAfterSelect() {
+  static get eventSelect() {
     return `${prefix}-multi-select-selected`;
   }
 

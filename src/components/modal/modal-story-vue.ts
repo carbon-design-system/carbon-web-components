@@ -1,13 +1,12 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
-import { action } from '@storybook/addon-actions';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import { defaultStory as baseDefaultStory } from './modal-story';
 
@@ -34,19 +33,16 @@ export const defaultStory = ({ parameters }) => ({
     </bx-modal>
   `,
   ...createVueBindingsFromProps(
-    (({ disableClose, ...rest }) => {
-      const beforeSelectedAction = action('bx-modal-beingclosed');
-      return {
-        ...rest,
-        handleBeforeClose: (event: CustomEvent) => {
-          beforeSelectedAction(event);
-          if (disableClose) {
-            event.preventDefault();
-          }
-        },
-        handleClose: action('bx-modal-closed'),
-      };
-    })(parameters?.props?.['bx-modal'])
+    (({ disableClose, onBeforeClose, onClose, ...rest }) => ({
+      ...rest,
+      handleBeforeClose: (event: CustomEvent) => {
+        onBeforeClose(event);
+        if (disableClose) {
+          event.preventDefault();
+        }
+      },
+      handleClose: onClose,
+    }))(parameters?.props?.['bx-modal'])
   ),
 });
 

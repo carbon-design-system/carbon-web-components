@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -15,14 +15,22 @@ const { prefix } = settings;
 
 /**
  * Structured list header row.
+ * @element bx-structured-list-header-row
  */
 @customElement(`${prefix}-structured-list-header-row`)
 class BXStructuredListHeaderRow extends LitElement {
   /**
-   * `true` if parent structured list supports selection. Corresponds to `has-selection` attribute.
+   * `true` if parent structured list supports selection.
    */
   @property({ type: Boolean, reflect: true, attribute: 'has-selection' })
   hasSelection = false;
+
+  connectedCallback() {
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'row');
+    }
+    super.connectedCallback();
+  }
 
   render() {
     // We could look up in DOM for `bx-structured-list[hasSelection]`,

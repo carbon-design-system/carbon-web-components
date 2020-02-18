@@ -1,14 +1,13 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 import '../button/button';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
@@ -33,16 +32,15 @@ import { defaultStory as baseDefaultStory } from './modal-story';
 export { default } from './modal-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { danger, open, disableClose } = parameters?.props?.['bx-modal'];
-  const beforeSelectedAction = action('onBeforeClose');
+  const { danger, open, disableClose, onBeforeClose, onClose } = parameters?.props?.['bx-modal'];
   const handleBeforeClose = (event: CustomEvent) => {
-    beforeSelectedAction(event);
+    onBeforeClose(event);
     if (disableClose) {
       event.preventDefault();
     }
   };
   return (
-    <BXModal danger={danger} open={open} onBeforeClose={handleBeforeClose} onAfterClose={action('onAfterClose')}>
+    <BXModal danger={danger} open={open} onBeforeClose={handleBeforeClose} onClose={onClose}>
       <BXModalHeader>
         <BXModalCloseButton />
         <BXModalLabel>Label (Optional)</BXModalLabel>

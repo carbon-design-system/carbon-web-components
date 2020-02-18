@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,6 +19,8 @@ const { prefix } = settings;
 
 /**
  * Table toolbar search.
+ * @element bx-table-toolbar-search
+ * @fires bx-search-input - The custom event fired after the search content is changed upon a user gesture.
  */
 @customElement(`${prefix}-table-toolbar-search`)
 class BXTableToolbarSearch extends HostListenerMixin(BXSearch) {
@@ -64,13 +66,13 @@ class BXTableToolbarSearch extends HostListenerMixin(BXSearch) {
   }
 
   /**
-   * `true` if the search box should be expanded. Corresponds to the attribute with the same name.
+   * `true` if the search box should be expanded.
    */
   @property({ type: Boolean, reflect: true })
   expanded = false;
 
   /**
-   * The search box size. Corresponds to the attribute with the same name.
+   * The search box size.
    */
   @property({ reflect: true })
   size = SEARCH_SIZE.SMALL;
@@ -102,7 +104,7 @@ class BXTableToolbarSearch extends HostListenerMixin(BXSearch) {
   /**
    * The name of the custom event fired after the search content is changed upon a user gesture.
    */
-  static get eventAfterInput() {
+  static get eventInput() {
     // The code uses on in `<bx-search>`, but definition is done also here for React event generation
     return `${prefix}-search-input`;
   }

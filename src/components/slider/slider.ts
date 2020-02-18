@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -16,7 +16,7 @@ import FocusMixin from '../../globals/mixins/focus';
 import FormMixin from '../../globals/mixins/form';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
-import ifNonNull from '../../globals/directives/if-non-null';
+import ifNonEmpty from '../../globals/directives/if-non-empty';
 import Handle from '../../globals/internal/handle';
 import BXSliderInput from './slider-input';
 import styles from './slider.scss';
@@ -43,6 +43,11 @@ const THUMB_DIRECTION = {
 
 /**
  * Slider.
+ * @element bx-slider
+ * @slot label-text - The label text.
+ * @slot max-text - The text for maximum value.
+ * @slot min-text - The text for minimum value.
+ * @fires bx-slider-changed - The custom event fired after the value is changed by user gesture.
  */
 @customElement(`${prefix}-slider`)
 class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
@@ -133,7 +138,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
         const { max, min, step, stepRatio } = this;
         this.value += (!shiftKey ? Number(step) : (Number(max) - Number(min)) / Number(stepRatio)) * THUMB_DIRECTION[key];
         this.dispatchEvent(
-          new CustomEvent((this.constructor as typeof BXSlider).eventAfterChange, {
+          new CustomEvent((this.constructor as typeof BXSlider).eventChange, {
             bubbles: true,
             composed: true,
             detail: {
@@ -164,7 +169,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
       const { left: trackLeft, width: trackWidth } = trackNode.getBoundingClientRect();
       this._rate = (isRtl ? trackLeft + trackWidth - thumbPosition : thumbPosition - trackLeft) / trackWidth;
       this.dispatchEvent(
-        new CustomEvent((this.constructor as typeof BXSlider).eventAfterChange, {
+        new CustomEvent((this.constructor as typeof BXSlider).eventChange, {
           bubbles: true,
           composed: true,
           detail: {
@@ -200,7 +205,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
       const { left: trackLeft, width: trackWidth } = this._trackNode.getBoundingClientRect();
       this._rate = (isRtl ? trackLeft + trackWidth - thumbPosition : thumbPosition - trackLeft) / trackWidth;
       this.dispatchEvent(
-        new CustomEvent((this.constructor as typeof BXSlider).eventAfterChange, {
+        new CustomEvent((this.constructor as typeof BXSlider).eventChange, {
           bubbles: true,
           composed: true,
           detail: {
@@ -220,7 +225,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   private _handleMouseup = () => {
     if (this._dragging) {
       this.dispatchEvent(
-        new CustomEvent((this.constructor as typeof BXSlider).eventAfterChange, {
+        new CustomEvent((this.constructor as typeof BXSlider).eventChange, {
           bubbles: true,
           composed: true,
           detail: {
@@ -239,7 +244,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
     const { intermediate, value } = detail;
     this.value = value;
     this.dispatchEvent(
-      new CustomEvent((this.constructor as typeof BXSlider).eventAfterChange, {
+      new CustomEvent((this.constructor as typeof BXSlider).eventChange, {
         bubbles: true,
         composed: true,
         detail: {
@@ -251,7 +256,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   };
 
   /**
-   * `true` if the check box should be disabled. Corresponds to the attribute with the same name.
+   * `true` if the check box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
@@ -271,7 +276,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   formatMinText = ({ min }: { min: string }) => min;
 
   /**
-   * The label text. Corresponds to `label-text` attribute.
+   * The label text.
    */
   @property({ attribute: 'label-text' })
   labelText = '';
@@ -305,13 +310,13 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   }
 
   /**
-   * The form name. Corresponds to the attribute with the same name.
+   * The form name.
    */
   @property()
   name!: string;
 
   /**
-   * The snapping step of the value. Corresponds to the attribute with the same name.
+   * The snapping step of the value.
    */
   @property({ type: Number, reflect: true })
   get step() {
@@ -327,7 +332,6 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   /**
    * A value determining how much the value should increase/decrease by Shift+arrow keys,
    * which will be `(max - min) / stepRatio`.
-   * Corresponds to `step-ratio` attribute.
    */
   @property({ type: Number, reflect: true, attribute: 'step-ratio' })
   get stepRatio() {
@@ -341,7 +345,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   }
 
   /**
-   * The value. Corresponds to the attribute with the same name.
+   * The value.
    */
   @property({ type: Number })
   value = 50;
@@ -358,7 +362,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
     // Manually hooks the event listeners on the host element to make the event names configurable
     this._hChangeInput = on(
       this,
-      (this.constructor as typeof BXSlider).eventAfterChangeInput,
+      (this.constructor as typeof BXSlider).eventChangeInput,
       this._handleChangeInput as EventListener
     );
   }
@@ -446,10 +450,10 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
           <input
             class="${prefix}--slider__input"
             type="hidden"
-            name="${ifNonNull(name)}"
-            value="${value}"
-            min="${min}"
-            max="${max}"
+            name="${ifNonEmpty(name)}"
+            .value="${value}"
+            min="${ifNonEmpty(min)}"
+            max="${ifNonEmpty(max)}"
           />
         </div>
         <span class="${prefix}--slider__range-label">
@@ -470,14 +474,14 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   /**
    * The name of the custom event fired after the value is changed by user gesture.
    */
-  static get eventAfterChange() {
+  static get eventChange() {
     return `${prefix}-slider-changed`;
   }
 
   /**
    * The name of the custom event fired after the value is changed in `<bx-slider-input>` by user gesture.
    */
-  static get eventAfterChangeInput() {
+  static get eventChangeInput() {
     return `${prefix}-slider-input-changed`;
   }
 

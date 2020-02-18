@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -15,6 +15,8 @@ const { prefix } = settings;
 
 /**
  * Table batch actions.
+ * @element bx-table-batch-actions
+ * @fires bx-table-batch-actions-cancel-clicked - The custom event fired after the Cancel button is clicked.
  */
 @customElement(`${prefix}-table-batch-actions`)
 class BXTableBatchActions extends LitElement {
@@ -22,12 +24,12 @@ class BXTableBatchActions extends LitElement {
    * Handles `click` event on the Cancel button.
    */
   private _handleCancel() {
-    const { eventAfterClickCancel } = this.constructor as typeof BXTableBatchActions;
-    this.dispatchEvent(new CustomEvent(eventAfterClickCancel, { bubbles: true, composed: true }));
+    const { eventClickCancel } = this.constructor as typeof BXTableBatchActions;
+    this.dispatchEvent(new CustomEvent(eventClickCancel, { bubbles: true, composed: true }));
   }
 
   /**
-   * `true` if this batch actions bar should be active. Corresponds to the attribute with the same name.
+   * `true` if this batch actions bar should be active.
    */
   @property({ type: Boolean, reflect: true })
   active = false;
@@ -41,10 +43,13 @@ class BXTableBatchActions extends LitElement {
   /**
    * Numeric representation of the total number of items selected in a table.
    * This number is used to derive the selection message.
-   * Corresponds to `selected-rows-count` attribute.
    */
   @property({ type: Number, attribute: 'selected-rows-count' })
   selectedRowsCount = 0;
+
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
 
   render() {
     const { formatSelectedItemsCount, selectedRowsCount, _handleCancel: handleCancel } = this;
@@ -66,7 +71,7 @@ class BXTableBatchActions extends LitElement {
   /**
    * The name of the custom event fired after the Cancel button is clicked.
    */
-  static get eventAfterClickCancel() {
+  static get eventClickCancel() {
     return `${prefix}-table-batch-actions-cancel-clicked`;
   }
 

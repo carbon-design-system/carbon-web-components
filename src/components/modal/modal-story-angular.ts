@@ -1,14 +1,13 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { defaultStory as baseDefaultStory } from './modal-story';
 
@@ -32,19 +31,16 @@ export const defaultStory = ({ parameters }) => ({
       </bx-modal-footer>
     </bx-modal>
   `,
-  props: (({ disableClose, ...rest }) => {
-    const beforeSelectedAction = action('bx-modal-beingclosed');
-    return {
-      ...rest,
-      handleBeforeClose: (event: CustomEvent) => {
-        beforeSelectedAction(event);
-        if (disableClose) {
-          event.preventDefault();
-        }
-      },
-      handleClose: action('bx-modal-closed'),
-    };
-  })(parameters?.props?.['bx-modal']),
+  props: (({ disableClose, onBeforeClose, onClose, ...rest }) => ({
+    ...rest,
+    handleBeforeClose: (event: CustomEvent) => {
+      onBeforeClose(event);
+      if (disableClose) {
+        event.preventDefault();
+      }
+    },
+    handleClose: onClose,
+  }))(parameters?.props?.['bx-modal']),
 });
 
 defaultStory.story = baseDefaultStory.story;

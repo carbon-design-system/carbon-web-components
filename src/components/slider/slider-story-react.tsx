@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,7 +19,7 @@ import { defaultStory as baseDefaultStory, withInputBox as baseWithInputBox } fr
 export { default } from './slider-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'];
+  const { disabled, labelText, max, min, name, step, value, onChange } = parameters?.props?.['bx-slider'];
   return (
     <BXSlider
       disabled={disabled}
@@ -29,7 +29,7 @@ export const defaultStory = ({ parameters }) => {
       name={name}
       step={step}
       value={value}
-      onAfterChange={onAfterChange}
+      onChange={onChange}
     />
   );
 };
@@ -37,7 +37,7 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = baseDefaultStory;
 
 export const withInputBox = ({ parameters }) => {
-  const { disabled, labelText, max, min, name, step, value, onAfterChange } = parameters?.props?.['bx-slider'];
+  const { disabled, labelText, max, min, name, step, value, onChange } = parameters?.props?.['bx-slider'];
   return (
     <BXSlider
       disabled={disabled}
@@ -47,7 +47,7 @@ export const withInputBox = ({ parameters }) => {
       name={name}
       step={step}
       value={value}
-      onAfterChange={onAfterChange}>
+      onChange={onChange}>
       <BXSliderInput aria-label="Slider value" type="number" />
     </BXSlider>
   );

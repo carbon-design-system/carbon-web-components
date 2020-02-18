@@ -1,14 +1,13 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { defaultStory as baseDefaultStory } from './multi-select-story';
 
@@ -37,19 +36,16 @@ export const defaultStory = ({ parameters }) => ({
       <bx-multi-select-item value="router">Option 5</bx-multi-select-item>
     </bx-multi-select>
   `,
-  props: (({ disableSelection, ...rest }) => {
-    const beforeSelectedAction = action('bx-multi-select-beingselected');
-    return {
-      ...rest,
-      handleBeforeSelected: (event: CustomEvent) => {
-        beforeSelectedAction(event);
-        if (disableSelection) {
-          event.preventDefault();
-        }
-      },
-      handleSelected: action('bx-multi-select-selected'),
-    };
-  })(parameters?.props?.['bx-multi-select']),
+  props: (({ disableSelection, onBeforeSelect, onSelect, ...rest }) => ({
+    ...rest,
+    handleBeforeSelected: (event: CustomEvent) => {
+      onBeforeSelect(event);
+      if (disableSelection) {
+        event.preventDefault();
+      }
+    },
+    handleSelected: onSelect,
+  }))(parameters?.props?.['bx-multi-select']),
 });
 
 defaultStory.story = baseDefaultStory.story;

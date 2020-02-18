@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -70,13 +70,19 @@ module.exports = function setupKarma(config) {
       module: {
         rules: [
           {
+            test: /@storybook[\\/]addon-/i,
+            use: 'null-loader',
+          },
+          {
             test: /@carbon[\\/]icons[\\/]/i,
-            use: [require.resolve('../svg-result-carbon-icon-loader')],
+            use: [require.resolve('../tools/svg-result-carbon-icon-loader')],
           },
           {
             test: /\.ts$/,
             use: [
               {
+                // Build note: Locking down `@babel/plugin-transform-typescript` to `~7.6.0`
+                // given `7.7` or later versions seems to have a problem with using decorator with fields without an initializer
                 loader: 'babel-loader',
                 options: {
                   configFile: path.resolve(__dirname, '..', '.babelrc'),
@@ -135,7 +141,7 @@ module.exports = function setupKarma(config) {
             test: /\.scss$/,
             sideEffects: true,
             use: [
-              require.resolve('../css-result-loader'),
+              require.resolve('../tools/css-result-loader'),
               {
                 loader: 'postcss-loader',
                 options: {
@@ -159,6 +165,10 @@ module.exports = function setupKarma(config) {
                 },
               },
             ],
+          },
+          {
+            test: /\.mdx$/,
+            use: 'null-loader',
           },
         ],
       },

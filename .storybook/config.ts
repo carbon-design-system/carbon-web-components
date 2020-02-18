@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,12 +10,15 @@
 import '../src/polyfills';
 import { html } from 'lit-html'; // eslint-disable-line import/first
 import addons from '@storybook/addons';
-import { configure, addDecorator, addParameters } from '@storybook/polymer'; // eslint-disable-line import/first
+import { configure, addDecorator, addParameters, setCustomElements } from '@storybook/web-components'; // eslint-disable-line import/first
 import { withKnobs } from '@storybook/addon-knobs';
 import './components/focus-trap/focus-trap';
+import customElementsMetadata from '../custom-elements.json';
 import { CURRENT_THEME } from './addon-carbon-theme/shared';
 import theme from './theme';
 import containerStyles from './_container.scss'; // eslint-disable-line import/first
+
+setCustomElements(customElementsMetadata);
 
 if (process.env.STORYBOOK_CARBON_CUSTOM_ELEMENTS_USE_RTL === 'true') {
   document.documentElement.setAttribute('dir', 'rtl');
@@ -27,6 +30,9 @@ addParameters({
   },
 });
 
+// The TS configuration for `@storybook/web-components` does not seem to allow returning `TemplateResult` in decorators,
+// using `TemplateResult` in decorators seems to work with `@storybook/web-components` actually
+// @ts-ignore
 addDecorator(story => {
   const result = story();
   const { hasMainTag } = result as any;

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,11 +17,12 @@ const { prefix } = settings;
 
 /**
  * Progress indicator.
+ * @element bx-progress-indicator
  */
 @customElement(`${prefix}-progress-indicator`)
 class BXProgressIndicator extends LitElement {
   /**
-   * `true` if the progress indicator should be vertical. Corresponds to the attribute with the same name.
+   * `true` if the progress indicator should be vertical.
    */
   @property({ type: Boolean, reflect: true })
   vertical = false;
