@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -76,7 +76,7 @@ textAndIcon.story = {
 export const skeleton = ({ parameters }) => {
   const { disabled, small, href, onClick } = parameters?.props?.['bx-btn-skeleton'];
   return html`
-    <bx-btn-skeleton ?disabled=${disabled} ?small=${small} href=${ifDefined(href || undefined)} @click=${onClick}>
+    <bx-btn-skeleton ?disabled=${disabled} ?small=${small} href=${ifNonNull(href || undefined)} @click=${onClick}>
     </bx-btn-skeleton>
   `;
 };
@@ -88,7 +88,7 @@ skeleton.story = {
         kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
         disabled: boolean('Disabled (disabled)', false),
         small: boolean('Small (small)', false),
-        href: text('Link href (href)', ''),
+        href: textNullable('Link href (href)', ''),
         onClick: action('click'),
       }),
     },
