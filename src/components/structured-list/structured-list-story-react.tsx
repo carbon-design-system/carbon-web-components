@@ -22,7 +22,7 @@ import BXStructuredListBody from 'carbon-custom-elements/es/components-react/str
 import BXStructuredListRow from 'carbon-custom-elements/es/components-react/structured-list/structured-list-row';
 // @ts-ignore
 // eslint-disable-next-line max-len
-import BXStructuredListHeaderSkeleton from 'carbon-custom-elements/es/components-react/structured-list/structured-list-header-skeleton';
+import BXStructuredListHeaderCellSkeleton from 'carbon-custom-elements/es/components-react/structured-list/structured-list-header-cell-skeleton';
 import { defaultStory as baseDefaultStory } from './structured-list-story';
 import styles from './structured-list-story.scss';
 
@@ -81,9 +81,9 @@ export const skeleton = () => (
     <BXStructuredList>
       <BXStructuredListHead>
         <BXStructuredListHeaderRow>
-          <BXStructuredListHeaderSkeleton />
-          <BXStructuredListHeaderSkeleton />
-          <BXStructuredListHeaderSkeleton />
+          <BXStructuredListHeaderCellSkeleton />
+          <BXStructuredListHeaderCellSkeleton />
+          <BXStructuredListHeaderCellSkeleton />
         </BXStructuredListHeaderRow>
       </BXStructuredListHead>
       <BXStructuredListBody>
