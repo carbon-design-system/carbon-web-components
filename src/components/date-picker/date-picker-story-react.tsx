@@ -14,16 +14,21 @@ import React from 'react';
 import BXDatePicker from 'carbon-custom-elements/es/components-react/date-picker/date-picker';
 // @ts-ignore
 import BXDatePickerInput from 'carbon-custom-elements/es/components-react/date-picker/date-picker-input';
+// @ts-ignore
+import BXDatePickerInputSkeleton from 'carbon-custom-elements/es/components-react/date-picker/date-picker-input-skeleton';
 import {
   defaultStory as baseDefaultStory,
   singleWithCalendar as baseSingleWithCalendar,
   rangeWithCalendar as baseRangeWithCalendar,
+  skeletonSimple as baseSkeletonSimple,
+  skeletonSingle as baseSkeletonSingle,
+  skeletonRange as baseSkeletonRange,
 } from './date-picker-story';
 
 export { default } from './date-picker-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage } = parameters?.props?.[
+  const { disabled, hideLabel, invalid, labelText, light, placeholder, sizeHorizontal, validityMessage } = parameters?.props?.[
     'bx-date-picker-input'
   ];
   return (
@@ -35,6 +40,7 @@ export const defaultStory = ({ parameters }) => {
         labelText={labelText}
         light={light}
         placeholder={placeholder}
+        sizeHorizontal={sizeHorizontal}
         validityMessage={validityMessage}
       />
     </BXDatePicker>
@@ -113,3 +119,23 @@ export const rangeWithCalendar = ({ parameters }) => {
 };
 
 rangeWithCalendar.story = baseRangeWithCalendar.story;
+
+export const skeletonSimple = () => <BXDatePickerInputSkeleton />;
+
+skeletonSimple.story = baseSkeletonSimple.story;
+
+export const skeletonSingle = () => <BXDatePickerInputSkeleton kind="single" />;
+
+skeletonSingle.story = baseSkeletonSingle.story;
+
+export const skeletonRange = () => (
+  <>
+    <BXDatePickerInputSkeleton kind="from" />
+    <BXDatePickerInputSkeleton kind="to" />
+  </>
+);
+
+skeletonRange.story = {
+  ...baseSkeletonRange.story,
+  decorators: [story => <div>{story()}</div>],
+};

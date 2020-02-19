@@ -8,7 +8,13 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { singleLine as baseSingleLine, multiLine as baseMultiLine, inline as baseInline } from './code-snippet-story';
+import {
+  singleLine as baseSingleLine,
+  multiLine as baseMultiLine,
+  inline as baseInline,
+  skeletonSingleLine as baseSkeletonSingleLine,
+  skeletonMultiLine as baseSkeletonMultiLine,
+} from './code-snippet-story';
 
 export { default } from './code-snippet-story';
 
@@ -80,5 +86,17 @@ export const inline = ({ parameters }) => ({
   `,
   ...createVueBindingsFromProps(parameters?.props?.['bx-code-snippet']),
 });
+
+export const skeletonSingleLine = () => ({
+  template: `<bx-code-snippet-skeleton type="single"></bx-code-snippet-skeleton>`,
+});
+
+skeletonSingleLine.story = baseSkeletonSingleLine.story;
+
+export const skeletonMultiLine = () => ({
+  template: `<bx-code-snippet-skeleton type="multi"></bx-code-snippet-skeleton>`,
+});
+
+skeletonMultiLine.story = baseSkeletonMultiLine.story;
 
 inline.story = baseInline.story;

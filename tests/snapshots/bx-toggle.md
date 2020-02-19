@@ -42,7 +42,7 @@
 ```
 <input
   aria-checked="true"
-  class="bx--toggle-input"
+  class="bx--toggle-input bx--toggle-input--small"
   disabled=""
   id="checkbox"
   name="name-foo"

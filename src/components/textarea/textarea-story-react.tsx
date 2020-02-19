@@ -13,6 +13,8 @@ import React from 'react';
 // @ts-ignore
 import BXTextarea from 'carbon-custom-elements/es/components-react/textarea/textarea';
 // @ts-ignore
+import BXTextareaSkeleton from 'carbon-custom-elements/es/components-react/textarea/textarea-skeleton';
+// @ts-ignore
 import BXFormItem from 'carbon-custom-elements/es/components-react/form/form-item';
 import {
   defaultStory as baseDefaultStory,
@@ -56,3 +58,5 @@ export const withoutFormItemWrapper = ({ parameters }) => {
 };
 
 withoutFormItemWrapper.story = baseWithoutFormItemWrapper.story;
+
+export const skeleton = () => <BXTextareaSkeleton />;

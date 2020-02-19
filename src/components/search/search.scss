@@ -7,20 +7,39 @@
 
 $css--plex: true !default;
 
+@import 'carbon-components/scss/globals/scss/helper-mixins';
 @import 'carbon-components/scss/components/form/form';
 @import 'carbon-components/scss/components/search/search';
 
+:host(#{$prefix}-search),
+:host(#{$prefix}-search-skeleton) {
+  @extend .#{$prefix}--search--xl;
+}
+
 :host(#{$prefix}-search) {
   @extend .#{$prefix}--search;
-  @extend .#{$prefix}--search--xl;
 
   outline: none;
 }
 
-:host(#{$prefix}-search[size='small']) {
+:host(#{$prefix}-search[size='small']),
+:host(#{$prefix}-search-skeleton[size='small']) {
   @extend .#{$prefix}--search--sm;
 }
 
 :host(#{$prefix}-search[light]) {
   @extend .#{$prefix}--search--light;
+}
+
+:host(#{$prefix}-search-skeleton) {
+  width: 100%;
+
+  .#{$prefix}--search-input {
+    @include skeleton;
+    width: 100%;
+
+    &::placeholder {
+      color: transparent;
+    }
+  }
 }
