@@ -49,6 +49,10 @@ export const withInputBox = ({ parameters }) => ({
 
 withInputBox.story = baseWithInputBox.story;
 
+export const skeleton = () => ({
+  template: `<bx-slider-skeleton></bx-slider-skeleton>`,
+});
+
 export default Object.assign(baseStory, {
   decorators: [
     moduleMetadata({
