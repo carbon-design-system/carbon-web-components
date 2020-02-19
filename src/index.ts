@@ -58,6 +58,7 @@ export { default as BXToastNotification } from './components/notification/toast-
 export { default as BXNumberInput } from './components/number-input/number-input';
 export { default as BXNumberInputSkeleton } from './components/number-input/number-input-skeleton';
 export { default as BXTextarea } from './components/textarea/textarea';
+export { default as BXTextareaSkeleton } from './components/textarea/textarea-skeleton';
 export { default as BXOverflowMenu } from './components/overflow-menu/overflow-menu';
 export { default as BXOverflowMenuBody } from './components/overflow-menu/overflow-menu-body';
 export { default as BXOverflowMenuItem } from './components/overflow-menu/overflow-menu-item';
