@@ -14,6 +14,11 @@ import React from 'react';
 import BXProgressIndicator from 'carbon-custom-elements/es/components-react/progress-indicator/progress-indicator';
 // @ts-ignore
 import BXProgressStep from 'carbon-custom-elements/es/components-react/progress-indicator/progress-step';
+// @ts-ignore
+// eslint-disable-next-line max-len
+import BXProgressIndicatorSkeleton from 'carbon-custom-elements/es/components-react/progress-indicator/progress-indicator-skeleton';
+// @ts-ignore
+import BXProgressStepSkeleton from 'carbon-custom-elements/es/components-react/progress-indicator/progress-step-skeleton';
 import { defaultStory as baseDefaultStory } from './progress-indicator-story';
 
 export { default } from './progress-indicator-story';
@@ -33,3 +38,14 @@ export const defaultStory = ({ parameters }) => {
 };
 
 defaultStory.story = baseDefaultStory.story;
+
+export const skeleton = ({ parameters }) => {
+  const { vertical } = parameters?.props?.['bx-progress-indicator-skeleton'];
+  return (
+    <BXProgressIndicatorSkeleton vertical={vertical}>
+      <BXProgressStepSkeleton></BXProgressStepSkeleton>
+      <BXProgressStepSkeleton></BXProgressStepSkeleton>
+      <BXProgressStepSkeleton></BXProgressStepSkeleton>
+    </BXProgressIndicatorSkeleton>
+  );
+};
