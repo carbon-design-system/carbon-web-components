@@ -32,6 +32,7 @@ export { default as BXTableToolbarContent } from './components/data-table/table-
 export { default as BXTableToolbarSearch } from './components/data-table/table-toolbar-search';
 export { default as BXDatePicker } from './components/date-picker/date-picker';
 export { default as BXDatePickerInput } from './components/date-picker/date-picker-input';
+export { default as BXDatePickerInputSkeleton } from './components/date-picker/date-picker-input-skeleton';
 export { default as BXDropdown } from './components/dropdown/dropdown';
 export { default as BXDropdownItem } from './components/dropdown/dropdown-item';
 export { default as BXFormItem } from './components/form/form-item';

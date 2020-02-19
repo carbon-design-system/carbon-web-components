@@ -13,6 +13,9 @@ import baseStory, {
   defaultStory as baseDefaultStory,
   singleWithCalendar as baseSingleWithCalendar,
   rangeWithCalendar as baseRangeWithCalendar,
+  skeletonSimple as baseSkeletonSimple,
+  skeletonSingle as baseSkeletonSingle,
+  skeletonRange as baseSkeletonRange,
 } from './date-picker-story';
 
 export const defaultStory = ({ parameters }) => ({
@@ -113,6 +116,38 @@ export const rangeWithCalendar = ({ parameters }) => ({
 });
 
 rangeWithCalendar.story = baseRangeWithCalendar.story;
+
+export const skeletonSimple = () => ({
+  template: `<bx-date-picker-input-skeleton></bx-date-picker-input-skeleton>`,
+});
+
+skeletonSimple.story = baseSkeletonSimple.story;
+
+export const skeletonSingle = () => ({
+  template: `<bx-date-picker-input-skeleton kind="single"></bx-date-picker-input-skeleton>`,
+});
+
+skeletonSingle.story = baseSkeletonSingle.story;
+
+export const skeletonRange = () => ({
+  template: `
+    <bx-date-picker-input-skeleton kind="from"></bx-date-picker-input-skeleton>
+    <bx-date-picker-input-skeleton kind="to"></bx-date-picker-input-skeleton>
+  `,
+});
+
+skeletonRange.story = {
+  ...baseSkeletonRange.story,
+  decorators: [
+    story => {
+      const { template, ...rest } = story();
+      return {
+        ...rest,
+        template: `<div>${template}</div>`,
+      };
+    },
+  ],
+};
 
 export default Object.assign(baseStory, {
   decorators: [
