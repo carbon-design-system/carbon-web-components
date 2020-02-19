@@ -14,6 +14,8 @@ import React from 'react';
 import BXDropdown from 'carbon-custom-elements/es/components-react/dropdown/dropdown';
 // @ts-ignore
 import BXDropdownItem from 'carbon-custom-elements/es/components-react/dropdown/dropdown-item';
+// @ts-ignore
+import BXDropdownSkeleton from 'carbon-custom-elements/es/components-react/dropdown/dropdown-skeleton';
 import { defaultStory as baseDefaultStory } from './dropdown-story';
 
 export { default } from './dropdown-story';
@@ -62,3 +64,5 @@ export const defaultStory = ({ parameters }) => {
 };
 
 defaultStory.story = baseDefaultStory.story;
+
+export const skeleton = () => <BXDropdownSkeleton />;
