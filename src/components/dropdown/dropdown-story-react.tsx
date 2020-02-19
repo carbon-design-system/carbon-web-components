@@ -30,6 +30,7 @@ export const defaultStory = ({ parameters }) => {
     toggleLabelClosed,
     toggleLabelOpen,
     triggerContent,
+    type,
     value,
     disableSelection,
     onBeforeSelect,
@@ -51,6 +52,7 @@ export const defaultStory = ({ parameters }) => {
       toggleLabelClosed={toggleLabelClosed}
       toggleLabelOpen={toggleLabelOpen}
       triggerContent={triggerContent}
+      type={type}
       value={value}
       onBeforeSelect={handleBeforeSelected}
       onSelect={onSelect}>

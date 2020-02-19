@@ -43,6 +43,21 @@ export enum DATE_PICKER_INPUT_KIND {
 }
 
 /**
+ * Horizontal size, applicable only to the simple variant.
+ */
+export enum DATE_PICKER_INPUT_SIZE_HORIZONTAL {
+  /**
+   * Regular size.
+   */
+  REGULAR = 'regular',
+
+  /**
+   * Short size.
+   */
+  SHORT = 'short',
+}
+
+/**
  * The input box for date picker.
  * @element bx-date-picker-input
  */
@@ -169,8 +184,8 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
    * `true` if this date picker input should use the short UI variant.
    * Effective only when `kind` property is `DATE_PICKER_INPUT_KIND.SIMPLE`.
    */
-  @property({ type: Boolean, reflect: true })
-  short = false;
+  @property({ attribute: 'size-horizontal', reflect: true })
+  sizeHorizontal = DATE_PICKER_INPUT_SIZE_HORIZONTAL.REGULAR;
 
   /**
    * The `type` attribute for the `<input>` in the shadow DOM.

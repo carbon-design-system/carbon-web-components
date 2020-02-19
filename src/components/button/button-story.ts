@@ -12,7 +12,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
 import Add16 from '@carbon/icons/lib/add/16';
 import ifNonNull from '../../globals/directives/if-non-null';
-import { BUTTON_KIND } from './button';
+import { BUTTON_KIND, BUTTON_SIZE } from './button';
 import './button-skeleton';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import storyDocs from './button-story.mdx';
@@ -24,8 +24,13 @@ const kinds = {
   [`Ghost button (${BUTTON_KIND.GHOST})`]: BUTTON_KIND.GHOST,
 };
 
+const sizes = {
+  [`Regular size`]: null,
+  [`Small size (${BUTTON_SIZE.SMALL})`]: BUTTON_SIZE.SMALL,
+};
+
 export const defaultStory = ({ parameters }) => {
-  const { autofocus, disabled, download, href, hreflang, kind, ping, rel, small, target, type, onClick } =
+  const { autofocus, disabled, download, href, hreflang, kind, ping, rel, size, target, type, onClick } =
     parameters?.props?.['bx-btn'] ?? {};
   return html`
     <bx-btn
@@ -37,7 +42,7 @@ export const defaultStory = ({ parameters }) => {
       kind="${ifNonNull(kind)}"
       ping="${ifNonNull(ping)}"
       rel="${ifNonNull(rel)}"
-      ?small="${small}"
+      size="${ifNonNull(size)}"
       target="${ifNonNull(target)}"
       type="${ifNonNull(type)}"
       @click=${onClick}
@@ -52,18 +57,30 @@ defaultStory.story = {
 };
 
 export const icon = ({ parameters }) => {
-  const { kind, disabled, small, href, onClick } = parameters?.props?.['bx-btn'] ?? {};
+  const { kind, disabled, size, href, onClick } = parameters?.props?.['bx-btn'] ?? {};
   return html`
-    <bx-btn kind=${ifNonNull(kind)} ?disabled=${disabled} ?small=${small} href=${ifNonNull(href || undefined)} @click=${onClick}>
+    <bx-btn
+      kind=${ifNonNull(kind)}
+      ?disabled=${disabled}
+      size=${ifNonNull(size)}
+      href=${ifNonNull(href || undefined)}
+      @click=${onClick}
+    >
       ${Add16({ slot: 'icon' })}
     </bx-btn>
   `;
 };
 
 export const textAndIcon = ({ parameters }) => {
-  const { kind, disabled, small, href, onClick } = parameters?.props?.['bx-btn'] ?? {};
+  const { kind, disabled, size, href, onClick } = parameters?.props?.['bx-btn'] ?? {};
   return html`
-    <bx-btn kind=${ifNonNull(kind)} ?disabled=${disabled} ?small=${small} href=${ifNonNull(href || undefined)} @click=${onClick}>
+    <bx-btn
+      kind=${ifNonNull(kind)}
+      ?disabled=${disabled}
+      size=${ifNonNull(size)}
+      href=${ifNonNull(href || undefined)}
+      @click=${onClick}
+    >
       Button ${Add16({ slot: 'icon' })}
     </bx-btn>
   `;
@@ -74,9 +91,9 @@ textAndIcon.story = {
 };
 
 export const skeleton = ({ parameters }) => {
-  const { disabled, small, href, onClick } = parameters?.props?.['bx-btn-skeleton'];
+  const { disabled, size, href, onClick } = parameters?.props?.['bx-btn-skeleton'];
   return html`
-    <bx-btn-skeleton ?disabled=${disabled} ?small=${small} href=${ifNonNull(href || undefined)} @click=${onClick}>
+    <bx-btn-skeleton ?disabled=${disabled} size=${ifNonNull(size)} href=${ifNonNull(href || undefined)} @click=${onClick}>
     </bx-btn-skeleton>
   `;
 };
@@ -87,7 +104,7 @@ skeleton.story = {
       'bx-btn-skeleton': () => ({
         kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
         disabled: boolean('Disabled (disabled)', false),
-        small: boolean('Small (small)', false),
+        size: select('Button size (size)', sizes, null),
         href: textNullable('Link href (href)', ''),
         onClick: action('click'),
       }),
@@ -105,7 +122,7 @@ export default {
       'bx-btn': () => ({
         kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
         disabled: boolean('Disabled (disabled)', false),
-        small: boolean('Small (small)', false),
+        size: select('Button size (size)', sizes, null),
         href: textNullable('Link href (href)', ''),
         onClick: action('click'),
       }),

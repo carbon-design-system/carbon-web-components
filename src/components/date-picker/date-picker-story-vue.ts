@@ -29,6 +29,7 @@ export const defaultStory = ({ parameters }) => ({
         :label-text="labelText"
         :light="light"
         :placeholder="placeholder"
+        :size-horizontal="sizeHorizontal"
         :validity-message="validityMessage"
       >
       </bx-date-picker-input>

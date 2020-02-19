@@ -28,7 +28,7 @@ import {
 export { default } from './date-picker-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage } = parameters?.props?.[
+  const { disabled, hideLabel, invalid, labelText, light, placeholder, sizeHorizontal, validityMessage } = parameters?.props?.[
     'bx-date-picker-input'
   ];
   return (
@@ -40,6 +40,7 @@ export const defaultStory = ({ parameters }) => {
         labelText={labelText}
         light={light}
         placeholder={placeholder}
+        sizeHorizontal={sizeHorizontal}
         validityMessage={validityMessage}
       />
     </BXDatePicker>

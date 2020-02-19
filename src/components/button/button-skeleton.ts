@@ -33,11 +33,11 @@ class BXButtonSkeleton extends BXButton {
   }
 
   render() {
-    const { autofocus, disabled, download, href, hreflang, ping, rel, small, target, type } = this;
+    const { autofocus, disabled, download, href, hreflang, ping, rel, size, target, type } = this;
     const classes = classMap({
       [`${prefix}--btn`]: true,
       [`${prefix}--skeleton`]: true,
-      [`${prefix}--btn--sm`]: small,
+      [`${prefix}--btn--${size}`]: size,
     });
     return href
       ? html`
