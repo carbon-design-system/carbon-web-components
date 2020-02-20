@@ -14,6 +14,7 @@ import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
 import { DROPDOWN_TYPE } from './dropdown';
 import './dropdown-item';
+import './dropdown-skeleton';
 import storyDocs from './dropdown-story.mdx';
 
 const types = {
@@ -67,14 +68,7 @@ export const defaultStory = ({ parameters }) => {
 
 defaultStory.story = {
   name: 'Default',
-};
-
-export default {
-  title: 'Dropdown',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
     knobs: {
       'bx-dropdown': () => ({
         open: boolean('Open (open)', false),
@@ -92,6 +86,20 @@ export default {
         onBeforeSelect: action('bx-dropdown-beingselected'),
         onSelect: action('bx-dropdown-selected'),
       }),
+    },
+  },
+};
+
+export const skeleton = () =>
+  html`
+    <bx-dropdown-skeleton></bx-dropdown-skeleton>
+  `;
+
+export default {
+  title: 'Dropdown',
+  parameters: {
+    docs: {
+      page: storyDocs,
     },
   },
 };

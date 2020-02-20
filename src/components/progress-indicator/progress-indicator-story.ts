@@ -13,6 +13,8 @@ import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
 import './progress-indicator';
 import './progress-step';
+import './progress-indicator-skeleton';
+import './progress-step-skeleton';
 import storyDocs from './progress-indicator-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
@@ -55,10 +57,6 @@ export const defaultStory = ({ parameters }) => {
 
 defaultStory.story = {
   name: 'Default',
-};
-
-export default {
-  title: 'Progress indicator',
   parameters: {
     docs: {
       page: storyDocs,
@@ -74,4 +72,29 @@ export default {
       }),
     },
   },
+};
+
+export const skeleton = ({ parameters }) => {
+  const { vertical } = parameters?.props?.['bx-progress-indicator-skeleton'];
+  return html`
+    <bx-progress-indicator-skeleton ?vertical="${vertical}">
+      <bx-progress-step-skeleton></bx-progress-step-skeleton>
+      <bx-progress-step-skeleton></bx-progress-step-skeleton>
+      <bx-progress-step-skeleton></bx-progress-step-skeleton>
+    </bx-progress-indicator-skeleton>
+  `;
+};
+
+skeleton.story = {
+  parameters: {
+    knobs: {
+      'bx-progress-indicator-skeleton': () => ({
+        vertical: boolean('Vertical (vertical)', false),
+      }),
+    },
+  },
+};
+
+export default {
+  title: 'Progress indicator',
 };
