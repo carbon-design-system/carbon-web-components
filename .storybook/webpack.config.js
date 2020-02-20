@@ -40,6 +40,14 @@ module.exports = ({ config, mode }) => {
     config.module.rules.splice(htmlRuleIndex, 1);
   }
 
+  // We use `CSSResult` instead of raw CSS
+  const sassLoaderRuleIndex = config.module.rules.findIndex(
+    item => item.use && item.use.some && item.use.some(use => /sass-loader/i.test(use.loader))
+  );
+  if (sassLoaderRuleIndex >= 0) {
+    config.module.rules.splice(sassLoaderRuleIndex, 1);
+  }
+
   const babelLoaderRule = config.module.rules.find(
     item => item.use && item.use.some && item.use.some(use => /babel-loader/i.test(use.loader))
   );
