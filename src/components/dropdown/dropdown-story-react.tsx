@@ -14,6 +14,8 @@ import React from 'react';
 import BXDropdown from 'carbon-custom-elements/es/components-react/dropdown/dropdown';
 // @ts-ignore
 import BXDropdownItem from 'carbon-custom-elements/es/components-react/dropdown/dropdown-item';
+// @ts-ignore
+import BXDropdownSkeleton from 'carbon-custom-elements/es/components-react/dropdown/dropdown-skeleton';
 import { defaultStory as baseDefaultStory } from './dropdown-story';
 
 export { default } from './dropdown-story';
@@ -28,6 +30,7 @@ export const defaultStory = ({ parameters }) => {
     toggleLabelClosed,
     toggleLabelOpen,
     triggerContent,
+    type,
     value,
     disableSelection,
     onBeforeSelect,
@@ -49,6 +52,7 @@ export const defaultStory = ({ parameters }) => {
       toggleLabelClosed={toggleLabelClosed}
       toggleLabelOpen={toggleLabelOpen}
       triggerContent={triggerContent}
+      type={type}
       value={value}
       onBeforeSelect={handleBeforeSelected}
       onSelect={onSelect}>
@@ -62,3 +66,5 @@ export const defaultStory = ({ parameters }) => {
 };
 
 defaultStory.story = baseDefaultStory.story;
+
+export const skeleton = () => <BXDropdownSkeleton />;

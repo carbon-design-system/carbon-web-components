@@ -13,6 +13,8 @@ import React from 'react';
 // @ts-ignore
 import BXNumberInput from 'carbon-custom-elements/es/components-react/number-input/number-input';
 // @ts-ignore
+import BXNumberInputSkeleton from 'carbon-custom-elements/es/components-react/number-input/number-input-skeleton';
+// @ts-ignore
 import BXFormItem from 'carbon-custom-elements/es/components-react/form/form-item';
 import {
   defaultStory as baseDefaultStory,
@@ -95,3 +97,5 @@ export const withoutFormItemWrapper = ({ parameters }) => {
 };
 
 withoutFormItemWrapper.story = baseWithoutFormItemWrapper.story;
+
+export const skeleton = () => <BXNumberInputSkeleton />;

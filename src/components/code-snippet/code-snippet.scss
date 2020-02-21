@@ -7,10 +7,12 @@
 
 $css--plex: true !default;
 
+@import 'carbon-components/scss/globals/scss/helper-mixins';
 @import 'carbon-components/scss/components/code-snippet/code-snippet';
 @import 'carbon-components/scss/components/copy-button/copy-button';
 
-:host(#{$prefix}-code-snippet) {
+:host(#{$prefix}-code-snippet),
+:host(#{$prefix}-code-snippet-skeleton) {
   @extend .#{$prefix}--snippet--single;
   outline: none;
 
@@ -49,7 +51,8 @@ $css--plex: true !default;
   }
 }
 
-:host(#{$prefix}-code-snippet[type='multi']) {
+:host(#{$prefix}-code-snippet[type='multi']),
+:host(#{$prefix}-code-snippet-skeleton[type='multi']) {
   @extend .#{$prefix}--snippet--multi;
   height: auto;
 
@@ -121,5 +124,29 @@ $css--plex: true !default;
 
   .#{$prefix}--btn--copy__feedback {
     top: rem(6.7882px); // Half of the diagonal line of `0.6rem` square
+  }
+}
+
+:host(#{$prefix}-code-snippet-skeleton) {
+  @extend .#{$prefix}--skeleton;
+
+  span {
+    @include skeleton;
+    width: 100%;
+    height: 1rem;
+    display: block;
+    margin-top: 0.5rem;
+
+    &:first-child {
+      margin: 0;
+    }
+
+    &:nth-child(2) {
+      width: 85%;
+    }
+
+    &:nth-child(3) {
+      width: 95%;
+    }
   }
 }

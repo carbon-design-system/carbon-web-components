@@ -13,6 +13,7 @@ import { boolean, number, text } from '@storybook/addon-knobs';
 import ifNonNull from '../../globals/directives/if-non-null';
 import './slider';
 import './slider-input';
+import './slider-skeleton';
 import storyDocs from './slider-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
@@ -33,6 +34,20 @@ export const defaultStory = ({ parameters }) => {
 
 defaultStory.story = {
   name: 'Default',
+  parameters: {
+    knobs: {
+      'bx-slider': () => ({
+        disabled: boolean('Disabled (disabled)', false),
+        labelText: text('Label text (label-text)', 'Slider'),
+        name: text('Name (name)', ''),
+        max: number('The maximum value (max)', 100),
+        min: number('The minimum value (min)', 0),
+        step: number('The step (step)', 1),
+        value: number('Value (value)', 50),
+        onAfterChange: action('bx-slider-changed'),
+      }),
+    },
+  },
 };
 
 export const withInputBox = ({ parameters }) => {
@@ -55,25 +70,21 @@ export const withInputBox = ({ parameters }) => {
 
 withInputBox.story = {
   name: 'With input box',
+  parameters: {
+    knobs: defaultStory.story.parameters.knobs,
+  },
 };
+
+export const skeleton = () =>
+  html`
+    <bx-slider-skeleton></bx-slider-skeleton>
+  `;
 
 export default {
   title: 'Slider',
   parameters: {
     docs: {
       page: storyDocs,
-    },
-    knobs: {
-      'bx-slider': () => ({
-        disabled: boolean('Disabled (disabled)', false),
-        labelText: text('Label text (label-text)', 'Slider'),
-        name: text('Name (name)', ''),
-        max: number('The maximum value (max)', 100),
-        min: number('The minimum value (min)', 0),
-        step: number('The step (step)', 1),
-        value: number('Value (value)', 50),
-        onChange: action('bx-slider-changed'),
-      }),
     },
   },
 };

@@ -52,3 +52,14 @@ export const defaultStory = ({ parameters }) => ({
 });
 
 defaultStory.story = baseDefaultStory.story;
+
+export const skeleton = ({ parameters }) => ({
+  template: `
+    <bx-progress-indicator-skeleton :vertical="vertical">
+      <bx-progress-step-skeleton></bx-progress-step-skeleton>
+      <bx-progress-step-skeleton></bx-progress-step-skeleton>
+      <bx-progress-step-skeleton></bx-progress-step-skeleton>
+    </bx-progress-indicator-skeleton>
+  `,
+  ...createVueBindingsFromProps(parameters?.props?.['bx-progress-indicator-skeleton']),
+});

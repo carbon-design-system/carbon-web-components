@@ -13,6 +13,7 @@ import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
 import { SEARCH_SIZE } from './search';
+import './search-skeleton';
 import storyDocs from './search-story.mdx';
 
 const sizes = {
@@ -41,10 +42,6 @@ export const defaultStory = ({ parameters }) => {
 
 defaultStory.story = {
   name: 'Default',
-};
-
-export default {
-  title: 'Search',
   parameters: {
     docs: {
       page: storyDocs,
@@ -67,4 +64,13 @@ export default {
       }),
     },
   },
+};
+
+export const skeleton = () =>
+  html`
+    <bx-search-skeleton></bx-search-skeleton>
+  `;
+
+export default {
+  title: 'Search',
 };

@@ -53,3 +53,7 @@ export const defaultStory = ({ parameters }) => {
 };
 
 defaultStory.story = baseDefaultStory.story;
+
+export const skeleton = () => ({
+  template: `<bx-dropdown-skeleton></bx-dropdown-skeleton>`,
+});
