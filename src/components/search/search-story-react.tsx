@@ -12,6 +12,8 @@ import React from 'react';
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXSearch from 'carbon-custom-elements/es/components-react/search/search';
+// @ts-ignore
+import BXSearchSkeleton from 'carbon-custom-elements/es/components-react/search/search-skeleton';
 import { defaultStory as baseDefaultStory } from './search-story';
 
 export { default } from './search-story';
@@ -46,3 +48,5 @@ export const defaultStory = ({ parameters }) => {
 };
 
 defaultStory.story = baseDefaultStory.story;
+
+export const skeleton = () => <BXSearchSkeleton />;

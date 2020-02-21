@@ -20,7 +20,11 @@ import BXStructuredListHeaderRow from 'carbon-custom-elements/es/components-reac
 import BXStructuredListBody from 'carbon-custom-elements/es/components-react/structured-list/structured-list-body';
 // @ts-ignore
 import BXStructuredListRow from 'carbon-custom-elements/es/components-react/structured-list/structured-list-row';
+// @ts-ignore
+// eslint-disable-next-line max-len
+import BXStructuredListHeaderCellSkeleton from 'carbon-custom-elements/es/components-react/structured-list/structured-list-header-cell-skeleton';
 import { defaultStory as baseDefaultStory } from './structured-list-story';
+import styles from './structured-list-story.scss';
 
 export { default } from './structured-list-story';
 
@@ -70,3 +74,35 @@ export const defaultStory = ({ parameters }) => {
 };
 
 defaultStory.story = baseDefaultStory.story;
+
+export const skeleton = () => (
+  <>
+    <style type="text/css">{styles.cssText}</style>
+    <BXStructuredList>
+      <BXStructuredListHead>
+        <BXStructuredListHeaderRow>
+          <BXStructuredListHeaderCellSkeleton />
+          <BXStructuredListHeaderCellSkeleton />
+          <BXStructuredListHeaderCellSkeleton />
+        </BXStructuredListHeaderRow>
+      </BXStructuredListHead>
+      <BXStructuredListBody>
+        <BXStructuredListRow>
+          <bx-structured-list-cell />
+          <bx-structured-list-cell />
+          <bx-structured-list-cell />
+        </BXStructuredListRow>
+        <BXStructuredListRow>
+          <bx-structured-list-cell />
+          <bx-structured-list-cell />
+          <bx-structured-list-cell />
+        </BXStructuredListRow>
+        <BXStructuredListRow>
+          <bx-structured-list-cell />
+          <bx-structured-list-cell />
+          <bx-structured-list-cell />
+        </BXStructuredListRow>
+      </BXStructuredListBody>
+    </BXStructuredList>
+  </>
+);

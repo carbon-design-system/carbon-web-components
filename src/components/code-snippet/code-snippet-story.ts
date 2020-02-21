@@ -14,6 +14,7 @@ import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
 import './code-snippet';
 import storyDocs from './code-snippet-story.mdx';
+import './code-snippet-skeleton';
 
 const defaultKnobs = {
   'bx-code-snippet': () => ({
@@ -47,6 +48,9 @@ export const singleLine = ({ parameters }) => {
 
 singleLine.story = {
   name: 'Single line',
+  parameters: {
+    knobs: defaultKnobs,
+  },
 };
 
 export const multiLine = ({ parameters }) => {
@@ -128,6 +132,27 @@ export const inline = ({ parameters }) => {
 
 inline.story = {
   name: 'Inline',
+  parameters: {
+    knobs: defaultKnobs,
+  },
+};
+
+export const skeletonSingleLine = () =>
+  html`
+    <bx-code-snippet-skeleton type="single"></bx-code-snippet-skeleton>
+  `;
+
+skeletonSingleLine.story = {
+  name: 'Skeleton single line',
+};
+
+export const skeletonMultiLine = () =>
+  html`
+    <bx-code-snippet-skeleton type="multi"></bx-code-snippet-skeleton>
+  `;
+
+skeletonMultiLine.story = {
+  name: 'Skeleton multi line',
 };
 
 export default {
@@ -136,6 +161,5 @@ export default {
     docs: {
       page: storyDocs,
     },
-    knobs: defaultKnobs,
   },
 };

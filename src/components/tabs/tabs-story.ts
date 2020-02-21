@@ -14,6 +14,8 @@ import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
 import './tabs';
 import './tab';
+import './tabs-skeleton';
+import './tab-skeleton';
 import styles from './tabs-story.scss';
 import storyDocs from './tabs-story.mdx';
 
@@ -87,10 +89,6 @@ export const defaultStory = ({ parameters }) => {
 
 defaultStory.story = {
   name: 'Default',
-};
-
-export default {
-  title: 'Tabs',
   parameters: {
     docs: {
       page: storyDocs,
@@ -112,4 +110,18 @@ export default {
       }),
     },
   },
+};
+
+export const skeleton = () => html`
+  <bx-tabs-skeleton>
+    <bx-tab-skeleton></bx-tab-skeleton>
+    <bx-tab-skeleton></bx-tab-skeleton>
+    <bx-tab-skeleton></bx-tab-skeleton>
+    <bx-tab-skeleton></bx-tab-skeleton>
+    <bx-tab-skeleton></bx-tab-skeleton>
+  </bx-tabs-skeleton>
+`;
+
+export default {
+  title: 'Tabs',
 };

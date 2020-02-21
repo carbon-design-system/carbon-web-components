@@ -17,7 +17,9 @@ import './structured-list-header-cell';
 import './structured-list-body';
 import './structured-list-row';
 import './structured-list-cell';
+import './structured-list-header-cell-skeleton';
 import storyDocs from './structured-list-story.mdx';
+import styles from './structured-list-story.scss';
 
 export const defaultStory = ({ parameters }) => {
   const { hasSelection } = parameters?.props?.['bx-structured-list'] ?? {};
@@ -66,10 +68,6 @@ export const defaultStory = ({ parameters }) => {
 
 defaultStory.story = {
   name: 'Default',
-};
-
-export default {
-  title: 'Structured list',
   parameters: {
     docs: {
       page: storyDocs,
@@ -80,4 +78,40 @@ export default {
       }),
     },
   },
+};
+
+export const skeleton = () => html`
+  <style>
+    ${styles}
+  </style>
+  <bx-structured-list>
+    <bx-structured-list-head>
+      <bx-structured-list-header-row>
+        <bx-structured-list-header-cell-skeleton></bx-structured-list-header-cell-skeleton>
+        <bx-structured-list-header-cell-skeleton></bx-structured-list-header-cell-skeleton>
+        <bx-structured-list-header-cell-skeleton></bx-structured-list-header-cell-skeleton>
+      </bx-structured-list-header-row>
+    </bx-structured-list-head>
+    <bx-structured-list-body>
+      <bx-structured-list-row>
+        <bx-structured-list-cell></bx-structured-list-cell>
+        <bx-structured-list-cell></bx-structured-list-cell>
+        <bx-structured-list-cell></bx-structured-list-cell>
+      </bx-structured-list-row>
+      <bx-structured-list-row>
+        <bx-structured-list-cell></bx-structured-list-cell>
+        <bx-structured-list-cell></bx-structured-list-cell>
+        <bx-structured-list-cell></bx-structured-list-cell>
+      </bx-structured-list-row>
+      <bx-structured-list-row>
+        <bx-structured-list-cell></bx-structured-list-cell>
+        <bx-structured-list-cell></bx-structured-list-cell>
+        <bx-structured-list-cell></bx-structured-list-cell>
+      </bx-structured-list-row>
+    </bx-structured-list-body>
+  </bx-structured-list>
+`;
+
+export default {
+  title: 'Structured list',
 };

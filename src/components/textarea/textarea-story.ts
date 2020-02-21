@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -12,6 +12,7 @@ import * as knobs from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
 import './textarea';
+import './textarea-skeleton';
 import '../form/form-item';
 import createProps from './stories/helpers';
 import storyDocs from './textarea-story.mdx';
@@ -60,6 +61,11 @@ export const defaultStory = ({ parameters }) => {
 
 defaultStory.story = {
   name: 'Default',
+  parameters: {
+    knobs: {
+      'bx-textarea': () => createProps({ ...knobs, textNullable }),
+    },
+  },
 };
 
 export const formItem = ({ parameters }) => {
@@ -86,6 +92,11 @@ export const formItem = ({ parameters }) => {
 
 formItem.story = {
   name: 'Form item',
+  parameters: {
+    knobs: {
+      'bx-textarea': () => createProps({ ...knobs, textNullable }),
+    },
+  },
 };
 
 export const withoutFormItemWrapper = ({ parameters }) => {
@@ -110,16 +121,21 @@ export const withoutFormItemWrapper = ({ parameters }) => {
 
 withoutFormItemWrapper.story = {
   name: 'Without form item wrapper',
-};
-
-export default {
-  title: 'Textarea',
   parameters: {
     docs: {
       page: storyDocs,
     },
     knobs: {
-      'bx-textarea': () => createProps({ ...knobs, textNonEmpty: textNullable }),
+      'bx-textarea': () => createProps({ ...knobs, textNullable }),
     },
   },
+};
+
+export const skeleton = () =>
+  html`
+    <bx-textarea-skeleton></bx-textarea-skeleton>
+  `;
+
+export default {
+  title: 'Textarea',
 };

@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019
+// Copyright IBM Corp. 2019, 2020
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -59,7 +59,8 @@ $css--plex: true !default;
   }
 }
 
-:host(#{$prefix}-date-picker-input) {
+:host(#{$prefix}-date-picker-input),
+:host(#{$prefix}-date-picker-input-skeleton) {
   @extend .#{$prefix}--date-picker-container;
 
   outline: none;
@@ -69,15 +70,22 @@ $css--plex: true !default;
   background: $field-02;
 }
 
-:host(#{$prefix}-date-picker-input[kind='simple']) .#{$prefix}--date-picker__input {
-  width: rem(120px);
+:host(#{$prefix}-date-picker-input[kind='simple']),
+:host(#{$prefix}-date-picker-input-skeleton[kind='simple']) {
+  .#{$prefix}--date-picker__input {
+    width: rem(120px);
+  }
 }
 
-:host(#{$prefix}-date-picker-input[kind='simple'][short]) .#{$prefix}--date-picker__input {
-  width: rem(90px);
+:host(#{$prefix}-date-picker-input[kind='simple'][size-horizontal='short']),
+:host(#{$prefix}-date-picker-input-skeleton[kind='simple'][size-horizontal='short']) {
+  .#{$prefix}--date-picker__input {
+    width: rem(90px);
+  }
 }
 
-:host(#{$prefix}-date-picker-input[kind='single']) {
+:host(#{$prefix}-date-picker-input[kind='single']),
+:host(#{$prefix}-date-picker-input-skeleton[kind='single']) {
   max-width: rem(288px);
 
   .#{$prefix}--date-picker__input {
@@ -85,12 +93,15 @@ $css--plex: true !default;
   }
 }
 
-:host(#{$prefix}-date-picker-input[kind='from']) {
+:host(#{$prefix}-date-picker-input[kind='from']),
+:host(#{$prefix}-date-picker-input-skeleton[kind='from']) {
   margin-right: rem(1px);
 }
 
 :host(#{$prefix}-date-picker-input[kind='from']),
-:host(#{$prefix}-date-picker-input[kind='to']) {
+:host(#{$prefix}-date-picker-input[kind='to']),
+:host(#{$prefix}-date-picker-input-skeleton[kind='from']),
+:host(#{$prefix}-date-picker-input-skeleton[kind='to']) {
   width: rem(143.5px);
 
   .#{$prefix}--date-picker__input {
@@ -104,4 +115,14 @@ $css--plex: true !default;
   fill: $icon-01;
   cursor: pointer;
   z-index: 1;
+}
+
+:host(#{$prefix}-date-picker-input-skeleton) {
+  display: inline-block;
+
+  .#{$prefix}--label {
+    @include skeleton;
+    width: rem(75px);
+    height: rem(14px);
+  }
 }
