@@ -19,7 +19,7 @@ export const defaultStory = ({ parameters }) => ({
       [disabled]="disabled"
       [labelText]="labelText"
       [name]="name"
-      [small]="small"
+      [size]="size"
       [uncheckedText]="uncheckedText"
       [value]="value"
       (bx-toggle-changed)="onChange($event)"

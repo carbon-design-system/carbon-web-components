@@ -9,7 +9,8 @@ $css--plex: true !default;
 
 @import 'carbon-components/scss/components/number-input/number-input';
 
-:host(#{$prefix}-number-input) {
+:host(#{$prefix}-number-input),
+:host(#{$prefix}-number-input-skeleton) {
   // the base text-input class has a 100% so we need to propagate it up to the host element
   width: 100%;
   outline: none;

@@ -57,3 +57,9 @@ $css--plex: true !default;
     color: $text-01;
   }
 }
+
+:host(#{$prefix}-dropdown-skeleton) {
+  .#{$prefix}--skeleton {
+    @include skeleton;
+  }
+}
