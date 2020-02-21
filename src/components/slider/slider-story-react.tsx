@@ -14,6 +14,8 @@ import React from 'react';
 import BXSlider from 'carbon-custom-elements/es/components-react/slider/slider';
 // @ts-ignore
 import BXSliderInput from 'carbon-custom-elements/es/components-react/slider/slider-input';
+// @ts-ignore
+import BXSliderSkeleton from 'carbon-custom-elements/es/components-react/slider/slider-skeleton';
 import { defaultStory as baseDefaultStory, withInputBox as baseWithInputBox } from './slider-story';
 
 export { default } from './slider-story';
@@ -54,3 +56,5 @@ export const withInputBox = ({ parameters }) => {
 };
 
 withInputBox.story = baseWithInputBox.story;
+
+export const skeleton = () => <BXSliderSkeleton />;

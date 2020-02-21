@@ -17,6 +17,21 @@ import styles from './toggle.scss';
 const { prefix } = settings;
 
 /**
+ * Toggle size.
+ */
+export enum TOGGLE_SIZE {
+  /**
+   * Regular size.
+   */
+  REGULAR = '',
+
+  /**
+   * Small size.
+   */
+  SMALL = 'small',
+}
+
+/**
  * Basic toggle.
  * @element bx-toggle
  * @slot label-text - The label text.
@@ -27,7 +42,7 @@ const { prefix } = settings;
 @customElement(`${prefix}-toggle`)
 class BXToggle extends BXCheckbox {
   protected _renderCheckmark() {
-    if (!this.small) {
+    if (this.size !== TOGGLE_SIZE.SMALL) {
       return undefined;
     }
     return html`
@@ -44,10 +59,10 @@ class BXToggle extends BXCheckbox {
   checkedText = '';
 
   /**
-   * `true` to use the small variant.
+   * Toggle size.
    */
-  @property({ type: Boolean, reflect: true })
-  small = false;
+  @property({ reflect: true })
+  size = TOGGLE_SIZE.REGULAR;
 
   /**
    * The text for the unchecked state.
@@ -56,10 +71,10 @@ class BXToggle extends BXCheckbox {
   uncheckedText = '';
 
   render() {
-    const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, _handleChange: handleChange } = this;
+    const { checked, checkedText, disabled, labelText, name, size, uncheckedText, value, _handleChange: handleChange } = this;
     const inputClasses = classMap({
       [`${prefix}--toggle-input`]: true,
-      [`${prefix}--toggle-input--small`]: small,
+      [`${prefix}--toggle-input--${size}`]: size,
     });
     return html`
       <input

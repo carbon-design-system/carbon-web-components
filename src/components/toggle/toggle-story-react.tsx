@@ -17,7 +17,7 @@ import { defaultStory as baseDefaultStory } from './toggle-story';
 export { default } from './toggle-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, onChange } = parameters?.props?.[
+  const { checked, checkedText, disabled, labelText, name, size, uncheckedText, value, onChange } = parameters?.props?.[
     'bx-toggle'
   ];
   return (
@@ -27,7 +27,7 @@ export const defaultStory = ({ parameters }) => {
       disabled={disabled}
       labelText={labelText}
       name={name}
-      small={small}
+      size={size}
       uncheckedText={uncheckedText}
       value={value}
       onChange={onChange}

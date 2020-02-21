@@ -9,7 +9,13 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { singleLine as baseSingleLine, multiLine as baseMultiLine, inline as baseInline } from './code-snippet-story';
+import baseStory, {
+  singleLine as baseSingleLine,
+  multiLine as baseMultiLine,
+  inline as baseInline,
+  skeletonSingleLine as baseSkeletonSingleLine,
+  skeletonMultiLine as baseSkeletonMultiLine,
+} from './code-snippet-story';
 
 const multilineCode = `@mixin grid-container {
   width: 100%;
@@ -85,6 +91,18 @@ export const inline = ({ parameters }) => ({
 });
 
 inline.story = baseInline.story;
+
+export const skeletonSingleLine = () => ({
+  template: `<bx-code-snippet-skeleton type="single"></bx-code-snippet-skeleton>`,
+});
+
+skeletonSingleLine.story = baseSkeletonSingleLine.story;
+
+export const skeletonMultiLine = () => ({
+  template: `<bx-code-snippet-skeleton type="multi"></bx-code-snippet-skeleton>`,
+});
+
+skeletonMultiLine.story = baseSkeletonMultiLine.story;
 
 export default Object.assign(baseStory, {
   decorators: [
