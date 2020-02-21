@@ -14,6 +14,10 @@ import React from 'react';
 import BXTabs from 'carbon-custom-elements/es/components-react/tabs/tabs';
 // @ts-ignore
 import BXTab from 'carbon-custom-elements/es/components-react/tabs/tab';
+// @ts-ignore
+import BXTabsSkeleton from 'carbon-custom-elements/es/components-react/tabs/tabs-skeleton';
+// @ts-ignore
+import BXTabSkeleton from 'carbon-custom-elements/es/components-react/tabs/tab-skeleton';
 import { defaultStory as baseDefaultStory } from './tabs-story';
 import styles from './tabs-story.scss';
 
@@ -94,3 +98,13 @@ export const defaultStory = ({ parameters }) => {
 };
 
 defaultStory.story = baseDefaultStory.story;
+
+export const skeleton = () => (
+  <BXTabsSkeleton>
+    <BXTabSkeleton />
+    <BXTabSkeleton />
+    <BXTabSkeleton />
+    <BXTabSkeleton />
+    <BXTabSkeleton />
+  </BXTabsSkeleton>
+);

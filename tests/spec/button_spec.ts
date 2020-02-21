@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -61,7 +61,7 @@ describe('bx-btn', function() {
     });
 
     it('should make it small when small attribute is set', async function() {
-      elem!.setAttribute('small', '');
+      elem!.setAttribute('size', 'sm');
       await Promise.resolve();
       expect(elem!.shadowRoot!.querySelectorAll('.bx--btn--sm').length).toBe(1);
     });
@@ -93,7 +93,7 @@ describe('bx-btn', function() {
           autofocus: true,
           disabled: true,
           kind: BUTTON_KIND.SECONDARY,
-          small: true,
+          size: 'sm',
           type: 'submit',
         }),
         document.body
@@ -118,7 +118,7 @@ describe('bx-btn', function() {
           kind: BUTTON_KIND.SECONDARY,
           ping: 'about:blank',
           rel: 'noopener',
-          small: true,
+          size: 'sm',
           target: '_blank',
           type: 'text/plain',
         }),

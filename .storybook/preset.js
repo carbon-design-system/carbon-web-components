@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -25,7 +25,9 @@ module.exports = {
             presets.splice(vuePresetIndex, 1);
           }
           // Cover our custom Storybook add-ons written in React
-          presets.push('@babel/preset-react');
+          if (!presets.find(preset => /@babel\/preset-react/i.test(preset))) {
+            presets.push('@babel/preset-react');
+          }
         }
       });
     }
