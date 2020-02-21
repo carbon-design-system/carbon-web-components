@@ -4,6 +4,16 @@ As Shadow DOM (one of the Web Components specs that `carbon-custom-elements` use
 
 However, in cases where your application or a Carbon-derived style guide wants to change the styles of our components, there are a few options.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Using CSS Custom Properties](#using-css-custom-properties)
+- [Dependency injection](#dependency-injection)
+- [Creating derived components with different style](#creating-derived-components-with-different-style)
+- [CSS Shadow Parts](#css-shadow-parts)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Using CSS Custom Properties
 
 Changes to CSS Custom Properties of the Carbon theme are reflected in the color scheme of `carbon-custom-elements` components:
@@ -27,6 +37,17 @@ The color of the button in the code below changes to the one in the `g100` theme
 ```
 
 The names of CSS Custom Properties you can use are the Carbon theme tokens prefixed with `--cds-`. The list of Carbon theme tokens can be found at [here](https://github.com/carbon-design-system/carbon/blob/v10.7.0/packages/themes/scss/generated/_themes.scss#L14-L454).
+
+With CSS Custom Properties approach, you can switch the entire theme under the specific element by:
+
+```css
+@import 'carbon-components/scss/globals/scss/css--helpers';
+@import 'carbon-components/scss/globals/scss/vendor/@carbon/elements/scss/themes/mixins';
+
+footer {
+  @include carbon--theme($carbon--theme--g100, true); // Emits all theme tokens in CSS Custom Properties
+}
+```
 
 ## Dependency injection
 

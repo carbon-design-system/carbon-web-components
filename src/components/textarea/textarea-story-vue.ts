@@ -58,3 +58,7 @@ export const withoutFormItemWrapper = ({ parameters }) => ({
 });
 
 withoutFormItemWrapper.story = baseWithoutFormItemWrapper.story;
+
+export const skeleton = () => ({
+  template: `<bx-textarea-skeleton></bx-textarea-skeleton>`,
+});

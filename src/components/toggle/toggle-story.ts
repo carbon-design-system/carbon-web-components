@@ -9,14 +9,19 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import './toggle';
+import { TOGGLE_SIZE } from './toggle';
 import storyDocs from './toggle-story.mdx';
 
+const sizes = {
+  [`Regular size`]: null,
+  [`Small size (${TOGGLE_SIZE.SMALL})`]: TOGGLE_SIZE.SMALL,
+};
+
 export const defaultStory = ({ parameters }) => {
-  const { checked, checkedText, disabled, labelText, name, small, uncheckedText, value, onChange } =
+  const { checked, checkedText, disabled, labelText, name, size, uncheckedText, value, onChange } =
     parameters?.props?.['bx-toggle'] ?? {};
   return html`
     <bx-toggle
@@ -25,7 +30,7 @@ export const defaultStory = ({ parameters }) => {
       ?disabled="${disabled}"
       label-text="${ifNonNull(labelText)}"
       name="${ifNonNull(name)}"
-      ?small="${small}"
+      size="${ifNonNull(size)}"
       unchecked-text="${ifNonNull(uncheckedText)}"
       value="${ifNonNull(value)}"
       @bx-toggle-changed="${onChange}"
@@ -50,7 +55,7 @@ export default {
         disabled: boolean('Disabled (disabled)', false),
         labelText: textNullable('Label text (label-text)', 'Toggle'),
         name: textNullable('Name (name)', ''),
-        small: boolean('Use small variant (small)', false),
+        size: select('Toggle size (size)', sizes, null),
         uncheckedText: textNullable('Text for unchecked state (unchecked-text)', 'Off'),
         value: textNullable('Value (value)', ''),
         onChange: action('bx-toggle-changed'),

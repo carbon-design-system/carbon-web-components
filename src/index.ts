@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,9 +10,11 @@
 export { default as BXAccordion } from './components/accordion/accordion';
 export { default as BXAccordionItem } from './components/accordion/accordion-item';
 export { default as BXButton } from './components/button/button';
+export { default as BXButtonSkeleton } from './components/button/button-skeleton';
 export { default as BXBreadcrumb } from './components/breadcrumb/breadcrumb';
 export { default as BXCheckbox } from './components/checkbox/checkbox';
 export { default as BXCodeSnippet } from './components/code-snippet/code-snippet';
+export { default as BXCodeSnippetSkeleton } from './components/code-snippet/code-snippet-skeleton';
 export { default as BXComboBox } from './components/combo-box/combo-box';
 export { default as BXComboBoxItem } from './components/combo-box/combo-box-item';
 export { default as BXContentSwitcher } from './components/content-switcher/content-switcher';
@@ -30,8 +32,10 @@ export { default as BXTableToolbarContent } from './components/data-table/table-
 export { default as BXTableToolbarSearch } from './components/data-table/table-toolbar-search';
 export { default as BXDatePicker } from './components/date-picker/date-picker';
 export { default as BXDatePickerInput } from './components/date-picker/date-picker-input';
+export { default as BXDatePickerInputSkeleton } from './components/date-picker/date-picker-input-skeleton';
 export { default as BXDropdown } from './components/dropdown/dropdown';
 export { default as BXDropdownItem } from './components/dropdown/dropdown-item';
+export { default as BXDropdownSkeleton } from './components/dropdown/dropdown-skeleton';
 export { default as BXFormItem } from './components/form/form-item';
 export { default as BXInput } from './components/input/input';
 export { default as BXInlineLoading } from './components/inline-loading/inline-loading';
@@ -52,7 +56,9 @@ export { default as BXMultiSelectItem } from './components/multi-select/multi-se
 export { default as BXInlineNotification } from './components/notification/inline-notification';
 export { default as BXToastNotification } from './components/notification/toast-notification';
 export { default as BXNumberInput } from './components/number-input/number-input';
+export { default as BXNumberInputSkeleton } from './components/number-input/number-input-skeleton';
 export { default as BXTextarea } from './components/textarea/textarea';
+export { default as BXTextareaSkeleton } from './components/textarea/textarea-skeleton';
 export { default as BXOverflowMenu } from './components/overflow-menu/overflow-menu';
 export { default as BXOverflowMenuBody } from './components/overflow-menu/overflow-menu-body';
 export { default as BXOverflowMenuItem } from './components/overflow-menu/overflow-menu-item';
@@ -60,21 +66,28 @@ export { default as BXPagination } from './components/pagination/pagination';
 export { default as BXPageSizesSelect } from './components/pagination/page-sizes-select';
 export { default as BXPagesSelect } from './components/pagination/pages-select';
 export { default as BXProgressIndicator } from './components/progress-indicator/progress-indicator';
+export { default as BXProgressIndicatorSkeleton } from './components/progress-indicator/progress-indicator-skeleton';
+export { default as BXProgressStepSkeleton } from './components/progress-indicator/progress-step-skeleton';
 export { default as BXProgressStep } from './components/progress-indicator/progress-step';
 export { default as BXRadioButton } from './components/radio-button/radio-button';
 export { default as BXRadioButtonGroup } from './components/radio-button/radio-button-group';
 export { default as BXSearch } from './components/search/search';
+export { default as BXSearchSkeleton } from './components/search/search-skeleton';
 export { default as BXSkeletonPlaceholder } from './components/skeleton-placeholder/skeleton-placeholder';
 export { default as BXSkeletonText } from './components/skeleton-text/skeleton-text';
 export { default as BXSlider } from './components/slider/slider';
 export { default as BXSliderInput } from './components/slider/slider-input';
+export { default as BXSliderSkeleton } from './components/slider/slider-skeleton';
 export { default as BXStructuredList } from './components/structured-list/structured-list';
 export { default as BXStructuredListBody } from './components/structured-list/structured-list-body';
 export { default as BXStructuredListHead } from './components/structured-list/structured-list-head';
 export { default as BXStructuredListHeaderRow } from './components/structured-list/structured-list-header-row';
 export { default as BXStructuredListRow } from './components/structured-list/structured-list-row';
+export { default as BXStructuredListHeaderCellSkeleton } from './components/structured-list/structured-list-header-cell-skeleton';
 export { default as BXTabs } from './components/tabs/tabs';
 export { default as BXTab } from './components/tabs/tab';
+export { default as BXTabsSkeleton } from './components/tabs/tabs-skeleton';
+export { default as BXTabSkeleton } from './components/tabs/tab-skeleton';
 export { default as BXTag } from './components/tag/tag';
 export { default as BXFilterTag } from './components/tag/filter-tag';
 export { default as BXTile } from './components/tile/tile';

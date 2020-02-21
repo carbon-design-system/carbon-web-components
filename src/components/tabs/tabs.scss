@@ -8,8 +8,12 @@
 @import 'carbon-components/scss/globals/scss/css--helpers';
 @import 'carbon-components/scss/components/tabs/tabs';
 
-:host(#{$prefix}-tabs) {
+:host(#{$prefix}-tabs),
+:host(#{$prefix}-tabs-skeleton) {
   @extend .#{$prefix}--tabs;
+}
+
+:host(#{$prefix}-tabs) {
   @include focus-outline('reset');
 
   .#{$prefix}--tabs-trigger svg {
@@ -170,5 +174,28 @@
         border-bottom-width: 3px;
       }
     }
+  }
+}
+
+:host(#{$prefix}-tabs-skeleton) .#{$prefix}--tabs-trigger {
+  @include skeleton;
+  width: rem(100px);
+}
+
+:host(#{$prefix}-tab-skeleton) {
+  @include carbon--breakpoint(md) {
+    margin-left: rem(2px);
+  }
+
+  .#{$prefix}--tabs__nav-link {
+    @include skeleton;
+    width: rem(75px);
+    height: rem(12px);
+  }
+}
+
+:host(#{$prefix}-tab-skeleton:first-of-type) {
+  @include carbon--breakpoint(md) {
+    margin-left: 0;
   }
 }

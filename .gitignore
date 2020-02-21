@@ -4,5 +4,8 @@ es
 node_modules
 scss
 storybook-static
+storybook-static-angular
+storybook-static-react
+storybook-static-vue
 tests/coverage
 .vscode
