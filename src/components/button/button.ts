@@ -42,6 +42,21 @@ export enum BUTTON_KIND {
 }
 
 /**
+ * Button size.
+ */
+export enum BUTTON_SIZE {
+  /**
+   * Regular size.
+   */
+  REGULAR = '',
+
+  /**
+   * Small size.
+   */
+  SMALL = 'sm',
+}
+
+/**
  * Button.
  * @element bx-btn
  */
@@ -130,10 +145,10 @@ class BXButton extends FocusMixin(LitElement) {
   rel!: string;
 
   /**
-   * `true` if the button should be a small variant.
+   * Button size.
    */
-  @property({ type: Boolean, reflect: true })
-  small = false;
+  @property({ reflect: true })
+  size = BUTTON_SIZE.REGULAR;
 
   /**
    * The link target, if this button is rendered as `<a>`.
@@ -161,7 +176,7 @@ class BXButton extends FocusMixin(LitElement) {
       kind,
       ping,
       rel,
-      small,
+      size,
       target,
       type,
       _hasIcon: hasIcon,
@@ -173,7 +188,7 @@ class BXButton extends FocusMixin(LitElement) {
       [`${prefix}--btn--${kind}`]: kind,
       [`${prefix}--btn--disabled`]: disabled,
       [`${prefix}--btn--icon-only`]: hasIcon && !hasMainContent,
-      [`${prefix}--btn--sm`]: small,
+      [`${prefix}--btn--${size}`]: size,
       [`${prefix}-ce--btn--has-icon`]: hasIcon,
     });
     return href

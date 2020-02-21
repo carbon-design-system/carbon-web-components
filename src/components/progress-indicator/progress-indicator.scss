@@ -9,15 +9,18 @@ $css--plex: true !default;
 
 @import 'carbon-components/scss/components/progress-indicator/progress-indicator';
 
-:host(#{$prefix}-progress-indicator) {
+:host(#{$prefix}-progress-indicator),
+:host(#{$prefix}-progress-indicator-skeleton) {
   @extend .#{$prefix}--progress;
 }
 
-:host(#{$prefix}-progress-indicator[vertical]) {
+:host(#{$prefix}-progress-indicator[vertical]),
+:host(#{$prefix}-progress-indicator-skeleton[vertical]) {
   @extend .#{$prefix}--progress--vertical;
 }
 
-:host(#{$prefix}-progress-step) {
+:host(#{$prefix}-progress-step),
+:host(#{$prefix}-progress-step-skeleton) {
   @extend .#{$prefix}--progress-step;
   @extend .#{$prefix}--progress-step--incomplete;
 
@@ -28,7 +31,8 @@ $css--plex: true !default;
   @extend .#{$prefix}--progress-step--disabled;
 }
 
-:host(#{$prefix}-progress-step[vertical]) {
+:host(#{$prefix}-progress-step[vertical]),
+:host(#{$prefix}-progress-step-skeleton[vertical]) {
   display: list-item;
   min-height: 6rem;
   width: initial;
@@ -41,16 +45,9 @@ $css--plex: true !default;
 
   .#{$prefix}--progress-label {
     display: inline-block;
-    width: initial;
     max-width: none;
     vertical-align: top;
     margin: 0;
-  }
-
-  .#{$prefix}--progress-optional {
-    margin-top: auto;
-    position: initial;
-    margin-left: 2.25rem;
   }
 
   .#{$prefix}--progress-line {
@@ -58,6 +55,18 @@ $css--plex: true !default;
     left: 0;
     height: 100%;
     width: 1px;
+  }
+}
+
+:host(#{$prefix}-progress-step[vertical]) {
+  .#{$prefix}--progress-label {
+    width: initial;
+  }
+
+  .#{$prefix}--progress-optional {
+    margin-top: auto;
+    position: initial;
+    margin-left: 2.25rem;
   }
 }
 
@@ -74,5 +83,21 @@ $css--plex: true !default;
 
   svg {
     fill: $interactive-01;
+  }
+}
+
+:host(#{$prefix}-progress-step-skeleton) .#{$prefix}--progress-label {
+  @include skeleton;
+  height: rem(12px);
+  width: rem(40px);
+}
+
+:host(#{$prefix}-progress-step-skeleton) {
+  svg {
+    fill: $ui-05;
+  }
+
+  .#{$prefix}--progress-line {
+    background-color: $ui-03;
   }
 }

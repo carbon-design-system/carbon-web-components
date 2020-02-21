@@ -45,6 +45,18 @@ export const defaultStory = ({ parameters }) => ({
 
 defaultStory.story = baseDefaultStory.story;
 
+export const skeleton = () => ({
+  template: `
+    <bx-tabs-skeleton>
+      <bx-tab-skeleton></bx-tab-skeleton>
+      <bx-tab-skeleton></bx-tab-skeleton>
+      <bx-tab-skeleton></bx-tab-skeleton>
+      <bx-tab-skeleton></bx-tab-skeleton>
+      <bx-tab-skeleton></bx-tab-skeleton>
+    </bx-tabs-skeleton>
+  `,
+});
+
 export default Object.assign(baseStory, {
   decorators: [
     moduleMetadata({

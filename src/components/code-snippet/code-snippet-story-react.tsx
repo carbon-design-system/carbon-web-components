@@ -12,7 +12,15 @@ import React from 'react';
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXCodeSnippet from 'carbon-custom-elements/es/components-react/code-snippet/code-snippet';
-import { singleLine as baseSingleLine, multiLine as baseMultiLine, inline as baseInline } from './code-snippet-story';
+// @ts-ignore
+import BXCodeSnippetSkeleton from 'carbon-custom-elements/es/components-react/code-snippet/code-snippet-skeleton';
+import {
+  singleLine as baseSingleLine,
+  multiLine as baseMultiLine,
+  inline as baseInline,
+  skeletonSingleLine as baseSkeletonSingleLine,
+  skeletonMultiLine as baseSkeletonMultiLine,
+} from './code-snippet-story';
 
 export { default } from './code-snippet-story';
 
@@ -106,5 +114,13 @@ export const inline = ({ parameters }) => {
     </BXCodeSnippet>
   );
 };
+
+export const skeletonSingleLine = () => <BXCodeSnippetSkeleton type="single" />;
+
+skeletonSingleLine.story = baseSkeletonSingleLine.story;
+
+export const skeletonMultiLine = () => <BXCodeSnippetSkeleton type="multi" />;
+
+skeletonMultiLine.story = baseSkeletonMultiLine.story;
 
 inline.story = baseInline.story;

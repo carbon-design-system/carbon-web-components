@@ -48,6 +48,10 @@ export const defaultStory = ({ parameters }) => ({
 
 defaultStory.story = baseDefaultStory.story;
 
+export const skeleton = () => ({
+  template: `<bx-dropdown-skeleton></bx-dropdown-skeleton>`,
+});
+
 export default Object.assign(baseStory, {
   decorators: [
     moduleMetadata({
