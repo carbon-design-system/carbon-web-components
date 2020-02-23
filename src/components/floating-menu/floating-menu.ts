@@ -151,7 +151,7 @@ abstract class BXFloatingMenu extends HostListenerMixin(FocusMixin(LitElement)) 
     }
   });
 
-  @HostListener('blur')
+  @HostListener('focusout')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleBlur = ({ relatedTarget }: FocusEvent) => {
     if (!this.contains(relatedTarget as Node)) {
