@@ -220,7 +220,7 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
    * Handles `blur` event handler on the document this element is in.
    * @param event The event.
    */
-  @HostListener('blur')
+  @HostListener('focusout')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   protected _handleFocusOut(event: FocusEvent) {
     if (!this.contains(event.relatedTarget as Node)) {
