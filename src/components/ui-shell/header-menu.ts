@@ -60,7 +60,7 @@ class BXHeaderMenu extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * Handles `blur` event handler on this element.
    */
-  @HostListener('blur')
+  @HostListener('focusout')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleBlur({ relatedTarget }: FocusEvent) {
     if (!this.contains(relatedTarget as Node)) {
