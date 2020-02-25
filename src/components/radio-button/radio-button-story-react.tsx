@@ -14,6 +14,8 @@ import React from 'react';
 import BXRadioButtonGroup from 'carbon-custom-elements/es/components-react/radio-button/radio-button-group';
 // @ts-ignore
 import BXRadioButton from 'carbon-custom-elements/es/components-react/radio-button/radio-button';
+// @ts-ignore
+import BXRadioButtonSkeleton from 'carbon-custom-elements/es/components-react/radio-button/radio-button-skeleton';
 import { defaultStory as baseDefaultStory } from './radio-button-story';
 
 export { default } from './radio-button-story';
@@ -37,3 +39,5 @@ export const defaultStory = ({ parameters }) => {
 };
 
 defaultStory.story = baseDefaultStory.story;
+
+export const skeleton = () => <BXRadioButtonSkeleton />;
