@@ -15,6 +15,7 @@ const { promisify } = require('util');
 const asyncDone = require('async-done');
 const gulp = require('gulp');
 const filter = require('gulp-filter');
+const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const sass = require('gulp-sass');
@@ -29,6 +30,7 @@ const autoprefixer = require('autoprefixer');
 const rtlcss = require('rtlcss');
 const replaceExtension = require('replace-ext');
 const babelPluginCreateReactCustomElementType = require('../tools/babel-plugin-create-react-custom-element-type');
+const babelPluginCreateReactCustomElementTypeDef = require('../tools/babel-plugin-create-react-custom-element-type-def');
 const babelPluginResourceJSPaths = require('../tools/babel-plugin-resource-js-paths');
 const fixHostPseudo = require('../tools/postcss-fix-host-pseudo');
 const createSVGResultFromCarbonIcon = require('../tools/svg-result-carbon-icon');
@@ -129,6 +131,34 @@ module.exports = {
           )
           .pipe(prettier())
           .pipe(header(banner))
+          .pipe(gulp.dest(`${config.jsDestDir}/components-react`))
+      );
+    },
+
+    async reactTypes() {
+      const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
+      await promisifyStream(() =>
+        gulp
+          .src([`${config.srcDir}/components/**/*.ts`, `!${config.srcDir}/**/*-story*.ts*`, `!${config.srcDir}/**/stories/*.ts`])
+          .pipe(
+            babel({
+              babelrc: false,
+              plugins: [
+                ['@babel/plugin-syntax-decorators', { decoratorsBeforeExport: true }],
+                '@babel/plugin-syntax-typescript',
+                '@babel/plugin-proposal-nullish-coalescing-operator',
+                '@babel/plugin-proposal-optional-chaining',
+                babelPluginCreateReactCustomElementTypeDef,
+              ],
+            })
+          )
+          .pipe(prettier())
+          .pipe(header(banner))
+          .pipe(
+            rename(pathObj => {
+              pathObj.extname = '.d.ts';
+            })
+          )
           .pipe(gulp.dest(`${config.jsDestDir}/components-react`))
       );
     },

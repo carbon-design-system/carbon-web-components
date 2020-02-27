@@ -153,6 +153,7 @@
     "gulp-jsdoc3": "^1.0.0",
     "gulp-postcss": "^8.0.0",
     "gulp-prettier": "^2.1.0",
+    "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.0.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-typescript": "^5.0.0",
