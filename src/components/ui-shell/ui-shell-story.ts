@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -25,6 +25,7 @@ import './header-menu';
 import './header-menu-item';
 import './header-menu-button';
 import './header-name';
+import styles from './ui-shell-story.scss';
 import storyDocs from './ui-shell-story.mdx';
 
 const StoryContent = () => html`
@@ -129,17 +130,6 @@ export const sideNav = ({ parameters }) => {
 
 sideNav.story = {
   name: 'Side nav',
-  parameters: {
-    knobs: {
-      'bx-side-nav': () => ({
-        expanded: boolean('Expanded (expanded)', true),
-        fixed: boolean('Fixed (fixed)', false),
-      }),
-      'bx-side-nav-menu-item': () => ({
-        href: textNullable('Link href (href)', 'javascript:void 0'), // eslint-disable-line no-script-url
-      }),
-    },
-  },
 };
 
 export const sideNavWithIcons = ({ parameters }) => {
@@ -196,15 +186,21 @@ export const sideNavWithIcons = ({ parameters }) => {
 
 sideNavWithIcons.story = {
   name: 'Side nav with icons',
-  parameters: {
-    knobs: sideNav.story.parameters.knobs,
-  },
 };
 
-export const header = () => {
+export const header = ({ parameters }) => {
+  const { expanded, fixed } = parameters?.props?.['bx-side-nav'] ?? {};
+  const { href } = parameters?.props?.['bx-side-nav-menu-item'] ?? {};
   const result = html`
+    <style>
+      ${styles}
+    </style>
     <bx-header aria-label="IBM Platform Name">
-      <bx-header-menu-button button-label-active="Close menu" button-label-inactive="Open menu"></bx-header-menu-button>
+      <bx-header-menu-button
+        ?active=${expanded}
+        button-label-active="Close menu"
+        button-label-inactive="Open menu"
+      ></bx-header-menu-button>
       <bx-header-name href="javascript:void 0" prefix="IBM">[Platform]</bx-header-name>
       <bx-header-nav menu-bar-label="IBM [Platform]">
         <bx-header-nav-item href="javascript:void 0">Link 1</bx-header-nav-item>
@@ -217,19 +213,52 @@ export const header = () => {
         </bx-header-menu>
       </bx-header-nav>
     </bx-header>
+    <bx-side-nav aria-label="Side navigation" ?expanded=${expanded} ?fixed=${fixed}>
+      <bx-side-nav-items>
+        <bx-side-nav-menu title="L0 menu">
+          ${Fade16({ slot: 'title-icon' })}
+          <bx-side-nav-menu-item href="${ifNonNull(href)}">
+            L0 menu item
+          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}">
+            L0 menu item
+          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}">
+            L0 menu item
+          </bx-side-nav-menu-item>
+        </bx-side-nav-menu>
+        <bx-side-nav-menu title="L0 menu">
+          ${Fade16({ slot: 'title-icon' })}
+          <bx-side-nav-menu-item href="${ifNonNull(href)}">
+            L0 menu item
+          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item active aria-current="page" href="${ifNonNull(href)}">
+            L0 menu item
+          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}">
+            L0 menu item
+          </bx-side-nav-menu-item>
+        </bx-side-nav-menu>
+        <bx-side-nav-menu title="L0 menu">
+          ${Fade16({ slot: 'title-icon' })}
+          <bx-side-nav-menu-item href="${ifNonNull(href)}">
+            L0 menu item
+          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}">
+            L0 menu item
+          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}">
+            L0 menu item
+          </bx-side-nav-menu-item>
+        </bx-side-nav-menu>
+        <bx-side-nav-link href="javascript:void(0)">${Fade16({ slot: 'title-icon' })}L0 link</bx-side-nav-link>
+        <bx-side-nav-link href="javascript:void(0)">${Fade16({ slot: 'title-icon' })}L0 link</bx-side-nav-link>
+      </bx-side-nav-items>
+    </bx-side-nav>
     ${StoryContent()}
   `;
   (result as any).hasMainTag = true;
   return result;
-};
-
-header.story = {
-  parameters: {
-    knobs: {
-      'bx-side-nav': () => ({}),
-      'bx-side-nav-menu-item': () => ({}),
-    },
-  },
 };
 
 export default {
@@ -237,6 +266,15 @@ export default {
   parameters: {
     docs: {
       page: storyDocs,
+    },
+    knobs: {
+      'bx-side-nav': () => ({
+        expanded: boolean('Expanded (expanded)', true),
+        fixed: boolean('Fixed (fixed)', false),
+      }),
+      'bx-side-nav-menu-item': () => ({
+        href: textNullable('Link href (href)', 'javascript:void 0'), // eslint-disable-line no-script-url
+      }),
     },
   },
 };
