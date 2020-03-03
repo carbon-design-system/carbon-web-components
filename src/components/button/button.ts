@@ -121,7 +121,6 @@ class BXButton extends FocusMixin(LitElement) {
 
   /**
    * The language of what `href` points to, if this button is rendered as `<a>`.
-   * @type {[type]}
    */
   @property()
   hreflang!: string;
