@@ -201,7 +201,7 @@ skeletonRange.story = {
 };
 
 export default {
-  title: 'Date picker',
+  title: 'Components/Date picker',
   parameters: {
     docs: {
       page: storyDocs,

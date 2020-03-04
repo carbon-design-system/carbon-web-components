@@ -49,7 +49,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Modal',
+  title: 'Components/Modal',
   parameters: {
     docs: {
       page: storyDocs,

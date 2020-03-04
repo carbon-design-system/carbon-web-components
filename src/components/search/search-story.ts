@@ -72,5 +72,5 @@ export const skeleton = () =>
   `;
 
 export default {
-  title: 'Search',
+  title: 'Components/Search',
 };

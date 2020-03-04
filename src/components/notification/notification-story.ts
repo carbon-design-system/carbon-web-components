@@ -133,7 +133,7 @@ toast.story = {
 };
 
 export default {
-  title: 'Notifications',
+  title: 'Components/Notifications',
   parameters: {
     docs: {
       page: storyDocs,

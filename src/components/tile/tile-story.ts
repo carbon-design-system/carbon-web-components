@@ -160,7 +160,7 @@ expandable.story = {
 };
 
 export default {
-  title: 'Tile',
+  title: 'Components/Tile',
   decorators: [
     story =>
       html`

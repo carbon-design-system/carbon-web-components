@@ -96,7 +96,7 @@ export const skeleton = () =>
   `;
 
 export default {
-  title: 'Dropdown',
+  title: 'Components/Dropdown',
   parameters: {
     docs: {
       page: storyDocs,

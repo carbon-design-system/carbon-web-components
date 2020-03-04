@@ -137,5 +137,5 @@ export const skeleton = () =>
   `;
 
 export default {
-  title: 'Textarea',
+  title: 'Components/Textarea',
 };

@@ -81,7 +81,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Multi select',
+  title: 'Components/Multi select',
   parameters: {
     docs: {
       page: storyDocs,
