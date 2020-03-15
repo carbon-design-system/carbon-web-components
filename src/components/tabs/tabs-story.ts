@@ -9,10 +9,10 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import './tabs';
+import { TABS_TYPE } from './tabs';
 import './tab';
 import './tabs-skeleton';
 import './tab-skeleton';
@@ -21,8 +21,13 @@ import storyDocs from './tabs-story.mdx';
 
 const noop = () => {};
 
+const types = {
+  'Regular type': null,
+  [`Container type (${TABS_TYPE.CONTAINER})`]: TABS_TYPE.CONTAINER,
+};
+
 export const defaultStory = ({ parameters }) => {
-  const { disabled, triggerContent, value, disableSelection, onBeforeSelect = noop, onSelect = noop } =
+  const { disabled, triggerContent, type, value, disableSelection, onBeforeSelect = noop, onSelect = noop } =
     parameters?.props?.['bx-tabs'] || {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
@@ -37,6 +42,7 @@ export const defaultStory = ({ parameters }) => {
     <bx-tabs
       ?disabled="${disabled}"
       trigger-content="${ifNonNull(triggerContent)}"
+      type="${ifNonNull(type)}"
       value="${ifNonNull(value)}"
       @bx-tabs-beingselected="${handleBeforeSelected}"
       @bx-tabs-selected="${onSelect}"
@@ -100,6 +106,7 @@ defaultStory.story = {
           'The default content of the trigger button for narrow screen (trigger-content)',
           'Select an item'
         ),
+        type: select('Tabs type (type)', types, null),
         value: textNullable('The value of the selected item (value)', 'staging'),
         disableSelection: boolean(
           'Disable user-initiated selection change (Call event.preventDefault() in bx-content-switcher-beingselected event)',
