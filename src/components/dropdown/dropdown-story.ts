@@ -12,7 +12,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import { DROPDOWN_COLOR_SCHEME, DROPDOWN_TYPE } from './dropdown';
+import { DROPDOWN_COLOR_SCHEME, DROPDOWN_SIZE, DROPDOWN_TYPE } from './dropdown';
 import './dropdown-item';
 import './dropdown-skeleton';
 import storyDocs from './dropdown-story.mdx';
@@ -20,6 +20,12 @@ import storyDocs from './dropdown-story.mdx';
 const colorSchemes = {
   [`Regular`]: null,
   [`Light (${DROPDOWN_COLOR_SCHEME.LIGHT})`]: DROPDOWN_COLOR_SCHEME.LIGHT,
+};
+
+const sizes = {
+  'Regular size': null,
+  [`Small size (${DROPDOWN_SIZE.SMALL})`]: DROPDOWN_SIZE.SMALL,
+  [`Extra large size (${DROPDOWN_SIZE.EXTRA_LARGE})`]: DROPDOWN_SIZE.EXTRA_LARGE,
 };
 
 const types = {
@@ -34,6 +40,7 @@ export const defaultStory = ({ parameters }) => {
     disabled,
     helperText,
     labelText,
+    size,
     type,
     value,
     triggerContent,
@@ -56,6 +63,7 @@ export const defaultStory = ({ parameters }) => {
       ?disabled=${disabled}
       helper-text=${ifNonNull(helperText)}
       label-text=${ifNonNull(labelText)}
+      size="${ifNonNull(size)}"
       type="${ifNonNull(type)}"
       value=${ifNonNull(value)}
       trigger-content=${ifNonNull(triggerContent)}
@@ -81,6 +89,7 @@ defaultStory.story = {
         disabled: boolean('Disabled (disabled)', false),
         helperText: textNullable('Helper text (helper-text)', 'Optional helper text'),
         labelText: textNullable('Label text (label-text)', 'Dropdown title'),
+        size: select('Dropdown size (size)', sizes, null),
         type: select('Dropdown type (type)', types, null),
         value: textNullable('The value of the selected item (value)', ''),
         triggerContent: textNullable('The default content of the trigger button (trigger-content)', 'Select an item'),

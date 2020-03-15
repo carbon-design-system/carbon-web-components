@@ -22,6 +22,7 @@ export const defaultStory = ({ parameters }) => ({
       :light="light"
       :helper-text="helperText"
       :label-text="labelText"
+      :size="size"
       :validity-message="validityMessage"
       :value="value"
       :trigger-content="triggerContent"

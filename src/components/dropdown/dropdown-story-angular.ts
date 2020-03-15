@@ -19,6 +19,7 @@ export const defaultStory = ({ parameters }) => ({
       [disabled]="disabled"
       [helperText]="helperText"
       [labelText]="labelText"
+      [size]="size"
       [value]="value"
       [triggerContent]="triggerContent"
       (bx-dropdown-beingselected)="handleBeforeSelect($event)"

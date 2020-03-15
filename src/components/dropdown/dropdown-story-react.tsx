@@ -30,6 +30,7 @@ export const defaultStory = ({ parameters }) => {
     light,
     toggleLabelClosed,
     toggleLabelOpen,
+    size,
     triggerContent,
     type,
     value,
@@ -51,6 +52,7 @@ export const defaultStory = ({ parameters }) => {
       light={light}
       helperText={helperText}
       labelText={labelText}
+      size={size}
       toggleLabelClosed={toggleLabelClosed}
       toggleLabelOpen={toggleLabelOpen}
       triggerContent={triggerContent}

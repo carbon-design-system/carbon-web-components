@@ -10,16 +10,21 @@
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
-import { DROPDOWN_COLOR_SCHEME, DROPDOWN_TYPE } from '../dropdown/dropdown';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import './multi-select';
+import { DROPDOWN_COLOR_SCHEME, DROPDOWN_SIZE, DROPDOWN_TYPE } from './multi-select';
 import './multi-select-item';
 import storyDocs from './multi-select-story.mdx';
 
 const colorSchemes = {
   [`Regular`]: null,
   [`Light (${DROPDOWN_COLOR_SCHEME.LIGHT})`]: DROPDOWN_COLOR_SCHEME.LIGHT,
+};
+
+const sizes = {
+  'Regular size': null,
+  [`Small size (${DROPDOWN_SIZE.SMALL})`]: DROPDOWN_SIZE.SMALL,
+  [`Extra large size (${DROPDOWN_SIZE.EXTRA_LARGE})`]: DROPDOWN_SIZE.EXTRA_LARGE,
 };
 
 const types = {
@@ -36,6 +41,7 @@ export const defaultStory = ({ parameters }) => {
     invalid,
     labelText,
     open,
+    size,
     toggleLabelClosed,
     toggleLabelOpen,
     triggerContent,
@@ -63,6 +69,7 @@ export const defaultStory = ({ parameters }) => {
       clear-selection-label=${ifNonNull(clearSelectionLabel)}
       helper-text=${ifNonNull(helperText)}
       label-text=${ifNonNull(labelText)}
+      size=${ifNonNull(size)}
       toggle-label-closed=${ifNonNull(toggleLabelClosed)}
       toggle-label-open=${ifNonNull(toggleLabelOpen)}
       trigger-content=${ifNonNull(triggerContent)}
@@ -103,6 +110,7 @@ export default {
         toggleLabelClosed: textNullable('a11y label for the UI indicating the closed state (toggle-label-closed)', ''),
         toggleLabelOpen: textNullable('a11y label for the UI indicating the closed state (toggle-label-open)', ''),
         triggerContent: textNullable('The default content of the trigger button (trigger-content)', 'Select items'),
+        size: select('Dropdown size (size)', sizes, null),
         type: select('UI type (type)', types, null),
         validityMessage: textNullable('The validity message (validity-message)', ''),
         disableSelection: boolean(
