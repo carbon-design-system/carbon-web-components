@@ -35,7 +35,7 @@ const knobs = {
 };
 
 const sizesHorizontal = {
-  [`Regular size`]: null,
+  'Regular size': null,
   [`Short size (${DATE_PICKER_INPUT_SIZE_HORIZONTAL.SHORT})`]: DATE_PICKER_INPUT_SIZE_HORIZONTAL.SHORT,
 };
 

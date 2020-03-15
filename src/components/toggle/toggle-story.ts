@@ -16,7 +16,7 @@ import { TOGGLE_SIZE } from './toggle';
 import storyDocs from './toggle-story.mdx';
 
 const sizes = {
-  [`Regular size`]: null,
+  'Regular size': null,
   [`Small size (${TOGGLE_SIZE.SMALL})`]: TOGGLE_SIZE.SMALL,
 };
 

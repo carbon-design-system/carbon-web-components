@@ -50,7 +50,7 @@ export enum DATE_PICKER_INPUT_SIZE_HORIZONTAL {
   /**
    * Regular size.
    */
-  REGULAR = 'regular',
+  REGULAR = '',
 
   /**
    * Short size.

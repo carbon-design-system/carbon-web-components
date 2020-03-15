@@ -31,7 +31,7 @@ export enum TABLE_SIZE {
   /**
    * Regular size.
    */
-  REGULAR = 'regular',
+  REGULAR = '',
 
   /**
    * Tall size.

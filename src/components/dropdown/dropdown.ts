@@ -66,7 +66,7 @@ export enum DROPDOWN_TYPE {
   /**
    * Regular type.
    */
-  REGULAR = 'regular',
+  REGULAR = '',
 
   /**
    * Inline type.
