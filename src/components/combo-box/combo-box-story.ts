@@ -21,7 +21,7 @@ const colorSchemes = {
 };
 
 const types = {
-  [`Regular (${DROPDOWN_TYPE.REGULAR})`]: null,
+  Regular: null,
   [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
 };
 
@@ -40,10 +40,10 @@ export const defaultStory = ({ parameters }) => {
     invalid,
     labelText,
     size,
-    value,
     triggerContent,
     type,
     validityMessage,
+    value,
     disableSelection,
     onBeforeSelect,
     onSelect,
@@ -100,10 +100,10 @@ export default {
         invalid: boolean('Show invalid state  (invalid)', false),
         labelText: text('Label text (label-text)', 'Combo box title'),
         size: select('Dropdown size (size)', sizes, null),
-        value: text('The value of the selected item (value)', ''),
         triggerContent: text('The placeholder content (trigger-content)', 'Filter...'),
         type: select('UI type (type)', types, null),
         validityMessage: text('The validity message (validity-message)', ''),
+        value: text('The value of the selected item (value)', ''),
         disableSelection: boolean(
           'Disable user-initiated selection change (Call event.preventDefault() in bx-combo-box-beingselected event)',
           false

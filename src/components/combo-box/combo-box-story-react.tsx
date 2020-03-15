@@ -28,6 +28,7 @@ export const defaultStory = ({ parameters }) => {
     labelText,
     light,
     size,
+    type,
     validityMessage,
     value,
     triggerContent,
@@ -51,6 +52,7 @@ export const defaultStory = ({ parameters }) => {
       helperText={helperText}
       labelText={labelText}
       size={size}
+      type={type}
       validityMessage={validityMessage}
       value={value}
       triggerContent={triggerContent}
