@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -9,7 +9,10 @@
 
 import { html } from 'lit-element';
 import { boolean } from '@storybook/addon-knobs';
-import Fade16 from '@carbon/icons/lib/fade/16';
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
+// @ts-ignore
+import Fade16 from 'carbon-custom-elements/es/icons/fade/16';
 import contentStyles from 'carbon-components/scss/components/ui-shell/_content.scss';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
