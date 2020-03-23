@@ -14,6 +14,7 @@ import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
 import { RADIO_BUTTON_ORIENTATION } from './radio-button-group';
 import { RADIO_BUTTON_LABEL_POSITION } from './radio-button';
+import './radio-button-skeleton';
 import storyDocs from './radio-button-story.mdx';
 
 const orientations = {
@@ -47,10 +48,6 @@ export const defaultStory = ({ parameters }) => {
 
 defaultStory.story = {
   name: 'Default',
-};
-
-export default {
-  title: 'Radio button',
   parameters: {
     docs: {
       page: storyDocs,
@@ -70,4 +67,13 @@ export default {
       }),
     },
   },
+};
+
+export const skeleton = () =>
+  html`
+    <bx-radio-button-skeleton></bx-radio-button-skeleton>
+  `;
+
+export default {
+  title: 'Radio button',
 };
