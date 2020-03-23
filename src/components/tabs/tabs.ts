@@ -91,7 +91,7 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
   /**
    * Handles `focus` event handler on this element.
    */
-  @HostListener('focus')
+  @HostListener('focusin')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleFocusIn() {
     const { selectorItem } = this.constructor as typeof BXTabs;
@@ -104,7 +104,7 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
    * Handles `blur` event handler on this element.
    * @param event The event.
    */
-  @HostListener('blur')
+  @HostListener('focusout')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleFocusOut({ relatedTarget }: FocusEvent) {
     if (!this.contains(relatedTarget as Node)) {
