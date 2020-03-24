@@ -409,7 +409,7 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
   /**
    * The special validity message for `required`.
    */
-  @property()
+  @property({ attribute: 'required-validity-message' })
   requiredValidityMessage = 'Please fill out this field.';
 
   /**
