@@ -2,6 +2,7 @@
   "name": "carbon-custom-elements",
   "version": "1.0.0-beta.8",
   "license": "Apache-2.0",
+  "type": "module",
   "main": "es/index.js",
   "module": "es/index.js",
   "typings": "es/index.d.ts",
