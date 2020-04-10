@@ -147,30 +147,9 @@ module.exports = {
           .pipe(sourcemaps.init())
           .pipe(
             babel({
-              presets: [
-                [
-                  '@babel/preset-env',
-                  {
-                    modules: false,
-                    targets: [
-                      'last 1 version',
-                      'Firefox ESR',
-                      'not opera > 0',
-                      'not op_mini > 0',
-                      'not op_mob > 0',
-                      'not android > 0',
-                      'not edge > 0',
-                      'not ie > 0',
-                      'not ie_mob > 0',
-                    ],
-                  },
-                ],
-              ],
+              presets: ['@babel/preset-modules'],
               // `version: '7.3.0'` ensures `@babel/plugin-transform-runtime` is applied to decorator helper
-              plugins: [
-                ['@babel/plugin-transform-runtime', { useESModules: true, version: '7.3.0' }],
-                babelPluginResourceJSPaths,
-              ],
+              plugins: [babelPluginResourceJSPaths],
             })
           )
           // Avoids generating `.js` from interface-only `.ts` files
