@@ -60,8 +60,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.8.0",
-    "lodash-es": "^4.17.0",
-    "resize-observer-polyfill": "^1.5.0"
+    "lodash-es": "^4.17.0"
   },
   "devDependencies": {
     "@angular-devkit/core": "^8.0.0",
@@ -194,6 +193,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "replace-ext": "^1.0.0",
+    "resize-observer-polyfill": "^1.5.0",
     "rtlcss": "^2.4.0",
     "rxjs": "^6.4.0",
     "sass-loader": "^7.1.0",
