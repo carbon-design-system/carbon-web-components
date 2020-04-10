@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,6 +10,8 @@
 import { render } from 'lit-html';
 import pick from 'lodash-es/pick';
 import flatpickr from 'flatpickr';
+import EventManager from '../utils/event-manager';
+
 import BXDatePicker from '../../src/components/date-picker/date-picker';
 import BXDatePickerInput from '../../src/components/date-picker/date-picker-input';
 import { defaultStory, singleWithCalendar, rangeWithCalendar } from '../../src/components/date-picker/date-picker-story';
@@ -36,6 +38,8 @@ const rangeWithCalendarTemplate = (props?) =>
   });
 
 describe('bx-date-picker', function() {
+  const events = new EventManager();
+
   describe('Simple mode', function() {
     let datePicker: BXDatePicker | null;
 
@@ -141,7 +145,58 @@ describe('bx-date-picker', function() {
     });
   });
 
+  describe('Form validation', function() {
+    let elem: Element;
+
+    beforeEach(async function() {
+      render(defaultTemplate(), document.body);
+      await Promise.resolve();
+      elem = document.body.querySelector('bx-date-picker-input')!;
+    });
+
+    it('should support checking if required value exists', async function() {
+      const input = elem as BXDatePickerInput;
+      input.required = true;
+      const spyInvalid = jasmine.createSpy('invalid');
+      events.on(input, 'invalid', spyInvalid);
+      expect(input.checkValidity()).toBe(false);
+      expect(spyInvalid).toHaveBeenCalled();
+      expect(input.invalid).toBe(true);
+      expect(input.validityMessage).toBe('Please fill out this field.');
+      input.value = 'value-foo';
+      expect(input.checkValidity()).toBe(true);
+      expect(input.invalid).toBe(false);
+      expect(input.validityMessage).toBe('');
+    });
+
+    it('should support canceling required check', async function() {
+      const input = elem as BXDatePickerInput;
+      input.required = true;
+      events.on(input, 'invalid', event => {
+        event.preventDefault();
+      });
+      expect(input.checkValidity()).toBe(false);
+      expect(input.invalid).toBe(false);
+      expect(input.validityMessage).toBe('');
+    });
+
+    it('should treat empty custom validity message as not invalid', async function() {
+      const input = elem as BXDatePickerInput;
+      input.setCustomValidity('');
+      expect(input.invalid).toBe(false);
+      expect(input.validityMessage).toBe('');
+    });
+
+    it('should treat non-empty custom validity message as invalid', async function() {
+      const input = elem as BXDatePickerInput;
+      input.setCustomValidity('validity-message-foo');
+      expect(input.invalid).toBe(true);
+      expect(input.validityMessage).toBe('validity-message-foo');
+    });
+  });
+
   afterEach(async function() {
+    events.reset();
     await render(undefined!, document.body);
   });
 });

@@ -13,6 +13,42 @@ Selecting an item from the dropdown will close the drawer and the selected optio
   <Story id="combo-box--default-story" height="240px" />
 </Preview>
 
+## Basic usage
+
+In the most basic case, you can simply put `<bx-combo-box>` and `<bx-combo-box-item>` in a similar manner as putting `<select>`/`<option>` like below, and you'll get Carbon-styled combo box automatically. You can specify selected items via `value` attribute in `<bx-combo-box>`, too:
+
+```html
+<bx-combo-box value="bar">
+  <bx-combo-box-item value="foo">Foo</bx-combo-box-item>
+  <bx-combo-box-item value="bar">Bar</bx-combo-box-item>
+  <bx-combo-box-item value="baz">Baz</bx-combo-box-item>
+</bx-combo-box>
+```
+
+Often you want to render the combo box items from your data. Below is an example of [`lit-html`](https://lit-html.polymer-project.org), but similar stories apply to React, Angular, Vue, Backbone, Knockout and many others:
+
+```javascript
+html`
+  <bx-combo-box>
+    ${items.map(
+      item => html`
+        <bx-combo-box-item value="${item.value}">${item.title}</bx-combo-box-item>
+      `
+    )}
+  </bx-combo-box>
+`;
+```
+
+## Selection
+
+When user attempts to select a combo box item, `bx-combo-box-beingselected` event fires on `<bx-combo-box>`, which has the following properties in the event details:
+
+| Property | Description                               |
+| -------- | ----------------------------------------- |
+| `item`   | The `<bx-combo-box-item>` being selected. |
+
+`bx-combo-box-beingselected` bubbles and is cancelable. Canceling this event means canceling change in selection.
+
 ## `<bx-combo-box>` attributes, properties and events
 
 Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-combo-box open>`) and `false` means not setting the attribute (e.g. `<bx-combo-box>` without `open` attribute).

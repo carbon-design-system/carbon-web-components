@@ -67,7 +67,7 @@ class BXModal extends HostListenerMixin(LitElement) {
    * Handles `blur` event on this element.
    * @param event The event.
    */
-  @HostListener('shadowRoot:blur')
+  @HostListener('shadowRoot:focusout')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleBlur = ({ target, relatedTarget }: FocusEvent) => {
     const oldContains = target !== this && this.contains(target as Node);
