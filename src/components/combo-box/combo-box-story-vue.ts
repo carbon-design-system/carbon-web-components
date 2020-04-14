@@ -16,6 +16,7 @@ export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-combo-box
       :open="open"
+      :color-scheme="colorScheme"
       :disabled="disabled"
       :invalid="invalid"
       :light="light"
