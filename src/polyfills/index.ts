@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -20,6 +20,8 @@ import 'core-js/modules/es.object.is.js'; // For src/globals/directives/spread.t
 import 'core-js/modules/es.object.values.js';
 import 'core-js/modules/es.object.entries';
 
+import ResizeObserver from 'resize-observer-polyfill';
+
 import './element-closest';
 import './element-matches';
 import './toggle-attribute';
@@ -33,3 +35,7 @@ import '@webcomponents/shadydom/src/shadydom.js';
 import '@webcomponents/custom-elements/src/custom-elements.js';
 import '@webcomponents/shadycss/entrypoints/scoping-shim.js';
 import '@webcomponents/url/url.js';
+
+if (typeof ResizeObserver === 'undefined') {
+  (window as any).ResizeObserver = ResizeObserver;
+}

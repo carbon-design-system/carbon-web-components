@@ -16,6 +16,7 @@ export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-search
       [closeButtonAssistiveText]="closeButtonAssistiveText"
+      [colorScheme]="colorScheme"
       [disabled]="disabled"
       [light]="light"
       [labelText]="labelText"

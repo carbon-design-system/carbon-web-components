@@ -6,7 +6,7 @@
   "license": "Apache-2",
   "main": "index.html",
   "dependencies": {
-    "carbon-components": "~10.9.0",
+    "carbon-components": "~10.10.0",
     "carbon-custom-elements": "^1.0.0-beta.0",
     "lit-element": "^2.2.0",
     "lit-html": "^1.1.0",
@@ -23,6 +23,7 @@
     "@babel/plugin-transform-runtime": "^7.8.0",
     "@babel/preset-react": "^7.8.0",
     "@types/lodash-es": "^4.17.0",
+    "@types/react": "^16.9.0",
     "parcel-bundler": "^1.10.0"
   },
   "scripts": {
