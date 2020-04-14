@@ -125,7 +125,7 @@ export default class BXTextarea extends ValidityMixin(FormMixin(LitElement)) {
   /**
    * The special validity message for `required`.
    */
-  @property()
+  @property({ attribute: 'required-validity-message' })
   requiredValidityMessage = 'Please fill out this field.';
 
   /**
