@@ -33,6 +33,12 @@ class BXMultiSelect extends BXDropdown {
   private _selectedItemsCount = 0;
 
   /**
+   * The selection button.
+   */
+  @query('#selection-button')
+  private _selectionButtonNode!: HTMLElement;
+
+  /**
    * The trigger button.
    */
   @query(`.${prefix}--list-box__field`)
@@ -64,7 +70,7 @@ class BXMultiSelect extends BXDropdown {
   }
 
   protected _handleClickInner(event: MouseEvent) {
-    if ((event.target as Element).closest((this.constructor as typeof BXMultiSelect).selectorSelectionButton)) {
+    if (this._selectionButtonNode?.contains(event.target as Node)) {
       this._handleUserInitiatedSelectItem();
     } else {
       const shouldIgnoreClickInner = elem =>
@@ -78,7 +84,7 @@ class BXMultiSelect extends BXDropdown {
   protected _handleKeydownInner(event: KeyboardEvent) {
     const { key } = event;
     if (
-      (event.target as Element).closest((this.constructor as typeof BXMultiSelect).selectorSelectionButton) &&
+      this._selectionButtonNode?.contains(event.target as Node) &&
       (this.constructor as typeof BXMultiSelect).TRIGGER_KEYS.has(key)
     ) {
       this._handleUserInitiatedSelectItem();
@@ -98,6 +104,7 @@ class BXMultiSelect extends BXDropdown {
       ? undefined
       : html`
           <div
+            id="selection-button"
             role="button"
             class="${prefix}--list-box__selection ${prefix}--list-box__selection--multi ${prefix}--tag--filter"
             tabindex="0"
@@ -144,18 +151,18 @@ class BXMultiSelect extends BXDropdown {
   }
 
   /**
+   * A selector to ignore the `click` events from.
+   * Primary for the checkbox label where the `click` event will happen from the associated check box.
+   */
+  private static get selectorIgnoreClickInner() {
+    return `.${prefix}--checkbox-label`;
+  }
+
+  /**
    * A selector that will return highlighted items.
    */
   static get selectorItemHighlighted() {
     return `${prefix}-multi-select-item[highlighted]`;
-  }
-
-  /**
-   * A selector to ignore the `click` events from.
-   * Primary for the checkbox label where the `click` event will happen from the associated check box.
-   */
-  static get selectorIgnoreClickInner() {
-    return `.${prefix}--checkbox-label`;
   }
 
   /**
@@ -171,13 +178,6 @@ class BXMultiSelect extends BXDropdown {
    */
   static get selectorItemSelected() {
     return `${prefix}-multi-select-item[selected]`;
-  }
-
-  /**
-   * A selector that will return the UI to clear selected items.
-   */
-  static get selectorSelectionButton() {
-    return `.${prefix}--list-box__selection`;
   }
 
   /**

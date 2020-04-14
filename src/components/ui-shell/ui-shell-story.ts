@@ -262,7 +262,7 @@ export const header = ({ parameters }) => {
 };
 
 export default {
-  title: 'UI Shell',
+  title: 'Components/UI Shell',
   parameters: {
     docs: {
       page: storyDocs,

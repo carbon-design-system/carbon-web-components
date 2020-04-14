@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -30,6 +30,7 @@ export const singleLine = ({ parameters }) => {
     copyButtonAssistiveText,
     copyButtonFeedbackText,
     copyButtonFeedbackTimeout,
+    colorScheme,
     onClick,
   } = parameters?.props?.['bx-code-snippet'];
   return (
@@ -38,6 +39,7 @@ export const singleLine = ({ parameters }) => {
       copyButtonAssistiveText={copyButtonAssistiveText}
       copyButtonFeedbackText={copyButtonFeedbackText || undefined}
       copyButtonFeedbackTimeout={copyButtonFeedbackTimeout}
+      colorScheme={colorScheme}
       onClick={onClick}>
       {'node -v Lorem ipsum dolor sit amet, consectetur adipisicing elit. ' +
         'Blanditiis, veritatis voluptate id incidunt molestiae officia possimus, ' +
@@ -57,6 +59,7 @@ export const multiLine = ({ parameters }) => {
     copyButtonFeedbackTimeout,
     collapseButtonText,
     expandButtonText,
+    colorScheme,
     onClick,
   } = parameters?.props?.['bx-code-snippet'];
   return (
@@ -68,6 +71,7 @@ export const multiLine = ({ parameters }) => {
       copyButtonFeedbackTimeout={copyButtonFeedbackTimeout}
       collapseButtonText={collapseButtonText}
       expandButtonText={expandButtonText}
+      colorScheme={colorScheme}
       onClick={onClick}>{`@mixin grid-container {
 width: 100%;
 padding-right: padding(mobile);
@@ -100,6 +104,7 @@ export const inline = ({ parameters }) => {
     copyButtonAssistiveText,
     copyButtonFeedbackText,
     copyButtonFeedbackTimeout,
+    colorScheme,
     onClick,
   } = parameters?.props?.['bx-code-snippet'];
   return (
@@ -109,6 +114,7 @@ export const inline = ({ parameters }) => {
       copyButtonAssistiveText={copyButtonAssistiveText}
       copyButtonFeedbackText={copyButtonFeedbackText || undefined}
       copyButtonFeedbackTimeout={copyButtonFeedbackTimeout}
+      colorScheme={colorScheme}
       onClick={onClick}>
       node -v
     </BXCodeSnippet>

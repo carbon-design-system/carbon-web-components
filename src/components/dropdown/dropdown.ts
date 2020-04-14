@@ -14,6 +14,7 @@ import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
+import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import ValidityMixin from '../../globals/mixins/validity';
@@ -21,6 +22,8 @@ import HostListener from '../../globals/decorators/host-listener';
 import { find, forEach, indexOf } from '../../globals/internal/collection-helpers';
 import BXDropdownItem from './dropdown-item';
 import styles from './dropdown.scss';
+
+export { FORM_ELEMENT_COLOR_SCHEME as DROPDOWN_COLOR_SCHEME } from '../../globals/shared-enums';
 
 const { prefix } = settings;
 
@@ -365,6 +368,12 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
   /* eslint-enable class-methods-use-this */
 
   /**
+   * The color scheme.
+   */
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+
+  /**
    * `true` if this dropdown should be disabled.
    */
   @property({ type: Boolean, reflect: true })
@@ -389,12 +398,6 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
   labelText = '';
 
   /**
-   * `true` if this dropdown should use the light UI variant.
-   */
-  @property({ type: Boolean, reflect: true })
-  light = false;
-
-  /**
    * `true` if this dropdown should be open.
    */
   @property({ type: Boolean, reflect: true })
@@ -409,7 +412,7 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
   /**
    * The special validity message for `required`.
    */
-  @property()
+  @property({ attribute: 'required-validity-message' })
   requiredValidityMessage = 'Please fill out this field.';
 
   /**
@@ -503,11 +506,11 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
 
   render() {
     const {
+      colorScheme,
       disabled,
       helperText,
       invalid,
       labelText,
-      light,
       open,
       toggleLabelClosed,
       toggleLabelOpen,
@@ -528,9 +531,9 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
     const classes = classMap({
       [`${prefix}--dropdown`]: true,
       [`${prefix}--list-box`]: true,
+      [`${prefix}--list-box--${colorScheme}`]: colorScheme,
       [`${prefix}--list-box--disabled`]: disabled,
       [`${prefix}--list-box--inline`]: inline,
-      [`${prefix}--list-box--light`]: light,
       [`${prefix}--list-box--expanded`]: open,
       [`${prefix}--dropdown--invalid`]: invalid,
       [`${prefix}--dropdown--inline`]: inline,

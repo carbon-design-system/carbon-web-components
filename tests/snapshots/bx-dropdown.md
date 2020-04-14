@@ -66,7 +66,7 @@
   </slot>
 </div>
 <div
-  class="bx--dropdown bx--list-box bx--list-box--disabled bx--list-box--expanded bx--list-box--light"
+  class="bx--dropdown bx--list-box bx--list-box--disabled bx--list-box--expanded"
   role="listbox"
 >
   <div

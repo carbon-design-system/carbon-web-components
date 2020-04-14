@@ -32,6 +32,7 @@ export const defaultStory = ({ parameters }) => {
     template: `
       <bx-dropdown
         :open="open"
+        :color-scheme="colorScheme"
         :disabled="disabled"
         :light="light"
         :helper-text="helperText"
