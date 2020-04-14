@@ -32,7 +32,7 @@ export default class BXTag extends LitElement {
    * Specify the type of the <Tag>
    */
   @property({ reflect: true })
-  type = TAG_TYPE.RED;
+  type = TAG_TYPE.GRAY;
 
   render() {
     return html`

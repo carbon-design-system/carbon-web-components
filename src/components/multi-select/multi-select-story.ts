@@ -10,12 +10,17 @@
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
-import { DROPDOWN_TYPE } from '../dropdown/dropdown';
+import { DROPDOWN_COLOR_SCHEME, DROPDOWN_TYPE } from '../dropdown/dropdown';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
 import './multi-select';
 import './multi-select-item';
 import storyDocs from './multi-select-story.mdx';
+
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${DROPDOWN_COLOR_SCHEME.LIGHT})`]: DROPDOWN_COLOR_SCHEME.LIGHT,
+};
 
 const types = {
   [`Regular (${DROPDOWN_TYPE.REGULAR})`]: null,
@@ -25,11 +30,11 @@ const types = {
 export const defaultStory = ({ parameters }) => {
   const {
     clearSelectionLabel,
+    colorScheme,
     disabled,
     helperText,
     invalid,
     labelText,
-    light,
     open,
     toggleLabelClosed,
     toggleLabelOpen,
@@ -51,9 +56,9 @@ export const defaultStory = ({ parameters }) => {
   };
   return html`
     <bx-multi-select
+      color-scheme="${ifNonNull(colorScheme)}"
       ?disabled=${disabled}
       ?invalid=${invalid}
-      ?light=${light}
       ?open=${open}
       clear-selection-label=${ifNonNull(clearSelectionLabel)}
       helper-text=${ifNonNull(helperText)}
@@ -81,7 +86,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Multi select',
+  title: 'Components/Multi select',
   parameters: {
     docs: {
       page: storyDocs,
@@ -89,11 +94,11 @@ export default {
     knobs: {
       'bx-multi-select': () => ({
         clearSelectionLabel: textNullable('a11y label for the icon to clear selection (clear-selection-label)', ''),
+        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
         disabled: boolean('Disabled (disabled)', false),
         helperText: textNullable('Helper text (helper-text)', 'Optional helper text'),
         invalid: boolean('Show invalid state  (invalid)', false),
         labelText: textNullable('Label text (label-text)', 'Multiselect title'),
-        light: boolean('Light variant (light)', false),
         open: boolean('Open (open)', false),
         toggleLabelClosed: textNullable('a11y label for the UI indicating the closed state (toggle-label-closed)', ''),
         toggleLabelOpen: textNullable('a11y label for the UI indicating the closed state (toggle-label-open)', ''),
