@@ -333,7 +333,9 @@ abstract class BXFloatingMenu extends HostListenerMixin(FocusMixin(LitElement)) 
   /**
    * The CSS selector to find the element to put this floating menu in.
    */
-  static selectorContainer = '[data-floating-menu-container]';
+  static get selectorContainer() {
+    return '[data-floating-menu-container]';
+  }
 }
 
 export default BXFloatingMenu;

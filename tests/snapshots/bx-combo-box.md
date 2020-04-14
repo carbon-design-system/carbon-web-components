@@ -88,6 +88,7 @@
     >
     <div
       class="bx--list-box__selection"
+      id="selection-button"
       role="button"
       tabindex="0"
       title=""

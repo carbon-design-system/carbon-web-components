@@ -85,6 +85,7 @@
   >
     <div
       class="bx--list-box__selection bx--list-box__selection--multi bx--tag--filter"
+      id="selection-button"
       role="button"
       tabindex="0"
       title="clear-selection-label-foo"
