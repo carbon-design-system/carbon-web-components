@@ -38,7 +38,7 @@
     "lint:license:src": "gulp lint:license:src",
     "lint:license:dist": "gulp lint:license:dist",
     "lint:scripts": "eslint --ext .js,.ts,.tsx .",
-    "lint:license:staged": "tools/check-license.js -c",
+    "lint:license:staged": "tools/check-license.js -w",
     "lint:scripts:staged": "eslint",
     "test": "gulp test && yarn test:integration",
     "test:integration": "jest -c tests/integration/jest.config.js --runInBand",
