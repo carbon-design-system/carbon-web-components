@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,6 +19,7 @@ const test = require('./gulp-tasks/test');
 gulp.task('build:modules:icons', build.modules.icons);
 gulp.task('build:modules:css', build.modules.css);
 gulp.task('build:modules:react', build.modules.react);
+gulp.task('build:modules:react-types', build.modules.reactTypes);
 gulp.task('build:modules:scripts', build.modules.scripts);
 gulp.task('build:modules:types', build.modules.types);
 gulp.task(
@@ -27,6 +28,7 @@ gulp.task(
     gulp.task('build:modules:icons'),
     gulp.task('build:modules:css'),
     gulp.task('build:modules:react'),
+    gulp.task('build:modules:react-types'),
     gulp.task('build:modules:scripts'),
     gulp.task('build:modules:types')
   )

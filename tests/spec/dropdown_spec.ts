@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -25,6 +25,8 @@ const template = (props?) =>
   });
 
 describe('bx-dropdown', function() {
+  const events = new EventManager();
+
   describe('Misc attributes', function() {
     it('should render with minimum attributes', async function() {
       render(template(), document.body);
@@ -93,7 +95,6 @@ describe('bx-dropdown', function() {
   describe('Selecting an item', function() {
     let elem: Element;
     let itemNodes: NodeListOf<Element>;
-    const events = new EventManager();
 
     beforeEach(async function() {
       render(template({ open: true, value: 'all' }), document.body);
@@ -163,13 +164,60 @@ describe('bx-dropdown', function() {
         itemNode.parentNode!.removeChild(itemNode);
       }
     });
+  });
 
-    afterEach(async function() {
-      events.reset();
+  describe('Form validation', function() {
+    let elem: Element;
+
+    beforeEach(async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      elem = document.body.querySelector('bx-dropdown')!;
+    });
+
+    it('should support checking if required value exists', async function() {
+      const dropdown = elem as BXDropdown;
+      dropdown.required = true;
+      const spyInvalid = jasmine.createSpy('invalid');
+      events.on(dropdown, 'invalid', spyInvalid);
+      expect(dropdown.checkValidity()).toBe(false);
+      expect(spyInvalid).toHaveBeenCalled();
+      expect(dropdown.invalid).toBe(true);
+      expect(dropdown.validityMessage).toBe('Please fill out this field.');
+      dropdown.value = 'staging';
+      expect(dropdown.checkValidity()).toBe(true);
+      expect(dropdown.invalid).toBe(false);
+      expect(dropdown.validityMessage).toBe('');
+    });
+
+    it('should support canceling required check', async function() {
+      const dropdown = elem as BXDropdown;
+      dropdown.required = true;
+      events.on(dropdown, 'invalid', event => {
+        event.preventDefault();
+      });
+      expect(dropdown.checkValidity()).toBe(false);
+      expect(dropdown.invalid).toBe(false);
+      expect(dropdown.validityMessage).toBe('');
+    });
+
+    it('should treat empty custom validity message as not invalid', async function() {
+      const dropdown = elem as BXDropdown;
+      dropdown.setCustomValidity('');
+      expect(dropdown.invalid).toBe(false);
+      expect(dropdown.validityMessage).toBe('');
+    });
+
+    it('should treat non-empty custom validity message as invalid', async function() {
+      const dropdown = elem as BXDropdown;
+      dropdown.setCustomValidity('validity-message-foo');
+      expect(dropdown.invalid).toBe(true);
+      expect(dropdown.validityMessage).toBe('validity-message-foo');
     });
   });
 
   afterEach(async function() {
+    events.reset();
     await render(undefined!, document.body);
   });
 });

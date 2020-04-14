@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -24,6 +24,24 @@ describe('React wrapper', function() {
   beforeEach(function() {
     container = document.createElement('div');
     document.body.appendChild(container);
+  });
+
+  describe('Handling `null`/undefined`', function() {
+    it('Should not set the attribute for `undefined`', function() {
+      const Component = createReactCustomElementType('test-foo', {});
+      act(() => {
+        render(React.createElement(Component, { foo: undefined }), container);
+      });
+      expect(container.querySelector('test-foo').hasAttribute('foo')).toBe(false);
+    });
+
+    it('Should not set the attribute for `null`', function() {
+      const Component = createReactCustomElementType('test-foo', {});
+      act(() => {
+        render(React.createElement(Component, { foo: null }), container);
+      });
+      expect(container.querySelector('test-foo').hasAttribute('foo')).toBe(false);
+    });
   });
 
   describe('Attribute mapping', function() {

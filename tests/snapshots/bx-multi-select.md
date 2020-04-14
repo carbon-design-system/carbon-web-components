@@ -69,7 +69,7 @@
   </slot>
 </div>
 <div
-  class="bx--dropdown bx--dropdown--inline bx--dropdown--invalid bx--list-box bx--list-box--disabled bx--list-box--expanded bx--list-box--inline bx--list-box--light"
+  class="bx--dropdown bx--dropdown--inline bx--dropdown--invalid bx--list-box bx--list-box--disabled bx--list-box--expanded bx--list-box--inline"
   data-invalid=""
   role="listbox"
 >

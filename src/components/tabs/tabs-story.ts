@@ -123,5 +123,5 @@ export const skeleton = () => html`
 `;
 
 export default {
-  title: 'Tabs',
+  title: 'Components/Tabs',
 };

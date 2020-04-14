@@ -43,7 +43,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Toggle',
+  title: 'Components/Toggle',
   parameters: {
     docs: {
       page: storyDocs,

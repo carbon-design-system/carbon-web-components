@@ -54,7 +54,7 @@ export const unordered = () => html`
 `;
 
 export default {
-  title: 'List',
+  title: 'Components/List',
   parameters: {
     docs: {
       page: storyDocs,
