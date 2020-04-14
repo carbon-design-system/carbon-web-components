@@ -179,6 +179,7 @@ class BXDatePicker extends LitElement {
     return {
       allowInput: true,
       dateFormat: this.dateFormat ?? (this.constructor as typeof BXDatePicker).defaultDateFormat,
+      disableMobile: true,
       errorHandler: handleFlatpickrError,
       locale,
       maxDate,

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -18,6 +18,7 @@ import baseStory, {
 export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-number-input
+      [colorScheme]="colorScheme"
       [disabled]="disabled"
       [value]="value"
       [type]="type"
@@ -41,6 +42,7 @@ export const formItem = ({ parameters }) => ({
     <bx-form-item>
       <bx-number-input
         [value]="value"
+        [colorScheme]="colorScheme"
         [placeholder]="placeholder"
         (input)="onInput()"
         [invalid]="invalid"
@@ -65,6 +67,7 @@ export const withoutFormItemWrapper = ({ parameters }) => ({
   template: `
     <bx-number-input
       [value]="value"
+      [colorScheme]="colorScheme"
       [placeholder]="placeholder"
       (input)="onInput()"
       [invalid]="invalid"

@@ -9,21 +9,34 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean, text } from '@storybook/addon-knobs';
+import { boolean, select, text } from '@storybook/addon-knobs';
+import { DROPDOWN_COLOR_SCHEME, DROPDOWN_TYPE } from '../dropdown/dropdown';
+import ifNonNull from '../../globals/directives/if-non-null';
 import './combo-box';
 import './combo-box-item';
 import storyDocs from './combo-box-story.mdx';
 
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${DROPDOWN_COLOR_SCHEME.LIGHT})`]: DROPDOWN_COLOR_SCHEME.LIGHT,
+};
+
+const types = {
+  [`Regular (${DROPDOWN_TYPE.REGULAR})`]: null,
+  [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
+};
+
 export const defaultStory = ({ parameters }) => {
   const {
     open,
+    colorScheme,
     disabled,
     helperText,
     invalid,
     labelText,
-    light,
     value,
     triggerContent,
+    type,
     validityMessage,
     disableSelection,
     onBeforeSelect,
@@ -40,14 +53,15 @@ export const defaultStory = ({ parameters }) => {
   return html`
     <bx-combo-box
       ?open=${open}
+      color-scheme="${ifNonNull(colorScheme)}"
       ?disabled=${disabled}
       ?invalid=${invalid}
-      ?light=${light}
       helper-text=${helperText}
       label-text=${labelText}
       validity-message=${validityMessage}
       value=${value}
       trigger-content=${triggerContent}
+      type=${ifNonNull(type)}
       @bx-combo-box-beingselected=${handleBeforeSelected}
       @bx-combo-box-selected=${onSelect}
     >
@@ -73,13 +87,14 @@ export default {
     knobs: {
       'bx-combo-box': () => ({
         open: boolean('Open (open)', false),
+        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
         disabled: boolean('Disabled (disabled)', false),
         helperText: text('Helper text (helper-text)', 'Optional helper text'),
         invalid: boolean('Show invalid state  (invalid)', false),
         labelText: text('Label text (label-text)', 'Combo box title'),
-        light: boolean('Light variant (light)', false),
         value: text('The value of the selected item (value)', ''),
         triggerContent: text('The placeholder content (trigger-content)', 'Filter...'),
+        type: select('UI type (type)', types, null),
         validityMessage: text('The validity message (validity-message)', ''),
         disableSelection: boolean(
           'Disable user-initiated selection change (Call event.preventDefault() in bx-combo-box-beingselected event)',

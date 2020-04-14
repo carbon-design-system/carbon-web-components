@@ -18,10 +18,11 @@ import createProps from './stories/helpers';
 import storyDocs from './number-input-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } =
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } =
     parameters?.props?.['bx-number-input'] ?? {};
   return html`
     <bx-number-input
+      color-scheme="${ifNonNull(colorScheme)}"
       ?disabled="${disabled}"
       value="${ifNonNull(value)}"
       placeholder="${ifNonNull(placeholder)}"
@@ -46,12 +47,13 @@ defaultStory.story = {
 };
 
 export const formItem = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } =
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } =
     parameters?.props?.['bx-number-input'] ?? {};
   return html`
     <bx-form-item>
       <bx-number-input
         value="${ifNonNull(value)}"
+        color-scheme="${ifNonNull(colorScheme)}"
         placeholder="${ifNonNull(placeholder)}"
         ?invalid="${invalid}"
         ?disabled="${disabled}"
@@ -80,11 +82,12 @@ formItem.story = {
 };
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } =
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } =
     parameters?.props?.['bx-number-input'] ?? {};
   return html`
     <bx-number-input
       value="${ifNonNull(value)}"
+      color-scheme="${ifNonNull(colorScheme)}"
       placeholder="${ifNonNull(placeholder)}"
       ?invalid="${invalid}"
       ?disabled="${disabled}"

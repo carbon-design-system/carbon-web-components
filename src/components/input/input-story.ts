@@ -20,6 +20,7 @@ export const defaultStory = ({ parameters }) => {
   const {
     autocomplete,
     autofocus,
+    colorScheme,
     disabled,
     helperText,
     invalid,
@@ -38,6 +39,7 @@ export const defaultStory = ({ parameters }) => {
     <bx-input
       autocomplete="${ifNonNull(autocomplete)}"
       ?autofocus="${autofocus}"
+      color-scheme="${ifNonNull(colorScheme)}"
       ?disabled="${disabled}"
       helper-text="${ifNonNull(helperText)}"
       ?invalid="${invalid}"
@@ -60,11 +62,12 @@ defaultStory.story = {
 };
 
 export const formItem = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-input'] ?? {};
+  const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-input'] ?? {};
   return html`
     <bx-form-item>
       <bx-input
         value="${ifNonNull(value)}"
+        color-scheme="${ifNonNull(colorScheme)}"
         placeholder="${ifNonNull(placeholder)}"
         @input="${onInput}"
         ?invalid="${invalid}"
@@ -83,10 +86,11 @@ formItem.story = {
 };
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-input'] ?? {};
+  const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-input'] ?? {};
   return html`
     <bx-input
       value="${ifNonNull(value)}"
+      color-scheme="${ifNonNull(colorScheme)}"
       placeholder="${ifNonNull(placeholder)}"
       @input="${onInput}"
       ?invalid="${invalid}"

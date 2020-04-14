@@ -9,12 +9,17 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { number } from '@storybook/addon-knobs';
+import { number, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import './code-snippet';
+import { CODE_SNIPPET_COLOR_SCHEME } from './code-snippet';
 import storyDocs from './code-snippet-story.mdx';
 import './code-snippet-skeleton';
+
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${CODE_SNIPPET_COLOR_SCHEME.LIGHT})`]: CODE_SNIPPET_COLOR_SCHEME.LIGHT,
+};
 
 const defaultKnobs = {
   'bx-code-snippet': () => ({
@@ -22,12 +27,13 @@ const defaultKnobs = {
     copyButtonAssistiveText: textNullable('Assistive text for the copy button (copy-button-assistive-text)', ''),
     copyButtonFeedbackText: textNullable('Feedback text for copy button (copy-button-feedback-text)', ''),
     copyButtonFeedbackTimeout: number('Feedback timeout for copy button (copy-buttobn-feedback-timeout)', 2000),
+    colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
     onClick: action('click'),
   }),
 };
 
 export const singleLine = ({ parameters }) => {
-  const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, onClick } =
+  const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, colorScheme, onClick } =
     parameters?.props?.['bx-code-snippet'] ?? {};
   const children = `
     node -v Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis voluptate id incidunt molestiae
@@ -40,6 +46,7 @@ export const singleLine = ({ parameters }) => {
       copy-button-assistive-text="${ifNonNull(copyButtonAssistiveText)}"
       copy-button-feedback-text="${ifNonNull(copyButtonFeedbackText)}"
       copy-button-feedback-timeout="${copyButtonFeedbackTimeout}"
+      color-scheme="${ifNonNull(colorScheme)}"
       @click="${onClick}"
       >${children}</bx-code-snippet
     >
@@ -61,6 +68,7 @@ export const multiLine = ({ parameters }) => {
     copyButtonFeedbackTimeout,
     collapseButtonText,
     expandButtonText,
+    colorScheme,
     onClick,
   } = parameters?.props?.['bx-code-snippet'] ?? {};
   const children = `
@@ -96,6 +104,7 @@ $z-indexes: (
     copy-button-feedback-timeout="${copyButtonFeedbackTimeout}"
     collapse-button-text="${ifNonNull(collapseButtonText)}"
     expand-button-text="${ifNonNull(expandButtonText)}"
+    color-scheme="${ifNonNull(colorScheme)}"
     @click="${onClick}"
   >${children}</bx-code-snippet>
 `;
@@ -115,7 +124,7 @@ multiLine.story = {
 };
 
 export const inline = ({ parameters }) => {
-  const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, onClick } =
+  const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, colorScheme, onClick } =
     parameters?.props?.['bx-code-snippet'] ?? {};
   return html`
     <bx-code-snippet
@@ -124,6 +133,7 @@ export const inline = ({ parameters }) => {
       copy-button-assistive-text="${ifNonNull(copyButtonAssistiveText)}"
       copy-button-feedback-text="${ifNonNull(copyButtonFeedbackText)}"
       copy-button-feedback-timeout="${copyButtonFeedbackTimeout}"
+      color-scheme="${ifNonNull(colorScheme)}"
       @click="${onClick}"
       >node -v</bx-code-snippet
     >
