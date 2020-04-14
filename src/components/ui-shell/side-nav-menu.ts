@@ -10,7 +10,7 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown20 from '@carbon/icons/lib/chevron--down/20';
-import { filter, forEach } from '../../globals/internal/collection-helpers';
+import { forEach } from '../../globals/internal/collection-helpers';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './side-nav.scss';
 
@@ -23,17 +23,6 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-side-nav-menu`)
 class BXSideNavMenu extends FocusMixin(LitElement) {
-  /**
-   * @param item A menu item.
-   * @returns `true` if the given menu item is active.
-   */
-  private isMenuItemActive(item: Node) {
-    return (
-      typeof (item as Element).matches === 'function' &&
-      (item as Element).matches((this.constructor as typeof BXSideNavMenu).selectorItemActive)
-    );
-  }
-
   /**
    * `true` if this menu has an icon.
    */
@@ -82,7 +71,6 @@ class BXSideNavMenu extends FocusMixin(LitElement) {
         item.toggleAttribute((this.constructor as typeof BXSideNavMenu).attribItemHasIcon, hasIcon);
       }
     });
-    this.active = filter(target.assignedNodes(), this.isMenuItemActive, this).length > 0;
   }
 
   /**
@@ -174,13 +162,6 @@ class BXSideNavMenu extends FocusMixin(LitElement) {
    */
   static get selectorItem() {
     return `${prefix}-side-nav-menu-item`;
-  }
-
-  /**
-   * A selector that will return active menu items.
-   */
-  static get selectorItemActive() {
-    return `${prefix}-side-nav-menu-item[active]`;
   }
 
   /**
