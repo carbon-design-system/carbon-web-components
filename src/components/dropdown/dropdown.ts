@@ -17,6 +17,7 @@ import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
+import ValidityMixin from '../../globals/mixins/validity';
 import HostListener from '../../globals/decorators/host-listener';
 import { find, forEach, indexOf } from '../../globals/internal/collection-helpers';
 import BXDropdownItem from './dropdown-item';
@@ -85,7 +86,7 @@ export enum DROPDOWN_TYPE {
  * @fires bx-dropdown-selected - The custom event fired after a a dropdown item is selected upon a user gesture.
  */
 @customElement(`${prefix}-dropdown`)
-class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
+class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))) {
   /**
    * The latest status of this dropdown, for screen reader to accounce.
    */
@@ -222,7 +223,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    * Handles `blur` event handler on the document this element is in.
    * @param event The event.
    */
-  @HostListener('blur')
+  @HostListener('focusout')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   protected _handleFocusOut(event: FocusEvent) {
     if (!this.contains(event.relatedTarget as Node)) {
@@ -401,6 +402,18 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    */
   @property({ type: Boolean, reflect: true })
   open = false;
+
+  /**
+   * `true` if the value is required.
+   */
+  @property({ type: Boolean, reflect: true })
+  required = false;
+
+  /**
+   * The special validity message for `required`.
+   */
+  @property({ attribute: 'required-validity-message' })
+  requiredValidityMessage = 'Please fill out this field.';
 
   /**
    * An assistive text for screen reader to announce, telling the open state.

@@ -40,7 +40,7 @@ class BXTableToolbarSearch extends HostListenerMixin(BXSearch) {
   /**
    * Handles `focus` event handler on this element.
    */
-  @HostListener('focus')
+  @HostListener('focusin')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleFocusIn() {
     this._handleUserInitiatedExpand();
@@ -50,7 +50,7 @@ class BXTableToolbarSearch extends HostListenerMixin(BXSearch) {
    * Handles `blur` event handler on this element.
    * @param event The event.
    */
-  @HostListener('blur')
+  @HostListener('focusout')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleFocusOut(event: FocusEvent) {
     if (!this.contains(event.relatedTarget as Node) && !this.value) {

@@ -15,6 +15,7 @@ import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FormMixin from '../../globals/mixins/form';
+import ValidityMixin from '../../globals/mixins/validity';
 import styles from './textarea.scss';
 
 export { FORM_ELEMENT_COLOR_SCHEME as TEXTAREA_COLOR_SCHEME } from '../../globals/shared-enums';
@@ -29,7 +30,7 @@ const { prefix } = settings;
  * @slot validity-message - The validity message. If present and non-empty, this input shows the UI of its invalid state.
  */
 @customElement(`${prefix}-textarea`)
-export default class BXTextarea extends FormMixin(LitElement) {
+export default class BXTextarea extends ValidityMixin(FormMixin(LitElement)) {
   /**
    * Handles `oninput` event on the `<input>`.
    * @param event The event.
@@ -129,6 +130,12 @@ export default class BXTextarea extends FormMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   required = false;
+
+  /**
+   * The special validity message for `required`.
+   */
+  @property({ attribute: 'required-validity-message' })
+  requiredValidityMessage = 'Please fill out this field.';
 
   /**
    * The number of rows for the textarea to show by default

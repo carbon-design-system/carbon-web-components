@@ -14,6 +14,7 @@ import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
 import FormMixin from '../../globals/mixins/form';
+import ValidityMixin from '../../globals/mixins/validity';
 import styles from './input.scss';
 
 export { FORM_ELEMENT_COLOR_SCHEME as INPUT_COLOR_SCHEME } from '../../globals/shared-enums';
@@ -41,7 +42,7 @@ export enum INPUT_TYPE {
  * @slot validity-message - The validity message. If present and non-empty, this input shows the UI of its invalid state.
  */
 @customElement(`${prefix}-input`)
-export default class BXInput extends FormMixin(LitElement) {
+export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
   /**
    * Handles `oninput` event on the `<input>`.
    * @param event The event.
@@ -129,6 +130,12 @@ export default class BXInput extends FormMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   required = false;
+
+  /**
+   * The special validity message for `required`.
+   */
+  @property({ attribute: 'required-validity-message' })
+  requiredValidityMessage = 'Please fill out this field.';
 
   /**
    * The type of the input. Can be one of the types listed in the INPUT_TYPE enum

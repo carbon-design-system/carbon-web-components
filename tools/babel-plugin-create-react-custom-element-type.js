@@ -16,7 +16,7 @@ const { default: transformTemplateLiterals } = require('@babel/plugin-transform-
 
 const regexEvent = /^event/;
 
-module.exports = function generateCreateReactCustomElementType(api) {
+function createMetadataVisitor(api) {
   const { types: t } = api;
 
   /**
@@ -86,8 +86,105 @@ module.exports = function generateCreateReactCustomElementType(api) {
       }
     }
 
+    const leadingComments = path.parentPath.get('leadingComments');
+    if (leadingComments) {
+      metadata.comments = leadingComments.map(item => item.node);
+    }
+
     return metadata;
   };
+
+  /**
+   * A visitor to gather metadata of custom element properties and events,
+   * from `type` in `@property()` for the former, from `eventSomething` for the latter.
+   * The gathered metadata is stored in the context `declaredProps` for the former, `customEvents` for the latter.
+   */
+  const metadataVisitor = {
+    ClassDeclaration(path, context) {
+      const { file } = context;
+      const superClass = path.get('superClass');
+      if (superClass.isIdentifier()) {
+        const parentClassImportSource = getParentClassImportSource(superClass.scope.getBinding(superClass.node.name).path);
+        if (parentClassImportSource) {
+          const relativeTarget = relative(
+            resolve(__dirname, '../src/components'),
+            resolve(dirname(file.opts.filename), parentClassImportSource)
+          );
+          if (!isAbsolute(relativeTarget) && !relativeTarget.startsWith('..')) {
+            context.parentDescriptorSource = parentClassImportSource;
+          }
+        }
+      }
+      const leadingComments = path.get('leadingComments');
+      if (leadingComments) {
+        context.classComments = leadingComments.map(item => item.node);
+      }
+      context.className = path.get('id.name').node;
+    },
+
+    ClassMethod(path, { customEvents }) {
+      const { static: staticMethod, kind, key } = path.node;
+      const { name } = key;
+      if (staticMethod && kind === 'get' && regexEvent.test(name)) {
+        const body = path.get('body');
+        const firstBody = body.get('body.0');
+        firstBody.assertReturnStatement();
+        const argument = firstBody.get('argument');
+        if (!argument.isStringLiteral() && !argument.isTemplateLiteral()) {
+          throw firstBody.buildCodeFrameError(
+            '`static get eventFoo` must have and be only with a return statement with a string literal or a template literal.'
+          );
+        }
+        customEvents[name] = t.cloneDeep(argument.node);
+      }
+    },
+
+    ClassProperty(path, { customEvents }) {
+      const { static: staticField, key } = path.node;
+      const value = path.get('value');
+      const { name } = key;
+      if (staticField && regexEvent.test(name)) {
+        if (!value.isStringLiteral() && !value.isTemplateLiteral()) {
+          throw value.buildCodeFrameError('`static eventFoo` must refer to a string literal or a template literal.');
+        }
+        customEvents[name] = t.cloneDeep(value.node);
+      }
+    },
+
+    Decorator(path, context) {
+      const { parent, parentPath } = path;
+      const { declaredProps } = context;
+      const expression = path.get('expression');
+      const customElementName = expression.get('arguments.0');
+      if (expression.isCallExpression() && expression.get('callee').isIdentifier({ name: 'customElement' })) {
+        if (!customElementName.isStringLiteral() && !customElementName.isTemplateLiteral()) {
+          throw customElementName.buildCodeFrameError('`@customElement()` must be called with the custom element name.');
+        }
+        context.customElementName = customElementName.node;
+      }
+
+      const metadata = getPropertyMetadata(path);
+      if (metadata) {
+        if (
+          !parentPath.isClassProperty() &&
+          (!parentPath.isClassMethod() || (parentPath.node.kind !== 'get' && parentPath.node.kind !== 'set'))
+        ) {
+          throw parentPath.buildCodeFrameError('`@property()` must target class properties.');
+        }
+        declaredProps[parent.key.name] = metadata;
+      }
+    },
+
+    ExportNamedDeclaration(path, context) {
+      context.hasNamedExport = true;
+    },
+  };
+
+  return metadataVisitor;
+}
+
+module.exports = function generateCreateReactCustomElementType(api) {
+  const { types: t } = api;
 
   const booleanSerializerIdentifier = t.identifier('booleanSerializer');
   const numberSerializerIdentifier = t.identifier('numberSerializer');
@@ -168,148 +265,7 @@ module.exports = function generateCreateReactCustomElementType(api) {
       )
     );
 
-  /**
-   * A visitor to gather metadata of custom element properties and events,
-   * from `type` in `@property()` for the former, from `eventSomething` for the latter.
-   * The gathered metadata is stored in the context `declaredProps` for the former, `customEvents` for the latter.
-   */
-  const metadataVisitor = {
-    ClassDeclaration(path, context) {
-      const { file } = context;
-      const superClass = path.get('superClass');
-      if (superClass.isIdentifier()) {
-        const parentClassImportSource = getParentClassImportSource(superClass.scope.getBinding(superClass.node.name).path);
-        if (parentClassImportSource) {
-          const relativeTarget = relative(
-            resolve(__dirname, '../src/components'),
-            resolve(dirname(file.opts.filename), parentClassImportSource)
-          );
-          if (!isAbsolute(relativeTarget) && !relativeTarget.startsWith('..')) {
-            context.parentDescriptorSource = parentClassImportSource;
-          }
-        }
-      }
-    },
-
-    ClassMethod(path, { customEvents }) {
-      const { static: staticMethod, kind, key } = path.node;
-      const { name } = key;
-      if (staticMethod && kind === 'get' && regexEvent.test(name)) {
-        const body = path.get('body');
-        const firstBody = body.get('body.0');
-        firstBody.assertReturnStatement();
-        const argument = firstBody.get('argument');
-        if (!argument.isStringLiteral() && !argument.isTemplateLiteral()) {
-          throw firstBody.buildCodeFrameError(
-            '`static get eventFoo` must have and be only with a return statement with a string literal or a template literal.'
-          );
-        }
-        customEvents[name] = t.cloneDeep(argument.node);
-      }
-    },
-
-    ClassProperty(path, { customEvents }) {
-      const { static: staticField, key } = path.node;
-      const value = path.get('value');
-      const { name } = key;
-      if (staticField && regexEvent.test(name)) {
-        if (!value.isStringLiteral() && !value.isTemplateLiteral()) {
-          throw value.buildCodeFrameError('`static eventFoo` must refer to a string literal or a template literal.');
-        }
-        customEvents[name] = t.cloneDeep(value.node);
-      }
-    },
-
-    Decorator(path, context) {
-      const { parent, parentPath } = path;
-      const { declaredProps } = context;
-      const expression = path.get('expression');
-      const customElementName = expression.get('arguments.0');
-      if (expression.isCallExpression() && expression.get('callee').isIdentifier({ name: 'customElement' })) {
-        if (!customElementName.isStringLiteral() && !customElementName.isTemplateLiteral()) {
-          throw customElementName.buildCodeFrameError('`@customElement()` must be called with the custom element name.');
-        }
-        context.customElementName = customElementName.node;
-      }
-
-      const metadata = getPropertyMetadata(path);
-      if (metadata) {
-        if (
-          !parentPath.isClassProperty() &&
-          (!parentPath.isClassMethod() || (parentPath.node.kind !== 'get' && parentPath.node.kind !== 'set'))
-        ) {
-          throw parentPath.buildCodeFrameError('`@property()` must target class properties.');
-        }
-        declaredProps[parent.key.name] = metadata;
-      }
-    },
-
-    ExportNamedDeclaration(path, context) {
-      context.hasNamedExport = true;
-    },
-  };
-
-  const toplevelVisitor = {
-    Program(path, { file }) {
-      const declaredProps = {};
-      const customEvents = {};
-      const context = { file, declaredProps, customEvents };
-      // Gathers metadata of custom element properties and events, into `context`
-      path.traverse(metadataVisitor, context);
-
-      const relativePath = relative(resolve(__dirname, '../src/components'), file.opts.filename);
-      const retargedPath = t.stringLiteral(`../../components/${join(dirname(relativePath), basename(relativePath, '.ts'))}`);
-
-      // Creates a module with `createReactCustomElementType()`
-      // with the gathered metadata of custom element properties and events
-      const descriptors = t.objectExpression([...buildPropsDescriptor(declaredProps), ...buildEventsDescriptor(customEvents)]);
-      const descriptorsWithParent = !context.parentDescriptorSource
-        ? descriptors
-        : t.callExpression(t.memberExpression(t.identifier('Object'), t.identifier('assign')), [
-            t.objectExpression([]),
-            t.identifier('parentDescriptor'),
-            descriptors,
-          ]);
-
-      let body;
-      if (!context.customElementName) {
-        // Custom element name not found means that it's likely a module not for custom element
-        // (e.g. an abstract class like floating menu)
-        // If so, we just export empty `descriptor` and re-export from the original class
-        body = [template.ast`export var descriptor = {};`];
-      } else {
-        body = [
-          t.exportNamedDeclaration(
-            null,
-            [t.exportSpecifier(t.identifier('default'), t.identifier('CustomElement'))],
-            retargedPath
-          ),
-          buildCreateReactCustomElementTypeImport(declaredProps),
-          ...template.ast`
-            import settings from "carbon-components/es/globals/js/settings";
-            var prefix = settings.prefix;
-            export var descriptor = ${descriptorsWithParent};
-            export default createReactCustomElementType(${context.customElementName}, descriptor);
-          `,
-        ];
-      }
-      if (context.parentDescriptorSource) {
-        body.unshift(
-          t.importDeclaration(
-            [t.importSpecifier(t.identifier('parentDescriptor'), t.identifier('descriptor'))],
-            t.stringLiteral(context.parentDescriptorSource)
-          )
-        );
-      }
-      if (context.hasNamedExport) {
-        body.unshift(t.exportAllDeclaration(retargedPath));
-      }
-      const program = t.program(body);
-      traverse(program, transformTemplateLiterals(api).visitor, path.scope, path);
-      path.replaceWith(program);
-      path.stop();
-    },
-  };
+  const metadataVisitor = createMetadataVisitor(api);
 
   /**
    * A Babel plugin that first gathers metadata of custom element properties/events from AST,
@@ -317,6 +273,68 @@ module.exports = function generateCreateReactCustomElementType(api) {
    */
   return {
     name: 'create-react-custom-element-type',
-    visitor: toplevelVisitor,
+    visitor: {
+      Program(path, { file }) {
+        const declaredProps = {};
+        const customEvents = {};
+        const context = { file, declaredProps, customEvents };
+        // Gathers metadata of custom element properties and events, into `context`
+        path.traverse(metadataVisitor, context);
+
+        const relativePath = relative(resolve(__dirname, '../src/components'), file.opts.filename);
+        const retargedPath = t.stringLiteral(`../../components/${join(dirname(relativePath), basename(relativePath, '.ts'))}`);
+
+        // Creates a module with `createReactCustomElementType()`
+        // with the gathered metadata of custom element properties and events
+        const descriptors = t.objectExpression([...buildPropsDescriptor(declaredProps), ...buildEventsDescriptor(customEvents)]);
+        const descriptorsWithParent = !context.parentDescriptorSource
+          ? descriptors
+          : t.callExpression(t.memberExpression(t.identifier('Object'), t.identifier('assign')), [
+              t.objectExpression([]),
+              t.identifier('parentDescriptor'),
+              descriptors,
+            ]);
+
+        let body;
+        if (!context.customElementName) {
+          // Custom element name not found means that it's likely a module not for custom element
+          // (e.g. an abstract class like floating menu)
+          // If so, we just export empty `descriptor` and re-export from the original class
+          body = [template.ast`export var descriptor = {};`];
+        } else {
+          body = [
+            t.exportNamedDeclaration(
+              null,
+              [t.exportSpecifier(t.identifier('default'), t.identifier('CustomElement'))],
+              retargedPath
+            ),
+            buildCreateReactCustomElementTypeImport(declaredProps),
+            ...template.ast`
+              import settings from "carbon-components/es/globals/js/settings";
+              var prefix = settings.prefix;
+              export var descriptor = ${descriptorsWithParent};
+              export default createReactCustomElementType(${context.customElementName}, descriptor);
+            `,
+          ];
+        }
+        if (context.parentDescriptorSource) {
+          body.unshift(
+            t.importDeclaration(
+              [t.importSpecifier(t.identifier('parentDescriptor'), t.identifier('descriptor'))],
+              t.stringLiteral(context.parentDescriptorSource)
+            )
+          );
+        }
+        if (context.hasNamedExport) {
+          body.unshift(t.exportAllDeclaration(retargedPath));
+        }
+        const program = t.program(body);
+        traverse(program, transformTemplateLiterals(api).visitor, path.scope, path);
+        path.replaceWith(program);
+        path.stop();
+      },
+    },
   };
 };
+
+module.exports.createMetadataVisitor = createMetadataVisitor;

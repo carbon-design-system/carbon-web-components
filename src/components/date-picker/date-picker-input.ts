@@ -14,6 +14,7 @@ import settings from 'carbon-components/es/globals/js/settings';
 import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
+import ValidityMixin from '../../globals/mixins/validity';
 import styles from './date-picker.scss';
 
 export { FORM_ELEMENT_COLOR_SCHEME as DATE_PICKER_INPUT_COLOR_SCHEME } from '../../globals/shared-enums';
@@ -65,7 +66,7 @@ export enum DATE_PICKER_INPUT_SIZE_HORIZONTAL {
  * @element bx-date-picker-input
  */
 @customElement(`${prefix}-date-picker-input`)
-class BXDatePickerInput extends FocusMixin(LitElement) {
+class BXDatePickerInput extends ValidityMixin(FocusMixin(LitElement)) {
   /**
    * The `<slot>` for the validity message.
    */
@@ -182,6 +183,18 @@ class BXDatePickerInput extends FocusMixin(LitElement) {
    */
   @property()
   placeholder!: string;
+
+  /**
+   * `true` if the value is required.
+   */
+  @property({ type: Boolean, reflect: true })
+  required = false;
+
+  /**
+   * The special validity message for `required`.
+   */
+  @property({ attribute: 'required-validity-message' })
+  requiredValidityMessage = 'Please fill out this field.';
 
   /**
    * `true` if this date picker input should use the short UI variant.

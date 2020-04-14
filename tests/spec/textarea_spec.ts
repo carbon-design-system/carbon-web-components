@@ -8,6 +8,8 @@
  */
 
 import { html, render } from 'lit-html';
+import EventManager from '../utils/event-manager';
+
 import BXTextarea, { TEXTAREA_COLOR_SCHEME } from '../../src/components/textarea/textarea';
 import { defaultStory } from '../../src/components/textarea/textarea-story';
 
@@ -34,6 +36,8 @@ const template = (props?) =>
   });
 
 describe('bx-textarea', function() {
+  const events = new EventManager();
+
   describe('Rendering', function() {
     it('Should render with various attributes', async function() {
       render(
@@ -132,7 +136,58 @@ describe('bx-textarea', function() {
     });
   });
 
+  describe('Form validation', function() {
+    let elem: Element;
+
+    beforeEach(async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      elem = document.body.querySelector('bx-textarea')!;
+    });
+
+    it('should support checking if required value exists', async function() {
+      const textarea = elem as BXTextarea;
+      textarea.required = true;
+      const spyInvalid = jasmine.createSpy('invalid');
+      events.on(textarea, 'invalid', spyInvalid);
+      expect(textarea.checkValidity()).toBe(false);
+      expect(spyInvalid).toHaveBeenCalled();
+      expect(textarea.invalid).toBe(true);
+      expect(textarea.validityMessage).toBe('Please fill out this field.');
+      textarea.value = 'value-foo';
+      expect(textarea.checkValidity()).toBe(true);
+      expect(textarea.invalid).toBe(false);
+      expect(textarea.validityMessage).toBe('');
+    });
+
+    it('should support canceling required check', async function() {
+      const textarea = elem as BXTextarea;
+      textarea.required = true;
+      events.on(textarea, 'invalid', event => {
+        event.preventDefault();
+      });
+      expect(textarea.checkValidity()).toBe(false);
+      expect(textarea.invalid).toBe(false);
+      expect(textarea.validityMessage).toBe('');
+    });
+
+    it('should treat empty custom validity message as not invalid', async function() {
+      const textarea = elem as BXTextarea;
+      textarea.setCustomValidity('');
+      expect(textarea.invalid).toBe(false);
+      expect(textarea.validityMessage).toBe('');
+    });
+
+    it('should treat non-empty custom validity message as invalid', async function() {
+      const textarea = elem as BXTextarea;
+      textarea.setCustomValidity('validity-message-foo');
+      expect(textarea.invalid).toBe(true);
+      expect(textarea.validityMessage).toBe('validity-message-foo');
+    });
+  });
+
   afterEach(async function() {
-    await render(template({ hasContent: false }), document.body);
+    events.reset();
+    await render(undefined, document.body);
   });
 });
