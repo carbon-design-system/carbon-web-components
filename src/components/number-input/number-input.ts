@@ -13,9 +13,12 @@ import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import CaretUp16 from '@carbon/icons/lib/caret--up/16';
 import CaretDown16 from '@carbon/icons/lib/caret--down/16';
+import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
 import styles from './number-input.scss';
 import BXInput from '../input/input';
+
+export { FORM_ELEMENT_COLOR_SCHEME as NUMBER_INPUT_COLOR_SCHEME } from '../../globals/shared-enums';
 
 const { prefix } = settings;
 
@@ -53,6 +56,12 @@ export default class BXNumberInput extends BXInput {
   protected _max = '';
 
   protected _step = '1';
+
+  /**
+   * The color scheme.
+   */
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
 
   /**
    * The minimum value allowed in the input
@@ -114,12 +123,6 @@ export default class BXNumberInput extends BXInput {
   @property({ attribute: 'decrement-button-assistive-text' })
   decrementButtonAssistiveText = 'decrease number input';
 
-  /**
-   * Set to `true` to enable the light variant for the input
-   */
-  @property({ type: Boolean, reflect: true })
-  light = false;
-
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
@@ -131,7 +134,7 @@ export default class BXNumberInput extends BXInput {
 
     const wrapperClasses = classMap({
       [`${prefix}--number`]: true,
-      [`${prefix}--number--light`]: this.light,
+      [`${prefix}--number--${this.colorScheme}`]: this.colorScheme,
       [`${prefix}--number--mobile`]: this.mobile,
     });
 

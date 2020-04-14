@@ -24,8 +24,21 @@ if (process.env.STORYBOOK_CARBON_CUSTOM_ELEMENTS_USE_RTL === 'true') {
   document.documentElement.setAttribute('dir', 'rtl');
 }
 
+const SORT_ORDER = ['introduction-welcome--page', 'introduction-form-paticipation--page', 'introduction-custom-styles--page'];
+
 addParameters({
   options: {
+    showRoots: true,
+    storySort(lhs, rhs) {
+      const [lhsId] = lhs;
+      const [rhsId] = rhs;
+      const lhsSortOrder = SORT_ORDER.indexOf(lhsId);
+      const rhsSortOrder = SORT_ORDER.indexOf(rhsId);
+      if (lhsSortOrder >= 0 && rhsSortOrder >= 0) {
+        return lhsSortOrder - rhsSortOrder;
+      }
+      return 0;
+    },
     theme: theme,
   },
 });
@@ -74,11 +87,14 @@ addons.getChannel().on(CURRENT_THEME, theme => {
   document.documentElement.setAttribute('storybook-carbon-theme', theme);
 });
 
-const req = require.context('../src/components', true, /\-story\.[jt]s$/);
-configure(req, module);
+const reqDocs = require.context('../docs', true, /\-story\.mdx$/);
+configure(reqDocs, module);
+
+const reqComponents = require.context('../src/components', true, /\-story\.[jt]s$/);
+configure(reqComponents, module);
 
 if (module.hot) {
-  module.hot.accept(req.id, () => {
+  module.hot.accept(reqComponents.id, () => {
     const currentLocationHref = window.location.href;
     window.history.pushState(null, '', currentLocationHref);
     window.location.reload();

@@ -54,7 +54,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Accordion',
+  title: 'Components/Accordion',
   parameters: {
     docs: {
       page: storyDocs,

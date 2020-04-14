@@ -15,6 +15,7 @@ export { default } from './multi-select-story';
 export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-multi-select
+      :color-scheme="colorScheme"
       :disabled="disabled"
       :invalid="invalid"
       :light="light"
