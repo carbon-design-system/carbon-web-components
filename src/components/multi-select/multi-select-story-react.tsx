@@ -21,6 +21,7 @@ export { default } from './multi-select-story';
 export const defaultStory = ({ parameters }) => {
   const {
     clearSelectionLabel,
+    colorScheme,
     disabled,
     helperText,
     invalid,
@@ -44,6 +45,7 @@ export const defaultStory = ({ parameters }) => {
   };
   return (
     <BXMultiSelect
+      colorScheme={colorScheme}
       disabled={disabled}
       invalid={invalid}
       light={light}

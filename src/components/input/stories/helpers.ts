@@ -1,14 +1,14 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import { action } from '@storybook/addon-actions';
-import { INPUT_TYPE } from '../input';
+import { INPUT_COLOR_SCHEME, INPUT_TYPE } from '../input';
 
 const inputTypes = {};
 
@@ -19,7 +19,13 @@ for (let i = 0; i < keys.length; i++) {
   inputTypes[key.toLowerCase()] = value;
 }
 
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${INPUT_COLOR_SCHEME.LIGHT})`]: INPUT_COLOR_SCHEME.LIGHT,
+};
+
 const createProps = ({ boolean, textNonEmpty, select }) => ({
+  colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
   disabled: boolean('Disabled (disabled)', false),
   value: textNonEmpty('Input value (value)', ''),
   placeholder: textNonEmpty('Placeholder text (placeholder)', 'Optional placeholder text'),

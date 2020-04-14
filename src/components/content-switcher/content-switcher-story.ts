@@ -48,7 +48,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Content switcher',
+  title: 'Components/Content switcher',
   parameters: {
     docs: {
       page: storyDocs,
