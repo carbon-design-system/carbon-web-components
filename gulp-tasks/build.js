@@ -213,6 +213,6 @@ module.exports = {
   },
 
   sass() {
-    return gulp.src(`${config.srcDir}/**/*.scss`).pipe(gulp.dest(config.sassDestDir));
+    return gulp.src([`${config.srcDir}/**/*.scss`, `!${config.srcDir}/**/*-story.scss`]).pipe(gulp.dest(config.sassDestDir));
   },
 };
