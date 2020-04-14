@@ -10,9 +10,12 @@
 import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
+import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './slider.scss';
+
+export { FORM_ELEMENT_COLOR_SCHEME as SLIDER_INPUT_COLOR_SCHEME } from '../../globals/shared-enums';
 
 const { prefix } = settings;
 
@@ -55,16 +58,16 @@ class BXSliderInput extends FocusMixin(LitElement) {
   }
 
   /**
+   * The color scheme.
+   */
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+
+  /**
    * `true` if the check box should be disabled.
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
-
-  /**
-   * `true` if this slider input should use the light UI variant.
-   */
-  @property({ type: Boolean, reflect: true })
-  light = false;
 
   /**
    * The type of the `<input>`.
@@ -83,7 +86,7 @@ class BXSliderInput extends FocusMixin(LitElement) {
   }
 
   render() {
-    const { disabled, light, type, value, _handleChange: handleChange, _handleInput: handleInput } = this;
+    const { colorScheme, disabled, type, value, _handleChange: handleChange, _handleInput: handleInput } = this;
     // NOTE: Our React variant has an option to add `invalid` option here,
     // but there doesn't seem a corresponding style to the thumb.
     // Because of that, in addition to the mininum/maximum constraint enforced,
@@ -91,7 +94,7 @@ class BXSliderInput extends FocusMixin(LitElement) {
     const classes = classMap({
       [`${prefix}--text-input`]: true,
       [`${prefix}--slider-text-input`]: true,
-      [`${prefix}--text-input--light`]: light,
+      [`${prefix}--text-input--${colorScheme}`]: colorScheme,
     });
     return html`
       <input

@@ -52,7 +52,7 @@ lines.story = {
 };
 
 export default {
-  title: 'Skeleton text',
+  title: 'Components/Skeleton text',
   parameters: {
     docs: {
       page: storyDocs,

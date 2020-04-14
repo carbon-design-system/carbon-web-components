@@ -22,7 +22,7 @@
   <textarea
     autocomplete=""
     autofocus=""
-    class="bx--text-area bx--text-area--v2"
+    class="bx--text-area bx--text-area--light bx--text-area--v2"
     cols="50"
     disabled=""
     id="input"
