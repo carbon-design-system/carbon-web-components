@@ -46,7 +46,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Overflow menu',
+  title: 'Components/Overflow menu',
   parameters: {
     docs: {
       page: storyDocs,

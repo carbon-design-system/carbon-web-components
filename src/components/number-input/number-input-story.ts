@@ -123,5 +123,5 @@ export const skeleton = () =>
   `;
 
 export default {
-  title: 'Number Input',
+  title: 'Components/Number Input',
 };

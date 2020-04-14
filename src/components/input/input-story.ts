@@ -108,7 +108,7 @@ withoutFormItemWrapper.story = {
 };
 
 export default {
-  title: 'Input',
+  title: 'Components/Input',
   parameters: {
     docs: {
       page: storyDocs,

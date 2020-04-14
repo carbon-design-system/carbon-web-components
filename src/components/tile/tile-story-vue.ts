@@ -127,7 +127,7 @@ export const expandable = ({ parameters }) => {
 expandable.story = basEexpandable.story;
 
 export default {
-  title: 'Tile',
+  title: 'Components/Tile',
   decorators: [
     () => ({
       template: `<div><story /></div>`,

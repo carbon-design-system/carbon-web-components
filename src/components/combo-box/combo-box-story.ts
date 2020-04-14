@@ -79,7 +79,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Combo box',
+  title: 'Components/Combo box',
   parameters: {
     docs: {
       page: storyDocs,

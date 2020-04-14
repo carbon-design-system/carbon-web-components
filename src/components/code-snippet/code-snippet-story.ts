@@ -166,7 +166,7 @@ skeletonMultiLine.story = {
 };
 
 export default {
-  title: 'Code snippet',
+  title: 'Components/Code snippet',
   parameters: {
     docs: {
       page: storyDocs,
