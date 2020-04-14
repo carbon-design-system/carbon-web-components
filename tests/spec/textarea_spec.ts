@@ -10,7 +10,7 @@
 import { html, render } from 'lit-html';
 import EventManager from '../utils/event-manager';
 
-import BXTextarea from '../../src/components/textarea/textarea';
+import BXTextarea, { TEXTAREA_COLOR_SCHEME } from '../../src/components/textarea/textarea';
 import { defaultStory } from '../../src/components/textarea/textarea-story';
 
 /**
@@ -44,6 +44,7 @@ describe('bx-textarea', function() {
         template({
           autocomplete: 'on',
           autofocus: true,
+          colorScheme: TEXTAREA_COLOR_SCHEME.LIGHT,
           disabled: true,
           helperText: 'helper-text-foo',
           labelText: 'label-text-foo',

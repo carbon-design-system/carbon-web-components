@@ -12,9 +12,14 @@ import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import { SEARCH_SIZE } from './search';
+import { SEARCH_COLOR_SCHEME, SEARCH_SIZE } from './search';
 import './search-skeleton';
 import storyDocs from './search-story.mdx';
+
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${SEARCH_COLOR_SCHEME.LIGHT})`]: SEARCH_COLOR_SCHEME.LIGHT,
+};
 
 const sizes = {
   [`Small size (${SEARCH_SIZE.SMALL})`]: SEARCH_SIZE.SMALL,
@@ -22,13 +27,13 @@ const sizes = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { closeButtonAssistiveText, disabled, light, labelText, name, placeholder, size, type, value, onInput } =
+  const { closeButtonAssistiveText, colorScheme, disabled, labelText, name, placeholder, size, type, value, onInput } =
     parameters?.props?.['bx-search'] ?? {};
   return html`
     <bx-search
       close-button-assistive-text="${ifNonNull(closeButtonAssistiveText)}"
+      color-scheme="${ifNonNull(colorScheme)}"
       ?disabled="${disabled}"
-      ?light="${light}"
       label-text="${ifNonNull(labelText)}"
       name="${ifNonNull(name)}"
       placeholder="${ifNonNull(placeholder)}"
@@ -52,8 +57,8 @@ defaultStory.story = {
           'The label text for the close button (close-button-assistive-text)',
           'Clear search input'
         ),
+        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
         disabled: boolean('Disabled (disabled)', false),
-        light: boolean('Light variant (light)', false),
         labelText: textNullable('Label text (label-text)', 'Search'),
         name: textNullable('Name (name)', ''),
         placeholder: textNullable('Placeholder text (placeholder)', ''),

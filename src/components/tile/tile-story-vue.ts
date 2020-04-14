@@ -16,17 +16,18 @@ import {
   expandable as basEexpandable,
 } from './tile-story';
 
-export const defaultStory = () => ({
+export const defaultStory = ({ parameters }) => ({
   template: `
-    <bx-tile>Default tile</bx-tile>
+    <bx-tile :color-scheme="colorScheme">Default tile</bx-tile>
   `,
+  ...createVueBindingsFromProps(parameters?.props?.['bx-tile']),
 });
 
 defaultStory.story = baseDefaultStory.story;
 
 export const clickable = ({ parameters }) => ({
   template: `
-    <bx-clickable-tile :href="href">Clickable tile</bx-clickable-tile>
+    <bx-clickable-tile :color-scheme="colorScheme" :href="href">Clickable tile</bx-clickable-tile>
   `,
   ...createVueBindingsFromProps(parameters?.props?.['bx-clickable-tile']),
 });
@@ -39,6 +40,7 @@ export const singleSelectable = ({ parameters }) => ({
       <legend>Single-select tiles</legend>
       <bx-radio-tile
         :checkmark-label="checkmarkLabel"
+        :color-scheme="colorScheme"
         :name="name"
         :value="value"
         @input="onInput"
@@ -47,6 +49,7 @@ export const singleSelectable = ({ parameters }) => ({
       </bx-radio-tile>
       <bx-radio-tile
         :checkmark-label="checkmarkLabel"
+        :color-scheme="colorScheme"
         :name="name"
         :value="value"
         @input="onInput"
@@ -55,6 +58,7 @@ export const singleSelectable = ({ parameters }) => ({
       </bx-radio-tile>
       <bx-radio-tile
         :checkmark-label="checkmarkLabel"
+        :color-scheme="colorScheme"
         :name="name"
         :value="value"
         @input="onInput"
@@ -72,6 +76,7 @@ export const multiSelectable = ({ parameters }) => ({
   template: `
     <bx-selectable-tile
       :checkmark-label="checkmarkLabel"
+      :color-scheme="colorScheme"
       :name="name"
       :selected="selected"
       :value="value"
@@ -102,6 +107,7 @@ export const expandable = ({ parameters }) => {
   return {
     template: `
       <bx-expandable-tile
+        :color-scheme="colorScheme"
         :expanded="expanded"
         @bx-expandable-tile-beingchanged="handleBeforeChange"
         @bx-expandable-tile-changed="handleAfterChange"

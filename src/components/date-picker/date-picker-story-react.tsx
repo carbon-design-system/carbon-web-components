@@ -28,17 +28,24 @@ import {
 export { default } from './date-picker-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, hideLabel, invalid, labelText, light, placeholder, sizeHorizontal, validityMessage } = parameters?.props?.[
-    'bx-date-picker-input'
-  ];
+  const {
+    colorScheme,
+    disabled,
+    hideLabel,
+    invalid,
+    labelText,
+    placeholder,
+    sizeHorizontal,
+    validityMessage,
+  } = parameters?.props?.['bx-date-picker-input'];
   return (
     <BXDatePicker>
       <BXDatePickerInput
+        colorScheme={colorScheme}
         disabled={disabled}
         hideLabel={hideLabel}
         invalid={invalid}
         labelText={labelText}
-        light={light}
         placeholder={placeholder}
         sizeHorizontal={sizeHorizontal}
         validityMessage={validityMessage}
@@ -51,7 +58,7 @@ defaultStory.story = baseDefaultStory.story;
 
 export const singleWithCalendar = ({ parameters }) => {
   const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
-  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage, onInput } = parameters?.props?.[
+  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, validityMessage, onInput } = parameters?.props?.[
     'bx-date-picker-input'
   ];
   return (
@@ -63,12 +70,12 @@ export const singleWithCalendar = ({ parameters }) => {
       onChanged={onChanged}
       onFlatpickrError={onFlatpickrError}>
       <BXDatePickerInput
+        colorScheme={colorScheme}
         disabled={disabled}
         hideLabel={hideLabel}
         invalid={invalid}
         kind="single"
         labelText={labelText}
-        light={light}
         placeholder={placeholder}
         validityMessage={validityMessage}
         onInput={onInput}
@@ -81,7 +88,7 @@ singleWithCalendar.story = baseSingleWithCalendar.story;
 
 export const rangeWithCalendar = ({ parameters }) => {
   const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
-  const { disabled, hideLabel, invalid, labelText, light, placeholder, validityMessage, onInput } = parameters?.props?.[
+  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, validityMessage, onInput } = parameters?.props?.[
     'bx-date-picker-input'
   ];
   return (
@@ -93,23 +100,23 @@ export const rangeWithCalendar = ({ parameters }) => {
       onChanged={onChanged}
       onFlatpickrError={onFlatpickrError}>
       <BXDatePickerInput
+        colorScheme={colorScheme}
         disabled={disabled}
         hideLabel={hideLabel}
         invalid={invalid}
         kind="from"
         labelText={labelText}
-        light={light}
         placeholder={placeholder}
         validityMessage={validityMessage}
         onInput={onInput}
       />
       <BXDatePickerInput
+        colorScheme={colorScheme}
         disabled={disabled}
         hideLabel={hideLabel}
         invalid={invalid}
         kind="to"
         labelText={labelText}
-        light={light}
         placeholder={placeholder}
         validityMessage={validityMessage}
         onInput={onInput}
