@@ -11,11 +11,14 @@ import { customElement, LitElement, html, property, query } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
+import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FormMixin from '../../globals/mixins/form';
 import ValidityMixin from '../../globals/mixins/validity';
 import styles from './textarea.scss';
+
+export { FORM_ELEMENT_COLOR_SCHEME as TEXTAREA_COLOR_SCHEME } from '../../globals/shared-enums';
 
 const { prefix } = settings;
 
@@ -55,6 +58,12 @@ export default class BXTextarea extends ValidityMixin(FormMixin(LitElement)) {
    */
   @property({ type: Boolean })
   autofocus = false;
+
+  /**
+   * The color scheme.
+   */
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
 
   /**
    * The number of columns for the textarea to show by default
@@ -125,7 +134,7 @@ export default class BXTextarea extends ValidityMixin(FormMixin(LitElement)) {
   /**
    * The special validity message for `required`.
    */
-  @property()
+  @property({ attribute: 'required-validity-message' })
   requiredValidityMessage = 'Please fill out this field.';
 
   /**
@@ -163,6 +172,7 @@ export default class BXTextarea extends ValidityMixin(FormMixin(LitElement)) {
     const textareaClasses = classMap({
       [`${prefix}--text-area`]: true,
       [`${prefix}--text-area--v2`]: true,
+      [`${prefix}--text-area--${this.colorScheme}`]: this.colorScheme,
       [`${prefix}--text-area--invalid`]: this.invalid,
     });
 

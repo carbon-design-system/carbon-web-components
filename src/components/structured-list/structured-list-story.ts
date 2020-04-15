@@ -113,5 +113,5 @@ export const skeleton = () => html`
 `;
 
 export default {
-  title: 'Structured list',
+  title: 'Components/Structured list',
 };

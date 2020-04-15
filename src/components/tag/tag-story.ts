@@ -74,5 +74,5 @@ export default {
       page: storyDocs,
     },
   },
-  title: 'Tag',
+  title: 'Components/Tag',
 };

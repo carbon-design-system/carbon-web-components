@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -36,7 +36,8 @@ import BXHeaderMenuItem from 'carbon-custom-elements/es/components-react/ui-shel
 import BXHeaderMenuButton from 'carbon-custom-elements/es/components-react/ui-shell/header-menu-button';
 // @ts-ignore
 import BXHeaderName from 'carbon-custom-elements/es/components-react/ui-shell/header-name';
-import { sideNav as baseSideNav, sideNavWithIcons as baseSideNavWithIcons, header as baseHeader } from './ui-shell-story';
+import { sideNav as baseSideNav, sideNavWithIcons as baseSideNavWithIcons } from './ui-shell-story';
+import styles from './ui-shell-story.scss';
 
 export { default } from './ui-shell-story';
 
@@ -88,7 +89,8 @@ const StoryContent = () => (
 );
 
 export const sideNav = ({ parameters }) => {
-  const { expanded, fixed, href } = parameters?.props?.['bx-side-nav'];
+  const { expanded, fixed } = parameters?.props?.['bx-side-nav'];
+  const { href } = parameters?.props?.['bx-side-nav-menu-item'];
   return (
     <>
       <BXSideNav aria-label="Side navigation" expanded={expanded} fixed={fixed}>
@@ -122,7 +124,8 @@ export const sideNav = ({ parameters }) => {
 sideNav.story = baseSideNav.story;
 
 export const sideNavWithIcons = ({ parameters }) => {
-  const { expanded, fixed, href } = parameters?.props?.['bx-side-nav'];
+  const { expanded, fixed } = parameters?.props?.['bx-side-nav'];
+  const { href } = parameters?.props?.['bx-side-nav-menu-item'];
   return (
     <>
       <BXSideNav aria-label="Side navigation" expanded={expanded} fixed={fixed}>
@@ -164,26 +167,52 @@ export const sideNavWithIcons = ({ parameters }) => {
 
 sideNavWithIcons.story = baseSideNavWithIcons.story;
 
-export const header = () => (
-  <>
-    <BXHeader aria-label="IBM Platform Name">
-      <BXHeaderMenuButton button-label-active="Close menu" button-label-inactive="Open menu" />
-      <BXHeaderName href="javascript:void 0" prefix="IBM">
-        [Platform]
-      </BXHeaderName>
-      <BXHeaderNav menu-bar-label="IBM [Platform]">
-        <BXHeaderNavItem href="javascript:void 0">Link 1</BXHeaderNavItem>
-        <BXHeaderNavItem href="javascript:void 0">Link 2</BXHeaderNavItem>
-        <BXHeaderNavItem href="javascript:void 0">Link 3</BXHeaderNavItem>
-        <BXHeaderMenu menu-label="Link 4" trigger-content="Link 4">
-          <BXHeaderMenuItem href="javascript:void 0">Sub-link 1</BXHeaderMenuItem>
-          <BXHeaderMenuItem href="javascript:void 0">Sub-link 2</BXHeaderMenuItem>
-          <BXHeaderMenuItem href="javascript:void 0">Sub-link 3</BXHeaderMenuItem>
-        </BXHeaderMenu>
-      </BXHeaderNav>
-    </BXHeader>
-    {StoryContent()}
-  </>
-);
-
-header.story = baseHeader.story;
+export const header = ({ parameters }) => {
+  const { expanded, fixed } = parameters?.props?.['bx-side-nav'];
+  const { href } = parameters?.props?.['bx-side-nav-menu-item'];
+  return (
+    <>
+      <style type="text/css">{styles.cssText}</style>
+      <BXHeader aria-label="IBM Platform Name">
+        <BXHeaderMenuButton active={expanded} button-label-active="Close menu" button-label-inactive="Open menu" />
+        <BXHeaderName href="javascript:void 0" prefix="IBM">
+          [Platform]
+        </BXHeaderName>
+        <BXHeaderNav menu-bar-label="IBM [Platform]">
+          <BXHeaderNavItem href="javascript:void 0">Link 1</BXHeaderNavItem>
+          <BXHeaderNavItem href="javascript:void 0">Link 2</BXHeaderNavItem>
+          <BXHeaderNavItem href="javascript:void 0">Link 3</BXHeaderNavItem>
+          <BXHeaderMenu menu-label="Link 4" trigger-content="Link 4">
+            <BXHeaderMenuItem href="javascript:void 0">Sub-link 1</BXHeaderMenuItem>
+            <BXHeaderMenuItem href="javascript:void 0">Sub-link 2</BXHeaderMenuItem>
+            <BXHeaderMenuItem href="javascript:void 0">Sub-link 3</BXHeaderMenuItem>
+          </BXHeaderMenu>
+        </BXHeaderNav>
+      </BXHeader>
+      <BXSideNav aria-label="Side navigation" expanded={expanded} fixed={fixed}>
+        <BXSideNavItems>
+          <BXSideNavMenu title="L0 menu">
+            <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+            <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+            <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+          </BXSideNavMenu>
+          <BXSideNavMenu title="L0 menu">
+            <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+            <BXSideNavMenuItem active aria-current="page" href={href}>
+              L0 menu item
+            </BXSideNavMenuItem>
+            <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+          </BXSideNavMenu>
+          <BXSideNavMenu title="L0 menu">
+            <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+            <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+            <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
+          </BXSideNavMenu>
+          <BXSideNavLink href="javascript:void(0)">L0 link</BXSideNavLink>
+          <BXSideNavLink href="javascript:void(0)">L0 link</BXSideNavLink>
+        </BXSideNavItems>
+      </BXSideNav>
+      {StoryContent()}
+    </>
+  );
+};

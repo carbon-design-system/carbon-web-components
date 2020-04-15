@@ -9,22 +9,41 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean, text } from '@storybook/addon-knobs';
-import './combo-box';
+import { boolean, select, text } from '@storybook/addon-knobs';
+import ifNonNull from '../../globals/directives/if-non-null';
+import { DROPDOWN_COLOR_SCHEME, DROPDOWN_SIZE, DROPDOWN_TYPE } from './combo-box';
 import './combo-box-item';
 import storyDocs from './combo-box-story.mdx';
+
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${DROPDOWN_COLOR_SCHEME.LIGHT})`]: DROPDOWN_COLOR_SCHEME.LIGHT,
+};
+
+const types = {
+  Regular: null,
+  [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
+};
+
+const sizes = {
+  'Regular size': null,
+  [`Small size (${DROPDOWN_SIZE.SMALL})`]: DROPDOWN_SIZE.SMALL,
+  [`Extra large size (${DROPDOWN_SIZE.EXTRA_LARGE})`]: DROPDOWN_SIZE.EXTRA_LARGE,
+};
 
 export const defaultStory = ({ parameters }) => {
   const {
     open,
+    colorScheme,
     disabled,
     helperText,
     invalid,
     labelText,
-    light,
-    value,
+    size,
     triggerContent,
+    type,
     validityMessage,
+    value,
     disableSelection,
     onBeforeSelect,
     onSelect,
@@ -40,14 +59,16 @@ export const defaultStory = ({ parameters }) => {
   return html`
     <bx-combo-box
       ?open=${open}
+      color-scheme="${ifNonNull(colorScheme)}"
       ?disabled=${disabled}
       ?invalid=${invalid}
-      ?light=${light}
       helper-text=${helperText}
       label-text=${labelText}
+      size="${ifNonNull(size)}"
       validity-message=${validityMessage}
       value=${value}
       trigger-content=${triggerContent}
+      type=${ifNonNull(type)}
       @bx-combo-box-beingselected=${handleBeforeSelected}
       @bx-combo-box-selected=${onSelect}
     >
@@ -65,7 +86,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Combo box',
+  title: 'Components/Combo box',
   parameters: {
     docs: {
       page: storyDocs,
@@ -73,14 +94,16 @@ export default {
     knobs: {
       'bx-combo-box': () => ({
         open: boolean('Open (open)', false),
+        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
         disabled: boolean('Disabled (disabled)', false),
         helperText: text('Helper text (helper-text)', 'Optional helper text'),
         invalid: boolean('Show invalid state  (invalid)', false),
         labelText: text('Label text (label-text)', 'Combo box title'),
-        light: boolean('Light variant (light)', false),
-        value: text('The value of the selected item (value)', ''),
+        size: select('Dropdown size (size)', sizes, null),
         triggerContent: text('The placeholder content (trigger-content)', 'Filter...'),
+        type: select('UI type (type)', types, null),
         validityMessage: text('The validity message (validity-message)', ''),
+        value: text('The value of the selected item (value)', ''),
         disableSelection: boolean(
           'Disable user-initiated selection change (Call event.preventDefault() in bx-combo-box-beingselected event)',
           false

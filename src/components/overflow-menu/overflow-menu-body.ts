@@ -9,6 +9,7 @@
 
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement } from 'lit-element';
+import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import BXFloatingMenu, { FLOATING_MENU_ALIGNMENT, FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
 import styles from './overflow-menu.scss';
 
@@ -25,6 +26,12 @@ class BXOverflowMenuBody extends BXFloatingMenu {
    */
   @property()
   alignment = FLOATING_MENU_ALIGNMENT.START;
+
+  /**
+   * The color scheme.
+   */
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
 
   /**
    * The menu direction.

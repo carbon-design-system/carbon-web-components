@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -25,11 +25,12 @@ import {
 export { default } from './number-input-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
     'bx-number-input'
   ];
   return (
     <BXNumberInput
+      colorScheme={colorScheme}
       disabled={disabled}
       invalid={invalid}
       value={value}
@@ -47,13 +48,14 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = baseDefaultStory.story;
 
 export const formItem = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
     'bx-number-input'
   ];
   return (
     <BXFormItem>
       <BXNumberInput
         value={value}
+        colorScheme={colorScheme}
         placeholder={placeholder}
         onInput={onInput}
         disabled={disabled}
@@ -74,12 +76,13 @@ export const formItem = ({ parameters }) => {
 formItem.story = baseFormItem.story;
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
     'bx-number-input'
   ];
   return (
     <BXNumberInput
       value={value}
+      colorScheme={colorScheme}
       placeholder={placeholder}
       onInput={onInput}
       disabled={disabled}

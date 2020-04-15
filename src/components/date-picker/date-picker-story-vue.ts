@@ -23,6 +23,7 @@ export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-date-picker>
       <bx-date-picker-input
+        :color-scheme="colorScheme"
         :disabled="disabled"
         :hide-label="hideLabel"
         :invalid="invalid"
@@ -51,6 +52,7 @@ export const singleWithCalendar = ({ parameters }) => ({
       @bx-date-picker-flatpickr-error="onFlatpickrError"
     >
       <bx-date-picker-input
+        :color-scheme="colorScheme"
         :disabled="disabled"
         :hide-label="hideLabel"
         :invalid="invalid"
@@ -80,6 +82,7 @@ export const rangeWithCalendar = ({ parameters }) => ({
       @bx-date-picker-flatpickr-error="onFlatpickrError"
     >
       <bx-date-picker-input
+        :color-scheme="colorScheme"
         :disabled="disabled"
         :hide-label="hideLabel"
         :invalid="invalid"
@@ -92,6 +95,7 @@ export const rangeWithCalendar = ({ parameters }) => ({
       >
       </bx-date-picker-input>
       <bx-date-picker-input
+        :color-scheme="colorScheme"
         :disabled="disabled"
         :hide-label="hideLabel"
         :invalid="invalid"
