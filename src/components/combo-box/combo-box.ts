@@ -16,6 +16,8 @@ import BXDropdown, { DROPDOWN_KEYBOARD_ACTION } from '../dropdown/dropdown';
 import BXComboBoxItem from './combo-box-item';
 import styles from './combo-box.scss';
 
+export { DROPDOWN_COLOR_SCHEME, DROPDOWN_SIZE, DROPDOWN_TYPE } from '../dropdown/dropdown';
+
 const { prefix } = settings;
 
 /**
@@ -36,17 +38,23 @@ class BXComboBox extends BXDropdown {
   protected _shouldTriggerBeFocusable = false;
 
   /**
+   * The selection button.
+   */
+  @query('#selection-button')
+  private _selectionButtonNode!: HTMLElement;
+
+  /**
    * The `<input>` for filtering.
    */
   @query('input')
-  protected _filterInput!: HTMLInputElement;
+  private _filterInputNode!: HTMLInputElement;
 
   /**
    * @param item A combo box item.
    * @returns `true` if the given combo box item matches the query text user types.
    */
   protected _testItemWithQueryText(item) {
-    return (this.itemMatches || this._defaultItemMatches)(item, this._filterInput.value);
+    return (this.itemMatches || this._defaultItemMatches)(item, this._filterInputNode.value);
   }
 
   /* eslint-disable class-methods-use-this */
@@ -66,18 +74,18 @@ class BXComboBox extends BXDropdown {
    */
   protected _handleInput() {
     const items = this.querySelectorAll((this.constructor as typeof BXComboBox).selectorItem);
-    const index = !this._filterInput.value ? -1 : findIndex(items, this._testItemWithQueryText, this);
+    const index = !this._filterInputNode.value ? -1 : findIndex(items, this._testItemWithQueryText, this);
     forEach(items, (item, i) => {
       (item as BXComboBoxItem).highlighted = i === index;
     });
-    const { _filterInput: filterInput } = this;
+    const { _filterInputNode: filterInput } = this;
     this._filterInputValue = !filterInput ? '' : filterInput.value;
     this.open = true;
     this.requestUpdate(); // If the only change is to `_filterInputValue`, auto-update doesn't happen
   }
 
   protected _handleClickInner(event: MouseEvent) {
-    if ((event.target as Element).closest((this.constructor as typeof BXComboBox).selectorSelectionButton)) {
+    if (this._selectionButtonNode?.contains(event.target as Node)) {
       this._handleUserInitiatedClearInput();
     } else {
       super._handleClickInner(event);
@@ -89,7 +97,7 @@ class BXComboBox extends BXDropdown {
     const action = (this.constructor as typeof BXDropdown).getAction(key);
     const { TRIGGERING } = DROPDOWN_KEYBOARD_ACTION;
     if (
-      (event.target as Element).closest((this.constructor as typeof BXComboBox).selectorSelectionButton) &&
+      this._selectionButtonNode?.contains(event.target as Node) &&
       // Space key should be handled by `<input>` unless "clear selection" button has focus
       (action === TRIGGERING || key === ' ')
     ) {
@@ -107,7 +115,7 @@ class BXComboBox extends BXDropdown {
       (item as BXComboBoxItem).highlighted = false;
     });
     this._filterInputValue = '';
-    this._filterInput.focus();
+    this._filterInputNode.focus();
     this.open = false;
     this.requestUpdate();
   }
@@ -152,7 +160,13 @@ class BXComboBox extends BXDropdown {
     return filterInputValue.length === 0
       ? undefined
       : html`
-          <div role="button" class="${prefix}--list-box__selection" tabindex="0" title="${clearSelectionLabel}">
+          <div
+            id="selection-button"
+            role="button"
+            class="${prefix}--list-box__selection"
+            tabindex="0"
+            title="${clearSelectionLabel}"
+          >
             ${Close16({ 'aria-label': clearSelectionLabel })}
           </div>
         `;
@@ -207,13 +221,6 @@ class BXComboBox extends BXDropdown {
    */
   static get selectorItemSelected() {
     return `${prefix}-combo-box-item[selected]`;
-  }
-
-  /**
-   * A selector that will return the UI to clear selected items.
-   */
-  static get selectorSelectionButton() {
-    return `.${prefix}--list-box__selection`;
   }
 
   /**

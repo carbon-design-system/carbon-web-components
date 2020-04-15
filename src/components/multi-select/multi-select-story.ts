@@ -10,27 +10,38 @@
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
-import { DROPDOWN_TYPE } from '../dropdown/dropdown';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import './multi-select';
+import { DROPDOWN_COLOR_SCHEME, DROPDOWN_SIZE, DROPDOWN_TYPE } from './multi-select';
 import './multi-select-item';
 import storyDocs from './multi-select-story.mdx';
 
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${DROPDOWN_COLOR_SCHEME.LIGHT})`]: DROPDOWN_COLOR_SCHEME.LIGHT,
+};
+
+const sizes = {
+  'Regular size': null,
+  [`Small size (${DROPDOWN_SIZE.SMALL})`]: DROPDOWN_SIZE.SMALL,
+  [`Extra large size (${DROPDOWN_SIZE.EXTRA_LARGE})`]: DROPDOWN_SIZE.EXTRA_LARGE,
+};
+
 const types = {
-  [`Regular (${DROPDOWN_TYPE.REGULAR})`]: null,
+  Regular: null,
   [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
 };
 
 export const defaultStory = ({ parameters }) => {
   const {
     clearSelectionLabel,
+    colorScheme,
     disabled,
     helperText,
     invalid,
     labelText,
-    light,
     open,
+    size,
     toggleLabelClosed,
     toggleLabelOpen,
     triggerContent,
@@ -51,13 +62,14 @@ export const defaultStory = ({ parameters }) => {
   };
   return html`
     <bx-multi-select
+      color-scheme="${ifNonNull(colorScheme)}"
       ?disabled=${disabled}
       ?invalid=${invalid}
-      ?light=${light}
       ?open=${open}
       clear-selection-label=${ifNonNull(clearSelectionLabel)}
       helper-text=${ifNonNull(helperText)}
       label-text=${ifNonNull(labelText)}
+      size=${ifNonNull(size)}
       toggle-label-closed=${ifNonNull(toggleLabelClosed)}
       toggle-label-open=${ifNonNull(toggleLabelOpen)}
       trigger-content=${ifNonNull(triggerContent)}
@@ -81,7 +93,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Multi select',
+  title: 'Components/Multi select',
   parameters: {
     docs: {
       page: storyDocs,
@@ -89,15 +101,16 @@ export default {
     knobs: {
       'bx-multi-select': () => ({
         clearSelectionLabel: textNullable('a11y label for the icon to clear selection (clear-selection-label)', ''),
+        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
         disabled: boolean('Disabled (disabled)', false),
         helperText: textNullable('Helper text (helper-text)', 'Optional helper text'),
         invalid: boolean('Show invalid state  (invalid)', false),
         labelText: textNullable('Label text (label-text)', 'Multiselect title'),
-        light: boolean('Light variant (light)', false),
         open: boolean('Open (open)', false),
         toggleLabelClosed: textNullable('a11y label for the UI indicating the closed state (toggle-label-closed)', ''),
         toggleLabelOpen: textNullable('a11y label for the UI indicating the closed state (toggle-label-open)', ''),
         triggerContent: textNullable('The default content of the trigger button (trigger-content)', 'Select items'),
+        size: select('Dropdown size (size)', sizes, null),
         type: select('UI type (type)', types, null),
         validityMessage: textNullable('The validity message (validity-message)', ''),
         disableSelection: boolean(

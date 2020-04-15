@@ -21,11 +21,14 @@ export { default } from './combo-box-story';
 export const defaultStory = ({ parameters }) => {
   const {
     open,
+    colorScheme,
     disabled,
     helperText,
     invalid,
     labelText,
     light,
+    size,
+    type,
     validityMessage,
     value,
     triggerContent,
@@ -42,11 +45,14 @@ export const defaultStory = ({ parameters }) => {
   return (
     <BXComboBox
       open={open}
+      colorScheme={colorScheme}
       disabled={disabled}
       invalid={invalid}
       light={light}
       helperText={helperText}
       labelText={labelText}
+      size={size}
+      type={type}
       validityMessage={validityMessage}
       value={value}
       triggerContent={triggerContent}

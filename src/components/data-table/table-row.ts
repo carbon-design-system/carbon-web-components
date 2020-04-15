@@ -162,7 +162,9 @@ class BXTableRow extends FocusMixin(LitElement) {
   /**
    * The CSS selector to find the table.
    */
-  static selectorTable = `${prefix}-table`;
+  static get selectorTable() {
+    return `${prefix}-table`;
+  }
 
   static styles = styles;
 }

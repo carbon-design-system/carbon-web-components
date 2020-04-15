@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -110,12 +110,10 @@ const convertProps = (props: CustomElementTypeProps, descriptor: CustomElementPr
   Object.keys(props).reduce((acc, propName) => {
     const { [propName]: descriptorItem } = descriptor;
     const converted = convertProp(props[propName], descriptorItem);
-    return typeof converted === 'undefined'
-      ? acc
-      : {
-          ...acc,
-          [(descriptorItem && descriptorItem.attribute) || propName]: converted,
-        };
+    return {
+      ...acc,
+      [(descriptorItem && descriptorItem.attribute) || propName]: converted,
+    };
   }, {});
 
 /**
