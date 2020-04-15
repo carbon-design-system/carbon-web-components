@@ -15,6 +15,8 @@ import BXDropdown, { DROPDOWN_KEYBOARD_ACTION } from '../dropdown/dropdown';
 import BXMultiSelectItem from './multi-select-item';
 import styles from './multi-select.scss';
 
+export { DROPDOWN_COLOR_SCHEME, DROPDOWN_SIZE, DROPDOWN_TYPE } from '../dropdown/dropdown';
+
 const { prefix } = settings;
 
 /**
@@ -31,6 +33,12 @@ class BXMultiSelect extends BXDropdown {
    * The count of selected items.
    */
   private _selectedItemsCount = 0;
+
+  /**
+   * The selection button.
+   */
+  @query('#selection-button')
+  private _selectionButtonNode!: HTMLElement;
 
   /**
    * The trigger button.
@@ -64,7 +72,7 @@ class BXMultiSelect extends BXDropdown {
   }
 
   protected _handleClickInner(event: MouseEvent) {
-    if ((event.target as Element).closest((this.constructor as typeof BXMultiSelect).selectorSelectionButton)) {
+    if (this._selectionButtonNode?.contains(event.target as Node)) {
       this._handleUserInitiatedSelectItem();
     } else {
       const shouldIgnoreClickInner = elem =>
@@ -78,7 +86,7 @@ class BXMultiSelect extends BXDropdown {
   protected _handleKeydownInner(event: KeyboardEvent) {
     const { key } = event;
     if (
-      (event.target as Element).closest((this.constructor as typeof BXMultiSelect).selectorSelectionButton) &&
+      this._selectionButtonNode?.contains(event.target as Node) &&
       (this.constructor as typeof BXMultiSelect).TRIGGER_KEYS.has(key)
     ) {
       this._handleUserInitiatedSelectItem();
@@ -98,6 +106,7 @@ class BXMultiSelect extends BXDropdown {
       ? undefined
       : html`
           <div
+            id="selection-button"
             role="button"
             class="${prefix}--list-box__selection ${prefix}--list-box__selection--multi ${prefix}--tag--filter"
             tabindex="0"
@@ -127,20 +136,31 @@ class BXMultiSelect extends BXDropdown {
   unselectedAllAssistiveText = 'Unselected all items.';
 
   shouldUpdate(changedProperties) {
+    const { selectorItem } = this.constructor as typeof BXMultiSelect;
+    if (changedProperties.has('size')) {
+      forEach(this.querySelectorAll(selectorItem), elem => {
+        (elem as BXMultiSelectItem).size = this.size;
+      });
+    }
     if (changedProperties.has('value')) {
       const { value } = this;
       const values = !value ? [] : value.split(',');
-      const { selectorItem } = this.constructor as typeof BXMultiSelect;
       // Updates selection beforehand because our rendering logic for `<bx-multi-select>` looks for selected items via `qSA()`
       const items = this.querySelectorAll(selectorItem);
       forEach(items, elem => {
         (elem as BXMultiSelectItem).selected = values.indexOf((elem as BXMultiSelectItem).value) >= 0;
       });
       this._selectedItemsCount = filter(items, elem => values.indexOf((elem as BXMultiSelectItem).value) >= 0).length;
-    } else {
-      super.shouldUpdate(changedProperties);
     }
     return true;
+  }
+
+  /**
+   * A selector to ignore the `click` events from.
+   * Primary for the checkbox label where the `click` event will happen from the associated check box.
+   */
+  private static get selectorIgnoreClickInner() {
+    return `.${prefix}--checkbox-label`;
   }
 
   /**
@@ -148,14 +168,6 @@ class BXMultiSelect extends BXDropdown {
    */
   static get selectorItemHighlighted() {
     return `${prefix}-multi-select-item[highlighted]`;
-  }
-
-  /**
-   * A selector to ignore the `click` events from.
-   * Primary for the checkbox label where the `click` event will happen from the associated check box.
-   */
-  static get selectorIgnoreClickInner() {
-    return `.${prefix}--checkbox-label`;
   }
 
   /**
@@ -171,13 +183,6 @@ class BXMultiSelect extends BXDropdown {
    */
   static get selectorItemSelected() {
     return `${prefix}-multi-select-item[selected]`;
-  }
-
-  /**
-   * A selector that will return the UI to clear selected items.
-   */
-  static get selectorSelectionButton() {
-    return `.${prefix}--list-box__selection`;
   }
 
   /**
