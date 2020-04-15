@@ -75,5 +75,5 @@ withTitle.story = {
 };
 
 export default {
-  title: 'Icon',
+  title: 'Components/Icon',
 };

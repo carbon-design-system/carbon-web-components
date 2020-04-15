@@ -15,6 +15,7 @@ import Menu20 from '@carbon/icons/lib/menu/20';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import { forEach } from '../../globals/internal/collection-helpers';
+import BXSideNav from './side-nav';
 import styles from './header.scss';
 
 const { prefix } = settings;
@@ -27,10 +28,10 @@ const { prefix } = settings;
 class BXHeaderMenuButton extends FocusMixin(LitElement) {
   private _handleClick() {
     const active = !this.active;
-    this.active = !active;
-    forEach(this.querySelectorAll((this.constructor as typeof BXHeaderMenuButton).selectorNav), nav => {
-      // TODO: Cast to the right class
-      (nav as any).open = active;
+    this.active = active;
+    const doc = this.getRootNode() as Document;
+    forEach(doc.querySelectorAll((this.constructor as typeof BXHeaderMenuButton).selectorNav), nav => {
+      (nav as BXSideNav).expanded = active;
     });
   }
 

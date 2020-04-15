@@ -127,7 +127,7 @@ icon.story = {
 };
 
 export default {
-  title: 'Tooltip',
+  title: 'Components/Tooltip',
   parameters: {
     docs: {
       page: storyDocs,

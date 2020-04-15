@@ -32,6 +32,25 @@ module.exports = ({ config, mode }) => {
     };
   }
 
+  const mdxStoryRule = config.module.rules.find(
+    item => item.use && item.use.some && item.use.some(use => /@mdx-js\/loader/i.test(use.loader) && !item.exclude)
+  );
+  if (mdxStoryRule) {
+    // Storybook's default assumes that MDX stories have `.story.mdx`/`.stories.mdx` suffixes.
+    // We put MDX stories to docs/*-story.mdx.
+    mdxStoryRule.test = /\-story(\-(angular|react|vue))?.mdx$/;
+    mdxStoryRule.include = [path.resolve(__dirname, '../docs')];
+  }
+
+  const storyDocsRule = config.module.rules.find(
+    item => item.use && item.use.some && item.use.some(use => /@mdx-js\/loader/i.test(use.loader) && item.exclude)
+  );
+  if (storyDocsRule) {
+    // Storybook's default assumes that MDX stories have `.story.mdx`/`.stories.mdx` suffixes.
+    // We put MDX stories to docs/*-story.mdx.
+    storyDocsRule.exclude = [path.resolve(__dirname, '../docs')];
+  }
+
   // `carbon-custom-elements` does not use `polymer-webpack-loader` as it does not use full-blown Polymer
   const htmlRuleIndex = config.module.rules.findIndex(
     item => item.use && item.use.some && item.use.some(use => /polymer-webpack-loader/i.test(use.loader))

@@ -473,7 +473,7 @@ class BXCEDemoDataTable extends LitElement {
 const sizes = {
   [`Compact size (${TABLE_SIZE.COMPACT})`]: TABLE_SIZE.COMPACT,
   [`Short size (${TABLE_SIZE.SHORT})`]: TABLE_SIZE.SHORT,
-  [`Regular size (${TABLE_SIZE.REGULAR})`]: null,
+  'Regular size': null,
   [`Tall size (${TABLE_SIZE.TALL})`]: TABLE_SIZE.TALL,
 };
 
@@ -741,7 +741,7 @@ skeleton.story = {
 };
 
 export default {
-  title: 'Data table',
+  title: 'Components/Data table',
   parameters: {
     docs: {
       page: storyDocs,

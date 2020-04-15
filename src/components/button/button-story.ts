@@ -28,7 +28,7 @@ const kinds = {
 };
 
 const sizes = {
-  [`Regular size`]: null,
+  'Regular size': null,
   [`Small size (${BUTTON_SIZE.SMALL})`]: BUTTON_SIZE.SMALL,
 };
 
@@ -116,7 +116,7 @@ skeleton.story = {
 };
 
 export default {
-  title: 'Button',
+  title: 'Components/Button',
   parameters: {
     docs: {
       page: storyDocs,
