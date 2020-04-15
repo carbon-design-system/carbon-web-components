@@ -23,6 +23,7 @@ export const defaultStory = ({ parameters }) => ({
       [labelText]="labelText"
       [toggleLabelClosed]="toggleLabelClosed"
       [toggleLabelOpen]="toggleLabelOpen"
+      [size]="size"
       [triggerContent]="triggerContent"
       [type]="type"
       [validityMessage]="validityMessage"

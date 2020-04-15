@@ -23,6 +23,7 @@ export const defaultStory = ({ parameters }) => ({
       :clear-selection-label="clearSelectionLabel"
       :helper-text="helperText"
       :label-text="labelText"
+      :size="size"
       :toggle-label-closed="toggleLabelClosed"
       :toggle-label-open="toggleLabelOpen"
       :trigger-content="triggerContent"

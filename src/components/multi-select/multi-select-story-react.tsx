@@ -28,6 +28,7 @@ export const defaultStory = ({ parameters }) => {
     labelText,
     light,
     open,
+    size,
     toggleLabelClosed,
     toggleLabelOpen,
     triggerContent,
@@ -53,6 +54,7 @@ export const defaultStory = ({ parameters }) => {
       clearSelectionLabel={clearSelectionLabel}
       helperText={helperText}
       labelText={labelText}
+      size={size}
       toggleLabelClosed={toggleLabelClosed}
       toggleLabelOpen={toggleLabelOpen}
       triggerContent={triggerContent}

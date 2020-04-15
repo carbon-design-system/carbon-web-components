@@ -37,6 +37,7 @@ export const defaultStory = ({ parameters }) => {
         :light="light"
         :helper-text="helperText"
         :label-text="labelText"
+        :size="size"
         :value="value"
         :trigger-content="triggerContent"
         @bx-dropdown-beingselected="handleBeforeSelect"

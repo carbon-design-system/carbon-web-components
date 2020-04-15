@@ -16,6 +16,8 @@ import BXDropdown, { DROPDOWN_KEYBOARD_ACTION } from '../dropdown/dropdown';
 import BXComboBoxItem from './combo-box-item';
 import styles from './combo-box.scss';
 
+export { DROPDOWN_COLOR_SCHEME, DROPDOWN_SIZE, DROPDOWN_TYPE } from '../dropdown/dropdown';
+
 const { prefix } = settings;
 
 /**

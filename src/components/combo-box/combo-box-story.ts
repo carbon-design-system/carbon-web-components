@@ -10,9 +10,8 @@
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, select, text } from '@storybook/addon-knobs';
-import { DROPDOWN_COLOR_SCHEME, DROPDOWN_TYPE } from '../dropdown/dropdown';
 import ifNonNull from '../../globals/directives/if-non-null';
-import './combo-box';
+import { DROPDOWN_COLOR_SCHEME, DROPDOWN_SIZE, DROPDOWN_TYPE } from './combo-box';
 import './combo-box-item';
 import storyDocs from './combo-box-story.mdx';
 
@@ -26,6 +25,12 @@ const types = {
   [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
 };
 
+const sizes = {
+  'Regular size': null,
+  [`Small size (${DROPDOWN_SIZE.SMALL})`]: DROPDOWN_SIZE.SMALL,
+  [`Extra large size (${DROPDOWN_SIZE.EXTRA_LARGE})`]: DROPDOWN_SIZE.EXTRA_LARGE,
+};
+
 export const defaultStory = ({ parameters }) => {
   const {
     open,
@@ -34,6 +39,7 @@ export const defaultStory = ({ parameters }) => {
     helperText,
     invalid,
     labelText,
+    size,
     value,
     triggerContent,
     type,
@@ -58,6 +64,7 @@ export const defaultStory = ({ parameters }) => {
       ?invalid=${invalid}
       helper-text=${helperText}
       label-text=${labelText}
+      size="${ifNonNull(size)}"
       validity-message=${validityMessage}
       value=${value}
       trigger-content=${triggerContent}
@@ -92,6 +99,7 @@ export default {
         helperText: text('Helper text (helper-text)', 'Optional helper text'),
         invalid: boolean('Show invalid state  (invalid)', false),
         labelText: text('Label text (label-text)', 'Combo box title'),
+        size: select('Dropdown size (size)', sizes, null),
         value: text('The value of the selected item (value)', ''),
         triggerContent: text('The placeholder content (trigger-content)', 'Filter...'),
         type: select('UI type (type)', types, null),

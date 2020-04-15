@@ -15,6 +15,8 @@ import BXDropdown, { DROPDOWN_KEYBOARD_ACTION } from '../dropdown/dropdown';
 import BXMultiSelectItem from './multi-select-item';
 import styles from './multi-select.scss';
 
+export { DROPDOWN_COLOR_SCHEME, DROPDOWN_SIZE, DROPDOWN_TYPE } from '../dropdown/dropdown';
+
 const { prefix } = settings;
 
 /**
@@ -134,18 +136,21 @@ class BXMultiSelect extends BXDropdown {
   unselectedAllAssistiveText = 'Unselected all items.';
 
   shouldUpdate(changedProperties) {
+    const { selectorItem } = this.constructor as typeof BXMultiSelect;
+    if (changedProperties.has('size')) {
+      forEach(this.querySelectorAll(selectorItem), elem => {
+        (elem as BXMultiSelectItem).size = this.size;
+      });
+    }
     if (changedProperties.has('value')) {
       const { value } = this;
       const values = !value ? [] : value.split(',');
-      const { selectorItem } = this.constructor as typeof BXMultiSelect;
       // Updates selection beforehand because our rendering logic for `<bx-multi-select>` looks for selected items via `qSA()`
       const items = this.querySelectorAll(selectorItem);
       forEach(items, elem => {
         (elem as BXMultiSelectItem).selected = values.indexOf((elem as BXMultiSelectItem).value) >= 0;
       });
       this._selectedItemsCount = filter(items, elem => values.indexOf((elem as BXMultiSelectItem).value) >= 0).length;
-    } else {
-      super.shouldUpdate(changedProperties);
     }
     return true;
   }

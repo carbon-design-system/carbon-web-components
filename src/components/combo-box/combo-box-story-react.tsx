@@ -27,6 +27,7 @@ export const defaultStory = ({ parameters }) => {
     invalid,
     labelText,
     light,
+    size,
     validityMessage,
     value,
     triggerContent,
@@ -49,6 +50,7 @@ export const defaultStory = ({ parameters }) => {
       light={light}
       helperText={helperText}
       labelText={labelText}
+      size={size}
       validityMessage={validityMessage}
       value={value}
       triggerContent={triggerContent}

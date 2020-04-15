@@ -63,6 +63,26 @@ export enum DROPDOWN_KEYBOARD_ACTION {
 }
 
 /**
+ * Dropdown size.
+ */
+export enum DROPDOWN_SIZE {
+  /**
+   * Regular size.
+   */
+  REGULAR = '',
+
+  /**
+   * Small size.
+   */
+  SMALL = 'sm',
+
+  /**
+   * Extra large size.
+   */
+  EXTRA_LARGE = 'xl',
+}
+
+/**
  * Dropdown types.
  */
 export enum DROPDOWN_TYPE {
@@ -428,6 +448,12 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
   selectedItemAssistiveText = 'Selected an item.';
 
   /**
+   * Dropdown size.
+   */
+  @property({ reflect: true })
+  size = DROPDOWN_SIZE.REGULAR;
+
+  /**
    * The `aria-label` attribute for the UI indicating the closed state.
    */
   @property({ attribute: 'toggle-label-closed' })
@@ -468,8 +494,13 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
   }
 
   shouldUpdate(changedProperties) {
+    const { selectorItem } = this.constructor as typeof BXDropdown;
+    if (changedProperties.has('size')) {
+      forEach(this.querySelectorAll(selectorItem), elem => {
+        (elem as BXDropdownItem).size = this.size;
+      });
+    }
     if (changedProperties.has('value')) {
-      const { selectorItem } = this.constructor as typeof BXDropdown;
       // `<bx-multi-select>` updates selection beforehand
       // because our rendering logic for `<bx-multi-select>` looks for selected items via `qSA()`
       forEach(this.querySelectorAll(selectorItem), elem => {
@@ -514,6 +545,7 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
       open,
       toggleLabelClosed,
       toggleLabelOpen,
+      size,
       type,
       validityMessage,
       _assistiveStatusText: assistiveStatusText,
@@ -535,6 +567,7 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
       [`${prefix}--list-box--disabled`]: disabled,
       [`${prefix}--list-box--inline`]: inline,
       [`${prefix}--list-box--expanded`]: open,
+      [`${prefix}--list-box--${size}`]: size,
       [`${prefix}--dropdown--invalid`]: invalid,
       [`${prefix}--dropdown--inline`]: inline,
       [`${prefix}--dropdown--selected`]: selectedItemsCount > 0,
