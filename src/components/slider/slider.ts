@@ -135,8 +135,15 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   private _handleKeydownThumb({ key, shiftKey }: KeyboardEvent) {
     if (!this.disabled) {
       if (key in THUMB_DIRECTION) {
-        const { max, min, step, stepRatio } = this;
-        this.value += (!shiftKey ? Number(step) : (Number(max) - Number(min)) / Number(stepRatio)) * THUMB_DIRECTION[key];
+        const { max: rawMax, min: rawMin, step: rawStep, stepRatio: rawStepRatio, value } = this;
+        const max = Number(rawMax);
+        const min = Number(rawMin);
+        const step = Number(rawStep);
+        const stepRatio = Number(rawStepRatio);
+        const diff = (!shiftKey ? step : (max - min) / stepRatio) * THUMB_DIRECTION[key];
+        const stepCount = (value + diff) / step;
+        // Snaps to next
+        this.value = Math.min(max, Math.max(min, (diff >= 0 ? Math.floor(stepCount) : Math.ceil(stepCount)) * step));
         this.dispatchEvent(
           new CustomEvent((this.constructor as typeof BXSlider).eventChange, {
             bubbles: true,
@@ -389,7 +396,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
       }
     }
     if (input) {
-      ['max', 'min', 'value'].forEach(name => {
+      ['max', 'min', 'step', 'value'].forEach(name => {
         if (changedProperties.has(name)) {
           input[name] = this[name];
         }
