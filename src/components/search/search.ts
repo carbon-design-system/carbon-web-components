@@ -34,7 +34,7 @@ export enum SEARCH_SIZE {
   /**
    * Regular size.
    */
-  REGULAR = 'regular',
+  REGULAR = '',
 }
 
 /**

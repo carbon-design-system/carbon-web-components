@@ -25,7 +25,7 @@ const kinds = {
 };
 
 const sizes = {
-  [`Regular size`]: null,
+  'Regular size': null,
   [`Small size (${BUTTON_SIZE.SMALL})`]: BUTTON_SIZE.SMALL,
 };
 

@@ -29,7 +29,7 @@ const sizes = {
 };
 
 const types = {
-  [`Regular (${DROPDOWN_TYPE.REGULAR})`]: null,
+  Regular: null,
   [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
 };
 

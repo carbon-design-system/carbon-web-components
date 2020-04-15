@@ -23,7 +23,7 @@ const colorSchemes = {
 
 const sizes = {
   [`Small size (${SEARCH_SIZE.SMALL})`]: SEARCH_SIZE.SMALL,
-  [`Regular size (${SEARCH_SIZE.REGULAR})`]: null,
+  'Regular size': null,
 };
 
 export const defaultStory = ({ parameters }) => {
