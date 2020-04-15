@@ -32,30 +32,36 @@ import baseStory, {
 const BXTileAboveTheFoldContent = createReactCustomElementType('bx-tile-above-the-fold-content', {});
 const BXTileBelowTheFoldContent = createReactCustomElementType('bx-tile-below-the-fold-content', {});
 
-export const defaultStory = () => <BXTile>Default tile</BXTile>;
+export const defaultStory = ({ parameters }) => {
+  const { colorScheme } = parameters?.props?.['bx-tile'] ?? {};
+  return <BXTile colorScheme={colorScheme}>Default tile</BXTile>;
+};
 
 defaultStory.story = baseDefaultStory.story;
 
 export const clickable = ({ parameters }) => {
-  const { href } = parameters?.props?.['bx-clickable-tile'];
-  return <BXClickableTile href={href}>Clickable tile</BXClickableTile>;
+  const { colorScheme, href } = parameters?.props?.['bx-clickable-tile'];
+  return (
+    <BXClickableTile colorScheme={colorScheme} href={href}>
+      Clickable tile
+    </BXClickableTile>
+  );
 };
 
 clickable.story = baseClickable.story;
 
 export const singleSelectable = ({ parameters }) => {
-  const { checkmarkLabel, name, value, onInput } =
-    (parameters.props && parameters.props['bx-radio-tile']) || ({} as typeof parameters.props['bx-radio-tile']);
+  const { checkmarkLabel, colorScheme, name, value, onInput } = parameters?.props?.['bx-radio-tile'];
   return (
     <fieldset>
       <legend>Single-select tiles</legend>
-      <BXRadioTile checkmarkLabel={checkmarkLabel} name={name} value={value} onInput={onInput}>
+      <BXRadioTile checkmarkLabel={checkmarkLabel} colorScheme={colorScheme} name={name} value={value} onInput={onInput}>
         Single-select Tile
       </BXRadioTile>
-      <BXRadioTile checkmarkLabel={checkmarkLabel} name={name} value={value} onInput={onInput}>
+      <BXRadioTile checkmarkLabel={checkmarkLabel} colorScheme={colorScheme} name={name} value={value} onInput={onInput}>
         Single-select Tile
       </BXRadioTile>
-      <BXRadioTile checkmarkLabel={checkmarkLabel} name={name} value={value} onInput={onInput}>
+      <BXRadioTile checkmarkLabel={checkmarkLabel} colorScheme={colorScheme} name={name} value={value} onInput={onInput}>
         Single-select Tile
       </BXRadioTile>
     </fieldset>
@@ -65,9 +71,15 @@ export const singleSelectable = ({ parameters }) => {
 singleSelectable.story = baseSingleSelectable.story;
 
 export const multiSelectable = ({ parameters }) => {
-  const { checkmarkLabel, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'];
+  const { checkmarkLabel, colorScheme, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'];
   return (
-    <BXSelectableTile checkmarkLabel={checkmarkLabel} name={name} selected={selected} value={value} onInput={onInput}>
+    <BXSelectableTile
+      checkmarkLabel={checkmarkLabel}
+      colorScheme={colorScheme}
+      name={name}
+      selected={selected}
+      value={value}
+      onInput={onInput}>
       Multi-select Tile
     </BXSelectableTile>
   );
@@ -76,8 +88,7 @@ export const multiSelectable = ({ parameters }) => {
 multiSelectable.story = baseMultiSelectable.story;
 
 export const expandable = ({ parameters }) => {
-  const { expanded, disableChange, onBeforeChange, onChange } =
-    (parameters.props && parameters.props['bx-expandable-tile']) || ({} as typeof parameters.props['bx-expandable-tile']);
+  const { colorScheme, expanded, disableChange, onBeforeChange, onChange } = parameters?.props?.['bx-expandable-tile'];
   const handleBeforeChanged = (event: CustomEvent) => {
     onBeforeChange(event);
     if (disableChange) {
@@ -85,7 +96,7 @@ export const expandable = ({ parameters }) => {
     }
   };
   return (
-    <BXExpandableTile expanded={expanded} onBeforeChange={handleBeforeChanged} onChange={onChange}>
+    <BXExpandableTile colorScheme={colorScheme} expanded={expanded} onBeforeChange={handleBeforeChanged} onChange={onChange}>
       <BXTileAboveTheFoldContent style={{ height: '200px' }}>Above the fold content here</BXTileAboveTheFoldContent>
       <BXTileBelowTheFoldContent style={{ height: '300px' }}>Below the fold content here</BXTileBelowTheFoldContent>
     </BXExpandableTile>

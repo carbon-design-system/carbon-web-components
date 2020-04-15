@@ -14,15 +14,16 @@ import baseStory, { defaultStory as baseDefaultStory } from './multi-select-stor
 export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-multi-select
+      [colorScheme]="colorScheme"
       [disabled]="disabled"
       [invalid]="invalid"
-      [light]="light"
       [open]="open"
       [clearSelectionLabel]="clearSelectionLabel"
       [helperText]="helperText"
       [labelText]="labelText"
       [toggleLabelClosed]="toggleLabelClosed"
       [toggleLabelOpen]="toggleLabelOpen"
+      [size]="size"
       [triggerContent]="triggerContent"
       [type]="type"
       [validityMessage]="validityMessage"

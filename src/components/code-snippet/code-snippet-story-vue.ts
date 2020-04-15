@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -25,6 +25,7 @@ export const singleLine = ({ parameters }) => ({
       :copy-button-assistive-text="copyButtonAssistiveText"
       :copy-button-feedback-text="copyButtonFeedbackText || undefined"
       :copy-button-feedback-timeout="copyButtonFeedbackTimeout"
+      :color-scheme="colorScheme"
       @click="onClick"
     >node -v Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis voluptate id incidunt molestiae
     officia possimus, quasi itaque alias, architecto hic, dicta fugit? Debitis delectus quidem explicabo vitae fuga
@@ -45,6 +46,7 @@ export const multiLine = ({ parameters }) => ({
       :copy-button-feedback-timeout="copyButtonFeedbackTimeout"
       :collapse-button-text="collapseButtonText"
       :expand-button-text="expandButtonText"
+      :color-scheme="colorScheme"
       @click="onClick"
     >@mixin grid-container {
 width: 100%;
@@ -81,6 +83,7 @@ export const inline = ({ parameters }) => ({
       :copy-button-assistive-text="copyButtonAssistiveText"
       :copy-button-feedback-text="copyButtonFeedbackText || undefined"
       :copy-button-feedback-timeout="copyButtonFeedbackTimeout"
+      :color-scheme="colorScheme"
       @click="onClick"
     >node -v</bx-code-snippet>
   `,

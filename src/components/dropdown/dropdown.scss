@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019
+// Copyright IBM Corp. 2019, 2020
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -38,6 +38,28 @@ $css--plex: true !default;
 :host(#{$prefix}-dropdown-item) {
   @extend .#{$prefix}--list-box__menu-item;
   display: block;
+
+  .#{$prefix}--list-box__menu-item__option {
+    height: 100%;
+  }
+}
+
+:host(#{$prefix}-dropdown-item[size='sm']) {
+  height: rem(32px);
+
+  .#{$prefix}--list-box__menu-item__option {
+    padding-top: rem(7px);
+    padding-bottom: rem(7px);
+  }
+}
+
+:host(#{$prefix}-dropdown-item[size='xl']) {
+  height: rem(48px);
+
+  .#{$prefix}--list-box__menu-item__option {
+    padding-top: rem(15px);
+    padding-bottom: rem(15px);
+  }
 }
 
 :host(#{$prefix}-dropdown-item[disabled]) .#{$prefix}--list-box__menu-item__option {
