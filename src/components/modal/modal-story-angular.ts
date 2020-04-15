@@ -16,6 +16,7 @@ export const defaultStory = ({ parameters }) => ({
     <bx-modal
       [danger]="danger"
       [open]="open"
+      [size]="size"
       (bx-modal-beingclosed)="handleBeforeClose($event)"
       (bx-modal-closed)="handleClose($event)"
     >

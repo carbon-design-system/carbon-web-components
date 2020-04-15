@@ -7,7 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import ResizeObserver from 'resize-observer-polyfill';
 import { LitElement } from 'lit-element';
 import HostListener from '../../globals/decorators/host-listener';
 import FocusMixin from '../../globals/mixins/focus';
@@ -142,6 +141,8 @@ abstract class BXFloatingMenu extends HostListenerMixin(FocusMixin(LitElement)) 
   /**
    * The `ResizeObserver` instance for observing element resizes for re-positioning floating menu position.
    */
+  // TODO: Wait for `.d.ts` update to support `ResizeObserver`
+  // @ts-ignore
   private _resizeObserver = new ResizeObserver(() => {
     const { container, open, parent, position } = this;
     if (container && open && parent) {
@@ -151,7 +152,7 @@ abstract class BXFloatingMenu extends HostListenerMixin(FocusMixin(LitElement)) 
     }
   });
 
-  @HostListener('blur')
+  @HostListener('focusout')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleBlur = ({ relatedTarget }: FocusEvent) => {
     if (!this.contains(relatedTarget as Node)) {
@@ -332,7 +333,9 @@ abstract class BXFloatingMenu extends HostListenerMixin(FocusMixin(LitElement)) 
   /**
    * The CSS selector to find the element to put this floating menu in.
    */
-  static selectorContainer = '[data-floating-menu-container]';
+  static get selectorContainer() {
+    return '[data-floating-menu-container]';
+  }
 }
 
 export default BXFloatingMenu;

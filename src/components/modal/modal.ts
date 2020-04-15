@@ -25,6 +25,31 @@ const PRECEDING = Node.DOCUMENT_POSITION_PRECEDING | Node.DOCUMENT_POSITION_CONT
 const FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING | Node.DOCUMENT_POSITION_CONTAINED_BY;
 
 /**
+ * Modal size.
+ */
+export enum MODAL_SIZE {
+  /**
+   * Extra small size.
+   */
+  EXTRA_SMALL = 'xs',
+
+  /**
+   * Small size.
+   */
+  SMALL = 'sm',
+
+  /**
+   * Regular size.
+   */
+  REGULAR = '',
+
+  /**
+   * Large size.
+   */
+  LARGE = 'lg',
+}
+
+/**
  * Modal.
  * @element bx-modal
  * @fires bx-modal-beingclosed
@@ -67,7 +92,7 @@ class BXModal extends HostListenerMixin(LitElement) {
    * Handles `blur` event on this element.
    * @param event The event.
    */
-  @HostListener('shadowRoot:blur')
+  @HostListener('shadowRoot:focusout')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleBlur = ({ target, relatedTarget }: FocusEvent) => {
     const oldContains = target !== this && this.contains(target as Node);
@@ -157,13 +182,21 @@ class BXModal extends HostListenerMixin(LitElement) {
   @property({ type: Boolean, reflect: true })
   open = false;
 
+  /**
+   * Modal size.
+   */
+  @property({ reflect: true })
+  size = MODAL_SIZE.REGULAR;
+
   render() {
+    const { size } = this;
     const containerClass = this.containerClass
       .split(' ')
       .filter(Boolean)
       .reduce((acc, item) => ({ ...acc, [item]: true }), {});
     const containerClasses = classMap({
       [`${prefix}--modal-container`]: true,
+      [`${prefix}--modal-container--${size}`]: size,
       ...containerClass,
     });
     return html`
@@ -215,17 +248,23 @@ class BXModal extends HostListenerMixin(LitElement) {
   /**
    * A selector selecting buttons that should close this modal.
    */
-  static selectorCloseButton = `[data-modal-close],${prefix}-modal-close-button`;
+  static get selectorCloseButton() {
+    return `[data-modal-close],${prefix}-modal-close-button`;
+  }
 
   /**
    * A selector selecting tabbable nodes.
    */
-  static selectorTabbable = selectorTabbable;
+  static get selectorTabbable() {
+    return selectorTabbable;
+  }
 
   /**
    * A selector selecting the nodes that should be focused when modal gets open.
    */
-  static selectorPrimaryFocus = `[data-modal-primary-focus],${prefix}-modal-footer ${prefix}-btn[kind="primary"]`;
+  static get selectorPrimaryFocus() {
+    return `[data-modal-primary-focus],${prefix}-modal-footer ${prefix}-btn[kind="primary"]`;
+  }
 
   /**
    * The name of the custom event fired before this modal is being closed upon a user gesture.

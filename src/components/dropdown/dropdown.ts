@@ -14,12 +14,16 @@ import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
+import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
+import ValidityMixin from '../../globals/mixins/validity';
 import HostListener from '../../globals/decorators/host-listener';
 import { find, forEach, indexOf } from '../../globals/internal/collection-helpers';
 import BXDropdownItem from './dropdown-item';
 import styles from './dropdown.scss';
+
+export { FORM_ELEMENT_COLOR_SCHEME as DROPDOWN_COLOR_SCHEME } from '../../globals/shared-enums';
 
 const { prefix } = settings;
 
@@ -59,13 +63,33 @@ export enum DROPDOWN_KEYBOARD_ACTION {
 }
 
 /**
+ * Dropdown size.
+ */
+export enum DROPDOWN_SIZE {
+  /**
+   * Regular size.
+   */
+  REGULAR = '',
+
+  /**
+   * Small size.
+   */
+  SMALL = 'sm',
+
+  /**
+   * Extra large size.
+   */
+  EXTRA_LARGE = 'xl',
+}
+
+/**
  * Dropdown types.
  */
 export enum DROPDOWN_TYPE {
   /**
    * Regular type.
    */
-  REGULAR = 'regular',
+  REGULAR = '',
 
   /**
    * Inline type.
@@ -82,7 +106,7 @@ export enum DROPDOWN_TYPE {
  * @fires bx-dropdown-selected - The custom event fired after a a dropdown item is selected upon a user gesture.
  */
 @customElement(`${prefix}-dropdown`)
-class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
+class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))) {
   /**
    * The latest status of this dropdown, for screen reader to accounce.
    */
@@ -219,7 +243,7 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    * Handles `blur` event handler on the document this element is in.
    * @param event The event.
    */
-  @HostListener('blur')
+  @HostListener('focusout')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   protected _handleFocusOut(event: FocusEvent) {
     if (!this.contains(event.relatedTarget as Node)) {
@@ -364,6 +388,12 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   /* eslint-enable class-methods-use-this */
 
   /**
+   * The color scheme.
+   */
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+
+  /**
    * `true` if this dropdown should be disabled.
    */
   @property({ type: Boolean, reflect: true })
@@ -388,16 +418,22 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   labelText = '';
 
   /**
-   * `true` if this dropdown should use the light UI variant.
-   */
-  @property({ type: Boolean, reflect: true })
-  light = false;
-
-  /**
    * `true` if this dropdown should be open.
    */
   @property({ type: Boolean, reflect: true })
   open = false;
+
+  /**
+   * `true` if the value is required.
+   */
+  @property({ type: Boolean, reflect: true })
+  required = false;
+
+  /**
+   * The special validity message for `required`.
+   */
+  @property({ attribute: 'required-validity-message' })
+  requiredValidityMessage = 'Please fill out this field.';
 
   /**
    * An assistive text for screen reader to announce, telling the open state.
@@ -410,6 +446,12 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
    */
   @property({ attribute: 'selected-item-assistive-text' })
   selectedItemAssistiveText = 'Selected an item.';
+
+  /**
+   * Dropdown size.
+   */
+  @property({ reflect: true })
+  size = DROPDOWN_SIZE.REGULAR;
 
   /**
    * The `aria-label` attribute for the UI indicating the closed state.
@@ -452,8 +494,13 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   shouldUpdate(changedProperties) {
+    const { selectorItem } = this.constructor as typeof BXDropdown;
+    if (changedProperties.has('size')) {
+      forEach(this.querySelectorAll(selectorItem), elem => {
+        (elem as BXDropdownItem).size = this.size;
+      });
+    }
     if (changedProperties.has('value')) {
-      const { selectorItem } = this.constructor as typeof BXDropdown;
       // `<bx-multi-select>` updates selection beforehand
       // because our rendering logic for `<bx-multi-select>` looks for selected items via `qSA()`
       forEach(this.querySelectorAll(selectorItem), elem => {
@@ -490,14 +537,15 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
 
   render() {
     const {
+      colorScheme,
       disabled,
       helperText,
       invalid,
       labelText,
-      light,
       open,
       toggleLabelClosed,
       toggleLabelOpen,
+      size,
       type,
       validityMessage,
       _assistiveStatusText: assistiveStatusText,
@@ -515,10 +563,11 @@ class BXDropdown extends HostListenerMixin(FocusMixin(LitElement)) {
     const classes = classMap({
       [`${prefix}--dropdown`]: true,
       [`${prefix}--list-box`]: true,
+      [`${prefix}--list-box--${colorScheme}`]: colorScheme,
       [`${prefix}--list-box--disabled`]: disabled,
       [`${prefix}--list-box--inline`]: inline,
-      [`${prefix}--list-box--light`]: light,
       [`${prefix}--list-box--expanded`]: open,
+      [`${prefix}--list-box--${size}`]: size,
       [`${prefix}--dropdown--invalid`]: invalid,
       [`${prefix}--dropdown--inline`]: inline,
       [`${prefix}--dropdown--selected`]: selectedItemsCount > 0,

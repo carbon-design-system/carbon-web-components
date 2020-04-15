@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019
+// Copyright IBM Corp. 2019, 2020
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -26,6 +26,16 @@ $css--plex: true !default;
   background-color: transparent;
 }
 
+:host(#{$prefix}-overflow-menu[open]) {
+  background-color: $ui-01;
+  transition: none;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+:host(#{$prefix}-overflow-menu[color-scheme='light'][open]) {
+  background-color: $ui-02;
+}
+
 :host(#{$prefix}-overflow-menu-body) {
   @extend .#{$prefix}--overflow-menu-options;
 
@@ -45,6 +55,14 @@ $css--plex: true !default;
 
 :host(#{$prefix}-overflow-menu-body[open]) {
   @extend .#{$prefix}--overflow-menu-options--open;
+}
+
+:host(#{$prefix}-overflow-menu-body[color-scheme='light']) {
+  background-color: $ui-02;
+
+  &::after {
+    background-color: $ui-02;
+  }
 }
 
 :host(#{$prefix}-overflow-menu-item) {

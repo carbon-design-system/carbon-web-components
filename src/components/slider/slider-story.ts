@@ -81,7 +81,7 @@ export const skeleton = () =>
   `;
 
 export default {
-  title: 'Slider',
+  title: 'Components/Slider',
   parameters: {
     docs: {
       page: storyDocs,

@@ -16,6 +16,7 @@ export const defaultStory = ({ parameters }) => ({
     <bx-tabs
       [disabled]="disabled"
       [triggerContent]="triggerContent"
+      [type]="type"
       [value]="value"
       (bx-tabs-beingselected)="handleBeforeSelect($event)"
       (bx-tabs-selected)="handleAfterSelect($event)"

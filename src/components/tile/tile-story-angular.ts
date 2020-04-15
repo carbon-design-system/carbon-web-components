@@ -17,17 +17,18 @@ import baseStory, {
   expandable as baseExpandable,
 } from './tile-story';
 
-export const defaultStory = () => ({
+export const defaultStory = ({ parameters }) => ({
   template: `
-    <bx-tile>Default tile</bx-tile>
+    <bx-tile [colorScheme]="colorScheme">Default tile</bx-tile>
   `,
+  props: parameters?.props?.['bx-tile'],
 });
 
 defaultStory.story = baseDefaultStory.story;
 
 export const clickable = ({ parameters }) => ({
   template: `
-    <bx-clickable-tile [href]="href">Clickable tile</bx-clickable-tile>
+    <bx-clickable-tile [colorScheme]="colorScheme" [href]="href">Clickable tile</bx-clickable-tile>
   `,
   props: parameters?.props?.['bx-clickable-tile'],
 });
@@ -40,6 +41,7 @@ export const singleSelectable = ({ parameters }) => ({
       <legend>Single-select tiles</legend>
       <bx-radio-tile
         [checkmarkLabel]="checkmarkLabel"
+        [colorScheme]="colorScheme"
         [name]="name"
         [value]="value"
         (input)="onInput($event)"
@@ -48,6 +50,7 @@ export const singleSelectable = ({ parameters }) => ({
       </bx-radio-tile>
       <bx-radio-tile
         [checkmarkLabel]="checkmarkLabel"
+        [colorScheme]="colorScheme"
         [name]="name"
         [value]="value"
         (input)="onInput($event)"
@@ -56,6 +59,7 @@ export const singleSelectable = ({ parameters }) => ({
       </bx-radio-tile>
       <bx-radio-tile
         [checkmarkLabel]="checkmarkLabel"
+        [colorScheme]="colorScheme"
         [name]="name"
         [value]="value"
         (input)="onInput($event)"
@@ -73,6 +77,7 @@ export const multiSelectable = ({ parameters }) => ({
   template: `
     <bx-selectable-tile
       [checkmarkLabel]="checkmarkLabel"
+      [colorScheme]="colorScheme"
       [name]="name"
       [selected]="selected"
       [value]="value"
@@ -89,6 +94,7 @@ multiSelectable.story = baseMultiSelectable.story;
 export const expandable = ({ parameters }) => ({
   template: `
     <bx-expandable-tile
+      [colorScheme]="colorScheme"
       [expanded]="expanded"
       (bx-expandable-tile-beingchanged)="handleBeforeChange($event)"
       (bx-expandable-tile-changed)="handleAfterChange($event)"

@@ -10,15 +10,16 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "carbon-components": "~10.7.0",
+    "carbon-components": "~10.10.0",
     "carbon-custom-elements": "^1.0.0-beta.0",
     "lit-element": "^2.2.0",
     "lit-html": "^1.1.0",
     "lodash-es": "^4.17.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
+    "@babel/core": "^7.8.0",
     "@types/lodash-es": "^4.17.0",
-    "parcel-bundler": "^1.10.0"
+    "parcel-bundler": "^1.10.0",
+    "sass": "^1.26.0"
   }
 }
