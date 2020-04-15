@@ -58,6 +58,21 @@ export enum TABS_KEYBOARD_ACTION {
 }
 
 /**
+ * Tabs types.
+ */
+export enum TABS_TYPE {
+  /**
+   * Regular tabs.
+   */
+  REGULAR = '',
+
+  /**
+   * Container type.
+   */
+  CONTAINER = 'container',
+}
+
+/**
  * Tabs.
  * @element bx-tabs
  * @fires bx-tabs-beingselected
@@ -283,6 +298,12 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
   @property({ attribute: 'trigger-content' })
   triggerContent = '';
 
+  /**
+   * Tabs type.
+   */
+  @property({ reflect: true })
+  type = TABS_TYPE.REGULAR;
+
   connectedCallback() {
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
@@ -292,8 +313,13 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
 
   shouldUpdate(changedProperties) {
     super.shouldUpdate(changedProperties);
+    const { selectorItem } = this.constructor as typeof BXTabs;
+    if (changedProperties.has('type')) {
+      forEach(this.querySelectorAll(selectorItem), elem => {
+        (elem as BXTab).type = this.type;
+      });
+    }
     if (changedProperties.has('value')) {
-      const { selectorItem } = this.constructor as typeof BXTabs;
       const item = find(this.querySelectorAll(selectorItem), elem => (elem as BXTab).value === this.value);
       if (item) {
         const range = this.ownerDocument!.createRange();

@@ -248,17 +248,23 @@ class BXModal extends HostListenerMixin(LitElement) {
   /**
    * A selector selecting buttons that should close this modal.
    */
-  static selectorCloseButton = `[data-modal-close],${prefix}-modal-close-button`;
+  static get selectorCloseButton() {
+    return `[data-modal-close],${prefix}-modal-close-button`;
+  }
 
   /**
    * A selector selecting tabbable nodes.
    */
-  static selectorTabbable = selectorTabbable;
+  static get selectorTabbable() {
+    return selectorTabbable;
+  }
 
   /**
    * A selector selecting the nodes that should be focused when modal gets open.
    */
-  static selectorPrimaryFocus = `[data-modal-primary-focus],${prefix}-modal-footer ${prefix}-btn[kind="primary"]`;
+  static get selectorPrimaryFocus() {
+    return `[data-modal-primary-focus],${prefix}-modal-footer ${prefix}-btn[kind="primary"]`;
+  }
 
   /**
    * The name of the custom event fired before this modal is being closed upon a user gesture.

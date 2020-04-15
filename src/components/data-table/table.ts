@@ -31,7 +31,7 @@ export enum TABLE_SIZE {
   /**
    * Regular size.
    */
-  REGULAR = 'regular',
+  REGULAR = '',
 
   /**
    * Tall size.
@@ -82,7 +82,9 @@ class BXTable extends LitElement {
   /**
    * The CSS selector to find the rows, including header rows.
    */
-  static selectorRowsWithHeader = `${prefix}-table-header-row,${prefix}-table-row`;
+  static get selectorRowsWithHeader() {
+    return `${prefix}-table-header-row,${prefix}-table-row`;
+  }
 
   static styles = styles;
 }
