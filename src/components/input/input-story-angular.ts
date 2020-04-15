@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -18,6 +18,7 @@ import baseStory, {
 export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-input
+      [colorScheme]="colorScheme"
       [disabled]="disabled"
       [value]="value"
       [type]="type"
@@ -34,7 +35,14 @@ defaultStory.story = baseDefaultStory.story;
 export const formItem = ({ parameters }) => ({
   template: `
     <bx-form-item>
-      <bx-input [value]="value" [placeholder]="placeholder" (input)="onInput()" [invalid]="invalid" [disabled]="disabled">
+      <bx-input
+        [value]="value"
+        [colorScheme]="colorScheme"
+        [placeholder]="placeholder"
+        (input)="onInput()"
+        [invalid]="invalid"
+        [disabled]="disabled"
+      >
         <span slot="label-text">Label text</span>
         <span slot="helper-text">Optional helper text</span>
         <span slot="validity-message">Something isn't right</span>
@@ -48,7 +56,14 @@ formItem.story = baseFormItem.story;
 
 export const withoutFormItemWrapper = ({ parameters }) => ({
   template: `
-    <bx-input [value]="value" [placeholder]="placeholder" (input)="onInput()" [invalid]="invalid" [disabled]="disabled">
+    <bx-input
+      [value]="value"
+      [colorScheme]="colorScheme"
+      [placeholder]="placeholder"
+      (input)="onInput()"
+      [invalid]="invalid"
+      [disabled]="disabled"
+    >
       <span slot="label-text">Label text</span>
       <span slot="helper-text">Optional helper text</span>
       <span slot="validity-message">Something isn't right</span>

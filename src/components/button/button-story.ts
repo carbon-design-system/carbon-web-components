@@ -10,7 +10,10 @@
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
-import Add16 from '@carbon/icons/lib/add/16';
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
+// @ts-ignore
+import Add16 from 'carbon-custom-elements/es/icons/add/16';
 import ifNonNull from '../../globals/directives/if-non-null';
 import { BUTTON_KIND, BUTTON_SIZE } from './button';
 import './button-skeleton';
@@ -25,7 +28,7 @@ const kinds = {
 };
 
 const sizes = {
-  [`Regular size`]: null,
+  'Regular size': null,
   [`Small size (${BUTTON_SIZE.SMALL})`]: BUTTON_SIZE.SMALL,
 };
 
@@ -113,7 +116,7 @@ skeleton.story = {
 };
 
 export default {
-  title: 'Button',
+  title: 'Components/Button',
   parameters: {
     docs: {
       page: storyDocs,

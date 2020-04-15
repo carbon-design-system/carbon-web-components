@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -21,9 +21,9 @@ import { defaultStory as baseDefaultStory } from './overflow-menu-story';
 export { default } from './overflow-menu-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { open, disabled, direction } = parameters?.props?.['bx-overflow-menu'];
+  const { open, colorScheme, disabled, direction } = parameters?.props?.['bx-overflow-menu'];
   return (
-    <BXOverflowMenu disabled={disabled} open={open}>
+    <BXOverflowMenu colorScheme={colorScheme} disabled={disabled} open={open}>
       <BXOverflowMenuBody direction={direction}>
         <BXOverflowMenuItem>Option 1</BXOverflowMenuItem>
         <BXOverflowMenuItem>Option 2</BXOverflowMenuItem>

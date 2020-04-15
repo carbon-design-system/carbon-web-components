@@ -16,7 +16,7 @@ import { TOGGLE_SIZE } from './toggle';
 import storyDocs from './toggle-story.mdx';
 
 const sizes = {
-  [`Regular size`]: null,
+  'Regular size': null,
   [`Small size (${TOGGLE_SIZE.SMALL})`]: TOGGLE_SIZE.SMALL,
 };
 
@@ -43,7 +43,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Toggle',
+  title: 'Components/Toggle',
   parameters: {
     docs: {
       page: storyDocs,

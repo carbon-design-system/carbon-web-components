@@ -9,6 +9,7 @@
 
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
+import { DROPDOWN_SIZE } from './dropdown';
 import styles from './dropdown.scss';
 
 const { prefix } = settings;
@@ -39,6 +40,12 @@ class BXDropdownItem extends LitElement {
    */
   @property({ type: Boolean, reflect: true })
   selected = false;
+
+  /**
+   * Dropdown size.
+   */
+  @property({ reflect: true })
+  size = DROPDOWN_SIZE.REGULAR;
 
   /**
    * The `value` attribute that is set to the parent `<bx-dropdown>` when this dropdown item is selected.

@@ -12,9 +12,14 @@ import { html, property, LitElement } from 'lit-element';
 import { repeat } from 'lit-html/directives/repeat';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
-import Delete16 from '@carbon/icons/lib/delete/16';
-import Download16 from '@carbon/icons/lib/download/16';
-import Settings16 from '@carbon/icons/lib/settings/16';
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
+// @ts-ignore
+import Delete16 from 'carbon-custom-elements/es/icons/delete/16';
+// @ts-ignore
+import Download16 from 'carbon-custom-elements/es/icons/download/16';
+// @ts-ignore
+import Settings16 from 'carbon-custom-elements/es/icons/settings/16';
 import BXBtn from '../button/button';
 import ifNonNull from '../../globals/directives/if-non-null';
 import '../overflow-menu/overflow-menu';
@@ -468,7 +473,7 @@ class BXCEDemoDataTable extends LitElement {
 const sizes = {
   [`Compact size (${TABLE_SIZE.COMPACT})`]: TABLE_SIZE.COMPACT,
   [`Short size (${TABLE_SIZE.SHORT})`]: TABLE_SIZE.SHORT,
-  [`Regular size (${TABLE_SIZE.REGULAR})`]: null,
+  'Regular size': null,
   [`Tall size (${TABLE_SIZE.TALL})`]: TABLE_SIZE.TALL,
 };
 
@@ -736,7 +741,7 @@ skeleton.story = {
 };
 
 export default {
-  title: 'Data table',
+  title: 'Components/Data table',
   parameters: {
     docs: {
       page: storyDocs,

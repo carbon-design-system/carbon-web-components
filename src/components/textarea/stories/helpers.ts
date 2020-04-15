@@ -8,8 +8,15 @@
  */
 
 import { action } from '@storybook/addon-actions';
+import { TEXTAREA_COLOR_SCHEME } from '../textarea';
 
-const createProps = ({ boolean, textNullable, number }) => ({
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${TEXTAREA_COLOR_SCHEME.LIGHT})`]: TEXTAREA_COLOR_SCHEME.LIGHT,
+};
+
+const createProps = ({ boolean, textNullable, number, select }) => ({
+  colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
   disabled: boolean('Disabled (disabled)', false),
   value: textNullable('Input value (value)', ''),
   placeholder: textNullable('Placeholder text (placeholder)', 'Optional placeholder text'),

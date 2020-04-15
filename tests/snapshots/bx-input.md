@@ -22,7 +22,7 @@
   <input
     autocomplete=""
     autofocus=""
-    class="bx--text-input"
+    class="bx--text-input bx--text-input--light"
     disabled=""
     id="input"
     name="name-foo"
@@ -38,4 +38,5 @@
     validity-message-foo
   </slot>
 </div>
+
 ```
