@@ -88,7 +88,7 @@ function createMetadataVisitor(api) {
 
     const leadingComments = path.parentPath.get('leadingComments');
     if (leadingComments) {
-      metadata.comments = leadingComments.map(item => item.node);
+      metadata.comments = (Array.isArray(leadingComments) ? leadingComments : [leadingComments]).map(item => item.node);
     }
 
     return metadata;
