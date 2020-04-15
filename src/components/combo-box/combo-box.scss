@@ -36,6 +36,14 @@ $css--plex: true !default;
 
 :host(#{$prefix}-combo-box[type='inline']) {
   @extend .#{$prefix}--list-box__wrapper--inline;
+
+  .#{$prefix}--list-box__field {
+    padding-left: 0;
+  }
+
+  .#{$prefix}--text-input {
+    border-bottom: none;
+  }
 }
 
 :host(#{$prefix}-combo-box-item) {

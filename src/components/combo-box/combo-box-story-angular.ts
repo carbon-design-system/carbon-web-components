@@ -21,6 +21,7 @@ export const defaultStory = ({ parameters }) => ({
       [helperText]="helperText"
       [labelText]="labelText"
       [size]="size"
+      [type]="type"
       [validityMessage]="validityMessage"
       [value]="value"
       [triggerContent]="triggerContent"
