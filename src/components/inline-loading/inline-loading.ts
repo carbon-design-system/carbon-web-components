@@ -10,7 +10,7 @@
 import { html, property, customElement, LitElement } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import CheckmarkFilled16 from '@carbon/icons/lib/checkmark--filled/16';
-import Error20 from '@carbon/icons/lib/error/20';
+import ErrorFilled16 from '@carbon/icons/lib/error--filled/16';
 import settings from 'carbon-components/es/globals/js/settings';
 import LOADING_TYPE from '../loading/types';
 import getLoadingIcon from '../loading/loading-icon';
@@ -55,7 +55,7 @@ class BXInlineLoading extends LitElement {
   private _renderIcon() {
     const { status } = this;
     if (status === INLINE_LOADING_STATE.ERROR) {
-      return Error20({
+      return ErrorFilled16({
         class: `${prefix}--inline-loading--error`,
       });
     }
