@@ -20,10 +20,11 @@ const { prefix } = settings;
 @customElement(`${prefix}-structured-list-header-row`)
 class BXStructuredListHeaderRow extends LitElement {
   /**
-   * `true` if parent structured list supports selection.
+   * The `name` attribute for the `<input>` for selection.
+   * If present, this structured list header row will show its selectable version of the UI.
    */
-  @property({ type: Boolean, reflect: true, attribute: 'has-selection' })
-  hasSelection = false;
+  @property({ attribute: 'selection-name' })
+  selectionName = '';
 
   connectedCallback() {
     if (!this.hasAttribute('role')) {
@@ -35,7 +36,7 @@ class BXStructuredListHeaderRow extends LitElement {
   render() {
     // We could look up in DOM for `bx-structured-list[hasSelection]`,
     // but uses `hasSelection` prop to utilize attribute change callback
-    if (this.hasSelection) {
+    if (this.selectionName) {
       return html`
         <slot></slot>
         <div class="${prefix}--structured-list-th"></div>
