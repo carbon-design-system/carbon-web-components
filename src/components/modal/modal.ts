@@ -25,6 +25,31 @@ const PRECEDING = Node.DOCUMENT_POSITION_PRECEDING | Node.DOCUMENT_POSITION_CONT
 const FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING | Node.DOCUMENT_POSITION_CONTAINED_BY;
 
 /**
+ * Modal size.
+ */
+export enum MODAL_SIZE {
+  /**
+   * Extra small size.
+   */
+  EXTRA_SMALL = 'xs',
+
+  /**
+   * Small size.
+   */
+  SMALL = 'sm',
+
+  /**
+   * Regular size.
+   */
+  REGULAR = '',
+
+  /**
+   * Large size.
+   */
+  LARGE = 'lg',
+}
+
+/**
  * Modal.
  * @element bx-modal
  * @fires bx-modal-beingclosed
@@ -157,13 +182,21 @@ class BXModal extends HostListenerMixin(LitElement) {
   @property({ type: Boolean, reflect: true })
   open = false;
 
+  /**
+   * Modal size.
+   */
+  @property({ reflect: true })
+  size = MODAL_SIZE.REGULAR;
+
   render() {
+    const { size } = this;
     const containerClass = this.containerClass
       .split(' ')
       .filter(Boolean)
       .reduce((acc, item) => ({ ...acc, [item]: true }), {});
     const containerClasses = classMap({
       [`${prefix}--modal-container`]: true,
+      [`${prefix}--modal-container--${size}`]: size,
       ...containerClass,
     });
     return html`
