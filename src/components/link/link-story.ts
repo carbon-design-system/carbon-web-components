@@ -29,7 +29,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Link',
+  title: 'Components/Link',
   parameters: {
     docs: {
       page: storyDocs,

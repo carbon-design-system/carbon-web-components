@@ -736,7 +736,7 @@ skeleton.story = {
 };
 
 export default {
-  title: 'Data table',
+  title: 'Components/Data table',
   parameters: {
     docs: {
       page: storyDocs,

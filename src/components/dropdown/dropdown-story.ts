@@ -12,10 +12,21 @@ import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import { DROPDOWN_TYPE } from './dropdown';
+import { DROPDOWN_COLOR_SCHEME, DROPDOWN_SIZE, DROPDOWN_TYPE } from './dropdown';
 import './dropdown-item';
 import './dropdown-skeleton';
 import storyDocs from './dropdown-story.mdx';
+
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${DROPDOWN_COLOR_SCHEME.LIGHT})`]: DROPDOWN_COLOR_SCHEME.LIGHT,
+};
+
+const sizes = {
+  'Regular size': null,
+  [`Small size (${DROPDOWN_SIZE.SMALL})`]: DROPDOWN_SIZE.SMALL,
+  [`Extra large size (${DROPDOWN_SIZE.EXTRA_LARGE})`]: DROPDOWN_SIZE.EXTRA_LARGE,
+};
 
 const types = {
   Regular: null,
@@ -25,10 +36,11 @@ const types = {
 export const defaultStory = ({ parameters }) => {
   const {
     open,
+    colorScheme,
     disabled,
     helperText,
     labelText,
-    light,
+    size,
     type,
     value,
     triggerContent,
@@ -47,10 +59,11 @@ export const defaultStory = ({ parameters }) => {
   return html`
     <bx-dropdown
       ?open=${open}
+      color-scheme="${ifNonNull(colorScheme)}"
       ?disabled=${disabled}
-      ?light=${light}
       helper-text=${ifNonNull(helperText)}
       label-text=${ifNonNull(labelText)}
+      size="${ifNonNull(size)}"
       type="${ifNonNull(type)}"
       value=${ifNonNull(value)}
       trigger-content=${ifNonNull(triggerContent)}
@@ -72,10 +85,11 @@ defaultStory.story = {
     knobs: {
       'bx-dropdown': () => ({
         open: boolean('Open (open)', false),
+        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
         disabled: boolean('Disabled (disabled)', false),
         helperText: textNullable('Helper text (helper-text)', 'Optional helper text'),
         labelText: textNullable('Label text (label-text)', 'Dropdown title'),
-        light: boolean('Light variant (light)', false),
+        size: select('Dropdown size (size)', sizes, null),
         type: select('Dropdown type (type)', types, null),
         value: textNullable('The value of the selected item (value)', ''),
         triggerContent: textNullable('The default content of the trigger button (trigger-content)', 'Select an item'),
@@ -96,7 +110,7 @@ export const skeleton = () =>
   `;
 
 export default {
-  title: 'Dropdown',
+  title: 'Components/Dropdown',
   parameters: {
     docs: {
       page: storyDocs,

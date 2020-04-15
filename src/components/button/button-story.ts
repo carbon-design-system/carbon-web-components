@@ -113,7 +113,7 @@ skeleton.story = {
 };
 
 export default {
-  title: 'Button',
+  title: 'Components/Button',
   parameters: {
     docs: {
       page: storyDocs,

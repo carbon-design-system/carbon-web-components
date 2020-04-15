@@ -23,12 +23,14 @@ export { default } from './dropdown-story';
 export const defaultStory = ({ parameters }) => {
   const {
     open,
+    colorScheme,
     disabled,
     helperText,
     labelText,
     light,
     toggleLabelClosed,
     toggleLabelOpen,
+    size,
     triggerContent,
     type,
     value,
@@ -45,10 +47,12 @@ export const defaultStory = ({ parameters }) => {
   return (
     <BXDropdown
       open={open}
+      colorScheme={colorScheme}
       disabled={disabled}
       light={light}
       helperText={helperText}
       labelText={labelText}
+      size={size}
       toggleLabelClosed={toggleLabelClosed}
       toggleLabelOpen={toggleLabelOpen}
       triggerContent={triggerContent}

@@ -10,7 +10,7 @@
 import { html, render } from 'lit-html';
 import EventManager from '../utils/event-manager';
 
-import BXInput, { INPUT_TYPE } from '../../src/components/input/input';
+import BXInput, { INPUT_COLOR_SCHEME, INPUT_TYPE } from '../../src/components/input/input';
 import { defaultStory } from '../../src/components/input/input-story';
 
 /**
@@ -44,6 +44,7 @@ describe('bx-input', function() {
         template({
           autocomplete: 'on',
           autofocus: true,
+          colorScheme: INPUT_COLOR_SCHEME.LIGHT,
           disabled: true,
           helperText: 'helper-text-foo',
           labelText: 'label-text-foo',
