@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -23,17 +23,34 @@ import {
 export { default } from './input-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, type, onInput } = parameters?.props?.['bx-input'];
-  return <BXInput disabled={disabled} invalid={invalid} type={type} value={value} placeholder={placeholder} onInput={onInput} />;
+  const { colorScheme, disabled, value, placeholder, invalid, type, onInput } = parameters?.props?.['bx-input'];
+  return (
+    <BXInput
+      colorScheme={colorScheme}
+      disabled={disabled}
+      invalid={invalid}
+      type={type}
+      value={value}
+      placeholder={placeholder}
+      onInput={onInput}
+    />
+  );
 };
 
 defaultStory.story = baseDefaultStory.story;
 
 export const formItem = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, type, onInput } = parameters?.props?.['bx-input'];
+  const { colorScheme, disabled, value, placeholder, invalid, type, onInput } = parameters?.props?.['bx-input'];
   return (
     <BXFormItem>
-      <BXInput type={type} value={value} placeholder={placeholder} onInput={onInput} disabled={disabled} invalid={invalid}>
+      <BXInput
+        colorScheme={colorScheme}
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        onInput={onInput}
+        disabled={disabled}
+        invalid={invalid}>
         <span slot="label-text">Label text</span>
         <span slot="helper-text">Optional helper text</span>
         <span slot="validity-message">Something isn't right</span>
@@ -45,9 +62,16 @@ export const formItem = ({ parameters }) => {
 formItem.story = baseFormItem.story;
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, type, onInput } = parameters?.props?.['bx-input'];
+  const { colorScheme, disabled, value, placeholder, invalid, type, onInput } = parameters?.props?.['bx-input'];
   return (
-    <BXInput type={type} value={value} placeholder={placeholder} onInput={onInput} disabled={disabled} invalid={invalid}>
+    <BXInput
+      colorScheme={colorScheme}
+      type={type}
+      value={value}
+      placeholder={placeholder}
+      onInput={onInput}
+      disabled={disabled}
+      invalid={invalid}>
       <span slot="label-text">Label text</span>
       <span slot="helper-text">Optional helper text</span>
       <span slot="validity-message">Something isn't right</span>

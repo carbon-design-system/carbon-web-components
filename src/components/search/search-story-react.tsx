@@ -21,8 +21,8 @@ export { default } from './search-story';
 export const defaultStory = ({ parameters }) => {
   const {
     closeButtonAssistiveText,
+    colorScheme,
     disabled,
-    light,
     labelText,
     name,
     placeholder,
@@ -34,8 +34,8 @@ export const defaultStory = ({ parameters }) => {
   return (
     <BXSearch
       closeButtonAssistiveText={closeButtonAssistiveText}
+      colorScheme={colorScheme}
       disabled={disabled}
-      light={light}
       labelText={labelText}
       name={name}
       placeholder={placeholder}

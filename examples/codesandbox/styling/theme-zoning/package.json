@@ -19,6 +19,7 @@
   "devDependencies": {
     "@babel/core": "^7.8.0",
     "@types/lodash-es": "^4.17.0",
-    "parcel-bundler": "^1.10.0"
+    "parcel-bundler": "^1.10.0",
+    "sass": "^1.26.0"
   }
 }

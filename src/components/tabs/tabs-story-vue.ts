@@ -33,6 +33,7 @@ export const defaultStory = ({ parameters }) => {
         <bx-tabs
           :disabled="disabled"
           :trigger-content="triggerContent"
+          :type="type"
           :value="value"
           @bx-tabs-beingselected="handleBeforeSelect"
           @bx-tabs-selected="handleAfterSelect"
