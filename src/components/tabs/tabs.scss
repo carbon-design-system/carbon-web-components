@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019
+// Copyright IBM Corp. 2019, 2020
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -28,6 +28,10 @@
   }
 }
 
+:host(#{$prefix}-tabs[type='container']) {
+  @extend .#{$prefix}--tabs--container;
+}
+
 :host(#{$prefix}-tab) {
   @extend .#{$prefix}--tabs__nav-item;
 
@@ -46,6 +50,48 @@
 
   background-color: $hover-ui;
   box-shadow: 0 -1px 0 $hover-ui;
+}
+
+:host(#{$prefix}-tab[type='container']) {
+  @include carbon--breakpoint(md) {
+    background-color: $ui-03;
+
+    & + .#{$prefix}--tabs__nav-item {
+      margin-left: 0;
+      // Draws the border without affecting the inner-content
+      box-shadow: -1px 0 0 0 $ui-04;
+    }
+
+    & + .#{$prefix}--tabs__nav-item.#{$prefix}--tabs__nav-item--selected,
+    &.#{$prefix}--tabs__nav-item--selected + .#{$prefix}--tabs__nav-item {
+      box-shadow: none;
+    }
+  }
+
+  &:hover {
+    @include carbon--breakpoint(md) {
+      background-color: $hover-selected-ui;
+    }
+  }
+
+  a.#{$prefix}--tabs__nav-link {
+    @include carbon--breakpoint(md) {
+      height: rem(48px);
+      line-height: calc(#{rem(48px)} - (#{$spacing-03} * 2)); // height - vertical padding
+    }
+  }
+}
+
+// `[role]` is only for specificity.
+// We have `:not()` usage in the corresponding Carbon core style
+// which puts specificity of "specific" scenario though the style is for "regular" scenario
+:host(#{$prefix}-tab[type='container'][role]),
+:host(#{$prefix}-tab[type='container'][role]:hover) {
+  a.#{$prefix}--tabs__nav-link {
+    @include carbon--breakpoint(md) {
+      border-bottom: none;
+    }
+  }
 }
 
 // `[role]` is only for specificity.
@@ -69,6 +115,19 @@
     @include carbon--breakpoint(md) {
       border-bottom: $tab-underline-disabled;
     }
+  }
+}
+
+:host(#{$prefix}-tab[type='container'][disabled][role]),
+:host(#{$prefix}-tab[type='container'][disabled][role]:hover) {
+  @include carbon--breakpoint(md) {
+    background-color: $disabled-02;
+  }
+}
+
+:host(#{$prefix}-tab[type='container'][disabled][role]) .#{$prefix}--tabs__nav-link {
+  @include carbon--breakpoint(md) {
+    color: $disabled-03;
   }
 }
 
@@ -105,6 +164,25 @@
       &:active {
         border-bottom-width: 2px;
       }
+    }
+  }
+}
+
+:host(#{$prefix}-tab[type='container'][selected]),
+:host(#{$prefix}-tab[type='container'][selected]:hover) {
+  @include carbon--breakpoint(md) {
+    background-color: $ui-01;
+
+    .#{$prefix}--tabs__nav-link {
+      line-height: calc(#{rem(48px)} - (#{$spacing-03} * 2)); // height - vertical padding
+      // Draws the border without affecting the inner-content
+      box-shadow: inset 0 2px 0 0 $interactive-04;
+      border-bottom: none;
+    }
+
+    .#{$prefix}--tabs__nav-link:focus,
+    .#{$prefix}--tabs__nav-link:active {
+      box-shadow: none;
     }
   }
 }

@@ -75,5 +75,5 @@ export const skeleton = () =>
   `;
 
 export default {
-  title: 'Radio button',
+  title: 'Components/Radio button',
 };
