@@ -47,10 +47,6 @@ class BXTableBatchActions extends LitElement {
   @property({ type: Number, attribute: 'selected-rows-count' })
   selectedRowsCount = 0;
 
-  createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
-  }
-
   render() {
     const { formatSelectedItemsCount, selectedRowsCount, _handleCancel: handleCancel } = this;
     return html`
