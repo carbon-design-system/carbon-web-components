@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -13,16 +13,16 @@ import baseStory, { defaultStory as baseDefaultStory } from './structured-list-s
 
 export const defaultStory = ({ parameters }) => ({
   template: `
-    <bx-structured-list [hasSelection]="hasSelection">
+    <bx-structured-list [selectionName]="selectionName">
       <bx-structured-list-head>
-        <bx-structured-list-header-row [hasSelection]="hasSelection">
+        <bx-structured-list-header-row [selectionName]="selectionName">
           <bx-structured-list-header-cell>ColumnA</bx-structured-list-header-cell>
           <bx-structured-list-header-cell>ColumnB</bx-structured-list-header-cell>
           <bx-structured-list-header-cell>ColumnC</bx-structured-list-header-cell>
         </bx-structured-list-header-row>
       </bx-structured-list-head>
       <bx-structured-list-body>
-        <bx-structured-list-row [selectionName]="selectionName" [selectionValue]="selectionValues[0]">
+        <bx-structured-list-row [selectionValue]="selectionValues[0]">
           <bx-structured-list-cell>Row 1</bx-structured-list-cell>
           <bx-structured-list-cell>Row 1</bx-structured-list-cell>
           <bx-structured-list-cell
@@ -30,7 +30,7 @@ export const defaultStory = ({ parameters }) => ({
             augue. Aenean posuere sem vel euismod dignissim.</bx-structured-list-cell
           >
         </bx-structured-list-row>
-        <bx-structured-list-row [selectionName]="selectionName" [selectionValue]="selectionValues[1]">
+        <bx-structured-list-row [selectionValue]="selectionValues[1]">
           <bx-structured-list-cell>Row 2</bx-structured-list-cell>
           <bx-structured-list-cell>Row 2</bx-structured-list-cell>
           <bx-structured-list-cell
@@ -38,7 +38,7 @@ export const defaultStory = ({ parameters }) => ({
             augue. Aenean posuere sem vel euismod dignissim.</bx-structured-list-cell
           >
         </bx-structured-list-row>
-        <bx-structured-list-row [selectionName]="selectionName" [selectionValue]="selectionValues[2]">
+        <bx-structured-list-row [selectionValue]="selectionValues[2]">
           <bx-structured-list-cell>Row 3</bx-structured-list-cell>
           <bx-structured-list-cell>Row 3</bx-structured-list-cell>
           <bx-structured-list-cell

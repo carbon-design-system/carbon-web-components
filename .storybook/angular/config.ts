@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -11,24 +11,31 @@ import '../../src/polyfills';
 
 import addons from '@storybook/addons';
 import { configure, addDecorator, addParameters } from '@storybook/angular';
-import { DocsContainer } from '@storybook/addon-docs/blocks';
 import { withKnobs } from '@storybook/addon-knobs';
 import '../components/focus-trap/focus-trap';
 import { CURRENT_THEME } from '../addon-carbon-theme/shared';
 import theme from './theme';
-import DocsPage from '../DocsPage';
 import containerStyles from '../_container.scss'; // eslint-disable-line import/first
 
 if (process.env.STORYBOOK_CARBON_CUSTOM_ELEMENTS_USE_RTL === 'true') {
   document.documentElement.setAttribute('dir', 'rtl');
 }
 
+const SORT_ORDER = ['introduction-welcome--page', 'introduction-form-paticipation--page'];
+
 addParameters({
-  docs: {
-    container: DocsContainer,
-    page: DocsPage,
-  },
   options: {
+    showRoots: true,
+    storySort(lhs, rhs) {
+      const [lhsId] = lhs;
+      const [rhsId] = rhs;
+      const lhsSortOrder = SORT_ORDER.indexOf(lhsId);
+      const rhsSortOrder = SORT_ORDER.indexOf(rhsId);
+      if (lhsSortOrder >= 0 && rhsSortOrder >= 0) {
+        return lhsSortOrder - rhsSortOrder;
+      }
+      return 0;
+    },
     theme: theme,
   },
 });
@@ -79,5 +86,8 @@ addons.getChannel().on(CURRENT_THEME, theme => {
   document.documentElement.setAttribute('storybook-carbon-theme', theme);
 });
 
-const req = require.context('../../src/components', true, /\-story\-angular\.[jt]s$/);
-configure(req, module);
+const reqDocs = require.context('../../docs', true, /\-story\-angular\.mdx$/);
+configure(reqDocs, module);
+
+const reqComponents = require.context('../../src/components', true, /\-story\-angular\.[jt]s$/);
+configure(reqComponents, module);

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -14,16 +14,16 @@ export { default } from './structured-list-story';
 
 export const defaultStory = ({ parameters }) => ({
   template: `
-    <bx-structured-list :has-selection="hasSelection">
+    <bx-structured-list :selection-name="selectionName">
       <bx-structured-list-head>
-        <bx-structured-list-header-row :has-selection="hasSelection">
+        <bx-structured-list-header-row>
           <bx-structured-list-header-cell>ColumnA</bx-structured-list-header-cell>
           <bx-structured-list-header-cell>ColumnB</bx-structured-list-header-cell>
           <bx-structured-list-header-cell>ColumnC</bx-structured-list-header-cell>
         </bx-structured-list-header-row>
       </bx-structured-list-head>
       <bx-structured-list-body>
-        <bx-structured-list-row :selection-name="selectionName" :selection-value="selectionValues[0]">
+        <bx-structured-list-row :selection-value="selectionValues[0]">
           <bx-structured-list-cell>Row 1</bx-structured-list-cell>
           <bx-structured-list-cell>Row 1</bx-structured-list-cell>
           <bx-structured-list-cell
@@ -31,7 +31,7 @@ export const defaultStory = ({ parameters }) => ({
             augue. Aenean posuere sem vel euismod dignissim.</bx-structured-list-cell
           >
         </bx-structured-list-row>
-        <bx-structured-list-row :selection-name="selectionName" :selection-value="selectionValues[1]">
+        <bx-structured-list-row :selection-value="selectionValues[1]">
           <bx-structured-list-cell>Row 2</bx-structured-list-cell>
           <bx-structured-list-cell>Row 2</bx-structured-list-cell>
           <bx-structured-list-cell
@@ -39,7 +39,7 @@ export const defaultStory = ({ parameters }) => ({
             augue. Aenean posuere sem vel euismod dignissim.</bx-structured-list-cell
           >
         </bx-structured-list-row>
-        <bx-structured-list-row :selection-name="selectionName" :selection-value="selectionValues[2]">
+        <bx-structured-list-row :selection-value="selectionValues[2]">
           <bx-structured-list-cell>Row 3</bx-structured-list-cell>
           <bx-structured-list-cell>Row 3</bx-structured-list-cell>
           <bx-structured-list-cell

@@ -64,7 +64,7 @@
   </slot>
 </div>
 <div
-  class="bx--dropdown bx--dropdown--invalid bx--list-box bx--list-box--disabled bx--list-box--expanded bx--list-box--light"
+  class="bx--dropdown bx--dropdown--invalid bx--list-box bx--list-box--disabled bx--list-box--expanded"
   data-invalid=""
   role="listbox"
 >
@@ -88,6 +88,7 @@
     >
     <div
       class="bx--list-box__selection"
+      id="selection-button"
       role="button"
       tabindex="0"
       title=""

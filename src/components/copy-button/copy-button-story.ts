@@ -32,7 +32,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Copy button',
+  title: 'Components/Copy button',
   parameters: {
     docs: {
       page: storyDocs,
