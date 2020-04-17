@@ -154,10 +154,6 @@ class BXAccordionItem extends FocusMixin(LitElement) {
     }
   }
 
-  createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
-  }
-
   render() {
     const {
       expandoAssistiveText,

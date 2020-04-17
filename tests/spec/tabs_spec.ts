@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,6 +10,7 @@
 import { render } from 'lit-html';
 import EventManager from '../utils/event-manager';
 import BXTabs from '../../src/components/tabs/tabs';
+import BXTab from '../../src/components/tabs/tab';
 import { defaultStory } from '../../src/components/tabs/tabs-story';
 
 const template = (props?) =>
@@ -131,6 +132,257 @@ describe('bx-tabs', function() {
 
     afterEach(async function() {
       events.reset();
+    });
+  });
+
+  describe('Focus style', function() {
+    it('should support setting focus style to child tabs', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      const itemNodes = document.body.querySelectorAll('bx-tab');
+      const event = new CustomEvent('focusin', { bubbles: true });
+      (elem as HTMLElement).dispatchEvent(event);
+      expect(Array.prototype.every.call(itemNodes, item => (item as BXTab).inFocus)).toBe(true);
+    });
+
+    it('should support unsetting focus style to child tabs', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      const itemNodes = document.body.querySelectorAll('bx-tab');
+      Array.prototype.forEach.call(itemNodes, item => {
+        (item as BXTab).inFocus = true;
+      });
+      const event = new CustomEvent('focusout', { bubbles: true });
+      (elem as HTMLElement).dispatchEvent(event);
+      expect(Array.prototype.every.call(itemNodes, item => (item as BXTab).inFocus)).toBe(false);
+    });
+  });
+
+  describe('Keyboard navigation', function() {
+    it('should support closing narrow mode dropdown by ESC key', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      (elem as any)._open = true;
+      elem!.dispatchEvent(
+        Object.assign(new CustomEvent('keydown', { bubbles: true }), {
+          key: 'Escape',
+        })
+      );
+      expect((elem as any)._open).toBe(false);
+    });
+
+    it('should support left key in non-narrow mode', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      (elem as BXTabs).value = 'all';
+      await Promise.resolve(); // Update cycle for `<bx-tabs>`
+      await Promise.resolve(); // Update cycle for `<bx-tab>`
+      const triggerNode = elem!.shadowRoot!.getElementById('trigger');
+      spyOnProperty(triggerNode!, 'offsetParent').and.returnValue(null);
+      elem!.dispatchEvent(
+        Object.assign(new CustomEvent('keydown', { bubbles: true }), {
+          key: 'ArrowLeft',
+        })
+      );
+      await Promise.resolve();
+      const itemNodes = document.body.querySelectorAll('bx-tab');
+      expect(itemNodes[0].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[1].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[2].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[3].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[4].hasAttribute('selected')).toBe(true);
+    });
+
+    it('should support right key in non-narrow mode', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      (elem as BXTabs).value = 'router';
+      await Promise.resolve(); // Update cycle for `<bx-tabs>`
+      await Promise.resolve(); // Update cycle for `<bx-tab>`
+      const triggerNode = elem!.shadowRoot!.getElementById('trigger');
+      spyOnProperty(triggerNode!, 'offsetParent').and.returnValue(null);
+      elem!.dispatchEvent(
+        Object.assign(new CustomEvent('keydown', { bubbles: true }), {
+          key: 'ArrowRight',
+        })
+      );
+      await Promise.resolve();
+      const itemNodes = document.body.querySelectorAll('bx-tab');
+      expect(itemNodes[0].hasAttribute('selected')).toBe(true);
+      expect(itemNodes[1].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[2].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[3].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[4].hasAttribute('selected')).toBe(false);
+    });
+
+    it('should support up key in narrow mode', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      (elem as BXTabs).value = 'all';
+      (elem as any)._open = true;
+      await Promise.resolve(); // Update cycle for `<bx-tabs>`
+      await Promise.resolve(); // Update cycle for `<bx-tab>`
+      const triggerNode = elem!.shadowRoot!.getElementById('trigger');
+      spyOnProperty(triggerNode!, 'offsetParent').and.returnValue({});
+      elem!.dispatchEvent(
+        Object.assign(new CustomEvent('keydown', { bubbles: true }), {
+          key: 'ArrowUp',
+        })
+      );
+      await Promise.resolve();
+      const itemNodes = document.body.querySelectorAll('bx-tab');
+      expect(itemNodes[0].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[1].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[2].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[3].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[4].hasAttribute('highlighted')).toBe(true);
+    });
+
+    it('should support down key in narrow mode', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      (elem as BXTabs).value = 'router';
+      (elem as any)._open = true;
+      await Promise.resolve(); // Update cycle for `<bx-tabs>`
+      await Promise.resolve(); // Update cycle for `<bx-tab>`
+      const triggerNode = elem!.shadowRoot!.getElementById('trigger');
+      spyOnProperty(triggerNode!, 'offsetParent').and.returnValue({});
+      elem!.dispatchEvent(
+        Object.assign(new CustomEvent('keydown', { bubbles: true }), {
+          key: 'ArrowDown',
+        })
+      );
+      await Promise.resolve();
+      const itemNodes = document.body.querySelectorAll('bx-tab');
+      expect(itemNodes[0].hasAttribute('highlighted')).toBe(true);
+      expect(itemNodes[1].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[2].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[3].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[4].hasAttribute('highlighted')).toBe(false);
+    });
+
+    it('should open the dropdown with down key in narrow mode', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      (elem as BXTabs).value = 'all';
+      await Promise.resolve(); // Update cycle for `<bx-tabs>`
+      await Promise.resolve(); // Update cycle for `<bx-tab>`
+      const triggerNode = elem!.shadowRoot!.getElementById('trigger');
+      spyOnProperty(triggerNode!, 'offsetParent').and.returnValue({});
+      elem!.dispatchEvent(
+        Object.assign(new CustomEvent('keydown', { bubbles: true }), {
+          key: 'ArrowDown',
+        })
+      );
+      await Promise.resolve();
+      expect((elem as any)._open).toBe(true);
+      const itemNodes = document.body.querySelectorAll('bx-tab');
+      expect(itemNodes[0].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[1].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[2].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[3].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[4].hasAttribute('highlighted')).toBe(false);
+    });
+
+    it('should open the dropdown with up key in narrow mode', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      (elem as BXTabs).value = 'all';
+      await Promise.resolve(); // Update cycle for `<bx-tabs>`
+      await Promise.resolve(); // Update cycle for `<bx-tab>`
+      const triggerNode = elem!.shadowRoot!.getElementById('trigger');
+      spyOnProperty(triggerNode!, 'offsetParent').and.returnValue({});
+      elem!.dispatchEvent(
+        Object.assign(new CustomEvent('keydown', { bubbles: true }), {
+          key: 'ArrowUp',
+        })
+      );
+      await Promise.resolve();
+      expect((elem as any)._open).toBe(true);
+      const itemNodes = document.body.querySelectorAll('bx-tab');
+      expect(itemNodes[0].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[1].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[2].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[3].hasAttribute('highlighted')).toBe(false);
+      expect(itemNodes[4].hasAttribute('highlighted')).toBe(false);
+    });
+
+    it('should open the dropdown with space key in narrow mode', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      const triggerNode = elem!.shadowRoot!.getElementById('trigger');
+      spyOnProperty(triggerNode!, 'offsetParent').and.returnValue({});
+      elem!.dispatchEvent(
+        Object.assign(new CustomEvent('keydown', { bubbles: true }), {
+          key: ' ',
+        })
+      );
+      expect((elem as any)._open).toBe(true);
+    });
+
+    it('should select the highlighted item with space key in narrow mode', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      (elem as any)._open = true;
+      const itemNodes = document.body.querySelectorAll('bx-tab');
+      (itemNodes[2] as BXTab).highlighted = true;
+      await Promise.resolve();
+      const triggerNode = elem!.shadowRoot!.getElementById('trigger');
+      spyOnProperty(triggerNode!, 'offsetParent').and.returnValue({});
+      elem!.dispatchEvent(
+        Object.assign(new CustomEvent('keydown', { bubbles: true }), {
+          key: ' ',
+        })
+      );
+      await Promise.resolve();
+      expect((elem as any)._open).toBe(false);
+      expect((elem as BXTabs).value).toBe('staging');
+    });
+
+    it('should simply close the dropdown if user tries to choose the same selection in narrow mode', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      (elem as BXTabs).value = 'staging';
+      (elem as any)._open = true;
+      const itemNodes = document.body.querySelectorAll('bx-tab');
+      (itemNodes[2] as BXTab).highlighted = true;
+      await Promise.resolve(); // Update cycle for `<bx-tabs>`
+      await Promise.resolve(); // Update cycle for `<bx-tab>`
+      const triggerNode = elem!.shadowRoot!.getElementById('trigger');
+      spyOnProperty(triggerNode!, 'offsetParent').and.returnValue({});
+      elem!.dispatchEvent(
+        Object.assign(new CustomEvent('keydown', { bubbles: true }), {
+          key: ' ',
+        })
+      );
+      expect((elem as any)._open).toBe(false);
+    });
+
+    it('should support closing the dropdown without an highlighted item in narrow mode', async function() {
+      render(template(), document.body);
+      await Promise.resolve();
+      const elem = document.body.querySelector('bx-tabs');
+      (elem as any)._open = true;
+      const triggerNode = elem!.shadowRoot!.getElementById('trigger');
+      spyOnProperty(triggerNode!, 'offsetParent').and.returnValue({});
+      elem!.dispatchEvent(
+        Object.assign(new CustomEvent('keydown', { bubbles: true }), {
+          key: ' ',
+        })
+      );
+      expect((elem as any)._open).toBe(false);
     });
   });
 
