@@ -8,12 +8,47 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
+import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import ChevronRight16 from '@carbon/icons/lib/chevron--right/16';
 import FocusMixin from '../../globals/mixins/focus';
+import Handle from '../../globals/internal/handle';
 import styles from './accordion.scss';
 
 const { prefix } = settings;
+
+/**
+ * Breakpoints for accordion items. It's different from one in `@carbon/layout` library.
+ */
+export enum ACCORDION_ITEM_BREAKPOINT {
+  /**
+   * Small breakpoint.
+   */
+  SMALL = 'sm',
+
+  /**
+   * Medium breakpoint.
+   */
+  MEDIUM = 'md',
+}
+
+/**
+ * Observes resize of the given element with the given resize observer.
+ * @param observer The resize observer.
+ * @param elem The element to observe the resize.
+ */
+const observeResize = (observer: ResizeObserver, elem: Element) => {
+  if (!elem) {
+    return null;
+  }
+  observer.observe(elem);
+  return {
+    release() {
+      observer.unobserve(elem);
+      return null;
+    },
+  } as Handle;
+};
 
 /**
  * Accordion item.
@@ -25,6 +60,16 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-accordion-item`)
 class BXAccordionItem extends FocusMixin(LitElement) {
+  /**
+   * The current breakpoint.
+   */
+  private _currentBreakpoint?: ACCORDION_ITEM_BREAKPOINT;
+
+  /**
+   * The handle for observing resize of the parent element of this element.
+   */
+  private _hObserveResize: Handle | null = null;
+
   /**
    * Handles user-initiated toggle request of this accordion item.
    * @param open The new open state.
@@ -61,6 +106,20 @@ class BXAccordionItem extends FocusMixin(LitElement) {
   };
 
   /**
+   * The `ResizeObserver` instance for observing element resizes for re-positioning floating menu position.
+   */
+  // TODO: Wait for `.d.ts` update to support `ResizeObserver`
+  // @ts-ignore
+  private _resizeObserver = new ResizeObserver((records: ResizeObserverEntry[]) => {
+    const { width } = records[records.length - 1].contentRect;
+    const { _sizesBreakpoints: sizesBreakpoints } = this.constructor as typeof BXAccordionItem;
+    this._currentBreakpoint = Object.keys(sizesBreakpoints)
+      .sort((lhs, rhs) => sizesBreakpoints[rhs] - sizesBreakpoints[lhs])
+      .find(size => width >= sizesBreakpoints[size]) as ACCORDION_ITEM_BREAKPOINT;
+    this.requestUpdate();
+  });
+
+  /**
    * The assistive text for the expando button.
    */
   @property({ attribute: 'expando-assistive-text' })
@@ -83,6 +142,16 @@ class BXAccordionItem extends FocusMixin(LitElement) {
       this.setAttribute('role', 'listitem');
     }
     super.connectedCallback();
+    if (this._hObserveResize) {
+      this._hObserveResize = this._hObserveResize.release();
+    }
+    this._hObserveResize = observeResize(this._resizeObserver, this);
+  }
+
+  disconnectedCallback() {
+    if (this._hObserveResize) {
+      this._hObserveResize = this._hObserveResize.release();
+    }
   }
 
   render() {
@@ -90,9 +159,16 @@ class BXAccordionItem extends FocusMixin(LitElement) {
       expandoAssistiveText,
       titleText,
       open,
+      _currentBreakpoint: currentBreakpoint,
       _handleClickExpando: handleClickExpando,
       _handleKeydownExpando: handleKeydownExpando,
     } = this;
+    const { _classesBreakpoints: classesBreakpoints } = this.constructor as typeof BXAccordionItem;
+    const { [currentBreakpoint!]: classBreakpoint } = classesBreakpoints;
+    const contentClasses = classMap({
+      [classBreakpoint]: classBreakpoint,
+      [`${prefix}--accordion__content`]: true,
+    });
     return html`
       <button
         type="button"
@@ -108,8 +184,30 @@ class BXAccordionItem extends FocusMixin(LitElement) {
         })}
         <div class="${prefix}--accordion__title"><slot name="title">${titleText}</slot></div>
       </button>
-      <div class="${prefix}--accordion__content"><slot></slot></div>
+      <div class="${contentClasses}"><slot></slot></div>
     `;
+  }
+
+  /**
+   * The CSS classes for breakpoints.
+   * @private
+   */
+  static get _classesBreakpoints() {
+    return {
+      [ACCORDION_ITEM_BREAKPOINT.SMALL]: `${prefix}-ce--accordion__content--${ACCORDION_ITEM_BREAKPOINT.SMALL}`,
+      [ACCORDION_ITEM_BREAKPOINT.MEDIUM]: `${prefix}-ce--accordion__content--${ACCORDION_ITEM_BREAKPOINT.MEDIUM}`,
+    };
+  }
+
+  /**
+   * The breakpoints.
+   * @private
+   */
+  static get _sizesBreakpoints() {
+    return {
+      [ACCORDION_ITEM_BREAKPOINT.SMALL]: 480,
+      [ACCORDION_ITEM_BREAKPOINT.MEDIUM]: 640,
+    };
   }
 
   /**
