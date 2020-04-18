@@ -19,7 +19,7 @@ import { defaultStory as baseDefaultStory } from './content-switcher-story';
 export { default } from './content-switcher-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, disableSelection, onBeforeSelect, onSelect } = parameters?.props?.['bx-content-switcher'];
+  const { value, disableSelection, onBeforeSelect, onSelect } = parameters?.props?.['bx-content-switcher'];
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -27,7 +27,7 @@ export const defaultStory = ({ parameters }) => {
     }
   };
   return (
-    <BXContentSwitcher disabled={disabled} value={value} onBeforeSelect={handleBeforeSelected} onSelect={onSelect}>
+    <BXContentSwitcher value={value} onBeforeSelect={handleBeforeSelected} onSelect={onSelect}>
       <BXContentSwitcherItem value="all">Option 1</BXContentSwitcherItem>
       <BXContentSwitcherItem value="cloudFoundry" disabled>
         Option 2

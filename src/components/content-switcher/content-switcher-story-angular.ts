@@ -14,7 +14,6 @@ import baseStory, { defaultStory as baseDefaultStory } from './content-switcher-
 export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-content-switcher
-      [disabled]="disabled"
       [value]="value"
       (bx-content-switcher-beingselected)="handleBeforeSelect($event)"
       (bx-content-switcher-selected)="handleAfterSelect($event)"
