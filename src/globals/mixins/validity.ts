@@ -8,20 +8,50 @@
  */
 
 /**
+ * Form validation status.
+ */
+export enum VALIDATION_STATUS {
+  /**
+   * One indicating no validation error.
+   */
+  NO_ERROR = '',
+
+  /**
+   * One indicating missing required value.
+   */
+  ERROR_REQUIRED = 'required',
+}
+
+/**
  * @param Base The base class.
  * @returns A mix-in implementing `.setCustomValidity()` method.
  */
 const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
   abstract class ValidityMixinImpl extends Base {
     // Not using TypeScript `protected` due to: microsoft/TypeScript#17744
+    // Using `string` instead of `VALIDATION_STATUS` until we can require TypeScript 3.8
     /**
-     * Checks if the value meets the constrants.
-     * @returns `true` if the value meets the constrants. `false` otherwise.
+     * @param state The form validation status.
+     * @returns The form validation error messages associated with the given status.
      * @protected
      */
-    _testValidity() {
+    _getValidityMessage(state: string) {
+      return {
+        [VALIDATION_STATUS.NO_ERROR]: '',
+        [VALIDATION_STATUS.ERROR_REQUIRED]: this.requiredValidityMessage,
+      }[state];
+    }
+
+    // Not using TypeScript `protected` due to: microsoft/TypeScript#17744
+    // Using `string` instead of `VALIDATION_STATUS` until we can require TypeScript 3.8
+    /**
+     * Checks if the value meets the constrants.
+     * @returns `VALIDATION_STATUS.NO_ERROR` if the value meets the constrants. Some other values otherwise.
+     * @protected
+     */
+    _testValidity(): string {
       const { required, value } = this;
-      return !required || value;
+      return required && !value ? VALIDATION_STATUS.ERROR_REQUIRED : VALIDATION_STATUS.NO_ERROR;
     }
 
     /**
@@ -55,7 +85,8 @@ const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
      * @returns `true` if the value meets the constrants. `false` otherwise.
      */
     checkValidity() {
-      if (!this._testValidity()) {
+      const status = this._testValidity();
+      if (status !== VALIDATION_STATUS.NO_ERROR) {
         if (
           this.dispatchEvent(
             new CustomEvent('invalid', {
@@ -66,7 +97,7 @@ const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
           )
         ) {
           this.invalid = true;
-          this.validityMessage = this.requiredValidityMessage;
+          this.validityMessage = this._getValidityMessage(status);
         }
         return false;
       }
