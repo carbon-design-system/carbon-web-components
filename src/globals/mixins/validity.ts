@@ -29,12 +29,13 @@ export enum VALIDATION_STATUS {
 const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
   abstract class ValidityMixinImpl extends Base {
     // Not using TypeScript `protected` due to: microsoft/TypeScript#17744
+    // Using `string` instead of `VALIDATION_STATUS` until we can require TypeScript 3.8
     /**
      * @param state The form validation status.
      * @returns The form validation error messages associated with the given status.
      * @protected
      */
-    _getValidityMessage(state: VALIDATION_STATUS) {
+    _getValidityMessage(state: string) {
       return {
         [VALIDATION_STATUS.NO_ERROR]: '',
         [VALIDATION_STATUS.ERROR_REQUIRED]: this.requiredValidityMessage,
@@ -42,12 +43,13 @@ const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
     }
 
     // Not using TypeScript `protected` due to: microsoft/TypeScript#17744
+    // Using `string` instead of `VALIDATION_STATUS` until we can require TypeScript 3.8
     /**
      * Checks if the value meets the constrants.
      * @returns `VALIDATION_STATUS.NO_ERROR` if the value meets the constrants. Some other values otherwise.
      * @protected
      */
-    _testValidity() {
+    _testValidity(): string {
       const { required, value } = this;
       return required && !value ? VALIDATION_STATUS.ERROR_REQUIRED : VALIDATION_STATUS.NO_ERROR;
     }
