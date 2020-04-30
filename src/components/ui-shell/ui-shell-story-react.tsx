@@ -13,7 +13,7 @@ import contentStyles from 'carbon-components/scss/components/ui-shell/_content.s
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXSideNav from 'carbon-custom-elements/es/components-react/ui-shell/side-nav';
+import BXSideNav, { SIDE_NAV_COLLAPSE_MODE } from 'carbon-custom-elements/es/components-react/ui-shell/side-nav';
 // @ts-ignore
 import BXSideNavItems from 'carbon-custom-elements/es/components-react/ui-shell/side-nav-items';
 // @ts-ignore
@@ -42,6 +42,11 @@ import styles from './ui-shell-story.scss';
 export { default } from './ui-shell-story';
 
 /* eslint-disable no-script-url */
+
+const updateRailExpanded = ({ collapseMode, expanded }) => {
+  document.body.classList.toggle('bx-ce-demo-devenv--with-rail', collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL);
+  document.body.classList.toggle('bx-ce-demo-devenv--rail-expanded', collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL && expanded);
+};
 
 const StoryContent = () => (
   <>
@@ -89,11 +94,13 @@ const StoryContent = () => (
 );
 
 export const sideNav = ({ parameters }) => {
-  const { expanded, fixed } = parameters?.props?.['bx-side-nav'];
+  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'];
   const { href } = parameters?.props?.['bx-side-nav-menu-item'];
+  updateRailExpanded({ collapseMode, expanded });
   return (
     <>
-      <BXSideNav aria-label="Side navigation" expanded={expanded} fixed={fixed}>
+      <style type="text/css">{styles.cssText}</style>
+      <BXSideNav aria-label="Side navigation" collapseMode={collapseMode} expanded={expanded}>
         <BXSideNavItems>
           <BXSideNavMenu title="L0 menu">
             <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
@@ -124,11 +131,13 @@ export const sideNav = ({ parameters }) => {
 sideNav.story = baseSideNav.story;
 
 export const sideNavWithIcons = ({ parameters }) => {
-  const { expanded, fixed } = parameters?.props?.['bx-side-nav'];
+  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'];
   const { href } = parameters?.props?.['bx-side-nav-menu-item'];
+  updateRailExpanded({ collapseMode, expanded });
   return (
     <>
-      <BXSideNav aria-label="Side navigation" expanded={expanded} fixed={fixed}>
+      <style type="text/css">{styles.cssText}</style>
+      <BXSideNav aria-label="Side navigation" collapseMode={collapseMode} expanded={expanded}>
         <BXSideNavItems>
           <BXSideNavMenu title="L0 menu">
             <Fade16 slot="title-icon" />
@@ -168,13 +177,17 @@ export const sideNavWithIcons = ({ parameters }) => {
 sideNavWithIcons.story = baseSideNavWithIcons.story;
 
 export const header = ({ parameters }) => {
-  const { expanded, fixed } = parameters?.props?.['bx-side-nav'];
+  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'];
   const { href } = parameters?.props?.['bx-side-nav-menu-item'];
+  updateRailExpanded({ collapseMode, expanded });
+  const handleButtonToggle = event => {
+    updateRailExpanded({ collapseMode, expanded: event.detail.active });
+  };
   return (
     <>
       <style type="text/css">{styles.cssText}</style>
       <BXHeader aria-label="IBM Platform Name">
-        <BXHeaderMenuButton active={expanded} button-label-active="Close menu" button-label-inactive="Open menu" />
+        <BXHeaderMenuButton button-label-active="Close menu" button-label-inactive="Open menu" onToggle={handleButtonToggle} />
         <BXHeaderName href="javascript:void 0" prefix="IBM">
           [Platform]
         </BXHeaderName>
@@ -189,7 +202,7 @@ export const header = ({ parameters }) => {
           </BXHeaderMenu>
         </BXHeaderNav>
       </BXHeader>
-      <BXSideNav aria-label="Side navigation" expanded={expanded} fixed={fixed}>
+      <BXSideNav aria-label="Side navigation" collapseMode={collapseMode} expanded={expanded}>
         <BXSideNavItems>
           <BXSideNavMenu title="L0 menu">
             <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
