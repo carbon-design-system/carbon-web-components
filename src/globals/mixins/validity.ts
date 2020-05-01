@@ -45,8 +45,8 @@ const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
     // Not using TypeScript `protected` due to: microsoft/TypeScript#17744
     // Using `string` instead of `VALIDATION_STATUS` until we can require TypeScript 3.8
     /**
-     * Checks if the value meets the constrants.
-     * @returns `VALIDATION_STATUS.NO_ERROR` if the value meets the constrants. Some other values otherwise.
+     * Checks if the value meets the constraints.
+     * @returns `VALIDATION_STATUS.NO_ERROR` if the value meets the constraints. Some other values otherwise.
      * @protected
      */
     _testValidity(): string {
