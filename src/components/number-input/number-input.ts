@@ -283,7 +283,7 @@ export default class BXNumberInput extends BXInput {
         </div>
         <div class="${validityMinClasses}">
           <slot name="validity-message-min">
-            ${this.validityMessageMax}
+            ${this.validityMessageMin}
           </slot>
         </div>
       </div>
