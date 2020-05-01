@@ -120,12 +120,6 @@ class BXAccordionItem extends FocusMixin(LitElement) {
   });
 
   /**
-   * The assistive text for the expando button.
-   */
-  @property({ attribute: 'expando-assistive-text' })
-  expandoAssistiveText = 'Expand/Collapse';
-
-  /**
    * `true` if the check box should be open.
    */
   @property({ type: Boolean, reflect: true })
@@ -156,7 +150,6 @@ class BXAccordionItem extends FocusMixin(LitElement) {
 
   render() {
     const {
-      expandoAssistiveText,
       titleText,
       open,
       _currentBreakpoint: currentBreakpoint,
@@ -173,18 +166,17 @@ class BXAccordionItem extends FocusMixin(LitElement) {
       <button
         type="button"
         class="${prefix}--accordion__heading"
-        title="${expandoAssistiveText}"
+        aria-controls="content"
         aria-expanded="${String(Boolean(open))}"
         @click="${handleClickExpando}"
         @keydown="${handleKeydownExpando}"
       >
         ${ChevronRight16({
           class: `${prefix}--accordion__arrow`,
-          'aria-label': expandoAssistiveText,
         })}
         <div class="${prefix}--accordion__title"><slot name="title">${titleText}</slot></div>
       </button>
-      <div class="${contentClasses}"><slot></slot></div>
+      <div id="content" class="${contentClasses}"><slot></slot></div>
     `;
   }
 

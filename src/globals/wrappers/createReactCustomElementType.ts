@@ -33,7 +33,7 @@ interface CustomElementPropDescriptor {
   /**
    * The attribute name for the prop.
    */
-  attribute?: string;
+  attribute?: string | false;
 
   /**
    * The event name (or descriptor) for the prop.
@@ -110,10 +110,13 @@ const convertProps = (props: CustomElementTypeProps, descriptor: CustomElementPr
   Object.keys(props).reduce((acc, propName) => {
     const { [propName]: descriptorItem } = descriptor;
     const converted = convertProp(props[propName], descriptorItem);
-    return {
-      ...acc,
-      [(descriptorItem && descriptorItem.attribute) || propName]: converted,
-    };
+    const { attribute } = descriptorItem ?? {};
+    return attribute === false
+      ? acc
+      : {
+          ...acc,
+          [attribute || propName]: converted,
+        };
   }, {});
 
 /**
@@ -202,9 +205,23 @@ const attachEventListeners = (
  */
 const createReactCustomElementType = (name: string, descriptor: CustomElementPropsDescriptor) => {
   /**
+   * Array of React prop names that should be mapped to DOM properties instead of attributes.
+   */
+  const nonAttributeProps = Object.keys(descriptor).filter(propName => {
+    const { [propName]: descriptorItem } = descriptor;
+    const { attribute } = descriptorItem ?? {};
+    return attribute === false;
+  });
+
+  /**
    * A React component working as a wrapper for the custom element.
    */
   class CustomElementType extends Component<CustomElementTypeProps> {
+    /**
+     * The element.
+     */
+    private _elem: HTMLElement | null = null;
+
     /**
      * The handle that allows to release all event listeners attached to this custom element.
      */
@@ -227,6 +244,7 @@ const createReactCustomElementType = (name: string, descriptor: CustomElementPro
      * @param elem The custom element.
      */
     private _handleElemRef = (elem: HTMLElement) => {
+      this._elem = elem;
       if (this._eventListenersHandle) {
         this._eventListenersHandle.release();
         this._eventListenersHandle = null;
@@ -235,6 +253,29 @@ const createReactCustomElementType = (name: string, descriptor: CustomElementPro
         this._eventListenersHandle = attachEventListeners(elem, descriptor, this._handleEvent);
       }
     };
+
+    /**
+     * Reflects change in React props to DOM properties.
+     * @param prevProps The previous props.
+     */
+    updateProps(prevProps: { [key: string]: any } = {}) {
+      const { props, _elem: elem } = this;
+      nonAttributeProps.forEach(propName => {
+        const { [propName]: prevValue } = prevProps;
+        const { [propName]: value } = props;
+        if (prevValue !== value) {
+          elem![propName] = value;
+        }
+      });
+    }
+
+    componentDidMount() {
+      this.updateProps();
+    }
+
+    componentDidUpdate(prevProps) {
+      this.updateProps(prevProps);
+    }
 
     render() {
       const { children, innerRef, ...props } = this.props;

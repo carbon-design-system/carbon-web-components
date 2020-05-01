@@ -108,6 +108,20 @@ describe('React wrapper', function() {
     });
   });
 
+  describe('Direct property mapping', function() {
+    it('Should map to properties instead of to attributes', function() {
+      const Component = createReactCustomElementType('test-foo', {
+        foo: {
+          attribute: false,
+        },
+      });
+      act(() => {
+        render(React.createElement(Component, { foo: { foo: 'Foo', bar: 'Bar' } }), container);
+      });
+      expect(container.querySelector('test-foo').foo).toEqual({ foo: 'Foo', bar: 'Bar' });
+    });
+  });
+
   describe('Event handling', function() {
     it('Should support string-based event descriptor', function() {
       const Component = createReactCustomElementType('test-foo', {
