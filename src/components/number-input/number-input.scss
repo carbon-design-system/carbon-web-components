@@ -14,4 +14,8 @@ $css--plex: true !default;
   // the base text-input class has a 100% so we need to propagate it up to the host element
   width: 100%;
   outline: none;
+
+  .bx--form-requirement.bx--hidden {
+    display: none;
+  }
 }

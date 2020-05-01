@@ -80,9 +80,9 @@ const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
     abstract value: string;
 
     /**
-     * Checks if the value meets the constrants.
+     * Checks if the value meets the constraints.
      * Fires cancelable `invalid` event if it doesn't.
-     * @returns `true` if the value meets the constrants. `false` otherwise.
+     * @returns `true` if the value meets the constraints. `false` otherwise.
      */
     checkValidity() {
       const status = this._testValidity();

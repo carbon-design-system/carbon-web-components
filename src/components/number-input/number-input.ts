@@ -23,6 +23,14 @@ export { FORM_ELEMENT_COLOR_SCHEME as NUMBER_INPUT_COLOR_SCHEME } from '../../gl
 const { prefix } = settings;
 
 /**
+ * Works in conjunction with VALIDATION_STATUS
+ */
+export enum NUMBER_INPUT_VALIDATION_STATUS {
+    EXCEEDED_MAXIMUM = 'exceeded_maximum',
+    EXCEEDED_MINIMUM = 'exceeded_minimum',
+}
+
+/**
  * Number input.
  * @element bx-number-input
  * @slot helper-text - The helper text.
@@ -49,6 +57,27 @@ export default class BXNumberInput extends BXInput {
    */
   protected _handleDecrement() {
     this._input.stepDown();
+  }
+
+  protected _testValidity() {
+    if (this._input?.valueAsNumber > Number(this.max)) {
+      return NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM;
+    }
+    if (this._input?.valueAsNumber < Number(this.min)) {
+      return NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MINIMUM;
+    }
+    return super._testValidity();
+  }
+
+  protected _getValidityMessage(state: string) {
+    if (Object.keys(NUMBER_INPUT_VALIDATION_STATUS).includes(state)) {
+      const stateMessageMap = {
+        [NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM]: this.validityMessageMax,
+        [NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MINIMUM]: this.validityMessageMin,
+      };
+      return stateMessageMap[state];
+    }
+    return super._getValidityMessage(state);
   }
 
   protected _min = '';
@@ -123,6 +152,12 @@ export default class BXNumberInput extends BXInput {
   @property({ attribute: 'decrement-button-assistive-text' })
   decrementButtonAssistiveText = 'decrease number input';
 
+  @property({ attribute: 'validity-message-max' })
+  validityMessageMax = '';
+
+  @property({ attribute: 'validity-message-min' })
+  validityMessageMin = '';
+
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
@@ -131,6 +166,18 @@ export default class BXNumberInput extends BXInput {
     const { _handleInput: handleInput } = this;
 
     const invalidIcon = WarningFilled16({ class: `${prefix}--number__invalid` });
+
+    const validity = this._testValidity();
+
+    const validityMaxClasses = classMap({
+      [`${prefix}--hidden`]: validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM,
+      [`${prefix}--form-requirement`]: true,
+    });
+
+    const validityMinClasses = classMap({
+      [`${prefix}--hidden`]: validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MINIMUM,
+      [`${prefix}--form-requirement`]: true,
+    });
 
     const wrapperClasses = classMap({
       [`${prefix}--number`]: true,
@@ -227,6 +274,16 @@ export default class BXNumberInput extends BXInput {
         <div class="${prefix}--form-requirement">
           <slot name="validity-message">
             ${this.validityMessage}
+          </slot>
+        </div>
+        <div class="${validityMaxClasses}">
+          <slot name="validity-message-max">
+            ${this.validityMessageMin}
+          </slot>
+        </div>
+        <div class="${validityMinClasses}">
+          <slot name="validity-message-min">
+            ${this.validityMessageMax}
           </slot>
         </div>
       </div>
