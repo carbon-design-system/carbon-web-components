@@ -26,8 +26,8 @@ const { prefix } = settings;
  * Works in conjunction with VALIDATION_STATUS
  */
 export enum NUMBER_INPUT_VALIDATION_STATUS {
-    EXCEEDED_MAXIMUM = 'exceeded_maximum',
-    EXCEEDED_MINIMUM = 'exceeded_minimum',
+  EXCEEDED_MAXIMUM = 'exceeded_maximum',
+  EXCEEDED_MINIMUM = 'exceeded_minimum',
 }
 
 /**
@@ -59,7 +59,7 @@ export default class BXNumberInput extends BXInput {
     this._input.stepDown();
   }
 
-  protected _testValidity() {
+  _testValidity() {
     if (this._input?.valueAsNumber > Number(this.max)) {
       return NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM;
     }
@@ -69,7 +69,7 @@ export default class BXNumberInput extends BXInput {
     return super._testValidity();
   }
 
-  protected _getValidityMessage(state: string) {
+  _getValidityMessage(state: string) {
     if (Object.keys(NUMBER_INPUT_VALIDATION_STATUS).includes(state)) {
       const stateMessageMap = {
         [NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM]: this.validityMessageMax,
