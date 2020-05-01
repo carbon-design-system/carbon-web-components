@@ -14,7 +14,6 @@ import baseStory, { defaultStory as baseDefaultStory } from './tabs-story';
 export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-tabs
-      [disabled]="disabled"
       [triggerContent]="triggerContent"
       [type]="type"
       [value]="value"
