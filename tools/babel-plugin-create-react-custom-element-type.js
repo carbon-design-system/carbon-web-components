@@ -16,7 +16,7 @@ const { default: transformTemplateLiterals } = require('@babel/plugin-transform-
 
 const regexEvent = /^event/;
 
-module.exports = function generateCreateReactCustomElementType(api) {
+function createMetadataVisitor(api) {
   const { types: t } = api;
 
   /**
@@ -86,87 +86,13 @@ module.exports = function generateCreateReactCustomElementType(api) {
       }
     }
 
+    const leadingComments = path.parentPath.get('leadingComments');
+    if (leadingComments) {
+      metadata.comments = leadingComments.map(item => item.node);
+    }
+
     return metadata;
   };
-
-  const booleanSerializerIdentifier = t.identifier('booleanSerializer');
-  const numberSerializerIdentifier = t.identifier('numberSerializer');
-  const objectSerializerIdentifier = t.identifier('objectSerializer');
-
-  /**
-   * The named import specifiers associated with `type` in `@property`.
-   * @type {Object<string, ImportSpecifier>}
-   */
-  const importSpecifiers = {
-    Boolean: t.importSpecifier(booleanSerializerIdentifier, booleanSerializerIdentifier),
-    Number: t.importSpecifier(numberSerializerIdentifier, numberSerializerIdentifier),
-    Object: t.importSpecifier(objectSerializerIdentifier, objectSerializerIdentifier),
-  };
-
-  /**
-   * The serializers associated with `type` in `@property`.
-   * @type {Object<string, Identifier>}
-   */
-  const serializers = {
-    Boolean: booleanSerializerIdentifier,
-    Number: numberSerializerIdentifier,
-    Object: objectSerializerIdentifier,
-  };
-
-  /**
-   * @param {Object<string, PropertyMetadata>} The list of metadata harvested from `@property()` decorator calls.
-   * @returns {ImportDeclaration} The `import` statement for `src/globals/wrappers/createReactCustomElementType`.
-   */
-  const buildCreateReactCustomElementTypeImport = declaredProps => {
-    const typesInUse = Object.keys(declaredProps)
-      .map(name => declaredProps[name].type)
-      .filter(type => importSpecifiers[type]);
-
-    return t.importDeclaration(
-      [
-        t.importDefaultSpecifier(t.identifier('createReactCustomElementType')),
-        ...Array.from(new Set(typesInUse)).map(type => importSpecifiers[type]),
-      ],
-      t.stringLiteral('../../globals/wrappers/createReactCustomElementType')
-    );
-  };
-
-  /**
-   * @param {Object<string, PropertyMetadata>} The list of metadata harvested from `@property()` decorator calls.
-   * @returns {ObjectProperty[]}
-   *   The list of `{ attribute: 'attribute-name', serialize: typeSerializer }` generated from `@property()` decorators.
-   */
-  const buildPropsDescriptor = declaredProps =>
-    Object.keys(declaredProps)
-      .filter(name => declaredProps[name].attribute !== false)
-      .map(name => {
-        const { type, attribute } = declaredProps[name];
-        const propDesciptor = [];
-        if (type && type !== 'String') {
-          const serializer = serializers[type];
-          if (!serializer) {
-            throw new Error(`No serializer found for type: ${type}`);
-          }
-          propDesciptor.push(t.objectProperty(t.identifier('serialize'), serializer));
-        }
-        if (attribute) {
-          propDesciptor.push(t.objectProperty(t.identifier('attribute'), t.stringLiteral(attribute)));
-        }
-        return t.objectProperty(t.identifier(name), t.objectExpression(propDesciptor));
-      });
-
-  /**
-   * @param {Object<string, StringLiteral|TemplateLiteral>}
-   *   The list of metadata harvested from `eventSomething` static properties.
-   * @returns {ObjectProperty[]} The list of `{ event: 'event-name' }` generated from `eventSomething` static properties.
-   */
-  const buildEventsDescriptor = customEvents =>
-    Object.keys(customEvents).map(name =>
-      t.objectProperty(
-        t.identifier(name.replace(regexEvent, 'on')),
-        t.objectExpression([t.objectProperty(t.identifier('event'), customEvents[name])])
-      )
-    );
 
   /**
    * A visitor to gather metadata of custom element properties and events,
@@ -189,6 +115,11 @@ module.exports = function generateCreateReactCustomElementType(api) {
           }
         }
       }
+      const leadingComments = path.get('leadingComments');
+      if (leadingComments) {
+        context.classComments = leadingComments.map(item => item.node);
+      }
+      context.className = path.get('id.name').node;
     },
 
     ClassMethod(path, { customEvents }) {
@@ -249,67 +180,94 @@ module.exports = function generateCreateReactCustomElementType(api) {
     },
   };
 
-  const toplevelVisitor = {
-    Program(path, { file }) {
-      const declaredProps = {};
-      const customEvents = {};
-      const context = { file, declaredProps, customEvents };
-      // Gathers metadata of custom element properties and events, into `context`
-      path.traverse(metadataVisitor, context);
+  return metadataVisitor;
+}
 
-      const relativePath = relative(resolve(__dirname, '../src/components'), file.opts.filename);
-      const retargedPath = t.stringLiteral(`../../components/${join(dirname(relativePath), basename(relativePath, '.ts'))}`);
+module.exports = function generateCreateReactCustomElementType(api) {
+  const { types: t } = api;
 
-      // Creates a module with `createReactCustomElementType()`
-      // with the gathered metadata of custom element properties and events
-      const descriptors = t.objectExpression([...buildPropsDescriptor(declaredProps), ...buildEventsDescriptor(customEvents)]);
-      const descriptorsWithParent = !context.parentDescriptorSource
-        ? descriptors
-        : t.callExpression(t.memberExpression(t.identifier('Object'), t.identifier('assign')), [
-            t.objectExpression([]),
-            t.identifier('parentDescriptor'),
-            descriptors,
-          ]);
+  const booleanSerializerIdentifier = t.identifier('booleanSerializer');
+  const numberSerializerIdentifier = t.identifier('numberSerializer');
+  const objectSerializerIdentifier = t.identifier('objectSerializer');
 
-      let body;
-      if (!context.customElementName) {
-        // Custom element name not found means that it's likely a module not for custom element
-        // (e.g. an abstract class like floating menu)
-        // If so, we just export empty `descriptor` and re-export from the original class
-        body = [template.ast`export var descriptor = {};`];
-      } else {
-        body = [
-          t.exportNamedDeclaration(
-            null,
-            [t.exportSpecifier(t.identifier('default'), t.identifier('CustomElement'))],
-            retargedPath
-          ),
-          buildCreateReactCustomElementTypeImport(declaredProps),
-          ...template.ast`
-            import settings from "carbon-components/es/globals/js/settings";
-            var prefix = settings.prefix;
-            export var descriptor = ${descriptorsWithParent};
-            export default createReactCustomElementType(${context.customElementName}, descriptor);
-          `,
-        ];
-      }
-      if (context.parentDescriptorSource) {
-        body.unshift(
-          t.importDeclaration(
-            [t.importSpecifier(t.identifier('parentDescriptor'), t.identifier('descriptor'))],
-            t.stringLiteral(context.parentDescriptorSource)
-          )
-        );
-      }
-      if (context.hasNamedExport) {
-        body.unshift(t.exportAllDeclaration(retargedPath));
-      }
-      const program = t.program(body);
-      traverse(program, transformTemplateLiterals(api).visitor, path.scope, path);
-      path.replaceWith(program);
-      path.stop();
-    },
+  /**
+   * The named import specifiers associated with `type` in `@property`.
+   * @type {Object<string, ImportSpecifier>}
+   */
+  const importSpecifiers = {
+    Boolean: t.importSpecifier(booleanSerializerIdentifier, booleanSerializerIdentifier),
+    Number: t.importSpecifier(numberSerializerIdentifier, numberSerializerIdentifier),
+    Object: t.importSpecifier(objectSerializerIdentifier, objectSerializerIdentifier),
   };
+
+  /**
+   * The serializers associated with `type` in `@property`.
+   * @type {Object<string, Identifier>}
+   */
+  const serializers = {
+    Boolean: booleanSerializerIdentifier,
+    Number: numberSerializerIdentifier,
+    Object: objectSerializerIdentifier,
+  };
+
+  /**
+   * @param {Object<string, PropertyMetadata>} The list of metadata harvested from `@property()` decorator calls.
+   * @returns {ImportDeclaration} The `import` statement for `src/globals/wrappers/createReactCustomElementType`.
+   */
+  const buildCreateReactCustomElementTypeImport = declaredProps => {
+    const typesInUse = Object.keys(declaredProps)
+      .map(name => declaredProps[name].type)
+      .filter(type => importSpecifiers[type]);
+
+    return t.importDeclaration(
+      [
+        t.importDefaultSpecifier(t.identifier('createReactCustomElementType')),
+        ...Array.from(new Set(typesInUse)).map(type => importSpecifiers[type]),
+      ],
+      t.stringLiteral('../../globals/wrappers/createReactCustomElementType')
+    );
+  };
+
+  /**
+   * @param {Object<string, PropertyMetadata>} The list of metadata harvested from `@property()` decorator calls.
+   * @returns {ObjectProperty[]}
+   *   The list of `{ attribute: 'attribute-name', serialize: typeSerializer }` generated from `@property()` decorators.
+   */
+  const buildPropsDescriptor = declaredProps =>
+    Object.keys(declaredProps).map(name => {
+      const { type, attribute } = declaredProps[name];
+      const propDesciptor = [];
+      if (attribute === false) {
+        propDesciptor.push(t.objectProperty(t.identifier('attribute'), t.booleanLiteral(false)));
+      } else {
+        if (type && type !== 'String') {
+          const serializer = serializers[type];
+          if (!serializer) {
+            throw new Error(`No serializer found for type: ${type}`);
+          }
+          propDesciptor.push(t.objectProperty(t.identifier('serialize'), serializer));
+        }
+        if (attribute) {
+          propDesciptor.push(t.objectProperty(t.identifier('attribute'), t.stringLiteral(attribute)));
+        }
+      }
+      return t.objectProperty(t.identifier(name), t.objectExpression(propDesciptor));
+    });
+
+  /**
+   * @param {Object<string, StringLiteral|TemplateLiteral>}
+   *   The list of metadata harvested from `eventSomething` static properties.
+   * @returns {ObjectProperty[]} The list of `{ event: 'event-name' }` generated from `eventSomething` static properties.
+   */
+  const buildEventsDescriptor = customEvents =>
+    Object.keys(customEvents).map(name =>
+      t.objectProperty(
+        t.identifier(name.replace(regexEvent, 'on')),
+        t.objectExpression([t.objectProperty(t.identifier('event'), customEvents[name])])
+      )
+    );
+
+  const metadataVisitor = createMetadataVisitor(api);
 
   /**
    * A Babel plugin that first gathers metadata of custom element properties/events from AST,
@@ -317,6 +275,68 @@ module.exports = function generateCreateReactCustomElementType(api) {
    */
   return {
     name: 'create-react-custom-element-type',
-    visitor: toplevelVisitor,
+    visitor: {
+      Program(path, { file }) {
+        const declaredProps = {};
+        const customEvents = {};
+        const context = { file, declaredProps, customEvents };
+        // Gathers metadata of custom element properties and events, into `context`
+        path.traverse(metadataVisitor, context);
+
+        const relativePath = relative(resolve(__dirname, '../src/components'), file.opts.filename);
+        const retargedPath = t.stringLiteral(`../../components/${join(dirname(relativePath), basename(relativePath, '.ts'))}`);
+
+        // Creates a module with `createReactCustomElementType()`
+        // with the gathered metadata of custom element properties and events
+        const descriptors = t.objectExpression([...buildPropsDescriptor(declaredProps), ...buildEventsDescriptor(customEvents)]);
+        const descriptorsWithParent = !context.parentDescriptorSource
+          ? descriptors
+          : t.callExpression(t.memberExpression(t.identifier('Object'), t.identifier('assign')), [
+              t.objectExpression([]),
+              t.identifier('parentDescriptor'),
+              descriptors,
+            ]);
+
+        let body;
+        if (!context.customElementName) {
+          // Custom element name not found means that it's likely a module not for custom element
+          // (e.g. an abstract class like floating menu)
+          // If so, we just export empty `descriptor` and re-export from the original class
+          body = [template.ast`export var descriptor = {};`];
+        } else {
+          body = [
+            t.exportNamedDeclaration(
+              null,
+              [t.exportSpecifier(t.identifier('default'), t.identifier('CustomElement'))],
+              retargedPath
+            ),
+            buildCreateReactCustomElementTypeImport(declaredProps),
+            ...template.ast`
+              import settings from "carbon-components/es/globals/js/settings";
+              var prefix = settings.prefix;
+              export var descriptor = ${descriptorsWithParent};
+              export default createReactCustomElementType(${context.customElementName}, descriptor);
+            `,
+          ];
+        }
+        if (context.parentDescriptorSource) {
+          body.unshift(
+            t.importDeclaration(
+              [t.importSpecifier(t.identifier('parentDescriptor'), t.identifier('descriptor'))],
+              t.stringLiteral(context.parentDescriptorSource)
+            )
+          );
+        }
+        if (context.hasNamedExport) {
+          body.unshift(t.exportAllDeclaration(retargedPath));
+        }
+        const program = t.program(body);
+        traverse(program, transformTemplateLiterals(api).visitor, path.scope, path);
+        path.replaceWith(program);
+        path.stop();
+      },
+    },
   };
 };
+
+module.exports.createMetadataVisitor = createMetadataVisitor;

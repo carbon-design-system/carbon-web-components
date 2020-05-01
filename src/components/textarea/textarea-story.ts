@@ -21,6 +21,7 @@ export const defaultStory = ({ parameters }) => {
   const {
     autocomplete,
     autofocus,
+    colorScheme,
     disabled,
     helperText,
     labelText,
@@ -40,6 +41,7 @@ export const defaultStory = ({ parameters }) => {
     <bx-textarea
       autocomplete="${ifNonNull(autocomplete)}"
       ?autofocus="${autofocus}"
+      color-scheme="${ifNonNull(colorScheme)}"
       ?disabled="${disabled}"
       helper-text="${ifNonNull(helperText)}"
       label-text="${ifNonNull(labelText)}"
@@ -69,10 +71,11 @@ defaultStory.story = {
 };
 
 export const formItem = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'] ?? {};
+  const { colorScheme, disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'] ?? {};
   return html`
     <bx-form-item>
       <bx-textarea
+        color-scheme="${ifNonNull(colorScheme)}"
         placeholder="${ifNonNull(placeholder)}"
         @input="${onInput}"
         ?invalid="${invalid}"
@@ -100,9 +103,10 @@ formItem.story = {
 };
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'] ?? {};
+  const { colorScheme, disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'] ?? {};
   return html`
     <bx-textarea
+      color-scheme="${ifNonNull(colorScheme)}"
       placeholder="${ifNonNull(placeholder)}"
       @input="${onInput}"
       ?invalid="${invalid}"
@@ -137,5 +141,5 @@ export const skeleton = () =>
   `;
 
 export default {
-  title: 'Textarea',
+  title: 'Components/Textarea',
 };

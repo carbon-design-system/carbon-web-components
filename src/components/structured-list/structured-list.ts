@@ -10,7 +10,9 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
+import { forEach } from '../../globals/internal/collection-helpers';
 import FocusMixin from '../../globals/mixins/focus';
+import BXStructuredListRow from './structured-list-row';
 import styles from './structured-list.scss';
 
 const { prefix } = settings;
@@ -28,10 +30,11 @@ class BXStructuredList extends FocusMixin(LitElement) {
   border = false;
 
   /**
-   * `true` if selection should be supported.
+   * The `name` attribute for the `<input>` for selection.
+   * If present, this structured list will be a selectable one.
    */
-  @property({ type: Boolean, reflect: true, attribute: 'has-selection' })
-  hasSelection = false;
+  @property({ attribute: 'selection-name' })
+  selectionName = '';
 
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
@@ -44,17 +47,32 @@ class BXStructuredList extends FocusMixin(LitElement) {
     super.connectedCallback();
   }
 
+  shouldUpdate(changedProperties) {
+    if (changedProperties.has('selectionName')) {
+      // Propagate `selectionName` attribute to descendants until `:host-context()` gets supported in all major browsers
+      forEach(this.querySelectorAll((this.constructor as typeof BXStructuredList).selectorRowsWithHeader), elem => {
+        (elem as BXStructuredListRow).selectionName = this.selectionName;
+      });
+    }
+    return true;
+  }
+
   render() {
-    const { border, hasSelection } = this;
+    const { border, selectionName } = this;
     const classes = classMap({
       [`${prefix}--structured-list`]: true,
       [`${prefix}--structured-list--border`]: border,
-      [`${prefix}--structured-list--selection`]: hasSelection,
+      [`${prefix}--structured-list--selection`]: Boolean(selectionName),
     });
     return html`
       <section id="section" class=${classes}><slot></slot></section>
     `;
   }
+
+  /**
+   * The CSS selector to find the rows, including header rows.
+   */
+  static selectorRowsWithHeader = `${prefix}-structured-list-row,${prefix}-structured-list-header-row`;
 
   static styles = styles;
 }

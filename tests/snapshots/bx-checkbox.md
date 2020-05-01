@@ -2,7 +2,7 @@
 
 ## `Rendering`
 
-#### `Should render with minimum attributes`
+####   `Should render with minimum attributes`
 
 ```
 <input
@@ -15,13 +15,15 @@
   class="bx--checkbox-label"
   for="checkbox"
 >
-  <slot>
-  </slot>
+  <span class="bx--checkbox-label-text">
+    <slot>
+    </slot>
+  </span>
 </label>
 
 ```
 
-#### `Should render with various attributes`
+####   `Should render with various attributes`
 
 ```
 <input
@@ -37,9 +39,12 @@
   class="bx--checkbox-label bx--visually-hidden"
   for="checkbox"
 >
-  <slot>
-    label-text-foo
-  </slot>
+  <span class="bx--checkbox-label-text">
+    <slot>
+      label-text-foo
+    </slot>
+  </span>
 </label>
 
 ```
+

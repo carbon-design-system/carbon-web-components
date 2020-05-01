@@ -47,7 +47,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Pagination',
+  title: 'Components/Pagination',
   parameters: {
     docs: {
       page: storyDocs,

@@ -62,7 +62,9 @@ class BXContentSwitcherItem extends FocusMixin(LitElement) {
     if (changedProperties.has('selected') || changedProperties.has('target')) {
       const { selected, target } = this;
       if (target) {
-        const targetNode = (this.getRootNode() as ShadowRoot).getElementById(target);
+        const doc = this.getRootNode() as HTMLDocument;
+        // `doc` can be an element if such element is orphaned
+        const targetNode = doc.getElementById && doc.getElementById(target);
         if (targetNode) {
           targetNode.toggleAttribute('hidden', !selected);
         }
