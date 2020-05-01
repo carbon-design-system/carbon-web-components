@@ -52,22 +52,10 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
   };
 
   /**
-   * An assistive text for screen reader to announce, telling the collapsed state.
-   */
-  @property({ attribute: 'collapsed-assistive-text' })
-  collapsedAssistiveText!: string;
-
-  /**
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
   colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
-
-  /**
-   * An assistive text for screen reader to announce, telling the expanded state.
-   */
-  @property({ attribute: 'expanded-assistive-text' })
-  expandedAssistiveText!: string;
 
   /**
    * `true` to expand this expandable tile.
@@ -80,19 +68,21 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   render() {
-    const { collapsedAssistiveText, expandedAssistiveText, expanded } = this;
-    const assistiveText = expanded ? expandedAssistiveText : collapsedAssistiveText;
+    const { expanded } = this;
     return html`
-      <button class="${prefix}--tile__chevron" aria-labelledby="icon">
+      <button
+        class="${prefix}--tile__chevron"
+        aria-labelledby="above-the-fold-content"
+        aria-controls="below-the-fold-content"
+        aria-expanded="${String(Boolean(expanded))}"
+      >
         ${ChevronDown16({
           id: 'icon',
-          alt: assistiveText,
-          description: assistiveText,
-          'aria-label': assistiveText,
         })}
       </button>
-      <div class="${prefix}--tile-content">
-        <slot></slot>
+      <div id="content" class="${prefix}--tile-content">
+        <div id="above-the-fold-content"><slot name="above-the-fold-content"></slot></div>
+        <div id="below-the-fold-content"><slot></slot></div>
       </div>
     `;
   }
