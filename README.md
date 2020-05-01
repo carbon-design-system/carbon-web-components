@@ -180,7 +180,7 @@ View available web components at: https://custom-elements.carbondesignsystem.com
 
 To support IE, you need a couple additional setups:
 
-- Toolstack to re-transpile our cose to ES5 (e.g. by specifying IE11 in [`@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env) configuration)
+- Toolstack to re-transpile our code to ES5 (e.g. by specifying IE11 in [`@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env) configuration)
 - Polyfills, listed [here](https://github.com/carbon-design-system/carbon-custom-elements/blob/master/src/polyfills/index.ts)
 
 Here's an example code that shows such setup:

@@ -99,7 +99,7 @@ export const expandable = ({ parameters }) => ({
       (bx-expandable-tile-beingchanged)="handleBeforeChange($event)"
       (bx-expandable-tile-changed)="handleAfterChange($event)"
     >
-      <bx-tile-above-the-fold-content style="height: 200px">
+      <bx-tile-above-the-fold-content slot="above-the-fold-content" style="height: 200px">
         Above the fold content here
       </bx-tile-above-the-fold-content>
       <bx-tile-below-the-fold-content style="height: 300px">

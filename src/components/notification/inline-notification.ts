@@ -207,10 +207,6 @@ class BXInlineNotification extends FocusMixin(LitElement) {
   @property()
   title = '';
 
-  createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
-  }
-
   connectedCallback() {
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'alert');
