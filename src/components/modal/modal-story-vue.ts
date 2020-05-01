@@ -15,8 +15,8 @@ export { default } from './modal-story';
 export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-modal
-      :danger="danger"
       :open="open"
+      :size="size"
       @bx-modal-beingclosed="handleBeforeClose"
       @bx-modal-closed="handleClose"
     >

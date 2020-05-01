@@ -21,7 +21,7 @@ export enum SKELETON_TEXT_TYPE {
   /**
    * Regular variant.
    */
-  REGULAR = 'regular',
+  REGULAR = '',
 
   /**
    * Heading variant.

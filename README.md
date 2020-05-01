@@ -166,7 +166,7 @@ Vue users can use our components in the same manner as native HTML tags, without
 
 ## List of available components
 
-View available web components at: https://carbon-custom-elements.netlify.com/. You can see usage information in several ways:
+View available web components at: https://custom-elements.carbondesignsystem.com/. You can see usage information in several ways:
 
 1. Going to Docs tab, where it shows the usage and available attributes, properties and custom events.
 2. Clicking the **KNOBS** tab at the bottom and changing values there. Most knobs are shown as something like `Button kind (kind)`, where `kind` is the attribute name
@@ -180,7 +180,7 @@ View available web components at: https://carbon-custom-elements.netlify.com/. Y
 
 To support IE, you need a couple additional setups:
 
-- Toolstack to re-transpile our cose to ES5 (e.g. by specifying IE11 in [`@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env) configuration)
+- Toolstack to re-transpile our code to ES5 (e.g. by specifying IE11 in [`@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env) configuration)
 - Polyfills, listed [here](https://github.com/carbon-design-system/carbon-custom-elements/blob/master/src/polyfills/index.ts)
 
 Here's an example code that shows such setup:
@@ -190,11 +190,6 @@ Here's an example code that shows such setup:
 ## Coding conventions
 
 Can be found at [here](./src/coding-conventions.md).
-
-## Iteration plans
-
-- [i5 (November 2019)](./plans/i5.md)
-- [i6 (December 2019)](./plans/i6.md)
 
 ## Creating build
 

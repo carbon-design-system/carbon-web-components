@@ -10,6 +10,7 @@
 import { html, property, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import settings from 'carbon-components/es/globals/js/settings';
+import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import HostListener from '../../globals/decorators/host-listener';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
@@ -51,16 +52,10 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
   };
 
   /**
-   * An assistive text for screen reader to announce, telling the collapsed state.
+   * The color scheme.
    */
-  @property({ attribute: 'collapsed-assistive-text' })
-  collapsedAssistiveText!: string;
-
-  /**
-   * An assistive text for screen reader to announce, telling the expanded state.
-   */
-  @property({ attribute: 'expanded-assistive-text' })
-  expandedAssistiveText!: string;
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
 
   /**
    * `true` to expand this expandable tile.
@@ -73,19 +68,21 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   render() {
-    const { collapsedAssistiveText, expandedAssistiveText, expanded } = this;
-    const assistiveText = expanded ? expandedAssistiveText : collapsedAssistiveText;
+    const { expanded } = this;
     return html`
-      <button class="${prefix}--tile__chevron" aria-labelledby="icon">
+      <button
+        class="${prefix}--tile__chevron"
+        aria-labelledby="above-the-fold-content"
+        aria-controls="below-the-fold-content"
+        aria-expanded="${String(Boolean(expanded))}"
+      >
         ${ChevronDown16({
           id: 'icon',
-          alt: assistiveText,
-          description: assistiveText,
-          'aria-label': assistiveText,
         })}
       </button>
-      <div class="${prefix}--tile-content">
-        <slot></slot>
+      <div id="content" class="${prefix}--tile-content">
+        <div id="above-the-fold-content"><slot name="above-the-fold-content"></slot></div>
+        <div id="below-the-fold-content"><slot></slot></div>
       </div>
     `;
   }

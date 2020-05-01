@@ -10,13 +10,16 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
 import OverflowMenuVertical16 from '@carbon/icons/lib/overflow-menu--vertical/16';
+import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import HostListener from '../../globals/decorators/host-listener';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import { find } from '../../globals/internal/collection-helpers';
-import BXFloatingMenu from '../floating-menu/floating-menu';
 import BXFloatingMenuTrigger from '../floating-menu/floating-menu-trigger';
+import BXOverflowMenuBody from './overflow-menu-body';
 import styles from './overflow-menu.scss';
+
+export { FORM_ELEMENT_COLOR_SCHEME as OVERFLOW_MENU_COLOR_SCHEME } from '../../globals/shared-enums';
 
 const { prefix } = settings;
 
@@ -30,7 +33,7 @@ class BXOverflowMenu extends HostListenerMixin(FocusMixin(LitElement)) implement
   /**
    * The menu body.
    */
-  private _menuBody: BXFloatingMenu | null = null;
+  private _menuBody: BXOverflowMenuBody | null = null;
 
   /**
    * Handles user-initiated toggling of the menu.
@@ -64,6 +67,18 @@ class BXOverflowMenu extends HostListenerMixin(FocusMixin(LitElement)) implement
       this._handleUserInitiatedToggle();
     }
   };
+
+  /**
+   * The color scheme.
+   */
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+
+  /**
+   * `true` if this overflow menu should be disabled.
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
 
   /**
    * `true` if the dropdown should be open.
@@ -100,14 +115,22 @@ class BXOverflowMenu extends HostListenerMixin(FocusMixin(LitElement)) implement
 
   updated(changedProperties) {
     if (changedProperties.has('open')) {
-      const { open } = this;
+      const { colorScheme, open } = this;
       if (open && !this._menuBody) {
-        this._menuBody = find(this.childNodes, elem => (elem.constructor as typeof BXFloatingMenu).FLOATING_MENU);
+        this._menuBody = find(this.childNodes, elem => (elem.constructor as typeof BXOverflowMenuBody).FLOATING_MENU);
       }
       const { _menuBody: menuBody } = this;
       if (menuBody) {
+        menuBody.colorScheme = colorScheme;
         menuBody.open = open;
         this.setAttribute('aria-expanded', String(Boolean(open)));
+      }
+    }
+    if (changedProperties.has('colorScheme')) {
+      const { colorScheme } = this;
+      const { _menuBody: menuBody } = this;
+      if (menuBody) {
+        menuBody.colorScheme = colorScheme;
       }
     }
   }

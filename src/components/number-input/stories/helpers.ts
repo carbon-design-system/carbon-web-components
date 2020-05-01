@@ -8,8 +8,15 @@
  */
 
 import { action } from '@storybook/addon-actions';
+import { NUMBER_INPUT_COLOR_SCHEME } from '../number-input';
 
-const createProps = ({ boolean, textNullable, number }) => ({
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${NUMBER_INPUT_COLOR_SCHEME.LIGHT})`]: NUMBER_INPUT_COLOR_SCHEME.LIGHT,
+};
+
+const createProps = ({ boolean, textNullable, number, select }) => ({
+  colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
   disabled: boolean('Disabled (disabled)', false),
   value: number('Input value (value)', 0),
   min: number('Minimum value (min)', 0),
@@ -20,7 +27,6 @@ const createProps = ({ boolean, textNullable, number }) => ({
   onInput: action('input'),
   mobile: boolean('Mobile mode (mobile)', false),
   hideLabel: boolean('Hide label (hideLabel', false),
-  light: boolean('Light variant (light)', false),
 });
 
 export default createProps;

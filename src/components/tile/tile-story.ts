@@ -9,28 +9,43 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import './tile';
+import { TILE_COLOR_SCHEME } from './tile';
 import './clickable-tile';
 import './radio-tile';
 import './selectable-tile';
 import './expandable-tile';
 import storyDocs from './tile-story.mdx';
 
-export const defaultStory = () => html`
-  <bx-tile>Default tile</bx-tile>
-`;
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${TILE_COLOR_SCHEME.LIGHT})`]: TILE_COLOR_SCHEME.LIGHT,
+};
+
+export const defaultStory = ({ parameters }) => {
+  const { colorScheme } = parameters?.props?.['bx-tile'] ?? {};
+  return html`
+    <bx-tile color-scheme="${ifNonNull(colorScheme)}">Default tile</bx-tile>
+  `;
+};
 
 defaultStory.story = {
   name: 'Default',
+  parameters: {
+    knobs: {
+      'bx-tile': () => ({
+        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
+      }),
+    },
+  },
 };
 
 export const clickable = ({ parameters }) => {
-  const { href } = parameters?.props?.['bx-clickable-tile'] ?? {};
+  const { colorScheme, href } = parameters?.props?.['bx-clickable-tile'] ?? {};
   return html`
-    <bx-clickable-tile href="${ifNonNull(href)}">Clickable tile</bx-clickable-tile>
+    <bx-clickable-tile color-scheme="${ifNonNull(colorScheme)}" href="${ifNonNull(href)}">Clickable tile</bx-clickable-tile>
   `;
 };
 
@@ -38,6 +53,7 @@ clickable.story = {
   parameters: {
     knobs: {
       'bx-clickable-tile': () => ({
+        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
         href: textNullable('Href for clickable UI (href)', ''),
       }),
     },
@@ -45,12 +61,13 @@ clickable.story = {
 };
 
 export const singleSelectable = ({ parameters }) => {
-  const { checkmarkLabel, name, value, onInput } = parameters?.props?.['bx-radio-tile'] ?? {};
+  const { checkmarkLabel, colorScheme, name, value, onInput } = parameters?.props?.['bx-radio-tile'] ?? {};
   return html`
     <fieldset>
       <legend>Single-select tiles</legend>
       <bx-radio-tile
         checkmark-label="${ifNonNull(checkmarkLabel)}"
+        color-scheme="${ifNonNull(colorScheme)}"
         name="${ifNonNull(name)}"
         value="${ifNonNull(value)}"
         @input="${onInput}"
@@ -59,6 +76,7 @@ export const singleSelectable = ({ parameters }) => {
       </bx-radio-tile>
       <bx-radio-tile
         checkmark-label="${ifNonNull(checkmarkLabel)}"
+        color-scheme="${ifNonNull(colorScheme)}"
         name="${ifNonNull(name)}"
         value="${ifNonNull(value)}"
         @input="${onInput}"
@@ -67,6 +85,7 @@ export const singleSelectable = ({ parameters }) => {
       </bx-radio-tile>
       <bx-radio-tile
         checkmark-label="${ifNonNull(checkmarkLabel)}"
+        color-scheme="${ifNonNull(colorScheme)}"
         name="${ifNonNull(name)}"
         value="${ifNonNull(value)}"
         @input="${onInput}"
@@ -83,6 +102,7 @@ singleSelectable.story = {
     knobs: {
       'bx-radio-tile': () => ({
         checkmarkLabel: textNullable('Label text for the checkmark icon (checkmark-label)', ''),
+        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
         name: textNullable('Name (name)', 'selectable-tile'),
         value: textNullable('Value (value)', ''),
         onInput: action('input'),
@@ -92,10 +112,11 @@ singleSelectable.story = {
 };
 
 export const multiSelectable = ({ parameters }) => {
-  const { checkmarkLabel, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'] ?? {};
+  const { checkmarkLabel, colorScheme, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'] ?? {};
   return html`
     <bx-selectable-tile
       checkmark-label="${ifNonNull(checkmarkLabel)}"
+      color-scheme="${ifNonNull(colorScheme)}"
       name="${ifNonNull(name)}"
       ?selected="${selected}"
       value="${ifNonNull(value)}"
@@ -119,7 +140,7 @@ multiSelectable.story = {
 };
 
 export const expandable = ({ parameters }) => {
-  const { expanded, disableChange, onBeforeChange, onChange } = parameters?.props?.['bx-expandable-tile'] ?? {};
+  const { colorScheme, expanded, disableChange, onBeforeChange, onChange } = parameters?.props?.['bx-expandable-tile'] ?? {};
   const handleBeforeChanged = (event: CustomEvent) => {
     onBeforeChange(event);
     if (disableChange) {
@@ -128,11 +149,12 @@ export const expandable = ({ parameters }) => {
   };
   return html`
     <bx-expandable-tile
+      color-scheme="${ifNonNull(colorScheme)}"
       ?expanded="${expanded}"
       @bx-expandable-tile-beingchanged=${handleBeforeChanged}
       @bx-expandable-tile-changed=${onChange}
     >
-      <bx-tile-above-the-fold-content style="height: 200px">
+      <bx-tile-above-the-fold-content slot="above-the-fold-content" style="height: 200px">
         Above the fold content here
       </bx-tile-above-the-fold-content>
       <bx-tile-below-the-fold-content style="height: 300px">
@@ -146,6 +168,7 @@ expandable.story = {
   parameters: {
     knobs: {
       'bx-expandable-tile': () => ({
+        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
         expanded: boolean('Expanded (expanded)', false),
         disableChange: boolean(
           'Disable user-initiated change in expanded state ' +
@@ -160,7 +183,7 @@ expandable.story = {
 };
 
 export default {
-  title: 'Tile',
+  title: 'Components/Tile',
   decorators: [
     story =>
       html`

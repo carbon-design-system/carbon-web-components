@@ -15,10 +15,11 @@ export const defaultStory = ({ parameters }) => ({
   template: `
     <bx-dropdown
       [open]="open"
+      [colorScheme]="colorScheme"
       [disabled]="disabled"
-      [light]="light"
       [helperText]="helperText"
       [labelText]="labelText"
+      [size]="size"
       [value]="value"
       [triggerContent]="triggerContent"
       (bx-dropdown-beingselected)="handleBeforeSelect($event)"

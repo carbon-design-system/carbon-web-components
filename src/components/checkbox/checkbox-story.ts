@@ -37,7 +37,7 @@ defaultStory.story = {
 };
 
 export default {
-  title: 'Checkbox',
+  title: 'Components/Checkbox',
   parameters: {
     docs: {
       page: storyDocs,

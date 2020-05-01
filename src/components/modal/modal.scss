@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019
+// Copyright IBM Corp. 2019, 2020
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -29,6 +29,45 @@
   .#{$prefix}--text-input,
   .#{$prefix}--select-input {
     background-color: $field-02;
+  }
+
+  .#{$prefix}--modal-container {
+    @include carbon--breakpoint(md) {
+      ::slotted(#{$prefix}-modal-header),
+      ::slotted(#{$prefix}-modal-body) {
+        padding-right: 20%;
+      }
+    }
+  }
+
+  .#{$prefix}--modal-container--xs,
+  .#{$prefix}--modal-container--sm,
+  .#{$prefix}--modal-container--xl {
+    ::slotted(#{$prefix}-modal-header) {
+      padding-right: $spacing-09;
+    }
+
+    ::slotted(#{$prefix}-modal-body) {
+      padding-right: $spacing-05;
+    }
+  }
+
+  .#{$prefix}--modal-container--sm {
+    @include carbon--breakpoint(xlg) {
+      ::slotted(#{$prefix}-modal-header),
+      ::slotted(#{$prefix}-modal-body) {
+        padding-right: 20%;
+      }
+    }
+  }
+
+  .#{$prefix}--modal-container--lg {
+    @include carbon--breakpoint(md) {
+      ::slotted(#{$prefix}-modal-header),
+      ::slotted(#{$prefix}-modal-body) {
+        padding-right: 20%;
+      }
+    }
   }
 }
 

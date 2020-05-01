@@ -98,10 +98,6 @@ class BXTableRow extends FocusMixin(LitElement) {
   @property({ attribute: 'selection-value' })
   selectionValue = '';
 
-  createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
-  }
-
   connectedCallback() {
     const table = this.closest((this.constructor as typeof BXTableRow).selectorTable);
     if (table) {
@@ -162,7 +158,9 @@ class BXTableRow extends FocusMixin(LitElement) {
   /**
    * The CSS selector to find the table.
    */
-  static selectorTable = `${prefix}-table`;
+  static get selectorTable() {
+    return `${prefix}-table`;
+  }
 
   static styles = styles;
 }

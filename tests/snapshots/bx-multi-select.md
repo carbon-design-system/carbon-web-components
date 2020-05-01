@@ -69,7 +69,7 @@
   </slot>
 </div>
 <div
-  class="bx--dropdown bx--dropdown--inline bx--dropdown--invalid bx--list-box bx--list-box--disabled bx--list-box--expanded bx--list-box--inline bx--list-box--light"
+  class="bx--dropdown bx--dropdown--inline bx--dropdown--invalid bx--list-box bx--list-box--disabled bx--list-box--expanded bx--list-box--inline"
   data-invalid=""
   role="listbox"
 >
@@ -85,6 +85,7 @@
   >
     <div
       class="bx--list-box__selection bx--list-box__selection--multi bx--tag--filter"
+      id="selection-button"
       role="button"
       tabindex="0"
       title="clear-selection-label-foo"

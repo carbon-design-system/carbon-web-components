@@ -77,7 +77,10 @@ class BXPagination extends FocusMixin(LitElement) {
    */
   private _handleClickPrevButton() {
     const { start: oldStart, pageSize } = this;
-    this._handleUserInitiatedChangeStart(Math.max(oldStart - pageSize, 0));
+    const newStart = Math.max(oldStart - pageSize, 0);
+    if (newStart !== oldStart) {
+      this._handleUserInitiatedChangeStart(newStart);
+    }
   }
 
   /**
@@ -85,7 +88,10 @@ class BXPagination extends FocusMixin(LitElement) {
    */
   private _handleClickNextButton() {
     const { start: oldStart, pageSize, total } = this;
-    this._handleUserInitiatedChangeStart(Math.min(oldStart + pageSize, total == null ? Infinity : total - 1));
+    const newStart = oldStart + pageSize;
+    if (newStart < (total == null ? Infinity : total)) {
+      this._handleUserInitiatedChangeStart(newStart);
+    }
   }
 
   /**
@@ -173,16 +179,9 @@ class BXPagination extends FocusMixin(LitElement) {
   connectedCallback() {
     super.connectedCallback();
     // Manually hooks the event listeners on the host element to make the event names configurable
-    this._hChangePage = on(
-      this,
-      (this.constructor as typeof BXPagination).eventChangePage,
-      this._handleChangePage as EventListener
-    );
-    this._hChangePageSize = on(
-      this,
-      (this.constructor as typeof BXPagination).eventChangePageSize,
-      this._handleChangePageSize as EventListener
-    );
+    const { eventChangePage, eventChangePageSize } = this.constructor as typeof BXPagination;
+    this._hChangePage = on(this, eventChangePage, this._handleChangePage as EventListener);
+    this._hChangePageSize = on(this, eventChangePageSize, this._handleChangePageSize as EventListener);
   }
 
   disconnectedCallback() {
@@ -197,20 +196,21 @@ class BXPagination extends FocusMixin(LitElement) {
 
   updated(changedProperties) {
     const { pageSize } = this;
+    const { selectorPageSizesSelect, selectorPagesSelect } = this.constructor as typeof BXPagination;
     if (changedProperties.has('pageSize')) {
-      forEach(this.querySelectorAll((this.constructor as typeof BXPagination).selectorPageSizesSelect), elem => {
+      forEach(this.querySelectorAll(selectorPageSizesSelect), elem => {
         (elem as BXPageSizesSelect).value = pageSize;
       });
     }
     if (changedProperties.has('pageSize') || changedProperties.has('start')) {
       const { start } = this;
-      forEach(this.querySelectorAll((this.constructor as typeof BXPagination).selectorPagesSelect), elem => {
+      forEach(this.querySelectorAll(selectorPagesSelect), elem => {
         (elem as BXPagesSelect).value = Math.floor(start / pageSize);
       });
     }
     if (changedProperties.has('pageSize') || changedProperties.has('total')) {
       const { total } = this;
-      forEach(this.querySelectorAll((this.constructor as typeof BXPagination).selectorPagesSelect), elem => {
+      forEach(this.querySelectorAll(selectorPagesSelect), elem => {
         (elem as BXPagesSelect).total = Math.ceil(total / pageSize);
       });
     }
@@ -228,8 +228,7 @@ class BXPagination extends FocusMixin(LitElement) {
       _handleClickNextButton: handleClickNextButton,
     } = this;
     const { atLastPage = start + pageSize >= total } = this;
-    const currentPage = Math.floor(start / pageSize);
-    const prevButtonDisabled = disabled || currentPage === 0;
+    const prevButtonDisabled = disabled || start === 0;
     const nextButtonDisabled = disabled || atLastPage;
     const prevButtonClasses = classMap({
       [`${prefix}--pagination__button`]: true,

@@ -11,9 +11,13 @@ import { customElement, LitElement, html, property } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
+import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
 import FormMixin from '../../globals/mixins/form';
+import ValidityMixin from '../../globals/mixins/validity';
 import styles from './input.scss';
+
+export { FORM_ELEMENT_COLOR_SCHEME as INPUT_COLOR_SCHEME } from '../../globals/shared-enums';
 
 const { prefix } = settings;
 
@@ -38,7 +42,7 @@ export enum INPUT_TYPE {
  * @slot validity-message - The validity message. If present and non-empty, this input shows the UI of its invalid state.
  */
 @customElement(`${prefix}-input`)
-export default class BXInput extends FormMixin(LitElement) {
+export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
   /**
    * Handles `oninput` event on the `<input>`.
    * @param event The event.
@@ -66,6 +70,12 @@ export default class BXInput extends FormMixin(LitElement) {
    */
   @property({ type: Boolean })
   autofocus = false;
+
+  /**
+   * The color scheme.
+   */
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
 
   /**
    * Controls the disabled state of the input
@@ -122,6 +132,12 @@ export default class BXInput extends FormMixin(LitElement) {
   required = false;
 
   /**
+   * The special validity message for `required`.
+   */
+  @property({ attribute: 'required-validity-message' })
+  requiredValidityMessage = 'Please fill out this field.';
+
+  /**
    * The type of the input. Can be one of the types listed in the INPUT_TYPE enum
    */
   @property({ reflect: true })
@@ -150,6 +166,7 @@ export default class BXInput extends FormMixin(LitElement) {
 
     const inputClasses = classMap({
       [`${prefix}--text-input`]: true,
+      [`${prefix}--text-input--${this.colorScheme}`]: this.colorScheme,
       [`${prefix}--text-input--invalid`]: this.invalid,
     });
 
