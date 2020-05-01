@@ -32,7 +32,7 @@ import { defaultStory as baseDefaultStory } from './modal-story';
 export { default } from './modal-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { danger, open, size, disableClose, onBeforeClose, onClose } = parameters?.props?.['bx-modal'];
+  const { open, size, disableClose, onBeforeClose, onClose } = parameters?.props?.['bx-modal'];
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -40,7 +40,7 @@ export const defaultStory = ({ parameters }) => {
     }
   };
   return (
-    <BXModal danger={danger} open={open} size={size} onBeforeClose={handleBeforeClose} onClose={onClose}>
+    <BXModal open={open} size={size} onBeforeClose={handleBeforeClose} onClose={onClose}>
       <BXModalHeader>
         <BXModalCloseButton />
         <BXModalLabel>Label (Optional)</BXModalLabel>
