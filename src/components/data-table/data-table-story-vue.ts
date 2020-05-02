@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -56,6 +56,11 @@ Vue.component('bx-ce-demo-data-table', {
     id: String,
 
     /**
+     * The color scheme.
+     */
+    colorScheme: String,
+
+    /**
      * The g11n collator to use.
      */
     collator: {
@@ -99,11 +104,6 @@ Vue.component('bx-ce-demo-data-table', {
       type: Number,
       default: 0,
     },
-
-    /**
-     * `true` if the zebra stripe should be shown.
-     */
-    zebra: Boolean,
   },
 
   data: (): {
@@ -489,7 +489,7 @@ Vue.component('bx-ce-demo-data-table', {
             </bx-table-header-cell>
           </bx-table-header-row>
         </bx-table-head>
-        <bx-table-body :zebra="zebra">
+        <bx-table-body :color-scheme="colorScheme">
           <bx-table-row
             v-for="row in rowsInUse"
             :key="row.id"
@@ -534,7 +534,7 @@ export const defaultStory = ({ parameters }) => ({
           <bx-table-header-cell>Status</bx-table-header-cell>
         </bx-table-header-row>
       </bx-table-head>
-      <bx-table-body :zebra="zebra">
+      <bx-table-body :color-scheme="colorScheme">
         <bx-table-row>
           <bx-table-cell>Load Balancer 1</bx-table-cell>
           <bx-table-cell>HTTP</bx-table-cell>
@@ -580,11 +580,11 @@ export const sortable = ({ parameters }) => {
       <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
       <bx-ce-demo-data-table
         :rows="demoRows"
+        :color-scheme="colorScheme"
         :columns="demoColumns"
         :sortInfo="demoSortInfo"
         :hasSelection="hasSelection"
         :size="size"
-        :zebra="zebra"
         @bx-table-row-change-selection="handleBeforeChangeSelection"
         @bx-table-change-selection-all="handleBeforeChangeSelection"
         @bx-table-header-cell-sort="handleBeforeSort"
@@ -630,11 +630,11 @@ export const sortableWithPagination = ({ parameters }) => {
         :rows="demoRows"
         :columns="demoColumns"
         :sortInfo="demoSortInfo"
+        :color-scheme="colorScheme"
         :hasSelection="hasSelection"
         :pageSize="5"
         :size="size"
         :start="0"
-        :zebra="zebra"
         @bx-table-row-change-selection="handleBeforeChangeSelection"
         @bx-table-change-selection-all="handleBeforeChangeSelection"
         @bx-table-header-cell-sort="handleBeforeSort"
