@@ -23,6 +23,14 @@ export { FORM_ELEMENT_COLOR_SCHEME as NUMBER_INPUT_COLOR_SCHEME } from '../../gl
 const { prefix } = settings;
 
 /**
+ * Works in conjunction with VALIDATION_STATUS
+ */
+export enum NUMBER_INPUT_VALIDATION_STATUS {
+  EXCEEDED_MAXIMUM = 'exceeded_maximum',
+  EXCEEDED_MINIMUM = 'exceeded_minimum',
+}
+
+/**
  * Number input.
  * @element bx-number-input
  * @slot helper-text - The helper text.
@@ -49,6 +57,27 @@ export default class BXNumberInput extends BXInput {
    */
   protected _handleDecrement() {
     this._input.stepDown();
+  }
+
+  _testValidity() {
+    if (this._input?.valueAsNumber > Number(this.max)) {
+      return NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM;
+    }
+    if (this._input?.valueAsNumber < Number(this.min)) {
+      return NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MINIMUM;
+    }
+    return super._testValidity();
+  }
+
+  _getValidityMessage(state: string) {
+    if (Object.values(NUMBER_INPUT_VALIDATION_STATUS).includes(state as NUMBER_INPUT_VALIDATION_STATUS)) {
+      const stateMessageMap = {
+        [NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM]: this.validityMessageMax,
+        [NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MINIMUM]: this.validityMessageMin,
+      };
+      return stateMessageMap[state];
+    }
+    return super._getValidityMessage(state);
   }
 
   protected _min = '';
@@ -123,6 +152,22 @@ export default class BXNumberInput extends BXInput {
   @property({ attribute: 'decrement-button-assistive-text' })
   decrementButtonAssistiveText = 'decrease number input';
 
+  /**
+   * The validity message shown when the value is greater than the maximum
+   *
+   * Also available via the `validity-message-max` slot
+   */
+  @property({ attribute: 'validity-message-max' })
+  validityMessageMax = '';
+
+  /**
+   * The validity message shown when the value is less than the minimum
+   *
+   * Also available via the `validity-message-min` slot
+   */
+  @property({ attribute: 'validity-message-min' })
+  validityMessageMin = '';
+
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
@@ -131,6 +176,13 @@ export default class BXNumberInput extends BXInput {
     const { _handleInput: handleInput } = this;
 
     const invalidIcon = WarningFilled16({ class: `${prefix}--number__invalid` });
+
+    const validity = this._testValidity();
+
+    const isGenericallyInvalid = () =>
+      this.invalid &&
+      validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM &&
+      validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MINIMUM;
 
     const wrapperClasses = classMap({
       [`${prefix}--number`]: true,
@@ -224,9 +276,19 @@ export default class BXNumberInput extends BXInput {
         <div class="${prefix}--number__input-wrapper">
           ${this.mobile ? mobileLayout : defaultLayout}
         </div>
-        <div class="${prefix}--form-requirement">
+        <div class="${prefix}--form-requirement" ?hidden="${!isGenericallyInvalid()}">
           <slot name="validity-message">
             ${this.validityMessage}
+          </slot>
+        </div>
+        <div class="${prefix}--form-requirement" ?hidden="${validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM}">
+          <slot name="validity-message-max">
+            ${this.validityMessageMax}
+          </slot>
+        </div>
+        <div class="${prefix}--form-requirement" ?hidden="${validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MINIMUM}">
+          <slot name="validity-message-min">
+            ${this.validityMessageMin}
           </slot>
         </div>
       </div>
