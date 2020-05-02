@@ -152,9 +152,19 @@ export default class BXNumberInput extends BXInput {
   @property({ attribute: 'decrement-button-assistive-text' })
   decrementButtonAssistiveText = 'decrease number input';
 
+  /**
+   * The validity message shown when the value is greater than the maximum
+   *
+   * Also available via the `validity-message-max` slot
+   */
   @property({ attribute: 'validity-message-max' })
   validityMessageMax = '';
 
+  /**
+   * The validity message shown when the value is less than the minimum
+   *
+   * Also available via the `validity-message-min` slot
+   */
   @property({ attribute: 'validity-message-min' })
   validityMessageMin = '';
 
@@ -169,15 +179,10 @@ export default class BXNumberInput extends BXInput {
 
     const validity = this._testValidity();
 
-    const validityMaxClasses = classMap({
-      [`${prefix}--hidden`]: validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM,
-      [`${prefix}--form-requirement`]: true,
-    });
-
-    const validityMinClasses = classMap({
-      [`${prefix}--hidden`]: validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MINIMUM,
-      [`${prefix}--form-requirement`]: true,
-    });
+    const isGenericallyInvalid = () =>
+      this.invalid &&
+      validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM &&
+      validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MINIMUM;
 
     const wrapperClasses = classMap({
       [`${prefix}--number`]: true,
@@ -271,17 +276,17 @@ export default class BXNumberInput extends BXInput {
         <div class="${prefix}--number__input-wrapper">
           ${this.mobile ? mobileLayout : defaultLayout}
         </div>
-        <div class="${prefix}--form-requirement">
+        <div class="${prefix}--form-requirement" ?hidden="${!isGenericallyInvalid()}">
           <slot name="validity-message">
             ${this.validityMessage}
           </slot>
         </div>
-        <div class="${validityMaxClasses}">
+        <div class="${prefix}--form-requirement" ?hidden="${validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM}">
           <slot name="validity-message-max">
             ${this.validityMessageMax}
           </slot>
         </div>
-        <div class="${validityMinClasses}">
+        <div class="${prefix}--form-requirement" ?hidden="${validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MINIMUM}">
           <slot name="validity-message-min">
             ${this.validityMessageMin}
           </slot>
