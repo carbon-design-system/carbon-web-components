@@ -70,7 +70,7 @@ export default class BXNumberInput extends BXInput {
   }
 
   _getValidityMessage(state: string) {
-    if (Object.values(NUMBER_INPUT_VALIDATION_STATUS).includes(state)) {
+    if (Object.values(NUMBER_INPUT_VALIDATION_STATUS).includes(state as NUMBER_INPUT_VALIDATION_STATUS)) {
       const stateMessageMap = {
         [NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM]: this.validityMessageMax,
         [NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MINIMUM]: this.validityMessageMin,
