@@ -29,7 +29,7 @@ const sizes = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { danger, open, size, disableClose, onBeforeClose, onClose } = parameters?.props?.['bx-modal'] ?? {};
+  const { open, size, disableClose, onBeforeClose, onClose } = parameters?.props?.['bx-modal'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -37,13 +37,7 @@ export const defaultStory = ({ parameters }) => {
     }
   };
   return html`
-    <bx-modal
-      ?danger="${danger}"
-      ?open="${open}"
-      size="${ifNonNull(size)}"
-      @bx-modal-beingclosed=${handleBeforeClose}
-      @bx-modal-closed=${onClose}
-    >
+    <bx-modal ?open="${open}" size="${ifNonNull(size)}" @bx-modal-beingclosed=${handleBeforeClose} @bx-modal-closed=${onClose}>
       <bx-modal-header>
         <bx-modal-close-button></bx-modal-close-button>
         <bx-modal-label>Label (Optional)</bx-modal-label>

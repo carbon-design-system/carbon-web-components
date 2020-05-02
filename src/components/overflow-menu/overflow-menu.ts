@@ -36,17 +36,35 @@ class BXOverflowMenu extends HostListenerMixin(FocusMixin(LitElement)) implement
   private _menuBody: BXOverflowMenuBody | null = null;
 
   /**
-   * Handles `click` event on the trigger button.
+   * Handles user-initiated toggling of the menu.
    */
-  @HostListener('click')
-  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
-  private _handleClickTrigger = async () => {
+  private async _handleUserInitiatedToggle() {
     this.open = !this.open;
     const { open, updateComplete } = this;
     if (open) {
       await updateComplete;
       const { _menuBody: menuBody } = this;
       menuBody?.focus();
+    }
+  }
+
+  /**
+   * Handles `click` event on the trigger button.
+   */
+  @HostListener('click')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleClickTrigger = async () => {
+    this._handleUserInitiatedToggle();
+  };
+
+  /**
+   * Handles `keydown` event on the trigger button.
+   */
+  @HostListener('keydown')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleKeydownTrigger = async ({ key }) => {
+    if (key === ' ' || key === 'Enter') {
+      this._handleUserInitiatedToggle();
     }
   };
 

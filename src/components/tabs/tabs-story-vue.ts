@@ -31,7 +31,6 @@ export const defaultStory = ({ parameters }) => {
   return {
     template: `
         <bx-tabs
-          :disabled="disabled"
           :trigger-content="triggerContent"
           :type="type"
           :value="value"

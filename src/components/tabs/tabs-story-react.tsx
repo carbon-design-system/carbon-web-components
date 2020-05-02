@@ -24,7 +24,7 @@ import styles from './tabs-story.scss';
 export { default } from './tabs-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, triggerContent, type, value, disableSelection, onBeforeSelect, onSelect } = parameters?.props?.['bx-tabs'];
+  const { triggerContent, type, value, disableSelection, onBeforeSelect, onSelect } = parameters?.props?.['bx-tabs'];
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -34,13 +34,7 @@ export const defaultStory = ({ parameters }) => {
   return (
     <>
       <style type="text/css">{styles.cssText}</style>
-      <BXTabs
-        disabled={disabled}
-        triggerContent={triggerContent}
-        type={type}
-        value={value}
-        onBeforeSelect={handleBeforeSelected}
-        onSelect={onSelect}>
+      <BXTabs triggerContent={triggerContent} type={type} value={value} onBeforeSelect={handleBeforeSelected} onSelect={onSelect}>
         <BXTab id="tab-all" target="panel-all" value="all">
           Option 1
         </BXTab>

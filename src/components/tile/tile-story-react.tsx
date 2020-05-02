@@ -97,7 +97,9 @@ export const expandable = ({ parameters }) => {
   };
   return (
     <BXExpandableTile colorScheme={colorScheme} expanded={expanded} onBeforeChange={handleBeforeChanged} onChange={onChange}>
-      <BXTileAboveTheFoldContent style={{ height: '200px' }}>Above the fold content here</BXTileAboveTheFoldContent>
+      <BXTileAboveTheFoldContent slot="above-the-fold-content" style={{ height: '200px' }}>
+        Above the fold content here
+      </BXTileAboveTheFoldContent>
       <BXTileBelowTheFoldContent style={{ height: '300px' }}>Below the fold content here</BXTileBelowTheFoldContent>
     </BXExpandableTile>
   );

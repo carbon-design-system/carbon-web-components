@@ -31,7 +31,6 @@ export const defaultStory = ({ parameters }) => {
   return {
     template: `
       <bx-content-switcher
-        :disabled="disabled"
         :value="value"
         @bx-content-switcher-beingselected="handleBeforeSelect"
         @bx-content-switcher-selected="handleAfterSelect"
