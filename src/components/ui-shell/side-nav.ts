@@ -44,6 +44,23 @@ export enum SIDE_NAV_COLLAPSE_MODE {
 }
 
 /**
+ * The usage purpose of side nav.
+ */
+export enum SIDE_NAV_USAGE_MODE {
+  /**
+   * Regular usage.
+   */
+  REGULAR = '',
+
+  /**
+   * To represent header nav.
+   * In this mode, side nav is hidden when header nav is shown, and side nav is shown then header nav is hidden.
+   * This mode can be used only with `SIDE_NAV_COLLAPSE_MODE.REGULAR`.
+   */
+  HEADER_NAV = 'header-nav',
+}
+
+/**
  * Side nav.
  * @element bx-side-nav
  */
@@ -110,6 +127,12 @@ class BXSideNav extends HostListenerMixin(LitElement) {
   @property({ type: Boolean, reflect: true })
   expanded = false;
 
+  /**
+   * Usage mode of the side nav.
+   */
+  @property({ reflect: true, attribute: 'usage-mode' })
+  usageMode = SIDE_NAV_USAGE_MODE.REGULAR;
+
   connectedCallback() {
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'navigation');
@@ -130,6 +153,15 @@ class BXSideNav extends HostListenerMixin(LitElement) {
   }
 
   updated(changedProperties) {
+    if (changedProperties.has('collapseMode') || changedProperties.has('usageMode')) {
+      const { collapseMode, usageMode } = this;
+      if (
+        (collapseMode === SIDE_NAV_COLLAPSE_MODE.FIXED || collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL) &&
+        usageMode === SIDE_NAV_USAGE_MODE.HEADER_NAV
+      ) {
+        console.warn('Fixed/rail modes of side nav cannot be used with header nav mode.'); // eslint-disable-line no-console
+      }
+    }
     if (changedProperties.has('collapseMode')) {
       forEach(this.ownerDocument!.querySelectorAll((this.constructor as typeof BXSideNav).selectorButtonToggle), item => {
         (item as BXHeaderMenuButton).collapseMode = this.collapseMode;
@@ -139,6 +171,11 @@ class BXSideNav extends HostListenerMixin(LitElement) {
       this._updatedSideNavMenuForceCollapsedState();
       forEach(this.ownerDocument!.querySelectorAll((this.constructor as typeof BXSideNav).selectorButtonToggle), item => {
         (item as BXHeaderMenuButton).active = this.expanded;
+      });
+    }
+    if (changedProperties.has('usageMode')) {
+      forEach(this.ownerDocument!.querySelectorAll((this.constructor as typeof BXSideNav).selectorButtonToggle), item => {
+        (item as BXHeaderMenuButton).usageMode = this.usageMode;
       });
     }
   }

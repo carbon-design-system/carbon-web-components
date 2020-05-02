@@ -32,3 +32,9 @@ bx-header ~ bx-side-nav {
     margin-left: mini-units(32);
   }
 }
+
+.bx-ce-demo-devenv--with-side-nav-for-header .bx-ce-demo-devenv--container {
+  @include carbon--breakpoint('lg') {
+    margin-left: 0;
+  }
+}

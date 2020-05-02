@@ -12,8 +12,11 @@ import Fade16 from '@carbon/icons-react/es/fade/16';
 import contentStyles from 'carbon-components/scss/components/ui-shell/_content.scss';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
-// @ts-ignore
-import BXSideNav, { SIDE_NAV_COLLAPSE_MODE } from 'carbon-custom-elements/es/components-react/ui-shell/side-nav';
+import BXSideNav, {
+  SIDE_NAV_COLLAPSE_MODE,
+  SIDE_NAV_USAGE_MODE,
+  // @ts-ignore
+} from 'carbon-custom-elements/es/components-react/ui-shell/side-nav';
 // @ts-ignore
 import BXSideNavItems from 'carbon-custom-elements/es/components-react/ui-shell/side-nav-items';
 // @ts-ignore
@@ -36,16 +39,17 @@ import BXHeaderMenuItem from 'carbon-custom-elements/es/components-react/ui-shel
 import BXHeaderMenuButton from 'carbon-custom-elements/es/components-react/ui-shell/header-menu-button';
 // @ts-ignore
 import BXHeaderName from 'carbon-custom-elements/es/components-react/ui-shell/header-name';
-import { sideNav as baseSideNav, sideNavWithIcons as baseSideNavWithIcons } from './ui-shell-story';
+import { sideNav as baseSideNav, sideNavWithIcons as baseSideNavWithIcons, header as baseHeader } from './ui-shell-story';
 import styles from './ui-shell-story.scss';
 
 export { default } from './ui-shell-story';
 
 /* eslint-disable no-script-url */
 
-const updateRailExpanded = ({ collapseMode, expanded }) => {
+const updateRailExpanded = ({ collapseMode, expanded, usageMode = SIDE_NAV_USAGE_MODE.REGULAR }) => {
   document.body.classList.toggle('bx-ce-demo-devenv--with-rail', collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL);
   document.body.classList.toggle('bx-ce-demo-devenv--rail-expanded', collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL && expanded);
+  document.body.classList.toggle('bx-ce-demo-devenv--with-side-nav-for-header', usageMode === SIDE_NAV_USAGE_MODE.HEADER_NAV);
 };
 
 const StoryContent = () => (
@@ -177,11 +181,11 @@ export const sideNavWithIcons = ({ parameters }) => {
 sideNavWithIcons.story = baseSideNavWithIcons.story;
 
 export const header = ({ parameters }) => {
-  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'];
+  const { collapseMode, expanded, usageMode } = parameters?.props?.['bx-side-nav'];
   const { href } = parameters?.props?.['bx-side-nav-menu-item'];
-  updateRailExpanded({ collapseMode, expanded });
+  updateRailExpanded({ collapseMode, expanded, usageMode });
   const handleButtonToggle = event => {
-    updateRailExpanded({ collapseMode, expanded: event.detail.active });
+    updateRailExpanded({ collapseMode, expanded: event.detail.active, usageMode });
   };
   return (
     <>
@@ -202,7 +206,7 @@ export const header = ({ parameters }) => {
           </BXHeaderMenu>
         </BXHeaderNav>
       </BXHeader>
-      <BXSideNav aria-label="Side navigation" collapseMode={collapseMode} expanded={expanded}>
+      <BXSideNav aria-label="Side navigation" collapseMode={collapseMode} expanded={expanded} usageMode={usageMode}>
         <BXSideNavItems>
           <BXSideNavMenu title="L0 menu">
             <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
@@ -229,3 +233,5 @@ export const header = ({ parameters }) => {
     </>
   );
 };
+
+header.story = baseHeader.story;

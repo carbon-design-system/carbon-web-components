@@ -16,7 +16,7 @@ import Fade16 from 'carbon-custom-elements/es/icons/fade/16';
 import contentStyles from 'carbon-components/scss/components/ui-shell/_content.scss';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import { SIDE_NAV_COLLAPSE_MODE } from './side-nav';
+import { SIDE_NAV_COLLAPSE_MODE, SIDE_NAV_USAGE_MODE } from './side-nav';
 import './side-nav-items';
 import './side-nav-link';
 import './side-nav-menu';
@@ -37,9 +37,15 @@ const collapseModes = {
   [`Rail (${SIDE_NAV_COLLAPSE_MODE.RAIL})`]: SIDE_NAV_COLLAPSE_MODE.RAIL,
 };
 
-const updateRailExpanded = ({ collapseMode, expanded }) => {
+const usageModes = {
+  Regular: null,
+  [`For header nav (${SIDE_NAV_USAGE_MODE.HEADER_NAV})`]: SIDE_NAV_USAGE_MODE.HEADER_NAV,
+};
+
+const updateRailExpanded = ({ collapseMode, expanded, usageMode = SIDE_NAV_USAGE_MODE.REGULAR }) => {
   document.body.classList.toggle('bx-ce-demo-devenv--with-rail', collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL);
   document.body.classList.toggle('bx-ce-demo-devenv--rail-expanded', collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL && expanded);
+  document.body.classList.toggle('bx-ce-demo-devenv--with-side-nav-for-header', usageMode === SIDE_NAV_USAGE_MODE.HEADER_NAV);
 };
 
 const StoryContent = () => html`
@@ -148,6 +154,17 @@ export const sideNav = ({ parameters }) => {
 
 sideNav.story = {
   name: 'Side nav',
+  parameters: {
+    knobs: {
+      'bx-side-nav': () => ({
+        expanded: boolean('Expanded (expanded)', true),
+        collapseMode: select('Collapse mode (collapse-mode)', collapseModes, null),
+      }),
+      'bx-side-nav-menu-item': () => ({
+        href: textNullable('Link href (href)', 'javascript:void 0'), // eslint-disable-line no-script-url
+      }),
+    },
+  },
 };
 
 export const sideNavWithIcons = ({ parameters }) => {
@@ -208,14 +225,17 @@ export const sideNavWithIcons = ({ parameters }) => {
 
 sideNavWithIcons.story = {
   name: 'Side nav with icons',
+  parameters: {
+    knobs: sideNav.story.parameters.knobs,
+  },
 };
 
 export const header = ({ parameters }) => {
-  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
+  const { collapseMode, expanded, usageMode } = parameters?.props?.['bx-side-nav'] ?? {};
   const { href } = parameters?.props?.['bx-side-nav-menu-item'] ?? {};
-  updateRailExpanded({ collapseMode, expanded });
+  updateRailExpanded({ collapseMode, expanded, usageMode });
   const handleButtonToggle = event => {
-    updateRailExpanded({ collapseMode, expanded: event.detail.active });
+    updateRailExpanded({ collapseMode, expanded: event.detail.active, usageMode });
   };
   const result = html`
     <style>
@@ -239,7 +259,12 @@ export const header = ({ parameters }) => {
         </bx-header-menu>
       </bx-header-nav>
     </bx-header>
-    <bx-side-nav aria-label="Side navigation" collapse-mode="${ifNonNull(collapseMode)}" ?expanded=${expanded}>
+    <bx-side-nav
+      aria-label="Side navigation"
+      collapse-mode="${ifNonNull(collapseMode)}"
+      ?expanded=${expanded}
+      usage-mode="${ifNonNull(usageMode)}"
+    >
       <bx-side-nav-items>
         <bx-side-nav-menu title="L0 menu">
           ${Fade16({ slot: 'title-icon' })}
@@ -287,20 +312,23 @@ export const header = ({ parameters }) => {
   return result;
 };
 
+header.story = {
+  parameters: {
+    knobs: {
+      'bx-side-nav': () => ({
+        ...sideNav.story.parameters.knobs['bx-side-nav'](),
+        usageMode: select('Usage mode (usage-mode)', usageModes, null),
+      }),
+      'bx-side-nav-menu-item': sideNav.story.parameters.knobs['bx-side-nav-menu-item'],
+    },
+  },
+};
+
 export default {
   title: 'Components/UI Shell',
   parameters: {
     docs: {
       page: storyDocs,
-    },
-    knobs: {
-      'bx-side-nav': () => ({
-        expanded: boolean('Expanded (expanded)', true),
-        collapseMode: select('Collapse mode (collapse-mode)', collapseModes, null),
-      }),
-      'bx-side-nav-menu-item': () => ({
-        href: textNullable('Link href (href)', 'javascript:void 0'), // eslint-disable-line no-script-url
-      }),
     },
   },
 };

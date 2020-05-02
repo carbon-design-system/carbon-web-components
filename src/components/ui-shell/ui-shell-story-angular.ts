@@ -11,13 +11,18 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Fade16Module } from '@carbon/icons-angular/lib/fade/16';
 import { moduleMetadata } from '@storybook/angular';
 import contentStyles from 'carbon-components/scss/components/ui-shell/_content.scss';
-import { SIDE_NAV_COLLAPSE_MODE } from './side-nav';
-import baseStory, { sideNav as baseSideNav, sideNavWithIcons as baseSideNavWithIcons } from './ui-shell-story';
+import { SIDE_NAV_COLLAPSE_MODE, SIDE_NAV_USAGE_MODE } from './side-nav';
+import baseStory, {
+  sideNav as baseSideNav,
+  sideNavWithIcons as baseSideNavWithIcons,
+  header as baseHeader,
+} from './ui-shell-story';
 import styles from './ui-shell-story.scss';
 
-const updateRailExpanded = ({ collapseMode, expanded }) => {
+const updateRailExpanded = ({ collapseMode, expanded, usageMode = SIDE_NAV_USAGE_MODE.REGULAR }) => {
   document.body.classList.toggle('bx-ce-demo-devenv--with-rail', collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL);
   document.body.classList.toggle('bx-ce-demo-devenv--rail-expanded', collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL && expanded);
+  document.body.classList.toggle('bx-ce-demo-devenv--with-side-nav-for-header', usageMode === SIDE_NAV_USAGE_MODE.HEADER_NAV);
 };
 
 const storyContent = () => `
@@ -196,8 +201,8 @@ sideNavWithIcons.story = Object.assign(baseSideNavWithIcons.story, {
 });
 
 export const header = ({ parameters }) => {
-  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
-  updateRailExpanded({ collapseMode, expanded });
+  const { collapseMode, expanded, usageMode } = parameters?.props?.['bx-side-nav'] ?? {};
+  updateRailExpanded({ collapseMode, expanded, usageMode });
   return {
     template: `
       <bx-header aria-label="IBM Platform Name">
@@ -218,7 +223,12 @@ export const header = ({ parameters }) => {
           </bx-header-menu>
         </bx-header-nav>
       </bx-header>
-      <bx-side-nav aria-label="Side navigation" [collapseMode]="collapseMode" [expanded]="expanded">
+      <bx-side-nav
+        aria-label="Side navigation"
+        [collapseMode]="collapseMode"
+        [expanded]="expanded"
+        [usageMode]="usageMode"
+      >
         <bx-side-nav-items>
           <bx-side-nav-menu title="L0 menu">
             <bx-side-nav-menu-item [href]="href">
@@ -263,12 +273,14 @@ export const header = ({ parameters }) => {
       ...parameters?.props?.['bx-side-nav'],
       ...parameters?.props?.['bx-side-nav-menu-item'],
       handleButtonToggle(event) {
-        updateRailExpanded({ collapseMode, expanded: event.detail.active });
+        updateRailExpanded({ collapseMode, expanded: event.detail.active, usageMode });
       },
     },
     styles: [styles.cssText, contentStyles.cssText],
   };
 };
+
+header.story = baseHeader.story;
 
 export default Object.assign(baseStory, {
   decorators: [

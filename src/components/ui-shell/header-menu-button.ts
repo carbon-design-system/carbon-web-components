@@ -14,7 +14,7 @@ import Close20 from '@carbon/icons/lib/close/20';
 import Menu20 from '@carbon/icons/lib/menu/20';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
-import { SIDE_NAV_COLLAPSE_MODE } from './side-nav';
+import { SIDE_NAV_COLLAPSE_MODE, SIDE_NAV_USAGE_MODE } from './side-nav';
 import styles from './header.scss';
 
 const { prefix } = settings;
@@ -70,6 +70,12 @@ class BXHeaderMenuButton extends FocusMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
+
+  /**
+   * Usage mode of the side nav.
+   */
+  @property({ reflect: true, attribute: 'usage-mode' })
+  usageMode = SIDE_NAV_USAGE_MODE.REGULAR;
 
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });

@@ -31,6 +31,18 @@ $css--plex: true !default;
   @extend .#{$prefix}--side-nav--expanded;
 }
 
+:host(#{$prefix}-side-nav[usage-mode='header-nav']),
+:host(#{$prefix}-side-nav[collapse-mode][usage-mode='header-nav']) {
+  width: 0;
+}
+
+:host(#{$prefix}-side-nav[expanded][usage-mode='header-nav']),
+:host(#{$prefix}-side-nav[collapse-mode][expanded][usage-mode='header-nav']) {
+  @include carbon--breakpoint-down('lg') {
+    width: mini-units(32);
+  }
+}
+
 :host(#{$prefix}-side-nav-items) {
   @extend .#{$prefix}--side-nav__items;
 }
