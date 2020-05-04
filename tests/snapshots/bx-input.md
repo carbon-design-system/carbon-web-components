@@ -2,7 +2,7 @@
 
 ## `Rendering`
 
-#### `Should render with various attributes`
+####   `Should render with various attributes`
 
 ```
 <label
@@ -22,7 +22,7 @@
   <input
     autocomplete=""
     autofocus=""
-    class="bx--text-input bx--text-input--light"
+    class="bx--text-input bx--text-input--light bx--text-input--xl"
     disabled=""
     id="input"
     name="name-foo"
@@ -40,3 +40,4 @@
 </div>
 
 ```
+

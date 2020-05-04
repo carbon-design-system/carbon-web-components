@@ -35,6 +35,7 @@ export const defaultStory = ({ parameters }) => {
     invalid,
     labelText,
     placeholder,
+    size,
     sizeHorizontal,
     validityMessage,
   } = parameters?.props?.['bx-date-picker-input'];
@@ -47,6 +48,7 @@ export const defaultStory = ({ parameters }) => {
         invalid={invalid}
         labelText={labelText}
         placeholder={placeholder}
+        size={size}
         sizeHorizontal={sizeHorizontal}
         validityMessage={validityMessage}
       />
@@ -58,9 +60,17 @@ defaultStory.story = baseDefaultStory.story;
 
 export const singleWithCalendar = ({ parameters }) => {
   const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
-  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, validityMessage, onInput } = parameters?.props?.[
-    'bx-date-picker-input'
-  ];
+  const {
+    colorScheme,
+    disabled,
+    hideLabel,
+    invalid,
+    labelText,
+    placeholder,
+    size,
+    validityMessage,
+    onInput,
+  } = parameters?.props?.['bx-date-picker-input'];
   return (
     <BXDatePicker
       dateFormat={dateFormat}
@@ -77,6 +87,7 @@ export const singleWithCalendar = ({ parameters }) => {
         kind="single"
         labelText={labelText}
         placeholder={placeholder}
+        size={size}
         validityMessage={validityMessage}
         onInput={onInput}
       />
@@ -88,9 +99,17 @@ singleWithCalendar.story = baseSingleWithCalendar.story;
 
 export const rangeWithCalendar = ({ parameters }) => {
   const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
-  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, validityMessage, onInput } = parameters?.props?.[
-    'bx-date-picker-input'
-  ];
+  const {
+    colorScheme,
+    disabled,
+    hideLabel,
+    invalid,
+    labelText,
+    placeholder,
+    size,
+    validityMessage,
+    onInput,
+  } = parameters?.props?.['bx-date-picker-input'];
   return (
     <BXDatePicker
       dateFormat={dateFormat}
@@ -107,6 +126,7 @@ export const rangeWithCalendar = ({ parameters }) => {
         kind="from"
         labelText={labelText}
         placeholder={placeholder}
+        size={size}
         validityMessage={validityMessage}
         onInput={onInput}
       />
@@ -118,6 +138,7 @@ export const rangeWithCalendar = ({ parameters }) => {
         kind="to"
         labelText={labelText}
         placeholder={placeholder}
+        size={size}
         validityMessage={validityMessage}
         onInput={onInput}
       />

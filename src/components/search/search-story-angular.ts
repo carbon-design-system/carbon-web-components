@@ -38,4 +38,7 @@ defaultStory.story = baseDefaultStory.story;
 
 export const skeleton = () => ({
   template: `<bx-search-skeleton></bx-search-skeleton>`,
+  moduleMetadata: {
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  },
 });
