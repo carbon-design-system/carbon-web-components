@@ -12,7 +12,6 @@
 const gulp = require('gulp');
 const clean = require('./gulp-tasks/clean');
 const build = require('./gulp-tasks/build');
-const jsdoc = require('./gulp-tasks/jsdoc');
 const lint = require('./gulp-tasks/lint');
 const test = require('./gulp-tasks/test');
 
@@ -37,8 +36,6 @@ gulp.task('build:sass', build.sass);
 gulp.task('build', gulp.parallel(gulp.task('build:modules'), gulp.task('build:sass')));
 
 gulp.task('clean', clean);
-
-gulp.task('jsdoc', jsdoc);
 
 gulp.task('lint:license:src', lint.license.src);
 gulp.task('lint:license:dist', lint.license.dist);
