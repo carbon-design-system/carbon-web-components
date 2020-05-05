@@ -100,6 +100,11 @@ export enum DROPDOWN_TYPE {
 /**
  * Dropdown.
  * @element bx-dropdown
+ * @csspart label-text The label text.
+ * @csspart helper-text The helper text.
+ * @csspart trigger-button The trigger button.
+ * @csspart menu-body The menu body.
+ * @csspart validity-message The validity message.
  * @fires bx-dropdown-beingselected
  *   The custom event fired before a dropdown item is selected upon a user gesture.
  *   Cancellation of this event stops changing the user-initiated selection.
@@ -590,7 +595,9 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
     const validity = !invalid
       ? undefined
       : html`
-          <div class=${`${prefix}--form-requirement`}><slot name="validity-message">${validityMessage}</slot></div>
+          <div part="validity-message" class=${`${prefix}--form-requirement`}>
+            <slot name="validity-message">${validityMessage}</slot>
+          </div>
         `;
     const validityIcon = !invalid
       ? undefined
@@ -598,15 +605,15 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
     const menuBody = !open
       ? undefined
       : html`
-          <div id="menu-body" class="${prefix}--list-box__menu" role="listbox" tabindex="-1">
+          <div id="menu-body" part="menu-body" class="${prefix}--list-box__menu" role="listbox" tabindex="-1">
             <slot></slot>
           </div>
         `;
     return html`
-      <label class="${labelClasses}" ?hidden="${!hasLabelText}">
+      <label part="label-text" class="${labelClasses}" ?hidden="${!hasLabelText}">
         <slot name="label-text" @slotchange="${handleSlotchangeLabelText}">${labelText}</slot>
       </label>
-      <div class="${helperClasses}" ?hidden="${inline || !hasHelperText}">
+      <div part="helper-text" class="${helperClasses}" ?hidden="${inline || !hasHelperText}">
         <slot name="helper-text" @slotchange="${handleSlotchangeHelperText}">${helperText}</slot>
       </div>
       <div
@@ -619,6 +626,7 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
       >
         ${validityIcon}
         <div
+          part="trigger-button"
           role="${ifDefined(!shouldTriggerBeFocusable ? undefined : 'button')}"
           class="${prefix}--list-box__field"
           tabindex="${ifDefined(!shouldTriggerBeFocusable ? undefined : '0')}"
