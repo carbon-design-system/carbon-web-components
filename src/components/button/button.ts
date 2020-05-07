@@ -54,6 +54,11 @@ export enum BUTTON_SIZE {
    * Small size.
    */
   SMALL = 'sm',
+
+  /**
+   * Size for form field.
+   */
+  FIELD = 'field',
 }
 
 /**
