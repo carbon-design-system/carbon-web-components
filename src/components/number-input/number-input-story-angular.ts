@@ -55,6 +55,8 @@ export const formItem = ({ parameters }) => ({
         <span slot="label-text">Label text</span>
         <span slot="helper-text">Optional helper text</span>
         <span slot="validity-message">Something isn't right</span>
+        <span slot="validity-message-max">Try a lower value, something less than {{max}}</span>
+        <span slot="validity-message-min">Value must be larger than {{min}}</span>
       </bx-number-input>
     </bx-form-item>
   `,
