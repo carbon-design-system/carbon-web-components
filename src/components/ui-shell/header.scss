@@ -58,6 +58,20 @@ $css--plex: true !default;
   display: inline-block;
   display: content;
   outline: none;
+
+  @include carbon--breakpoint('lg') {
+    display: none;
+  }
+}
+
+:host(#{$prefix}-header-menu-button[collapse-mode='fixed']) {
+  display: none;
+}
+
+:host(#{$prefix}-header-menu-button[collapse-mode='rail']) {
+  @include carbon--breakpoint('lg') {
+    display: block;
+  }
 }
 
 :host(#{$prefix}-header-name) {
