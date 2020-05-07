@@ -16,26 +16,12 @@ import settings from 'carbon-components/es/globals/js/settings';
 import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
 import FocusMixin from '../../globals/mixins/focus';
+import { INPUT_SIZE } from '../input/input';
 import styles from './search.scss';
 
 export { FORM_ELEMENT_COLOR_SCHEME as SEARCH_COLOR_SCHEME } from '../../globals/shared-enums';
 
 const { prefix } = settings;
-
-/**
- * Search box size.
- */
-export enum SEARCH_SIZE {
-  /**
-   * Small size.
-   */
-  SMALL = 'small',
-
-  /**
-   * Regular size.
-   */
-  REGULAR = '',
-}
 
 /**
  * Search box.
@@ -122,7 +108,7 @@ class BXSearch extends FocusMixin(LitElement) {
    * The search box size.
    */
   @property({ reflect: true })
-  size = SEARCH_SIZE.REGULAR;
+  size = INPUT_SIZE.REGULAR;
 
   /**
    * The `<input>` name.
@@ -182,7 +168,7 @@ class BXSearch extends FocusMixin(LitElement) {
         type="button"
         aria-label="${closeButtonAssistiveText}"
       >
-        ${(size === SEARCH_SIZE.SMALL ? Close16 : Close20)({
+        ${(size === INPUT_SIZE.SMALL ? Close16 : Close20)({
           'aria-label': closeButtonAssistiveText,
           role: 'img',
         })}
