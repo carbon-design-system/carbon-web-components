@@ -80,9 +80,7 @@ class BXSideNav extends HostListenerMixin(LitElement) {
    * Handles `${prefix}-header-menu-button-toggle` event on the document.
    */
   private _handleButtonToggle(event: CustomEvent) {
-    if ((event.target as Element)?.matches((this.constructor as typeof BXSideNav).selectorButtonToggle)) {
-      this.expanded = event.detail.active;
-    }
+    this.expanded = event.detail.active;
   }
 
   /**
@@ -140,7 +138,7 @@ class BXSideNav extends HostListenerMixin(LitElement) {
     super.connectedCallback();
     // Manually hooks the event listeners on the host element to make the event names configurable
     this._hAfterButtonToggle = on(
-      this.ownerDocument!,
+      this.getRootNode() as Document,
       (this.constructor as typeof BXSideNav).eventButtonToggle,
       this._handleButtonToggle.bind(this) as EventListener
     );
@@ -162,19 +160,20 @@ class BXSideNav extends HostListenerMixin(LitElement) {
         console.warn('Fixed/rail modes of side nav cannot be used with header nav mode.'); // eslint-disable-line no-console
       }
     }
+    const doc = this.getRootNode() as Document;
     if (changedProperties.has('collapseMode')) {
-      forEach(this.ownerDocument!.querySelectorAll((this.constructor as typeof BXSideNav).selectorButtonToggle), item => {
+      forEach(doc.querySelectorAll((this.constructor as typeof BXSideNav).selectorButtonToggle), item => {
         (item as BXHeaderMenuButton).collapseMode = this.collapseMode;
       });
     }
     if (changedProperties.has('expanded')) {
       this._updatedSideNavMenuForceCollapsedState();
-      forEach(this.ownerDocument!.querySelectorAll((this.constructor as typeof BXSideNav).selectorButtonToggle), item => {
+      forEach(doc.querySelectorAll((this.constructor as typeof BXSideNav).selectorButtonToggle), item => {
         (item as BXHeaderMenuButton).active = this.expanded;
       });
     }
     if (changedProperties.has('usageMode')) {
-      forEach(this.ownerDocument!.querySelectorAll((this.constructor as typeof BXSideNav).selectorButtonToggle), item => {
+      forEach(doc.querySelectorAll((this.constructor as typeof BXSideNav).selectorButtonToggle), item => {
         (item as BXHeaderMenuButton).usageMode = this.usageMode;
       });
     }

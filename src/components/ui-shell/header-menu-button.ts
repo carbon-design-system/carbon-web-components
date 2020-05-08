@@ -50,13 +50,13 @@ class BXHeaderMenuButton extends FocusMixin(LitElement) {
   /**
    * The `aria-label` attribute for the button in its active state.
    */
-  @property()
+  @property({ attribute: 'button-label-active' })
   buttonLabelActive!: string;
 
   /**
    * The `aria-label` attribute for the button in its active state.
    */
-  @property()
+  @property({ attribute: 'button-label-inactive' })
   buttonLabelInactive!: string;
 
   /**
