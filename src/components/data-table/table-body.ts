@@ -9,6 +9,7 @@
 
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, query, customElement, LitElement } from 'lit-element';
+import { TABLE_COLOR_SCHEME } from './table';
 import BXTableRow from './table-row';
 import styles from './data-table.scss';
 
@@ -30,12 +31,12 @@ class BXTableBody extends LitElement {
    * Updates `even`/`odd` properties of the child `<bx-table-row>`s.
    */
   private _updateZebra() {
-    const { zebra, _slotNode: slotNode } = this;
+    const { colorScheme, _slotNode: slotNode } = this;
     slotNode.assignedNodes().forEach(node => {
       if (node.nodeType === Node.ELEMENT_NODE) {
         const odd = (node as HTMLElement).matches('*:nth-of-type(odd)');
-        (node as BXTableRow).even = zebra && !odd;
-        (node as BXTableRow).odd = zebra && odd;
+        (node as BXTableRow).even = colorScheme === TABLE_COLOR_SCHEME.ZEBRA && !odd;
+        (node as BXTableRow).odd = colorScheme === TABLE_COLOR_SCHEME.ZEBRA && odd;
       }
     });
   }
@@ -48,10 +49,10 @@ class BXTableBody extends LitElement {
   };
 
   /**
-   * `true` if the zebra stripe should be shown.
+   * The color scheme.
    */
-  @property({ type: Boolean, reflect: true })
-  zebra = false;
+  @property({ reflect: true, attribute: 'color-scheme' })
+  colorScheme = TABLE_COLOR_SCHEME.REGULAR;
 
   connectedCallback() {
     if (!this.hasAttribute('role')) {
@@ -61,7 +62,7 @@ class BXTableBody extends LitElement {
   }
 
   updated(changedProperties) {
-    if (changedProperties.has('zebra')) {
+    if (changedProperties.has('colorScheme')) {
       this._updateZebra();
     }
   }

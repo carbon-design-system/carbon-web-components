@@ -53,6 +53,7 @@ describe('bx-input', function() {
           placeholder: 'placeholder-foo',
           readonly: true,
           required: true,
+          size: 'xl',
           type: INPUT_TYPE.TEXT,
           validityMessage: 'validity-message-foo',
           value: 'value-foo',

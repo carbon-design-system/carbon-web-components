@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,6 +19,7 @@ import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sor
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 import {
   defaultStory as baseDefaultStory,
+  expandable as baseExpandable,
   sortable as baseSortable,
   sortableWithPagination as baseSortableWithPagination,
 } from './data-table-story';
@@ -54,6 +55,11 @@ Vue.component('bx-ce-demo-data-table', {
      * The element ID.
      */
     id: String,
+
+    /**
+     * The color scheme.
+     */
+    colorScheme: String,
 
     /**
      * The g11n collator to use.
@@ -99,11 +105,6 @@ Vue.component('bx-ce-demo-data-table', {
       type: Number,
       default: 0,
     },
-
-    /**
-     * `true` if the zebra stripe should be shown.
-     */
-    zebra: Boolean,
   },
 
   data: (): {
@@ -489,7 +490,7 @@ Vue.component('bx-ce-demo-data-table', {
             </bx-table-header-cell>
           </bx-table-header-row>
         </bx-table-head>
-        <bx-table-body :zebra="zebra">
+        <bx-table-body :color-scheme="colorScheme">
           <bx-table-row
             v-for="row in rowsInUse"
             :key="row.id"
@@ -534,7 +535,7 @@ export const defaultStory = ({ parameters }) => ({
           <bx-table-header-cell>Status</bx-table-header-cell>
         </bx-table-header-row>
       </bx-table-head>
-      <bx-table-body :zebra="zebra">
+      <bx-table-body :color-scheme="colorScheme">
         <bx-table-row>
           <bx-table-cell>Load Balancer 1</bx-table-cell>
           <bx-table-cell>HTTP</bx-table-cell>
@@ -567,6 +568,90 @@ export const defaultStory = ({ parameters }) => ({
 
 defaultStory.story = baseDefaultStory.story;
 
+export const expandable = ({ parameters }) => {
+  const { props = {}, methods = {} } = createVueBindingsFromProps({
+    ...parameters?.props?.['bx-table'],
+    ...parameters?.props?.['bx-table-body'],
+  });
+  return {
+    template: `
+      <bx-table
+        :size="size"
+        @bx-table-row-expando-toggled-all="handleExpandRowAll"
+        @bx-table-row-expando-toggled="handleExpandRow"
+      >
+        <bx-table-head>
+          <bx-table-header-expand-row>
+            <bx-table-header-cell>Name</bx-table-header-cell>
+            <bx-table-header-cell>Protocol</bx-table-header-cell>
+            <bx-table-header-cell>Port</bx-table-header-cell>
+            <bx-table-header-cell>Rule</bx-table-header-cell>
+            <bx-table-header-cell>Attached Groups</bx-table-header-cell>
+            <bx-table-header-cell>Status</bx-table-header-cell>
+          </bx-table-header-expand-row>
+        </bx-table-head>
+        <bx-table-body :zebra="zebra">
+          <bx-table-expand-row>
+            <bx-table-cell>Load Balancer 1</bx-table-cell>
+            <bx-table-cell>HTTP</bx-table-cell>
+            <bx-table-cell>80</bx-table-cell>
+            <bx-table-cell>Round Robin</bx-table-cell>
+            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+            <bx-table-cell>Active</bx-table-cell>
+          </bx-table-expand-row>
+          <bx-table-expanded-row colspan="7">
+            <h1>Expandable row content</h1>
+            <p>Description here</p>
+          </bx-table-expanded-row>
+          <bx-table-expand-row>
+            <bx-table-cell>Load Balancer 2</bx-table-cell>
+            <bx-table-cell>HTTP</bx-table-cell>
+            <bx-table-cell>80</bx-table-cell>
+            <bx-table-cell>Round Robin</bx-table-cell>
+            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+            <bx-table-cell>Active</bx-table-cell>
+          </bx-table-expand-row>
+          <bx-table-expanded-row colspan="7">
+            <h1>Expandable row content</h1>
+            <p>Description here</p>
+          </bx-table-expanded-row>
+          <bx-table-expand-row>
+            <bx-table-cell>Load Balancer 3</bx-table-cell>
+            <bx-table-cell>HTTP</bx-table-cell>
+            <bx-table-cell>80</bx-table-cell>
+            <bx-table-cell>Round Robin</bx-table-cell>
+            <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+            <bx-table-cell>Active</bx-table-cell>
+          </bx-table-expand-row>
+          <bx-table-expanded-row colspan="7">
+            <h1>Expandable row content</h1>
+            <p>Description here</p>
+          </bx-table-expanded-row>
+        </bx-table-body>
+      </bx-table>
+    `,
+    props,
+    methods: {
+      ...methods,
+      handleExpandRowAll(event) {
+        const { currentTarget, detail } = event;
+        const rows = currentTarget.querySelectorAll('bx-table-expand-row');
+        Array.prototype.forEach.call(rows, row => {
+          row.expanded = detail.expanded;
+        });
+      },
+      handleExpandRow(event) {
+        const { currentTarget } = event;
+        const headerRow = currentTarget.querySelector('bx-table-header-expand-row');
+        const rows = currentTarget.querySelectorAll('bx-table-expand-row');
+        headerRow.expanded = Array.prototype.every.call(rows, row => row.expanded);
+      },
+    },
+  };
+};
+
+expandable.story = baseExpandable.story;
+
 export const sortable = ({ parameters }) => {
   const { props = {}, methods = {} } = createVueBindingsFromProps({
     ...parameters?.props?.['bx-table'],
@@ -580,11 +665,11 @@ export const sortable = ({ parameters }) => {
       <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
       <bx-ce-demo-data-table
         :rows="demoRows"
+        :color-scheme="colorScheme"
         :columns="demoColumns"
         :sortInfo="demoSortInfo"
         :hasSelection="hasSelection"
         :size="size"
-        :zebra="zebra"
         @bx-table-row-change-selection="handleBeforeChangeSelection"
         @bx-table-change-selection-all="handleBeforeChangeSelection"
         @bx-table-header-cell-sort="handleBeforeSort"
@@ -630,11 +715,11 @@ export const sortableWithPagination = ({ parameters }) => {
         :rows="demoRows"
         :columns="demoColumns"
         :sortInfo="demoSortInfo"
+        :color-scheme="colorScheme"
         :hasSelection="hasSelection"
         :pageSize="5"
         :size="size"
         :start="0"
-        :zebra="zebra"
         @bx-table-row-change-selection="handleBeforeChangeSelection"
         @bx-table-change-selection-all="handleBeforeChangeSelection"
         @bx-table-header-cell-sort="handleBeforeSort"

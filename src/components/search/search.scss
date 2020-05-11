@@ -13,7 +13,7 @@ $css--plex: true !default;
 
 :host(#{$prefix}-search),
 :host(#{$prefix}-search-skeleton) {
-  @extend .#{$prefix}--search--xl;
+  @extend .#{$prefix}--search--lg;
 }
 
 :host(#{$prefix}-search) {
@@ -22,9 +22,19 @@ $css--plex: true !default;
   outline: none;
 }
 
-:host(#{$prefix}-search[size='small']),
-:host(#{$prefix}-search-skeleton[size='small']) {
+:host(#{$prefix}-search[size='sm']),
+:host(#{$prefix}-search-skeleton[size='sm']) {
   @extend .#{$prefix}--search--sm;
+}
+
+:host(#{$prefix}-search[size='lg']),
+:host(#{$prefix}-search-skeleton[size='lg']) {
+  @extend .#{$prefix}--search--lg;
+}
+
+:host(#{$prefix}-search[size='xl']),
+:host(#{$prefix}-search-skeleton[size='xl']) {
+  @extend .#{$prefix}--search--xl;
 }
 
 :host(#{$prefix}-search[color-scheme='light']) {

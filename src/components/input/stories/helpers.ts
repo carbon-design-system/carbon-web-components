@@ -8,9 +8,15 @@
  */
 
 import { action } from '@storybook/addon-actions';
-import { INPUT_COLOR_SCHEME, INPUT_TYPE } from '../input';
+import { INPUT_COLOR_SCHEME, INPUT_SIZE, INPUT_TYPE } from '../input';
 
 const inputTypes = {};
+
+const sizes = {
+  Regular: null,
+  [`Small size (${INPUT_SIZE.SMALL})`]: INPUT_SIZE.SMALL,
+  [`Extra large size (${INPUT_SIZE.EXTRA_LARGE})`]: INPUT_SIZE.EXTRA_LARGE,
+};
 
 const keys = Object.keys(INPUT_TYPE);
 for (let i = 0; i < keys.length; i++) {
@@ -31,6 +37,7 @@ const createProps = ({ boolean, textNonEmpty, select }) => ({
   placeholder: textNonEmpty('Placeholder text (placeholder)', 'Optional placeholder text'),
   invalid: boolean('Invalid (invalid)', false),
   onInput: action('input'),
+  size: select('Input size (size)', sizes, INPUT_SIZE.REGULAR),
   type: select('Input type (type)', inputTypes, INPUT_TYPE.TEXT),
 });
 

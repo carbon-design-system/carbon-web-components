@@ -28,13 +28,16 @@ import '../overflow-menu/overflow-menu-item';
 import '../pagination/pagination';
 import '../pagination/page-sizes-select';
 import '../pagination/pages-select';
-import { TABLE_SIZE } from './table';
+import { TABLE_COLOR_SCHEME, TABLE_SIZE } from './table';
 import './table-head';
 import './table-header-row';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import './table-body';
 import './table-row';
 import './table-cell';
+import './table-header-expand-row';
+import './table-expand-row';
+import './table-expanded-row';
 import './table-toolbar';
 import './table-toolbar-content';
 import './table-toolbar-search';
@@ -293,10 +296,10 @@ class BXCEDemoDataTable extends LitElement {
   size = TABLE_SIZE.REGULAR;
 
   /**
-   * `true` if the zebra stripe should be shown.
+   * The table color scheme.
    */
-  @property({ type: Boolean, reflect: true })
-  zebra = false;
+  @property({ reflect: true, attribute: 'color-scheme' })
+  colorScheme = TABLE_COLOR_SCHEME.REGULAR;
 
   /**
    * The row number where current page start with, index that starts with zero.
@@ -341,12 +344,12 @@ class BXCEDemoDataTable extends LitElement {
   render() {
     const {
       id: elementId,
+      colorScheme,
       hasSelection,
       pageSize = Infinity,
       start = 0,
       size,
       columns,
-      zebra,
       _filteredRows: filteredRows,
       _handleCancelSelection: handleCancelSelection,
       _handleDeleteRows: handleDeleteRows,
@@ -429,7 +432,7 @@ class BXCEDemoDataTable extends LitElement {
             )}
           </bx-table-header-row>
         </bx-table-head>
-        <bx-table-body ?zebra="${zebra}">
+        <bx-table-body color-scheme="${colorScheme}">
           ${repeat(
             sortedRows.slice(start, start + pageSize),
             ({ id: rowId }) => rowId,
@@ -470,6 +473,11 @@ class BXCEDemoDataTable extends LitElement {
   };
 }
 
+const colorSchemes = {
+  'Regular color scheme': null,
+  [`Zebra (${TABLE_COLOR_SCHEME.ZEBRA})`]: TABLE_COLOR_SCHEME.ZEBRA,
+};
+
 const sizes = {
   [`Compact size (${TABLE_SIZE.COMPACT})`]: TABLE_SIZE.COMPACT,
   [`Short size (${TABLE_SIZE.SHORT})`]: TABLE_SIZE.SHORT,
@@ -491,7 +499,7 @@ const defineDemoDataTable = (() => {
 
 export const defaultStory = ({ parameters }) => {
   const { size } = parameters?.props?.['bx-table'] ?? {};
-  const { zebra } = parameters?.props?.['bx-table-body'] ?? {};
+  const { colorScheme } = parameters?.props?.['bx-table-body'] ?? {};
   return html`
     <bx-table size="${ifNonNull(size)}">
       <bx-table-head>
@@ -504,7 +512,7 @@ export const defaultStory = ({ parameters }) => {
           <bx-table-header-cell>Status</bx-table-header-cell>
         </bx-table-header-row>
       </bx-table-head>
-      <bx-table-body ?zebra="${zebra}">
+      <bx-table-body color-scheme="${colorScheme}">
         <bx-table-row>
           <bx-table-cell>Load Balancer 1</bx-table-cell>
           <bx-table-cell>HTTP</bx-table-cell>
@@ -542,8 +550,91 @@ defaultStory.story = {
         size: select('Table size (size)', sizes, null),
       }),
       'bx-table-body': () => ({
-        zebra: boolean('Supports zebra stripe (zebra in `<bx-table-body>`)', false),
+        colorScheme: select('Color scheme (color-scheme in `<bx-table-body>`)', colorSchemes, null),
       }),
+    },
+  },
+};
+
+export const expandable = ({ parameters }) => {
+  const { size } = parameters?.props?.['bx-table'] ?? {};
+  const { zebra } = parameters?.props?.['bx-table-body'] ?? {};
+  const handleExpandRowAll = event => {
+    const { currentTarget, detail } = event;
+    const rows = currentTarget.querySelectorAll('bx-table-expand-row');
+    Array.prototype.forEach.call(rows, row => {
+      row.expanded = detail.expanded;
+    });
+  };
+  const handleExpandRow = event => {
+    const { currentTarget } = event;
+    const headerRow = currentTarget.querySelector('bx-table-header-expand-row');
+    const rows = currentTarget.querySelectorAll('bx-table-expand-row');
+    headerRow.expanded = Array.prototype.every.call(rows, row => row.expanded);
+  };
+  return html`
+    <bx-table
+      size="${ifNonNull(size)}"
+      @bx-table-row-expando-toggled-all="${handleExpandRowAll}"
+      @bx-table-row-expando-toggled="${handleExpandRow}"
+    >
+      <bx-table-head>
+        <bx-table-header-expand-row>
+          <bx-table-header-cell>Name</bx-table-header-cell>
+          <bx-table-header-cell>Protocol</bx-table-header-cell>
+          <bx-table-header-cell>Port</bx-table-header-cell>
+          <bx-table-header-cell>Rule</bx-table-header-cell>
+          <bx-table-header-cell>Attached Groups</bx-table-header-cell>
+          <bx-table-header-cell>Status</bx-table-header-cell>
+        </bx-table-header-row>
+      </bx-table-head>
+      <bx-table-body ?zebra="${zebra}">
+        <bx-table-expand-row data-row-id="1">
+          <bx-table-cell>Load Balancer 1</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-expand-row>
+        <bx-table-expanded-row colspan="7">
+          <h1>Expandable row content</h1>
+          <p>Description here</p>
+        </bx-table-expanded-row>
+        <bx-table-expand-row data-row-id="2">
+          <bx-table-cell>Load Balancer 2</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-expand-row>
+        <bx-table-expanded-row colspan="7">
+          <h1>Expandable row content</h1>
+          <p>Description here</p>
+        </bx-table-expanded-row>
+        <bx-table-expand-row data-row-id="3">
+          <bx-table-cell>Load Balancer 3</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-expand-row>
+        <bx-table-expanded-row colspan="7">
+          <h1>Expandable row content</h1>
+          <p>Description here</p>
+        </bx-table-expanded-row>
+      </bx-table-body>
+    </bx-table>
+  `;
+};
+
+expandable.story = {
+  parameters: {
+    knobs: {
+      ...defaultStory.story.parameters.knobs,
+      'bx-table-body': () => ({}),
     },
   },
 };
@@ -551,7 +642,7 @@ defaultStory.story = {
 export const sortable = ({ parameters }) => {
   const { size } = parameters?.props?.['bx-table'] ?? {};
   const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'] ?? {};
-  const { zebra } = parameters?.props?.['bx-table-body'] ?? {};
+  const { colorScheme } = parameters?.props?.['bx-table-body'] ?? {};
   const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
   const { disableChangeSort, onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
   const beforeChangeSelectionHandler = {
@@ -583,12 +674,12 @@ export const sortable = ({ parameters }) => {
     </style>
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
     <bx-ce-demo-data-table
+      color-scheme="${colorScheme}"
       .columns=${demoColumns}
       .rows=${demoRows}
       .sortInfo=${demoSortInfo}
       ?has-selection=${hasSelection}
       size="${ifNonNull(size)}"
-      ?zebra="${zebra}"
       @bx-table-row-change-selection=${beforeChangeSelectionHandler}
       @bx-table-change-selection-all=${beforeChangeSelectionHandler}
       @bx-table-header-cell-sort=${beforeChangeSortHandler}
@@ -632,7 +723,7 @@ sortable.story = {
 export const sortableWithPagination = ({ parameters }) => {
   const { size } = parameters?.props?.['bx-table'] ?? {};
   const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'] ?? {};
-  const { zebra } = parameters?.props?.['bx-table-body'] ?? {};
+  const { colorScheme } = parameters?.props?.['bx-table-body'] ?? {};
   const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
   const { disableChangeSort, onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
   const beforeChangeSelectionHandler = {
@@ -664,6 +755,7 @@ export const sortableWithPagination = ({ parameters }) => {
     </style>
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
     <bx-ce-demo-data-table
+      color-scheme="${colorScheme}"
       .columns=${demoColumns}
       .rows=${demoRowsMany}
       .sortInfo=${demoSortInfo}
@@ -671,7 +763,6 @@ export const sortableWithPagination = ({ parameters }) => {
       page-size="5"
       size="${ifNonNull(size)}"
       start="0"
-      ?zebra="${zebra}"
       @bx-table-row-change-selection=${beforeChangeSelectionHandler}
       @bx-table-change-selection-all=${beforeChangeSelectionHandler}
       @bx-table-header-cell-sort=${beforeChangeSortHandler}
@@ -689,7 +780,7 @@ sortableWithPagination.story = {
 
 export const skeleton = ({ parameters }) => {
   const { size } = parameters?.props?.['bx-table'];
-  const { zebra } = parameters?.props?.['bx-table-body'];
+  const { colorScheme } = parameters?.props?.['bx-table-body'];
   return html`
     <bx-table size="${size}">
       <bx-table-head>
@@ -702,7 +793,7 @@ export const skeleton = ({ parameters }) => {
           <bx-table-header-cell-skeleton>Status</bx-table-header-cell-skeleton>
         </bx-table-header-row>
       </bx-table-head>
-      <bx-table-body ?zebra="${zebra}">
+      <bx-table-body color-scheme="${colorScheme}">
         <bx-table-row>
           <bx-table-cell-skeleton></bx-table-cell-skeleton>
           <bx-table-cell-skeleton></bx-table-cell-skeleton>

@@ -8,7 +8,7 @@
  */
 
 import { html } from 'lit-element';
-import { boolean } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
@@ -16,7 +16,7 @@ import Fade16 from 'carbon-custom-elements/es/icons/fade/16';
 import contentStyles from 'carbon-components/scss/components/ui-shell/_content.scss';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import './side-nav';
+import { SIDE_NAV_COLLAPSE_MODE, SIDE_NAV_USAGE_MODE } from './side-nav';
 import './side-nav-items';
 import './side-nav-link';
 import './side-nav-menu';
@@ -30,6 +30,23 @@ import './header-menu-button';
 import './header-name';
 import styles from './ui-shell-story.scss';
 import storyDocs from './ui-shell-story.mdx';
+
+const collapseModes = {
+  Responsive: null,
+  [`Fixed (${SIDE_NAV_COLLAPSE_MODE.FIXED})`]: SIDE_NAV_COLLAPSE_MODE.FIXED,
+  [`Rail (${SIDE_NAV_COLLAPSE_MODE.RAIL})`]: SIDE_NAV_COLLAPSE_MODE.RAIL,
+};
+
+const usageModes = {
+  Regular: null,
+  [`For header nav (${SIDE_NAV_USAGE_MODE.HEADER_NAV})`]: SIDE_NAV_USAGE_MODE.HEADER_NAV,
+};
+
+const updateRailExpanded = ({ collapseMode, expanded, usageMode = SIDE_NAV_USAGE_MODE.REGULAR }) => {
+  document.body.classList.toggle('bx-ce-demo-devenv--with-rail', collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL);
+  document.body.classList.toggle('bx-ce-demo-devenv--rail-expanded', collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL && expanded);
+  document.body.classList.toggle('bx-ce-demo-devenv--with-side-nav-for-header', usageMode === SIDE_NAV_USAGE_MODE.HEADER_NAV);
+};
 
 const StoryContent = () => html`
   <style type="text/css">
@@ -83,10 +100,14 @@ const StoryContent = () => html`
 `;
 
 export const sideNav = ({ parameters }) => {
-  const { expanded, fixed } = parameters?.props?.['bx-side-nav'] ?? {};
+  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
   const { href } = parameters?.props?.['bx-side-nav-menu-item'] ?? {};
+  updateRailExpanded({ collapseMode, expanded });
   const result = html`
-    <bx-side-nav aria-label="Side navigation" ?expanded=${expanded} ?fixed=${fixed}>
+    <style>
+      ${styles}
+    </style>
+    <bx-side-nav aria-label="Side navigation" collapse-mode="${ifNonNull(collapseMode)}" ?expanded=${expanded}>
       <bx-side-nav-items>
         <bx-side-nav-menu title="L0 menu">
           <bx-side-nav-menu-item href="${ifNonNull(href)}">
@@ -133,13 +154,28 @@ export const sideNav = ({ parameters }) => {
 
 sideNav.story = {
   name: 'Side nav',
+  parameters: {
+    knobs: {
+      'bx-side-nav': () => ({
+        expanded: boolean('Expanded (expanded)', true),
+        collapseMode: select('Collapse mode (collapse-mode)', collapseModes, null),
+      }),
+      'bx-side-nav-menu-item': () => ({
+        href: textNullable('Link href (href)', 'javascript:void 0'), // eslint-disable-line no-script-url
+      }),
+    },
+  },
 };
 
 export const sideNavWithIcons = ({ parameters }) => {
-  const { expanded, fixed } = parameters?.props?.['bx-side-nav'] ?? {};
+  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
   const { href } = parameters?.props?.['bx-side-nav-menu-item'] ?? {};
+  updateRailExpanded({ collapseMode, expanded });
   const result = html`
-    <bx-side-nav aria-label="Side navigation" ?expanded=${expanded} ?fixed=${fixed}>
+    <style>
+      ${styles}
+    </style>
+    <bx-side-nav aria-label="Side navigation" collapse-mode="${ifNonNull(collapseMode)}" ?expanded=${expanded}>
       <bx-side-nav-items>
         <bx-side-nav-menu title="L0 menu">
           ${Fade16({ slot: 'title-icon' })}
@@ -189,20 +225,27 @@ export const sideNavWithIcons = ({ parameters }) => {
 
 sideNavWithIcons.story = {
   name: 'Side nav with icons',
+  parameters: {
+    knobs: sideNav.story.parameters.knobs,
+  },
 };
 
 export const header = ({ parameters }) => {
-  const { expanded, fixed } = parameters?.props?.['bx-side-nav'] ?? {};
+  const { collapseMode, expanded, usageMode } = parameters?.props?.['bx-side-nav'] ?? {};
   const { href } = parameters?.props?.['bx-side-nav-menu-item'] ?? {};
+  updateRailExpanded({ collapseMode, expanded, usageMode });
+  const handleButtonToggle = event => {
+    updateRailExpanded({ collapseMode, expanded: event.detail.active, usageMode });
+  };
   const result = html`
     <style>
       ${styles}
     </style>
     <bx-header aria-label="IBM Platform Name">
       <bx-header-menu-button
-        ?active=${expanded}
         button-label-active="Close menu"
         button-label-inactive="Open menu"
+        @bx-header-menu-button-toggled="${handleButtonToggle}"
       ></bx-header-menu-button>
       <bx-header-name href="javascript:void 0" prefix="IBM">[Platform]</bx-header-name>
       <bx-header-nav menu-bar-label="IBM [Platform]">
@@ -216,7 +259,12 @@ export const header = ({ parameters }) => {
         </bx-header-menu>
       </bx-header-nav>
     </bx-header>
-    <bx-side-nav aria-label="Side navigation" ?expanded=${expanded} ?fixed=${fixed}>
+    <bx-side-nav
+      aria-label="Side navigation"
+      collapse-mode="${ifNonNull(collapseMode)}"
+      ?expanded=${expanded}
+      usage-mode="${ifNonNull(usageMode)}"
+    >
       <bx-side-nav-items>
         <bx-side-nav-menu title="L0 menu">
           ${Fade16({ slot: 'title-icon' })}
@@ -264,20 +312,23 @@ export const header = ({ parameters }) => {
   return result;
 };
 
+header.story = {
+  parameters: {
+    knobs: {
+      'bx-side-nav': () => ({
+        ...sideNav.story.parameters.knobs['bx-side-nav'](),
+        usageMode: select('Usage mode (usage-mode)', usageModes, null),
+      }),
+      'bx-side-nav-menu-item': sideNav.story.parameters.knobs['bx-side-nav-menu-item'],
+    },
+  },
+};
+
 export default {
   title: 'Components/UI Shell',
   parameters: {
     docs: {
       page: storyDocs,
-    },
-    knobs: {
-      'bx-side-nav': () => ({
-        expanded: boolean('Expanded (expanded)', true),
-        fixed: boolean('Fixed (fixed)', false),
-      }),
-      'bx-side-nav-menu-item': () => ({
-        href: textNullable('Link href (href)', 'javascript:void 0'), // eslint-disable-line no-script-url
-      }),
     },
   },
 };

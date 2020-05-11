@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -14,10 +14,11 @@ import { Delete16Module } from '@carbon/icons-angular/lib/delete/16';
 import { Download16Module } from '@carbon/icons-angular/lib/download/16';
 import { Settings16Module } from '@carbon/icons-angular/lib/settings/16';
 import BXBtn from '../button/button';
-import { TABLE_SIZE } from './table';
+import { TABLE_COLOR_SCHEME, TABLE_SIZE } from './table';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import baseStory, {
   defaultStory as baseDefaultStory,
+  expandable as baseExpandable,
   sortable as baseSortable,
   sortableWithPagination as baseSortableWithPagination,
 } from './data-table-story';
@@ -251,7 +252,7 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
           </bx-table-header-cell>
         </bx-table-header-row>
       </bx-table-head>
-      <bx-table-body [zebra]="zebra">
+      <bx-table-body [colorScheme]="colorScheme">
         <bx-table-row
           *ngFor="
             let row of _rows
@@ -536,7 +537,7 @@ class BXCEDemoDataTable {
    * `true` if the zebra stripe should be shown.
    */
   @Input()
-  zebra = false;
+  colorScheme = TABLE_COLOR_SCHEME.REGULAR;
 
   /**
    * The row number where current page start with, index that starts with zero.
@@ -590,7 +591,7 @@ export const defaultStory = ({ parameters }) => ({
           <bx-table-header-cell>Status</bx-table-header-cell>
         </bx-table-header-row>
       </bx-table-head>
-      <bx-table-body [zebra]="zebra">
+      <bx-table-body [colorScheme]="colorScheme">
         <bx-table-row>
           <bx-table-cell>Load Balancer 1</bx-table-cell>
           <bx-table-cell>HTTP</bx-table-cell>
@@ -623,6 +624,83 @@ export const defaultStory = ({ parameters }) => ({
 
 defaultStory.story = baseDefaultStory.story;
 
+export const expandable = ({ parameters }) => ({
+  template: `
+    <bx-table
+      [size]="size"
+      (bx-table-row-expando-toggled-all)="handleExpandRowAll($event)"
+      (bx-table-row-expando-toggled)="handleExpandRow($event)">
+      <bx-table-head>
+        <bx-table-header-expand-row>
+          <bx-table-header-cell>Name</bx-table-header-cell>
+          <bx-table-header-cell>Protocol</bx-table-header-cell>
+          <bx-table-header-cell>Port</bx-table-header-cell>
+          <bx-table-header-cell>Rule</bx-table-header-cell>
+          <bx-table-header-cell>Attached Groups</bx-table-header-cell>
+          <bx-table-header-cell>Status</bx-table-header-cell>
+        </bx-table-header-expand-row>
+      </bx-table-head>
+      <bx-table-body [zebra]="zebra">
+        <bx-table-expand-row>
+          <bx-table-cell>Load Balancer 1</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-expand-row>
+        <bx-table-expanded-row colspan="7">
+          <h1>Expandable row content</h1>
+          <p>Description here</p>
+        </bx-table-expanded-row>
+        <bx-table-expand-row>
+          <bx-table-cell>Load Balancer 2</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-expand-row>
+        <bx-table-expanded-row colspan="7">
+          <h1>Expandable row content</h1>
+          <p>Description here</p>
+        </bx-table-expanded-row>
+        <bx-table-expand-row>
+          <bx-table-cell>Load Balancer 3</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-expand-row>
+        <bx-table-expanded-row colspan="7">
+          <h1>Expandable row content</h1>
+          <p>Description here</p>
+        </bx-table-expanded-row>
+      </bx-table-body>
+    </bx-table>
+  `,
+  props: {
+    ...parameters?.props?.['bx-table'],
+    ...parameters?.props?.['bx-table-body'],
+    handleExpandRowAll(event) {
+      const { currentTarget, detail } = event;
+      const rows = currentTarget.querySelectorAll('bx-table-expand-row');
+      Array.prototype.forEach.call(rows, row => {
+        row.expanded = detail.expanded;
+      });
+    },
+    handleExpandRow(event) {
+      const { currentTarget } = event;
+      const headerRow = currentTarget.querySelector('bx-table-header-expand-row');
+      const rows = currentTarget.querySelectorAll('bx-table-expand-row');
+      headerRow.expanded = Array.prototype.every.call(rows, row => row.expanded);
+    },
+  },
+});
+
+expandable.story = baseExpandable.story;
+
 export const sortable = ({ parameters }) => ({
   template: `
     <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
@@ -633,7 +711,7 @@ export const sortable = ({ parameters }) => ({
       [sortInfo]="demoSortInfo"
       [hasSelection]="hasSelection"
       [size]="size"
-      [zebra]="zebra"
+      [colorScheme]="colorScheme"
       (bx-table-row-change-selection)="handleBeforeChangeSelection($event)"
       (bx-table-change-selection-all)="handleBeforeChangeSelection($event)"
       (bx-table-header-cell-sort)="handleBeforeSort($event)"
@@ -695,7 +773,7 @@ export const sortableWithPagination = ({ parameters }) => ({
       [pageSize]="5"
       [size]="size"
       [start]="0"
-      [zebra]="zebra"
+      [colorScheme]="colorScheme"
       (bx-table-row-change-selection)="handleBeforeChangeSelection($event)"
       (bx-table-change-selection-all)="handleBeforeChangeSelection($event)"
       (bx-table-header-cell-sort)="handleBeforeSort($event)"

@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019
+// Copyright IBM Corp. 2019, 2020
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -40,9 +40,17 @@
 :host(#{$prefix}-table-header-row) ::slotted(#{$prefix}-table-header-cell),
 :host(#{$prefix}-table-header-row) ::slotted(#{$prefix}-table-header-cell-skeleton),
 :host(#{$prefix}-table-header-row) .#{$prefix}--table-column-checkbox,
+:host(#{$prefix}-table-header-expand-row) ::slotted(#{$prefix}-table-header-cell),
+:host(#{$prefix}-table-header-expand-row) ::slotted(#{$prefix}-table-header-cell-skeleton),
+:host(#{$prefix}-table-header-expand-row) .#{$prefix}--table-expand,
+:host(#{$prefix}-table-header-expand-row) .#{$prefix}--table-column-checkbox,
 :host(#{$prefix}-table-row) ::slotted(#{$prefix}-table-cell),
 :host(#{$prefix}-table-row) ::slotted(#{$prefix}-table-cell-skeleton),
-:host(#{$prefix}-table-row) .#{$prefix}--table-column-checkbox {
+:host(#{$prefix}-table-row) .#{$prefix}--table-column-checkbox,
+:host(#{$prefix}-table-expand-row) ::slotted(#{$prefix}-table-cell),
+:host(#{$prefix}-table-expand-row) ::slotted(#{$prefix}-table-cell-skeleton),
+:host(#{$prefix}-table-expand-row) .#{$prefix}--table-expand,
+:host(#{$prefix}-table-expand-row) .#{$prefix}--table-column-checkbox {
   display: table-cell;
 }
 
@@ -50,7 +58,8 @@
 // Table header row
 //
 
-:host(#{$prefix}-table-head) ::slotted(#{$prefix}-table-header-row) {
+:host(#{$prefix}-table-head) ::slotted(#{$prefix}-table-header-row),
+:host(#{$prefix}-table-head) ::slotted(#{$prefix}-table-header-expand-row) {
   height: $layout-04;
   display: table-row;
 }
@@ -59,7 +68,10 @@
 // Table header cell
 //
 
-:host(#{$prefix}-table-header-row) {
+:host(#{$prefix}-table-header-row),
+:host(#{$prefix}-table-header-expand-row) {
+  outline: none;
+
   ::slotted(#{$prefix}-table-header-cell),
   ::slotted(#{$prefix}-table-header-cell-skeleton) {
     color: $text-01;
@@ -67,11 +79,6 @@
     text-align: left;
     display: table-cell;
     outline: none;
-  }
-
-  ::slotted(#{$prefix}-table-header-cell:first-of-type),
-  ::slotted(#{$prefix}-table-header-cell-skeleton:first-of-type) {
-    padding-left: $spacing-05;
   }
 
   ::slotted(#{$prefix}-table-header-cell:last-of-type),
@@ -82,6 +89,7 @@
 
   ::slotted(#{$prefix}-table-header-cell),
   ::slotted(#{$prefix}-table-header-cell-skeleton),
+  .#{$prefix}--table-expand,
   .#{$prefix}--table-column-checkbox {
     padding-left: $spacing-04;
     padding-right: $spacing-04;
@@ -89,25 +97,37 @@
   }
 }
 
+:host(#{$prefix}-table-header-row) {
+  ::slotted(#{$prefix}-table-header-cell:first-of-type),
+  ::slotted(#{$prefix}-table-header-cell-skeleton:first-of-type) {
+    padding-left: $spacing-05;
+  }
+}
+
 //
 // Table row
 //
 
-:host(#{$prefix}-table-body) ::slotted(#{$prefix}-table-row) {
-  border: none;
-  height: $layout-04;
-  width: 100%;
-  display: table-row;
-  outline: none;
+:host(#{$prefix}-table-body) {
+  ::slotted(#{$prefix}-table-row),
+  ::slotted(#{$prefix}-table-expand-row) {
+    border: none;
+    height: $layout-04;
+    width: 100%;
+    display: table-row;
+    outline: none;
+  }
 }
 
 //
 // Table cell
 //
 
-:host(#{$prefix}-table-row) {
+:host(#{$prefix}-table-row),
+:host(#{$prefix}-table-expand-row) {
   ::slotted(#{$prefix}-table-cell),
   ::slotted(#{$prefix}-table-cell-skeleton),
+  .#{$prefix}--table-expand,
   .#{$prefix}--table-column-checkbox {
     color: $text-02;
     border-top: 1px solid $ui-01;
@@ -116,7 +136,9 @@
     padding-bottom: rem(13px);
     vertical-align: top;
   }
+}
 
+:host(#{$prefix}-table-row) {
   ::slotted(#{$prefix}-table-cell:first-of-type),
   ::slotted(#{$prefix}-table-cell-skeleton:first-of-type) {
     padding-left: $spacing-05;
@@ -144,9 +166,11 @@
   }
 }
 
-:host(#{$prefix}-table-row:hover) {
+:host(#{$prefix}-table-row:hover),
+:host(#{$prefix}-table-expand-row:hover) {
   ::slotted(#{$prefix}-table-cell),
   ::slotted(#{$prefix}-table-cell-skeleton),
+  .#{$prefix}--table-expand,
   .#{$prefix}--table-column-checkbox {
     color: $text-01;
     background-color: $hover-field;
