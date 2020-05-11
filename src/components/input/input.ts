@@ -22,6 +22,31 @@ export { FORM_ELEMENT_COLOR_SCHEME as INPUT_COLOR_SCHEME } from '../../globals/s
 const { prefix } = settings;
 
 /**
+ * Input size.
+ */
+export enum INPUT_SIZE {
+  /**
+   * Small size.
+   */
+  SMALL = 'sm',
+
+  /**
+   * Regular size, same as large size.
+   */
+  REGULAR = 'lg',
+
+  /**
+   * Large size.
+   */
+  LARGE = 'lg',
+
+  /**
+   * Extra large size.
+   */
+  EXTRA_LARGE = 'xl',
+}
+
+/**
  * Supported input types.
  *
  * For this component we only support textual types
@@ -138,6 +163,12 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
   requiredValidityMessage = 'Please fill out this field.';
 
   /**
+   * The input box size.
+   */
+  @property({ reflect: true })
+  size = INPUT_SIZE.REGULAR;
+
+  /**
    * The type of the input. Can be one of the types listed in the INPUT_TYPE enum
    */
   @property({ reflect: true })
@@ -168,6 +199,7 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
       [`${prefix}--text-input`]: true,
       [`${prefix}--text-input--${this.colorScheme}`]: this.colorScheme,
       [`${prefix}--text-input--invalid`]: this.invalid,
+      [`${prefix}--text-input--${this.size}`]: this.size,
     });
 
     const labelClasses = classMap({

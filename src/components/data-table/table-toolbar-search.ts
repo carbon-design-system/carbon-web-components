@@ -12,7 +12,8 @@ import { html, property, query, customElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
-import BXSearch, { SEARCH_SIZE } from '../search/search';
+import { INPUT_SIZE } from '../input/input';
+import BXSearch from '../search/search';
 import styles from './data-table.scss';
 
 const { prefix } = settings;
@@ -75,7 +76,7 @@ class BXTableToolbarSearch extends HostListenerMixin(BXSearch) {
    * The search box size.
    */
   @property({ reflect: true })
-  size = SEARCH_SIZE.SMALL;
+  size = INPUT_SIZE.SMALL;
 
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });

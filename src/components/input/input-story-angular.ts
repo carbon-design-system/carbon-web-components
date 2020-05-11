@@ -23,6 +23,7 @@ export const defaultStory = ({ parameters }) => ({
       [value]="value"
       [type]="type"
       [placeholder]="placeholder"
+      [size]="size"
       [invalid]="invalid"
       (input)="onInput()"
     ></bx-input>
@@ -39,6 +40,7 @@ export const formItem = ({ parameters }) => ({
         [value]="value"
         [colorScheme]="colorScheme"
         [placeholder]="placeholder"
+        [size]="size"
         (input)="onInput()"
         [invalid]="invalid"
         [disabled]="disabled"
@@ -60,6 +62,7 @@ export const withoutFormItemWrapper = ({ parameters }) => ({
       [value]="value"
       [colorScheme]="colorScheme"
       [placeholder]="placeholder"
+      [size]="size"
       (input)="onInput()"
       [invalid]="invalid"
       [disabled]="disabled"

@@ -16,7 +16,7 @@ import CaretDown16 from '@carbon/icons/lib/caret--down/16';
 import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
 import styles from './number-input.scss';
-import BXInput from '../input/input';
+import BXInput, { INPUT_SIZE } from '../input/input';
 
 export { FORM_ELEMENT_COLOR_SCHEME as NUMBER_INPUT_COLOR_SCHEME } from '../../globals/shared-enums';
 
@@ -153,6 +153,12 @@ export default class BXNumberInput extends BXInput {
   decrementButtonAssistiveText = 'decrease number input';
 
   /**
+   * The input box size.
+   */
+  @property({ reflect: true })
+  size = INPUT_SIZE.REGULAR;
+
+  /**
    * The validity message shown when the value is greater than the maximum
    *
    * Also available via the `validity-message-max` slot
@@ -188,6 +194,7 @@ export default class BXNumberInput extends BXInput {
       [`${prefix}--number`]: true,
       [`${prefix}--number--${this.colorScheme}`]: this.colorScheme,
       [`${prefix}--number--mobile`]: this.mobile,
+      [`${prefix}--number--${this.size}`]: this.size,
     });
 
     const labelClasses = classMap({
