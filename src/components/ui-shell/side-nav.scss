@@ -24,6 +24,10 @@ $css--plex: true !default;
 
 :host(#{$prefix}-side-nav[collapse-mode='rail']) {
   width: mini-units(6);
+
+  &:hover {
+    width: mini-units(32);
+  }
 }
 
 :host(#{$prefix}-side-nav[expanded]),
