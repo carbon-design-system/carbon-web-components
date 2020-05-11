@@ -193,5 +193,12 @@ module.exports = ({ config, mode }) => {
 
   config.resolve.extensions.push('.ts', '.tsx', '.d.ts');
 
+  if (!config.resolve.alias) {
+    config.resolve.alias = {};
+  }
+  // In our development environment (where `carbon-custom-elements/es/icons` may not have been built yet),
+  // we load icons from `@carbon/icons` and use a WebPack loader to convert the icons to `lit-html` version
+  config.resolve.alias['carbon-custom-elements/es/icons'] = '@carbon/icons/lib';
+
   return config;
 };

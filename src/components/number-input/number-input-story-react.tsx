@@ -25,9 +25,20 @@ import {
 export { default } from './number-input-story';
 
 export const defaultStory = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
-    'bx-number-input'
-  ];
+  const {
+    colorScheme,
+    disabled,
+    value,
+    placeholder,
+    invalid,
+    mobile,
+    min,
+    max,
+    size,
+    step,
+    light,
+    onInput,
+  } = parameters?.props?.['bx-number-input'];
   return (
     <BXNumberInput
       colorScheme={colorScheme}
@@ -39,6 +50,7 @@ export const defaultStory = ({ parameters }) => {
       mobile={mobile}
       min={min}
       max={max}
+      size={size}
       step={step}
       light={light}
     />
@@ -48,9 +60,20 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = baseDefaultStory.story;
 
 export const formItem = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
-    'bx-number-input'
-  ];
+  const {
+    colorScheme,
+    disabled,
+    value,
+    placeholder,
+    invalid,
+    mobile,
+    min,
+    max,
+    size,
+    step,
+    light,
+    onInput,
+  } = parameters?.props?.['bx-number-input'];
   return (
     <BXFormItem>
       <BXNumberInput
@@ -63,11 +86,14 @@ export const formItem = ({ parameters }) => {
         mobile={mobile}
         min={min}
         max={max}
+        size={size}
         step={step}
         light={light}>
         <span slot="label-text">Label text</span>
         <span slot="helper-text">Optional helper text</span>
         <span slot="validity-message">Something isn't right</span>
+        <span slot="validity-message-max">Try a lower value, something less than {max}</span>
+        <span slot="validity-message-min">Value must be larger than {min}</span>
       </BXNumberInput>
     </BXFormItem>
   );
@@ -76,9 +102,20 @@ export const formItem = ({ parameters }) => {
 formItem.story = baseFormItem.story;
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, step, light, onInput } = parameters?.props?.[
-    'bx-number-input'
-  ];
+  const {
+    colorScheme,
+    disabled,
+    value,
+    placeholder,
+    invalid,
+    mobile,
+    min,
+    max,
+    size,
+    step,
+    light,
+    onInput,
+  } = parameters?.props?.['bx-number-input'];
   return (
     <BXNumberInput
       value={value}
@@ -90,6 +127,7 @@ export const withoutFormItemWrapper = ({ parameters }) => {
       mobile={mobile}
       min={min}
       max={max}
+      size={size}
       step={step}
       light={light}>
       <span slot="label-text">Label text</span>

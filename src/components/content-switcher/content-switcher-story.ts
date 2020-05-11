@@ -19,8 +19,7 @@ import storyDocs from './content-switcher-story.mdx';
 const noop = () => {};
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, value, disableSelection, onBeforeSelect = noop, onSelect = noop } =
-    parameters?.props?.['bx-content-switcher'] ?? {};
+  const { value, disableSelection, onBeforeSelect = noop, onSelect = noop } = parameters?.props?.['bx-content-switcher'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -29,7 +28,6 @@ export const defaultStory = ({ parameters }) => {
   };
   return html`
     <bx-content-switcher
-      ?disabled="${disabled}"
       value="${ifNonNull(value)}"
       @bx-content-switcher-beingselected="${handleBeforeSelected}"
       @bx-content-switcher-selected="${onSelect}"
@@ -55,7 +53,6 @@ export default {
     },
     knobs: {
       'bx-content-switcher': () => ({
-        disabled: boolean('Disabled (disabled)', false),
         value: textNullable('The value of the selected item (value)', ''),
         disableSelection: boolean(
           'Disable user-initiated selection change (Call event.preventDefault() in bx-content-switcher-beingselected event)',

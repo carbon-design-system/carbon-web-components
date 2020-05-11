@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019
+// Copyright IBM Corp. 2019, 2020
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -11,16 +11,36 @@ $css--plex: true !default;
 
 :host(#{$prefix}-side-nav) {
   @extend .#{$prefix}--side-nav;
+  @extend .#{$prefix}--side-nav--ux;
   @extend .#{$prefix}--side-nav__navigation;
+
+  top: 0;
 }
 
-:host(#{$prefix}-side-nav[expanded]) {
+:host(#{$prefix}-side-nav[collapse-mode='fixed']) {
+  // TODO: Consider making `@extend .#{$prefix}--side-nav--fixed` work, possibly caused by `:not()` styles
+  width: mini-units(32);
+}
+
+:host(#{$prefix}-side-nav[collapse-mode='rail']) {
+  width: mini-units(6);
+}
+
+:host(#{$prefix}-side-nav[expanded]),
+:host(#{$prefix}-side-nav[collapse-mode][expanded]) {
   @extend .#{$prefix}--side-nav--expanded;
 }
 
-:host(#{$prefix}-side-nav[fixed]) {
-  // TODO: Consider making `@extend .#{$prefix}--side-nav--fixed` work, possibly caused by `:not()` styles
-  width: mini-units(32);
+:host(#{$prefix}-side-nav[usage-mode='header-nav']),
+:host(#{$prefix}-side-nav[collapse-mode][usage-mode='header-nav']) {
+  width: 0;
+}
+
+:host(#{$prefix}-side-nav[expanded][usage-mode='header-nav']),
+:host(#{$prefix}-side-nav[collapse-mode][expanded][usage-mode='header-nav']) {
+  @include carbon--breakpoint-down('lg') {
+    width: mini-units(32);
+  }
 }
 
 :host(#{$prefix}-side-nav-items) {

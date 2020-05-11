@@ -23,6 +23,7 @@ export const defaultStory = ({ parameters }) => ({
       [value]="value"
       [type]="type"
       [placeholder]="placeholder"
+      [size]="size"
       [invalid]="invalid"
       [mobile]="mobile"
       [min]="min"
@@ -44,6 +45,7 @@ export const formItem = ({ parameters }) => ({
         [value]="value"
         [colorScheme]="colorScheme"
         [placeholder]="placeholder"
+        [size]="size"
         (input)="onInput()"
         [invalid]="invalid"
         [disabled]="disabled"
@@ -55,6 +57,8 @@ export const formItem = ({ parameters }) => ({
         <span slot="label-text">Label text</span>
         <span slot="helper-text">Optional helper text</span>
         <span slot="validity-message">Something isn't right</span>
+        <span slot="validity-message-max">Try a lower value, something less than {{max}}</span>
+        <span slot="validity-message-min">Value must be larger than {{min}}</span>
       </bx-number-input>
     </bx-form-item>
   `,
@@ -69,6 +73,7 @@ export const withoutFormItemWrapper = ({ parameters }) => ({
       [value]="value"
       [colorScheme]="colorScheme"
       [placeholder]="placeholder"
+      [size]="size"
       (input)="onInput()"
       [invalid]="invalid"
       [disabled]="disabled"

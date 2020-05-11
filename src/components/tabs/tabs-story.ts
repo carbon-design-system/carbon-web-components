@@ -27,7 +27,7 @@ const types = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, triggerContent, type, value, disableSelection, onBeforeSelect = noop, onSelect = noop } =
+  const { triggerContent, type, value, disableSelection, onBeforeSelect = noop, onSelect = noop } =
     parameters?.props?.['bx-tabs'] || {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
@@ -40,7 +40,6 @@ export const defaultStory = ({ parameters }) => {
       ${styles}
     </style>
     <bx-tabs
-      ?disabled="${disabled}"
       trigger-content="${ifNonNull(triggerContent)}"
       type="${ifNonNull(type)}"
       value="${ifNonNull(value)}"
@@ -101,7 +100,6 @@ defaultStory.story = {
     },
     knobs: {
       'bx-tabs': () => ({
-        disabled: boolean('Disabled (disabled)', false),
         triggerContent: textNullable(
           'The default content of the trigger button for narrow screen (trigger-content)',
           'Select an item'

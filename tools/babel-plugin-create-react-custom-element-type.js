@@ -234,11 +234,12 @@ module.exports = function generateCreateReactCustomElementType(api) {
    *   The list of `{ attribute: 'attribute-name', serialize: typeSerializer }` generated from `@property()` decorators.
    */
   const buildPropsDescriptor = declaredProps =>
-    Object.keys(declaredProps)
-      .filter(name => declaredProps[name].attribute !== false)
-      .map(name => {
-        const { type, attribute } = declaredProps[name];
-        const propDesciptor = [];
+    Object.keys(declaredProps).map(name => {
+      const { type, attribute } = declaredProps[name];
+      const propDesciptor = [];
+      if (attribute === false) {
+        propDesciptor.push(t.objectProperty(t.identifier('attribute'), t.booleanLiteral(false)));
+      } else {
         if (type && type !== 'String') {
           const serializer = serializers[type];
           if (!serializer) {
@@ -249,8 +250,9 @@ module.exports = function generateCreateReactCustomElementType(api) {
         if (attribute) {
           propDesciptor.push(t.objectProperty(t.identifier('attribute'), t.stringLiteral(attribute)));
         }
-        return t.objectProperty(t.identifier(name), t.objectExpression(propDesciptor));
-      });
+      }
+      return t.objectProperty(t.identifier(name), t.objectExpression(propDesciptor));
+    });
 
   /**
    * @param {Object<string, StringLiteral|TemplateLiteral>}

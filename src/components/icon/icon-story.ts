@@ -9,10 +9,16 @@
 
 import { html, svg } from 'lit-html';
 
-import Add16 from '@carbon/icons/lib/add/16';
-import Add20 from '@carbon/icons/lib/add/20';
-import Add24 from '@carbon/icons/lib/add/24';
-import Add32 from '@carbon/icons/lib/add/32';
+// Below path will be there when an application installs `carbon-custom-elements` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
+// @ts-ignore
+import Add16 from 'carbon-custom-elements/es/icons/add/16';
+// @ts-ignore
+import Add20 from 'carbon-custom-elements/es/icons/add/20';
+// @ts-ignore
+import Add24 from 'carbon-custom-elements/es/icons/add/24';
+// @ts-ignore
+import Add32 from 'carbon-custom-elements/es/icons/add/32';
 
 export const defaultStory = () => html`
   ${Add16()} ${Add20()} ${Add24()} ${Add32()}

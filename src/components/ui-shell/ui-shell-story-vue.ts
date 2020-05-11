@@ -10,7 +10,8 @@
 import Fade16 from '@carbon/icons-vue/es/fade/16';
 import contentStyles from 'carbon-components/scss/components/ui-shell/_content.scss';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { sideNav as baseSideNav, sideNavWithIcons as baseSideNavWithIcons } from './ui-shell-story';
+import { SIDE_NAV_COLLAPSE_MODE, SIDE_NAV_USAGE_MODE } from './side-nav';
+import { sideNav as baseSideNav, sideNavWithIcons as baseSideNavWithIcons, header as baseHeader } from './ui-shell-story';
 import styles from './ui-shell-story.scss';
 
 export { default } from './ui-shell-story';
@@ -31,6 +32,12 @@ const injectStoryStyle = () => {
     style.textContent = styles.cssText;
     document.head.appendChild(style);
   }
+};
+
+const updateRailExpanded = ({ collapseMode, expanded, usageMode = SIDE_NAV_USAGE_MODE.REGULAR }) => {
+  document.body.classList.toggle('bx-ce-demo-devenv--with-rail', collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL);
+  document.body.classList.toggle('bx-ce-demo-devenv--rail-expanded', collapseMode === SIDE_NAV_COLLAPSE_MODE.RAIL && expanded);
+  document.body.classList.toggle('bx-ce-demo-devenv--with-side-nav-for-header', usageMode === SIDE_NAV_USAGE_MODE.HEADER_NAV);
 };
 
 const storyContent = () => `
@@ -81,195 +88,223 @@ const storyContent = () => `
   </main>
 `;
 
-export const sideNav = ({ parameters }) => ({
-  template: `
-    <div>
-      <bx-side-nav aria-label="Side navigation" :expanded="expanded" :fixed="fixed">
-        <bx-side-nav-items>
-          <bx-side-nav-menu title="L0 menu">
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-          </bx-side-nav-menu>
-          <bx-side-nav-menu title="L0 menu">
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-            <bx-side-nav-menu-item active aria-current="page" :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-          </bx-side-nav-menu>
-          <bx-side-nav-menu title="L0 menu">
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-          </bx-side-nav-menu>
-          <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
-          <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
-        </bx-side-nav-items>
-      </bx-side-nav>
-      ${storyContent()}
-    </div>
-  `,
-  ...createVueBindingsFromProps({
-    ...parameters?.props?.['bx-side-nav'],
-    ...parameters?.props?.['bx-side-nav-menu-item'],
-  }),
-  created() {
-    injectContentStyle();
-  },
-});
+export const sideNav = ({ parameters }) => {
+  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
+  updateRailExpanded({ collapseMode, expanded });
+  return {
+    template: `
+      <div>
+        <bx-side-nav aria-label="Side navigation" :collapse-mode="collapseMode" :expanded="expanded">
+          <bx-side-nav-items>
+            <bx-side-nav-menu title="L0 menu">
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+            </bx-side-nav-menu>
+            <bx-side-nav-menu title="L0 menu">
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item active aria-current="page" :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+            </bx-side-nav-menu>
+            <bx-side-nav-menu title="L0 menu">
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+            </bx-side-nav-menu>
+            <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
+            <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
+          </bx-side-nav-items>
+        </bx-side-nav>
+        ${storyContent()}
+      </div>
+    `,
+    ...createVueBindingsFromProps({
+      ...parameters?.props?.['bx-side-nav'],
+      ...parameters?.props?.['bx-side-nav-menu-item'],
+    }),
+    created() {
+      injectContentStyle();
+      injectStoryStyle();
+    },
+  };
+};
 
 sideNav.story = baseSideNav.story;
 
-export const sideNavWithIcons = ({ parameters }) => ({
-  template: `
-  <div>
-    <bx-side-nav aria-label="Side navigation" :expanded="expanded" :fixed="fixed">
-      <bx-side-nav-items>
-        <bx-side-nav-menu title="L0 menu">
-          <fade-16 slot="title-icon"></fade-16>
-          <bx-side-nav-menu-item :href="href">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item :href="href">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item :href="href">
-            L0 menu item
-          </bx-side-nav-menu-item>
-        </bx-side-nav-menu>
-        <bx-side-nav-menu title="L0 menu">
-          <fade-16 slot="title-icon"></fade-16>
-          <bx-side-nav-menu-item :href="href">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item active aria-current="page" :href="href">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item :href="href">
-            L0 menu item
-          </bx-side-nav-menu-item>
-        </bx-side-nav-menu>
-        <bx-side-nav-menu title="L0 menu">
-          <fade-16 slot="title-icon"></fade-16>
-          <bx-side-nav-menu-item :href="href">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item :href="href">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item :href="href">
-            L0 menu item
-          </bx-side-nav-menu-item>
-        </bx-side-nav-menu>
-        <bx-side-nav-link href="javascript:void(0)">
-          <fade-16 slot="title-icon"></fade-16>
-          L0 link
-        </bx-side-nav-link>
-        <bx-side-nav-link href="javascript:void(0)">
-          <fade-16 slot="title-icon"></fade-16>
-          L0 link
-        </bx-side-nav-link>
-      </bx-side-nav-items>
-    </bx-side-nav>
-    ${storyContent()}
-  </div>
-  `,
-  components: {
-    'fade-16': Fade16,
-  },
-  ...createVueBindingsFromProps({
-    ...parameters?.props?.['bx-side-nav'],
-    ...parameters?.props?.['bx-side-nav-menu-item'],
-  }),
-  created() {
-    injectContentStyle();
-  },
-});
+export const sideNavWithIcons = ({ parameters }) => {
+  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
+  updateRailExpanded({ collapseMode, expanded });
+  return {
+    template: `
+      <div>
+        <bx-side-nav aria-label="Side navigation" :collapse-mode="collapseMode" :expanded="expanded">
+          <bx-side-nav-items>
+            <bx-side-nav-menu title="L0 menu">
+              <fade-16 slot="title-icon"></fade-16>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+            </bx-side-nav-menu>
+            <bx-side-nav-menu title="L0 menu">
+              <fade-16 slot="title-icon"></fade-16>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item active aria-current="page" :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+            </bx-side-nav-menu>
+            <bx-side-nav-menu title="L0 menu">
+              <fade-16 slot="title-icon"></fade-16>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+            </bx-side-nav-menu>
+            <bx-side-nav-link href="javascript:void(0)">
+              <fade-16 slot="title-icon"></fade-16>
+              L0 link
+            </bx-side-nav-link>
+            <bx-side-nav-link href="javascript:void(0)">
+              <fade-16 slot="title-icon"></fade-16>
+              L0 link
+            </bx-side-nav-link>
+          </bx-side-nav-items>
+        </bx-side-nav>
+        ${storyContent()}
+      </div>
+    `,
+    components: {
+      'fade-16': Fade16,
+    },
+    ...createVueBindingsFromProps({
+      ...parameters?.props?.['bx-side-nav'],
+      ...parameters?.props?.['bx-side-nav-menu-item'],
+    }),
+    created() {
+      injectContentStyle();
+      injectStoryStyle();
+    },
+  };
+};
 
 sideNavWithIcons.story = baseSideNavWithIcons.story;
 
-export const header = ({ parameters }) => ({
-  template: `
-    <div>
-      <bx-header aria-label="IBM Platform Name">
-        <bx-header-menu-button button-label-active="Close menu" button-label-inactive="Open menu"></bx-header-menu-button>
-        <bx-header-name href="javascript:void 0" prefix="IBM">[Platform]</bx-header-name>
-        <bx-header-nav menu-bar-label="IBM [Platform]">
-          <bx-header-nav-item href="javascript:void 0">Link 1</bx-header-nav-item>
-          <bx-header-nav-item href="javascript:void 0">Link 2</bx-header-nav-item>
-          <bx-header-nav-item href="javascript:void 0">Link 3</bx-header-nav-item>
-          <bx-header-menu menu-label="Link 4" trigger-content="Link 4">
-            <bx-header-menu-item href="javascript:void 0">Sub-link 1</bx-header-menu-item>
-            <bx-header-menu-item href="javascript:void 0">Sub-link 2</bx-header-menu-item>
-            <bx-header-menu-item href="javascript:void 0">Sub-link 3</bx-header-menu-item>
-          </bx-header-menu>
-        </bx-header-nav>
-      </bx-header>
-      <bx-side-nav aria-label="Side navigation" :expanded="expanded" :fixed="fixed">
-        <bx-side-nav-items>
-          <bx-side-nav-menu title="L0 menu">
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-          </bx-side-nav-menu>
-          <bx-side-nav-menu title="L0 menu">
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-            <bx-side-nav-menu-item active aria-current="page" :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-          </bx-side-nav-menu>
-          <bx-side-nav-menu title="L0 menu">
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-            <bx-side-nav-menu-item :href="href">
-              L0 menu item
-            </bx-side-nav-menu-item>
-          </bx-side-nav-menu>
-          <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
-          <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
-        </bx-side-nav-items>
-      </bx-side-nav>
-      ${storyContent()}
-    </div>
-  `,
-  ...createVueBindingsFromProps({
-    ...parameters?.props?.['bx-side-nav'],
-    ...parameters?.props?.['bx-side-nav-menu-item'],
-  }),
-  created() {
-    injectContentStyle();
-    injectStoryStyle();
-  },
-});
+export const header = ({ parameters }) => {
+  const { collapseMode, expanded, usageMode } = parameters?.props?.['bx-side-nav'] ?? {};
+  updateRailExpanded({ collapseMode, expanded, usageMode });
+  return {
+    template: `
+      <div>
+        <bx-header aria-label="IBM Platform Name">
+          <bx-header-menu-button
+            button-label-active="Close menu"
+            button-label-inactive="Open menu"
+            @bx-header-menu-button-toggled="handleButtonToggle"
+          ></bx-header-menu-button>
+          <bx-header-name href="javascript:void 0" prefix="IBM">[Platform]</bx-header-name>
+          <bx-header-nav menu-bar-label="IBM [Platform]">
+            <bx-header-nav-item href="javascript:void 0">Link 1</bx-header-nav-item>
+            <bx-header-nav-item href="javascript:void 0">Link 2</bx-header-nav-item>
+            <bx-header-nav-item href="javascript:void 0">Link 3</bx-header-nav-item>
+            <bx-header-menu menu-label="Link 4" trigger-content="Link 4">
+              <bx-header-menu-item href="javascript:void 0">Sub-link 1</bx-header-menu-item>
+              <bx-header-menu-item href="javascript:void 0">Sub-link 2</bx-header-menu-item>
+              <bx-header-menu-item href="javascript:void 0">Sub-link 3</bx-header-menu-item>
+            </bx-header-menu>
+          </bx-header-nav>
+        </bx-header>
+        <bx-side-nav
+          aria-label="Side navigation"
+          :collapse-mode="collapseMode"
+          :expanded="expanded"
+          :usage-mode="usageMode"
+        >
+          <bx-side-nav-items>
+            <bx-side-nav-menu title="L0 menu">
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+            </bx-side-nav-menu>
+            <bx-side-nav-menu title="L0 menu">
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item active aria-current="page" :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+            </bx-side-nav-menu>
+            <bx-side-nav-menu title="L0 menu">
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+              <bx-side-nav-menu-item :href="href">
+                L0 menu item
+              </bx-side-nav-menu-item>
+            </bx-side-nav-menu>
+            <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
+            <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
+          </bx-side-nav-items>
+        </bx-side-nav>
+        ${storyContent()}
+      </div>
+    `,
+    ...createVueBindingsFromProps({
+      ...parameters?.props?.['bx-side-nav'],
+      ...parameters?.props?.['bx-side-nav-menu-item'],
+      handleButtonToggle(event) {
+        updateRailExpanded({ collapseMode, expanded: event.detail.active, usageMode });
+      },
+    }),
+    created() {
+      injectContentStyle();
+      injectStoryStyle();
+    },
+  };
+};
+
+header.story = baseHeader.story;

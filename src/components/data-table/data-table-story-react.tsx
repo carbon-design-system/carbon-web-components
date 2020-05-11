@@ -30,7 +30,7 @@ import BXPageSizesSelect from 'carbon-custom-elements/es/components-react/pagina
 // @ts-ignore
 import BXPagesSelect from 'carbon-custom-elements/es/components-react/pagination/pages-select';
 // @ts-ignore
-import BXTable, { TABLE_SIZE } from 'carbon-custom-elements/es/components-react/data-table/table';
+import BXTable, { TABLE_COLOR_SCHEME, TABLE_SIZE } from 'carbon-custom-elements/es/components-react/data-table/table';
 // @ts-ignore
 import BXTableHead from 'carbon-custom-elements/es/components-react/data-table/table-head';
 // @ts-ignore
@@ -97,6 +97,7 @@ const doesRowMatchSearchString = (row: TDemoTableRow, searchString: string) =>
  */
 const BXCEDemoDataTable = ({
   id,
+  colorScheme,
   collator,
   columns,
   hasSelection,
@@ -105,12 +106,12 @@ const BXCEDemoDataTable = ({
   size,
   sortInfo: propSortInfo,
   start: propStart,
-  zebra,
   onChangeSelection,
   onChangeSelectionAll,
   onSort,
 }: {
   id?: string;
+  colorScheme?: TABLE_COLOR_SCHEME;
   collator?: Intl.Collator;
   columns: TDemoTableColumn[];
   hasSelection?: boolean;
@@ -119,7 +120,6 @@ const BXCEDemoDataTable = ({
   size?: TABLE_SIZE;
   sortInfo: TDemoSortInfo;
   start?: number;
-  zebra?: boolean;
   onChangeSelection?: (event: CustomEvent) => void;
   onChangeSelectionAll?: (event: CustomEvent) => void;
   onSort?: (event: CustomEvent) => void;
@@ -330,7 +330,7 @@ const BXCEDemoDataTable = ({
             })}
           </BXTableHeaderRow>
         </BXTableHead>
-        <BXTableBody zebra={zebra}>
+        <BXTableBody colorScheme={colorScheme}>
           {sortedRows.slice(adjustedStart, adjustedStart! + (typeof pageSize === 'undefined' ? Infinity : pageSize)).map(row => {
             const { id: rowId, selected } = row;
             const selectionName = !hasSelection ? undefined : `__bx-ce-demo-data-table_${elementId}_${rowId}`;
@@ -358,6 +358,11 @@ const BXCEDemoDataTable = ({
 };
 
 BXCEDemoDataTable.propTypes = {
+  /**
+   * `true` if the zebra stripe should be shown.
+   */
+  colorScheme: PropTypes.oneOf(['regular', 'zebra']),
+
   /**
    * The g11n collator to use.
    */
@@ -413,11 +418,6 @@ BXCEDemoDataTable.propTypes = {
   start: PropTypes.number,
 
   /**
-   * `true` if the zebra stripe should be shown.
-   */
-  zebra: PropTypes.bool,
-
-  /**
    * An event that fires when user changes selection of a row.
    */
   onChangeSelection: PropTypes.func,
@@ -442,6 +442,7 @@ BXCEDemoDataTable.defaultProps = {
 
 export const defaultStory = ({ parameters }) => {
   const { size } = parameters?.props?.['bx-table'];
+  const { colorScheme } = parameters?.props?.['bx-table-body'];
   return (
     <bx-table size={size}>
       <bx-table-head>
@@ -454,7 +455,7 @@ export const defaultStory = ({ parameters }) => {
           <bx-table-header-cell>Status</bx-table-header-cell>
         </bx-table-header-row>
       </bx-table-head>
-      <bx-table-body>
+      <BXTableBody colorScheme={colorScheme}>
         <bx-table-row>
           <bx-table-cell>Load Balancer 1</bx-table-cell>
           <bx-table-cell>HTTP</bx-table-cell>
@@ -479,7 +480,7 @@ export const defaultStory = ({ parameters }) => {
           <bx-table-cell>Maureen's VM Groups</bx-table-cell>
           <bx-table-cell>Active</bx-table-cell>
         </bx-table-row>
-      </bx-table-body>
+      </BXTableBody>
     </bx-table>
   );
 };
@@ -561,7 +562,7 @@ expandable.story = baseExpandable.story;
 export const sortable = ({ parameters }) => {
   const { size } = parameters?.props?.['bx-table'];
   const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
-  const { zebra } = parameters?.props?.['bx-table-body'];
+  const { colorScheme } = parameters?.props?.['bx-table-body'];
   const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
   const { disableChangeSort, onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
   const beforeChangeSelectionHandler = (event: CustomEvent) => {
@@ -585,12 +586,12 @@ export const sortable = ({ parameters }) => {
       <style type="text/css">{styles.cssText}</style>
       {/* Refer to <bx-ce-demo-data-table> implementation at the top for details */}
       <BXCEDemoDataTable
+        colorScheme={colorScheme}
         columns={demoColumns}
         rows={demoRows}
         sortInfo={demoSortInfo}
         hasSelection={hasSelection}
         size={size}
-        zebra={zebra}
         onChangeSelection={beforeChangeSelectionHandler}
         onChangeSelectionAll={beforeChangeSelectionHandler}
         onSort={beforeChangeSortHandler}
@@ -604,7 +605,7 @@ sortable.story = baseSortable.story;
 export const sortableWithPagination = ({ parameters }) => {
   const { size } = parameters?.props?.['bx-table'];
   const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
-  const { zebra } = parameters?.props?.['bx-table-body'];
+  const { colorScheme } = parameters?.props?.['bx-table-body'];
   const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
   const { disableChangeSort, onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
   const beforeChangeSelectionHandler = (event: CustomEvent) => {
@@ -628,6 +629,7 @@ export const sortableWithPagination = ({ parameters }) => {
       <style type="text/css">{styles.cssText}</style>
       {/* Refer to <bx-ce-demo-data-table> implementation at the top for details */}
       <BXCEDemoDataTable
+        colorScheme={colorScheme}
         columns={demoColumns}
         rows={demoRowsMany}
         sortInfo={demoSortInfo}
@@ -635,7 +637,6 @@ export const sortableWithPagination = ({ parameters }) => {
         pageSize={5}
         size={size}
         start={0}
-        zebra={zebra}
         onChangeSelection={beforeChangeSelectionHandler}
         onChangeSelectionAll={beforeChangeSelectionHandler}
         onSort={beforeChangeSortHandler}

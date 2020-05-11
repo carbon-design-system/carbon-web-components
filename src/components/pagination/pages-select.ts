@@ -25,7 +25,7 @@ class BXPagesSelect extends FocusMixin(LitElement) {
   /**
    * Handles `change` event on the `<select>` to select page size.
    */
-  protected _handleChange({ target }: Event) {
+  private _handleChange({ target }: Event) {
     const value = Number((target as HTMLSelectElement).value);
     this.dispatchEvent(
       new CustomEvent((this.constructor as typeof BXPagesSelect).eventChange, {
@@ -70,15 +70,17 @@ class BXPagesSelect extends FocusMixin(LitElement) {
 
   render() {
     const { formatLabelText, formatSupplementalText, total, value, _handleChange: handleChange } = this;
+    // `<option ?selected="${index === value}">` is a workaround for:
+    // https://github.com/Polymer/lit-html/issues/1052
     return html`
       <div class="${prefix}--select__page-number">
         <label for="select" class="${prefix}--label ${prefix}--visually-hidden">
           ${formatLabelText({ count: total })}
         </label>
-        <select id="select" class="${prefix}--select-input" .value="${value}" @change="${handleChange}">
+        <select class="${prefix}--select-input" .value="${value}" @change="${handleChange}">
           ${Array.from(new Array(total)).map(
             (_item, index) => html`
-              <option value=${index}>${index + 1}</option>
+              <option value=${index} ?selected="${index === value}">${index + 1}</option>
             `
           )}
         </select>

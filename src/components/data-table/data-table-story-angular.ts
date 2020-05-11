@@ -14,7 +14,7 @@ import { Delete16Module } from '@carbon/icons-angular/lib/delete/16';
 import { Download16Module } from '@carbon/icons-angular/lib/download/16';
 import { Settings16Module } from '@carbon/icons-angular/lib/settings/16';
 import BXBtn from '../button/button';
-import { TABLE_SIZE } from './table';
+import { TABLE_COLOR_SCHEME, TABLE_SIZE } from './table';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import baseStory, {
   defaultStory as baseDefaultStory,
@@ -252,7 +252,7 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
           </bx-table-header-cell>
         </bx-table-header-row>
       </bx-table-head>
-      <bx-table-body [zebra]="zebra">
+      <bx-table-body [colorScheme]="colorScheme">
         <bx-table-row
           *ngFor="
             let row of _rows
@@ -537,7 +537,7 @@ class BXCEDemoDataTable {
    * `true` if the zebra stripe should be shown.
    */
   @Input()
-  zebra = false;
+  colorScheme = TABLE_COLOR_SCHEME.REGULAR;
 
   /**
    * The row number where current page start with, index that starts with zero.
@@ -591,7 +591,7 @@ export const defaultStory = ({ parameters }) => ({
           <bx-table-header-cell>Status</bx-table-header-cell>
         </bx-table-header-row>
       </bx-table-head>
-      <bx-table-body [zebra]="zebra">
+      <bx-table-body [colorScheme]="colorScheme">
         <bx-table-row>
           <bx-table-cell>Load Balancer 1</bx-table-cell>
           <bx-table-cell>HTTP</bx-table-cell>
@@ -711,7 +711,7 @@ export const sortable = ({ parameters }) => ({
       [sortInfo]="demoSortInfo"
       [hasSelection]="hasSelection"
       [size]="size"
-      [zebra]="zebra"
+      [colorScheme]="colorScheme"
       (bx-table-row-change-selection)="handleBeforeChangeSelection($event)"
       (bx-table-change-selection-all)="handleBeforeChangeSelection($event)"
       (bx-table-header-cell-sort)="handleBeforeSort($event)"
@@ -773,7 +773,7 @@ export const sortableWithPagination = ({ parameters }) => ({
       [pageSize]="5"
       [size]="size"
       [start]="0"
-      [zebra]="zebra"
+      [colorScheme]="colorScheme"
       (bx-table-row-change-selection)="handleBeforeChangeSelection($event)"
       (bx-table-change-selection-all)="handleBeforeChangeSelection($event)"
       (bx-table-header-cell-sort)="handleBeforeSort($event)"
