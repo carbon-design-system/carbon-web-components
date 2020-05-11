@@ -2,15 +2,21 @@
 
 ## `Misc attributes`
 
-#### `should render with minimum attributes`
+####   `should render with minimum attributes`
 
 ```
-<label class="bx--label">
+<label
+  class="bx--label"
+  part="label-text"
+>
   <slot name="label-text">
     undefined
   </slot>
 </label>
-<div class="bx--form__helper-text">
+<div
+  class="bx--form__helper-text"
+  part="helper-text"
+>
   <slot name="helper-text">
     undefined
   </slot>
@@ -26,6 +32,7 @@
     aria-labelledby="trigger-label"
     aria-owns="menu-body"
     class="bx--list-box__field"
+    part="trigger-button"
   >
     <input
       aria-autocomplete="list"
@@ -50,15 +57,21 @@
 
 ```
 
-#### `should render with various attributes`
+####   `should render with various attributes`
 
 ```
-<label class="bx--label bx--label--disabled">
+<label
+  class="bx--label bx--label--disabled"
+  part="label-text"
+>
   <slot name="label-text">
     label-text-foo
   </slot>
 </label>
-<div class="bx--form__helper-text bx--form__helper-text--disabled">
+<div
+  class="bx--form__helper-text bx--form__helper-text--disabled"
+  part="helper-text"
+>
   <slot name="helper-text">
     helper-text-foo
   </slot>
@@ -75,6 +88,7 @@
     aria-labelledby="trigger-label"
     aria-owns="menu-body"
     class="bx--list-box__field"
+    part="trigger-button"
   >
     <input
       aria-autocomplete="list"
@@ -100,6 +114,7 @@
   <div
     class="bx--list-box__menu"
     id="menu-body"
+    part="menu-body"
     role="listbox"
     tabindex="-1"
   >
@@ -107,7 +122,10 @@
     </slot>
   </div>
 </div>
-<div class="bx--form-requirement">
+<div
+  class="bx--form-requirement"
+  part="validity-message"
+>
   <slot name="validity-message">
     validity-message-foo
   </slot>
@@ -121,3 +139,4 @@
 </div>
 
 ```
+

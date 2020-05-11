@@ -2,12 +2,13 @@
 
 ## `Misc attributes`
 
-#### `should render with minimum attributes`
+####   `should render with minimum attributes`
 
 ```
 <label
   class="bx--label"
   hidden=""
+  part="label-text"
 >
   <slot name="label-text">
   </slot>
@@ -15,6 +16,7 @@
 <div
   class="bx--form__helper-text"
   hidden=""
+  part="helper-text"
 >
   <slot name="helper-text">
   </slot>
@@ -30,6 +32,7 @@
     aria-labelledby="trigger-label"
     aria-owns="menu-body"
     class="bx--list-box__field"
+    part="trigger-button"
     role="button"
     tabindex="0"
   >
@@ -52,15 +55,21 @@
 
 ```
 
-#### `should render with various attributes`
+####   `should render with various attributes`
 
 ```
-<label class="bx--label bx--label--disabled">
+<label
+  class="bx--label bx--label--disabled"
+  part="label-text"
+>
   <slot name="label-text">
     label-text-foo
   </slot>
 </label>
-<div class="bx--form__helper-text bx--form__helper-text--disabled">
+<div
+  class="bx--form__helper-text bx--form__helper-text--disabled"
+  part="helper-text"
+>
   <slot name="helper-text">
     helper-text-foo
   </slot>
@@ -76,6 +85,7 @@
     aria-labelledby="trigger-label"
     aria-owns="menu-body"
     class="bx--list-box__field"
+    part="trigger-button"
     role="button"
     tabindex="0"
   >
@@ -91,6 +101,7 @@
   <div
     class="bx--list-box__menu"
     id="menu-body"
+    part="menu-body"
     role="listbox"
     tabindex="-1"
   >
@@ -107,3 +118,4 @@
 </div>
 
 ```
+
