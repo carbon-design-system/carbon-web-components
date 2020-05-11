@@ -8,11 +8,18 @@
  */
 
 import { action } from '@storybook/addon-actions';
+import { INPUT_SIZE } from '../../input/input';
 import { NUMBER_INPUT_COLOR_SCHEME } from '../number-input';
 
 const colorSchemes = {
-  [`Regular`]: null,
+  Regular: null,
   [`Light (${NUMBER_INPUT_COLOR_SCHEME.LIGHT})`]: NUMBER_INPUT_COLOR_SCHEME.LIGHT,
+};
+
+const sizes = {
+  Regular: null,
+  [`Small size (${INPUT_SIZE.SMALL})`]: INPUT_SIZE.SMALL,
+  [`Extra large size (${INPUT_SIZE.EXTRA_LARGE})`]: INPUT_SIZE.EXTRA_LARGE,
 };
 
 const createProps = ({ boolean, textNullable, number, select }) => ({
@@ -22,11 +29,12 @@ const createProps = ({ boolean, textNullable, number, select }) => ({
   min: number('Minimum value (min)', 0),
   max: number('Maximum value (max)', 100),
   step: number('Value to step the input by (step)', 1),
+  size: select('Input size (size)', sizes, INPUT_SIZE.REGULAR),
   placeholder: textNullable('Placeholder text (placeholder)', 'Optional placeholder text'),
   invalid: boolean('Invalid (invalid)', false),
   onInput: action('input'),
   mobile: boolean('Mobile mode (mobile)', false),
-  hideLabel: boolean('Hide label (hideLabel', false),
+  hideLabel: boolean('Hide label (hideLabel)', false),
 });
 
 export default createProps;

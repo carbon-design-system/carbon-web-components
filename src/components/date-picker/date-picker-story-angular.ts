@@ -28,6 +28,7 @@ export const defaultStory = ({ parameters }) => ({
       [invalid]="invalid"
       [labelText]="labelText"
       [placeholder]="placeholder"
+      [size]="size"
       [sizeHorizontal]="sizeHorizontal"
       [validityMessage]="validityMessage"
     >
@@ -60,6 +61,7 @@ export const singleWithCalendar = ({ parameters }) => ({
       kind="single"
       [labelText]="labelText"
       [placeholder]="placeholder"
+      [size]="size"
       [validityMessage]="validityMessage"
       (input)="onInput($event)"
     >
@@ -92,6 +94,7 @@ export const rangeWithCalendar = ({ parameters }) => ({
       kind="from"
       [labelText]="labelText"
       [placeholder]="placeholder"
+      [size]="size"
       [validityMessage]="validityMessage"
       (input)="onInput($event)"
     >
@@ -104,6 +107,7 @@ export const rangeWithCalendar = ({ parameters }) => ({
       kind="to"
       [labelText]="labelText"
       [placeholder]="placeholder"
+      [size]="size"
       [validityMessage]="validityMessage"
       (input)="onInput($event)"
     >

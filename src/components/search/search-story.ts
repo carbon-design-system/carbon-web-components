@@ -12,7 +12,8 @@ import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import { SEARCH_COLOR_SCHEME, SEARCH_SIZE } from './search';
+import { INPUT_SIZE } from '../input/input';
+import { SEARCH_COLOR_SCHEME } from './search';
 import './search-skeleton';
 import storyDocs from './search-story.mdx';
 
@@ -22,8 +23,9 @@ const colorSchemes = {
 };
 
 const sizes = {
-  [`Small size (${SEARCH_SIZE.SMALL})`]: SEARCH_SIZE.SMALL,
   'Regular size': null,
+  [`Small size (${INPUT_SIZE.SMALL})`]: INPUT_SIZE.SMALL,
+  [`Extra large size (${INPUT_SIZE.EXTRA_LARGE})`]: INPUT_SIZE.EXTRA_LARGE,
 };
 
 export const defaultStory = ({ parameters }) => {
