@@ -12,21 +12,21 @@
 const path = require('path');
 const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev-server');
 
-const PORT = 8081;
+const PORT = 8080;
 
-describe('IE example', () => {
+describe('Angular example', () => {
   beforeAll(async () => {
-    const dist = path.resolve(__dirname, '../../es');
-    const src = path.resolve(__dirname, '../../examples/codesandbox/ie');
+    const dist = path.resolve(__dirname, '../../../es');
+    const src = path.resolve(__dirname, '../../../examples/codesandbox/angular');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
     await setupDevServer({
       command: [
         `cp -r ${src} ${tmpDir}`,
-        `cd ${tmpDir}/ie`,
+        `cd ${tmpDir}/angular`,
         'yarn install',
         'rm -Rf node_modules/carbon-custom-elements/es',
         `cp -r ${dist} node_modules/carbon-custom-elements`,
-        `yarn webpack-dev-server --mode=development --open=false --port=${PORT}`,
+        `yarn ng serve --port ${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
