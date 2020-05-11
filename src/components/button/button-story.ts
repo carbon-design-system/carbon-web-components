@@ -30,6 +30,7 @@ const kinds = {
 const sizes = {
   'Regular size': null,
   [`Small size (${BUTTON_SIZE.SMALL})`]: BUTTON_SIZE.SMALL,
+  [`Size for form field (${BUTTON_SIZE.FIELD})`]: BUTTON_SIZE.FIELD,
 };
 
 export const defaultStory = ({ parameters }) => {

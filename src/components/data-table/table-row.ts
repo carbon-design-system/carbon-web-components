@@ -9,7 +9,6 @@
 
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
-import ChevronRight16 from '@carbon/icons/lib/chevron--right/16';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './data-table.scss';
 
@@ -46,6 +45,33 @@ class BXTableRow extends FocusMixin(LitElement) {
   }
 
   /**
+   * @returns The first set of table cells.
+   */
+  protected _renderFirstCells() {
+    const { disabled, selected, selectionLabel, selectionName, selectionValue } = this;
+    // Using `@click` instead of `@change` to support `.preventDefault()`
+    return !selectionName
+      ? undefined
+      : html`
+          <div class="${prefix}--table-column-checkbox">
+            ${html`
+              <input
+                id="selection"
+                class="${prefix}--checkbox"
+                type="checkbox"
+                value="${selectionValue}"
+                name="${selectionName}"
+                ?disabled="${disabled}"
+                .checked=${selected}
+                @click=${this._handleClickSelectionCheckbox}
+              />
+              <label for="selection" class="${prefix}--checkbox-label" aria-label="${selectionLabel}"></label>
+            `}
+          </div>
+        `;
+  }
+
+  /**
    * `true` if this table row should be disabled.
    */
   @property({ type: Boolean, reflect: true })
@@ -66,12 +92,6 @@ class BXTableRow extends FocusMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true })
   odd = false;
-
-  /**
-   * `true` if this table row should work as an expando.
-   */
-  @property({ type: Boolean, reflect: true })
-  section = false;
 
   /**
    * `true` if this table row should be selected.
@@ -111,39 +131,8 @@ class BXTableRow extends FocusMixin(LitElement) {
   }
 
   render() {
-    const { disabled, section, selected, selectionLabel, selectionName, selectionValue } = this;
-    const expando = !section
-      ? undefined
-      : html`
-          <div class="${prefix}--table-expand">
-            <button class="${prefix}--table-expand__button">
-              ${ChevronRight16({ class: `${prefix}--table-expand__svg` })}
-            </button>
-          </div>
-        `;
-    // Using `@click` instead of `@change` to support `.preventDefault()`
-    const selection = !selectionName
-      ? undefined
-      : html`
-          <div class="${prefix}--table-column-checkbox">
-            ${html`
-              <input
-                id="selection"
-                class="${prefix}--checkbox"
-                type="checkbox"
-                value="${selectionValue}"
-                name="${selectionName}"
-                ?disabled="${disabled}"
-                .checked=${selected}
-                @click=${this._handleClickSelectionCheckbox}
-              />
-              <label for="selection" class="${prefix}--checkbox-label" aria-label="${selectionLabel}"></label>
-            `}
-          </div>
-        `;
-
     return html`
-      ${expando}${selection}<slot></slot>
+      ${this._renderFirstCells()}<slot></slot>
     `;
   }
 

@@ -30,6 +30,7 @@ export const defaultStory = ({ parameters }) => {
     placeholder,
     readonly,
     required,
+    size,
     type,
     validityMessage,
     value,
@@ -49,6 +50,7 @@ export const defaultStory = ({ parameters }) => {
       placeholder="${ifNonNull(placeholder)}"
       ?readonly="${readonly}"
       ?required="${required}"
+      size="${ifNonNull(size)}"
       type="${ifNonNull(type)}"
       validity-message="${ifNonNull(validityMessage)}"
       value="${ifNonNull(value)}"
@@ -62,13 +64,14 @@ defaultStory.story = {
 };
 
 export const formItem = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-input'] ?? {};
+  const { colorScheme, disabled, value, placeholder, invalid, size, onInput } = parameters?.props?.['bx-input'] ?? {};
   return html`
     <bx-form-item>
       <bx-input
         value="${ifNonNull(value)}"
         color-scheme="${ifNonNull(colorScheme)}"
         placeholder="${ifNonNull(placeholder)}"
+        size="${ifNonNull(size)}"
         @input="${onInput}"
         ?invalid="${invalid}"
         ?disabled="${disabled}"
@@ -86,12 +89,13 @@ formItem.story = {
 };
 
 export const withoutFormItemWrapper = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-input'] ?? {};
+  const { colorScheme, disabled, value, placeholder, invalid, size, onInput } = parameters?.props?.['bx-input'] ?? {};
   return html`
     <bx-input
       value="${ifNonNull(value)}"
       color-scheme="${ifNonNull(colorScheme)}"
       placeholder="${ifNonNull(placeholder)}"
+      size="${ifNonNull(size)}"
       @input="${onInput}"
       ?invalid="${invalid}"
       ?disabled="${disabled}"

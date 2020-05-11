@@ -15,6 +15,7 @@ import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import ValidityMixin from '../../globals/mixins/validity';
+import { INPUT_SIZE } from '../input/input';
 import styles from './date-picker.scss';
 
 export { FORM_ELEMENT_COLOR_SCHEME as DATE_PICKER_INPUT_COLOR_SCHEME } from '../../globals/shared-enums';
@@ -197,7 +198,13 @@ class BXDatePickerInput extends ValidityMixin(FocusMixin(LitElement)) {
   requiredValidityMessage = 'Please fill out this field.';
 
   /**
-   * `true` if this date picker input should use the short UI variant.
+   * Vertical size of this date picker input.
+   */
+  @property({ attribute: 'size', reflect: true })
+  size = INPUT_SIZE.REGULAR;
+
+  /**
+   * Horizontal size of this date picker input.
    * Effective only when `kind` property is `DATE_PICKER_INPUT_KIND.SIMPLE`.
    */
   @property({ attribute: 'size-horizontal', reflect: true })
@@ -235,6 +242,7 @@ class BXDatePickerInput extends ValidityMixin(FocusMixin(LitElement)) {
       labelText,
       pattern = constructor.defaultPattern,
       placeholder,
+      size,
       type = constructor.defaultType,
       value,
       _handleInput: handleInput,
@@ -244,6 +252,10 @@ class BXDatePickerInput extends ValidityMixin(FocusMixin(LitElement)) {
       [`${prefix}--visually-hidden`]: hideLabel,
       [`${prefix}--label--disabled`]: disabled,
     });
+    const inputClasses = classMap({
+      [`${prefix}--date-picker__input`]: true,
+      [`${prefix}--date-picker__input--${size}`]: size,
+    });
     return html`
       <label for="input" class="${labelClasses}">
         <slot name="label-text">${labelText}</slot>
@@ -252,7 +264,7 @@ class BXDatePickerInput extends ValidityMixin(FocusMixin(LitElement)) {
         <input
           id="input"
           type="${type}"
-          class="${prefix}--date-picker__input"
+          class="${inputClasses}"
           ?disabled="${disabled}"
           pattern="${pattern}"
           placeholder="${ifNonNull(placeholder)}"
