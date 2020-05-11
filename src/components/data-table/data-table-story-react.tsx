@@ -46,6 +46,12 @@ import BXTableRow from 'carbon-custom-elements/es/components-react/data-table/ta
 // @ts-ignore
 import BXTableCell from 'carbon-custom-elements/es/components-react/data-table/table-cell';
 // @ts-ignore
+import BXTableHeaderExpandRow from 'carbon-custom-elements/es/components-react/data-table/table-header-expand-row';
+// @ts-ignore
+import BXTableExpandRow from 'carbon-custom-elements/es/components-react/data-table/table-expand-row';
+// @ts-ignore
+import BXTableExpandedRow from 'carbon-custom-elements/es/components-react/data-table/table-expanded-row';
+// @ts-ignore
 import BXTableToolbar from 'carbon-custom-elements/es/components-react/data-table/table-toolbar';
 // @ts-ignore
 import BXTableToolbarContent from 'carbon-custom-elements/es/components-react/data-table/table-toolbar-content';
@@ -58,6 +64,7 @@ import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sor
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 import {
   defaultStory as baseDefaultStory,
+  expandable as baseExpandable,
   sortable as baseSortable,
   sortableWithPagination as baseSortableWithPagination,
 } from './data-table-story';
@@ -479,6 +486,78 @@ export const defaultStory = ({ parameters }) => {
 };
 
 defaultStory.story = baseDefaultStory.story;
+
+export const expandable = ({ parameters }) => {
+  const { size } = parameters?.props?.['bx-table'];
+  const handleExpandRowAll = useCallback(event => {
+    const { currentTarget, detail } = event;
+    const rows = currentTarget.closest('bx-table').querySelectorAll('bx-table-expand-row');
+    Array.prototype.forEach.call(rows, row => {
+      row.expanded = detail.expanded;
+    });
+  }, []);
+  const handleExpandRow = useCallback(event => {
+    const { currentTarget } = event;
+    const table = currentTarget.closest('bx-table');
+    const headerRow = table.querySelector('bx-table-header-expand-row');
+    const rows = table.querySelectorAll('bx-table-expand-row');
+    headerRow.expanded = Array.prototype.every.call(rows, row => row.expanded);
+  }, []);
+  return (
+    <BXTable size={size}>
+      <BXTableHead>
+        <BXTableHeaderExpandRow onExpandoToggle={handleExpandRowAll}>
+          <BXTableHeaderCell>Name</BXTableHeaderCell>
+          <BXTableHeaderCell>Protocol</BXTableHeaderCell>
+          <BXTableHeaderCell>Port</BXTableHeaderCell>
+          <BXTableHeaderCell>Rule</BXTableHeaderCell>
+          <BXTableHeaderCell>Attached Groups</BXTableHeaderCell>
+          <BXTableHeaderCell>Status</BXTableHeaderCell>
+        </BXTableHeaderExpandRow>
+      </BXTableHead>
+      <BXTableBody>
+        <BXTableExpandRow onExpandoToggle={handleExpandRow}>
+          <BXTableCell>Load Balancer 1</BXTableCell>
+          <BXTableCell>HTTP</BXTableCell>
+          <BXTableCell>80</BXTableCell>
+          <BXTableCell>Round Robin</BXTableCell>
+          <BXTableCell>Maureen's VM Groups</BXTableCell>
+          <BXTableCell>Active</BXTableCell>
+        </BXTableExpandRow>
+        <BXTableExpandedRow colSpan={7}>
+          <h1>Expandable row content</h1>
+          <p>Description here</p>
+        </BXTableExpandedRow>
+        <BXTableExpandRow onExpandoToggle={handleExpandRow}>
+          <BXTableCell>Load Balancer 2</BXTableCell>
+          <BXTableCell>HTTP</BXTableCell>
+          <BXTableCell>80</BXTableCell>
+          <BXTableCell>Round Robin</BXTableCell>
+          <BXTableCell>Maureen's VM Groups</BXTableCell>
+          <BXTableCell>Active</BXTableCell>
+        </BXTableExpandRow>
+        <BXTableExpandedRow colSpan={7}>
+          <h1>Expandable row content</h1>
+          <p>Description here</p>
+        </BXTableExpandedRow>
+        <BXTableExpandRow onExpandoToggle={handleExpandRow}>
+          <BXTableCell>Load Balancer 3</BXTableCell>
+          <BXTableCell>HTTP</BXTableCell>
+          <BXTableCell>80</BXTableCell>
+          <BXTableCell>Round Robin</BXTableCell>
+          <BXTableCell>Maureen's VM Groups</BXTableCell>
+          <BXTableCell>Active</BXTableCell>
+        </BXTableExpandRow>
+        <BXTableExpandedRow colSpan={7}>
+          <h1>Expandable row content</h1>
+          <p>Description here</p>
+        </BXTableExpandedRow>
+      </BXTableBody>
+    </BXTable>
+  );
+};
+
+expandable.story = baseExpandable.story;
 
 export const sortable = ({ parameters }) => {
   const { size } = parameters?.props?.['bx-table'];

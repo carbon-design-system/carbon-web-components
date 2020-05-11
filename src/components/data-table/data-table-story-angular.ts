@@ -18,6 +18,7 @@ import { TABLE_COLOR_SCHEME, TABLE_SIZE } from './table';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import baseStory, {
   defaultStory as baseDefaultStory,
+  expandable as baseExpandable,
   sortable as baseSortable,
   sortableWithPagination as baseSortableWithPagination,
 } from './data-table-story';
@@ -622,6 +623,83 @@ export const defaultStory = ({ parameters }) => ({
 });
 
 defaultStory.story = baseDefaultStory.story;
+
+export const expandable = ({ parameters }) => ({
+  template: `
+    <bx-table
+      [size]="size"
+      (bx-table-row-expando-toggled-all)="handleExpandRowAll($event)"
+      (bx-table-row-expando-toggled)="handleExpandRow($event)">
+      <bx-table-head>
+        <bx-table-header-expand-row>
+          <bx-table-header-cell>Name</bx-table-header-cell>
+          <bx-table-header-cell>Protocol</bx-table-header-cell>
+          <bx-table-header-cell>Port</bx-table-header-cell>
+          <bx-table-header-cell>Rule</bx-table-header-cell>
+          <bx-table-header-cell>Attached Groups</bx-table-header-cell>
+          <bx-table-header-cell>Status</bx-table-header-cell>
+        </bx-table-header-expand-row>
+      </bx-table-head>
+      <bx-table-body [zebra]="zebra">
+        <bx-table-expand-row>
+          <bx-table-cell>Load Balancer 1</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-expand-row>
+        <bx-table-expanded-row colspan="7">
+          <h1>Expandable row content</h1>
+          <p>Description here</p>
+        </bx-table-expanded-row>
+        <bx-table-expand-row>
+          <bx-table-cell>Load Balancer 2</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-expand-row>
+        <bx-table-expanded-row colspan="7">
+          <h1>Expandable row content</h1>
+          <p>Description here</p>
+        </bx-table-expanded-row>
+        <bx-table-expand-row>
+          <bx-table-cell>Load Balancer 3</bx-table-cell>
+          <bx-table-cell>HTTP</bx-table-cell>
+          <bx-table-cell>80</bx-table-cell>
+          <bx-table-cell>Round Robin</bx-table-cell>
+          <bx-table-cell>Maureen's VM Groups</bx-table-cell>
+          <bx-table-cell>Active</bx-table-cell>
+        </bx-table-expand-row>
+        <bx-table-expanded-row colspan="7">
+          <h1>Expandable row content</h1>
+          <p>Description here</p>
+        </bx-table-expanded-row>
+      </bx-table-body>
+    </bx-table>
+  `,
+  props: {
+    ...parameters?.props?.['bx-table'],
+    ...parameters?.props?.['bx-table-body'],
+    handleExpandRowAll(event) {
+      const { currentTarget, detail } = event;
+      const rows = currentTarget.querySelectorAll('bx-table-expand-row');
+      Array.prototype.forEach.call(rows, row => {
+        row.expanded = detail.expanded;
+      });
+    },
+    handleExpandRow(event) {
+      const { currentTarget } = event;
+      const headerRow = currentTarget.querySelector('bx-table-header-expand-row');
+      const rows = currentTarget.querySelectorAll('bx-table-expand-row');
+      headerRow.expanded = Array.prototype.every.call(rows, row => row.expanded);
+    },
+  },
+});
+
+expandable.story = baseExpandable.story;
 
 export const sortable = ({ parameters }) => ({
   template: `
