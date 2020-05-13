@@ -8,6 +8,7 @@
  */
 
 import { html, property, customElement, LitElement } from 'lit-element';
+import { ifDefined } from 'lit-html/directives/if-defined';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import settings from 'carbon-components/es/globals/js/settings';
 import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
@@ -28,6 +29,22 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-expandable-tile`)
 class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
+  /**
+   * The computed height of the below-the-fold content.
+   */
+  private _belowTheContentHeight = 0;
+
+  /**
+   * Handles `slotchange` event on the below-the-fold content.
+   * @param event The event.
+   */
+  private _handleSlotChangeBelowTheFoldContent(event: Event) {
+    this._belowTheContentHeight = (event.target as HTMLSlotElement)
+      .assignedNodes()
+      .reduce((acc, item) => acc + ((item as HTMLElement).offsetHeight ?? 0), 0);
+    this.requestUpdate();
+  }
+
   @HostListener('click')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleClick = () => {
@@ -68,7 +85,11 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   render() {
-    const { expanded } = this;
+    const {
+      expanded,
+      _belowTheContentHeight: belowTheContentHeight,
+      _handleSlotChangeBelowTheFoldContent: handleSlotChangeBelowTheFoldContent,
+    } = this;
     return html`
       <button
         class="${prefix}--tile__chevron"
@@ -81,36 +102,15 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
         })}
       </button>
       <div id="content" class="${prefix}--tile-content">
-        <div id="above-the-fold-content"><slot name="above-the-fold-content"></slot></div>
-        <div id="below-the-fold-content"><slot></slot></div>
+        <div><slot name="above-the-fold-content"></slot></div>
+        <div
+          class="${prefix}-ce--expandable-tile--below-the-fold-content"
+          style="${ifDefined(!expanded ? undefined : `max-height: ${belowTheContentHeight}px`)}"
+        >
+          <slot @slotchange="${handleSlotChangeBelowTheFoldContent}"></slot>
+        </div>
       </div>
     `;
-  }
-
-  updated(changedProperties) {
-    if (changedProperties.has('expanded')) {
-      const { expanded } = this;
-      if (expanded) {
-        this.style.maxHeight = '';
-      } else {
-        const aboveTheFoldContent = this.querySelector((this.constructor as typeof BXExpandableTile).selectorAboveTheFoldContent);
-        if (aboveTheFoldContent) {
-          const computedStyle = this.ownerDocument!.defaultView!.getComputedStyle(this, null);
-          const height =
-            aboveTheFoldContent.getBoundingClientRect().height +
-            parseInt(computedStyle.getPropertyValue('padding-top'), 10) +
-            parseInt(computedStyle.getPropertyValue('padding-bottom'), 10);
-          this.style.maxHeight = `${height}px`;
-        }
-      }
-    }
-  }
-
-  /**
-   * A selector that will return the above-the-fold content.
-   */
-  static get selectorAboveTheFoldContent() {
-    return `${prefix}-tile-above-the-fold-content`;
   }
 
   /**

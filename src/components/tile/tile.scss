@@ -65,6 +65,11 @@ $css--plex: true !default;
   ::slotted(#{$prefix}-tile-below-the-fold-content) {
     @extend .#{$prefix}--tile-content__below-the-fold;
   }
+
+  .#{$prefix}-ce--expandable-tile--below-the-fold-content {
+    max-height: 0;
+    transition: max-height $duration--fast-02 motion(standard, productive);
+  }
 }
 
 :host(#{$prefix}-expandable-tile[expanded]) {
