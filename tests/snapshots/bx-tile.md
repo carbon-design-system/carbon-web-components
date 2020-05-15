@@ -14,6 +14,7 @@
   <slot>
   </slot>
 </a>
+
 ```
 
 ####     `should render with various attributes`
@@ -26,6 +27,7 @@
   <slot>
   </slot>
 </a>
+
 ```
 
 ## `bx-expandable-tile`
@@ -55,6 +57,7 @@
     </slot>
   </div>
 </div>
+
 ```
 
 ####     `should render with various attributes`
@@ -80,6 +83,7 @@
     </slot>
   </div>
 </div>
+
 ```
 
 ## `bx-radio-tile`
@@ -107,6 +111,7 @@
     </slot>
   </div>
 </label>
+
 ```
 
 ####     `should render with various attributes`
@@ -115,11 +120,13 @@
 <input
   class="bx--tile-input"
   id="input"
+  name="name-foo"
   tabindex="-1"
   type="radio"
+  value="value-foo"
 >
 <label
-  class="bx--tile bx--tile--selectable"
+  class="bx--tile bx--tile--light bx--tile--selectable"
   for="input"
   tabindex="0"
 >
@@ -130,6 +137,7 @@
     </slot>
   </div>
 </label>
+
 ```
 
 ## `bx-selectable-tile`
@@ -157,6 +165,7 @@
     </slot>
   </div>
 </label>
+
 ```
 
 ####     `should render with various attributes`
@@ -182,5 +191,6 @@
     </slot>
   </div>
 </label>
+
 ```
 
