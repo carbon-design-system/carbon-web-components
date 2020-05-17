@@ -24,12 +24,6 @@ const { prefix } = settings;
 @customElement(`${prefix}-structured-list`)
 class BXStructuredList extends FocusMixin(LitElement) {
   /**
-   * `true` if border should be used.
-   */
-  @property({ type: Boolean, reflect: true })
-  border = false;
-
-  /**
    * The `name` attribute for the `<input>` for selection.
    * If present, this structured list will be a selectable one.
    */
@@ -58,10 +52,9 @@ class BXStructuredList extends FocusMixin(LitElement) {
   }
 
   render() {
-    const { border, selectionName } = this;
+    const { selectionName } = this;
     const classes = classMap({
       [`${prefix}--structured-list`]: true,
-      [`${prefix}--structured-list--border`]: border,
       [`${prefix}--structured-list--selection`]: Boolean(selectionName),
     });
     return html`
