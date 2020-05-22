@@ -12,21 +12,21 @@
 const path = require('path');
 const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev-server');
 
-const PORT = 1234;
+const PORT = 3000;
 
-describe('Basic example', () => {
+describe('React example', () => {
   beforeAll(async () => {
-    const dist = path.resolve(__dirname, '../../es');
-    const src = path.resolve(__dirname, '../../examples/codesandbox/basic');
+    const dist = path.resolve(__dirname, '../../../es');
+    const src = path.resolve(__dirname, '../../../examples/codesandbox/react');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
     await setupDevServer({
       command: [
         `cp -r ${src} ${tmpDir}`,
-        `cd ${tmpDir}/basic`,
+        `cd ${tmpDir}/react`,
         'yarn install',
         'rm -Rf node_modules/carbon-custom-elements/es',
         `cp -r ${dist} node_modules/carbon-custom-elements`,
-        `yarn parcel --port ${PORT} index.html`,
+        `BROWSER=none PORT=${PORT} yarn start`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,

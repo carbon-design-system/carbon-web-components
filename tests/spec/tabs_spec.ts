@@ -9,6 +9,7 @@
 
 import { render } from 'lit-html';
 import EventManager from '../utils/event-manager';
+import { forEach } from '../../src/globals/internal/collection-helpers';
 import BXTabs from '../../src/components/tabs/tabs';
 import BXTab from '../../src/components/tabs/tab';
 import { defaultStory } from '../../src/components/tabs/tabs-story';
@@ -151,7 +152,7 @@ describe('bx-tabs', function() {
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
       const itemNodes = document.body.querySelectorAll('bx-tab');
-      Array.prototype.forEach.call(itemNodes, item => {
+      forEach(itemNodes, item => {
         (item as BXTab).inFocus = true;
       });
       const event = new CustomEvent('focusout', { bubbles: true });
