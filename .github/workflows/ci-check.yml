@@ -10,12 +10,45 @@ jobs:
         node-version: [12.x]
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js 12.x
+      - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: yarn install
       - run: sudo apt-get install xvfb
       - name: Run checks
         run: xvfb-run --auto-servernum yarn ci-check
+  test-integration-ui:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        node-version: [12.x]
+        browser: [chromium, firefox, webkit]
+        exclude:
+          - os: ubuntu-latest
+            browser: chromium
+          - os: ubuntu-latest
+            browser: webkit
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: yarn install
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get install xvfb
+      - name: Run checks with xvfb
+        if: matrix.os == 'ubuntu-latest'
+        run: yarn wca && xvfb-run --auto-servernum yarn test:integration:ui
+        env:
+          CCE_UI_INTEGRATION_TEST_BROWSER: ${{ matrix.browser }}
+      - name: Run checks without xvfb
+        if: matrix.os != 'ubuntu-latest'
+        run: yarn wca && yarn test:integration:ui
+        env:
+          CCE_UI_INTEGRATION_TEST_BROWSER: ${{ matrix.browser }}

@@ -16,8 +16,8 @@ const PORT = 1235;
 
 describe('Basic form example', () => {
   beforeAll(async () => {
-    const dist = path.resolve(__dirname, '../../es');
-    const src = path.resolve(__dirname, '../../examples/codesandbox/form/basic');
+    const dist = path.resolve(__dirname, '../../../es');
+    const src = path.resolve(__dirname, '../../../examples/codesandbox/form/basic');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
     await setupDevServer({
       command: [
