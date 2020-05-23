@@ -16,8 +16,12 @@ describe('bx-tile', () => {
 
   it('should have the expando interactive', async () => {
     await page.click('bx-expandable-tile button');
-    expect((await (await page.$('bx-expandable-tile')).boundingBox()).height).toBeGreaterThan(300);
+    // Playwright's auto-wait-for-transitionend feature does not seems to work here,
+    // presubably because animation happens after EOM
+    await page.waitForFunction(() => document.querySelector('bx-expandable-tile').offsetHeight > 300, { polling: 'raf' });
     await page.click('bx-expandable-tile button');
-    expect((await (await page.$('bx-expandable-tile')).boundingBox()).height).toBeLessThan(300);
+    // Playwright's auto-wait-for-transitionend feature does not seems to work here,
+    // presubably because animation happens after EOM
+    await page.waitForFunction(() => document.querySelector('bx-expandable-tile').offsetHeight < 300, { polling: 'raf' });
   });
 });

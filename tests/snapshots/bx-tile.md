@@ -48,11 +48,11 @@
   class="bx--tile-content"
   id="content"
 >
-  <div id="above-the-fold-content">
+  <div>
     <slot name="above-the-fold-content">
     </slot>
   </div>
-  <div id="below-the-fold-content">
+  <div class="bx-ce--expandable-tile--below-the-fold-content">
     <slot>
     </slot>
   </div>
@@ -74,11 +74,14 @@
   class="bx--tile-content"
   id="content"
 >
-  <div id="above-the-fold-content">
+  <div>
     <slot name="above-the-fold-content">
     </slot>
   </div>
-  <div id="below-the-fold-content">
+  <div
+    class="bx-ce--expandable-tile--below-the-fold-content"
+    style="max-height: 0px"
+  >
     <slot>
     </slot>
   </div>
