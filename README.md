@@ -249,17 +249,37 @@ Above options can be used together. This is useful to debug your code as you tes
 You can run build integration test by:
 
 ```
-> yarn test:integration
+> yarn test:integration:build
 ```
 
-You can run a specific set of UI test steps (e.g. running `tests/integration/form-angular_steps.js` only) by:
+You can run a specific set of UI test steps (e.g. running `tests/integration/build/form-angular_steps.js` only) by:
 
 ```
-> yarn test:integration form-angular_steps
+> yarn test:integration:build form-angular_steps
 ```
 
 By default Chrome runs in headless mode. You can show Chrome UI by:
 
 ```
-> CI=false yarn test:integration
+> CI=false yarn test:integration:build
+```
+
+## Running UI integration test
+
+You can run UI integration test by:
+
+```
+> yarn test:integration:ui
+```
+
+You can run a specific set of UI test steps (e.g. running `tests/integration/ui/dropdown_steps.js` only) by:
+
+```
+> yarn test:integration:ui dropdown_steps
+```
+
+By default Chrome runs in headless mode. You can show Chrome UI by:
+
+```
+> CI=false yarn test:integration:ui
 ```
