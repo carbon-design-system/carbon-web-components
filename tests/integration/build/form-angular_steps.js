@@ -12,21 +12,21 @@
 const path = require('path');
 const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev-server');
 
-const PORT = 3001;
+const PORT = 8084;
 
-describe('Redux-form example', () => {
+describe('Angular form example', () => {
   beforeAll(async () => {
-    const dist = path.resolve(__dirname, '../../es');
-    const src = path.resolve(__dirname, '../../examples/codesandbox/form/redux-form');
+    const dist = path.resolve(__dirname, '../../../es');
+    const src = path.resolve(__dirname, '../../../examples/codesandbox/form/angular');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
     await setupDevServer({
       command: [
-        `cp -r ${src} ${tmpDir}/redux-form`,
-        `cd ${tmpDir}/redux-form`,
+        `cp -r ${src} ${tmpDir}/form-angular`,
+        `cd ${tmpDir}/form-angular`,
         'yarn install',
         'rm -Rf node_modules/carbon-custom-elements/es',
         `cp -r ${dist} node_modules/carbon-custom-elements`,
-        `BROWSER=none PORT=${PORT} yarn start`,
+        `yarn ng serve --port ${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
@@ -50,7 +50,7 @@ describe('Redux-form example', () => {
 
   it('should submit the data once all data is valid', async () => {
     await expect(page).toFill('bx-input[name="username"]', 'john');
-    await expect(page).toFill('bx-input[name="password"]', 'redux-form');
+    await expect(page).toFill('bx-input[name="password"]', 'angular');
     await expect(page).toClick('bx-btn[kind="primary"]');
     await expect(page).toMatch('You submitted:', { timeout: 2000 });
   });
