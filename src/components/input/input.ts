@@ -183,7 +183,7 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
   /**
    * The value of the input.
    */
-  @property()
+  @property({ reflect: true })
   value = '';
 
   createRenderRoot() {
