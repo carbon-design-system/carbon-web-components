@@ -45,20 +45,6 @@ export default class BXNumberInput extends BXInput {
   @query('input')
   protected _input!: HTMLInputElement;
 
-  /**
-   * Handles incrementing the value in the input
-   */
-  protected _handleIncrement() {
-    this._input.stepUp();
-  }
-
-  /**
-   * Handles decrementing the value in the input
-   */
-  protected _handleDecrement() {
-    this._input.stepDown();
-  }
-
   _testValidity() {
     if (this._input?.valueAsNumber > Number(this.max)) {
       return NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM;
@@ -85,6 +71,8 @@ export default class BXNumberInput extends BXInput {
   protected _max = '';
 
   protected _step = '1';
+
+  protected _value = '';
 
   /**
    * The color scheme.
@@ -135,6 +123,31 @@ export default class BXNumberInput extends BXInput {
   }
 
   /**
+   * The value of the input.
+   */
+  @property({ reflect: true })
+  get value() {
+    // once we have the input we can directly query for the value
+    if (this._input) {
+      return this._input.value;
+    }
+    // but before then _value will work fine
+    return this._value;
+  }
+
+  set value(value) {
+    const oldValue = this._value;
+    this._value = value;
+    // make sure that lit-element updates the right properties
+    this.requestUpdate('value', oldValue);
+    // we set the value directly on the input (when available)
+    // so that programatic manipulation updates the UI correctly
+    if (this._input) {
+      this._input.value = value;
+    }
+  }
+
+  /**
    * Set to `true` to enable the mobile variant of the number input
    */
   @property({ type: Boolean, reflect: true })
@@ -173,6 +186,20 @@ export default class BXNumberInput extends BXInput {
    */
   @property({ attribute: 'validity-message-min' })
   validityMessageMin = '';
+
+  /**
+   * Handles incrementing the value in the input
+   */
+  stepUp() {
+    this._input.stepUp();
+  }
+
+  /**
+   * Handles decrementing the value in the input
+   */
+  stepDown() {
+    this._input.stepDown();
+  }
 
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
@@ -215,7 +242,7 @@ export default class BXNumberInput extends BXInput {
         aria-atomic="true"
         type="button"
         ?disabled=${this.disabled}
-        @click=${this._handleIncrement}
+        @click=${this.stepUp}
       >
         ${CaretUp16()}
       </button>
@@ -228,7 +255,7 @@ export default class BXNumberInput extends BXInput {
         aria-atomic="true"
         type="button"
         ?disabled=${this.disabled}
-        @click=${this._handleDecrement}
+        @click=${this.stepDown}
       >
         ${CaretDown16()}
       </button>
@@ -247,7 +274,7 @@ export default class BXNumberInput extends BXInput {
         ?readonly="${this.readonly}"
         ?required="${this.required}"
         type="number"
-        .value="${this.value}"
+        .value="${this._value}"
         @input="${handleInput}"
         min="${ifNonEmpty(this.min)}"
         max="${ifNonEmpty(this.max)}"
