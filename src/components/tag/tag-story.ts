@@ -16,6 +16,8 @@ import { TAG_TYPE } from './tag';
 import './filter-tag';
 import storyDocs from './tag-story.mdx';
 
+const noop = () => {};
+
 export const defaultStory = ({ parameters }) => {
   const { type, title, disabled } = parameters?.props?.['bx-tag'] ?? {};
   return html`
@@ -49,7 +51,7 @@ defaultStory.story = {
 };
 
 export const filter = ({ parameters }) => {
-  const { open, type, title, disabled, disableClose, onClick, onBeforeClose, onClose } =
+  const { open, type, title, disabled, disableClose, onClick, onBeforeClose = noop, onClose = noop } =
     parameters?.props?.['bx-filter-tag'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
