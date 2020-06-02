@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -26,15 +26,29 @@ defaultStory.story = baseDefaultStory.story;
 export const filter = ({ parameters }) => ({
   template: `
     <bx-filter-tag
+      :open="open"
       :type="type"
       :title="title"
       :disabled="disabled"
       @click="onClick"
+      @bx-filter-tag-beingclosed="handleBeforeClose"
+      @bx-filter-tag-closed="handleClose"
     >
       This is not a tag
     </bx-filter-tag>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-filter-tag']),
+  ...createVueBindingsFromProps(
+    (({ disableClose, onBeforeClose, onClose, ...rest }) => ({
+      ...rest,
+      handleBeforeClose: (event: CustomEvent) => {
+        onBeforeClose(event);
+        if (disableClose) {
+          event.preventDefault();
+        }
+      },
+      handleClose: onClose,
+    }))(parameters?.props?.['bx-filter-tag'])
+  ),
 });
 
 filter.story = baseFilter.story;

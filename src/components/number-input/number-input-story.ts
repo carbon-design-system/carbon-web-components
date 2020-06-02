@@ -18,7 +18,7 @@ import createProps from './stories/helpers';
 import storyDocs from './number-input-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, onInput } =
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, onInput, name } =
     parameters?.props?.['bx-number-input'] ?? {};
   return html`
     <bx-number-input
@@ -27,6 +27,7 @@ export const defaultStory = ({ parameters }) => {
       value="${ifNonNull(value)}"
       placeholder="${ifNonNull(placeholder)}"
       ?invalid="${invalid}"
+      name="${name}"
       ?mobile="${mobile}"
       min="${ifNonNull(min)}"
       max="${ifNonNull(max)}"
