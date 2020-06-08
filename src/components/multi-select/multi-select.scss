@@ -39,8 +39,14 @@ $css--plex: true !default;
   @extend .#{$prefix}--list-box__menu-item;
   display: block;
 
-  .#{$prefix}--checkbox:checked ~ .#{$prefix}--checkbox-label-text {
-    color: $text-01;
+  .#{$prefix}--checkbox {
+    &:checked ~ .#{$prefix}--checkbox-label-text {
+      color: $text-01;
+    }
+
+    &:focus + .#{$prefix}--checkbox-label::before {
+      box-shadow: none;
+    }
   }
 
   .#{$prefix}--list-box__menu-item__option {
