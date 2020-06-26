@@ -12,6 +12,10 @@
 const { default: template } = require('@babel/template');
 const { createMetadataVisitor } = require('./babel-plugin-create-react-custom-element-type');
 
+const regexEvent = /^event/;
+const regexMagicComment = /The name of the custom event/g;
+const magicCommentForReact = 'The event handler for the custom event';
+
 module.exports = function generateCreateReactCustomElementType(api) {
   const { types: t } = api;
   const metadataVisitor = createMetadataVisitor(api);
@@ -36,6 +40,14 @@ module.exports = function generateCreateReactCustomElementType(api) {
           const { comments = [], type } = declaredProps[key];
           return [...acc, comments.map(({ value }) => `/*${value}*/`).join('\n'), `${key}?: ${types[type] || 'string'};`];
         }, []);
+        const events = Object.keys(customEvents).reduce((acc, key) => {
+          const { comments = [] } = customEvents[key];
+          return [
+            ...acc,
+            comments.map(({ value }) => `/*${value.replace(regexMagicComment, magicCommentForReact)}*/`).join('\n'),
+            `${key.replace(regexEvent, 'on')}?: (event: CustomEvent) => void;`,
+          ];
+        }, []);
 
         const build = template(
           `
@@ -43,6 +55,7 @@ module.exports = function generateCreateReactCustomElementType(api) {
 
             interface ComponentProps {
               ${props.join('\n')}
+              ${events.join('\n')}
             }
 
             ${classComments.map(({ value }) => `/*${value}*/`).join('\n')}
