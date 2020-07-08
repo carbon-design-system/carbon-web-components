@@ -15,51 +15,12 @@ import settings from 'carbon-components/es/globals/js/settings';
 import { customElement, html, LitElement, property, svg } from 'lit-element';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import FocusMixin from '../../globals/mixins/focus';
+import { NOTIFICATION_KIND, NOTIFICATION_TYPE } from './defs';
 import styles from './inline-notification.scss';
 
+export { NOTIFICATION_KIND, NOTIFICATION_TYPE };
+
 const { prefix } = settings;
-
-/**
- * Notification kinds.
- */
-export enum NOTIFICATION_KIND {
-  /**
-   * Notification to represent success state.
-   */
-  SUCCESS = 'success',
-
-  /**
-   * Informational notification.
-   */
-  INFO = 'info',
-
-  /**
-   * Warning notification.
-   */
-  WARNING = 'warning',
-
-  /**
-   * Error notification.
-   */
-  ERROR = 'error',
-}
-
-/**
- * Notification types.
- */
-export enum NOTIFICATION_TYPE {
-  /**
-   * Inline notification, which show up in task flows, to notify users of the status of an action.
-   * They usually appear at the top of the primary content area.
-   */
-  INLINE = 'inline',
-
-  /**
-   * Toast notification, which is a non-modal, time-based window elements used to display short messages.
-   * They usually appear at the bottom of the screen and disappear after a few seconds.
-   */
-  TOAST = 'toast',
-}
 
 /**
  * The default icons, keyed by notification kind.

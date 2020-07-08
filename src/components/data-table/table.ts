@@ -10,49 +10,12 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
 import { forEach } from '../../globals/internal/collection-helpers';
+import { TABLE_COLOR_SCHEME, TABLE_SIZE } from './defs';
 import styles from './data-table.scss';
 
+export { TABLE_COLOR_SCHEME, TABLE_SIZE };
+
 const { prefix } = settings;
-
-/**
- * Table color scheme.
- */
-export enum TABLE_COLOR_SCHEME {
-  /**
-   * Regular color scheme.
-   */
-  REGULAR = '',
-
-  /**
-   * Color scheme with zebra stripe.
-   */
-  ZEBRA = 'zebra',
-}
-
-/**
- * Table size.
- */
-export enum TABLE_SIZE {
-  /**
-   * Compact size.
-   */
-  COMPACT = 'compact',
-
-  /**
-   * Short size.
-   */
-  SHORT = 'short',
-
-  /**
-   * Regular size.
-   */
-  REGULAR = '',
-
-  /**
-   * Tall size.
-   */
-  TALL = 'tall',
-}
 
 /**
  * Data table.

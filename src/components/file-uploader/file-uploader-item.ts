@@ -13,49 +13,12 @@ import Close16 from '@carbon/icons/lib/close/16';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import settings from 'carbon-components/es/globals/js/settings';
 import { LOADING_TYPE } from '../loading/loading';
+import { FILE_UPLOADER_ITEM_SIZE, FILE_UPLOADER_ITEM_STATE } from './defs';
 import styles from './file-uploader.scss';
 
+export { FILE_UPLOADER_ITEM_SIZE, FILE_UPLOADER_ITEM_STATE };
+
 const { prefix } = settings;
-
-/**
- * The state of `<bx-file-uploader-item>`.
- */
-export enum FILE_UPLOADER_ITEM_STATE {
-  /**
-   * Upload in progress.
-   */
-  UPLOADING = 'uploading',
-
-  /**
-   * Upload complete.
-   */
-  UPLOADED = 'uploaded',
-
-  /**
-   * Editing.
-   */
-  EDITING = 'editing',
-}
-
-/**
- * File uploader item size.
- */
-export enum FILE_UPLOADER_ITEM_SIZE {
-  /**
-   * Regular size.
-   */
-  REGULAR = '',
-
-  /**
-   * Small size.
-   */
-  SMALL = 'sm',
-
-  /**
-   * Size for form field.
-   */
-  FIELD = 'field',
-}
 
 /**
  * File uploader item.

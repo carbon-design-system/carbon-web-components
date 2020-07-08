@@ -9,7 +9,7 @@
 
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, query, customElement, LitElement } from 'lit-element';
-import { TABLE_COLOR_SCHEME } from './table';
+import { TABLE_COLOR_SCHEME } from './defs';
 import BXTableRow from './table-row';
 import styles from './data-table.scss';
 

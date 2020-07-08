@@ -12,89 +12,12 @@ import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
+import { BUTTON_KIND, BUTTON_SIZE, BUTTON_ICON_LAYOUT } from './defs';
 import styles from './button.scss';
 
+export { BUTTON_KIND, BUTTON_SIZE, BUTTON_ICON_LAYOUT };
+
 const { prefix } = settings;
-
-/**
- * Button kinds.
- */
-export enum BUTTON_KIND {
-  /**
-   * Primary button.
-   */
-  PRIMARY = 'primary',
-
-  /**
-   * Secondary button.
-   */
-  SECONDARY = 'secondary',
-
-  /**
-   * Tertiary button.
-   */
-  TERTIARY = 'tertiary',
-
-  /**
-   * Danger tertiary button.
-   */
-  DANGER_TERTIARY = 'danger-tertiary',
-
-  /**
-   * Danger button.
-   */
-  DANGER = 'danger',
-
-  /**
-   * Danger ghost button,
-   */
-  DANGER_GHOST = 'danger-ghost',
-
-  /**
-   * Ghost button.
-   */
-  GHOST = 'ghost',
-}
-
-/**
- * Button size.
- */
-export enum BUTTON_SIZE {
-  /**
-   * Regular size.
-   */
-  REGULAR = '',
-
-  /**
-   * Small size.
-   */
-  SMALL = 'sm',
-
-  /**
-   * X-Large size.
-   */
-  EXTRA_LARGE = 'xl',
-
-  /**
-   * Size for form field.
-   */
-  FIELD = 'field',
-}
-
-/**
- * Button icon layout.
- */
-export enum BUTTON_ICON_LAYOUT {
-  /**
-   * Regular layout.
-   */
-  REGULAR = '',
-
-  /**
-   * Condensed layout.
-   */
-  CONDENSED = 'condensed',
-}
 
 /**
  * Button.

@@ -12,24 +12,12 @@ import { html, property, customElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import ifNonNull from '../../globals/directives/if-non-null';
 import BXCheckbox from '../checkbox/checkbox';
+import { TOGGLE_SIZE } from './defs';
 import styles from './toggle.scss';
 
+export { TOGGLE_SIZE };
+
 const { prefix } = settings;
-
-/**
- * Toggle size.
- */
-export enum TOGGLE_SIZE {
-  /**
-   * Regular size.
-   */
-  REGULAR = '',
-
-  /**
-   * Small size.
-   */
-  SMALL = 'small',
-}
 
 /**
  * Basic toggle.

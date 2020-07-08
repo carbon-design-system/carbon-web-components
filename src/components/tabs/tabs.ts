@@ -15,62 +15,13 @@ import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
 import { find, forEach } from '../../globals/internal/collection-helpers';
 import BXContentSwitcher, { NAVIGATION_DIRECTION } from '../content-switcher/content-switcher';
+import { NAVIGATION_DIRECTION_NARROW, TABS_KEYBOARD_ACTION, TABS_TYPE } from './defs';
 import BXTab from './tab';
 import styles from './tabs.scss';
 
 const { prefix } = settings;
 
-export { NAVIGATION_DIRECTION };
-
-/**
- * Navigation direction for narrow mode, associated with key symbols.
- */
-export const NAVIGATION_DIRECTION_NARROW = {
-  Up: -1,
-  ArrowUp: -1,
-  Down: 1,
-  ArrowDown: 1,
-};
-
-/**
- * The keyboard action categories for dropdown.
- */
-export enum TABS_KEYBOARD_ACTION {
-  /**
-   * Not doing any action.
-   */
-  NONE = 'none',
-
-  /**
-   * Keyboard action to close menu.
-   */
-  CLOSING = 'closing',
-
-  /**
-   * Keyboard action to navigate back/forward.
-   */
-  NAVIGATING = 'navigating',
-
-  /**
-   * Keyboard action to open/close menu on the trigger button or select/deselect a menu item.
-   */
-  TRIGGERING = 'triggering',
-}
-
-/**
- * Tabs types.
- */
-export enum TABS_TYPE {
-  /**
-   * Regular tabs.
-   */
-  REGULAR = '',
-
-  /**
-   * Container type.
-   */
-  CONTAINER = 'container',
-}
+export { NAVIGATION_DIRECTION, NAVIGATION_DIRECTION_NARROW, TABS_KEYBOARD_ACTION, TABS_TYPE };
 
 /**
  * Tabs.

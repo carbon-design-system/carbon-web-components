@@ -24,7 +24,7 @@ describe('Basic example', () => {
         `cp -r ${src} ${tmpDir}`,
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/vue/package.json`,
         `cd ${tmpDir}/vue`,
-        'yarn install',
+        `cross-env YARN_CACHE_FOLDER=${tmpDir}/.yarn-cache yarn install`,
         `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn serve --port ${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),

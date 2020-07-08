@@ -13,24 +13,12 @@ import { html, property, customElement, LitElement } from 'lit-element';
 import ChevronRight16 from '@carbon/icons/lib/chevron--right/16';
 import FocusMixin from '../../globals/mixins/focus';
 import Handle from '../../globals/internal/handle';
+import { ACCORDION_ITEM_BREAKPOINT } from './defs';
 import styles from './accordion.scss';
 
+export { ACCORDION_ITEM_BREAKPOINT };
+
 const { prefix } = settings;
-
-/**
- * Breakpoints for accordion items. It's different from one in `@carbon/layout` library.
- */
-export enum ACCORDION_ITEM_BREAKPOINT {
-  /**
-   * Small breakpoint.
-   */
-  SMALL = 'sm',
-
-  /**
-   * Medium breakpoint.
-   */
-  MEDIUM = 'md',
-}
 
 /**
  * Observes resize of the given element with the given resize observer.

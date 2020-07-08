@@ -24,7 +24,7 @@ describe('Angular form example', () => {
         `cp -r ${src} ${tmpDir}/form-angular`,
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/form-angular/package.json`,
         `cd ${tmpDir}/form-angular`,
-        'yarn install',
+        `cross-env YARN_CACHE_FOLDER=${tmpDir}/.yarn-cache yarn install`,
         `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn ng serve --port ${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),

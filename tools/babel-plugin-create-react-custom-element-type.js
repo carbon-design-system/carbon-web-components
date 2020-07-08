@@ -9,12 +9,22 @@
 
 'use strict';
 
-const { basename, dirname, isAbsolute, join, relative, resolve } = require('path');
+const { dirname, isAbsolute, relative, resolve } = require('path');
 const { default: template } = require('@babel/template');
 const { default: traverse } = require('@babel/traverse');
 const { default: transformTemplateLiterals } = require('@babel/plugin-transform-template-literals');
+const replaceExtension = require('replace-ext');
 
 const regexEvent = /^event/;
+
+/**
+ * @param {string} source The source file path.
+ * @param {string} extension The extension to replace source file path with.
+ * @returns {string} Given `source` with its extension replaced with the given one, preserving `./`.
+ */
+function replaceExtensionRelative(source, extension) {
+  return !/^\./.test(source) ? source : `${dirname(source) !== '.' ? '' : './'}${replaceExtension(source, extension)}`;
+}
 
 function createMetadataVisitor(api) {
   const { types: t } = api;
@@ -208,14 +218,35 @@ function createMetadataVisitor(api) {
     },
 
     ExportNamedDeclaration(path, context) {
-      context.hasNamedExport = true;
+      const { source, specifiers } = path.node;
+      const { namedExportsSources } = context;
+      if (specifiers.length > 0) {
+        if (source) {
+          const { value: sourceValue } = source;
+          namedExportsSources[sourceValue] = namedExportsSources[sourceValue] || {};
+          // eslint-disable-next-line no-restricted-syntax
+          for (const { local, exported } of specifiers) {
+            namedExportsSources[sourceValue][exported.name] = local.name;
+          }
+        } else {
+          // eslint-disable-next-line no-restricted-syntax
+          for (const { local, exported } of specifiers) {
+            const { path: bindingPath } = path.scope.getBinding(local.name);
+            const { value: bindingSourceValue } = bindingPath.parentPath.node.source;
+            namedExportsSources[bindingSourceValue] = namedExportsSources[bindingSourceValue] || {};
+            namedExportsSources[bindingSourceValue][exported.name] = bindingPath.isImportDefaultSpecifier()
+              ? 'default'
+              : bindingPath.get('imported').node.name;
+          }
+        }
+      }
     },
   };
 
   return metadataVisitor;
 }
 
-module.exports = function generateCreateReactCustomElementType(api) {
+module.exports = function generateCreateReactCustomElementType(api, { nonUpgradable } = {}) {
   const { types: t } = api;
 
   const booleanSerializerIdentifier = t.identifier('booleanSerializer');
@@ -267,7 +298,7 @@ module.exports = function generateCreateReactCustomElementType(api) {
         t.importDefaultSpecifier(t.identifier('createReactCustomElementType')),
         ...Array.from(new Set(typesInUse)).map(type => importSpecifiers[type]),
       ],
-      t.stringLiteral('../../globals/wrappers/createReactCustomElementType')
+      t.stringLiteral('../../globals/wrappers/createReactCustomElementType.js')
     );
   };
 
@@ -349,12 +380,13 @@ module.exports = function generateCreateReactCustomElementType(api) {
       Program(path, { file }) {
         const declaredProps = {};
         const customEvents = {};
-        const context = { file, declaredProps, customEvents };
+        const namedExportsSources = {};
+        const context = { file, declaredProps, customEvents, namedExportsSources };
         // Gathers metadata of custom element properties and events, into `context`
         path.traverse(metadataVisitor, context);
 
         const relativePath = relative(resolve(__dirname, '../src/components'), file.opts.filename);
-        const retargedPath = t.stringLiteral(`../../components/${join(dirname(relativePath), basename(relativePath, '.ts'))}`);
+        const retargedPath = t.stringLiteral(`../../components/${replaceExtension(relativePath, '.js')}`);
 
         // Creates a module with `createReactCustomElementType()`
         // with the gathered metadata of custom element properties and events
@@ -376,51 +408,66 @@ module.exports = function generateCreateReactCustomElementType(api) {
               propTypes,
             ]);
 
-        let body;
+        const body = [];
         if (!context.customElementName) {
-          // Custom element name not found means that it's likely a module not for custom element
-          // (e.g. an abstract class like floating menu)
-          // If so, we just export empty `descriptor` and re-export from the original class
-          body = [
-            ...template.ast`
-              export var descriptor = ${descriptorsWithParent};
-              export var propTypes = ${propTypesWithParent};
-            `,
-          ];
+          if (context.className) {
+            // Class name found but custom element name not found means that it's likely a module not for custom element
+            // (e.g. an abstract class like floating menu)
+            // If so, we just export empty `descriptor` and re-export from the original class
+            body.unshift(
+              ...template.ast`
+                export var descriptor = ${descriptorsWithParent};
+                export var propTypes = ${propTypesWithParent};
+              `
+            );
+          }
         } else {
-          body = [
-            t.exportNamedDeclaration(
-              null,
-              [t.exportSpecifier(t.identifier('default'), t.identifier('CustomElement'))],
-              retargedPath
-            ),
+          body.unshift(
             buildCreateReactCustomElementTypeImport(declaredProps),
             ...template.ast`
               import PropTypes from "prop-types";
-              import settings from "carbon-components/es/globals/js/settings";
+              import settings from "carbon-components/es/globals/js/settings.js";
               var prefix = settings.prefix;
               export var descriptor = ${descriptorsWithParent};
               export var propTypes = ${propTypesWithParent};
               const Component = createReactCustomElementType(${context.customElementName}, descriptor);
               Component.propTypes = propTypes;
               export default Component;
-            `,
-          ];
+            `
+          );
+          if (!nonUpgradable) {
+            body.unshift(
+              t.exportNamedDeclaration(
+                null,
+                [t.exportSpecifier(t.identifier('default'), t.identifier('CustomElement'))],
+                retargedPath
+              )
+            );
+          }
         }
         if (context.parentDescriptorSource) {
           body.unshift(
             t.importDeclaration(
               [t.importSpecifier(t.identifier('parentDescriptor'), t.identifier('descriptor'))],
-              t.stringLiteral(context.parentDescriptorSource)
+              t.stringLiteral(replaceExtensionRelative(context.parentDescriptorSource, '.js'))
             ),
             t.importDeclaration(
               [t.importSpecifier(t.identifier('parentPropTypes'), t.identifier('propTypes'))],
-              t.stringLiteral(context.parentDescriptorSource)
+              t.stringLiteral(replaceExtensionRelative(context.parentDescriptorSource, '.js'))
             )
           );
         }
-        if (context.hasNamedExport) {
-          body.unshift(t.exportAllDeclaration(retargedPath));
+        // eslint-disable-next-line no-restricted-syntax
+        for (const [source, exports] of Object.entries(namedExportsSources)) {
+          body.unshift(
+            t.exportNamedDeclaration(
+              null,
+              Object.keys(exports).map(exportedName =>
+                t.exportSpecifier(t.identifier(exports[exportedName]), t.identifier(exportedName))
+              ),
+              t.stringLiteral(replaceExtensionRelative(source, '.js'))
+            )
+          );
         }
         const program = t.program(body);
         traverse(program, transformTemplateLiterals(api).visitor, path.scope, path);

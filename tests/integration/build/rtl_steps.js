@@ -24,7 +24,7 @@ describe('RTL example', () => {
         `cp -r ${src} ${tmpDir}`,
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/rtl/package.json`,
         `cd ${tmpDir}/rtl`,
-        'yarn install',
+        `cross-env YARN_CACHE_FOLDER=${tmpDir}/.yarn-cache yarn install`,
         // eslint-disable-next-line max-len
         `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn webpack-dev-server --mode=development --open=false --port=${PORT}`,
       ].join(' && '),

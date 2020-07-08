@@ -9,7 +9,7 @@
 
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
-import TAG_TYPE from './types';
+import { TAG_TYPE } from './defs';
 import styles from './tag.scss';
 
 export { TAG_TYPE };

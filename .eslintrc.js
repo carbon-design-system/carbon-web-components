@@ -68,6 +68,12 @@ module.exports = {
       },
     },
     {
+      files: ['**/defs.ts'],
+      rules: {
+        'import/prefer-default-export': 0,
+      },
+    },
+    {
       files: ['examples/codesandbox/**/*.js', 'examples/codesandbox/**/*.ts'],
       parserOptions: {
         sourceType: 'module',
@@ -77,20 +83,20 @@ module.exports = {
       },
     },
     {
-      files: ['examples/codesandbox/**/babel-plugin-*.js'],
+      files: ['examples/codesandbox/{react*,next,form/redux-form}/**/*.js'],
+      plugins: ['react'],
+      rules: {
+        'react/jsx-uses-react': 2,
+        'react/jsx-uses-vars': 2,
+      },
+    },
+    {
+      files: ['examples/codesandbox/**/app.js', 'examples/codesandbox/**/babel-plugin-*.js'],
       parserOptions: {
         sourceType: 'script',
       },
       rules: {
         'import/no-unresolved': 2,
-      },
-    },
-    {
-      files: ['examples/codesandbox/{react,form/redux-form}/**/*.js'],
-      plugins: ['react'],
-      rules: {
-        'react/jsx-uses-react': 2,
-        'react/jsx-uses-vars': 2,
       },
     },
     {

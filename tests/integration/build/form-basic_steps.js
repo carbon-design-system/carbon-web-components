@@ -24,7 +24,7 @@ describe('Basic form example', () => {
         `cp -r ${src} ${tmpDir}/form-basic`,
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/form-basic/package.json`,
         `cd ${tmpDir}/form-basic`,
-        'yarn install',
+        `cross-env YARN_CACHE_FOLDER=${tmpDir}/.yarn-cache yarn install`,
         `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn start --open=none --port=${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),

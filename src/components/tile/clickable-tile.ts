@@ -10,8 +10,8 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { classMap } from 'lit-html/directives/class-map';
 import { property, customElement } from 'lit-element';
-import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import BXLink from '../link/link';
+import { TILE_COLOR_SCHEME } from './defs';
 import styles from './tile.scss';
 
 const { prefix } = settings;
@@ -37,7 +37,7 @@ class BXClickableTile extends BXLink {
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+  colorScheme = TILE_COLOR_SCHEME.REGULAR;
 
   /**
    * The a11y role for `<a>`.

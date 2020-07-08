@@ -15,25 +15,12 @@ import HostListener from '../../globals/decorators/host-listener';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import RadioGroupManager, { NAVIGATION_DIRECTION, ManagedRadioButtonDelegate } from '../../globals/internal/radio-group-manager';
-import { RADIO_BUTTON_ORIENTATION } from './radio-button-group';
+import { RADIO_BUTTON_LABEL_POSITION, RADIO_BUTTON_ORIENTATION } from './defs';
 import styles from './radio-button.scss';
 
+export { RADIO_BUTTON_LABEL_POSITION };
+
 const { prefix } = settings;
-
-/**
- * The label position of radio button.
- */
-export enum RADIO_BUTTON_LABEL_POSITION {
-  /**
-   * Placed at left.
-   */
-  LEFT = 'left',
-
-  /**
-   * Placed at right.
-   */
-  RIGHT = 'right',
-}
 
 /**
  * Map of navigation direction by key for horizontal alignment.

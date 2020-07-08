@@ -24,7 +24,7 @@ describe('Redux-form example', () => {
         `cp -r ${src} ${tmpDir}/redux-form`,
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/redux-form/package.json`,
         `cd ${tmpDir}/redux-form`,
-        'yarn install',
+        `cross-env YARN_CACHE_FOLDER=${tmpDir}/.yarn-cache yarn install`,
         `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn start --open=none --port=${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),

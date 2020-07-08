@@ -1,6 +1,7 @@
 custom-elements.json
 docs/js
 es
+lib
 node_modules
 scss
 storybook-static

@@ -13,7 +13,7 @@ import Close16 from '@carbon/icons/lib/close/16';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
-import TAG_TYPE from './types';
+import { TAG_TYPE } from './defs';
 import styles from './tag.scss';
 
 export { TAG_TYPE };

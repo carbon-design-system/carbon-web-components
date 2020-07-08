@@ -5,8 +5,21 @@
   "main": "es/index.js",
   "module": "es/index.js",
   "exports": {
+    "./es/components-react/": {
+      "node": "./lib/components-react-node/",
+      "default": "./es/components-react/"
+    },
+    "./es/components/": {
+      "node": "./lib/components/",
+      "default": "./es/components/"
+    },
+    "./es/globals/": {
+      "node": "./lib/globals/",
+      "default": "./es/globals/"
+    },
     "./es": "./es/index.js",
     "./es/": "./es/",
+    "./lib/": "./lib/",
     "./custom-elements.json": "./custom-elements.json",
     "./package.json": "./package.json"
   },
@@ -15,6 +28,7 @@
   "bugs": "https://github.com/carbon-design-system/carbon-web-components/issues",
   "files": [
     "es/**/*",
+    "lib/**/*",
     "scss/**/*",
     "custom-elements.json"
   ],
@@ -86,6 +100,7 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
     "@babel/plugin-proposal-optional-chaining": "^7.11.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.11.0",
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/plugin-transform-template-literals": "^7.10.0",
     "@babel/plugin-transform-typescript": "~7.6.0",

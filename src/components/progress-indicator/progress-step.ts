@@ -14,34 +14,12 @@ import Warning16 from '@carbon/icons/lib/warning/16';
 import settings from 'carbon-components/es/globals/js/settings';
 import spread from '../../globals/directives/spread';
 import FocusMixin from '../../globals/mixins/focus';
+import { PROGRESS_STEP_STAT } from './defs';
 import styles from './progress-indicator.scss';
 
+export { PROGRESS_STEP_STAT };
+
 const { prefix } = settings;
-
-/**
- * State of progress step.
- */
-export enum PROGRESS_STEP_STAT {
-  /**
-   * One for future execution.
-   */
-  QUEUED = 'queued',
-
-  /**
-   * One that is being executed now.
-   */
-  CURRENT = 'current',
-
-  /**
-   * Complete one.
-   */
-  COMPLETE = 'complete',
-
-  /**
-   * Invalid one.
-   */
-  INVALID = 'invalid',
-}
 
 /**
  * Icons, keyed by state.

@@ -24,7 +24,7 @@ describe('React example', () => {
         `cp -r ${src} ${tmpDir}`,
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/react/package.json`,
         `cd ${tmpDir}/react`,
-        'yarn install',
+        `cross-env YARN_CACHE_FOLDER=${tmpDir}/.yarn-cache yarn install`,
         `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn start --open=none --port=${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),

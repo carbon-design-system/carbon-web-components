@@ -17,7 +17,7 @@ const { transformAsync } = require('@babel/core');
 const babelPluginCreateReactCustomElementType = require('../../tools/babel-plugin-create-react-custom-element-type');
 const { addons, managerWebpack, webpackFinal } = require('../main');
 
-const regexComponentsReactPath = /carbon-web-components[\\/]es[\\/]components-react[\\/](.*)$/;
+const regexComponentsReactPath = /es[\\/]components-react[\\/](.*?)(\.[jt]s)?$/;
 const readFileAsync = promisify(readFile);
 const writeFileAsync = promisify(writeFile);
 const mkdirpAsync = promisify(mkdirp);
@@ -60,7 +60,9 @@ class CreateReactCustomElementTypeProxyPlugin {
 
   apply(resolver) {
     resolver.plugin(this.source, (request, callback) => {
-      request.path = request.path.replace(/[\\/]es[\\/](components|globals)[\\/]/i, '/src/$1/');
+      request.path = request.path
+        .replace(/[\\/]es[\\/](components|globals)[\\/](.*?)(\.[jt]s)?$/i, '/src/$1/$2')
+        .replace(/[\\/](es|src)[\\/]components-react[\\/](.*)[\\/]defs(\.[jt]s)?$/i, '/src/components/$2/defs');
       const tokens = regexComponentsReactPath.exec(request.path);
       if (!tokens) {
         // Bails if the request is not of the React wrapper module

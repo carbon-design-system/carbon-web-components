@@ -11,14 +11,14 @@ import { customElement, LitElement, html, property, query } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
-import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FormMixin from '../../globals/mixins/form';
 import ValidityMixin from '../../globals/mixins/validity';
+import { TEXTAREA_COLOR_SCHEME } from './defs';
 import styles from './textarea.scss';
 
-export { FORM_ELEMENT_COLOR_SCHEME as TEXTAREA_COLOR_SCHEME } from '../../globals/shared-enums';
+export { TEXTAREA_COLOR_SCHEME };
 
 const { prefix } = settings;
 
@@ -63,7 +63,7 @@ export default class BXTextarea extends ValidityMixin(FormMixin(LitElement)) {
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+  colorScheme = TEXTAREA_COLOR_SCHEME.REGULAR;
 
   /**
    * The number of columns for the textarea to show by default

@@ -12,37 +12,17 @@ import { TemplateResult } from 'lit-html';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import settings from 'carbon-components/es/globals/js/settings';
-import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import FocusMixin from '../../globals/mixins/focus';
 import {
   _createHandleFeedbackTooltip as createHandleCopyButtonFeedbackTooltip,
   _renderButton as renderCopyButton,
 } from '../copy-button/copy-button';
+import { CODE_SNIPPET_COLOR_SCHEME, CODE_SNIPPET_TYPE } from './defs';
 import styles from './code-snippet.scss';
 
-export { FORM_ELEMENT_COLOR_SCHEME as CODE_SNIPPET_COLOR_SCHEME } from '../../globals/shared-enums';
+export { CODE_SNIPPET_COLOR_SCHEME, CODE_SNIPPET_TYPE };
 
 const { prefix } = settings;
-
-/**
- * Code snippet types.
- */
-export enum CODE_SNIPPET_TYPE {
-  /**
-   * Single variant.
-   */
-  SINGLE = 'single',
-
-  /**
-   * Inline variant.
-   */
-  INLINE = 'inline',
-
-  /**
-   * Multi-line variant.
-   */
-  MULTI = 'multi',
-}
 
 /**
  * @param values The values to render.
@@ -191,7 +171,7 @@ class BXCodeSnippet extends FocusMixin(LitElement) {
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+  colorScheme = CODE_SNIPPET_COLOR_SCHEME.REGULAR;
 
   /**
    * An assistive text for screen reader to announce, telling that the button copies the content to the clipboard.
