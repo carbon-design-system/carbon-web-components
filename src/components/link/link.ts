@@ -26,7 +26,7 @@ class BXLink extends FocusMixin(LitElement) {
    * Handles `click` event on the `<a>.
    * @param event The event.
    */
-  private _handleClickLink(event: MouseEvent) {
+  protected _handleClickLink(event: MouseEvent) {
     if (this.disabled) {
       event.preventDefault(); // Stop following the link
       event.stopPropagation(); // Stop firing `onClick`
