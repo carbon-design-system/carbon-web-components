@@ -9,6 +9,7 @@
 
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
+import Checkmark16 from '@carbon/icons/lib/checkmark/16';
 import { DROPDOWN_SIZE } from './dropdown';
 import styles from './dropdown.scss';
 
@@ -54,9 +55,11 @@ class BXDropdownItem extends LitElement {
   value = '';
 
   render() {
+    const { selected } = this;
     return html`
       <div class="${prefix}--list-box__menu-item__option">
         <slot></slot>
+        ${!selected ? undefined : Checkmark16({ class: `${prefix}--list-box__menu-item__selected-icon` })}
       </div>
     `;
   }
