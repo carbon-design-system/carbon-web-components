@@ -22,7 +22,7 @@ jobs:
   test-integration-ui:
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [ubuntu-latest]
         node-version: [12.x]
         browser: [chromium, firefox, webkit]
         exclude:

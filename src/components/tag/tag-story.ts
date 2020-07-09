@@ -16,6 +16,8 @@ import { TAG_TYPE } from './tag';
 import './filter-tag';
 import storyDocs from './tag-story.mdx';
 
+const noop = () => {};
+
 export const defaultStory = ({ parameters }) => {
   const { type, title, disabled } = parameters?.props?.['bx-tag'] ?? {};
   return html`
@@ -49,9 +51,24 @@ defaultStory.story = {
 };
 
 export const filter = ({ parameters }) => {
-  const { type, title, disabled, onClick } = parameters?.props?.['bx-filter-tag'] ?? {};
+  const { open, type, title, disabled, disableClose, onClick, onBeforeClose = noop, onClose = noop } =
+    parameters?.props?.['bx-filter-tag'] ?? {};
+  const handleBeforeClose = (event: CustomEvent) => {
+    onBeforeClose(event);
+    if (disableClose) {
+      event.preventDefault();
+    }
+  };
   return html`
-    <bx-filter-tag type=${ifNonNull(type)} title=${ifNonNull(title)} ?disabled=${disabled} @click=${onClick} filter>
+    <bx-filter-tag
+      ?open="${open}"
+      type=${ifNonNull(type)}
+      title=${ifNonNull(title)}
+      ?disabled=${disabled}
+      @click=${onClick}
+      @bx-filter-tag-beingclosed="${handleBeforeClose}"
+      @bx-filter-tag-closed="${onClose}"
+    >
       This is not a tag
     </bx-filter-tag>
   `;
@@ -62,7 +79,14 @@ filter.story = {
     knobs: {
       'bx-filter-tag': () => ({
         ...defaultStory.story.parameters.knobs['bx-tag'](),
+        open: boolean('Open (open)', true),
+        disableClose: boolean(
+          'Disable user-initiated close action (Call event.preventDefault() in bx-filter-tag-beingclosed event)',
+          false
+        ),
         onClick: action('click'),
+        onBeforeClose: action('bx-filter-tag-beingclosed'),
+        onClose: action('bx-filter-tag-closed'),
       }),
     },
   },

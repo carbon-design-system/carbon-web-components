@@ -72,46 +72,20 @@ $css--plex: true !default;
 :host(#{$prefix}-filter-tag) {
   @extend .#{$prefix}--tag;
   @extend .#{$prefix}--tag--filter;
-}
+  display: none;
 
-:host(#{$prefix}-filter-tag) button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: rem(20px);
-  height: rem(20px);
-  margin: 0 0 0 rem(4px);
-  padding: 0;
-  border: 0;
-  background-color: transparent;
-  border-radius: 50%;
-
-  &:hover {
-    background-color: $inverse-hover-ui;
-    cursor: pointer;
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: inset 0 0 0 2px $inverse-focus-ui;
+  &[open] {
+    display: inline-flex;
   }
 }
 
-:host(#{$prefix}-filter-tag[disabled]) button:hover {
-  background-color: transparent;
+:host(#{$prefix}-filter-tag[disabled]) .#{$prefix}--tag__close-icon {
   cursor: not-allowed;
-}
 
-:host(#{$prefix}-filter-tag[disabled]) button:focus {
-  box-shadow: none;
-}
-
-:host(#{$prefix}-filter-tag) svg {
-  fill: $inverse-01;
-}
-
-:host(#{$prefix}-filter-tag[disabled]) svg {
-  fill: $ibm-color__gray-30;
+  &,
+  &:hover {
+    background-color: transparent;
+  }
 }
 
 // Skeleton state

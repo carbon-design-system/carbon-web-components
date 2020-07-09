@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -30,9 +30,22 @@ export const defaultStory = ({ parameters }) => {
 defaultStory.story = baseDefaultStory.story;
 
 export const filter = ({ parameters }) => {
-  const { type, title, disabled, onClick } = parameters?.props?.['bx-filter-tag'];
+  const { open, type, title, disabled, disableClose, onClick, onBeforeClose, onClose } = parameters?.props?.['bx-filter-tag'];
+  const handleBeforeClose = (event: CustomEvent) => {
+    onBeforeClose(event);
+    if (disableClose) {
+      event.preventDefault();
+    }
+  };
   return (
-    <BXFilterTag type={type} title={title} disabled={disabled} click={onClick}>
+    <BXFilterTag
+      open={open}
+      type={type}
+      title={title}
+      disabled={disabled}
+      onClick={onClick}
+      onBeforeClose={handleBeforeClose}
+      onClose={onClose}>
       This is not a tag
     </BXFilterTag>
   );
