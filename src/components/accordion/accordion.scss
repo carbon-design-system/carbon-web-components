@@ -22,7 +22,6 @@ $css--plex: true !default;
   .#{$prefix}--accordion__heading {
     padding-top: calc((#{$container-03} - #{map-get($body-long-01, 'line-height')}) / 2);
     padding-bottom: calc((#{$container-03} - #{map-get($body-long-01, 'line-height')}) / 2);
-    height: auto;
     min-height: $container-03;
   }
 }
