@@ -86,3 +86,12 @@ $css--plex: true !default;
 :host(#{$prefix}-multi-select-item[highlighted]) {
   @extend .#{$prefix}--list-box__menu-item--highlighted;
 }
+
+:host(#{$prefix}-multi-select-item[selected]) {
+  @extend .#{$prefix}--list-box__menu-item--active;
+  @extend .#{$prefix}--list-box__menu-item--highlighted;
+
+  .#{$prefix}--list-box__menu-item__option {
+    color: $text-01;
+  }
+}
