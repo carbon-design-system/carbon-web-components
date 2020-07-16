@@ -4,6 +4,11 @@
   "license": "Apache-2.0",
   "main": "es/index.js",
   "module": "es/index.js",
+  "exports": {
+    "./es/": "./es/",
+    "./custom-elements.json": "./custom-elements.json",
+    "./package.json": "./package.json"
+  },
   "typings": "es/index.d.ts",
   "repository": "https://github.com/carbon-design-system/carbon-custom-elements",
   "bugs": "https://github.com/carbon-design-system/carbon-custom-elements/issues",
