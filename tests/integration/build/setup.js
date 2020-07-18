@@ -9,15 +9,47 @@
 
 'use strict';
 
+const path = require('path');
 const { promisify } = require('util');
+const { exec } = require('child-process-promise');
 const { setup } = require('jest-environment-puppeteer');
 const { mkdir, track } = require('temp');
+
+const packs = {
+  'carbon-custom-elements': path.resolve(__dirname, '../../..'),
+};
+
+/**
+ * Puts the build artifacts in the given temporary directory
+ * and resolves dependencies in `package.json` to use such build artifacts.
+ *
+ * @param {string} tmpDir The temporary directory.
+ */
+async function setupPackages(tmpDir) {
+  const commands = Object.keys(packs).reduce((acc, pack) => {
+    acc.push(
+      `cd ${packs[pack]} && yarn pack --filename ${tmpDir}/${pack}.tar.gz`,
+      `tar xzf ${tmpDir}/${pack}.tar.gz --directory ${tmpDir}`,
+      `mv ${tmpDir}/package ${tmpDir}/${pack}`
+    );
+    return acc;
+  }, []);
+  // eslint-disable-next-line no-restricted-syntax
+  for (const command of commands) {
+    // eslint-disable-next-line no-await-in-loop
+    const { stdout, stderr } = await exec(command);
+    console.log(stdout); // eslint-disable-line no-console
+    console.error(stderr); // eslint-disable-line no-console
+  }
+}
 
 module.exports = async config => {
   if (!process.env.LAUNCH_TIMEOUT) {
     process.env.LAUNCH_TIMEOUT = 120000;
   }
-  process.env.CCE_EXAMPLE_TMPDIR = await promisify(mkdir)('cce-');
+  const tmpDir = await promisify(mkdir)('cce-');
+  process.env.CCE_EXAMPLE_TMPDIR = tmpDir;
   track();
   await setup(config);
+  await setupPackages(tmpDir);
 };
