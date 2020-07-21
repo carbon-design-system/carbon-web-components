@@ -11,8 +11,8 @@
     display: table-cell;
     width: 2.5rem;
     height: 3rem;
-    vertical-align: top;
-    padding: 0;
+    vertical-align: middle;
+    padding: 0 $spacing-05;
     border-bottom: 1px solid $ui-03;
     transition: transform $duration--moderate-01 motion(standard, productive);
   }
@@ -35,11 +35,8 @@
   }
 
   td {
-    padding-left: $spacing-05;
-    padding-top: 0;
-    padding-right: $spacing-05;
-    padding-bottom: 0;
-    vertical-align: top;
+    padding: 0 $spacing-05;
+    vertical-align: middle;
     height: 0;
     transition: all $duration--fast-02 motion(standard, productive);
 

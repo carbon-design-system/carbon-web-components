@@ -27,15 +27,21 @@ class BXHeaderNavItem extends FocusMixin(LitElement) {
   @property()
   href!: string;
 
+  /**
+   * The title.
+   */
+  @property()
+  title!: string;
+
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
 
   render() {
-    const { href } = this;
+    const { href, title } = this;
     return html`
       <a role="menuitem" class="${prefix}--header__menu-item" tabindex="0" href="${ifDefined(href)}">
-        <span class="${prefix}--text-truncate--end"><slot></slot></span>
+        <span class="${prefix}--text-truncate--end"><slot>${title}</slot></span>
       </a>
     `;
   }
