@@ -34,6 +34,12 @@ class BXSideNavMenuItem extends FocusMixin(LitElement) {
   @property()
   href = '';
 
+  /**
+   * The title.
+   */
+  @property()
+  title!: string;
+
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
@@ -50,7 +56,7 @@ class BXSideNavMenuItem extends FocusMixin(LitElement) {
   }
 
   render() {
-    const { active, href } = this;
+    const { active, href, title } = this;
     const classes = classMap({
       [`${prefix}--side-nav__link`]: true,
       [`${prefix}--side-nav__link--current`]: active,
@@ -58,7 +64,7 @@ class BXSideNavMenuItem extends FocusMixin(LitElement) {
     return html`
       <a role="menuitem" class="${classes}" href="${href}">
         <span class="${prefix}--side-nav__link-text">
-          <slot></slot>
+          <slot>${title}</slot>
         </span>
       </a>
     `;

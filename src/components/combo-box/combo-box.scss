@@ -82,3 +82,16 @@ $css--plex: true !default;
 :host(#{$prefix}-combo-box-item[highlighted]) {
   @extend .#{$prefix}--list-box__menu-item--highlighted;
 }
+
+:host(#{$prefix}-combo-box-item[selected]) {
+  @extend .#{$prefix}--list-box__menu-item--active;
+  @extend .#{$prefix}--list-box__menu-item--highlighted;
+
+  .#{$prefix}--list-box__menu-item__option {
+    color: $text-01;
+  }
+
+  .#{$prefix}--list-box__menu-item__selected-icon {
+    display: block;
+  }
+}
