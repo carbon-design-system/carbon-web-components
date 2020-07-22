@@ -16,6 +16,11 @@ A Carbon Design System variant that's as easy to use as native HTML elements, wi
     <img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Carbon is released under the Apache-2.0 license" />
   </a>
 </p>
+<p align="center">
+  <a href="https://www.netlify.com" target="_blank">
+    <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg"/>
+  </a>
+</p>
 
 # `carbon-custom-elements`
 
