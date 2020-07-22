@@ -5,6 +5,7 @@
   "main": "es/index.js",
   "module": "es/index.js",
   "exports": {
+    "./es": "./es/index.js",
     "./es/": "./es/",
     "./custom-elements.json": "./custom-elements.json",
     "./package.json": "./package.json"
@@ -131,6 +132,7 @@
     "babel-preset-vue": "^2.0.0",
     "bluebird": "^3.5.0",
     "carbon-components": "^10.14.0",
+    "child-process-promise": "^2.2.0",
     "commander": "^2.13.0",
     "core-js": "^3.0.0",
     "css-loader": "^2.0.0",
@@ -150,6 +152,7 @@
     "eslint-restricted-globals": "^0.2.0",
     "expect-playwright": "^0.2.0",
     "expect-puppeteer": "^4.4.0",
+    "fast-sass-loader": "^1.5.0",
     "flatpickr": "4.6.1",
     "globby": "^10.0.0",
     "gulp": "^4.0.0",
@@ -199,7 +202,7 @@
     "postcss-selector-parser": "^6.0.0",
     "prettier": "^1.19.0",
     "prop-types": "^15.7.0",
-    "puppeteer": "^2.0.0",
+    "puppeteer": "^5.0.0",
     "raw-loader": "^4.0.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
