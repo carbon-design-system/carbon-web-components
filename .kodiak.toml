@@ -1,0 +1,6 @@
+# .kodiak.toml
+version = 1
+
+[merge]
+automerge_label = "Ready to merge"
+method = "squash"

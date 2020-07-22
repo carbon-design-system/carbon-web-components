@@ -16,16 +16,15 @@ const PORT = 3000;
 
 describe('React example', () => {
   beforeAll(async () => {
-    const dist = path.resolve(__dirname, '../../../es');
-    const src = path.resolve(__dirname, '../../../examples/codesandbox/react');
+    const projectRoot = path.resolve(__dirname, '../../..');
+    const src = path.resolve(projectRoot, 'examples/codesandbox/react');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
     await setupDevServer({
       command: [
         `cp -r ${src} ${tmpDir}`,
+        `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/react/package.json`,
         `cd ${tmpDir}/react`,
         'yarn install',
-        'rm -Rf node_modules/carbon-custom-elements/es',
-        `cp -r ${dist} node_modules/carbon-custom-elements`,
         `BROWSER=none PORT=${PORT} yarn start`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
