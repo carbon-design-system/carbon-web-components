@@ -21,7 +21,7 @@ A Carbon Design System variant that's as easy to use as native HTML elements, wi
 
 `carbon-custom-elements` is a variant of Carbon Design System with Custom Elements v1 and Shadow DOM v1 specs.
 
-Experimental at this moment, with enthusiasm.
+Has been experimenting with enthusiasm, and now has a stable version.
 
 The effort stems from https://github.com/carbon-design-system/issue-tracking/issues/121. If you are interested in this project, adding 👍 to the description of that GH issue, or even contributing, will be greatly appreciated!
 
