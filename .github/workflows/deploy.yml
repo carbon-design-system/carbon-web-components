@@ -1,0 +1,31 @@
+name: Deploy carbon-custom-elements storybook to IBM Cloud
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: yarn install
+      - name: Build project
+        run: yarn build
+      - name: Building carbon-custom-elements storybook
+        run: yarn build-storybook
+      - name: Deploying carbon-custom-elements storybook to IBM Cloud
+        uses: carbon-design-system/action-ibmcloud-cf@v1.0.0
+        with:
+          cloud-api-key: ${{ secrets.CF_TOKEN }}
+          cf-org: carbon-design-system
+          cf-space: production
+          cf-region: us-south
+          cf-app: carbon-custom-elements
+          cf-manifest: manifest.yml
