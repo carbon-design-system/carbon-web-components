@@ -51,13 +51,13 @@ class BXHeaderMenuButton extends FocusMixin(LitElement) {
    * The `aria-label` attribute for the button in its active state.
    */
   @property({ attribute: 'button-label-active' })
-  buttonLabelActive!: string;
+  buttonLabelActive = 'Close navigation menu';
 
   /**
-   * The `aria-label` attribute for the button in its active state.
+   * The `aria-label` attribute for the button in its inactive state.
    */
   @property({ attribute: 'button-label-inactive' })
-  buttonLabelInactive!: string;
+  buttonLabelInactive = 'Open navigation menu';
 
   /**
    * Collapse mode of the side nav.
