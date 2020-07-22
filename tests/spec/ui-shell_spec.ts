@@ -311,7 +311,8 @@ describe('ui-shell', function() {
           }),
           document.body
         );
-        await Promise.resolve();
+        await Promise.resolve(); // First update cycle
+        await Promise.resolve(); // Update cycle upon `slotchange` event
         expect(document.body.querySelector('bx-side-nav-link')).toMatchSnapshot({ mode: 'shadow' });
       });
     });

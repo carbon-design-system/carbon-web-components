@@ -8,8 +8,8 @@
   "dependencies": {
     "carbon-components": "~10.14.0",
     "carbon-custom-elements": "^1.0.0",
-    "lit-element": "^2.2.0",
-    "lit-html": "^1.1.0",
+    "lit-element": "^2.3.0",
+    "lit-html": "^1.2.0",
     "lodash-es": "^4.17.0",
     "react": "^16.0.0",
     "react-dom": "^16.12.0"

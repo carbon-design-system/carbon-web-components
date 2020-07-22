@@ -188,8 +188,8 @@
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "^4.0.0",
     "lint-staged": "^8.1.0",
-    "lit-element": "^2.2.0",
-    "lit-html": "^1.1.0",
+    "lit-element": "^2.3.0",
+    "lit-html": "^1.2.0",
     "mini-css-extract-plugin": "^0.5.0",
     "mkdirp": "^0.5.0",
     "morgan": "^1.8.0",
@@ -231,8 +231,8 @@
   "peerDependencies": {
     "carbon-components": "~10.14.0",
     "flatpickr": "4.6.1",
-    "lit-element": "^2.2.0",
-    "lit-html": "^1.1.0"
+    "lit-element": "^2.3.0",
+    "lit-html": "^1.2.0"
   },
   "commitlint": {
     "extends": [
