@@ -7,7 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "carbon-components": "~10.14.0",
+    "carbon-components": "~10.16.0",
     "carbon-custom-elements": "^1.0.0",
     "lit-element": "^2.3.0",
     "lit-html": "^1.2.0",
