@@ -188,6 +188,10 @@ module.exports = ({ config, mode }) => {
           },
         },
       ],
+    },
+    {
+      test: /\.html$/,
+      use: 'file-loader',
     }
   );
 
