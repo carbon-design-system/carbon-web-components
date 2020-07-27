@@ -121,6 +121,16 @@ class BXSideNavMenu extends FocusMixin(LitElement) {
     super.connectedCallback();
   }
 
+  updated(changedProperties) {
+    if (changedProperties.has('expanded')) {
+      const { selectorItem } = this.constructor as typeof BXSideNavMenu;
+      const { expanded } = this;
+      forEach(this.querySelectorAll(selectorItem), elem => {
+        (elem as HTMLElement).tabIndex = expanded ? 0 : -1;
+      });
+    }
+  }
+
   render() {
     const {
       expanded,
