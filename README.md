@@ -44,7 +44,6 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 - [List of available components](#list-of-available-components)
 - [Browser support](#browser-support)
 - [Coding conventions](#coding-conventions)
-- [Iteration plans](#iteration-plans)
 - [Creating build](#creating-build)
 - [Running unit test](#running-unit-test)
 - [Running build integration test](#running-build-integration-test)
