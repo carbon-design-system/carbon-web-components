@@ -111,6 +111,25 @@ describe('bx-btn', function() {
     it('should render with various attributes for <a>', async function() {
       render(
         template({
+          download: 'file-name-foo',
+          href: 'about:blank',
+          hreflang: 'en',
+          kind: BUTTON_KIND.SECONDARY,
+          ping: 'about:blank',
+          rel: 'noopener',
+          size: 'sm',
+          target: '_blank',
+          type: 'text/plain',
+        }),
+        document.body
+      );
+      await Promise.resolve();
+      expect(document.body.querySelector('bx-btn')).toMatchSnapshot({ mode: 'shadow' });
+    });
+
+    it('should render disabled state for <a>', async function() {
+      render(
+        template({
           disabled: true,
           download: 'file-name-foo',
           href: 'about:blank',

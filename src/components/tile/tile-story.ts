@@ -43,9 +43,22 @@ defaultStory.story = {
 };
 
 export const clickable = ({ parameters }) => {
-  const { colorScheme, href } = parameters?.props?.['bx-clickable-tile'] ?? {};
+  const { colorScheme, disabled, download, href, hreflang, ping, rel, target, type } =
+    parameters?.props?.['bx-clickable-tile'] ?? {};
   return html`
-    <bx-clickable-tile color-scheme="${ifNonNull(colorScheme)}" href="${ifNonNull(href)}">Clickable tile</bx-clickable-tile>
+    <bx-clickable-tile
+      color-scheme="${ifNonNull(colorScheme)}"
+      ?disabled="${disabled}"
+      download="${ifNonNull(download)}"
+      href="${ifNonNull(href)}"
+      hreflang="${ifNonNull(hreflang)}"
+      ping="${ifNonNull(ping)}"
+      rel="${ifNonNull(rel)}"
+      target="${ifNonNull(target)}"
+      type="${ifNonNull(type)}"
+    >
+      Clickable tile
+    </bx-clickable-tile>
   `;
 };
 
@@ -54,6 +67,7 @@ clickable.story = {
     knobs: {
       'bx-clickable-tile': () => ({
         colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
+        disabled: boolean('Disabled (disabled)', false),
         href: textNullable('Href for clickable UI (href)', ''),
       }),
     },
