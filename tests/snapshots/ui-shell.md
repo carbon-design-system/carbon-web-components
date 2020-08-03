@@ -7,7 +7,10 @@
 ####     `should render with minimum attributes`
 
 ```
-<button class="bx--header__action bx--header__menu-toggle bx--header__menu-trigger">
+<button
+  aria-label="Open navigation menu"
+  class="bx--header__action bx--header__menu-toggle bx--header__menu-trigger"
+>
 </button>
 
 ```

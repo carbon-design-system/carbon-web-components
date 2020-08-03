@@ -129,6 +129,12 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
   protected _shouldTriggerBeFocusable = true;
 
   /**
+   * The list box `<div>` node.
+   */
+  @query(`.${prefix}--list-box`)
+  protected _listBoxNode!: HTMLDivElement;
+
+  /**
    * The `<slot>` element for the helper text in the shadow DOM.
    */
   @query('slot[name="helper-text"]')
@@ -592,8 +598,12 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
     const toggleLabel = (open ? toggleLabelOpen : toggleLabelClosed) || undefined;
     const hasHelperText = helperText || (slotHelperTextNode && slotHelperTextNode.assignedNodes().length > 0);
     const hasLabelText = labelText || (slotLabelTextNode && slotLabelTextNode.assignedNodes().length > 0);
-    const validity = !invalid
-      ? undefined
+    const helper = !invalid
+      ? html`
+          <div part="helper-text" class="${helperClasses}" ?hidden="${inline || !hasHelperText}">
+            <slot name="helper-text" @slotchange="${handleSlotchangeHelperText}">${helperText}</slot>
+          </div>
+        `
       : html`
           <div part="validity-message" class=${`${prefix}--form-requirement`}>
             <slot name="validity-message">${validityMessage}</slot>
@@ -613,9 +623,6 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
       <label part="label-text" class="${labelClasses}" ?hidden="${!hasLabelText}">
         <slot name="label-text" @slotchange="${handleSlotchangeLabelText}">${labelText}</slot>
       </label>
-      <div part="helper-text" class="${helperClasses}" ?hidden="${inline || !hasHelperText}">
-        <slot name="helper-text" @slotchange="${handleSlotchangeHelperText}">${helperText}</slot>
-      </div>
       <div
         role="listbox"
         class="${classes}"
@@ -643,7 +650,7 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
         </div>
         ${menuBody}
       </div>
-      ${validity}
+      ${helper}
       <div class="${prefix}--assistive-text" role="status" aria-live="assertive" aria-relevant="additions text">
         ${assistiveStatusText}
       </div>
