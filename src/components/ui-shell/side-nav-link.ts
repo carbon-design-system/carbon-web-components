@@ -47,6 +47,12 @@ class BXSideNavLink extends FocusMixin(LitElement) {
   @property()
   href = '';
 
+  /**
+   * The title.
+   */
+  @property()
+  title!: string;
+
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
@@ -59,7 +65,7 @@ class BXSideNavLink extends FocusMixin(LitElement) {
   }
 
   render() {
-    const { active, href, _handleSlotChangeTitleIcon: handleSlotChangeTitleIcon } = this;
+    const { active, href, title, _handleSlotChangeTitleIcon: handleSlotChangeTitleIcon } = this;
     const classes = classMap({
       [`${prefix}--side-nav__link`]: true,
       [`${prefix}--side-nav__link--current`]: active,
@@ -70,7 +76,7 @@ class BXSideNavLink extends FocusMixin(LitElement) {
           <slot name="title-icon" @slotchange=${handleSlotChangeTitleIcon}></slot>
         </div>
         <span class="${prefix}--side-nav__link-text">
-          <slot></slot>
+          <slot>${title}</slot>
         </span>
       </a>
     `;
