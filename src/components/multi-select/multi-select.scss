@@ -39,8 +39,14 @@ $css--plex: true !default;
   @extend .#{$prefix}--list-box__menu-item;
   display: block;
 
-  .#{$prefix}--checkbox:checked ~ .#{$prefix}--checkbox-label-text {
-    color: $text-01;
+  .#{$prefix}--checkbox {
+    &:checked ~ .#{$prefix}--checkbox-label-text {
+      color: $text-01;
+    }
+
+    &:focus + .#{$prefix}--checkbox-label::before {
+      box-shadow: none;
+    }
   }
 
   .#{$prefix}--list-box__menu-item__option {
@@ -85,4 +91,13 @@ $css--plex: true !default;
 
 :host(#{$prefix}-multi-select-item[highlighted]) {
   @extend .#{$prefix}--list-box__menu-item--highlighted;
+}
+
+:host(#{$prefix}-multi-select-item[selected]) {
+  @extend .#{$prefix}--list-box__menu-item--active;
+  @extend .#{$prefix}--list-box__menu-item--highlighted;
+
+  .#{$prefix}--list-box__menu-item__option {
+    color: $text-01;
+  }
 }

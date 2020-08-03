@@ -16,12 +16,17 @@ A Carbon Design System variant that's as easy to use as native HTML elements, wi
     <img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Carbon is released under the Apache-2.0 license" />
   </a>
 </p>
+<p align="center">
+  <a href="https://www.netlify.com" target="_blank">
+    <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg"/>
+  </a>
+</p>
 
 # `carbon-custom-elements`
 
 `carbon-custom-elements` is a variant of Carbon Design System with Custom Elements v1 and Shadow DOM v1 specs.
 
-Experimental at this moment, with enthusiasm.
+Has been experimenting with enthusiasm, and now has a stable version.
 
 The effort stems from https://github.com/carbon-design-system/issue-tracking/issues/121. If you are interested in this project, adding 👍 to the description of that GH issue, or even contributing, will be greatly appreciated!
 
@@ -87,6 +92,43 @@ Once you do that, you can use our components in the same manner as native HTML t
   <bx-dropdown-item value="dea">Option 4</bx-dropdown-item>
   <bx-dropdown-item value="router">Option 5</bx-dropdown-item>
 </bx-dropdown>
+```
+
+If you just want to try our components for demnstrations, etc., you can use CDNs that support module mapping (e.g. [JSPM](https://jspm.org)). With it, you can just import our modules in `<script type="module">`:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="module">
+      import 'https://jspm.dev/carbon-custom-elements/es/components/dropdown/dropdown.js';
+      import 'https://jspm.dev/carbon-custom-elements/es/components/dropdown/dropdown-item.js';
+    </script>
+    <style type="text/css">
+      #app {
+        font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+        width: 300px;
+        margin: 2rem;
+      }
+
+      bx-dropdown:not(:defined),
+      bx-dropdown-item:not(:defined) {
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <bx-dropdown trigger-content="Select an item">
+        <bx-dropdown-item value="all">Option 1</bx-dropdown-item>
+        <bx-dropdown-item value="cloudFoundry">Option 2</bx-dropdown-item>
+        <bx-dropdown-item value="staging">Option 3</bx-dropdown-item>
+        <bx-dropdown-item value="dea">Option 4</bx-dropdown-item>
+        <bx-dropdown-item value="router">Option 5</bx-dropdown-item>
+      </bx-dropdown>
+    </div>
+  </body>
+</html>
 ```
 
 ### Angular
