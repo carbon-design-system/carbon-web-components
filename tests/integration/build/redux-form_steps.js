@@ -16,16 +16,15 @@ const PORT = 3001;
 
 describe('Redux-form example', () => {
   beforeAll(async () => {
-    const dist = path.resolve(__dirname, '../../../es');
-    const src = path.resolve(__dirname, '../../../examples/codesandbox/form/redux-form');
+    const projectRoot = path.resolve(__dirname, '../../..');
+    const src = path.resolve(projectRoot, 'examples/codesandbox/form/redux-form');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
     await setupDevServer({
       command: [
         `cp -r ${src} ${tmpDir}/redux-form`,
+        `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/redux-form/package.json`,
         `cd ${tmpDir}/redux-form`,
         'yarn install',
-        'rm -Rf node_modules/carbon-custom-elements/es',
-        `cp -r ${dist} node_modules/carbon-custom-elements`,
         `BROWSER=none PORT=${PORT} yarn start`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),

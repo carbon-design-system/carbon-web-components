@@ -16,16 +16,15 @@ const PORT = 8081;
 
 describe('IE example', () => {
   beforeAll(async () => {
-    const dist = path.resolve(__dirname, '../../../es');
-    const src = path.resolve(__dirname, '../../../examples/codesandbox/ie');
+    const projectRoot = path.resolve(__dirname, '../../..');
+    const src = path.resolve(projectRoot, 'examples/codesandbox/ie');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
     await setupDevServer({
       command: [
         `cp -r ${src} ${tmpDir}`,
+        `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/ie/package.json`,
         `cd ${tmpDir}/ie`,
         'yarn install',
-        'rm -Rf node_modules/carbon-custom-elements/es',
-        `cp -r ${dist} node_modules/carbon-custom-elements`,
         `yarn webpack-dev-server --mode=development --open=false --port=${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),

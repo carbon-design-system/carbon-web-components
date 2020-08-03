@@ -24,7 +24,10 @@ $css--plex: true !default;
     display: none;
   }
 
-  .#{$prefix}--list-box__field {
+  .#{$prefix}--list-box__field,
+  // To get more specifity than:
+  // https://github.com/carbon-design-system/carbon/blob/v10.16.0/packages/components/src/components/list-box/_list-box.scss#L126
+  .#{$prefix}--list-box[data-invalid] .#{$prefix}--list-box__field {
     padding: 0;
   }
 

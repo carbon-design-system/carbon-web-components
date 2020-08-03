@@ -80,7 +80,7 @@
 }
 
 :host(#{$prefix}-modal-close-button) {
-  @extend .#{$prefix}--modal-close;
+  outline: none;
 }
 
 :host(#{$prefix}-modal-heading),
