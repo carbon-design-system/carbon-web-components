@@ -1,5 +1,5 @@
 {
-  "name": "carbon-custom-elements",
+  "name": "carbon-web-components",
   "version": "1.2.1",
   "license": "Apache-2.0",
   "main": "es/index.js",
@@ -11,8 +11,8 @@
     "./package.json": "./package.json"
   },
   "typings": "es/index.d.ts",
-  "repository": "https://github.com/carbon-design-system/carbon-custom-elements",
-  "bugs": "https://github.com/carbon-design-system/carbon-custom-elements/issues",
+  "repository": "https://github.com/carbon-design-system/carbon-web-components",
+  "bugs": "https://github.com/carbon-design-system/carbon-web-components/issues",
   "files": [
     "es/**/*",
     "scss/**/*",

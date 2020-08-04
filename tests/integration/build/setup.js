@@ -16,7 +16,7 @@ const { setup } = require('jest-environment-puppeteer');
 const { mkdir, track } = require('temp');
 
 const packs = {
-  'carbon-custom-elements': path.resolve(__dirname, '../../..'),
+  'carbon-web-components': path.resolve(__dirname, '../../..'),
 };
 
 /**
@@ -27,11 +27,7 @@ const packs = {
  */
 async function setupPackages(tmpDir) {
   const commands = Object.keys(packs).reduce((acc, pack) => {
-    acc.push(
-      `cd ${packs[pack]} && yarn pack --filename ${tmpDir}/${pack}.tar.gz`,
-      `tar xzf ${tmpDir}/${pack}.tar.gz --directory ${tmpDir}`,
-      `mv ${tmpDir}/package ${tmpDir}/${pack}`
-    );
+    acc.push(`cd ${packs[pack]} && yarn pack --filename ${tmpDir}/${pack}.tar.gz`);
     return acc;
   }, []);
   // eslint-disable-next-line no-restricted-syntax

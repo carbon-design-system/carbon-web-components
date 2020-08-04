@@ -8,12 +8,12 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXComboBox from 'carbon-custom-elements/es/components-react/combo-box/combo-box';
+import BXComboBox from 'carbon-web-components/es/components-react/combo-box/combo-box';
 // @ts-ignore
-import BXComboBoxItem from 'carbon-custom-elements/es/components-react/combo-box/combo-box-item';
+import BXComboBoxItem from 'carbon-web-components/es/components-react/combo-box/combo-box-item';
 import { defaultStory as baseDefaultStory } from './combo-box-story';
 
 export { default } from './combo-box-story';

@@ -1,6 +1,6 @@
 # Having components participate in form
 
-Though form elements in `carbon-custom-elements` (e.g. `<bx-input>`) are not native form elements like `<input>`, form elements in `carbon-custom-elements` have some extra APIs that align well to web/framework standards that allow those form elements to participate in form.
+Though form elements in `carbon-web-components` (e.g. `<bx-input>`) are not native form elements like `<input>`, form elements in `carbon-web-components` have some extra APIs that align well to web/framework standards that allow those form elements to participate in form.
 
 ## `formdata` event
 
@@ -25,7 +25,7 @@ button.addEventListener('click', () => {
 });
 ```
 
-[![Edit carbon-custom-elements with formdata event](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/form/basic)
+[![Edit carbon-web-components with formdata event](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/form/basic)
 
 ## Angular two-way binding
 
@@ -35,13 +35,13 @@ Our form components can be used for Angular two-way binding syntax (`[(ngModel)]
 <bx-input [(ngModel)]="model.username" #username="ngModel" type="text" name="username"></bx-input>
 ```
 
-Such Angular directives can be used by importing `BXFormAccessorModule` from `carbon-custom-elements/es/directives-angular/esm2015` or `carbon-custom-elements/es/directives-angular/esm5` into your Angular module:
+Such Angular directives can be used by importing `BXFormAccessorModule` from `carbon-web-components/es/directives-angular/esm2015` or `carbon-web-components/es/directives-angular/esm5` into your Angular module:
 
 ```javascript
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { BXFormAccessorsModule } from 'carbon-custom-elements/es/directives-angular/esm2015';
+import { BXFormAccessorsModule } from 'carbon-web-components/es/directives-angular/esm2015';
 
 import { AppComponent } from './app.component';
 
@@ -55,7 +55,7 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-[![Edit carbon-custom-elements with Angular form directives](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/form/angular)
+[![Edit carbon-web-components with Angular form directives](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/form/angular)
 
 ## Redux Form
 
@@ -63,12 +63,12 @@ You can use our form components with Redux Form by creating a React component th
 
 ```javascript
 import { Field } from 'redux-form';
-import BXFormItem from 'carbon-custom-elements/es/components-react/form/form-item';
-import BXInput from 'carbon-custom-elements/es/components-react/input/input';
+import BXFormItem from 'carbon-web-components/es/components-react/form/form-item';
+import BXInput from 'carbon-web-components/es/components-react/input/input';
 
 ...
 
-// A React component that wraps form components from `carbon-custom-elements`
+// A React component that wraps form components from `carbon-web-components`
 const FieldImpl = ({ input, label, type, meta: { touched, error } }) => {
   const validityMessage = !touched ? undefined : error;
   return (
@@ -90,4 +90,4 @@ const FieldImpl = ({ input, label, type, meta: { touched, error } }) => {
 <Field name="username" type="text" component={FieldImpl} label="Username" />
 ```
 
-[![Edit carbon-custom-elements with Redux Form](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/form/redux-form)
+[![Edit carbon-web-components with Redux Form](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/form/redux-form)

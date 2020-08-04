@@ -17,7 +17,7 @@ const { transformAsync } = require('@babel/core');
 const babelPluginCreateReactCustomElementType = require('../../tools/babel-plugin-create-react-custom-element-type');
 const configure = require('../webpack.config');
 
-const regexComponentsReactPath = /carbon-custom-elements[\\/]es[\\/]components-react[\\/](.*)$/;
+const regexComponentsReactPath = /carbon-web-components[\\/]es[\\/]components-react[\\/](.*)$/;
 const readFileAsync = promisify(readFile);
 const writeFileAsync = promisify(writeFile);
 const mkdirpAsync = promisify(mkdirp);
@@ -51,7 +51,7 @@ class CreateReactCustomElementTypeProxyPlugin {
   /**
    * A WebPack resolver plugin that proxies module request for:
    *
-   * * `carbon-custom-elements/es/components-react/**` to the corresponsing local path in this project
+   * * `carbon-web-components/es/components-react/**` to the corresponsing local path in this project
    * * `es/components`/`es/globals` to the corresponding source code, given the former may not have been built yet
    */
   constructor() {

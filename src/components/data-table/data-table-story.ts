@@ -12,14 +12,14 @@ import { html, property, LitElement } from 'lit-element';
 import { repeat } from 'lit-html/directives/repeat';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import Delete16 from 'carbon-custom-elements/es/icons/delete/16';
+import Delete16 from 'carbon-web-components/es/icons/delete/16';
 // @ts-ignore
-import Download16 from 'carbon-custom-elements/es/icons/download/16';
+import Download16 from 'carbon-web-components/es/icons/download/16';
 // @ts-ignore
-import Settings16 from 'carbon-custom-elements/es/icons/settings/16';
+import Settings16 from 'carbon-web-components/es/icons/settings/16';
 import BXBtn from '../button/button';
 import ifNonNull from '../../globals/directives/if-non-null';
 import '../overflow-menu/overflow-menu';

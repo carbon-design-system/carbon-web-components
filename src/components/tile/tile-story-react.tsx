@@ -8,18 +8,18 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXTile from 'carbon-custom-elements/es/components-react/tile/tile';
+import BXTile from 'carbon-web-components/es/components-react/tile/tile';
 // @ts-ignore
-import BXClickableTile from 'carbon-custom-elements/es/components-react/tile/clickable-tile';
+import BXClickableTile from 'carbon-web-components/es/components-react/tile/clickable-tile';
 // @ts-ignore
-import BXRadioTile from 'carbon-custom-elements/es/components-react/tile/radio-tile';
+import BXRadioTile from 'carbon-web-components/es/components-react/tile/radio-tile';
 // @ts-ignore
-import BXSelectableTile from 'carbon-custom-elements/es/components-react/tile/selectable-tile';
+import BXSelectableTile from 'carbon-web-components/es/components-react/tile/selectable-tile';
 // @ts-ignore
-import BXExpandableTile from 'carbon-custom-elements/es/components-react/tile/expandable-tile';
+import BXExpandableTile from 'carbon-web-components/es/components-react/tile/expandable-tile';
 import createReactCustomElementType from '../../globals/wrappers/createReactCustomElementType';
 import baseStory, {
   defaultStory as baseDefaultStory,
