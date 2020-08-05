@@ -66,9 +66,9 @@ module.exports = function setupKarma(config) {
       devtool: 'inline-source-maps',
       resolve: {
         alias: {
-          // In our development environment (where `carbon-custom-elements/es/icons` may not have been built yet),
+          // In our development environment (where `carbon-web-components/es/icons` may not have been built yet),
           // we load icons from `@carbon/icons` and use a WebPack loader to convert the icons to `lit-html` version
-          'carbon-custom-elements/es/icons': '@carbon/icons/lib',
+          'carbon-web-components/es/icons': '@carbon/icons/lib',
         },
         extensions: ['.js', '.ts'],
       },

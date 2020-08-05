@@ -32,7 +32,7 @@
 
 ## Linters/formatters
 
-`carbon-custom-elements` uses ESLint with `typescript-eslint` for linting, and Prettier for code formatting.
+`carbon-web-components` uses ESLint with `typescript-eslint` for linting, and Prettier for code formatting.
 Most of ESLint configurations are same as ones in `carbon-components`.
 
 ## TSDoc comments
@@ -65,7 +65,7 @@ const Mixin = <T extends Constructor<SomeClass>>(Base: T) => class extends Base 
 
 To avoid memory leaks and zombie event listeners, we ensure the event listeners on custom elements themselves (hosts) and ones on `document`, etc. are released when they get out of render tree.
 
-For that purpose, `carbon-custom-elements` uses `@HostListener(type, options)` decorator. `@HostListener(type, options)` decorator works with a custom element class inheriting `HostListenerMixin()` and attaches an event listener using the target method as the listener. The `type` argument can be something like `document:click` so the `click` event listener is attached to `document`.
+For that purpose, `carbon-web-components` uses `@HostListener(type, options)` decorator. `@HostListener(type, options)` decorator works with a custom element class inheriting `HostListenerMixin()` and attaches an event listener using the target method as the listener. The `type` argument can be something like `document:click` so the `click` event listener is attached to `document`.
 
 Here's an example seen in `<bx-modal>` code:
 
@@ -93,7 +93,7 @@ class BXModal extends HostListenerMixin(LitElement) {
 
 Carbon core CSS uses BEM modifier like `bx--btn--danger` to style different states/variants of a component.
 
-OTOH `carbon-custom-elements` uses attributes to represent different states/variants (e.g. `<bx-btn type="danger">`), in a similar manner as how attributes influence states/variants of native elements (e.g. `<input type="hidden">`).
+OTOH `carbon-web-components` uses attributes to represent different states/variants (e.g. `<bx-btn type="danger">`), in a similar manner as how attributes influence states/variants of native elements (e.g. `<input type="hidden">`).
 
 If such states/variants should affect the style of custom element (shadow host), we define attribute styles from the following reasons:
 
@@ -102,7 +102,7 @@ If such states/variants should affect the style of custom element (shadow host),
 
 ## Customizing components
 
-Like `carbon-components` library does, `carbon-custom-elements` ensures components are written in a flexible manner enough to support use cases different applications have.
+Like `carbon-components` library does, `carbon-web-components` ensures components are written in a flexible manner enough to support use cases different applications have.
 
 ### Defining (default) component options
 
@@ -155,7 +155,7 @@ CustomElementClass.staticPropName;
 
 ## Custom events
 
-Wherever it makes sense, `carbon-custom-elements` translates user-initiated events to something that gives event listeners more context of what they mean. For example, `<bx-modal>` translates `click` event on `<bx-modal-close-button>` to `bx-modal-beingclosed` and `bx-modal-closed` custom events.
+Wherever it makes sense, `carbon-web-components` translates user-initiated events to something that gives event listeners more context of what they mean. For example, `<bx-modal>` translates `click` event on `<bx-modal-close-button>` to `bx-modal-beingclosed` and `bx-modal-closed` custom events.
 
 `bx-modal-beingclosed` is cancelable in a similar manner as how `click` event on `<a href="...">` is cancelable; If `bx-modal-beingclosed` is canceled, `<bx-modal>` stops closing itself.
 
@@ -195,7 +195,7 @@ If you get TypeScript "may be null" errors, think twice to see if there is such 
 
 ## Updating view upon change in `private`/`protected` properties
 
-`lit-element` observes for changes in declared properties for updating the view. `carbon-custom-elements` codebase doesn't use this feature simply to get properties observed. Specifically, `carbon-custom-elements` doesn't set `private`/`protected` properties as declared. Whenever change in `private`/`protected` should cause update in the view, we take manual approach (`.requestUpdate()`).
+`lit-element` observes for changes in declared properties for updating the view. `carbon-web-components` codebase doesn't use this feature simply to get properties observed. Specifically, `carbon-web-components` doesn't set `private`/`protected` properties as declared. Whenever change in `private`/`protected` should cause update in the view, we take manual approach (`.requestUpdate()`).
 
 ## CSS considerations with IE11
 

@@ -9,7 +9,7 @@
 
 // NOTE: `Array.from()` and `Object.assign()` and event constructor are covered by `@webcomponents/webcomponents-platform`
 // NOTE: The need of iterator (`for` ... `of` loop) support is not revealed by Storybook,
-// but by testing `carbon-custom-elements-with-polyfills.js` stand-alone
+// but by testing `carbon-web-components-with-polyfills.js` stand-alone
 import 'core-js/modules/es.array.find.js';
 import 'core-js/modules/es.math.sign.js';
 import 'core-js/modules/es.symbol.js';

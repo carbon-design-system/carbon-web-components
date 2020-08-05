@@ -221,7 +221,7 @@ class BXModal extends HostListenerMixin(LitElement) {
         this._launcher = this.ownerDocument!.activeElement;
         const primaryFocusNode = this.querySelector((this.constructor as typeof BXModal).selectorPrimaryFocus);
         if (primaryFocusNode) {
-          // For cases where a `carbon-custom-elements` component (e.g. `<bx-btn>`) being `primaryFocusNode`,
+          // For cases where a `carbon-web-components` component (e.g. `<bx-btn>`) being `primaryFocusNode`,
           // where its first update/render cycle that makes it focusable happens after `<bx-modal>`'s first update/render cycle
           await 0;
           (primaryFocusNode as HTMLElement).focus();
@@ -230,7 +230,7 @@ class BXModal extends HostListenerMixin(LitElement) {
             Boolean((elem as HTMLElement).offsetParent)
           );
           if (tabbable) {
-            // For cases where a `carbon-custom-elements` component (e.g. `<bx-btn>`) being `tabbable`,
+            // For cases where a `carbon-web-components` component (e.g. `<bx-btn>`) being `tabbable`,
             // where its first update/render cycle that makes it focusable happens after `<bx-modal>`'s first update/render cycle
             await 0;
             (tabbable as HTMLElement).focus();
