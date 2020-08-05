@@ -9,3 +9,4 @@ storybook-static-react
 storybook-static-vue
 tests/coverage
 .vscode
+.idea
