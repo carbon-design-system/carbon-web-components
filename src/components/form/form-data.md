@@ -1,6 +1,6 @@
 # Event-based form participation
 
-This document is for assessing if `carbon-custom-elements` library can support event-based form participation spec, as a stop-gap solution until full-blown [form-associated custom element API](https://github.com/whatwg/html/pull/4383) in order for our components to support use cases seen e.g. with `<input>` in `<form>`.
+This document is for assessing if `carbon-web-components` library can support event-based form participation spec, as a stop-gap solution until full-blown [form-associated custom element API](https://github.com/whatwg/html/pull/4383) in order for our components to support use cases seen e.g. with `<input>` in `<form>`.
 
 ## Specifications and tests
 

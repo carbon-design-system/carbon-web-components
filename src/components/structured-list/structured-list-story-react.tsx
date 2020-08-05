@@ -8,21 +8,21 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXStructuredList from 'carbon-custom-elements/es/components-react/structured-list/structured-list';
+import BXStructuredList from 'carbon-web-components/es/components-react/structured-list/structured-list';
 // @ts-ignore
-import BXStructuredListHead from 'carbon-custom-elements/es/components-react/structured-list/structured-list-head';
+import BXStructuredListHead from 'carbon-web-components/es/components-react/structured-list/structured-list-head';
 // @ts-ignore
-import BXStructuredListHeaderRow from 'carbon-custom-elements/es/components-react/structured-list/structured-list-header-row';
+import BXStructuredListHeaderRow from 'carbon-web-components/es/components-react/structured-list/structured-list-header-row';
 // @ts-ignore
-import BXStructuredListBody from 'carbon-custom-elements/es/components-react/structured-list/structured-list-body';
+import BXStructuredListBody from 'carbon-web-components/es/components-react/structured-list/structured-list-body';
 // @ts-ignore
-import BXStructuredListRow from 'carbon-custom-elements/es/components-react/structured-list/structured-list-row';
+import BXStructuredListRow from 'carbon-web-components/es/components-react/structured-list/structured-list-row';
 // @ts-ignore
 // eslint-disable-next-line max-len
-import BXStructuredListHeaderCellSkeleton from 'carbon-custom-elements/es/components-react/structured-list/structured-list-header-cell-skeleton';
+import BXStructuredListHeaderCellSkeleton from 'carbon-web-components/es/components-react/structured-list/structured-list-header-cell-skeleton';
 import { defaultStory as baseDefaultStory } from './structured-list-story';
 import styles from './structured-list-story.scss';
 
