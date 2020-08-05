@@ -56,7 +56,7 @@
 
 ```
 <a
-  class="bx--btn bx--btn--disabled bx--btn--secondary bx--btn--sm"
+  class="bx--btn bx--btn--secondary bx--btn--sm"
   download="file-name-foo"
   href="about:blank"
   hreflang="en"
@@ -75,3 +75,17 @@
 
 ```
 
+####   `should render disabled state for <a>`
+
+```
+<p
+  class="bx--btn bx--btn--disabled bx--btn--secondary bx--btn--sm"
+  id="button"
+>
+  <slot>
+  </slot>
+  <slot name="icon">
+  </slot>
+</p>
+
+```
