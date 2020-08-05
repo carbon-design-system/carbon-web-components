@@ -82,7 +82,7 @@ class BXSideNav extends HostListenerMixin(LitElement) {
   private _handleButtonToggle(event: CustomEvent) {
     this.expanded = event.detail.active;
     if (this.expanded) {
-      this.querySelectorAll((this.constructor as typeof BXSideNav).selectorNavItems)[0].focus();
+      (this.querySelector((this.constructor as typeof BXSideNav).selectorNavItems) as HTMLElement).focus();
     }
   }
 
