@@ -8,12 +8,12 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXContentSwitcher from 'carbon-custom-elements/es/components-react/content-switcher/content-switcher';
+import BXContentSwitcher from 'carbon-web-components/es/components-react/content-switcher/content-switcher';
 // @ts-ignore
-import BXContentSwitcherItem from 'carbon-custom-elements/es/components-react/content-switcher/content-switcher-item';
+import BXContentSwitcherItem from 'carbon-web-components/es/components-react/content-switcher/content-switcher-item';
 import { defaultStory as baseDefaultStory } from './content-switcher-story';
 
 export { default } from './content-switcher-story';

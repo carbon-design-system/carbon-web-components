@@ -17,14 +17,14 @@ A Carbon Design System variant that's as easy to use as native HTML elements, wi
 > contributors.
 
 <p align="center">
-  <a href="https://github.com/carbon-design-system/carbon-custom-elements/blob/master/LICENSE">
+  <a href="https://github.com/carbon-design-system/carbon-web-components/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Carbon is released under the Apache-2.0 license" />
   </a>
 </p>
 
-# `carbon-custom-elements`
+# `carbon-web-components`
 
-`carbon-custom-elements` is a variant of Carbon Design System with Custom Elements v1 and Shadow DOM v1 specs.
+`carbon-web-components` is a variant of Carbon Design System with Custom Elements v1 and Shadow DOM v1 specs.
 
 Experimental at this moment, with enthusiasm.
 
@@ -32,18 +32,18 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 
 ## Getting started
 
-To install `carbon-custom-elements` in your project, you will need to run the
+To install `carbon-web-components` in your project, you will need to run the
 following command using [npm](https://www.npmjs.com/):
 
 ```bash
-npm install -S carbon-custom-elements carbon-components lit-html lit-element
+npm install -S carbon-web-components carbon-components lit-html lit-element
 ```
 
 If you prefer [Yarn](https://yarnpkg.com/en/), use the following command
 instead:
 
 ```bash
-yarn add carbon-custom-elements carbon-components lit-html lit-element
+yarn add carbon-web-components carbon-components lit-html lit-element
 ```
 
 ### Basic usage
@@ -53,7 +53,7 @@ Our example at [CodeSandbox](https://codesandbox.io) shows the most basic usage:
 <iframe
   src="https://codesandbox.io/embed/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/basic?fontsize=14&hidenavigation=1&theme=light"
   style={{ width: '100%', height: '500px', border: 'solid rgba(0,0,0,0.1) 1px', boxShadow: 'rgba(0,0,0,0.1) 0 1px 3px 0' }}
-  title="carbon-custom-elements-getting-started"
+  title="carbon-web-components-getting-started"
   sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
 ></iframe>
 
@@ -62,8 +62,8 @@ The first thing you need is **setting up a module bundler** to resolve ECMAScrip
 Once you set up a module bundler, you can start importing our component modules, like:
 
 ```javascript
-import 'carbon-custom-elements/es/components/dropdown/dropdown';
-import 'carbon-custom-elements/es/components/dropdown/dropdown-item';
+import 'carbon-web-components/es/components/dropdown/dropdown';
+import 'carbon-web-components/es/components/dropdown/dropdown-item';
 ```
 
 Once you do that, you can use our components in the same manner as native HTML tags, like:
@@ -85,8 +85,8 @@ If you just want to try our components for demnstrations, etc., you can use CDNs
 <html>
   <head>
     <script type="module">
-      import 'https://jspm.dev/carbon-custom-elements/es/components/dropdown/dropdown.js';
-      import 'https://jspm.dev/carbon-custom-elements/es/components/dropdown/dropdown-item.js';
+      import 'https://jspm.dev/carbon-web-components/es/components/dropdown/dropdown.js';
+      import 'https://jspm.dev/carbon-web-components/es/components/dropdown/dropdown-item.js';
     </script>
     <style type="text/css">
       #app {
@@ -118,14 +118,14 @@ If you just want to try our components for demnstrations, etc., you can use CDNs
 <iframe
   className="bx-ce-doc--demo-iframe"
   src={console.log('basicExampleCDN:', basicExampleCDN), basicExampleCDN}
-  title="carbon-custom-elements-basic-example-cdn"
+  title="carbon-web-components-basic-example-cdn"
   sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
 >
 </iframe>
 
 ### JavaScript framework integration
 
-Given the nature of `carbon-custom-elements` built on top of web standard, `carbon-custom-elements` works well with JavaScript framework of your choice.
+Given the nature of `carbon-web-components` built on top of web standard, `carbon-web-components` works well with JavaScript framework of your choice.
 Please follow below links:
 
 - [Angular](https://carbon-custom-elements-angular.netlify.com)

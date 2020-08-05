@@ -8,7 +8,7 @@
  */
 
 import { css } from 'lit-element';
-import BXDropdown from 'carbon-custom-elements/es/components/dropdown/dropdown';
+import BXDropdown from 'carbon-web-components/es/components/dropdown/dropdown';
 
 class MyDropdown extends BXDropdown {}
 
