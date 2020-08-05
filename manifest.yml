@@ -1,7 +1,7 @@
 ---
 applications:
-- name: carbon-custom-elements
+- name: carbon-web-components
   memory: 64M
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
 routes:
-  - route: custom-elements.carbondesignsystem.com
+  - route: web-components.carbondesignsystem.com

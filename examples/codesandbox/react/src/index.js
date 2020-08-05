@@ -9,8 +9,8 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import BXDropdown from 'carbon-custom-elements/es/components-react/dropdown/dropdown';
-import BXDropdownItem from 'carbon-custom-elements/es/components-react/dropdown/dropdown-item';
+import BXDropdown from 'carbon-web-components/es/components-react/dropdown/dropdown';
+import BXDropdownItem from 'carbon-web-components/es/components-react/dropdown/dropdown-item';
 
 const App = () => (
   <>

@@ -1,6 +1,6 @@
-# Using `carbon-custom-elements` with old build toolchain
+# Using `carbon-web-components` with old build toolchain
 
-`carbon-custom-elements` package ships with code that is optimized for modern browsers.
+`carbon-web-components` package ships with code that is optimized for modern browsers.
 
 We have seen that old Webpack, old Babel or UglifyJS2 cannot parse object rest operator in our code unless our code is transpiled with `transform-object-rest-spread` Babel plugin. Here are some details:
 
@@ -16,7 +16,7 @@ module: {
     {
       test: /\.js$/,
       include: [
-        path.dirname(require.resolve('carbon-custom-elements/es')),
+        path.dirname(require.resolve('carbon-web-components/es')),
       ],
       use: [
         {

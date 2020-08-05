@@ -8,12 +8,12 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXTag from 'carbon-custom-elements/es/components-react/tag/tag';
+import BXTag from 'carbon-web-components/es/components-react/tag/tag';
 // @ts-ignore
-import BXFilterTag from 'carbon-custom-elements/es/components-react/tag/filter-tag';
+import BXFilterTag from 'carbon-web-components/es/components-react/tag/filter-tag';
 import { defaultStory as baseDefaultStory, filter as baseFilter } from './tag-story';
 
 export { default } from './tag-story';
