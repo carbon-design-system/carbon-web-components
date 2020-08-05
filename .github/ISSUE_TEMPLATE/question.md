@@ -6,7 +6,7 @@ labels: question
 
 <!--
 
-Hi there! 👋 Hope everything is going okay using projects from Carbon Web Components. 
+Hi there! 👋 Hope everything is going okay using projects from Carbon Web Components.
 It looks like you might have a question about our work, so we wanted to
 share a couple resources that you could use if you haven't tried them yet 🙂.
 
