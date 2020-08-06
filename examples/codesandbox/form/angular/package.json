@@ -1,5 +1,5 @@
 {
-  "name": "carbon-custom-elements-getting-started-angular-forms",
+  "name": "carbon-web-components-getting-started-angular-forms",
   "version": "0.1.0",
   "description": "Sample project for getting started with the Web Components from the Carbon Design System with Angular forms.",
   "scripts": {
@@ -19,8 +19,8 @@
     "@angular/router": "~8.1.0",
     "@babel/runtime": "^7.8.0",
     "carbon-components": "~10.16.0",
-    "carbon-custom-elements": "^1.0.0",
-    "lit-element": "^2.3.0",
+    "carbon-web-components": "^1.0.0",
+    "lit-element": "~2.2.0",
     "lit-html": "^1.2.0",
     "lodash-es": "^4.17.0",
     "rxjs": "^6.0.0",

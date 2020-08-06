@@ -17,7 +17,7 @@ const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
 const deps = ['dependencies', 'peerDependencies', 'devDependencies'];
-const packs = ['carbon-custom-elements'];
+const packs = ['carbon-web-components'];
 
 /**
  * Replaces `@carbon/ibmdotcom-*` dependencies in the given `package.json` files with the local directory references.
@@ -35,7 +35,7 @@ const replace = async files => {
           // eslint-disable-next-line no-restricted-syntax
           for (const pack of packs) {
             if (item[pack]) {
-              item[pack] = `file:../${pack}`;
+              item[pack] = `file:../${pack}.tar.gz`;
             }
           }
         }

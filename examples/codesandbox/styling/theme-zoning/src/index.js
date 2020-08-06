@@ -7,12 +7,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import 'carbon-custom-elements/es/components/button/button';
-import 'carbon-custom-elements/es/components/ui-shell/header';
-import 'carbon-custom-elements/es/components/ui-shell/header-nav';
-import 'carbon-custom-elements/es/components/ui-shell/header-nav-item';
-import 'carbon-custom-elements/es/components/ui-shell/header-menu';
-import 'carbon-custom-elements/es/components/ui-shell/header-menu-item';
-import 'carbon-custom-elements/es/components/ui-shell/header-menu-button';
-import 'carbon-custom-elements/es/components/ui-shell/header-name';
+import 'carbon-web-components/es/components/button/button';
+import 'carbon-web-components/es/components/ui-shell/header';
+import 'carbon-web-components/es/components/ui-shell/header-nav';
+import 'carbon-web-components/es/components/ui-shell/header-nav-item';
+import 'carbon-web-components/es/components/ui-shell/header-menu';
+import 'carbon-web-components/es/components/ui-shell/header-menu-item';
+import 'carbon-web-components/es/components/ui-shell/header-menu-button';
+import 'carbon-web-components/es/components/ui-shell/header-name';
 import './index.scss';
