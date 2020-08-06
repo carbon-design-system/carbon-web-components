@@ -94,7 +94,7 @@ Once you do that, you can use our components in the same manner as native HTML t
 </bx-dropdown>
 ```
 
-If you just want to try our components for demnstrations, etc., you can use CDNs that support module mapping (e.g. [JSPM](https://jspm.org)). With it, you can just import our modules in `<script type="module">`:
+If you just want to try our components for demonstrations, etc., you can use CDNs that support module mapping (e.g. [JSPM](https://jspm.org)). With it, you can just import our modules in `<script type="module">`:
 
 ```html
 <!DOCTYPE html>
