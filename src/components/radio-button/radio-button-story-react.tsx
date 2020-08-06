@@ -8,14 +8,14 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXRadioButtonGroup from 'carbon-custom-elements/es/components-react/radio-button/radio-button-group';
+import BXRadioButtonGroup from 'carbon-web-components/es/components-react/radio-button/radio-button-group';
 // @ts-ignore
-import BXRadioButton from 'carbon-custom-elements/es/components-react/radio-button/radio-button';
+import BXRadioButton from 'carbon-web-components/es/components-react/radio-button/radio-button';
 // @ts-ignore
-import BXRadioButtonSkeleton from 'carbon-custom-elements/es/components-react/radio-button/radio-button-skeleton';
+import BXRadioButtonSkeleton from 'carbon-web-components/es/components-react/radio-button/radio-button-skeleton';
 import { defaultStory as baseDefaultStory } from './radio-button-story';
 
 export { default } from './radio-button-story';

@@ -1,6 +1,6 @@
 # Using custom styles in components
 
-As Shadow DOM (one of the Web Components specs that `carbon-custom-elements` uses) promises, styles that `carbon-custom-elements` defines does not affect styles in your application, or vice versa.
+As Shadow DOM (one of the Web Components specs that `carbon-web-components` uses) promises, styles that `carbon-web-components` defines does not affect styles in your application, or vice versa.
 
 However, in cases where your application or a Carbon-derived style guide wants to change the styles of our components, there are a few options.
 
@@ -16,9 +16,9 @@ However, in cases where your application or a Carbon-derived style guide wants t
 
 ## Using CSS Custom Properties
 
-Changes to CSS Custom Properties of the Carbon theme are reflected in the color scheme of `carbon-custom-elements` components:
+Changes to CSS Custom Properties of the Carbon theme are reflected in the color scheme of `carbon-web-components` components:
 
-[![Edit carbon-custom-elements with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/styling/theme-zoning)
+[![Edit carbon-web-components with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/styling/theme-zoning)
 
 For example, if you add CSS like below:
 
@@ -53,7 +53,7 @@ footer {
 
 You can let our custom elements modules load alternate `CSSResult` module. Below example uses [Webpack `NormalModuleReplacementPlugin`](https://webpack.js.org/plugins/normal-module-replacement-plugin/) to let our custom elements modules load RTL version of `CSSResult` module that is shipped alongside with default `CSSResult` modules, instead of loading the default version:
 
-[![Edit carbon-custom-elements with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/rtl)
+[![Edit carbon-web-components with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/rtl)
 
 ```javascript
 const reCssBundle = /\.css\.js$/i;
@@ -76,11 +76,11 @@ module.exports = {
 
 You can create a derived class of our component and override [static `styles` property](https://lit-element.polymer-project.org/guide/styles#static-styles), like:
 
-[![Edit carbon-custom-elements with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/styling/custom-style)
+[![Edit carbon-web-components with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/styling/custom-style)
 
 ```javascript
 import { css, customElement } from 'lit-element';
-import BXDropdown from 'carbon-custom-elements/es/components/dropdown/dropdown';
+import BXDropdown from 'carbon-web-components/es/components/dropdown/dropdown';
 
 @customElement('my-dropdown')
 class MyDropdown extends BXDropdown {
@@ -96,4 +96,4 @@ class MyDropdown extends BXDropdown {
 
 ## CSS Shadow Parts
 
-In the future, we'd like to support [CSS Shadow Parts](https://www.w3.org/TR/css-shadow-parts-1/) too, so you can use your application's CSS to affect `carbon-custom-elements` styles in a more flexible manner.
+In the future, we'd like to support [CSS Shadow Parts](https://www.w3.org/TR/css-shadow-parts-1/) too, so you can use your application's CSS to affect `carbon-web-components` styles in a more flexible manner.

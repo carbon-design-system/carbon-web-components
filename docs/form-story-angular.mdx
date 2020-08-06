@@ -10,13 +10,13 @@ Our form components can be used for Angular two-way binding syntax (`[(ngModel)]
 <bx-input [(ngModel)]="model.username" #username="ngModel" type="text" name="username"></bx-input>
 ```
 
-Such Angular directives can be used by importing `BXFormAccessorModule` from `carbon-custom-elements/es/directives-angular/esm2015` or `carbon-custom-elements/es/directives-angular/esm5` into your Angular module:
+Such Angular directives can be used by importing `BXFormAccessorModule` from `carbon-web-components/es/directives-angular/esm2015` or `carbon-web-components/es/directives-angular/esm5` into your Angular module:
 
 ```javascript
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { BXFormAccessorsModule } from 'carbon-custom-elements/es/directives-angular/esm2015';
+import { BXFormAccessorsModule } from 'carbon-web-components/es/directives-angular/esm2015';
 
 import { AppComponent } from './app.component';
 
@@ -33,6 +33,6 @@ export class AppModule {}
 <iframe
   src="https://codesandbox.io/embed/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/form/angular?fontsize=14&hidenavigation=1&theme=light"
   style={{ width: '100%', height: '500px', border: 'solid rgba(0,0,0,0.1) 1px', boxShadow: 'rgba(0,0,0,0.1) 0 1px 3px 0' }}
-  title="carbon-custom-elements-getting-started"
+  title="carbon-web-components-getting-started"
   sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
 ></iframe>
