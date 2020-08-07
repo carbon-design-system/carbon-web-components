@@ -16,16 +16,15 @@ const PORT = 1235;
 
 describe('Basic form example', () => {
   beforeAll(async () => {
-    const dist = path.resolve(__dirname, '../../../es');
-    const src = path.resolve(__dirname, '../../../examples/codesandbox/form/basic');
+    const projectRoot = path.resolve(__dirname, '../../..');
+    const src = path.resolve(projectRoot, 'examples/codesandbox/form/basic');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
     await setupDevServer({
       command: [
         `cp -r ${src} ${tmpDir}/form-basic`,
+        `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/form-basic/package.json`,
         `cd ${tmpDir}/form-basic`,
         'yarn install',
-        'rm -Rf node_modules/carbon-custom-elements/es',
-        `cp -r ${dist} node_modules/carbon-custom-elements`,
         `yarn parcel --port ${PORT} index.html`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),

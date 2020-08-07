@@ -14,15 +14,7 @@
   </slot>
 </label>
 <div
-  class="bx--form__helper-text"
-  part="helper-text"
->
-  <slot name="helper-text">
-    undefined
-  </slot>
-</div>
-<div
-  class="bx--dropdown bx--list-box"
+  class="bx--combo-box bx--dropdown bx--list-box"
   role="listbox"
 >
   <div
@@ -48,6 +40,14 @@
   </div>
 </div>
 <div
+  class="bx--form__helper-text"
+  part="helper-text"
+>
+  <slot name="helper-text">
+    undefined
+  </slot>
+</div>
+<div
   aria-live="assertive"
   aria-relevant="additions text"
   class="bx--assistive-text"
@@ -69,15 +69,7 @@
   </slot>
 </label>
 <div
-  class="bx--form__helper-text bx--form__helper-text--disabled"
-  part="helper-text"
->
-  <slot name="helper-text">
-    helper-text-foo
-  </slot>
-</div>
-<div
-  class="bx--dropdown bx--dropdown--invalid bx--list-box bx--list-box--disabled bx--list-box--expanded"
+  class="bx--combo-box bx--dropdown bx--dropdown--invalid bx--list-box bx--list-box--disabled bx--list-box--expanded"
   data-invalid=""
   role="listbox"
 >

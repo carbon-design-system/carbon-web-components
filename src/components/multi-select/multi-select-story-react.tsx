@@ -8,12 +8,12 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXMultiSelect from 'carbon-custom-elements/es/components-react/multi-select/multi-select';
+import BXMultiSelect from 'carbon-web-components/es/components-react/multi-select/multi-select';
 // @ts-ignore
-import BXMultiSelectItem from 'carbon-custom-elements/es/components-react/multi-select/multi-select-item';
+import BXMultiSelectItem from 'carbon-web-components/es/components-react/multi-select/multi-select-item';
 import { defaultStory as baseDefaultStory } from './multi-select-story';
 
 export { default } from './multi-select-story';
