@@ -63,7 +63,7 @@
   id="button"
   ping="about:blank"
   rel="noopener"
-  role="button"
+  role="link"
   target="_blank"
   type="text/plain"
 >
