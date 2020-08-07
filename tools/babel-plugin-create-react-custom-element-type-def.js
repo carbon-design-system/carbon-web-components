@@ -26,7 +26,7 @@ module.exports = function generateCreateReactCustomElementType(api) {
   };
 
   return {
-    name: 'create-react-custom-element-type',
+    name: 'create-react-custom-element-type-def',
     visitor: {
       Program(path, { file }) {
         const declaredProps = {};
@@ -35,7 +35,7 @@ module.exports = function generateCreateReactCustomElementType(api) {
         // Gathers metadata of custom element properties and events, into `context`
         path.traverse(metadataVisitor, context);
 
-        const { className, classComments = [] } = context;
+        const { className, classComments = [], parentDescriptorSource } = context;
         const props = Object.keys(declaredProps).reduce((acc, key) => {
           const { comments = [], type } = declaredProps[key];
           return [...acc, comments.map(({ value }) => `/*${value}*/`).join('\n'), `${key}?: ${types[type] || 'string'};`];
@@ -52,10 +52,14 @@ module.exports = function generateCreateReactCustomElementType(api) {
         const build = template(
           `
             import { Component } from 'react';
+            ${
+              !parentDescriptorSource ? '' : `import { ComponentProps as ParentComponentProps } from '${parentDescriptorSource}';`
+            }
 
-            interface ComponentProps {
+            export interface ComponentProps${!parentDescriptorSource ? '' : ' extends ParentComponentProps'} {
               ${props.join('\n')}
               ${events.join('\n')}
+              ${parentDescriptorSource ? '' : '[prop: string]: unknown;'}
             }
 
             ${classComments.map(({ value }) => `/*${value}*/`).join('\n')}
