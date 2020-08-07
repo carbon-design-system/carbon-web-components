@@ -58,6 +58,12 @@ class BXLink extends FocusMixin(LitElement) {
   hreflang!: string;
 
   /**
+   * The a11y role for `<a>`.
+   */
+  @property({ attribute: 'link-role' })
+  linkRole!: string;
+
+  /**
    * URLs to ping.
    */
   @property()
@@ -86,15 +92,15 @@ class BXLink extends FocusMixin(LitElement) {
   }
 
   render() {
-    const { disabled, download, href, hreflang, ping, rel, target, type, _classes: classes } = this;
+    const { disabled, download, href, hreflang, linkRole, ping, rel, target, type, _classes: classes } = this;
     return disabled
       ? html`
-          <p id="button" class="${classes}"><slot></slot></p>
+          <p id="link" class="${classes}"><slot></slot></p>
         `
       : html`
           <a
-            id="button"
-            role="button"
+            id="link"
+            role="${ifNonNull(linkRole)}"
             class="${classes}"
             download="${ifNonNull(download)}"
             href="${ifNonNull(href)}"

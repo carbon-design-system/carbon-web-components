@@ -39,6 +39,12 @@ class BXClickableTile extends BXLink {
   @property({ attribute: 'color-scheme', reflect: true })
   colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
 
+  /**
+   * The a11y role for `<a>`.
+   */
+  @property({ attribute: 'link-role' })
+  linkRole = 'button';
+
   static styles = styles;
 }
 

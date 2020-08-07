@@ -126,6 +126,12 @@ class BXButton extends FocusMixin(LitElement) {
   kind = BUTTON_KIND.PRIMARY;
 
   /**
+   * The a11y role for `<a>`.
+   */
+  @property({ attribute: 'link-role' })
+  linkRole = 'button';
+
+  /**
    * URLs to ping, if this button is rendered as `<a>`.
    */
   @property()
@@ -166,6 +172,7 @@ class BXButton extends FocusMixin(LitElement) {
       download,
       href,
       hreflang,
+      linkRole,
       kind,
       ping,
       rel,
@@ -195,7 +202,7 @@ class BXButton extends FocusMixin(LitElement) {
         : html`
             <a
               id="button"
-              role="button"
+              role="${ifNonNull(linkRole)}"
               class="${classes}"
               download="${ifNonNull(download)}"
               href="${ifNonNull(href)}"
