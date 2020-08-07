@@ -8,10 +8,10 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXToggle from 'carbon-custom-elements/es/components-react/toggle/toggle';
+import BXToggle from 'carbon-web-components/es/components-react/toggle/toggle';
 import { defaultStory as baseDefaultStory } from './toggle-story';
 
 export { default } from './toggle-story';

@@ -66,7 +66,32 @@ describe('bx-tile', function() {
         render(
           clickableTemplate({
             colorScheme: TILE_COLOR_SCHEME.LIGHT,
+            download: 'file-name-foo',
             href: 'about:blank',
+            hreflang: 'en',
+            ping: 'about:blank',
+            rel: 'noopener',
+            target: '_blank',
+            type: 'text/plain',
+          }),
+          document.body
+        );
+        await Promise.resolve();
+        expect(document.body.querySelector('bx-clickable-tile')).toMatchSnapshot({ mode: 'shadow' });
+      });
+
+      it('should render disabled state', async function() {
+        render(
+          clickableTemplate({
+            colorScheme: TILE_COLOR_SCHEME.LIGHT,
+            disabled: true,
+            download: 'file-name-foo',
+            href: 'about:blank',
+            hreflang: 'en',
+            ping: 'about:blank',
+            rel: 'noopener',
+            target: '_blank',
+            type: 'text/plain',
           }),
           document.body
         );

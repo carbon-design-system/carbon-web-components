@@ -8,16 +8,16 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXTabs from 'carbon-custom-elements/es/components-react/tabs/tabs';
+import BXTabs from 'carbon-web-components/es/components-react/tabs/tabs';
 // @ts-ignore
-import BXTab from 'carbon-custom-elements/es/components-react/tabs/tab';
+import BXTab from 'carbon-web-components/es/components-react/tabs/tab';
 // @ts-ignore
-import BXTabsSkeleton from 'carbon-custom-elements/es/components-react/tabs/tabs-skeleton';
+import BXTabsSkeleton from 'carbon-web-components/es/components-react/tabs/tabs-skeleton';
 // @ts-ignore
-import BXTabSkeleton from 'carbon-custom-elements/es/components-react/tabs/tab-skeleton';
+import BXTabSkeleton from 'carbon-web-components/es/components-react/tabs/tab-skeleton';
 import { defaultStory as baseDefaultStory } from './tabs-story';
 import styles from './tabs-story.scss';
 

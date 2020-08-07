@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -9,10 +9,10 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import 'carbon-custom-elements/es/components/button/button';
-import 'carbon-custom-elements/es/components/form/form-item';
-import 'carbon-custom-elements/es/components/input/input';
-import 'carbon-custom-elements/es/components/notification/inline-notification';
+import 'carbon-web-components/es/components/button/button';
+import 'carbon-web-components/es/components/form/form-item';
+import 'carbon-web-components/es/components/input/input';
+import 'carbon-web-components/es/components/notification/inline-notification';
 
 /**
  * The data model.

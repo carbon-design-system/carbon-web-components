@@ -13,7 +13,7 @@ import Handle from '../internal/handle';
 /**
  * The format for the event name used by `@HostListener` decorator.
  */
-const EVENT_NAME_FORMAT = /^((document|window|shadowRoot):)?(\w+)$/;
+const EVENT_NAME_FORMAT = /^((document|window|shadowRoot):)?([\w-]+)$/;
 
 /**
  * @param Base The base class.
