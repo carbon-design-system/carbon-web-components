@@ -8,14 +8,14 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXTextarea from 'carbon-custom-elements/es/components-react/textarea/textarea';
+import BXTextarea from 'carbon-web-components/es/components-react/textarea/textarea';
 // @ts-ignore
-import BXTextareaSkeleton from 'carbon-custom-elements/es/components-react/textarea/textarea-skeleton';
+import BXTextareaSkeleton from 'carbon-web-components/es/components-react/textarea/textarea-skeleton';
 // @ts-ignore
-import BXFormItem from 'carbon-custom-elements/es/components-react/form/form-item';
+import BXFormItem from 'carbon-web-components/es/components-react/form/form-item';
 import {
   defaultStory as baseDefaultStory,
   formItem as baseFormItem,

@@ -9,7 +9,8 @@
 ```
 <a
   class="bx--link bx--tile bx--tile--clickable"
-  href=""
+  id="button"
+  role="button"
 >
   <slot>
   </slot>
@@ -22,11 +23,32 @@
 ```
 <a
   class="bx--link bx--tile bx--tile--clickable bx--tile--light"
+  download="file-name-foo"
   href="about:blank"
+  hreflang="en"
+  id="button"
+  ping="about:blank"
+  rel="noopener"
+  role="button"
+  target="_blank"
+  type="text/plain"
 >
   <slot>
   </slot>
 </a>
+
+```
+
+####     `should render disabled state`
+
+```
+<p
+  class="bx--link bx--link--disabled bx--tile bx--tile--clickable bx--tile--light"
+  id="button"
+>
+  <slot>
+  </slot>
+</p>
 
 ```
 

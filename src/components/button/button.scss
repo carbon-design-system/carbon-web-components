@@ -25,7 +25,7 @@ $css--plex: true !default;
 
   ::slotted([slot='icon']) {
     fill: currentColor;
-    margin-left: $carbon--spacing-03;
+    margin-left: calc(#{rem(60px)} - #{$spacing-04} - #{$icon-size-01});
   }
 
   .#{$prefix}--btn--icon-only ::slotted([slot='icon']) {

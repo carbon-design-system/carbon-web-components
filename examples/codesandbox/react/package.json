@@ -1,5 +1,5 @@
 {
-  "name": "carbon-custom-elements-react-getting-started",
+  "name": "carbon-web-components-react-getting-started",
   "version": "0.1.0",
   "private": true,
   "description": "Sample project for getting started with the Web Components from the Carbon Design System with React.",
@@ -7,8 +7,8 @@
   "main": "index.html",
   "dependencies": {
     "carbon-components": "~10.16.0",
-    "carbon-custom-elements": "^1.0.0",
-    "lit-element": "^2.3.0",
+    "carbon-web-components": "^1.0.0",
+    "lit-element": "~2.2.0",
     "lit-html": "^1.2.0",
     "lodash-es": "^4.17.0",
     "react": "^16.0.0",

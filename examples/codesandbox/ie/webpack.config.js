@@ -22,7 +22,7 @@ module.exports = {
       {
         test: /\.js$/,
         include: [
-          path.dirname(require.resolve('carbon-custom-elements/es')),
+          path.dirname(require.resolve('carbon-web-components/es')),
           path.dirname(require.resolve('lit-html')),
           path.dirname(require.resolve('lit-element')),
           path.dirname(require.resolve('@webcomponents/custom-elements')),

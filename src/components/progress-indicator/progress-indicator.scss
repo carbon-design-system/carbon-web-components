@@ -28,7 +28,7 @@ $css--plex: true !default;
 
   // Carbon core style has hard-coded width whose value is the same as `.bx--progress-step`.
   // We override it so changing width of `<bx-progress-step>` automatically changes the width here.
-  // https://github.com/carbon-design-system/carbon-custom-elements/issues/325
+  // https://github.com/carbon-design-system/carbon-web-components/issues/325
   .#{$prefix}--progress-line {
     width: 100%;
   }

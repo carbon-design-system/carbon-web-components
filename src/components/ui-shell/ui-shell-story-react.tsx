@@ -10,35 +10,35 @@
 import React from 'react';
 import Fade16 from '@carbon/icons-react/es/fade/16';
 import contentStyles from 'carbon-components/scss/components/ui-shell/_content.scss';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 import BXSideNav, {
   SIDE_NAV_COLLAPSE_MODE,
   SIDE_NAV_USAGE_MODE,
   // @ts-ignore
-} from 'carbon-custom-elements/es/components-react/ui-shell/side-nav';
+} from 'carbon-web-components/es/components-react/ui-shell/side-nav';
 // @ts-ignore
-import BXSideNavItems from 'carbon-custom-elements/es/components-react/ui-shell/side-nav-items';
+import BXSideNavItems from 'carbon-web-components/es/components-react/ui-shell/side-nav-items';
 // @ts-ignore
-import BXSideNavLink from 'carbon-custom-elements/es/components-react/ui-shell/side-nav-link';
+import BXSideNavLink from 'carbon-web-components/es/components-react/ui-shell/side-nav-link';
 // @ts-ignore
-import BXSideNavMenu from 'carbon-custom-elements/es/components-react/ui-shell/side-nav-menu';
+import BXSideNavMenu from 'carbon-web-components/es/components-react/ui-shell/side-nav-menu';
 // @ts-ignore
-import BXSideNavMenuItem from 'carbon-custom-elements/es/components-react/ui-shell/side-nav-menu-item';
+import BXSideNavMenuItem from 'carbon-web-components/es/components-react/ui-shell/side-nav-menu-item';
 // @ts-ignore
-import BXHeader from 'carbon-custom-elements/es/components-react/ui-shell/header';
+import BXHeader from 'carbon-web-components/es/components-react/ui-shell/header';
 // @ts-ignore
-import BXHeaderNav from 'carbon-custom-elements/es/components-react/ui-shell/header-nav';
+import BXHeaderNav from 'carbon-web-components/es/components-react/ui-shell/header-nav';
 // @ts-ignore
-import BXHeaderNavItem from 'carbon-custom-elements/es/components-react/ui-shell/header-nav-item';
+import BXHeaderNavItem from 'carbon-web-components/es/components-react/ui-shell/header-nav-item';
 // @ts-ignore
-import BXHeaderMenu from 'carbon-custom-elements/es/components-react/ui-shell/header-menu';
+import BXHeaderMenu from 'carbon-web-components/es/components-react/ui-shell/header-menu';
 // @ts-ignore
-import BXHeaderMenuItem from 'carbon-custom-elements/es/components-react/ui-shell/header-menu-item';
+import BXHeaderMenuItem from 'carbon-web-components/es/components-react/ui-shell/header-menu-item';
 // @ts-ignore
-import BXHeaderMenuButton from 'carbon-custom-elements/es/components-react/ui-shell/header-menu-button';
+import BXHeaderMenuButton from 'carbon-web-components/es/components-react/ui-shell/header-menu-button';
 // @ts-ignore
-import BXHeaderName from 'carbon-custom-elements/es/components-react/ui-shell/header-name';
+import BXHeaderName from 'carbon-web-components/es/components-react/ui-shell/header-name';
 import { sideNav as baseSideNav, sideNavWithIcons as baseSideNavWithIcons, header as baseHeader } from './ui-shell-story';
 import styles from './ui-shell-story.scss';
 
