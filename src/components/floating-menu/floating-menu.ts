@@ -125,6 +125,24 @@ const observeResize = (observer: ResizeObserver, elem: Element) => {
 };
 
 /**
+ * @param elem The starting element.
+ * @param selector The CSS selector.
+ * @returns {Element}
+ *   The closest ancestor node of the given element that matches the given selector, crossing Shadow DOM boundary.
+ */
+const closestComposed = (elem: Element, selector: string) => {
+  const found = elem.closest(selector);
+  if (found) {
+    return found;
+  }
+  const { host } = elem.getRootNode() as ShadowRoot;
+  if (host) {
+    return closestComposed(host, selector);
+  }
+  return null;
+};
+
+/**
  * Floating menu.
  */
 abstract class BXFloatingMenu extends HostListenerMixin(FocusMixin(LitElement)) {
@@ -200,7 +218,7 @@ abstract class BXFloatingMenu extends HostListenerMixin(FocusMixin(LitElement)) 
    * The DOM element to put this menu into.
    */
   get container() {
-    return this.closest((this.constructor as typeof BXFloatingMenu).selectorContainer) || this.ownerDocument!.body;
+    return closestComposed(this, (this.constructor as typeof BXFloatingMenu).selectorContainer) || this.ownerDocument!.body;
   }
 
   /**

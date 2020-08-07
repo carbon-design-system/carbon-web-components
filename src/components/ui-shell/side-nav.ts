@@ -81,6 +81,9 @@ class BXSideNav extends HostListenerMixin(LitElement) {
    */
   private _handleButtonToggle(event: CustomEvent) {
     this.expanded = event.detail.active;
+    if (this.expanded) {
+      (this.querySelector((this.constructor as typeof BXSideNav).selectorNavItems) as HTMLElement)?.focus();
+    }
   }
 
   /**
@@ -190,6 +193,13 @@ class BXSideNav extends HostListenerMixin(LitElement) {
    */
   static get selectorButtonToggle() {
     return `${prefix}-header-menu-button`;
+  }
+
+  /**
+   * A selector that will return side nav focusable items.
+   */
+  static get selectorNavItems() {
+    return `${prefix}-side-nav-menu, ${prefix}-side-nav-menu-item, ${prefix}-side-nav-link`;
   }
 
   /**

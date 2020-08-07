@@ -9,24 +9,24 @@
 
 import React from 'react';
 import '../button/button';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXBtn from 'carbon-custom-elements/es/components-react/button/button';
+import BXBtn from 'carbon-web-components/es/components-react/button/button';
 // @ts-ignore
-import BXModal from 'carbon-custom-elements/es/components-react/modal/modal';
+import BXModal from 'carbon-web-components/es/components-react/modal/modal';
 // @ts-ignore
-import BXModalHeader from 'carbon-custom-elements/es/components-react/modal/modal-header';
+import BXModalHeader from 'carbon-web-components/es/components-react/modal/modal-header';
 // @ts-ignore
-import BXModalCloseButton from 'carbon-custom-elements/es/components-react/modal/modal-close-button';
+import BXModalCloseButton from 'carbon-web-components/es/components-react/modal/modal-close-button';
 // @ts-ignore
-import BXModalHeading from 'carbon-custom-elements/es/components-react/modal/modal-heading';
+import BXModalHeading from 'carbon-web-components/es/components-react/modal/modal-heading';
 // @ts-ignore
-import BXModalLabel from 'carbon-custom-elements/es/components-react/modal/modal-label';
+import BXModalLabel from 'carbon-web-components/es/components-react/modal/modal-label';
 // @ts-ignore
-import BXModalBody from 'carbon-custom-elements/es/components-react/modal/modal-body';
+import BXModalBody from 'carbon-web-components/es/components-react/modal/modal-body';
 // @ts-ignore
-import BXModalFooter from 'carbon-custom-elements/es/components-react/modal/modal-footer';
+import BXModalFooter from 'carbon-web-components/es/components-react/modal/modal-footer';
 import { defaultStory as baseDefaultStory } from './modal-story';
 
 export { default } from './modal-story';
