@@ -21,6 +21,7 @@
     NaN items selected
   </p>
 </div>
+
 ```
 
 ####     `should render with various attributes`
@@ -40,6 +41,7 @@
     3 items selected
   </p>
 </div>
+
 ```
 
 ####     `should render non-plural selected rows count`
@@ -59,6 +61,7 @@
     1 item selected
   </p>
 </div>
+
 ```
 
 ## `bx-table-header-cell`
@@ -70,6 +73,7 @@
 ```
 <slot>
 </slot>
+
 ```
 
 ####     `should render with various attributes`
@@ -86,6 +90,7 @@
     </slot>
   </span>
 </button>
+
 ```
 
 ## `bx-table-row`
@@ -97,6 +102,7 @@
 ```
 <slot>
 </slot>
+
 ```
 
 ####     `should render with various attributes`
@@ -120,6 +126,7 @@
 </div>
 <slot>
 </slot>
+
 ```
 
 ## `bx-table-expand-row`
@@ -135,6 +142,7 @@
 </div>
 <slot>
 </slot>
+
 ```
 
 ####     `should render with various attributes`
@@ -162,6 +170,7 @@
 </div>
 <slot>
 </slot>
+
 ```
 
 ## `bx-table-toolbar-search`

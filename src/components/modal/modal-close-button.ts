@@ -20,11 +20,17 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-modal-close-button`)
 class BXModalCloseButton extends LitElement {
+  createRenderRoot() {
+    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
+
   render() {
     return html`
-      ${Close20({
-        class: `${prefix}--modal-close__icon`,
-      })}
+      <button class="${prefix}--modal-close">
+        ${Close20({
+          class: `${prefix}--modal-close__icon`,
+        })}
+      </button>
     `;
   }
 

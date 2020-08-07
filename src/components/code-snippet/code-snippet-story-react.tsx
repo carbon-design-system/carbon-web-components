@@ -8,12 +8,12 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXCodeSnippet from 'carbon-custom-elements/es/components-react/code-snippet/code-snippet';
+import BXCodeSnippet from 'carbon-web-components/es/components-react/code-snippet/code-snippet';
 // @ts-ignore
-import BXCodeSnippetSkeleton from 'carbon-custom-elements/es/components-react/code-snippet/code-snippet-skeleton';
+import BXCodeSnippetSkeleton from 'carbon-web-components/es/components-react/code-snippet/code-snippet-skeleton';
 import {
   singleLine as baseSingleLine,
   multiLine as baseMultiLine,

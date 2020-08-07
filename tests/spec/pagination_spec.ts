@@ -48,13 +48,15 @@ describe('bx-pagination', function() {
 
     it('should render <bx-page-sizes-select> with minimum attributes', async function() {
       render(template(), document.body);
-      await Promise.resolve();
+      await Promise.resolve(); // Update cycle for `<bx-pagination>`
+      await Promise.resolve(); // Update cycle for `<bx-page-sizes-select>`
       expect(document.body.querySelector('bx-page-sizes-select')).toMatchSnapshot({ mode: 'shadow' });
     });
 
     it('should render <bx-pages-select> with minimum attributes', async function() {
       render(template({ total: 100 }), document.body);
-      await Promise.resolve();
+      await Promise.resolve(); // Update cycle for `<bx-pagination>`
+      await Promise.resolve(); // Update cycle for `<bx-pages-select>`
       expect(document.body.querySelector('bx-pages-select')).toMatchSnapshot({ mode: 'shadow' });
     });
   });

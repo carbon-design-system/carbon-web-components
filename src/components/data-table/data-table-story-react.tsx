@@ -13,52 +13,52 @@ import { useDebounce } from 'use-debounce';
 import Delete16 from '@carbon/icons-react/es/delete/16';
 import Download16 from '@carbon/icons-react/es/download/16';
 import Settings16 from '@carbon/icons-react/es/settings/16';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXBtn from 'carbon-custom-elements/es/components-react/button/button';
+import BXBtn from 'carbon-web-components/es/components-react/button/button';
 // @ts-ignore
-import BXOverflowMenu from 'carbon-custom-elements/es/components-react/overflow-menu/overflow-menu';
+import BXOverflowMenu from 'carbon-web-components/es/components-react/overflow-menu/overflow-menu';
 // @ts-ignore
-import BXOverflowMenuBody from 'carbon-custom-elements/es/components-react/overflow-menu/overflow-menu-body';
+import BXOverflowMenuBody from 'carbon-web-components/es/components-react/overflow-menu/overflow-menu-body';
 // @ts-ignore
-import BXOverflowMenuItem from 'carbon-custom-elements/es/components-react/overflow-menu/overflow-menu-item';
+import BXOverflowMenuItem from 'carbon-web-components/es/components-react/overflow-menu/overflow-menu-item';
 // @ts-ignore
-import BXPagination from 'carbon-custom-elements/es/components-react/pagination/pagination';
+import BXPagination from 'carbon-web-components/es/components-react/pagination/pagination';
 // @ts-ignore
-import BXPageSizesSelect from 'carbon-custom-elements/es/components-react/pagination/page-sizes-select';
+import BXPageSizesSelect from 'carbon-web-components/es/components-react/pagination/page-sizes-select';
 // @ts-ignore
-import BXPagesSelect from 'carbon-custom-elements/es/components-react/pagination/pages-select';
+import BXPagesSelect from 'carbon-web-components/es/components-react/pagination/pages-select';
 // @ts-ignore
-import BXTable, { TABLE_COLOR_SCHEME, TABLE_SIZE } from 'carbon-custom-elements/es/components-react/data-table/table';
+import BXTable, { TABLE_COLOR_SCHEME, TABLE_SIZE } from 'carbon-web-components/es/components-react/data-table/table';
 // @ts-ignore
-import BXTableHead from 'carbon-custom-elements/es/components-react/data-table/table-head';
+import BXTableHead from 'carbon-web-components/es/components-react/data-table/table-head';
 // @ts-ignore
-import BXTableHeaderRow from 'carbon-custom-elements/es/components-react/data-table/table-header-row';
+import BXTableHeaderRow from 'carbon-web-components/es/components-react/data-table/table-header-row';
 import BXTableHeaderCell, {
   TABLE_SORT_DIRECTION,
   // @ts-ignore
-} from 'carbon-custom-elements/es/components-react/data-table/table-header-cell';
+} from 'carbon-web-components/es/components-react/data-table/table-header-cell';
 // @ts-ignore
-import BXTableBody from 'carbon-custom-elements/es/components-react/data-table/table-body';
+import BXTableBody from 'carbon-web-components/es/components-react/data-table/table-body';
 // @ts-ignore
-import BXTableRow from 'carbon-custom-elements/es/components-react/data-table/table-row';
+import BXTableRow from 'carbon-web-components/es/components-react/data-table/table-row';
 // @ts-ignore
-import BXTableCell from 'carbon-custom-elements/es/components-react/data-table/table-cell';
+import BXTableCell from 'carbon-web-components/es/components-react/data-table/table-cell';
 // @ts-ignore
-import BXTableHeaderExpandRow from 'carbon-custom-elements/es/components-react/data-table/table-header-expand-row';
+import BXTableHeaderExpandRow from 'carbon-web-components/es/components-react/data-table/table-header-expand-row';
 // @ts-ignore
-import BXTableExpandRow from 'carbon-custom-elements/es/components-react/data-table/table-expand-row';
+import BXTableExpandRow from 'carbon-web-components/es/components-react/data-table/table-expand-row';
 // @ts-ignore
-import BXTableExpandedRow from 'carbon-custom-elements/es/components-react/data-table/table-expanded-row';
+import BXTableExpandedRow from 'carbon-web-components/es/components-react/data-table/table-expanded-row';
 // @ts-ignore
-import BXTableToolbar from 'carbon-custom-elements/es/components-react/data-table/table-toolbar';
+import BXTableToolbar from 'carbon-web-components/es/components-react/data-table/table-toolbar';
 // @ts-ignore
-import BXTableToolbarContent from 'carbon-custom-elements/es/components-react/data-table/table-toolbar-content';
+import BXTableToolbarContent from 'carbon-web-components/es/components-react/data-table/table-toolbar-content';
 // @ts-ignore
-import BXTableToolbarSearch from 'carbon-custom-elements/es/components-react/data-table/table-toolbar-search';
+import BXTableToolbarSearch from 'carbon-web-components/es/components-react/data-table/table-toolbar-search';
 // @ts-ignore
-import BXTableBatchActions from 'carbon-custom-elements/es/components-react/data-table/table-batch-actions';
+import BXTableBatchActions from 'carbon-web-components/es/components-react/data-table/table-batch-actions';
 import BXBtnElement from '../button/button';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';

@@ -78,6 +78,10 @@ $css--plex: true !default;
   .#{$prefix}--list-box__menu-item__option {
     color: $text-01;
   }
+
+  .#{$prefix}--list-box__menu-item__selected-icon {
+    display: block;
+  }
 }
 
 :host(#{$prefix}-dropdown-skeleton) {
