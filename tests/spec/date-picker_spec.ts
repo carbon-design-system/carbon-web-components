@@ -96,17 +96,26 @@ describe('bx-date-picker', function() {
       await Promise.resolve();
       expect(datePicker!.calendar!.selectedDates.map(item => item.getTime())).toEqual([new Date(2000, 6, 15).getTime()]);
     });
+
+    it('Should support opening calendar dropdown by clicking on calendar icon', async function() {
+      datePickerInput!.shadowRoot!.querySelector('svg')!.dispatchEvent(new CustomEvent('click', { bubbles: true }));
+      await Promise.resolve();
+      const { calendar } = datePicker!;
+      expect(calendar!.isOpen).toBe(true);
+    });
   });
 
   describe('Range mode', function() {
     let datePicker: BXDatePicker | null;
     let datePickerInputStart: BXDatePickerInput | null;
+    let datePickerInputEnd: BXDatePickerInput | null;
 
     beforeEach(async function() {
       render(rangeWithCalendarTemplate(), document.body);
       await Promise.resolve();
       datePicker = document.body.querySelector('bx-date-picker');
       datePickerInputStart = document.body.querySelector('bx-date-picker-input[kind="from"]');
+      datePickerInputEnd = document.body.querySelector('bx-date-picker-input[kind="to"]');
     });
 
     it('Should instantiate Flatpickr', async function() {
@@ -142,6 +151,20 @@ describe('bx-date-picker', function() {
         new Date(2000, 6, 10).getTime(),
         new Date(2000, 6, 20).getTime(),
       ]);
+    });
+
+    it('Should support opening calendar dropdown by clicking on calendar icon for the start date', async function() {
+      datePickerInputStart!.shadowRoot!.querySelector('svg')!.dispatchEvent(new CustomEvent('click', { bubbles: true }));
+      await Promise.resolve();
+      const { calendar } = datePicker!;
+      expect(calendar!.isOpen).toBe(true);
+    });
+
+    it('Should support opening calendar dropdown by clicking on calendar icon for the end date', async function() {
+      datePickerInputEnd!.shadowRoot!.querySelector('svg')!.dispatchEvent(new CustomEvent('click', { bubbles: true }));
+      await Promise.resolve();
+      const { calendar } = datePicker!;
+      expect(calendar!.isOpen).toBe(true);
     });
   });
 
