@@ -9,7 +9,7 @@
 ```
 <a
   class="bx--link bx--tile bx--tile--clickable"
-  id="button"
+  id="link"
   role="button"
 >
   <slot>
@@ -26,7 +26,7 @@
   download="file-name-foo"
   href="about:blank"
   hreflang="en"
-  id="button"
+  id="link"
   ping="about:blank"
   rel="noopener"
   role="button"
@@ -44,7 +44,7 @@
 ```
 <p
   class="bx--link bx--link--disabled bx--tile bx--tile--clickable bx--tile--light"
-  id="button"
+  id="link"
 >
   <slot>
   </slot>

@@ -16,9 +16,20 @@ import './link';
 import storyDocs from './link-story.mdx';
 
 export const defaultStory = ({ parameters }) => {
-  const { disabled, href, onClick } = parameters?.props?.['bx-link'] ?? {};
+  const { disabled, download, href, hreflang, linkRole, ping, rel, target, type, onClick } = parameters?.props?.['bx-link'] ?? {};
   return html`
-    <bx-link ?disabled="${disabled}" href="${ifNonNull(href)}" @click="${onClick}">
+    <bx-link
+      ?disabled="${disabled}"
+      download="${ifNonNull(download)}"
+      href="${ifNonNull(href)}"
+      hreflang="${ifNonNull(hreflang)}"
+      link-role="${ifNonNull(linkRole)}"
+      ping="${ifNonNull(ping)}"
+      rel="${ifNonNull(rel)}"
+      target="${ifNonNull(target)}"
+      type="${ifNonNull(type)}"
+      @click="${onClick}"
+    >
       Link
     </bx-link>
   `;

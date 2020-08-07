@@ -34,7 +34,7 @@ const sizes = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { autofocus, disabled, download, href, hreflang, kind, ping, rel, size, target, type, onClick } =
+  const { autofocus, disabled, download, href, hreflang, kind, linkRole, ping, rel, size, target, type, onClick } =
     parameters?.props?.['bx-btn'] ?? {};
   return html`
     <bx-btn
@@ -44,6 +44,7 @@ export const defaultStory = ({ parameters }) => {
       href="${ifNonNull(href)}"
       hreflang="${ifNonNull(hreflang)}"
       kind="${ifNonNull(kind)}"
+      link-role="${ifNonNull(linkRole)}"
       ping="${ifNonNull(ping)}"
       rel="${ifNonNull(rel)}"
       size="${ifNonNull(size)}"

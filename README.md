@@ -181,6 +181,8 @@ const App = () => (
 render(<App />, document.getElementById('root'));
 ```
 
+Note: Using the React wrapper requires an additional dependency, [`prop-types`](https://www.npmjs.com/package/prop-types).
+
 ### Vue
 
 [![Edit carbon-web-components with Vue](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/vue)
