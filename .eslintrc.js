@@ -77,6 +77,15 @@ module.exports = {
       },
     },
     {
+      files: ['examples/codesandbox/**/babel-plugin-*.js'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+      rules: {
+        'import/no-unresolved': 2,
+      },
+    },
+    {
       files: ['examples/codesandbox/{react,form/redux-form}/**/*.js'],
       plugins: ['react'],
       rules: {

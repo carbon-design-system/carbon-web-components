@@ -25,7 +25,7 @@ describe('Basic example', () => {
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/basic/package.json`,
         `cd ${tmpDir}/basic`,
         'yarn install',
-        `yarn parcel --port ${PORT} index.html`,
+        `yarn start --open=none --port=${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,

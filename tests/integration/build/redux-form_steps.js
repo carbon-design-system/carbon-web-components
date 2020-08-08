@@ -25,7 +25,7 @@ describe('Redux-form example', () => {
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/redux-form/package.json`,
         `cd ${tmpDir}/redux-form`,
         'yarn install',
-        `BROWSER=none PORT=${PORT} yarn start`,
+        `yarn start --open=none --port=${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
