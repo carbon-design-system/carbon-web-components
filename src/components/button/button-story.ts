@@ -15,7 +15,7 @@ import { boolean, select } from '@storybook/addon-knobs';
 // @ts-ignore
 import Add16 from 'carbon-web-components/es/icons/add/16';
 import ifNonNull from '../../globals/directives/if-non-null';
-import { BUTTON_KIND, BUTTON_SIZE } from './button';
+import { BUTTON_KIND, BUTTON_SIZE, BUTTON_ICON_LAYOUT } from './button';
 import './button-skeleton';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import storyDocs from './button-story.mdx';
@@ -31,6 +31,11 @@ const sizes = {
   'Regular size': null,
   [`Small size (${BUTTON_SIZE.SMALL})`]: BUTTON_SIZE.SMALL,
   [`Size for form field (${BUTTON_SIZE.FIELD})`]: BUTTON_SIZE.FIELD,
+};
+
+const iconLayouts = {
+  Regular: null,
+  [`Condensed (${BUTTON_ICON_LAYOUT.CONDENSED})`]: BUTTON_ICON_LAYOUT.CONDENSED,
 };
 
 export const defaultStory = ({ parameters }) => {
@@ -59,6 +64,17 @@ export const defaultStory = ({ parameters }) => {
 
 defaultStory.story = {
   name: 'Default',
+  parameters: {
+    knobs: {
+      'bx-btn': () => ({
+        kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
+        disabled: boolean('Disabled (disabled)', false),
+        size: select('Button size (size)', sizes, null),
+        href: textNullable('Link href (href)', ''),
+        onClick: action('click'),
+      }),
+    },
+  },
 };
 
 export const icon = ({ parameters }) => {
@@ -76,12 +92,17 @@ export const icon = ({ parameters }) => {
   `;
 };
 
+icon.story = {
+  parameters: defaultStory.story.parameters,
+};
+
 export const textAndIcon = ({ parameters }) => {
-  const { kind, disabled, size, href, onClick } = parameters?.props?.['bx-btn'] ?? {};
+  const { kind, disabled, size, href, iconLayout, onClick } = parameters?.props?.['bx-btn'] ?? {};
   return html`
     <bx-btn
       kind=${ifNonNull(kind)}
       ?disabled=${disabled}
+      icon-layout="${ifNonNull(iconLayout)}"
       size=${ifNonNull(size)}
       href=${ifNonNull(href || undefined)}
       @click=${onClick}
@@ -93,6 +114,18 @@ export const textAndIcon = ({ parameters }) => {
 
 textAndIcon.story = {
   name: 'Text and icon',
+  parameters: {
+    knobs: {
+      'bx-btn': () => ({
+        iconLayout: select('Icon layout (icon-layout)', iconLayouts, null),
+        kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
+        disabled: boolean('Disabled (disabled)', false),
+        size: select('Button size (size)', sizes, null),
+        href: textNullable('Link href (href)', ''),
+        onClick: action('click'),
+      }),
+    },
+  },
 };
 
 export const skeleton = ({ parameters }) => {
@@ -122,15 +155,6 @@ export default {
   parameters: {
     docs: {
       page: storyDocs,
-    },
-    knobs: {
-      'bx-btn': () => ({
-        kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
-        disabled: boolean('Disabled (disabled)', false),
-        size: select('Button size (size)', sizes, null),
-        href: textNullable('Link href (href)', ''),
-        onClick: action('click'),
-      }),
     },
   },
 };
