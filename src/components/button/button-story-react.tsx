@@ -15,7 +15,12 @@ import Add16 from '@carbon/icons-react/es/add/16';
 import BXBtn from 'carbon-web-components/es/components-react/button/button';
 // @ts-ignore
 import BXBtnSkeleton from 'carbon-web-components/es/components-react/button/button-skeleton';
-import { defaultStory as baseDefaultStory, textAndIcon as baseTextAndIcon, skeleton as baseSkeleton } from './button-story';
+import {
+  defaultStory as baseDefaultStory,
+  icon as baseIcon,
+  textAndIcon as baseTextAndIcon,
+  skeleton as baseSkeleton,
+} from './button-story';
 
 export { default } from './button-story';
 
@@ -39,10 +44,12 @@ export const icon = ({ parameters }) => {
   );
 };
 
+icon.story = baseIcon.story;
+
 export const textAndIcon = ({ parameters }) => {
-  const { kind, disabled, size, href } = parameters?.props?.['bx-btn'];
+  const { kind, disabled, size, href, iconLayout } = parameters?.props?.['bx-btn'];
   return (
-    <BXBtn kind={kind} disabled={disabled} size={size} href={href}>
+    <BXBtn kind={kind} disabled={disabled} size={size} href={href} iconLayout={iconLayout}>
       Button <Add16 slot="icon" />
     </BXBtn>
   );
