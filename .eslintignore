@@ -1,4 +1,5 @@
 *.d.ts
+.yarn
 dist
 docs/js
 es

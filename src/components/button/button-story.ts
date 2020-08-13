@@ -10,10 +10,10 @@
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import Add16 from 'carbon-custom-elements/es/icons/add/16';
+import Add16 from 'carbon-web-components/es/icons/add/16';
 import ifNonNull from '../../globals/directives/if-non-null';
 import { BUTTON_KIND, BUTTON_SIZE } from './button';
 import './button-skeleton';
@@ -34,7 +34,7 @@ const sizes = {
 };
 
 export const defaultStory = ({ parameters }) => {
-  const { autofocus, disabled, download, href, hreflang, kind, ping, rel, size, target, type, onClick } =
+  const { autofocus, disabled, download, href, hreflang, kind, linkRole, ping, rel, size, target, type, onClick } =
     parameters?.props?.['bx-btn'] ?? {};
   return html`
     <bx-btn
@@ -44,6 +44,7 @@ export const defaultStory = ({ parameters }) => {
       href="${ifNonNull(href)}"
       hreflang="${ifNonNull(hreflang)}"
       kind="${ifNonNull(kind)}"
+      link-role="${ifNonNull(linkRole)}"
       ping="${ifNonNull(ping)}"
       rel="${ifNonNull(rel)}"
       size="${ifNonNull(size)}"

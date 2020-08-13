@@ -59,7 +59,7 @@
   opacity: 1;
 }
 
-// `carbon-custom-elements` uses conditional rendering for choosing Arrows16 vs. ArrowDown16,
+// `carbon-web-components` uses conditional rendering for choosing Arrows16 vs. ArrowDown16,
 // and thus `display:none` here is not needed
 :host(#{$prefix}-table-header-cell[sort-direction]) .bx--table-sort .bx--table-sort__icon {
   display: block;

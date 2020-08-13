@@ -12,16 +12,21 @@ A Carbon Design System variant that's as easy to use as native HTML elements, wi
 > contributors.
 
 <p align="center">
-  <a href="https://github.com/carbon-design-system/carbon-custom-elements/blob/master/LICENSE">
+  <a href="https://github.com/carbon-design-system/carbon-web-components/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Carbon is released under the Apache-2.0 license" />
   </a>
 </p>
+<p align="center">
+  <a href="https://www.netlify.com" target="_blank">
+    <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg"/>
+  </a>
+</p>
 
-# `carbon-custom-elements`
+# `carbon-web-components`
 
-`carbon-custom-elements` is a variant of Carbon Design System with Custom Elements v1 and Shadow DOM v1 specs.
+`carbon-web-components` is a variant of Carbon Design System with Custom Elements v1 and Shadow DOM v1 specs.
 
-Experimental at this moment, with enthusiasm.
+Has been experimenting with enthusiasm, and now has a stable version.
 
 The effort stems from https://github.com/carbon-design-system/issue-tracking/issues/121. If you are interested in this project, adding 👍 to the description of that GH issue, or even contributing, will be greatly appreciated!
 
@@ -39,7 +44,6 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 - [List of available components](#list-of-available-components)
 - [Browser support](#browser-support)
 - [Coding conventions](#coding-conventions)
-- [Iteration plans](#iteration-plans)
 - [Creating build](#creating-build)
 - [Running unit test](#running-unit-test)
 - [Running build integration test](#running-build-integration-test)
@@ -48,33 +52,33 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 
 ## Getting started
 
-To install `carbon-custom-elements` in your project, you will need to run the
+To install `carbon-web-components` in your project, you will need to run the
 following command using [npm](https://www.npmjs.com/):
 
 ```bash
-npm install -S carbon-custom-elements carbon-components lit-html lit-element
+npm install -S carbon-web-components carbon-components lit-html lit-element
 ```
 
 If you prefer [Yarn](https://yarnpkg.com/en/), use the following command
 instead:
 
 ```bash
-yarn add carbon-custom-elements carbon-components lit-html lit-element
+yarn add carbon-web-components carbon-components lit-html lit-element
 ```
 
 ### Basic usage
 
 Our example at [CodeSandbox](https://codesandbox.io) shows the most basic usage:
 
-[![Edit carbon-custom-elements](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/basic)
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/basic)
 
 The first thing you need is **setting up a module bundler** to resolve ECMAScript `import`s. Above example uses [Parcel](https://parceljs.org). You can use other bundlers like [Rollup](https://rollupjs.org/)/[Webpack](https://webpack.js.org), too.
 
 Once you set up a module bundler, you can start importing our component modules, like:
 
 ```javascript
-import 'carbon-custom-elements/es/components/dropdown/dropdown';
-import 'carbon-custom-elements/es/components/dropdown/dropdown-item';
+import 'carbon-web-components/es/components/dropdown/dropdown';
+import 'carbon-web-components/es/components/dropdown/dropdown-item';
 ```
 
 Once you do that, you can use our components in the same manner as native HTML tags, like:
@@ -89,9 +93,46 @@ Once you do that, you can use our components in the same manner as native HTML t
 </bx-dropdown>
 ```
 
+If you just want to try our components for demonstrations, etc., you can use CDNs that support module mapping (e.g. [JSPM](https://jspm.org)). With it, you can just import our modules in `<script type="module">`:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="module">
+      import 'https://jspm.dev/carbon-web-components/es/components/dropdown/dropdown.js';
+      import 'https://jspm.dev/carbon-web-components/es/components/dropdown/dropdown-item.js';
+    </script>
+    <style type="text/css">
+      #app {
+        font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+        width: 300px;
+        margin: 2rem;
+      }
+
+      bx-dropdown:not(:defined),
+      bx-dropdown-item:not(:defined) {
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <bx-dropdown trigger-content="Select an item">
+        <bx-dropdown-item value="all">Option 1</bx-dropdown-item>
+        <bx-dropdown-item value="cloudFoundry">Option 2</bx-dropdown-item>
+        <bx-dropdown-item value="staging">Option 3</bx-dropdown-item>
+        <bx-dropdown-item value="dea">Option 4</bx-dropdown-item>
+        <bx-dropdown-item value="router">Option 5</bx-dropdown-item>
+      </bx-dropdown>
+    </div>
+  </body>
+</html>
+```
+
 ### Angular
 
-[![Edit carbon-custom-elements with Angular](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/angular)
+[![Edit carbon-web-components with Angular](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/angular)
 
 Angular users can use our components in the same manner as native HTML tags, too, once you add [`CUSTOM_ELEMENTS_SCHEMA`](https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA) schema to your Angular module, like:
 
@@ -110,22 +151,22 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-The `.d.ts` files in `carbon-custom-elements` package are compiled with TypeScript 3.7. You can use TypeScript 3.7 in your Angular application with upcoming Angular `9.0` release, or with the following instructions, so your application can use those `.d.ts` files:
+The `.d.ts` files in `carbon-web-components` package are compiled with TypeScript 3.7. You can use TypeScript 3.7 in your Angular application with upcoming Angular `9.0` release, or with the following instructions, so your application can use those `.d.ts` files:
 
 - Set `true` to [`angularCompilerOptions.disableTypeScriptVersionCheck`](https://angular.io/guide/angular-compiler-options#disabletypescriptversioncheck) in `tsconfig.json`
 - In `polyfills.ts`, change [`__importDefault` TypeScript helper](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#example-8) as follows: `window.__importDefault = mod => (mod?.__esModule ? mod : { default: mod })`
 
 ### React
 
-[![Edit carbon-custom-elements with React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/react)
+[![Edit carbon-web-components with React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/react)
 
-You can use wrapper React components in `carbon-custom-elements/es/components-react` generated [automatically from the custom elements](./src/globals/wrappers/createReactCustomElementType.ts) which allows you to use our components seamlessly in your React code. Here's an example:
+You can use wrapper React components in `carbon-web-components/es/components-react` generated [automatically from the custom elements](./src/globals/wrappers/createReactCustomElementType.ts) which allows you to use our components seamlessly in your React code. Here's an example:
 
 ```javascript
 import React from 'react';
 import { render } from 'react-dom';
-import BXDropdown from 'carbon-custom-elements/es/components-react/dropdown/dropdown';
-import BXDropdownItem from 'carbon-custom-elements/es/components-react/dropdown/dropdown-item';
+import BXDropdown from 'carbon-web-components/es/components-react/dropdown/dropdown';
+import BXDropdownItem from 'carbon-web-components/es/components-react/dropdown/dropdown-item';
 
 const App = () => (
   <BXDropdown triggerContent="Select an item">
@@ -140,9 +181,11 @@ const App = () => (
 render(<App />, document.getElementById('root'));
 ```
 
+Note: Using the React wrapper requires an additional dependency, [`prop-types`](https://www.npmjs.com/package/prop-types).
+
 ### Vue
 
-[![Edit carbon-custom-elements with Vue](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/vue)
+[![Edit carbon-web-components with Vue](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/vue)
 
 Vue users can use our components in the same manner as native HTML tags, without any additional steps!
 
@@ -150,7 +193,7 @@ Vue users can use our components in the same manner as native HTML tags, without
 
 - [Having components participate in form](./docs/form.md)
 - [Using custom styles in components](./docs/styling.md)
-- [Using `carbon-custom-elements` with old build toolchain](./docs/old-build-toolchain.md)
+- [Using `carbon-web-components` with old build toolchain](./docs/old-build-toolchain.md)
 
 ## Getting started with development
 
@@ -181,11 +224,11 @@ View available web components at: https://custom-elements.carbondesignsystem.com
 To support IE, you need a couple additional setups:
 
 - Toolstack to re-transpile our code to ES5 (e.g. by specifying IE11 in [`@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env) configuration)
-- Polyfills, listed [here](https://github.com/carbon-design-system/carbon-custom-elements/blob/master/src/polyfills/index.ts)
+- Polyfills, listed [here](https://github.com/carbon-design-system/carbon-web-components/blob/master/src/polyfills/index.ts)
 
 Here's an example code that shows such setup:
 
-[![Edit carbon-custom-elements with IE](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/ie)
+[![Edit carbon-web-components with IE](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/ie)
 
 ## Coding conventions
 
@@ -198,7 +241,7 @@ Can be found at [here](./src/coding-conventions.md).
 > yarn build
 ```
 
-You'll see the build artifacts in `/path/to/carbon-custom-elements/es` directory.
+You'll see the build artifacts in `/path/to/carbon-web-components/es` directory.
 
 ## Running unit test
 

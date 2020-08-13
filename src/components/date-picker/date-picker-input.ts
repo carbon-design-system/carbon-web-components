@@ -69,6 +69,12 @@ export enum DATE_PICKER_INPUT_SIZE_HORIZONTAL {
 @customElement(`${prefix}-date-picker-input`)
 class BXDatePickerInput extends ValidityMixin(FocusMixin(LitElement)) {
   /**
+   * The calendar icon.
+   */
+  @query(`.${prefix}--date-picker__icon`)
+  private _iconNode!: SVGElement;
+
+  /**
    * The `<slot>` for the validity message.
    */
   @query('slot[name="validity-message"]')
@@ -80,6 +86,16 @@ class BXDatePickerInput extends ValidityMixin(FocusMixin(LitElement)) {
   private get _hasValidityMessage() {
     const { validityMessage, _slotValidityMessage: slotValidityMessage } = this;
     return validityMessage || (slotValidityMessage && slotValidityMessage.assignedNodes.length > 0);
+  }
+
+  /**
+   * Handles `click` event on the calendar icon.
+   * @param event The event.
+   */
+  private _handleClickWrapper(event: MouseEvent) {
+    if (event.target === this._iconNode) {
+      this.input.focus();
+    }
   }
 
   /**
@@ -245,6 +261,7 @@ class BXDatePickerInput extends ValidityMixin(FocusMixin(LitElement)) {
       size,
       type = constructor.defaultType,
       value,
+      _handleClickWrapper: handleClickWrapper,
       _handleInput: handleInput,
     } = this;
     const labelClasses = classMap({
@@ -260,7 +277,7 @@ class BXDatePickerInput extends ValidityMixin(FocusMixin(LitElement)) {
       <label for="input" class="${labelClasses}">
         <slot name="label-text">${labelText}</slot>
       </label>
-      <div class="${prefix}--date-picker-input__wrapper">
+      <div class="${prefix}--date-picker-input__wrapper" @click="${handleClickWrapper}">
         <input
           id="input"
           type="${type}"

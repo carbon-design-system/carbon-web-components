@@ -8,14 +8,14 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 // prettier-ignore
 // eslint-disable-next-line max-len
-import BXInlineNotification from 'carbon-custom-elements/es/components-react/notification/inline-notification';
+import BXInlineNotification from 'carbon-web-components/es/components-react/notification/inline-notification';
 // @ts-ignore
-import BXToastNotification from 'carbon-custom-elements/es/components-react/notification/toast-notification';
+import BXToastNotification from 'carbon-web-components/es/components-react/notification/toast-notification';
 import { inline as baseInline, toast as baseToast } from './notification-story';
 
 export { default } from './notification-story';
