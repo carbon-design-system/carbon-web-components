@@ -6,7 +6,7 @@
   "license": "Apache-2",
   "main": "index.html",
   "dependencies": {
-    "carbon-components": "~10.16.0",
+    "carbon-components": "~10.17.0",
     "carbon-web-components": "^1.0.0",
     "lit-element": "~2.2.0",
     "lit-html": "^1.2.0",

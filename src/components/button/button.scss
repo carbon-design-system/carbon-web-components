@@ -28,6 +28,10 @@ $css--plex: true !default;
     margin-left: calc(#{rem(60px)} - #{$spacing-04} - #{$icon-size-01});
   }
 
+  &[icon-layout='condensed'] ::slotted([slot='icon']) {
+    margin-left: $spacing-03;
+  }
+
   .#{$prefix}--btn--icon-only ::slotted([slot='icon']) {
     margin-left: 0;
   }

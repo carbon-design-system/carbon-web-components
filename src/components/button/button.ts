@@ -62,6 +62,21 @@ export enum BUTTON_SIZE {
 }
 
 /**
+ * Button icon layout.
+ */
+export enum BUTTON_ICON_LAYOUT {
+  /**
+   * Regular layout.
+   */
+  REGULAR = '',
+
+  /**
+   * Condensed layout.
+   */
+  CONDENSED = 'condensed',
+}
+
+/**
  * Button.
  * @element bx-btn
  */
@@ -118,6 +133,12 @@ class BXButton extends FocusMixin(LitElement) {
    */
   @property()
   hreflang!: string;
+
+  /**
+   * Button icon layout.
+   */
+  @property({ reflect: true, attribute: 'icon-layout' })
+  iconLayout = BUTTON_ICON_LAYOUT.REGULAR;
 
   /**
    * Button kind.

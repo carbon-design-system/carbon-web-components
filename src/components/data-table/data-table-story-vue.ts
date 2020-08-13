@@ -443,8 +443,8 @@ Vue.component('bx-ce-demo-data-table', {
           :selected-rows-count="selectedRowsCountInFiltered"
           @bx-table-batch-actions-cancel-clicked="handleCancelSelection"
         >
-          <bx-btn @click="handleDeleteRows">Delete <delete-16 slot="icon"></delete-16></bx-btn>
-          <bx-btn @click="handleDownloadRows" href="javascript:void 0" download="table-data.json">
+          <bx-btn icon-layout="condensed" @click="handleDeleteRows">Delete <delete-16 slot="icon"></delete-16></bx-btn>
+          <bx-btn icon-layout="condensed" @click="handleDownloadRows" href="javascript:void 0" download="table-data.json">
             Download <download-16 slot="icon"></download-16>
           </bx-btn>
         </bx-table-batch-actions>

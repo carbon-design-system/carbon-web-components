@@ -7,6 +7,11 @@
 ####     `should render with minimum attributes`
 
 ```
+<div class="bx--batch-summary">
+  <p class="bx--batch-summary__para">
+    NaN items selected
+  </p>
+</div>
 <div class="bx--action-list">
   <slot>
   </slot>
@@ -15,11 +20,6 @@
       Cancel
     </slot>
   </button>
-</div>
-<div class="bx--batch-summary">
-  <p class="bx--batch-summary__para">
-    NaN items selected
-  </p>
 </div>
 
 ```
@@ -27,6 +27,11 @@
 ####     `should render with various attributes`
 
 ```
+<div class="bx--batch-summary">
+  <p class="bx--batch-summary__para">
+    3 items selected
+  </p>
+</div>
 <div class="bx--action-list">
   <slot>
   </slot>
@@ -35,11 +40,6 @@
       Cancel
     </slot>
   </button>
-</div>
-<div class="bx--batch-summary">
-  <p class="bx--batch-summary__para">
-    3 items selected
-  </p>
 </div>
 
 ```
@@ -47,6 +47,11 @@
 ####     `should render non-plural selected rows count`
 
 ```
+<div class="bx--batch-summary">
+  <p class="bx--batch-summary__para">
+    1 item selected
+  </p>
+</div>
 <div class="bx--action-list">
   <slot>
   </slot>
@@ -55,11 +60,6 @@
       Cancel
     </slot>
   </button>
-</div>
-<div class="bx--batch-summary">
-  <p class="bx--batch-summary__para">
-    1 item selected
-  </p>
 </div>
 
 ```
