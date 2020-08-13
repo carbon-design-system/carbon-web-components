@@ -9,12 +9,12 @@
 
 import React from 'react';
 import Add16 from '@carbon/icons-react/es/add/16';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXBtn from 'carbon-custom-elements/es/components-react/button/button';
+import BXBtn from 'carbon-web-components/es/components-react/button/button';
 // @ts-ignore
-import BXBtnSkeleton from 'carbon-custom-elements/es/components-react/button/button-skeleton';
+import BXBtnSkeleton from 'carbon-web-components/es/components-react/button/button-skeleton';
 import { defaultStory as baseDefaultStory, textAndIcon as baseTextAndIcon, skeleton as baseSkeleton } from './button-story';
 
 export { default } from './button-story';

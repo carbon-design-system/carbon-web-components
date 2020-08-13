@@ -8,12 +8,12 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXSearch from 'carbon-custom-elements/es/components-react/search/search';
+import BXSearch from 'carbon-web-components/es/components-react/search/search';
 // @ts-ignore
-import BXSearchSkeleton from 'carbon-custom-elements/es/components-react/search/search-skeleton';
+import BXSearchSkeleton from 'carbon-web-components/es/components-react/search/search-skeleton';
 import { defaultStory as baseDefaultStory } from './search-story';
 
 export { default } from './search-story';

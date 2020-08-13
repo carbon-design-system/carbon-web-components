@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -22,7 +22,7 @@ module.exports = {
       {
         test: /\.js$/,
         include: [
-          path.dirname(require.resolve('carbon-custom-elements/es')),
+          path.dirname(require.resolve('carbon-web-components/es')),
           path.dirname(require.resolve('lit-html')),
           path.dirname(require.resolve('lit-element')),
           path.dirname(require.resolve('@webcomponents/custom-elements')),

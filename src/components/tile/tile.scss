@@ -19,6 +19,10 @@ $css--plex: true !default;
   display: content;
   outline: none;
 
+  .#{$prefix}--link--disabled {
+    display: block;
+  }
+
   .#{$prefix}--tile {
     // Overrides what `.#{$prefix}--link` defines
     padding: $carbon--spacing-05;

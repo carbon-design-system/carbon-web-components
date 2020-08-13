@@ -199,6 +199,13 @@ class BXComboBox extends BXDropdown {
     return true;
   }
 
+  updated() {
+    const { _listBoxNode: listBoxNode } = this;
+    if (listBoxNode) {
+      listBoxNode.classList.add(`${prefix}--combo-box`);
+    }
+  }
+
   // For combo box, open/selection with space key is disabled given the input box should take it over
   static TRIGGER_KEYS = new Set(['Enter']);
 

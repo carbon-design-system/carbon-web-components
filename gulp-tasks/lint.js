@@ -57,7 +57,7 @@ module.exports = {
           .reduce(
             (stream, item) => stream.pipe(excludeGitignore(item)),
             // Exclude `node_modules` here as a fast path of `gulp-exclude-gitignore`
-            gulp.src(['**/*.{js,ts,tsx,scss,html}', '!**/node_modules/**'])
+            gulp.src(['**/*.{js,ts,tsx,scss,html}', '!.yarn/**', '!**/node_modules/**'])
           )
           .pipe(gulpCheckLicense())
       );

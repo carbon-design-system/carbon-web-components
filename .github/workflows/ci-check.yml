@@ -15,14 +15,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile --offline
       - run: sudo apt-get install xvfb
       - name: Run checks
         run: xvfb-run --auto-servernum yarn ci-check
   test-integration-ui:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [macos-latest, ubuntu-latest]
         node-version: [12.x]
         browser: [chromium, firefox, webkit]
         exclude:
@@ -38,7 +38,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile --offline
       - name: Install xvfb
         if: matrix.os == 'ubuntu-latest'
         run: sudo apt-get install xvfb
