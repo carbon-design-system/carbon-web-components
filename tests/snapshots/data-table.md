@@ -81,11 +81,15 @@
 ```
 <button
   class="bx--table-sort"
+  part="sort-button"
   title="
       Name
     "
 >
-  <span class="bx--table-header-label">
+  <span
+    class="bx--table-header-label"
+    part="label-text"
+  >
     <slot>
     </slot>
   </span>
