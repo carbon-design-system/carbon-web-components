@@ -262,17 +262,14 @@
     "*.{js,ts,tsx}": [
       "yarn format:staged",
       "yarn lint:license:staged",
-      "yarn lint:scripts:staged",
-      "git add"
+      "yarn lint:scripts:staged"
     ],
     "*.scss": [
       "yarn format:staged",
-      "yarn lint:license:staged",
-      "git add"
+      "yarn lint:license:staged"
     ],
     "*.{css,md}": [
-      "yarn format:staged",
-      "git add"
+      "yarn format:staged"
     ]
   },
   "prettier": {

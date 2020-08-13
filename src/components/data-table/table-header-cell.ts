@@ -162,14 +162,21 @@ class BXTableHeaderCell extends FocusMixin(LitElement) {
       const sortIcon =
         sortDirection === TABLE_SORT_DIRECTION.NONE
           ? Arrows16({
+              part: 'sort-icon',
               class: `${prefix}--table-sort__icon-unsorted`,
             })
           : ArrowDown16({
+              part: 'sort-icon',
               class: `${prefix}--table-sort__icon`,
             });
       return html`
-        <button class="${prefix}--table-sort" title="${this.textContent}" @click=${this._handleClickSortButton}>
-          <span class="${prefix}--table-header-label"><slot @slotchange=${this._handleSlotChange}></slot></span>
+        <button
+          part="sort-button"
+          class="${prefix}--table-sort"
+          title="${this.textContent}"
+          @click=${this._handleClickSortButton}
+        >
+          <span part="label-text" class="${prefix}--table-header-label"><slot @slotchange=${this._handleSlotChange}></slot></span>
           ${sortIcon}
         </button>
       `;
