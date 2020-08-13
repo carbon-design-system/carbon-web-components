@@ -25,7 +25,7 @@ describe('React example', () => {
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/react/package.json`,
         `cd ${tmpDir}/react`,
         'yarn install',
-        `BROWSER=none PORT=${PORT} yarn start`,
+        `yarn start --open=none --port=${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,

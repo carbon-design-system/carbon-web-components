@@ -4,10 +4,9 @@
   "private": true,
   "description": "Sample project for getting started with the Web Components from the Carbon Design System.",
   "license": "Apache-2",
-  "main": "index.html",
   "scripts": {
-    "start": "parcel index.html --no-hmr",
-    "build": "parcel build index.html"
+    "start": "snowpack dev",
+    "build": "snowpack build"
   },
   "dependencies": {
     "carbon-components": "~10.17.0",
@@ -17,10 +16,7 @@
     "lodash-es": "^4.17.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.0",
-    "@babel/plugin-transform-runtime": "^7.8.0",
-    "@babel/preset-env": "^7.8.0",
     "@types/lodash-es": "^4.17.0",
-    "parcel-bundler": "^1.10.0"
+    "snowpack": "^2.7.0"
   }
 }
