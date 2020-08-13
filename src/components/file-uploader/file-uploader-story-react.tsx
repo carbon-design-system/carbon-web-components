@@ -13,7 +13,7 @@ import React, { useCallback, useRef, useState } from 'react';
 // Below path will be there when an application installs `carbon-custom-elements` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXFileUploaderShell from 'carbon-custom-elements/es/components-react/file-uploader/file-uploader-shell';
+import BXFileUploader from 'carbon-custom-elements/es/components-react/file-uploader/file-uploader';
 // @ts-ignore
 import BXFileDropContainer from 'carbon-custom-elements/es/components-react/file-uploader/drop-container';
 import BXFileUploaderItem, {
@@ -118,7 +118,7 @@ const BXCEDemoFileUploader = ({ accept, disabled, helperText, labelText, multipl
   );
 
   return (
-    <BXFileUploaderShell helperText={helperText} labelText={labelText}>
+    <BXFileUploader helperText={helperText} labelText={labelText}>
       <BXFileDropContainer accept={accept} disabled={disabled} multiple={multiple} onChange={handleChange}>
         Drag and drop files here or click to upload
       </BXFileDropContainer>
@@ -135,7 +135,7 @@ const BXCEDemoFileUploader = ({ accept, disabled, helperText, labelText, multipl
           <span slot="validity-message-supplement">{supplementalValidityMessage}</span>
         </BXFileUploaderItem>
       ))}
-    </BXFileUploaderShell>
+    </BXFileUploader>
   );
 };
 

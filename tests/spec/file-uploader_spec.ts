@@ -9,7 +9,7 @@
 
 import { html, render } from 'lit-html';
 import ifNonNull from '../../src/globals/directives/if-non-null';
-import '../../src/components/file-uploader/file-uploader-shell';
+import '../../src/components/file-uploader/file-uploader';
 import '../../src/components/file-uploader/drop-container';
 import { FILE_UPLOADER_ITEM_STATE } from '../../src/components/file-uploader/file-uploader-item';
 import EventManager from '../utils/event-manager';

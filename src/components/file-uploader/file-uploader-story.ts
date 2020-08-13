@@ -12,7 +12,7 @@ import { delay } from 'bluebird';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
 import ifNonNull from '../../globals/directives/if-non-null';
-import './file-uploader-shell';
+import './file-uploader';
 import './drop-container';
 import { FILE_UPLOADER_ITEM_SIZE, FILE_UPLOADER_ITEM_STATE } from './file-uploader-item';
 import textNullable from '../../../.storybook/knob-text-nullable';
@@ -171,7 +171,7 @@ class BXCEDemoFileUploader extends LitElement {
       _handleDelete: handleDelete,
     } = this;
     return html`
-      <bx-file-uploader-shell helper-text="${ifNonNull(helperText)}" label-text="${ifNonNull(labelText)}">
+      <bx-file-uploader helper-text="${ifNonNull(helperText)}" label-text="${ifNonNull(labelText)}">
         <bx-file-drop-container
           accept="${ifNonNull(accept)}"
           ?disabled="${disabled}"
@@ -195,7 +195,7 @@ class BXCEDemoFileUploader extends LitElement {
             </bx-file-uploader-item>
           `
         )}
-      </bx-file-uploader-shell>
+      </bx-file-uploader>
     `;
   }
 }
@@ -213,7 +213,7 @@ const defineDemoFileUploader = (() => {
 })();
 
 export const defaultStory = ({ parameters }) => {
-  const { helperText, labelText } = parameters?.props?.['bx-file-uploader-shell'] ?? {};
+  const { helperText, labelText } = parameters?.props?.['bx-file-uploader'] ?? {};
   const { accept, disabled, multiple } = parameters?.props?.['bx-file-drop-container'] ?? {};
   const { size, disableDelete, onBeforeDelete, onDelete } = parameters?.props?.['bx-file-uploader-item'] ?? {};
   const handleBeforeDelete = (event: CustomEvent) => {
@@ -246,7 +246,7 @@ export default {
   title: 'Components/File uploader',
   parameters: {
     knobs: {
-      'bx-file-uploader-shell': () => ({
+      'bx-file-uploader': () => ({
         helperText: textNullable('Helper text (helper-text)', 'Only .jpg and .png files. 500kb max file size'),
         labelText: textNullable('Label text (label-text)', 'Account photo'),
       }),

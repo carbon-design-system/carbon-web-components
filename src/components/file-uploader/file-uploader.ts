@@ -15,12 +15,12 @@ const { prefix } = settings;
 
 /**
  * The shell UI for file uploader.
- * @element bx-file-uploader-shell
+ * @element bx-file-uploader
  * @slot helper-text The helper text.
  * @slot label-text The label text.
  */
-@customElement(`${prefix}-file-uploader-shell`)
-class BXFileUploaderShell extends LitElement {
+@customElement(`${prefix}-file-uploader`)
+class BXFileUploader extends LitElement {
   /**
    * The helper text.
    */
@@ -48,4 +48,4 @@ class BXFileUploaderShell extends LitElement {
   static styles = styles;
 }
 
-export default BXFileUploaderShell;
+export default BXFileUploader;

@@ -24,7 +24,7 @@ import { FileData } from './stories/types';
 @Component({
   selector: 'bx-ce-demo-file-uploader',
   template: `
-    <bx-file-uploader-shell [helperText]="helperText" [labelText]="labelText">
+    <bx-file-uploader [helperText]="helperText" [labelText]="labelText">
       <bx-file-drop-container
         [accept]="accept"
         [disabled]="disabled"
@@ -45,7 +45,7 @@ import { FileData } from './stories/types';
         {{ file.file.name }}
         <span slot="validity-message-supplement">{{ file.supplementalValidityMessage }}</span>
       </bx-file-uploader-item>
-    </bx-file-uploader-shell>
+    </bx-file-uploader>
   `,
 })
 class BXCEDemoFileUploader {
@@ -189,7 +189,7 @@ export const defaultStory = ({ parameters }) => ({
       }
     },
   }))({
-    ...parameters?.props?.['bx-file-uploader-shell'],
+    ...parameters?.props?.['bx-file-uploader'],
     ...parameters?.props?.['bx-file-drop-container'],
     ...parameters?.props?.['bx-file-uploader-item'],
   }),

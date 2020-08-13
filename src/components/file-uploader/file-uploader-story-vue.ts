@@ -146,7 +146,7 @@ Vue.component('bx-ce-demo-file-uploader', {
   },
 
   template: `
-    <bx-file-uploader-shell :helper-text="helperText" :label-text="labelText">
+    <bx-file-uploader :helper-text="helperText" :label-text="labelText">
       <bx-file-drop-container
         :accept="accept"
         :disabled="disabled"
@@ -168,13 +168,13 @@ Vue.component('bx-ce-demo-file-uploader', {
         {{ file.file.name }}
         <span slot="validity-message-supplement">{{ file.supplementalValidityMessage }}</span>
       </bx-file-uploader-item>
-    </bx-file-uploader-shell>
+    </bx-file-uploader>
   `,
 });
 
 export const defaultStory = ({ parameters }) => {
   const { props = {}, methods = {} } = createVueBindingsFromProps({
-    ...parameters?.props?.['bx-file-uploader-shell'],
+    ...parameters?.props?.['bx-file-uploader'],
     ...parameters?.props?.['bx-file-drop-container'],
     ...parameters?.props?.['bx-file-uploader-item'],
   });
