@@ -88,10 +88,28 @@ function createMetadataVisitor(api) {
 
     const leadingComments = path.parentPath.get('leadingComments');
     if (leadingComments) {
-      metadata.comments = (Array.isArray(leadingComments) ? leadingComments : [leadingComments]).map(item => item.node);
+      metadata.comments = (Array.isArray(leadingComments) ? leadingComments : [leadingComments])
+        .map(item => item.node)
+        .filter(Boolean);
     }
 
     return metadata;
+  };
+
+  /**
+   * @param {Path} path The Babel path of the superclass.
+   * @returns {PropertyMetadata}
+   *   The given Babel path itself if it's an identifier.
+   *   The first argument if the given Babel path is a function, assuming it as a mixin call.
+   */
+  const getTarget = path => {
+    if (path.isIdentifier()) {
+      return path;
+    }
+    if (path.isCallExpression()) {
+      return getTarget(path.get('arguments.0'));
+    }
+    return null;
   };
 
   /**
@@ -102,8 +120,8 @@ function createMetadataVisitor(api) {
   const metadataVisitor = {
     ClassDeclaration(path, context) {
       const { file } = context;
-      const superClass = path.get('superClass');
-      if (superClass.isIdentifier()) {
+      const superClass = getTarget(path.get('superClass'));
+      if (superClass) {
         const parentClassImportSource = getParentClassImportSource(superClass.scope.getBinding(superClass.node.name).path);
         if (parentClassImportSource) {
           const relativeTarget = relative(
@@ -135,7 +153,14 @@ function createMetadataVisitor(api) {
             '`static get eventFoo` must have and be only with a return statement with a string literal or a template literal.'
           );
         }
-        customEvents[name] = t.cloneDeep(argument.node);
+        const metadata = {
+          eventName: t.cloneDeep(argument.node),
+        };
+        const leadingComments = path.get('leadingComments');
+        if (leadingComments) {
+          metadata.comments = (Array.isArray(leadingComments) ? leadingComments : [leadingComments]).map(item => item.node);
+        }
+        customEvents[name] = metadata;
       }
     },
 
@@ -147,7 +172,14 @@ function createMetadataVisitor(api) {
         if (!value.isStringLiteral() && !value.isTemplateLiteral()) {
           throw value.buildCodeFrameError('`static eventFoo` must refer to a string literal or a template literal.');
         }
-        customEvents[name] = t.cloneDeep(value.node);
+        const metadata = {
+          eventName: t.cloneDeep(value.node),
+        };
+        const leadingComments = path.get('leadingComments');
+        if (leadingComments) {
+          metadata.comments = (Array.isArray(leadingComments) ? leadingComments : [leadingComments]).map(item => item.node);
+        }
+        customEvents[name] = metadata;
       }
     },
 
@@ -211,6 +243,17 @@ module.exports = function generateCreateReactCustomElementType(api) {
   };
 
   /**
+   * The prop types associated with `type` in `@property`.
+   * @type {Object<string, Identifier>}
+   */
+  const propTypesForLitTypes = {
+    String: t.memberExpression(t.identifier('PropTypes'), t.identifier('string')),
+    Boolean: t.memberExpression(t.identifier('PropTypes'), t.identifier('bool')),
+    Number: t.memberExpression(t.identifier('PropTypes'), t.identifier('number')),
+    Object: t.memberExpression(t.identifier('PropTypes'), t.identifier('object')),
+  };
+
+  /**
    * @param {Object<string, PropertyMetadata>} The list of metadata harvested from `@property()` decorator calls.
    * @returns {ImportDeclaration} The `import` statement for `src/globals/wrappers/createReactCustomElementType`.
    */
@@ -229,7 +272,7 @@ module.exports = function generateCreateReactCustomElementType(api) {
   };
 
   /**
-   * @param {Object<string, PropertyMetadata>} The list of metadata harvested from `@property()` decorator calls.
+   * @param {Object<string, PropertyMetadata>} declaredProps The list of metadata harvested from `@property()` decorator calls.
    * @returns {ObjectProperty[]}
    *   The list of `{ attribute: 'attribute-name', serialize: typeSerializer }` generated from `@property()` decorators.
    */
@@ -255,7 +298,7 @@ module.exports = function generateCreateReactCustomElementType(api) {
     });
 
   /**
-   * @param {Object<string, StringLiteral|TemplateLiteral>}
+   * @param {Object<string, StringLiteral|TemplateLiteral>} customEvents
    *   The list of metadata harvested from `eventSomething` static properties.
    * @returns {ObjectProperty[]} The list of `{ event: 'event-name' }` generated from `eventSomething` static properties.
    */
@@ -263,7 +306,34 @@ module.exports = function generateCreateReactCustomElementType(api) {
     Object.keys(customEvents).map(name =>
       t.objectProperty(
         t.identifier(name.replace(regexEvent, 'on')),
-        t.objectExpression([t.objectProperty(t.identifier('event'), customEvents[name])])
+        t.objectExpression([t.objectProperty(t.identifier('event'), customEvents[name].eventName)])
+      )
+    );
+
+  /**
+   * @param {Object<string, PropertyMetadata>} declaredProps The list of metadata harvested from `@property()` decorator calls.
+   * @returns {ObjectProperty[]} The list of `PropTypes.someType` generated from `@property()` decorators.
+   */
+  const buildPropTypes = declaredProps =>
+    Object.keys(declaredProps).map(name => {
+      const { type } = declaredProps[name];
+      const propType = propTypesForLitTypes[type || 'String'];
+      if (!propType) {
+        throw new Error(`No React prop type found for type: ${type}`);
+      }
+      return t.objectProperty(t.identifier(name), propType);
+    });
+
+  /**
+   * @param {Object<string, StringLiteral|TemplateLiteral>} customEvents
+   *   The list of metadata harvested from `eventSomething` static properties.
+   * @returns {ObjectProperty[]} The list of `PropTypes.func` generated from `eventSomething` static properties.
+   */
+  const buildEventsPropTypes = customEvents =>
+    Object.keys(customEvents).map(name =>
+      t.objectProperty(
+        t.identifier(name.replace(regexEvent, 'on')),
+        t.memberExpression(t.identifier('PropTypes'), t.identifier('func'))
       )
     );
 
@@ -297,12 +367,26 @@ module.exports = function generateCreateReactCustomElementType(api) {
               descriptors,
             ]);
 
+        const propTypes = t.objectExpression([...buildPropTypes(declaredProps), ...buildEventsPropTypes(customEvents)]);
+        const propTypesWithParent = !context.parentDescriptorSource
+          ? propTypes
+          : t.callExpression(t.memberExpression(t.identifier('Object'), t.identifier('assign')), [
+              t.objectExpression([]),
+              t.identifier('parentPropTypes'),
+              propTypes,
+            ]);
+
         let body;
         if (!context.customElementName) {
           // Custom element name not found means that it's likely a module not for custom element
           // (e.g. an abstract class like floating menu)
           // If so, we just export empty `descriptor` and re-export from the original class
-          body = [template.ast`export var descriptor = {};`];
+          body = [
+            ...template.ast`
+              export var descriptor = ${descriptorsWithParent};
+              export var propTypes = ${propTypesWithParent};
+            `,
+          ];
         } else {
           body = [
             t.exportNamedDeclaration(
@@ -312,10 +396,14 @@ module.exports = function generateCreateReactCustomElementType(api) {
             ),
             buildCreateReactCustomElementTypeImport(declaredProps),
             ...template.ast`
+              import PropTypes from "prop-types";
               import settings from "carbon-components/es/globals/js/settings";
               var prefix = settings.prefix;
               export var descriptor = ${descriptorsWithParent};
-              export default createReactCustomElementType(${context.customElementName}, descriptor);
+              export var propTypes = ${propTypesWithParent};
+              const Component = createReactCustomElementType(${context.customElementName}, descriptor);
+              Component.propTypes = propTypes;
+              export default Component;
             `,
           ];
         }
@@ -323,6 +411,10 @@ module.exports = function generateCreateReactCustomElementType(api) {
           body.unshift(
             t.importDeclaration(
               [t.importSpecifier(t.identifier('parentDescriptor'), t.identifier('descriptor'))],
+              t.stringLiteral(context.parentDescriptorSource)
+            ),
+            t.importDeclaration(
+              [t.importSpecifier(t.identifier('parentPropTypes'), t.identifier('propTypes'))],
               t.stringLiteral(context.parentDescriptorSource)
             )
           );

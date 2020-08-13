@@ -11,7 +11,7 @@ jobs:
         with:
           node-version: '12.x'
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile --offline
       - name: eslint
         uses: reviewdog/action-eslint@v1
         with:

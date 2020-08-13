@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -14,7 +14,10 @@ import settings from 'carbon-components/es/globals/js/settings';
 const prefix = settings.prefix; // eslint-disable-line prefer-destructuring
 
 @Directive({
-  selector: `${prefix}-input[formControlName],${prefix}-input[formControl],${prefix}-input[ngModel]`,
+  selector: [
+    `${prefix}-input[formControlName],${prefix}-input[formControl],${prefix}-input[ngModel]`,
+    `${prefix}-textarea[formControlName],${prefix}-textarea[formControl],${prefix}-textarea[ngModel]`,
+  ].join(','),
   host: {
     '(input)': '_handleInput($event.target.value)',
     '(blur)': 'onTouched()',

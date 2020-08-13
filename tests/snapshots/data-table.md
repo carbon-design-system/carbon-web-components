@@ -7,44 +7,31 @@
 ####     `should render with minimum attributes`
 
 ```
-<div class="bx--action-list">
-  <slot>
-  </slot>
-  <button class="bx--batch-summary__cancel bx--btn bx--btn--primary">
-    <slot name="cancel-button-content">
-      Cancel
-    </slot>
-  </button>
-</div>
 <div class="bx--batch-summary">
   <p class="bx--batch-summary__para">
     NaN items selected
   </p>
 </div>
+<div class="bx--action-list">
+  <slot>
+  </slot>
+  <button class="bx--batch-summary__cancel bx--btn bx--btn--primary">
+    <slot name="cancel-button-content">
+      Cancel
+    </slot>
+  </button>
+</div>
+
 ```
 
 ####     `should render with various attributes`
 
 ```
-<div class="bx--action-list">
-  <slot>
-  </slot>
-  <button class="bx--batch-summary__cancel bx--btn bx--btn--primary">
-    <slot name="cancel-button-content">
-      Cancel
-    </slot>
-  </button>
-</div>
 <div class="bx--batch-summary">
   <p class="bx--batch-summary__para">
     3 items selected
   </p>
 </div>
-```
-
-####     `should render non-plural selected rows count`
-
-```
 <div class="bx--action-list">
   <slot>
   </slot>
@@ -54,11 +41,27 @@
     </slot>
   </button>
 </div>
+
+```
+
+####     `should render non-plural selected rows count`
+
+```
 <div class="bx--batch-summary">
   <p class="bx--batch-summary__para">
     1 item selected
   </p>
 </div>
+<div class="bx--action-list">
+  <slot>
+  </slot>
+  <button class="bx--batch-summary__cancel bx--btn bx--btn--primary">
+    <slot name="cancel-button-content">
+      Cancel
+    </slot>
+  </button>
+</div>
+
 ```
 
 ## `bx-table-header-cell`
@@ -70,6 +73,7 @@
 ```
 <slot>
 </slot>
+
 ```
 
 ####     `should render with various attributes`
@@ -77,15 +81,20 @@
 ```
 <button
   class="bx--table-sort"
+  part="sort-button"
   title="
       Name
     "
 >
-  <span class="bx--table-header-label">
+  <span
+    class="bx--table-header-label"
+    part="label-text"
+  >
     <slot>
     </slot>
   </span>
 </button>
+
 ```
 
 ## `bx-table-row`
@@ -97,6 +106,7 @@
 ```
 <slot>
 </slot>
+
 ```
 
 ####     `should render with various attributes`
@@ -120,6 +130,7 @@
 </div>
 <slot>
 </slot>
+
 ```
 
 ## `bx-table-expand-row`
@@ -135,6 +146,7 @@
 </div>
 <slot>
 </slot>
+
 ```
 
 ####     `should render with various attributes`
@@ -162,6 +174,7 @@
 </div>
 <slot>
 </slot>
+
 ```
 
 ## `bx-table-toolbar-search`

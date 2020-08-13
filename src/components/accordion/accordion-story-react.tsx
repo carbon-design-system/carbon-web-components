@@ -8,12 +8,12 @@
  */
 
 import React from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXAccordion from 'carbon-custom-elements/es/components-react/accordion/accordion';
+import BXAccordion from 'carbon-web-components/es/components-react/accordion/accordion';
 // @ts-ignore
-import BXAccordionItem from 'carbon-custom-elements/es/components-react/accordion/accordion-item';
+import BXAccordionItem from 'carbon-web-components/es/components-react/accordion/accordion-item';
 import { defaultStory as baseDefaultStory } from './accordion-story';
 
 export { default } from './accordion-story';

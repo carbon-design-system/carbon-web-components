@@ -10,16 +10,16 @@
 import { delay } from 'bluebird';
 import PropTypes from 'prop-types';
 import React, { useCallback, useRef, useState } from 'react';
-// Below path will be there when an application installs `carbon-custom-elements` package.
+// Below path will be there when an application installs `carbon-web-components` package.
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
-import BXFileUploader from 'carbon-custom-elements/es/components-react/file-uploader/file-uploader';
+import BXFileUploader from 'carbon-web-components/es/components-react/file-uploader/file-uploader';
 // @ts-ignore
-import BXFileDropContainer from 'carbon-custom-elements/es/components-react/file-uploader/drop-container';
+import BXFileDropContainer from 'carbon-web-components/es/components-react/file-uploader/drop-container';
 import BXFileUploaderItem, {
   FILE_UPLOADER_ITEM_STATE,
   // @ts-ignore
-} from 'carbon-custom-elements/es/components-react/file-uploader/file-uploader-item';
+} from 'carbon-web-components/es/components-react/file-uploader/file-uploader-item';
 import { FileData } from './stories/types';
 import { defaultStory as baseDefaultStory } from './file-uploader-story';
 

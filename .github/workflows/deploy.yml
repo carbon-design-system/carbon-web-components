@@ -1,4 +1,4 @@
-name: Deploy carbon-custom-elements storybook to IBM Cloud
+name: Deploy carbon-web-components storybook to IBM Cloud
 
 on:
   push:
@@ -18,14 +18,14 @@ jobs:
         run: yarn install
       - name: Build project
         run: yarn build
-      - name: Building carbon-custom-elements storybook
+      - name: Building carbon-web-components storybook
         run: yarn build-storybook
-      - name: Deploying carbon-custom-elements storybook to IBM Cloud
+      - name: Deploying carbon-web-components storybook to IBM Cloud
         uses: carbon-design-system/action-ibmcloud-cf@v1.0.0
         with:
           cloud-api-key: ${{ secrets.CF_TOKEN }}
           cf-org: carbon-design-system
           cf-space: production
           cf-region: us-south
-          cf-app: carbon-custom-elements
+          cf-app: carbon-web-components
           cf-manifest: manifest.yml

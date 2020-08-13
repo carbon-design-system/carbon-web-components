@@ -206,8 +206,11 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
         [selectedRowsCount]="_selectedRowsCountInFiltered"
         (bx-table-batch-actions-cancel-clicked)="_handleCancelSelection($event)"
       >
-        <bx-btn (click)="_handleDeleteRows($event)">Delete <ibm-icon-delete16 slot="icon"></ibm-icon-delete16></bx-btn>
-        <bx-btn (click)="_handleDownloadRows($event)" href="javascript:void 0" download="table-data.json">
+        <bx-btn icon-layout="condensed" (click)="_handleDeleteRows($event)">
+          Delete
+          <ibm-icon-delete16 slot="icon"></ibm-icon-delete16>
+        </bx-btn>
+        <bx-btn icon-layout="condensed" (click)="_handleDownloadRows($event)" href="javascript:void 0" download="table-data.json">
           Download <ibm-icon-download16 slot="icon"></ibm-icon-download16>
         </bx-btn>
       </bx-table-batch-actions>
