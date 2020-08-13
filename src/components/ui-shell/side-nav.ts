@@ -9,8 +9,6 @@
 
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
-import on from 'carbon-components/es/globals/js/misc/on';
-import Handle from '../../globals/internal/handle';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
 import { forEach } from '../../globals/internal/collection-helpers';
@@ -67,11 +65,6 @@ export enum SIDE_NAV_USAGE_MODE {
 @customElement(`${prefix}-side-nav`)
 class BXSideNav extends HostListenerMixin(LitElement) {
   /**
-   * The handle for the listener of `${prefix}-header-menu-button-toggled` event.
-   */
-  private _hAfterButtonToggle: Handle | null = null;
-
-  /**
    * `true` if this side nav is hovered.
    */
   private _hovered = false;
@@ -79,12 +72,14 @@ class BXSideNav extends HostListenerMixin(LitElement) {
   /**
    * Handles `${prefix}-header-menu-button-toggle` event on the document.
    */
-  private _handleButtonToggle(event: CustomEvent) {
+  @HostListener('parentRoot:eventButtonToggle')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleButtonToggle = (event: CustomEvent) => {
     this.expanded = event.detail.active;
     if (this.expanded) {
       (this.querySelector((this.constructor as typeof BXSideNav).selectorNavItems) as HTMLElement)?.focus();
     }
-  }
+  };
 
   /**
    * Force child side nav menus collapsed upon the hover/expanded state of this side nav.
@@ -139,18 +134,6 @@ class BXSideNav extends HostListenerMixin(LitElement) {
       this.setAttribute('role', 'navigation');
     }
     super.connectedCallback();
-    // Manually hooks the event listeners on the host element to make the event names configurable
-    this._hAfterButtonToggle = on(
-      this.getRootNode() as Document,
-      (this.constructor as typeof BXSideNav).eventButtonToggle,
-      this._handleButtonToggle.bind(this) as EventListener
-    );
-  }
-
-  disconnectedCallback() {
-    if (this._hAfterButtonToggle) {
-      this._hAfterButtonToggle = this._hAfterButtonToggle.release();
-    }
   }
 
   updated(changedProperties) {

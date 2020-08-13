@@ -13,8 +13,8 @@ import { Instance as FlatpickrInstance } from 'flatpickr/dist/types/instance';
 import { Locale as FlatpickrLocale } from 'flatpickr/dist/types/locale';
 import { Options as FlatpickrOptions, Plugin as FlatpickrPlugin } from 'flatpickr/dist/types/options';
 import settings from 'carbon-components/es/globals/js/settings';
-import on from 'carbon-components/es/globals/js/misc/on';
-import Handle from '../../globals/internal/handle';
+import HostListenerMixin from '../../globals/mixins/host-listener';
+import HostListener from '../../globals/decorators/host-listener';
 import { getISODateString, parseISODateString } from './iso-date';
 import BXDatePickerInput from './date-picker-input';
 import appendToPlugin from './append-to-plugin';
@@ -56,12 +56,7 @@ enum DATE_PICKER_MODE {
  * @fires bx-date-picker-changed - The custom event fired on this element when Flatpickr updates its value.
  */
 @customElement(`${prefix}-date-picker`)
-class BXDatePicker extends LitElement {
-  /**
-   * The handle for the listener of `${prefix}-date-picker-changed` event.
-   */
-  private _hAfterChange: Handle | null = null;
-
+class BXDatePicker extends HostListenerMixin(LitElement) {
   /**
    * The slotted `<bx-date-input kind="from">`.
    */
@@ -192,6 +187,8 @@ class BXDatePicker extends LitElement {
   /**
    * Handles `${prefix}-date-picker-changed` event on this element.
    */
+  @HostListener('eventChange')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleChange = ({ detail }: CustomEvent) => {
     this._value = detail.selectedDates.map(date => getISODateString(date)).join('/');
   };
@@ -302,14 +299,9 @@ class BXDatePicker extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this._instantiateDatePicker();
-    // Manually hooks the event listeners on the host element to make the event names configurable
-    this._hAfterChange = on(this, (this.constructor as typeof BXDatePicker).eventChange, this._handleChange as EventListener);
   }
 
   disconnectedCallback() {
-    if (this._hAfterChange) {
-      this._hAfterChange = this._hAfterChange.release();
-    }
     this._releaseDatePicker();
     super.disconnectedCallback();
   }

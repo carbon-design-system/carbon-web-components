@@ -9,10 +9,10 @@
 
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
-import on from 'carbon-components/es/globals/js/misc/on';
 import FormMixin from '../../globals/mixins/form';
+import HostListenerMixin from '../../globals/mixins/host-listener';
+import HostListener from '../../globals/decorators/host-listener';
 import { find, forEach } from '../../globals/internal/collection-helpers';
-import Handle from '../../globals/internal/handle';
 import BXRadioButton, { RADIO_BUTTON_LABEL_POSITION } from './radio-button';
 import styles from './radio-button.scss';
 
@@ -39,16 +39,13 @@ export enum RADIO_BUTTON_ORIENTATION {
  * @fires bx-radio-button-group-changed - The custom event fired after this radio button group changes its selected item.
  */
 @customElement(`${prefix}-radio-button-group`)
-class BXRadioButtonGroup extends FormMixin(LitElement) {
-  /**
-   * The handle for the listener of `${prefix}-radio-button-changed` event.
-   */
-  private _hAfterChangeRadioButton: Handle | null = null;
-
+class BXRadioButtonGroup extends FormMixin(HostListenerMixin(LitElement)) {
   /**
    * Handles user-initiated change in selected radio button.
    */
-  private _handleAfterChangeRadioButton() {
+  @HostListener('eventChangeRadioButton')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleAfterChangeRadioButton = () => {
     const { selectorRadioButton } = this.constructor as typeof BXRadioButtonGroup;
     const selected = find(this.querySelectorAll(selectorRadioButton), elem => (elem as BXRadioButton).checked);
     const oldValue = this.value;
@@ -65,7 +62,7 @@ class BXRadioButtonGroup extends FormMixin(LitElement) {
         })
       );
     }
-  }
+  };
 
   _handleFormdata(event: Event) {
     const { formData } = event as any; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
@@ -104,23 +101,6 @@ class BXRadioButtonGroup extends FormMixin(LitElement) {
    */
   @property()
   value!: string;
-
-  connectedCallback() {
-    super.connectedCallback();
-    // Manually hooks the event listeners on the host element to make the event names configurable
-    this._hAfterChangeRadioButton = on(
-      this,
-      (this.constructor as typeof BXRadioButtonGroup).eventChangeRadioButton,
-      this._handleAfterChangeRadioButton as EventListener
-    );
-  }
-
-  disconnectedCallback() {
-    if (this._hAfterChangeRadioButton) {
-      this._hAfterChangeRadioButton = this._hAfterChangeRadioButton.release();
-    }
-    super.disconnectedCallback();
-  }
 
   updated(changedProperties) {
     const { selectorRadioButton } = this.constructor as typeof BXRadioButtonGroup;
