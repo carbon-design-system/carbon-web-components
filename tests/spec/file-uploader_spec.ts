@@ -17,7 +17,7 @@ import EventManager from '../utils/event-manager';
 const fileUploaderShellTemplate = (props?) => {
   const { helperText, labelText } = props ?? {};
   return html`
-    <bx-file-uploader-shell helper-text="${ifNonNull(helperText)}" label-text="${ifNonNull(labelText)}"></bx-file-uploader-shell>
+    <bx-file-uploader helper-text="${ifNonNull(helperText)}" label-text="${ifNonNull(labelText)}"></bx-file-uploader>
   `;
 };
 
@@ -47,12 +47,12 @@ const fileUploderItemTemplate = (props?) => {
 describe('file-uploader', function() {
   const events = new EventManager();
 
-  describe('bx-file-uploader-shell', function() {
+  describe('bx-file-uploader', function() {
     describe('Misc attributes', function() {
       it('should render with minimum attributes', async function() {
         render(fileUploaderShellTemplate(), document.body);
         await Promise.resolve();
-        expect(document.body.querySelector('bx-file-uploader-shell')).toMatchSnapshot({ mode: 'shadow' });
+        expect(document.body.querySelector('bx-file-uploader')).toMatchSnapshot({ mode: 'shadow' });
       });
 
       it('should render with various attributes', async function() {
@@ -64,7 +64,7 @@ describe('file-uploader', function() {
           document.body
         );
         await Promise.resolve();
-        expect(document.body.querySelector('bx-file-uploader-shell')).toMatchSnapshot({ mode: 'shadow' });
+        expect(document.body.querySelector('bx-file-uploader')).toMatchSnapshot({ mode: 'shadow' });
       });
     });
   });
