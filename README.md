@@ -70,7 +70,7 @@ yarn add carbon-web-components carbon-components lit-html lit-element
 
 Our example at [CodeSandbox](https://codesandbox.io) shows the most basic usage:
 
-[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/basic)
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/basic)
 
 The first thing you need is **setting up a module bundler** to resolve ECMAScript `import`s. Above example uses [Parcel](https://parceljs.org). You can use other bundlers like [Rollup](https://rollupjs.org/)/[Webpack](https://webpack.js.org), too.
 
@@ -132,7 +132,7 @@ If you just want to try our components for demonstrations, etc., you can use CDN
 
 ### Angular
 
-[![Edit carbon-web-components with Angular](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/angular)
+[![Edit carbon-web-components with Angular](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/angular)
 
 Angular users can use our components in the same manner as native HTML tags, too, once you add [`CUSTOM_ELEMENTS_SCHEMA`](https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA) schema to your Angular module, like:
 
@@ -158,7 +158,7 @@ The `.d.ts` files in `carbon-web-components` package are compiled with TypeScrip
 
 ### React
 
-[![Edit carbon-web-components with React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/react)
+[![Edit carbon-web-components with React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/react)
 
 You can use wrapper React components in `carbon-web-components/es/components-react` generated [automatically from the custom elements](./src/globals/wrappers/createReactCustomElementType.ts) which allows you to use our components seamlessly in your React code. Here's an example:
 
@@ -185,7 +185,7 @@ Note: Using the React wrapper requires an additional dependency, [`prop-types`](
 
 ### Vue
 
-[![Edit carbon-web-components with Vue](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/vue)
+[![Edit carbon-web-components with Vue](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/vue)
 
 Vue users can use our components in the same manner as native HTML tags, without any additional steps!
 
@@ -228,7 +228,7 @@ To support IE, you need a couple additional setups:
 
 Here's an example code that shows such setup:
 
-[![Edit carbon-web-components with IE](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/ie)
+[![Edit carbon-web-components with IE](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/ie)
 
 ## Coding conventions
 

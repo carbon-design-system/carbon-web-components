@@ -25,7 +25,7 @@ button.addEventListener('click', () => {
 });
 ```
 
-[![Edit carbon-web-components with formdata event](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/form/basic)
+[![Edit carbon-web-components with formdata event](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/form/basic)
 
 ## Angular two-way binding
 
@@ -55,7 +55,7 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-[![Edit carbon-web-components with Angular form directives](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/form/angular)
+[![Edit carbon-web-components with Angular form directives](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/form/angular)
 
 ## Redux Form
 
@@ -90,4 +90,4 @@ const FieldImpl = ({ input, label, type, meta: { touched, error } }) => {
 <Field name="username" type="text" component={FieldImpl} label="Username" />
 ```
 
-[![Edit carbon-web-components with Redux Form](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/form/redux-form)
+[![Edit carbon-web-components with Redux Form](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/form/redux-form)
