@@ -18,7 +18,7 @@ However, in cases where your application or a Carbon-derived style guide wants t
 
 Changes to CSS Custom Properties of the Carbon theme are reflected in the color scheme of `carbon-web-components` components:
 
-[![Edit carbon-web-components with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/styling/theme-zoning)
+[![Edit carbon-web-components with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/styling/theme-zoning)
 
 For example, if you add CSS like below:
 
@@ -53,7 +53,7 @@ footer {
 
 You can let our custom elements modules load alternate `CSSResult` module. Below example uses [Webpack `NormalModuleReplacementPlugin`](https://webpack.js.org/plugins/normal-module-replacement-plugin/) to let our custom elements modules load RTL version of `CSSResult` module that is shipped alongside with default `CSSResult` modules, instead of loading the default version:
 
-[![Edit carbon-web-components with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/rtl)
+[![Edit carbon-web-components with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/rtl)
 
 ```javascript
 const reCssBundle = /\.css\.js$/i;
@@ -76,7 +76,7 @@ module.exports = {
 
 You can create a derived class of our component and override [static `styles` property](https://lit-element.polymer-project.org/guide/styles#static-styles), like:
 
-[![Edit carbon-web-components with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-custom-elements/tree/master/examples/codesandbox/styling/custom-style)
+[![Edit carbon-web-components with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/styling/custom-style)
 
 ```javascript
 import { css, customElement } from 'lit-element';
