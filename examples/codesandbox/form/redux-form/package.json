@@ -4,7 +4,11 @@
   "private": true,
   "description": "Sample project for getting started with the Web Components from the Carbon Design System with redux-form.",
   "license": "Apache-2",
-  "main": "index.html",
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "postinstall": "babel --plugins=./babel-plugin-redux-form-snowpack.js node_modules/redux-form/es/util/isHotReloading.js -o node_modules/redux-form/es/util/isHotReloading.js"
+  },
   "dependencies": {
     "carbon-components": "~10.17.0",
     "carbon-web-components": "^1.0.0",
@@ -12,23 +16,20 @@
     "lit-html": "^1.2.0",
     "lodash-es": "^4.17.0",
     "prop-types": "^15.7.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-redux": "^6.0.0",
-    "react-scripts": "^3.0.0",
     "redux": "^4.0.0",
     "redux-form": "^8.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.0",
-    "@babel/plugin-transform-runtime": "^7.8.0",
-    "@babel/preset-react": "^7.8.0",
+    "@babel/cli": "^7.10.0",
+    "@babel/preset-react": "^7.10.0",
+    "@babel/template": "^7.10.0",
+    "@snowpack/plugin-babel": "^2.0.0",
+    "@snowpack/plugin-dotenv": "^2.0.0",
     "@types/lodash-es": "^4.17.0",
     "@types/react": "^16.9.0",
-    "parcel-bundler": "^1.10.0"
-  },
-  "scripts": {
-    "start": "parcel index.html --no-hmr",
-    "build": "parcel build index.html"
+    "snowpack": "^2.7.0"
   }
 }

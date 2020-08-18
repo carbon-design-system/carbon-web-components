@@ -11,13 +11,11 @@ import { classMap } from 'lit-html/directives/class-map';
 import throttle from 'lodash-es/throttle';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
-import on from 'carbon-components/es/globals/js/misc/on';
 import FocusMixin from '../../globals/mixins/focus';
 import FormMixin from '../../globals/mixins/form';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
-import Handle from '../../globals/internal/handle';
 import BXSliderInput from './slider-input';
 import styles from './slider.scss';
 
@@ -70,11 +68,6 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
    * The internal value of `stepRatio` property.
    */
   private _stepRatio = '4';
-
-  /**
-   * The handle for the listener of `${prefix}-slider-input` event.
-   */
-  private _hChangeInput: Handle | null = null;
 
   /**
    * The handle for the throttled listener of `mousemove` event.
@@ -247,6 +240,8 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   /**
    * Handles `${prefix}-slider-input-changed` event to update the value.
    */
+  @HostListener('eventChangeInput')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleChangeInput = ({ detail }: CustomEvent) => {
     const { intermediate, value } = detail;
     this.value = value;
@@ -366,18 +361,9 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
     if (!this._throttledHandleMousemoveImpl) {
       this._throttledHandleMousemoveImpl = throttle(this._handleMousemoveImpl, 10);
     }
-    // Manually hooks the event listeners on the host element to make the event names configurable
-    this._hChangeInput = on(
-      this,
-      (this.constructor as typeof BXSlider).eventChangeInput,
-      this._handleChangeInput as EventListener
-    );
   }
 
   disconnectedCallback() {
-    if (this._hChangeInput) {
-      this._hChangeInput = this._hChangeInput.release();
-    }
     if (this._throttledHandleMousemoveImpl) {
       this._throttledHandleMousemoveImpl.cancel();
       this._throttledHandleMousemoveImpl = null;

@@ -30,7 +30,6 @@ LICENSE file in the root directory of this source tree.
         visibility: inherit;
       }
     </style>
-    <script src="src/index.js"></script>
   </head>
   <body>
     <h1>Hello World! 👋</h1>
@@ -43,5 +42,9 @@ LICENSE file in the root directory of this source tree.
         <bx-dropdown-item value="router">Option 5</bx-dropdown-item>
       </bx-dropdown>
     </div>
+    <script type="module">
+      import 'carbon-web-components/es/components/dropdown/dropdown.js';
+      import 'carbon-web-components/es/components/dropdown/dropdown-item.js';
+    </script>
   </body>
 </html>

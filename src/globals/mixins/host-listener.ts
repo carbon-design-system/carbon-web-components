@@ -13,7 +13,7 @@ import Handle from '../internal/handle';
 /**
  * The format for the event name used by `@HostListener` decorator.
  */
-const EVENT_NAME_FORMAT = /^((document|window|shadowRoot):)?([\w-]+)$/;
+const EVENT_NAME_FORMAT = /^((document|window|parentRoot|shadowRoot):)?([\w-]+)$/;
 
 /**
  * @param Base The base class.
@@ -46,12 +46,20 @@ const HostListenerMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
             {
               document: this.ownerDocument,
               window: this.ownerDocument!.defaultView,
+              parentRoot: this.getRootNode(),
               shadowRoot: this.shadowRoot,
             }[targetName] || this;
 
           const { options } = hostListeners[listenerName][type];
 
-          this._handles.add(on(target, unprefixedType as keyof HTMLElementEventMap, this[listenerName], options));
+          this._handles.add(
+            on(
+              target,
+              ((this.constructor as typeof Base)[unprefixedType] ?? unprefixedType) as keyof HTMLElementEventMap,
+              this[listenerName],
+              options
+            )
+          );
         });
       });
     }

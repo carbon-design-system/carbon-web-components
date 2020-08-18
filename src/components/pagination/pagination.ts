@@ -12,10 +12,10 @@ import { html, property, customElement, LitElement } from 'lit-element';
 import CaretLeft24 from '@carbon/icons/lib/caret--left/24';
 import CaretRight24 from '@carbon/icons/lib/caret--right/24';
 import settings from 'carbon-components/es/globals/js/settings';
-import on from 'carbon-components/es/globals/js/misc/on';
 import FocusMixin from '../../globals/mixins/focus';
+import HostListenerMixin from '../../globals/mixins/host-listener';
+import HostListener from '../../globals/decorators/host-listener';
 import { forEach } from '../../globals/internal/collection-helpers';
-import Handle from '../../globals/internal/handle';
 import BXPagesSelect from './pages-select';
 import BXPageSizesSelect from './page-sizes-select';
 import styles from './pagination.scss';
@@ -31,17 +31,7 @@ const { prefix } = settings;
  *   The custom event fired after the number of rows per page is changed from `<bx-page-sizes-select>`.
  */
 @customElement(`${prefix}-pagination`)
-class BXPagination extends FocusMixin(LitElement) {
-  /**
-   * The handle for the listener of `${prefix}-pages-select-changed` event.
-   */
-  private _hChangePage: Handle | null = null;
-
-  /**
-   * The handle for the listener of `${prefix}-page-sizes-select-changed` event.
-   */
-  private _hChangePageSize: Handle | null = null;
-
+class BXPagination extends FocusMixin(HostListenerMixin(LitElement)) {
   /**
    * @returns Page status text.
    */
@@ -98,19 +88,23 @@ class BXPagination extends FocusMixin(LitElement) {
    * Handles user-initiated change in current page.
    * @param event The event.
    */
-  private _handleChangePage({ detail }: CustomEvent) {
+  @HostListener('eventChangePage')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleChangePage = ({ detail }: CustomEvent) => {
     const { value } = detail;
     const { pageSize } = this;
     this._handleUserInitiatedChangeStart(value * pageSize);
-  }
+  };
 
   /**
    * Handles user-initiated change in number of rows per page.
    * @param event The event.
    */
-  private _handleChangePageSize({ detail }: CustomEvent) {
+  @HostListener('eventChangePageSize')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleChangePageSize = ({ detail }: CustomEvent) => {
     this.pageSize = detail.value;
-  }
+  };
 
   /**
    * The formatter, used with determinate the total pages. Should be changed upon the locale the UI is rendered with.
@@ -174,24 +168,6 @@ class BXPagination extends FocusMixin(LitElement) {
 
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    // Manually hooks the event listeners on the host element to make the event names configurable
-    const { eventChangePage, eventChangePageSize } = this.constructor as typeof BXPagination;
-    this._hChangePage = on(this, eventChangePage, this._handleChangePage as EventListener);
-    this._hChangePageSize = on(this, eventChangePageSize, this._handleChangePageSize as EventListener);
-  }
-
-  disconnectedCallback() {
-    if (this._hChangePageSize) {
-      this._hChangePageSize = this._hChangePageSize.release();
-    }
-    if (this._hChangePage) {
-      this._hChangePage = this._hChangePage.release();
-    }
-    super.disconnectedCallback();
   }
 
   updated(changedProperties) {
