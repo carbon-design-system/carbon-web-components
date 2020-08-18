@@ -36,7 +36,7 @@ export const icon = ({ parameters }) => ({
 
 export const textAndIcon = ({ parameters }) => ({
   template: `
-    <bx-btn :kind="kind" :disabled="disabled" :size="size" :href="href" @click="onClick">
+    <bx-btn :kind="kind" :disabled="disabled" :size="size" :href="href" :icon-layout="iconLayout" @click="onClick">
       Button <add-16 slot="icon"></add-16>
     </bx-btn>
   `,
@@ -50,7 +50,7 @@ textAndIcon.story = baseTextAndIcon.story;
 
 export const skeleton = ({ parameters }) => ({
   template: `
-    <bx-btn :disabled="disabled" :small="small" :href="href" @click="onClick"></bx-btn>
+    <bx-btn-skeleton :disabled="disabled" :small="small" :href="href" @click="onClick"></bx-btn-skeleton>
   `,
   ...createVueBindingsFromProps(parameters?.props?.['bx-btn-skeleton']),
 });

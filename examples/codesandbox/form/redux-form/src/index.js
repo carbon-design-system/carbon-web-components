@@ -12,10 +12,11 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import { Field, SubmissionError, reduxForm, reducer as reduxFormReducer } from 'redux-form';
-import BXBtn from 'carbon-web-components/es/components-react/button/button';
-import BXFormItem from 'carbon-web-components/es/components-react/form/form-item';
-import BXInput from 'carbon-web-components/es/components-react/input/input';
-import BXInlineNotification from 'carbon-web-components/es/components-react/notification/inline-notification';
+import BXBtn from 'carbon-web-components/es/components-react/button/button.js';
+import BXFormItem from 'carbon-web-components/es/components-react/form/form-item.js';
+import BXInput from 'carbon-web-components/es/components-react/input/input.js';
+import BXInlineNotification from 'carbon-web-components/es/components-react/notification/inline-notification.js';
+import './index.css';
 
 const reducer = combineReducers({
   form: reduxFormReducer,
@@ -44,7 +45,7 @@ const submit = async values => {
       _error: 'Login failed!',
     });
   } else {
-    alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+    alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`); // eslint-disable-line no-alert
   }
 };
 

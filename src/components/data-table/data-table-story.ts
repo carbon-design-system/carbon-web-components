@@ -377,8 +377,8 @@ class BXCEDemoDataTable extends LitElement {
           selected-rows-count="${selectedRowsCountInFiltered}"
           @bx-table-batch-actions-cancel-clicked="${handleCancelSelection}"
         >
-          <bx-btn @click="${handleDeleteRows}">Delete ${Delete16({ slot: 'icon' })}</bx-btn>
-          <bx-btn @click="${handleDownloadRows}" href="javascript:void 0" download="table-data.json">
+          <bx-btn icon-layout="condensed" @click="${handleDeleteRows}">Delete ${Delete16({ slot: 'icon' })}</bx-btn>
+          <bx-btn icon-layout="condensed" @click="${handleDownloadRows}" href="javascript:void 0" download="table-data.json">
             Download ${Download16({ slot: 'icon' })}
           </bx-btn>
         </bx-table-batch-actions>

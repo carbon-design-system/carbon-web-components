@@ -44,7 +44,7 @@ icon.story = {
 
 export const textAndIcon = ({ parameters }) => ({
   template: `
-    <bx-btn [kind]="kind" [disabled]="disabled" [size]="size" [href]="href" (click)="onClick($event)">
+    <bx-btn [kind]="kind" [disabled]="disabled" [size]="size" [href]="href" [iconLayout]="iconLayout" (click)="onClick($event)">
       Button <ibm-icon-add16 slot="icon"></ibm-icon-add16>
     </bx-btn>
   `,

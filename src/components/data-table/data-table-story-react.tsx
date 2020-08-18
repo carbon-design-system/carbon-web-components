@@ -287,10 +287,10 @@ const BXCEDemoDataTable = ({
           active={hasBatchActions}
           selectedRowsCount={selectedRowsCountInFiltered}
           onClickCancel={handleCancelSelection}>
-          <BXBtn onClick={handleDeleteRows}>
+          <BXBtn iconLayout="condensed" onClick={handleDeleteRows}>
             Delete <Delete16 slot="icon" />
           </BXBtn>
-          <BXBtn onClick={handleDownloadRows} href="javascript:void 0" download="table-data.json">
+          <BXBtn iconLayout="condensed" onClick={handleDownloadRows} href="javascript:void 0" download="table-data.json">
             Download <Download16 slot="icon" />
           </BXBtn>
         </BXTableBatchActions>

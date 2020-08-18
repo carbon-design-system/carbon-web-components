@@ -50,16 +50,16 @@ class BXTableBatchActions extends LitElement {
   render() {
     const { formatSelectedItemsCount, selectedRowsCount, _handleCancel: handleCancel } = this;
     return html`
+      <div class="${prefix}--batch-summary">
+        <p class="${prefix}--batch-summary__para">
+          ${formatSelectedItemsCount({ count: selectedRowsCount })}
+        </p>
+      </div>
       <div class="${prefix}--action-list">
         <slot></slot>
         <button class="${prefix}--btn ${prefix}--btn--primary ${prefix}--batch-summary__cancel" @click=${handleCancel}>
           <slot name="cancel-button-content">Cancel</slot>
         </button>
-      </div>
-      <div class="${prefix}--batch-summary">
-        <p class="${prefix}--batch-summary__para">
-          ${formatSelectedItemsCount({ count: selectedRowsCount })}
-        </p>
       </div>
     `;
   }
