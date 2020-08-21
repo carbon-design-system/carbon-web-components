@@ -14,11 +14,11 @@ import React from 'react';
 import BXTag from 'carbon-web-components/es/components-react/tag/tag';
 // @ts-ignore
 import BXFilterTag from 'carbon-web-components/es/components-react/tag/filter-tag';
-import { defaultStory as baseDefaultStory, filter as baseFilter } from './tag-story';
+import { Default as baseDefault, filter as baseFilter } from './tag-story';
 
 export { default } from './tag-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { type, title, disabled } = parameters?.props?.['bx-tag'];
   return (
     <BXTag type={type} title={title} disabled={disabled}>
@@ -27,9 +27,9 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const filter = ({ parameters }) => {
+export const filter = (_, { parameters }) => {
   const { open, type, title, disabled, disableClose, onClick, onBeforeClose, onClose } = parameters?.props?.['bx-filter-tag'];
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
@@ -51,4 +51,4 @@ export const filter = ({ parameters }) => {
   );
 };
 
-filter.story = baseFilter.story;
+Object.assign(filter, baseFilter);

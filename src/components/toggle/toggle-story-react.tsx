@@ -12,11 +12,11 @@ import React from 'react';
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXToggle from 'carbon-web-components/es/components-react/toggle/toggle';
-import { defaultStory as baseDefaultStory } from './toggle-story';
+import { Default as baseDefault } from './toggle-story';
 
 export { default } from './toggle-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { checked, checkedText, disabled, labelText, name, size, uncheckedText, value, onChange } = parameters?.props?.[
     'bx-toggle'
   ];
@@ -35,4 +35,4 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

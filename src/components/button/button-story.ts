@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html } from 'lit-element';
+import { html } from 'lit-html';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
 // Below path will be there when an application installs `carbon-web-components` package.
@@ -38,7 +38,7 @@ const iconLayouts = {
   [`Condensed (${BUTTON_ICON_LAYOUT.CONDENSED})`]: BUTTON_ICON_LAYOUT.CONDENSED,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { autofocus, disabled, download, href, hreflang, kind, linkRole, ping, rel, size, target, type, onClick } =
     parameters?.props?.['bx-btn'] ?? {};
   return html`
@@ -62,22 +62,19 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    knobs: {
-      'bx-btn': () => ({
-        kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
-        disabled: boolean('Disabled (disabled)', false),
-        size: select('Button size (size)', sizes, null),
-        href: textNullable('Link href (href)', ''),
-        onClick: action('click'),
-      }),
-    },
+Default.parameters = {
+  knobs: {
+    'bx-btn': () => ({
+      kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
+      disabled: boolean('Disabled (disabled)', false),
+      size: select('Button size (size)', sizes, null),
+      href: textNullable('Link href (href)', ''),
+      onClick: action('click'),
+    }),
   },
 };
 
-export const icon = ({ parameters }) => {
+export const icon = (_, { parameters }) => {
   const { kind, disabled, size, href, onClick } = parameters?.props?.['bx-btn'] ?? {};
   return html`
     <bx-btn
@@ -92,11 +89,9 @@ export const icon = ({ parameters }) => {
   `;
 };
 
-icon.story = {
-  parameters: defaultStory.story.parameters,
-};
+icon.parameters = Default.parameters;
 
-export const textAndIcon = ({ parameters }) => {
+export const textAndIcon = (_, { parameters }) => {
   const { kind, disabled, size, href, iconLayout, onClick } = parameters?.props?.['bx-btn'] ?? {};
   return html`
     <bx-btn
@@ -112,23 +107,22 @@ export const textAndIcon = ({ parameters }) => {
   `;
 };
 
-textAndIcon.story = {
-  name: 'Text and icon',
-  parameters: {
-    knobs: {
-      'bx-btn': () => ({
-        iconLayout: select('Icon layout (icon-layout)', iconLayouts, null),
-        kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
-        disabled: boolean('Disabled (disabled)', false),
-        size: select('Button size (size)', sizes, null),
-        href: textNullable('Link href (href)', ''),
-        onClick: action('click'),
-      }),
-    },
+textAndIcon.storyName = 'Text and icon';
+
+textAndIcon.parameters = {
+  knobs: {
+    'bx-btn': () => ({
+      iconLayout: select('Icon layout (icon-layout)', iconLayouts, null),
+      kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
+      disabled: boolean('Disabled (disabled)', false),
+      size: select('Button size (size)', sizes, null),
+      href: textNullable('Link href (href)', ''),
+      onClick: action('click'),
+    }),
   },
 };
 
-export const skeleton = ({ parameters }) => {
+export const skeleton = (_, { parameters }) => {
   const { disabled, size, href, onClick } = parameters?.props?.['bx-btn-skeleton'];
   return html`
     <bx-btn-skeleton ?disabled=${disabled} size=${ifNonNull(size)} href=${ifNonNull(href || undefined)} @click=${onClick}>
@@ -136,25 +130,21 @@ export const skeleton = ({ parameters }) => {
   `;
 };
 
-skeleton.story = {
-  parameters: {
-    knobs: {
-      'bx-btn-skeleton': () => ({
-        kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
-        disabled: boolean('Disabled (disabled)', false),
-        size: select('Button size (size)', sizes, null),
-        href: textNullable('Link href (href)', ''),
-        onClick: action('click'),
-      }),
-    },
+skeleton.parameters = {
+  knobs: {
+    'bx-btn-skeleton': () => ({
+      kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),
+      disabled: boolean('Disabled (disabled)', false),
+      size: select('Button size (size)', sizes, null),
+      href: textNullable('Link href (href)', ''),
+      onClick: action('click'),
+    }),
   },
 };
 
 export default {
   title: 'Components/Button',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

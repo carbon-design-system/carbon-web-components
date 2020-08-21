@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './tabs-story';
+import baseStory, { Default as baseDefault } from './tabs-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-tabs
       [triggerContent]="triggerContent"
@@ -43,7 +43,7 @@ export const defaultStory = ({ parameters }) => ({
   })(parameters?.props?.['bx-tabs']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => ({
   template: `

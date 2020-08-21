@@ -10,12 +10,12 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   formItem as baseFormItem,
   withoutFormItemWrapper as baseWithoutFormItemWrapper,
 } from './number-input-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-number-input
       [colorScheme]="colorScheme"
@@ -36,9 +36,9 @@ export const defaultStory = ({ parameters }) => ({
   props: parameters?.props?.['bx-number-input'],
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const formItem = ({ parameters }) => ({
+export const formItem = (_, { parameters }) => ({
   template: `
     <bx-form-item>
       <bx-number-input
@@ -65,9 +65,9 @@ export const formItem = ({ parameters }) => ({
   props: parameters?.props?.['bx-number-input'],
 });
 
-formItem.story = baseFormItem.story;
+Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = ({ parameters }) => ({
+export const withoutFormItemWrapper = (_, { parameters }) => ({
   template: `
     <bx-number-input
       [value]="value"
@@ -90,7 +90,7 @@ export const withoutFormItemWrapper = ({ parameters }) => ({
   props: parameters?.props?.['bx-number-input'],
 });
 
-withoutFormItemWrapper.story = baseWithoutFormItemWrapper.story;
+Object.assign(withoutFormItemWrapper, baseWithoutFormItemWrapper);
 
 export const skeleton = () => ({
   template: `<bx-number-input-skeleton></bx-number-input-skeleton>`,

@@ -11,7 +11,7 @@ import { html, render } from 'lit-html';
 import EventManager from '../utils/event-manager';
 
 import BXNumberInput from '../../src/components/number-input/number-input';
-import { defaultStory } from '../../src/components/number-input/number-input-story';
+import { Default } from '../../src/components/number-input/number-input-story';
 
 /**
  * @param formData A `FormData` instance.
@@ -27,13 +27,16 @@ const getValues = (formData: FormData) => {
 };
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-number-input': props,
+  Default(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-number-input': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 describe('bx-number-input', function() {
   const events = new EventManager();

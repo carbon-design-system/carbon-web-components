@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -32,22 +32,28 @@ const template = ({ hasContent = true, hasBody = true }: { hasContent?: boolean;
   !hasContent ? (undefined! as TemplateResult) : contentTemplate({ hasBody });
 
 const definitionTemplate = (props?) =>
-  definition({
-    parameters: {
-      props: {
-        'bx-tooltip-definition': props,
+  definition(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-tooltip-definition': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 const iconTemplate = (props?) =>
-  icon({
-    parameters: {
-      props: {
-        'bx-tooltip-icon': props,
+  icon(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-tooltip-icon': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 describe('bx-tooltip', function() {
   describe('Missing menu body', function() {

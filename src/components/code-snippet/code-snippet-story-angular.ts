@@ -39,7 +39,7 @@ $z-indexes: (
   floating: 10000
 );`;
 
-export const singleLine = ({ parameters }) => ({
+export const singleLine = (_, { parameters }) => ({
   template: `
     <bx-code-snippet
       [codeAssistiveText]="codeAssistiveText"
@@ -56,9 +56,9 @@ export const singleLine = ({ parameters }) => ({
   props: parameters?.props?.['bx-code-snippet'],
 });
 
-singleLine.story = baseSingleLine.story;
+Object.assign(singleLine, baseSingleLine);
 
-export const multiLine = ({ parameters }) => ({
+export const multiLine = (_, { parameters }) => ({
   template: `
     <bx-code-snippet
       type="multi"
@@ -75,9 +75,9 @@ export const multiLine = ({ parameters }) => ({
   props: { ...parameters?.props?.['bx-code-snippet'], code: multilineCode },
 });
 
-multiLine.story = baseMultiLine.story;
+Object.assign(multiLine, baseMultiLine);
 
-export const inline = ({ parameters }) => ({
+export const inline = (_, { parameters }) => ({
   template: `
     <bx-code-snippet
       type="inline"
@@ -93,19 +93,19 @@ export const inline = ({ parameters }) => ({
   props: parameters?.props?.['bx-code-snippet'],
 });
 
-inline.story = baseInline.story;
+Object.assign(inline, baseInline);
 
 export const skeletonSingleLine = () => ({
   template: `<bx-code-snippet-skeleton type="single"></bx-code-snippet-skeleton>`,
 });
 
-skeletonSingleLine.story = baseSkeletonSingleLine.story;
+Object.assign(skeletonSingleLine, baseSkeletonSingleLine);
 
 export const skeletonMultiLine = () => ({
   template: `<bx-code-snippet-skeleton type="multi"></bx-code-snippet-skeleton>`,
 });
 
-skeletonMultiLine.story = baseSkeletonMultiLine.story;
+Object.assign(skeletonMultiLine, baseSkeletonMultiLine);
 
 export default Object.assign(baseStory, {
   decorators: [

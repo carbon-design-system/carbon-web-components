@@ -17,7 +17,7 @@ import BXDatePickerInput from 'carbon-web-components/es/components-react/date-pi
 // @ts-ignore
 import BXDatePickerInputSkeleton from 'carbon-web-components/es/components-react/date-picker/date-picker-input-skeleton';
 import {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   singleWithCalendar as baseSingleWithCalendar,
   rangeWithCalendar as baseRangeWithCalendar,
   skeletonSimple as baseSkeletonSimple,
@@ -27,7 +27,7 @@ import {
 
 export { default } from './date-picker-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const {
     colorScheme,
     disabled,
@@ -56,9 +56,9 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const singleWithCalendar = ({ parameters }) => {
+export const singleWithCalendar = (_, { parameters }) => {
   const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
   const {
     colorScheme,
@@ -95,9 +95,9 @@ export const singleWithCalendar = ({ parameters }) => {
   );
 };
 
-singleWithCalendar.story = baseSingleWithCalendar.story;
+Object.assign(singleWithCalendar, baseSingleWithCalendar);
 
-export const rangeWithCalendar = ({ parameters }) => {
+export const rangeWithCalendar = (_, { parameters }) => {
   const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
   const {
     colorScheme,
@@ -146,15 +146,15 @@ export const rangeWithCalendar = ({ parameters }) => {
   );
 };
 
-rangeWithCalendar.story = baseRangeWithCalendar.story;
+Object.assign(rangeWithCalendar, baseRangeWithCalendar);
 
 export const skeletonSimple = () => <BXDatePickerInputSkeleton />;
 
-skeletonSimple.story = baseSkeletonSimple.story;
+Object.assign(skeletonSimple, baseSkeletonSimple);
 
 export const skeletonSingle = () => <BXDatePickerInputSkeleton kind="single" />;
 
-skeletonSingle.story = baseSkeletonSingle.story;
+Object.assign(skeletonSingle, baseSkeletonSingle);
 
 export const skeletonRange = () => (
   <>
@@ -163,7 +163,6 @@ export const skeletonRange = () => (
   </>
 );
 
-skeletonRange.story = {
-  ...baseSkeletonRange.story,
+Object.assign(skeletonRange, baseSkeletonRange, {
   decorators: [story => <div>{story()}</div>],
-};
+});

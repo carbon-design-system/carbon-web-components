@@ -26,7 +26,7 @@ const directions = {
   [`Top (${FLOATING_MENU_DIRECTION.TOP})`]: FLOATING_MENU_DIRECTION.TOP,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { open, colorScheme, disabled, direction } = parameters?.props?.['bx-overflow-menu'] ?? {};
   return html`
     <bx-overflow-menu ?open="${open}" ?disabled="${disabled}">
@@ -41,16 +41,12 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export default {
   title: 'Components/Overflow menu',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
     knobs: {
       'bx-overflow-menu': () => ({
         open: boolean('Open (open)', false),

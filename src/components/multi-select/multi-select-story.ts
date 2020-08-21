@@ -32,7 +32,7 @@ const types = {
   [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const {
     clearSelectionLabel,
     colorScheme,
@@ -88,16 +88,12 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export default {
   title: 'Components/Multi select',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
     knobs: {
       'bx-multi-select': () => ({
         clearSelectionLabel: textNullable('a11y label for the icon to clear selection (clear-selection-label)', ''),

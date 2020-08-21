@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -12,13 +12,16 @@ import BXInlineNotification, { NOTIFICATION_KIND } from '../../src/components/no
 import { inline } from '../../src/components/notification/notification-story';
 
 const inlineTemplate = (props?) =>
-  inline({
-    parameters: {
-      props: {
-        'bx-inline-notification': props,
+  inline(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-inline-notification': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 describe('bx-inline-notification', function() {
   describe('Rendering titles', function() {

@@ -54,7 +54,7 @@ const sizesHorizontal = {
   [`Short size (${DATE_PICKER_INPUT_SIZE_HORIZONTAL.SHORT})`]: DATE_PICKER_INPUT_SIZE_HORIZONTAL.SHORT,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, sizeHorizontal, validityMessage } =
     parameters?.props?.['bx-date-picker-input'] ?? {};
   return html`
@@ -75,19 +75,18 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    knobs: {
-      'bx-date-picker-input': () => ({
-        ...knobs['bx-date-picker-input'](),
-        sizeHorizontal: select('Horizontal size (size-horizontal)', sizesHorizontal, null),
-      }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  knobs: {
+    'bx-date-picker-input': () => ({
+      ...knobs['bx-date-picker-input'](),
+      sizeHorizontal: select('Horizontal size (size-horizontal)', sizesHorizontal, null),
+    }),
   },
 };
 
-export const singleWithCalendar = ({ parameters }) => {
+export const singleWithCalendar = (_, { parameters }) => {
   const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'] ?? {};
   const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } =
     parameters?.props?.['bx-date-picker-input'] ?? {};
@@ -117,14 +116,13 @@ export const singleWithCalendar = ({ parameters }) => {
   `;
 };
 
-singleWithCalendar.story = {
-  name: 'Single with calendar',
-  parameters: {
-    knobs,
-  },
+singleWithCalendar.storyName = 'Single with calendar';
+
+singleWithCalendar.parameters = {
+  knobs,
 };
 
-export const rangeWithCalendar = ({ parameters }) => {
+export const rangeWithCalendar = (_, { parameters }) => {
   const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'] ?? {};
   const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } =
     parameters?.props?.['bx-date-picker-input'] ?? {};
@@ -167,11 +165,10 @@ export const rangeWithCalendar = ({ parameters }) => {
   `;
 };
 
-rangeWithCalendar.story = {
-  name: 'Range with calendar',
-  parameters: {
-    knobs,
-  },
+rangeWithCalendar.storyName = 'Range with calendar';
+
+rangeWithCalendar.parameters = {
+  knobs,
 };
 
 export const skeletonSimple = () =>
@@ -179,18 +176,14 @@ export const skeletonSimple = () =>
     <bx-date-picker-input-skeleton></bx-date-picker-input-skeleton>
   `;
 
-skeletonSimple.story = {
-  name: 'Skeleton simple',
-};
+skeletonSimple.storyName = 'Skeleton simple';
 
 export const skeletonSingle = () =>
   html`
     <bx-date-picker-input-skeleton kind="single"></bx-date-picker-input-skeleton>
   `;
 
-skeletonSingle.story = {
-  name: 'Skeleton single',
-};
+skeletonSingle.storyName = 'Skeleton single';
 
 export const skeletonRange = () =>
   html`
@@ -198,21 +191,18 @@ export const skeletonRange = () =>
     <bx-date-picker-input-skeleton kind="to"></bx-date-picker-input-skeleton>
   `;
 
-skeletonRange.story = {
-  name: 'Skeleton range',
-  decorators: [
-    story =>
-      html`
-        <div>${story()}</div>
-      `,
-  ],
-};
+skeletonRange.storyName = 'Skeleton range';
+
+skeletonRange.decorators = [
+  story =>
+    html`
+      <div>${story()}</div>
+    `,
+];
 
 export default {
   title: 'Components/Date picker',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

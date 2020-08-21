@@ -11,7 +11,7 @@ import Vue from 'vue';
 import { delay } from 'bluebird';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import { FILE_UPLOADER_ITEM_SIZE, FILE_UPLOADER_ITEM_STATE } from './file-uploader-item';
-import { defaultStory as baseDefaultStory } from './file-uploader-story';
+import { Default as baseDefault } from './file-uploader-story';
 import { FileData } from './stories/types';
 
 export { default } from './file-uploader-story';
@@ -172,7 +172,7 @@ Vue.component('bx-ce-demo-file-uploader', {
   `,
 });
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { props = {}, methods = {} } = createVueBindingsFromProps({
     ...parameters?.props?.['bx-file-uploader'],
     ...parameters?.props?.['bx-file-drop-container'],
@@ -205,4 +205,4 @@ export const defaultStory = ({ parameters }) => {
   };
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

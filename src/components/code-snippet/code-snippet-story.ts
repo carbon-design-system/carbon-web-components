@@ -32,7 +32,7 @@ const defaultKnobs = {
   }),
 };
 
-export const singleLine = ({ parameters }) => {
+export const singleLine = (_, { parameters }) => {
   const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, colorScheme, onClick } =
     parameters?.props?.['bx-code-snippet'] ?? {};
   const children = `
@@ -53,14 +53,13 @@ export const singleLine = ({ parameters }) => {
   `;
 };
 
-singleLine.story = {
-  name: 'Single line',
-  parameters: {
-    knobs: defaultKnobs,
-  },
+singleLine.storyName = 'Single line';
+
+singleLine.parameters = {
+  knobs: defaultKnobs,
 };
 
-export const multiLine = ({ parameters }) => {
+export const multiLine = (_, { parameters }) => {
   const {
     codeAssistiveText,
     copyButtonAssistiveText,
@@ -110,20 +109,19 @@ $z-indexes: (
 `;
 };
 
-multiLine.story = {
-  name: 'Multi line',
-  parameters: {
-    knobs: {
-      'bx-code-snippet': () => ({
-        ...defaultKnobs['bx-code-snippet'](),
-        collapseButtonText: textNullable('The text for the collapse button (collapse-button-text)', ''),
-        expandButtonText: textNullable('The text for the expand button (expand-button-text)', ''),
-      }),
-    },
+multiLine.storyName = 'Multi line';
+
+multiLine.parameters = {
+  knobs: {
+    'bx-code-snippet': () => ({
+      ...defaultKnobs['bx-code-snippet'](),
+      collapseButtonText: textNullable('The text for the collapse button (collapse-button-text)', ''),
+      expandButtonText: textNullable('The text for the expand button (expand-button-text)', ''),
+    }),
   },
 };
 
-export const inline = ({ parameters }) => {
+export const inline = (_, { parameters }) => {
   const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, colorScheme, onClick } =
     parameters?.props?.['bx-code-snippet'] ?? {};
   return html`
@@ -140,11 +138,10 @@ export const inline = ({ parameters }) => {
   `;
 };
 
-inline.story = {
-  name: 'Inline',
-  parameters: {
-    knobs: defaultKnobs,
-  },
+inline.storyName = 'Inline';
+
+inline.parameters = {
+  knobs: defaultKnobs,
 };
 
 export const skeletonSingleLine = () =>
@@ -152,24 +149,18 @@ export const skeletonSingleLine = () =>
     <bx-code-snippet-skeleton type="single"></bx-code-snippet-skeleton>
   `;
 
-skeletonSingleLine.story = {
-  name: 'Skeleton single line',
-};
+skeletonSingleLine.storyName = 'Skeleton single line';
 
 export const skeletonMultiLine = () =>
   html`
     <bx-code-snippet-skeleton type="multi"></bx-code-snippet-skeleton>
   `;
 
-skeletonMultiLine.story = {
-  name: 'Skeleton multi line',
-};
+skeletonMultiLine.storyName = 'Skeleton multi line';
 
 export default {
   title: 'Components/Code snippet',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

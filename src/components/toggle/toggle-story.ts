@@ -20,7 +20,7 @@ const sizes = {
   [`Small size (${TOGGLE_SIZE.SMALL})`]: TOGGLE_SIZE.SMALL,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { checked, checkedText, disabled, labelText, name, size, uncheckedText, value, onChange } =
     parameters?.props?.['bx-toggle'] ?? {};
   return html`
@@ -38,16 +38,12 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export default {
   title: 'Components/Toggle',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
     knobs: {
       'bx-toggle': () => ({
         checked: boolean('Checked (checked)', false),

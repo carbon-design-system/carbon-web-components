@@ -17,7 +17,7 @@ import '../form/form-item';
 import createProps from './stories/helpers';
 import storyDocs from './number-input-story.mdx';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, onInput, name } =
     parameters?.props?.['bx-number-input'] ?? {};
   return html`
@@ -38,16 +38,15 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    knobs: {
-      'bx-number-input': () => createProps({ ...knobs, textNullable }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  knobs: {
+    'bx-number-input': () => createProps({ ...knobs, textNullable }),
   },
 };
 
-export const formItem = ({ parameters }) => {
+export const formItem = (_, { parameters }) => {
   const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, onInput } =
     parameters?.props?.['bx-number-input'] ?? {};
   return html`
@@ -75,16 +74,15 @@ export const formItem = ({ parameters }) => {
   `;
 };
 
-formItem.story = {
-  name: 'Form item',
-  parameters: {
-    knobs: {
-      'bx-number-input': () => createProps({ ...knobs, textNullable }),
-    },
+formItem.storyName = 'Form item';
+
+formItem.parameters = {
+  knobs: {
+    'bx-number-input': () => createProps({ ...knobs, textNullable }),
   },
 };
 
-export const withoutFormItemWrapper = ({ parameters }) => {
+export const withoutFormItemWrapper = (_, { parameters }) => {
   const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, onInput } =
     parameters?.props?.['bx-number-input'] ?? {};
   return html`
@@ -108,15 +106,12 @@ export const withoutFormItemWrapper = ({ parameters }) => {
   `;
 };
 
-withoutFormItemWrapper.story = {
-  name: 'Without form item wrapper',
-  parameters: {
-    docs: {
-      page: storyDocs,
-    },
-    knobs: {
-      'bx-number-input': () => createProps({ ...knobs, textNullable }),
-    },
+withoutFormItemWrapper.storyName = 'Without form item wrapper';
+
+withoutFormItemWrapper.parameters = {
+  ...storyDocs.parameters,
+  knobs: {
+    'bx-number-input': () => createProps({ ...knobs, textNullable }),
   },
 };
 

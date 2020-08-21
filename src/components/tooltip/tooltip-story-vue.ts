@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -9,11 +9,11 @@
 
 import Filter16 from '@carbon/icons-vue/es/filter/16';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory, definition as baseDefinition, icon as baseIcon } from './tooltip-story';
+import { Default as baseDefault, definition as baseDefinition, icon as baseIcon } from './tooltip-story';
 
 export { default } from './tooltip-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-tooltip :open="open">
       <bx-tooltip-body :direction="direction">
@@ -30,9 +30,9 @@ export const defaultStory = ({ parameters }) => ({
   ...createVueBindingsFromProps(parameters?.props?.['bx-tooltip']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const definition = ({ parameters }) => ({
+export const definition = (_, { parameters }) => ({
   template: `
     <bx-tooltip-definition :alignment="alignment" :body-text="bodyText" :direction="direction">
       Definition Tooltip
@@ -41,9 +41,9 @@ export const definition = ({ parameters }) => ({
   ...createVueBindingsFromProps(parameters?.props?.['bx-tooltip-definition']),
 });
 
-definition.story = baseDefinition.story;
+Object.assign(definition, baseDefinition);
 
-export const icon = ({ parameters }) => ({
+export const icon = (_, { parameters }) => ({
   template: `
     <bx-tooltip-icon :alignment="alignment" :body-text="bodyText" :direction="direction">
       <filter-16></filter-16>
@@ -55,4 +55,4 @@ export const icon = ({ parameters }) => ({
   ...createVueBindingsFromProps(parameters?.props?.['bx-tooltip-icon']),
 });
 
-icon.story = baseIcon.story;
+Object.assign(icon, baseIcon);

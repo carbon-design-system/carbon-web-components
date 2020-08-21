@@ -14,28 +14,37 @@ import EventManager from '../utils/event-manager';
 
 import BXDatePicker from '../../src/components/date-picker/date-picker';
 import BXDatePickerInput from '../../src/components/date-picker/date-picker-input';
-import { defaultStory, singleWithCalendar, rangeWithCalendar } from '../../src/components/date-picker/date-picker-story';
+import { Default, singleWithCalendar, rangeWithCalendar } from '../../src/components/date-picker/date-picker-story';
 
 const defaultTemplate = (props?) =>
-  defaultStory({
-    parameters: {
-      props,
-    },
-  });
+  Default(
+    {},
+    {
+      parameters: {
+        props,
+      },
+    }
+  );
 
 const singleWithCalendarTemplate = (props?) =>
-  singleWithCalendar({
-    parameters: {
-      props,
-    },
-  });
+  singleWithCalendar(
+    {},
+    {
+      parameters: {
+        props,
+      },
+    }
+  );
 
 const rangeWithCalendarTemplate = (props?) =>
-  rangeWithCalendar({
-    parameters: {
-      props,
-    },
-  });
+  rangeWithCalendar(
+    {},
+    {
+      parameters: {
+        props,
+      },
+    }
+  );
 
 describe('bx-date-picker', function() {
   const events = new EventManager();

@@ -16,7 +16,7 @@ import BXBtn from 'carbon-web-components/es/components-react/button/button';
 // @ts-ignore
 import BXBtnSkeleton from 'carbon-web-components/es/components-react/button/button-skeleton';
 import {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   icon as baseIcon,
   textAndIcon as baseTextAndIcon,
   skeleton as baseSkeleton,
@@ -24,7 +24,7 @@ import {
 
 export { default } from './button-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { kind, disabled, size, href } = parameters?.props?.['bx-btn'];
   return (
     <BXBtn kind={kind} disabled={disabled} size={size} href={href}>
@@ -33,9 +33,9 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const icon = ({ parameters }) => {
+export const icon = (_, { parameters }) => {
   const { kind, disabled, size, href } = parameters?.props?.['bx-btn'];
   return (
     <BXBtn kind={kind} disabled={disabled} size={size} href={href}>
@@ -44,9 +44,9 @@ export const icon = ({ parameters }) => {
   );
 };
 
-icon.story = baseIcon.story;
+Object.assign(icon, baseIcon);
 
-export const textAndIcon = ({ parameters }) => {
+export const textAndIcon = (_, { parameters }) => {
   const { kind, disabled, size, href, iconLayout } = parameters?.props?.['bx-btn'];
   return (
     <BXBtn kind={kind} disabled={disabled} size={size} href={href} iconLayout={iconLayout}>
@@ -55,11 +55,11 @@ export const textAndIcon = ({ parameters }) => {
   );
 };
 
-textAndIcon.story = baseTextAndIcon.story;
+Object.assign(textAndIcon, baseTextAndIcon);
 
-export const skeleton = ({ parameters }) => {
+export const skeleton = (_, { parameters }) => {
   const { disabled, size, href } = parameters?.props?.['bx-btn-skeleton'];
   return <BXBtnSkeleton disabled={disabled} size={size} href={href}></BXBtnSkeleton>;
 };
 
-skeleton.story = baseSkeleton.story;
+Object.assign(skeleton, baseSkeleton);

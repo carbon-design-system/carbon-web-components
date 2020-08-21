@@ -14,11 +14,11 @@ import React from 'react';
 import BXAccordion from 'carbon-web-components/es/components-react/accordion/accordion';
 // @ts-ignore
 import BXAccordionItem from 'carbon-web-components/es/components-react/accordion/accordion-item';
-import { defaultStory as baseDefaultStory } from './accordion-story';
+import { Default as baseDefault } from './accordion-story';
 
 export { default } from './accordion-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { open, titleText, disableToggle, onBeforeToggle, onToggle } = parameters?.props?.['bx-accordion'];
   const handleBeforeToggle = (event: CustomEvent) => {
     onBeforeToggle(event);
@@ -51,4 +51,4 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

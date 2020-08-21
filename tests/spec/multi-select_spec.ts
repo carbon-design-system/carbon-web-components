@@ -13,16 +13,19 @@ import EventManager from '../utils/event-manager';
 
 import BXMultiSelect from '../../src/components/multi-select/multi-select';
 import BXMultiSelectItem from '../../src/components/multi-select/multi-select-item';
-import { defaultStory } from '../../src/components/multi-select/multi-select-story';
+import { Default } from '../../src/components/multi-select/multi-select-story';
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-multi-select': props,
+  Default(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-multi-select': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 describe('bx-multi-select', function() {
   const events = new EventManager();

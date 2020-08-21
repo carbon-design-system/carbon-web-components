@@ -14,11 +14,11 @@ import React from 'react';
 import BXContentSwitcher from 'carbon-web-components/es/components-react/content-switcher/content-switcher';
 // @ts-ignore
 import BXContentSwitcherItem from 'carbon-web-components/es/components-react/content-switcher/content-switcher-item';
-import { defaultStory as baseDefaultStory } from './content-switcher-story';
+import { Default as baseDefault } from './content-switcher-story';
 
 export { default } from './content-switcher-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { value, disableSelection, onBeforeSelect, onSelect } = parameters?.props?.['bx-content-switcher'];
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
@@ -39,4 +39,4 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory, filter as baseFilter } from './tag-story';
+import baseStory, { Default as baseDefault, filter as baseFilter } from './tag-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-tag [type]="type" [title]="title" [disabled]="disabled">
       This is not a tag
@@ -20,9 +20,9 @@ export const defaultStory = ({ parameters }) => ({
   props: parameters?.props?.['bx-tag'],
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const filter = ({ parameters }) => ({
+export const filter = (_, { parameters }) => ({
   template: `
     <bx-filter-tag
       [open]="open"
@@ -48,7 +48,7 @@ export const filter = ({ parameters }) => ({
   }))(parameters?.props?.['bx-filter-tag']),
 });
 
-filter.story = baseFilter.story;
+Object.assign(filter, baseFilter);
 
 export default Object.assign(baseStory, {
   decorators: [

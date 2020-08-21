@@ -17,14 +17,14 @@ import BXNumberInputSkeleton from 'carbon-web-components/es/components-react/num
 // @ts-ignore
 import BXFormItem from 'carbon-web-components/es/components-react/form/form-item';
 import {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   formItem as baseFormItem,
   withoutFormItemWrapper as baseWithoutFormItemWrapper,
 } from './number-input-story';
 
 export { default } from './number-input-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const {
     colorScheme,
     disabled,
@@ -57,9 +57,9 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const formItem = ({ parameters }) => {
+export const formItem = (_, { parameters }) => {
   const {
     colorScheme,
     disabled,
@@ -99,9 +99,9 @@ export const formItem = ({ parameters }) => {
   );
 };
 
-formItem.story = baseFormItem.story;
+Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = ({ parameters }) => {
+export const withoutFormItemWrapper = (_, { parameters }) => {
   const {
     colorScheme,
     disabled,
@@ -137,6 +137,6 @@ export const withoutFormItemWrapper = ({ parameters }) => {
   );
 };
 
-withoutFormItemWrapper.story = baseWithoutFormItemWrapper.story;
+Object.assign(withoutFormItemWrapper, baseWithoutFormItemWrapper);
 
 export const skeleton = () => <BXNumberInputSkeleton />;

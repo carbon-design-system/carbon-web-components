@@ -19,11 +19,11 @@ import BXProgressStep from 'carbon-web-components/es/components-react/progress-i
 import BXProgressIndicatorSkeleton from 'carbon-web-components/es/components-react/progress-indicator/progress-indicator-skeleton';
 // @ts-ignore
 import BXProgressStepSkeleton from 'carbon-web-components/es/components-react/progress-indicator/progress-step-skeleton';
-import { defaultStory as baseDefaultStory } from './progress-indicator-story';
+import { Default as baseDefault, skeleton as baseSkeleton } from './progress-indicator-story';
 
 export { default } from './progress-indicator-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { vertical } = parameters?.props?.['bx-progress-indicator'];
   const { iconLabel, labelText, secondaryLabelText } = parameters?.props?.['bx-progress-step'];
   return (
@@ -37,9 +37,9 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const skeleton = ({ parameters }) => {
+export const skeleton = (_, { parameters }) => {
   const { vertical } = parameters?.props?.['bx-progress-indicator-skeleton'];
   return (
     <BXProgressIndicatorSkeleton vertical={vertical}>
@@ -49,3 +49,5 @@ export const skeleton = ({ parameters }) => {
     </BXProgressIndicatorSkeleton>
   );
 };
+
+Object.assign(skeleton, baseSkeleton);

@@ -17,7 +17,7 @@ import BXBtn from '../button/button';
 import { TABLE_COLOR_SCHEME, TABLE_SIZE } from './table';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import baseStory, {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   expandable as baseExpandable,
   sortable as baseSortable,
   sortableWithPagination as baseSortableWithPagination,
@@ -581,7 +581,7 @@ class BXCEDemoDataTable {
   };
 }
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-table [size]="size">
       <bx-table-head>
@@ -625,9 +625,9 @@ export const defaultStory = ({ parameters }) => ({
   props: { ...parameters?.props?.['bx-table'], ...parameters?.props?.['bx-table-body'] },
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const expandable = ({ parameters }) => ({
+export const expandable = (_, { parameters }) => ({
   template: `
     <bx-table
       [size]="size"
@@ -702,9 +702,9 @@ export const expandable = ({ parameters }) => ({
   },
 });
 
-expandable.story = baseExpandable.story;
+Object.assign(expandable, baseExpandable);
 
-export const sortable = ({ parameters }) => ({
+export const sortable = (_, { parameters }) => ({
   template: `
     <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
@@ -748,7 +748,7 @@ export const sortable = ({ parameters }) => ({
   }),
 });
 
-sortable.story = Object.assign(baseSortable.story, {
+Object.assign(sortable, baseSortable, {
   decorators: [
     moduleMetadata({
       declarations: [
@@ -764,7 +764,7 @@ sortable.story = Object.assign(baseSortable.story, {
   ],
 });
 
-export const sortableWithPagination = ({ parameters }) => ({
+export const sortableWithPagination = (_, { parameters }) => ({
   template: `
     <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
@@ -810,7 +810,7 @@ export const sortableWithPagination = ({ parameters }) => ({
   }),
 });
 
-sortableWithPagination.story = Object.assign(baseSortableWithPagination.story, {
+Object.assign(sortableWithPagination, baseSortableWithPagination, {
   decorators: [
     moduleMetadata({
       declarations: [

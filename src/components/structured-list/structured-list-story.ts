@@ -21,7 +21,7 @@ import './structured-list-header-cell-skeleton';
 import storyDocs from './structured-list-story.mdx';
 import styles from './structured-list-story.scss';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { hasSelection } = parameters?.props?.['bx-structured-list'] ?? {};
   const selectionName = !hasSelection ? undefined : 'structured-list-selection';
   const selectionValues = !hasSelection
@@ -66,17 +66,14 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    docs: {
-      page: storyDocs,
-    },
-    knobs: {
-      'bx-structured-list': () => ({
-        hasSelection: boolean('Supports selection feature (has-selection)', false),
-      }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  ...storyDocs.parameters,
+  knobs: {
+    'bx-structured-list': () => ({
+      hasSelection: boolean('Supports selection feature (has-selection)', false),
+    }),
   },
 };
 

@@ -16,40 +16,52 @@ import BXRadioTile from '../../src/components/tile/radio-tile';
 import { clickable, expandable, multiSelectable, singleSelectable } from '../../src/components/tile/tile-story';
 
 const clickableTemplate = (props?) =>
-  clickable({
-    parameters: {
-      props: {
-        'bx-clickable-tile': props,
+  clickable(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-clickable-tile': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 const expandableTemplate = (props?) =>
-  expandable({
-    parameters: {
-      props: {
-        'bx-expandable-tile': props,
+  expandable(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-expandable-tile': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 const multiSelectableTemplate = (props?) =>
-  multiSelectable({
-    parameters: {
-      props: {
-        'bx-selectable-tile': props,
+  multiSelectable(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-selectable-tile': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 const singleSelectableTemplate = (props?) =>
-  singleSelectable({
-    parameters: {
-      props: {
-        'bx-radio-tile': props,
+  singleSelectable(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-radio-tile': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 describe('bx-tile', function() {
   const events = new EventManager();

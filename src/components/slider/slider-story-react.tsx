@@ -16,11 +16,11 @@ import BXSlider from 'carbon-web-components/es/components-react/slider/slider';
 import BXSliderInput from 'carbon-web-components/es/components-react/slider/slider-input';
 // @ts-ignore
 import BXSliderSkeleton from 'carbon-web-components/es/components-react/slider/slider-skeleton';
-import { defaultStory as baseDefaultStory, withInputBox as baseWithInputBox } from './slider-story';
+import { Default as baseDefault, withInputBox as baseWithInputBox } from './slider-story';
 
 export { default } from './slider-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { disabled, labelText, max, min, name, step, value, onChange } = parameters?.props?.['bx-slider'];
   return (
     <BXSlider
@@ -36,9 +36,9 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory;
+Object.assign(Default, baseDefault);
 
-export const withInputBox = ({ parameters }) => {
+export const withInputBox = (_, { parameters }) => {
   const { disabled, labelText, max, min, name, step, value, onChange } = parameters?.props?.['bx-slider'];
   return (
     <BXSlider
@@ -55,6 +55,6 @@ export const withInputBox = ({ parameters }) => {
   );
 };
 
-withInputBox.story = baseWithInputBox.story;
+Object.assign(withInputBox, baseWithInputBox);
 
 export const skeleton = () => <BXSliderSkeleton />;

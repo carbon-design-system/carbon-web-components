@@ -212,7 +212,7 @@ const defineDemoFileUploader = (() => {
   };
 })();
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { helperText, labelText } = parameters?.props?.['bx-file-uploader'] ?? {};
   const { accept, disabled, multiple } = parameters?.props?.['bx-file-drop-container'] ?? {};
   const { size, disableDelete, onBeforeDelete, onDelete } = parameters?.props?.['bx-file-uploader-item'] ?? {};
@@ -238,9 +238,7 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export default {
   title: 'Components/File uploader',

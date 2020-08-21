@@ -10,32 +10,32 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   clickable as baseClickable,
   singleSelectable as baseSingleSelectable,
   multiSelectable as baseMultiSelectable,
   expandable as baseExpandable,
 } from './tile-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-tile [colorScheme]="colorScheme">Default tile</bx-tile>
   `,
   props: parameters?.props?.['bx-tile'],
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const clickable = ({ parameters }) => ({
+export const clickable = (_, { parameters }) => ({
   template: `
     <bx-clickable-tile [colorScheme]="colorScheme" [href]="href">Clickable tile</bx-clickable-tile>
   `,
   props: parameters?.props?.['bx-clickable-tile'],
 });
 
-clickable.story = baseClickable.story;
+Object.assign(clickable, baseClickable);
 
-export const singleSelectable = ({ parameters }) => ({
+export const singleSelectable = (_, { parameters }) => ({
   template: `
     <fieldset>
       <legend>Single-select tiles</legend>
@@ -71,9 +71,9 @@ export const singleSelectable = ({ parameters }) => ({
   props: parameters?.props?.['bx-radio-tile'],
 });
 
-singleSelectable.story = baseSingleSelectable.story;
+Object.assign(singleSelectable, baseSingleSelectable);
 
-export const multiSelectable = ({ parameters }) => ({
+export const multiSelectable = (_, { parameters }) => ({
   template: `
     <bx-selectable-tile
       [checkmarkLabel]="checkmarkLabel"
@@ -89,9 +89,9 @@ export const multiSelectable = ({ parameters }) => ({
   props: parameters?.props?.['bx-selectable-tile'],
 });
 
-multiSelectable.story = baseMultiSelectable.story;
+Object.assign(multiSelectable, baseMultiSelectable);
 
-export const expandable = ({ parameters }) => ({
+export const expandable = (_, { parameters }) => ({
   template: `
     <bx-expandable-tile
       [colorScheme]="colorScheme"
@@ -122,7 +122,7 @@ export const expandable = ({ parameters }) => ({
   })(parameters?.props?.['bx-expandable-tile']),
 });
 
-expandable.story = baseExpandable.story;
+Object.assign(expandable, baseExpandable);
 
 export default Object.assign(baseStory, {
   decorators: [

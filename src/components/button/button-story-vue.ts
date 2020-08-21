@@ -9,20 +9,25 @@
 
 import Add16 from '@carbon/icons-vue/es/add/16';
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory, textAndIcon as baseTextAndIcon, skeleton as baseSkeleton } from './button-story';
+import {
+  Default as baseDefault,
+  icon as baseIcon,
+  textAndIcon as baseTextAndIcon,
+  skeleton as baseSkeleton,
+} from './button-story';
 
 export { default } from './button-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-btn :kind="kind" :disabled="disabled" :size="size" :href="href" @click="onClick">Button</bx-btn>
   `,
   ...createVueBindingsFromProps(parameters?.props?.['bx-btn']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const icon = ({ parameters }) => ({
+export const icon = (_, { parameters }) => ({
   template: `
     <bx-btn :kind="kind" :disabled="disabled" :size="size" :href="href" @click="onClick">
       <add-16 slot="icon"></add-16>
@@ -34,7 +39,9 @@ export const icon = ({ parameters }) => ({
   ...createVueBindingsFromProps(parameters?.props?.['bx-btn']),
 });
 
-export const textAndIcon = ({ parameters }) => ({
+Object.assign(icon, baseIcon);
+
+export const textAndIcon = (_, { parameters }) => ({
   template: `
     <bx-btn :kind="kind" :disabled="disabled" :size="size" :href="href" :icon-layout="iconLayout" @click="onClick">
       Button <add-16 slot="icon"></add-16>
@@ -46,13 +53,13 @@ export const textAndIcon = ({ parameters }) => ({
   ...createVueBindingsFromProps(parameters?.props?.['bx-btn']),
 });
 
-textAndIcon.story = baseTextAndIcon.story;
+Object.assign(textAndIcon, baseTextAndIcon);
 
-export const skeleton = ({ parameters }) => ({
+export const skeleton = (_, { parameters }) => ({
   template: `
     <bx-btn-skeleton :disabled="disabled" :small="small" :href="href" @click="onClick"></bx-btn-skeleton>
   `,
   ...createVueBindingsFromProps(parameters?.props?.['bx-btn-skeleton']),
 });
 
-skeleton.story = baseSkeleton.story;
+Object.assign(skeleton, baseSkeleton);

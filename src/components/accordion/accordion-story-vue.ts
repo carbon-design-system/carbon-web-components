@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './accordion-story';
+import { Default as baseDefault } from './accordion-story';
 
 export { default } from './accordion-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-accordion
       @bx-accordion-item-beingtoggled="handleBeforeToggle"
@@ -53,4 +53,4 @@ export const defaultStory = ({ parameters }) => ({
   ),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './content-switcher-story';
+import { Default as baseDefault } from './content-switcher-story';
 
 export { default } from './content-switcher-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const props = (({ onBeforeSelect, onSelect, ...rest }) => {
     function handleBeforeSelect(this: any, event: CustomEvent) {
       onBeforeSelect(event);
@@ -46,4 +46,4 @@ export const defaultStory = ({ parameters }) => {
   };
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

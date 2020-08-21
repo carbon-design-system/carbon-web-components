@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './accordion-story';
+import baseStory, { Default as baseDefault } from './accordion-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-accordion
       (bx-accordion-item-beingtoggled)="handleBeforeToggle($event)"
@@ -53,7 +53,7 @@ export const defaultStory = ({ parameters }) => ({
   },
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export default Object.assign(baseStory, {
   decorators: [

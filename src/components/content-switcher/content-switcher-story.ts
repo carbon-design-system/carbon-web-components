@@ -18,7 +18,7 @@ import storyDocs from './content-switcher-story.mdx';
 
 const noop = () => {};
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { value, disableSelection, onBeforeSelect = noop, onSelect = noop } = parameters?.props?.['bx-content-switcher'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
@@ -41,16 +41,12 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export default {
   title: 'Components/Content switcher',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
     knobs: {
       'bx-content-switcher': () => ({
         value: textNullable('The value of the selected item (value)', ''),

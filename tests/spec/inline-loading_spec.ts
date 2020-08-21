@@ -10,16 +10,19 @@
 import { render } from 'lit-html';
 
 import BXInlineLoading, { INLINE_LOADING_STATE } from '../../src/components/inline-loading/inline-loading';
-import { defaultStory } from '../../src/components/inline-loading/inline-loading-story';
+import { Default } from '../../src/components/inline-loading/inline-loading-story';
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-inline-loading': props,
+  Default(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-inline-loading': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 describe('bx-inline-loading', function() {
   describe('Misc attributes', function() {

@@ -19,23 +19,19 @@ const types = {
   [`With overlay (${LOADING_TYPE.OVERLAY})`]: LOADING_TYPE.OVERLAY,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { inactive, type } = parameters?.props?.['bx-loading'] ?? {};
   return html`
     <bx-loading ?inactive=${inactive} type=${ifNonNull(type)}></bx-loading>
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export default {
   title: 'Components/Loading',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
     knobs: {
       'bx-loading': () => ({
         inactive: boolean('Inactive (inactive)', false),

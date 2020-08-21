@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory, withInputBox as baseWithInputBox } from './slider-story';
+import baseStory, { Default as baseDefault, withInputBox as baseWithInputBox } from './slider-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-slider
       [disabled]="disabled"
@@ -27,9 +27,9 @@ export const defaultStory = ({ parameters }) => ({
   props: parameters?.props?.['bx-slider'],
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const withInputBox = ({ parameters }) => ({
+export const withInputBox = (_, { parameters }) => ({
   template: `
     <bx-slider
       [disabled]="disabled"
@@ -47,7 +47,7 @@ export const withInputBox = ({ parameters }) => ({
   props: parameters?.props?.['bx-slider'],
 });
 
-withInputBox.story = baseWithInputBox.story;
+Object.assign(withInputBox, baseWithInputBox);
 
 export const skeleton = () => ({
   template: `<bx-slider-skeleton></bx-slider-skeleton>`,

@@ -16,7 +16,7 @@ import storyDocs from './accordion-story.mdx';
 
 const noop = () => {};
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { open, titleText, disableToggle, onBeforeToggle = noop, onToggle = noop } = parameters?.props?.['bx-accordion'] ?? {};
   const handleBeforeToggle = (event: CustomEvent) => {
     onBeforeToggle(event);
@@ -49,16 +49,12 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export default {
   title: 'Components/Accordion',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
     knobs: {
       'bx-accordion': () => ({
         open: boolean('Open the section (open)', false),

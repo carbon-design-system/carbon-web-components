@@ -17,7 +17,7 @@ import './progress-indicator-skeleton';
 import './progress-step-skeleton';
 import storyDocs from './progress-indicator-story.mdx';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { vertical } = parameters?.props?.['bx-progress-indicator'] ?? {};
   const { iconLabel, labelText, secondaryLabelText } = parameters?.props?.['bx-progress-step'] ?? {};
   return html`
@@ -55,26 +55,23 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    docs: {
-      page: storyDocs,
-    },
-    knobs: {
-      'bx-progress-indicator': () => ({
-        vertical: boolean('Vertical (vertical)', false),
-      }),
-      'bx-progress-step': () => ({
-        iconLabel: textNullable('Icon label (icon-label)', ''),
-        labelText: textNullable('Primary label text (label-text)', 'Label'),
-        secondaryLabelText: textNullable('Secondary label text (secondary-label-text)', 'Secondary label'),
-      }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  ...storyDocs.parameters,
+  knobs: {
+    'bx-progress-indicator': () => ({
+      vertical: boolean('Vertical (vertical)', false),
+    }),
+    'bx-progress-step': () => ({
+      iconLabel: textNullable('Icon label (icon-label)', ''),
+      labelText: textNullable('Primary label text (label-text)', 'Label'),
+      secondaryLabelText: textNullable('Secondary label text (secondary-label-text)', 'Secondary label'),
+    }),
   },
 };
 
-export const skeleton = ({ parameters }) => {
+export const skeleton = (_, { parameters }) => {
   const { vertical } = parameters?.props?.['bx-progress-indicator-skeleton'];
   return html`
     <bx-progress-indicator-skeleton ?vertical="${vertical}">
@@ -85,13 +82,11 @@ export const skeleton = ({ parameters }) => {
   `;
 };
 
-skeleton.story = {
-  parameters: {
-    knobs: {
-      'bx-progress-indicator-skeleton': () => ({
-        vertical: boolean('Vertical (vertical)', false),
-      }),
-    },
+skeleton.parameters = {
+  knobs: {
+    'bx-progress-indicator-skeleton': () => ({
+      vertical: boolean('Vertical (vertical)', false),
+    }),
   },
 };
 

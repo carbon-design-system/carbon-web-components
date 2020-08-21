@@ -12,11 +12,11 @@ import React from 'react';
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXLink from 'carbon-web-components/es/components-react/link/link';
-import { defaultStory as baseDefaultStory } from './link-story';
+import { Default as baseDefault } from './link-story';
 
 export { default } from './link-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { disabled, href, onClick } = parameters?.props?.['bx-link'];
   return (
     <BXLink disabled={disabled} href={href} onClick={onClick}>
@@ -25,4 +25,4 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './overflow-menu-story';
+import baseStory, { Default as baseDefault } from './overflow-menu-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-overflow-menu [open]="open" [colorScheme]="colorScheme" [disabled]="disabled">
       <bx-overflow-menu-body [direction]="direction">
@@ -26,7 +26,7 @@ export const defaultStory = ({ parameters }) => ({
   props: parameters?.props?.['bx-overflow-menu'],
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export default Object.assign(baseStory, {
   decorators: [

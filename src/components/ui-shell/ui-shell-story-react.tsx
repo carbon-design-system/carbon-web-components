@@ -97,7 +97,7 @@ const StoryContent = () => (
   </>
 );
 
-export const sideNav = ({ parameters }) => {
+export const sideNav = (_, { parameters }) => {
   const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'];
   const { href } = parameters?.props?.['bx-side-nav-menu-item'];
   updateRailExpanded({ collapseMode, expanded });
@@ -132,9 +132,9 @@ export const sideNav = ({ parameters }) => {
   );
 };
 
-sideNav.story = baseSideNav.story;
+Object.assign(sideNav, baseSideNav);
 
-export const sideNavWithIcons = ({ parameters }) => {
+export const sideNavWithIcons = (_, { parameters }) => {
   const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'];
   const { href } = parameters?.props?.['bx-side-nav-menu-item'];
   updateRailExpanded({ collapseMode, expanded });
@@ -178,9 +178,9 @@ export const sideNavWithIcons = ({ parameters }) => {
   );
 };
 
-sideNavWithIcons.story = baseSideNavWithIcons.story;
+Object.assign(sideNavWithIcons, baseSideNavWithIcons);
 
-export const header = ({ parameters }) => {
+export const header = (_, { parameters }) => {
   const { collapseMode, expanded, usageMode } = parameters?.props?.['bx-side-nav'];
   const { href } = parameters?.props?.['bx-side-nav-menu-item'];
   updateRailExpanded({ collapseMode, expanded, usageMode });
@@ -234,4 +234,4 @@ export const header = ({ parameters }) => {
   );
 };
 
-header.story = baseHeader.story;
+Object.assign(header, baseHeader);

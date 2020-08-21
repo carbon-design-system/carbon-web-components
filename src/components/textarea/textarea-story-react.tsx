@@ -17,14 +17,14 @@ import BXTextareaSkeleton from 'carbon-web-components/es/components-react/textar
 // @ts-ignore
 import BXFormItem from 'carbon-web-components/es/components-react/form/form-item';
 import {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   formItem as baseFormItem,
   withoutFormItemWrapper as baseWithoutFormItemWrapper,
 } from './textarea-story';
 
 export { default } from './textarea-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-textarea'];
   return (
     <BXTextarea
@@ -38,9 +38,9 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const formItem = ({ parameters }) => {
+export const formItem = (_, { parameters }) => {
   const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-textarea'];
   return (
     <BXFormItem>
@@ -59,9 +59,9 @@ export const formItem = ({ parameters }) => {
   );
 };
 
-formItem.story = baseFormItem.story;
+Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = ({ parameters }) => {
+export const withoutFormItemWrapper = (_, { parameters }) => {
   const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-textarea'];
   return (
     <BXTextarea
@@ -78,6 +78,6 @@ export const withoutFormItemWrapper = ({ parameters }) => {
   );
 };
 
-withoutFormItemWrapper.story = baseWithoutFormItemWrapper.story;
+Object.assign(withoutFormItemWrapper, baseWithoutFormItemWrapper);
 
 export const skeleton = () => <BXTextareaSkeleton />;

@@ -16,7 +16,7 @@ import '../form/form-item';
 import createProps from './stories/helpers';
 import storyDocs from './input-story.mdx';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const {
     autocomplete,
     autofocus,
@@ -59,11 +59,9 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
-export const formItem = ({ parameters }) => {
+export const formItem = (_, { parameters }) => {
   const { colorScheme, disabled, value, placeholder, invalid, size, onInput } = parameters?.props?.['bx-input'] ?? {};
   return html`
     <bx-form-item>
@@ -84,11 +82,9 @@ export const formItem = ({ parameters }) => {
   `;
 };
 
-formItem.story = {
-  name: 'Form item',
-};
+formItem.storyName = 'Form item';
 
-export const withoutFormItemWrapper = ({ parameters }) => {
+export const withoutFormItemWrapper = (_, { parameters }) => {
   const { colorScheme, disabled, value, placeholder, invalid, size, onInput } = parameters?.props?.['bx-input'] ?? {};
   return html`
     <bx-input
@@ -107,16 +103,12 @@ export const withoutFormItemWrapper = ({ parameters }) => {
   `;
 };
 
-withoutFormItemWrapper.story = {
-  name: 'Without form item wrapper',
-};
+withoutFormItemWrapper.storyName = 'Without form item wrapper';
 
 export default {
   title: 'Components/Input',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
     knobs: {
       'bx-input': () => createProps({ ...knobs, textNonEmpty: textNullable }),
     },

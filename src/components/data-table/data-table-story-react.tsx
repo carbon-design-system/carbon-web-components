@@ -63,7 +63,7 @@ import BXBtnElement from '../button/button';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 import {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   expandable as baseExpandable,
   sortable as baseSortable,
   sortableWithPagination as baseSortableWithPagination,
@@ -440,7 +440,7 @@ BXCEDemoDataTable.defaultProps = {
   start: 0,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { size } = parameters?.props?.['bx-table'];
   const { colorScheme } = parameters?.props?.['bx-table-body'];
   return (
@@ -485,9 +485,9 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const expandable = ({ parameters }) => {
+export const expandable = (_, { parameters }) => {
   const { size } = parameters?.props?.['bx-table'];
   const handleExpandRowAll = useCallback(event => {
     const { currentTarget, detail } = event;
@@ -557,9 +557,9 @@ export const expandable = ({ parameters }) => {
   );
 };
 
-expandable.story = baseExpandable.story;
+Object.assign(expandable, baseExpandable);
 
-export const sortable = ({ parameters }) => {
+export const sortable = (_, { parameters }) => {
   const { size } = parameters?.props?.['bx-table'];
   const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
   const { colorScheme } = parameters?.props?.['bx-table-body'];
@@ -600,9 +600,9 @@ export const sortable = ({ parameters }) => {
   );
 };
 
-sortable.story = baseSortable.story;
+Object.assign(sortable, baseSortable);
 
-export const sortableWithPagination = ({ parameters }) => {
+export const sortableWithPagination = (_, { parameters }) => {
   const { size } = parameters?.props?.['bx-table'];
   const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
   const { colorScheme } = parameters?.props?.['bx-table-body'];
@@ -645,4 +645,4 @@ export const sortableWithPagination = ({ parameters }) => {
   );
 };
 
-sortableWithPagination.story = baseSortableWithPagination.story;
+Object.assign(sortableWithPagination, baseSortableWithPagination);

@@ -14,11 +14,11 @@ import React from 'react';
 import BXSearch from 'carbon-web-components/es/components-react/search/search';
 // @ts-ignore
 import BXSearchSkeleton from 'carbon-web-components/es/components-react/search/search-skeleton';
-import { defaultStory as baseDefaultStory } from './search-story';
+import { Default as baseDefault } from './search-story';
 
 export { default } from './search-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const {
     closeButtonAssistiveText,
     colorScheme,
@@ -47,6 +47,6 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => <BXSearchSkeleton />;

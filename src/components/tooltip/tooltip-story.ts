@@ -45,7 +45,7 @@ const tooltipDefinitionDirections = {
   [`Right (${TOOLTIP_DIRECTION.RIGHT})`]: TOOLTIP_DIRECTION.RIGHT,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { open } = parameters?.props?.['bx-tooltip'] ?? {};
   const { direction } = parameters?.props?.['bx-tooltip-body'] ?? {};
   return html`
@@ -64,21 +64,20 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    knobs: {
-      'bx-tooltip': () => ({
-        open: boolean('Open (open)', false),
-      }),
-      'bx-tooltip-body': () => ({
-        direction: select('Direction (direction in <bx-tooltip-body>)', tooltipBodyDirections, FLOATING_MENU_DIRECTION.BOTTOM),
-      }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  knobs: {
+    'bx-tooltip': () => ({
+      open: boolean('Open (open)', false),
+    }),
+    'bx-tooltip-body': () => ({
+      direction: select('Direction (direction in <bx-tooltip-body>)', tooltipBodyDirections, FLOATING_MENU_DIRECTION.BOTTOM),
+    }),
   },
 };
 
-export const definition = ({ parameters }) => {
+export const definition = (_, { parameters }) => {
   const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-definition'] ?? {};
   return html`
     <bx-tooltip-definition
@@ -91,24 +90,19 @@ export const definition = ({ parameters }) => {
   `;
 };
 
-definition.story = {
-  name: 'Definition tooltip',
-  parameters: {
-    knobs: {
-      'bx-tooltip-definition': () => ({
-        alignment: select(
-          'Tooltip alignment to trigger button (alignment)',
-          tooltipDefinitionAlignments,
-          TOOLTIP_ALIGNMENT.CENTER
-        ),
-        bodyText: textNullable('Tooltip content (bodyText)', 'Brief description of the dotted, underlined word above.'),
-        direction: select('Tooltip direction (direction)', tooltipDefinitionDirections, TOOLTIP_DIRECTION.BOTTOM),
-      }),
-    },
+definition.storyName = 'Definition tooltip';
+
+definition.parameters = {
+  knobs: {
+    'bx-tooltip-definition': () => ({
+      alignment: select('Tooltip alignment to trigger button (alignment)', tooltipDefinitionAlignments, TOOLTIP_ALIGNMENT.CENTER),
+      bodyText: textNullable('Tooltip content (bodyText)', 'Brief description of the dotted, underlined word above.'),
+      direction: select('Tooltip direction (direction)', tooltipDefinitionDirections, TOOLTIP_DIRECTION.BOTTOM),
+    }),
   },
 };
 
-export const icon = ({ parameters }) => {
+export const icon = (_, { parameters }) => {
   const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-icon'] ?? {};
   return html`
     <bx-tooltip-icon alignment="${ifNonNull(alignment)}" body-text="${ifNonNull(bodyText)}" direction="${ifNonNull(direction)}">
@@ -117,20 +111,17 @@ export const icon = ({ parameters }) => {
   `;
 };
 
-icon.story = {
-  name: 'Icon tooltip',
-  parameters: {
-    knobs: {
-      'bx-tooltip-icon': definition.story.parameters.knobs['bx-tooltip-definition'],
-    },
+icon.storyName = 'Icon tooltip';
+
+icon.parameters = {
+  knobs: {
+    'bx-tooltip-icon': definition.parameters.knobs['bx-tooltip-definition'],
   },
 };
 
 export default {
   title: 'Components/Tooltip',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

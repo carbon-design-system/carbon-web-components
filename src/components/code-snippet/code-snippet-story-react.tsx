@@ -24,7 +24,7 @@ import {
 
 export { default } from './code-snippet-story';
 
-export const singleLine = ({ parameters }) => {
+export const singleLine = (_, { parameters }) => {
   const {
     codeAssistiveText,
     copyButtonAssistiveText,
@@ -49,9 +49,9 @@ export const singleLine = ({ parameters }) => {
   );
 };
 
-singleLine.story = baseSingleLine.story;
+Object.assign(singleLine, baseSingleLine);
 
-export const multiLine = ({ parameters }) => {
+export const multiLine = (_, { parameters }) => {
   const {
     codeAssistiveText,
     copyButtonAssistiveText,
@@ -96,9 +96,9 @@ floating: 10000
   );
 };
 
-multiLine.story = baseMultiLine.story;
+Object.assign(multiLine, baseMultiLine);
 
-export const inline = ({ parameters }) => {
+export const inline = (_, { parameters }) => {
   const {
     codeAssistiveText,
     copyButtonAssistiveText,
@@ -123,10 +123,10 @@ export const inline = ({ parameters }) => {
 
 export const skeletonSingleLine = () => <BXCodeSnippetSkeleton type="single" />;
 
-skeletonSingleLine.story = baseSkeletonSingleLine.story;
+Object.assign(skeletonSingleLine, baseSkeletonSingleLine);
 
 export const skeletonMultiLine = () => <BXCodeSnippetSkeleton type="multi" />;
 
-skeletonMultiLine.story = baseSkeletonMultiLine.story;
+Object.assign(skeletonMultiLine, baseSkeletonMultiLine);
 
-inline.story = baseInline.story;
+Object.assign(inline, baseInline);

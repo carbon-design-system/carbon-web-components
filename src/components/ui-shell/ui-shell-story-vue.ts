@@ -88,7 +88,7 @@ const storyContent = () => `
   </main>
 `;
 
-export const sideNav = ({ parameters }) => {
+export const sideNav = (_, { parameters }) => {
   const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
   updateRailExpanded({ collapseMode, expanded });
   return {
@@ -147,9 +147,9 @@ export const sideNav = ({ parameters }) => {
   };
 };
 
-sideNav.story = baseSideNav.story;
+Object.assign(sideNav, baseSideNav);
 
-export const sideNavWithIcons = ({ parameters }) => {
+export const sideNavWithIcons = (_, { parameters }) => {
   const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
   updateRailExpanded({ collapseMode, expanded });
   return {
@@ -220,9 +220,9 @@ export const sideNavWithIcons = ({ parameters }) => {
   };
 };
 
-sideNavWithIcons.story = baseSideNavWithIcons.story;
+Object.assign(sideNavWithIcons, baseSideNavWithIcons);
 
-export const header = ({ parameters }) => {
+export const header = (_, { parameters }) => {
   const { collapseMode, expanded, usageMode } = parameters?.props?.['bx-side-nav'] ?? {};
   updateRailExpanded({ collapseMode, expanded, usageMode });
   return {
@@ -307,4 +307,4 @@ export const header = ({ parameters }) => {
   };
 };
 
-header.story = baseHeader.story;
+Object.assign(header, baseHeader);

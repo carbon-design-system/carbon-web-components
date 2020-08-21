@@ -21,7 +21,7 @@ import BXFileUploaderItem, {
   // @ts-ignore
 } from 'carbon-web-components/es/components-react/file-uploader/file-uploader-item';
 import { FileData } from './stories/types';
-import { defaultStory as baseDefaultStory } from './file-uploader-story';
+import { Default as baseDefault } from './file-uploader-story';
 
 export { default } from './file-uploader-story';
 
@@ -150,7 +150,7 @@ BXCEDemoFileUploader.propTypes = {
   onAfterDelete: PropTypes.func,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const { helperText, labelText } = parameters?.props?.['bx-file-uploader-shell'] ?? {};
   const { accept, disabled, multiple } = parameters?.props?.['bx-file-drop-container'] ?? {};
   const { size, disableDelete, onBeforeDelete, onDelete } = parameters?.props?.['bx-file-uploader-item'] ?? {};
@@ -173,4 +173,4 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

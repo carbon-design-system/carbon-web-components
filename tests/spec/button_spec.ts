@@ -9,16 +9,19 @@
 
 import { render } from 'lit-html';
 import { BUTTON_KIND } from '../../src/components/button/button';
-import { defaultStory } from '../../src/components/button/button-story';
+import { Default } from '../../src/components/button/button-story';
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-btn': props,
+  Default(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-btn': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 describe('bx-btn', function() {
   describe('Changing button type', function() {

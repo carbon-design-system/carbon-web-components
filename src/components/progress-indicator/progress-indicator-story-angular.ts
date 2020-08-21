@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './progress-indicator-story';
+import baseStory, { Default as baseDefault } from './progress-indicator-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-progress-indicator
       [vertical]="vertical"
@@ -50,9 +50,9 @@ export const defaultStory = ({ parameters }) => ({
   props: { ...parameters?.props?.['bx-progress-indicator'], ...parameters?.props?.['bx-progress-step'] },
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const skeleton = ({ parameters }) => ({
+export const skeleton = (_, { parameters }) => ({
   template: `
     <bx-progress-indicator-skeleton [vertical]="vertical">
       <bx-progress-step-skeleton></bx-progress-step-skeleton>

@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './modal-story';
+import { Default as baseDefault } from './modal-story';
 
 export { default } from './modal-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-modal
       :open="open"
@@ -46,4 +46,4 @@ export const defaultStory = ({ parameters }) => ({
   ),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

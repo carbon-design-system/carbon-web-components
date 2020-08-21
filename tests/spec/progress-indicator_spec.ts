@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -9,16 +9,19 @@
 
 import { render } from 'lit-html';
 import { PROGRESS_STEP_STAT } from '../../src/components/progress-indicator/progress-step';
-import { defaultStory } from '../../src/components/progress-indicator/progress-indicator-story';
+import { Default } from '../../src/components/progress-indicator/progress-indicator-story';
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-progress-step': props,
+  Default(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-progress-step': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 describe('bx-progress-step', function() {
   describe('Rendering', function() {

@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './multi-select-story';
+import baseStory, { Default as baseDefault } from './multi-select-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-multi-select
       [colorScheme]="colorScheme"
@@ -49,7 +49,7 @@ export const defaultStory = ({ parameters }) => ({
   }))(parameters?.props?.['bx-multi-select']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export default Object.assign(baseStory, {
   decorators: [

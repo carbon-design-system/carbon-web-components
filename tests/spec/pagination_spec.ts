@@ -12,16 +12,19 @@ import EventManager from '../utils/event-manager';
 import BXPagination from '../../src/components/pagination/pagination';
 import BXPageSizesSelect from '../../src/components/pagination/page-sizes-select';
 import BXPagesSelect from '../../src/components/pagination/pages-select';
-import { defaultStory } from '../../src/components/pagination/pagination-story';
+import { Default } from '../../src/components/pagination/pagination-story';
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-pagination': props,
+  Default(
+    {},
+    {
+      parameters: {
+        props: {
+          'bx-pagination': props,
+        },
       },
-    },
-  });
+    }
+  );
 
 describe('bx-pagination', function() {
   const events = new EventManager();

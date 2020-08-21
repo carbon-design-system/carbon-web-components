@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './radio-button-story';
+import baseStory, { Default as baseDefault } from './radio-button-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-radio-button-group
       [disabled]="disabled"
@@ -32,7 +32,7 @@ export const defaultStory = ({ parameters }) => ({
   },
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => ({
   template: `<bx-radio-button-skeleton></bx-radio-button-skeleton>`,

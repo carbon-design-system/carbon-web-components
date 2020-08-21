@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory, filter as baseFilter } from './tag-story';
+import { Default as baseDefault, filter as baseFilter } from './tag-story';
 
 export { default } from './tag-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
     <bx-tag :type="type" :title="title" :disabled="disabled">
       This is not a tag
@@ -21,9 +21,9 @@ export const defaultStory = ({ parameters }) => ({
   ...createVueBindingsFromProps(parameters?.props?.['bx-tag']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const filter = ({ parameters }) => ({
+export const filter = (_, { parameters }) => ({
   template: `
     <bx-filter-tag
       :open="open"
@@ -51,4 +51,4 @@ export const filter = ({ parameters }) => ({
   ),
 });
 
-filter.story = baseFilter.story;
+Object.assign(filter, baseFilter);

@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './overflow-menu-story';
+import { Default as baseDefault } from './overflow-menu-story';
 
 export { default } from './overflow-menu-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = (_, { parameters }) => ({
   template: `
       <bx-overflow-menu :open="open" :color-scheme="colorScheme" :disabled="disabled">
         <bx-overflow-menu-body :direction="direction">
@@ -27,4 +27,4 @@ export const defaultStory = ({ parameters }) => ({
   ...createVueBindingsFromProps(parameters?.props?.['bx-overflow-menu']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

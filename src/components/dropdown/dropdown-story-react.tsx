@@ -16,11 +16,11 @@ import BXDropdown from 'carbon-web-components/es/components-react/dropdown/dropd
 import BXDropdownItem from 'carbon-web-components/es/components-react/dropdown/dropdown-item';
 // @ts-ignore
 import BXDropdownSkeleton from 'carbon-web-components/es/components-react/dropdown/dropdown-skeleton';
-import { defaultStory as baseDefaultStory } from './dropdown-story';
+import { Default as baseDefault } from './dropdown-story';
 
 export { default } from './dropdown-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = (_, { parameters }) => {
   const {
     open,
     colorScheme,
@@ -69,6 +69,6 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => <BXDropdownSkeleton />;
