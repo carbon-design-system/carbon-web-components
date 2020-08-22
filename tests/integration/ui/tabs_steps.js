@@ -11,7 +11,7 @@
 
 describe('bx-tabs', () => {
   beforeAll(async () => {
-    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-tabs--default-story`);
+    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-tabs--default`);
   });
 
   it('should have tabs interactive', async () => {

@@ -11,7 +11,7 @@
 
 describe('bx-checkbox', () => {
   beforeAll(async () => {
-    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-checkbox--default-story`);
+    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-checkbox--default`);
   });
 
   it('should have checkbox interactive', async () => {
