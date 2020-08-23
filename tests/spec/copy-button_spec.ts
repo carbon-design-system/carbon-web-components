@@ -11,16 +11,9 @@ import { render } from 'lit-html';
 import { Default } from '../../src/components/copy-button/copy-button-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-copy-button': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-copy-button': props,
+  });
 
 describe('bx-copy-button', function() {
   describe('Rendering', function() {

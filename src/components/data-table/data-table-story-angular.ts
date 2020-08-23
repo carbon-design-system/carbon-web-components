@@ -581,7 +581,7 @@ class BXCEDemoDataTable {
   };
 }
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-table [size]="size">
       <bx-table-head>
@@ -622,12 +622,12 @@ export const Default = (_, { parameters }) => ({
       </bx-table-body>
     </bx-table>
   `,
-  props: { ...parameters?.props?.['bx-table'], ...parameters?.props?.['bx-table-body'] },
+  props: { ...args?.['bx-table'], ...args?.['bx-table-body'] },
 });
 
 Object.assign(Default, baseDefault);
 
-export const expandable = (_, { parameters }) => ({
+export const expandable = args => ({
   template: `
     <bx-table
       [size]="size"
@@ -684,8 +684,8 @@ export const expandable = (_, { parameters }) => ({
     </bx-table>
   `,
   props: {
-    ...parameters?.props?.['bx-table'],
-    ...parameters?.props?.['bx-table-body'],
+    ...args?.['bx-table'],
+    ...args?.['bx-table-body'],
     handleExpandRowAll(event) {
       const { currentTarget, detail } = event;
       const rows = currentTarget.querySelectorAll('bx-table-expand-row');
@@ -704,7 +704,7 @@ export const expandable = (_, { parameters }) => ({
 
 Object.assign(expandable, baseExpandable);
 
-export const sortable = (_, { parameters }) => ({
+export const sortable = args => ({
   template: `
     <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
@@ -722,9 +722,9 @@ export const sortable = (_, { parameters }) => ({
     </bx-ce-demo-data-table>
   `,
   props: (props => {
-    const { onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
-    const { onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
-    const { onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
+    const { onBeforeChangeSelectionAll } = args?.['bx-table-header-row'];
+    const { onBeforeChangeSelection } = args?.['bx-table-row'] ?? {};
+    const { onBeforeSort } = args?.['bx-table-header-cell'] ?? {};
     const handleBeforeChangeSelection = (event: CustomEvent) => {
       if (event.type === 'bx-table-change-selection-all') {
         onBeforeChangeSelectionAll(event);
@@ -741,10 +741,10 @@ export const sortable = (_, { parameters }) => ({
       handleBeforeSort: onBeforeSort,
     };
   })({
-    ...parameters?.props?.['bx-table'],
-    ...parameters?.props?.['bx-table-body'],
-    ...parameters?.props?.['bx-table-row'],
-    ...parameters?.props?.['bx-header-cell'],
+    ...args?.['bx-table'],
+    ...args?.['bx-table-body'],
+    ...args?.['bx-table-row'],
+    ...args?.['bx-header-cell'],
   }),
 });
 
@@ -764,7 +764,7 @@ Object.assign(sortable, baseSortable, {
   ],
 });
 
-export const sortableWithPagination = (_, { parameters }) => ({
+export const sortableWithPagination = args => ({
   template: `
     <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
@@ -784,9 +784,9 @@ export const sortableWithPagination = (_, { parameters }) => ({
     </bx-ce-demo-data-table>
   `,
   props: (props => {
-    const { onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
-    const { onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
-    const { onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
+    const { onBeforeChangeSelectionAll } = args?.['bx-table-header-row'];
+    const { onBeforeChangeSelection } = args?.['bx-table-row'] ?? {};
+    const { onBeforeSort } = args?.['bx-table-header-cell'] ?? {};
     const handleBeforeChangeSelection = (event: CustomEvent) => {
       if (event.type === 'bx-table-change-selection-all') {
         onBeforeChangeSelectionAll(event);
@@ -803,10 +803,10 @@ export const sortableWithPagination = (_, { parameters }) => ({
       handleBeforeSort: onBeforeSort,
     };
   })({
-    ...parameters?.props?.['bx-table'],
-    ...parameters?.props?.['bx-table-body'],
-    ...parameters?.props?.['bx-table-row'],
-    ...parameters?.props?.['bx-header-cell'],
+    ...args?.['bx-table'],
+    ...args?.['bx-table-body'],
+    ...args?.['bx-table-row'],
+    ...args?.['bx-header-cell'],
   }),
 });
 

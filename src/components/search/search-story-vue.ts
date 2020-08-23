@@ -12,7 +12,7 @@ import { Default as baseDefault } from './search-story';
 
 export { default } from './search-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-search
       :close-button-assistive-text="closeButtonAssistiveText"
@@ -28,7 +28,7 @@ export const Default = (_, { parameters }) => ({
       @bx-search-input="onInput"
     ></bx-search>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-search']),
+  ...createVueBindingsFromProps(args?.['bx-search']),
 });
 
 Object.assign(Default, baseDefault);

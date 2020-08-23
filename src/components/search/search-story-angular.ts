@@ -12,7 +12,7 @@ import { Default as baseDefault } from './search-story';
 
 export { default } from './search-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-search
       [closeButtonAssistiveText]="closeButtonAssistiveText"
@@ -28,7 +28,7 @@ export const Default = (_, { parameters }) => ({
       (bx-search-input)="onInput($event)"
     ></bx-search>
   `,
-  props: parameters?.props?.['bx-search'],
+  props: args?.['bx-search'],
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },

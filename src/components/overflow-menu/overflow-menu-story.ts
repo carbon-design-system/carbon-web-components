@@ -26,8 +26,8 @@ const directions = {
   [`Top (${FLOATING_MENU_DIRECTION.TOP})`]: FLOATING_MENU_DIRECTION.TOP,
 };
 
-export const Default = (_, { parameters }) => {
-  const { open, colorScheme, disabled, direction } = parameters?.props?.['bx-overflow-menu'] ?? {};
+export const Default = args => {
+  const { open, colorScheme, disabled, direction } = args?.['bx-overflow-menu'] ?? {};
   return html`
     <bx-overflow-menu ?open="${open}" ?disabled="${disabled}">
       <bx-overflow-menu-body color-scheme="${ifNonNull(colorScheme)}" direction="${ifNonNull(direction)}">

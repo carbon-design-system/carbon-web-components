@@ -18,7 +18,7 @@ import baseStory, {
   skeletonRange as baseSkeletonRange,
 } from './date-picker-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
   <bx-date-picker [open]="open">
     <bx-date-picker-input
@@ -36,14 +36,14 @@ export const Default = (_, { parameters }) => ({
   </bx-date-picker>
 `,
   props: {
-    ...parameters?.props?.['bx-date-picker'],
-    ...parameters?.props?.['bx-date-picker-input'],
+    ...args?.['bx-date-picker'],
+    ...args?.['bx-date-picker-input'],
   },
 });
 
 Object.assign(Default, baseDefault);
 
-export const singleWithCalendar = (_, { parameters }) => ({
+export const singleWithCalendar = args => ({
   template: `
   <bx-date-picker
     [dateFormat]="dateFormat"
@@ -69,14 +69,14 @@ export const singleWithCalendar = (_, { parameters }) => ({
   </bx-date-picker>
 `,
   props: {
-    ...parameters?.props?.['bx-date-picker'],
-    ...parameters?.props?.['bx-date-picker-input'],
+    ...args?.['bx-date-picker'],
+    ...args?.['bx-date-picker-input'],
   },
 });
 
 Object.assign(singleWithCalendar, baseSingleWithCalendar);
 
-export const rangeWithCalendar = (_, { parameters }) => ({
+export const rangeWithCalendar = args => ({
   template: `
   <bx-date-picker
     [dateFormat]="dateFormat"
@@ -115,8 +115,8 @@ export const rangeWithCalendar = (_, { parameters }) => ({
   </bx-date-picker>
 `,
   props: {
-    ...parameters?.props?.['bx-date-picker'],
-    ...parameters?.props?.['bx-date-picker-input'],
+    ...args?.['bx-date-picker'],
+    ...args?.['bx-date-picker-input'],
   },
 });
 

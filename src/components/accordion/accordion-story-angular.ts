@@ -11,7 +11,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { Default as baseDefault } from './accordion-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-accordion
       (bx-accordion-item-beingtoggled)="handleBeforeToggle($event)"
@@ -47,7 +47,7 @@ export const Default = (_, { parameters }) => ({
       }
     },
     handleToggle: onToggle,
-  }))(parameters?.props?.['bx-accordion']),
+  }))(args?.['bx-accordion']),
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },

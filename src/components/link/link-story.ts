@@ -15,8 +15,8 @@ import ifNonNull from '../../globals/directives/if-non-null';
 import './link';
 import storyDocs from './link-story.mdx';
 
-export const Default = (_, { parameters }) => {
-  const { disabled, download, href, hreflang, linkRole, ping, rel, target, type, onClick } = parameters?.props?.['bx-link'] ?? {};
+export const Default = args => {
+  const { disabled, download, href, hreflang, linkRole, ping, rel, target, type, onClick } = args?.['bx-link'] ?? {};
   return html`
     <bx-link
       ?disabled="${disabled}"

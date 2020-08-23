@@ -20,11 +20,15 @@ addons.getChannel().on(CURRENT_THEME, theme => {
   document.documentElement.setAttribute('storybook-carbon-theme', theme);
 });
 
+addons.setConfig({
+  showRoots: true,
+  theme: theme,
+});
+
 const SORT_ORDER = ['introduction-welcome--page', 'introduction-form-paticipation--page', 'introduction-custom-styles--page'];
 
 export const parameters = {
   options: {
-    showRoots: true,
     storySort(lhs, rhs) {
       const [lhsId] = lhs;
       const [rhsId] = rhs;
@@ -35,7 +39,6 @@ export const parameters = {
       }
       return 0;
     },
-    theme: theme,
   },
 };
 
@@ -44,19 +47,5 @@ export const decorators = [
     const result = story();
     const { hasMainTag } = result as any;
     return container({ hasMainTag, children: result });
-  },
-  function decoratorParameters(story, { parameters }) {
-    const { knobs } = parameters;
-    if (Object(knobs) === knobs) {
-      if (!parameters.props) {
-        parameters.props = {};
-      }
-      Object.keys(knobs).forEach(name => {
-        if (typeof knobs[name] === 'function') {
-          parameters.props[name] = knobs[name]();
-        }
-      });
-    }
-    return story();
   },
 ];

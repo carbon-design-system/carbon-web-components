@@ -12,16 +12,9 @@ import BXInlineNotification, { NOTIFICATION_KIND } from '../../src/components/no
 import { inline } from '../../src/components/notification/notification-story';
 
 const inlineTemplate = (props?) =>
-  inline(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-inline-notification': props,
-        },
-      },
-    }
-  );
+  inline({
+    'bx-inline-notification': props,
+  });
 
 describe('bx-inline-notification', function() {
   describe('Rendering titles', function() {

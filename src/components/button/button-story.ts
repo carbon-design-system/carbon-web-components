@@ -38,9 +38,9 @@ const iconLayouts = {
   [`Condensed (${BUTTON_ICON_LAYOUT.CONDENSED})`]: BUTTON_ICON_LAYOUT.CONDENSED,
 };
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const { autofocus, disabled, download, href, hreflang, kind, linkRole, ping, rel, size, target, type, onClick } =
-    parameters?.props?.['bx-btn'] ?? {};
+    args?.['bx-btn'] ?? {};
   return html`
     <bx-btn
       ?autofocus="${autofocus}"
@@ -74,8 +74,8 @@ Default.parameters = {
   },
 };
 
-export const icon = (_, { parameters }) => {
-  const { kind, disabled, size, href, onClick } = parameters?.props?.['bx-btn'] ?? {};
+export const icon = args => {
+  const { kind, disabled, size, href, onClick } = args?.['bx-btn'] ?? {};
   return html`
     <bx-btn
       kind=${ifNonNull(kind)}
@@ -91,8 +91,8 @@ export const icon = (_, { parameters }) => {
 
 icon.parameters = Default.parameters;
 
-export const textAndIcon = (_, { parameters }) => {
-  const { kind, disabled, size, href, iconLayout, onClick } = parameters?.props?.['bx-btn'] ?? {};
+export const textAndIcon = args => {
+  const { kind, disabled, size, href, iconLayout, onClick } = args?.['bx-btn'] ?? {};
   return html`
     <bx-btn
       kind=${ifNonNull(kind)}
@@ -122,8 +122,8 @@ textAndIcon.parameters = {
   },
 };
 
-export const skeleton = (_, { parameters }) => {
-  const { disabled, size, href, onClick } = parameters?.props?.['bx-btn-skeleton'];
+export const skeleton = args => {
+  const { disabled, size, href, onClick } = args?.['bx-btn-skeleton'];
   return html`
     <bx-btn-skeleton ?disabled=${disabled} size=${ifNonNull(size)} href=${ifNonNull(href || undefined)} @click=${onClick}>
     </bx-btn-skeleton>

@@ -28,9 +28,9 @@ const sizes = {
   [`Extra large size (${INPUT_SIZE.EXTRA_LARGE})`]: INPUT_SIZE.EXTRA_LARGE,
 };
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const { closeButtonAssistiveText, colorScheme, disabled, labelText, name, placeholder, size, type, value, onInput } =
-    parameters?.props?.['bx-search'] ?? {};
+    args?.['bx-search'] ?? {};
   return html`
     <bx-search
       close-button-assistive-text="${ifNonNull(closeButtonAssistiveText)}"

@@ -16,16 +16,9 @@ import BXMultiSelectItem from '../../src/components/multi-select/multi-select-it
 import { Default } from '../../src/components/multi-select/multi-select-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-multi-select': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-multi-select': props,
+  });
 
 describe('bx-multi-select', function() {
   const events = new EventManager();

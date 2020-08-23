@@ -8,15 +8,19 @@
  */
 
 import React from 'react';
-import { decorators as decoratorsOrig } from '../preview';
+import addons from '@storybook/addons';
 import theme from './theme';
 import Container from './Container';
+
+addons.setConfig({
+  showRoots: true,
+  theme: theme,
+});
 
 const SORT_ORDER = ['introduction-welcome--page', 'introduction-form-paticipation--page'];
 
 export const parameters = {
   options: {
-    showRoots: true,
     storySort(lhs, rhs) {
       const [lhsId] = lhs;
       const [rhsId] = rhs;
@@ -27,7 +31,6 @@ export const parameters = {
       }
       return 0;
     },
-    theme: theme,
   },
 };
 
@@ -37,5 +40,4 @@ export const decorators = [
     const { hasMainTag } = result as any;
     return <Container hasMainTag={hasMainTag}>{result}</Container>;
   },
-  decoratorsOrig.find(({ name }) => name === 'decoratorParameters'),
 ];

@@ -12,7 +12,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { Filter16Module } from '@carbon/icons-angular/lib/filter/16';
 import baseStory, { Default as baseDefault, definition as baseDefinition, icon as baseIcon } from './tooltip-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-tooltip [open]="open">
       <bx-tooltip-body [direction]="direction">
@@ -26,29 +26,29 @@ export const Default = (_, { parameters }) => ({
       </bx-tooltip-body>
     </bx-tooltip>
   `,
-  props: { ...parameters?.props?.['bx-tooltip'], ...parameters?.props?.['bx-tooltip-body'] },
+  props: { ...args?.['bx-tooltip'], ...args?.['bx-tooltip-body'] },
 });
 
 Object.assign(Default, baseDefault);
 
-export const definition = (_, { parameters }) => ({
+export const definition = args => ({
   template: `
     <bx-tooltip-definition [alignment]="alignment" [bodyText]="bodyText" [direction]="direction">
       Definition Tooltip
     </bx-tooltip-definition>
   `,
-  props: parameters?.props?.['bx-tooltip-definition'],
+  props: args?.['bx-tooltip-definition'],
 });
 
 Object.assign(definition, baseDefinition);
 
-export const icon = (_, { parameters }) => ({
+export const icon = args => ({
   template: `
     <bx-tooltip-icon [alignment]="alignment" [bodyText]="bodyText" [direction]="direction">
       <ibm-icon-filter16></ibm-icon-filter16>
     </bx-tooltip-icon>
   `,
-  props: parameters?.props?.['bx-tooltip-icon'],
+  props: args?.['bx-tooltip-icon'],
 });
 
 Object.assign(icon, baseIcon, {

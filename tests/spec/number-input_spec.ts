@@ -27,16 +27,9 @@ const getValues = (formData: FormData) => {
 };
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-number-input': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-number-input': props,
+  });
 
 describe('bx-number-input', function() {
   const events = new EventManager();

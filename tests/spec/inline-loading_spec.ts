@@ -13,16 +13,9 @@ import BXInlineLoading, { INLINE_LOADING_STATE } from '../../src/components/inli
 import { Default } from '../../src/components/inline-loading/inline-loading-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-inline-loading': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-inline-loading': props,
+  });
 
 describe('bx-inline-loading', function() {
   describe('Misc attributes', function() {

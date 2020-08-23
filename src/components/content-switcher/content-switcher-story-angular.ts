@@ -11,7 +11,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { Default as baseDefault } from './content-switcher-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-content-switcher
       [value]="value"
@@ -37,7 +37,7 @@ export const Default = (_, { parameters }) => ({
       handleBeforeSelect,
       handleAfterSelect: onSelect,
     };
-  })(parameters?.props?.['bx-content-switcher']),
+  })(args?.['bx-content-switcher']),
 });
 
 Object.assign(Default, baseDefault);

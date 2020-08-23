@@ -11,40 +11,19 @@ import { render } from 'lit-html';
 import { singleLine, multiLine, inline } from '../../src/components/code-snippet/code-snippet-story';
 
 const singleLineTemplate = (props?) =>
-  singleLine(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-code-snippet': props,
-        },
-      },
-    }
-  );
+  singleLine({
+    'bx-code-snippet': props,
+  });
 
 const multiLineTemplate = (props?) =>
-  multiLine(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-code-snippet': props,
-        },
-      },
-    }
-  );
+  multiLine({
+    'bx-code-snippet': props,
+  });
 
 const inlineTemplate = (props?) =>
-  inline(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-code-snippet': props,
-        },
-      },
-    }
-  );
+  inline({
+    'bx-code-snippet': props,
+  });
 
 describe('bx-code-snippet', function() {
   describe('Rendering', function() {

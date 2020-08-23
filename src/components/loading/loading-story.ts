@@ -19,8 +19,8 @@ const types = {
   [`With overlay (${LOADING_TYPE.OVERLAY})`]: LOADING_TYPE.OVERLAY,
 };
 
-export const Default = (_, { parameters }) => {
-  const { inactive, type } = parameters?.props?.['bx-loading'] ?? {};
+export const Default = args => {
+  const { inactive, type } = args?.['bx-loading'] ?? {};
   return html`
     <bx-loading ?inactive=${inactive} type=${ifNonNull(type)}></bx-loading>
   `;

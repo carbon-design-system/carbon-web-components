@@ -26,8 +26,6 @@ export const lines = () => (
   </>
 );
 
-lines.story = {
-  decorators: [story => <div style={{ width: '300px' }}>{story()}</div>],
-};
+lines.decorators = [story => <div style={{ width: '300px' }}>{story()}</div>];
 
 Object.assign(Default, baseDefault);

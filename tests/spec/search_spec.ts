@@ -14,16 +14,9 @@ import BXSearch, { SEARCH_COLOR_SCHEME } from '../../src/components/search/searc
 import { Default } from '../../src/components/search/search-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-search': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-search': props,
+  });
 
 describe('bx-search', function() {
   const events = new EventManager();

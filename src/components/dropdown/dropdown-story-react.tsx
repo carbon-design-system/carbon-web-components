@@ -20,7 +20,7 @@ import { Default as baseDefault } from './dropdown-story';
 
 export { default } from './dropdown-story';
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const {
     open,
     colorScheme,
@@ -37,7 +37,7 @@ export const Default = (_, { parameters }) => {
     disableSelection,
     onBeforeSelect,
     onSelect,
-  } = parameters?.props?.['bx-dropdown'];
+  } = args?.['bx-dropdown'];
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {

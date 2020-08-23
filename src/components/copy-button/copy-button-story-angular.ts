@@ -11,7 +11,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { Default as baseDefault } from './copy-button-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-copy-button
       [buttonAssistiveText]="buttonAssistiveText"
@@ -20,7 +20,7 @@ export const Default = (_, { parameters }) => ({
       (click)="onClick($event)"
     ></bx-copy-button>
   `,
-  props: parameters?.props?.['bx-copy-button'],
+  props: args?.['bx-copy-button'],
 });
 
 Object.assign(Default, baseDefault);

@@ -27,17 +27,15 @@ export const lines = () => ({
   `,
 });
 
-lines.story = {
-  decorators: [
-    story => {
-      const { template, ...rest } = story();
-      return {
-        ...rest,
-        template: `<div style="width:300px">${template}</div>`,
-      };
-    },
-  ],
-};
+lines.decorators = [
+  story => {
+    const { template, ...rest } = story();
+    return {
+      ...rest,
+      template: `<div style="width:300px">${template}</div>`,
+    };
+  },
+];
 
 export default Object.assign(baseStory, {
   decorators: [

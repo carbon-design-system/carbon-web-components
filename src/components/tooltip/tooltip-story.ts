@@ -45,9 +45,9 @@ const tooltipDefinitionDirections = {
   [`Right (${TOOLTIP_DIRECTION.RIGHT})`]: TOOLTIP_DIRECTION.RIGHT,
 };
 
-export const Default = (_, { parameters }) => {
-  const { open } = parameters?.props?.['bx-tooltip'] ?? {};
-  const { direction } = parameters?.props?.['bx-tooltip-body'] ?? {};
+export const Default = args => {
+  const { open } = args?.['bx-tooltip'] ?? {};
+  const { direction } = args?.['bx-tooltip-body'] ?? {};
   return html`
     <style>
       ${styles}
@@ -77,8 +77,8 @@ Default.parameters = {
   },
 };
 
-export const definition = (_, { parameters }) => {
-  const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-definition'] ?? {};
+export const definition = args => {
+  const { alignment, bodyText, direction } = args?.['bx-tooltip-definition'] ?? {};
   return html`
     <bx-tooltip-definition
       alignment="${ifNonNull(alignment)}"
@@ -102,8 +102,8 @@ definition.parameters = {
   },
 };
 
-export const icon = (_, { parameters }) => {
-  const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-icon'] ?? {};
+export const icon = args => {
+  const { alignment, bodyText, direction } = args?.['bx-tooltip-icon'] ?? {};
   return html`
     <bx-tooltip-icon alignment="${ifNonNull(alignment)}" body-text="${ifNonNull(bodyText)}" direction="${ifNonNull(direction)}">
       ${Filter16()}

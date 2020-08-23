@@ -17,22 +17,22 @@ import baseStory, {
   skeleton as baseSkeleton,
 } from './button-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-btn [kind]="kind" [disabled]="disabled" [size]="size" [href]="href" (click)="onClick($event)">Button</bx-btn>
   `,
-  props: parameters?.props?.['bx-btn'],
+  props: args?.['bx-btn'],
 });
 
 Object.assign(Default, baseDefault);
 
-export const icon = (_, { parameters }) => ({
+export const icon = args => ({
   template: `
     <bx-btn [kind]="kind" [disabled]="disabled" [size]="size" [href]="href" (click)="onClick($event)">
       <ibm-icon-add16 slot="icon"></ibm-icon-add16>
     </bx-btn>
   `,
-  props: parameters?.props?.['bx-btn'],
+  props: args?.['bx-btn'],
 });
 
 Object.assign(icon, baseIcon, {
@@ -43,13 +43,13 @@ Object.assign(icon, baseIcon, {
   ],
 });
 
-export const textAndIcon = (_, { parameters }) => ({
+export const textAndIcon = args => ({
   template: `
     <bx-btn [kind]="kind" [disabled]="disabled" [size]="size" [href]="href" [iconLayout]="iconLayout" (click)="onClick($event)">
       Button <ibm-icon-add16 slot="icon"></ibm-icon-add16>
     </bx-btn>
   `,
-  props: parameters?.props?.['bx-btn'],
+  props: args?.['bx-btn'],
 });
 
 Object.assign(textAndIcon, baseTextAndIcon, {
@@ -60,11 +60,11 @@ Object.assign(textAndIcon, baseTextAndIcon, {
   ],
 });
 
-export const skeleton = (_, { parameters }) => ({
+export const skeleton = args => ({
   template: `
     <bx-btn-skeleton [disabled]="disabled" [small]="small" [href]="href" (click)="onClick($event)"></bx-btn-skeleton>
   `,
-  props: parameters?.props?.['bx-btn-skeleton'],
+  props: args?.['bx-btn-skeleton'],
 });
 
 Object.assign(skeleton, baseSkeleton);

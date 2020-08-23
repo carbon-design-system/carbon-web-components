@@ -16,8 +16,8 @@ import storyDocs from './accordion-story.mdx';
 
 const noop = () => {};
 
-export const Default = (_, { parameters }) => {
-  const { open, titleText, disableToggle, onBeforeToggle = noop, onToggle = noop } = parameters?.props?.['bx-accordion'] ?? {};
+export const Default = args => {
+  const { open, titleText, disableToggle, onBeforeToggle = noop, onToggle = noop } = args?.['bx-accordion'] ?? {};
   const handleBeforeToggle = (event: CustomEvent) => {
     onBeforeToggle(event);
     if (disableToggle) {

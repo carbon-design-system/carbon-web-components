@@ -32,28 +32,14 @@ const template = ({ hasContent = true, hasBody = true }: { hasContent?: boolean;
   !hasContent ? (undefined! as TemplateResult) : contentTemplate({ hasBody });
 
 const definitionTemplate = (props?) =>
-  definition(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-tooltip-definition': props,
-        },
-      },
-    }
-  );
+  definition({
+    'bx-tooltip-definition': props,
+  });
 
 const iconTemplate = (props?) =>
-  icon(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-tooltip-icon': props,
-        },
-      },
-    }
-  );
+  icon({
+    'bx-tooltip-icon': props,
+  });
 
 describe('bx-tooltip', function() {
   describe('Missing menu body', function() {

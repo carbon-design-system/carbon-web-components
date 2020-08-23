@@ -26,9 +26,8 @@ const types = {
   [`Container type (${TABS_TYPE.CONTAINER})`]: TABS_TYPE.CONTAINER,
 };
 
-export const Default = (_, { parameters }) => {
-  const { triggerContent, type, value, disableSelection, onBeforeSelect = noop, onSelect = noop } =
-    parameters?.props?.['bx-tabs'] || {};
+export const Default = args => {
+  const { triggerContent, type, value, disableSelection, onBeforeSelect = noop, onSelect = noop } = args?.['bx-tabs'] || {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {

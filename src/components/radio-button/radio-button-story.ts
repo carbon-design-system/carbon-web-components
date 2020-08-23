@@ -27,9 +27,9 @@ const labelPositions = {
   [`Right (${RADIO_BUTTON_LABEL_POSITION.RIGHT})`]: RADIO_BUTTON_LABEL_POSITION.RIGHT,
 };
 
-export const Default = (_, { parameters }) => {
-  const { disabled, labelPosition, orientation, name, value, onChange } = parameters?.props?.['bx-radio-button-group'] ?? {};
-  const { hideLabel, labelText } = parameters?.props?.['bx-radio-button'] ?? {};
+export const Default = args => {
+  const { disabled, labelPosition, orientation, name, value, onChange } = args?.['bx-radio-button-group'] ?? {};
+  const { hideLabel, labelText } = args?.['bx-radio-button'] ?? {};
   return html`
     <bx-radio-button-group
       ?disabled="${disabled}"

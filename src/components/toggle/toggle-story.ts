@@ -20,9 +20,8 @@ const sizes = {
   [`Small size (${TOGGLE_SIZE.SMALL})`]: TOGGLE_SIZE.SMALL,
 };
 
-export const Default = (_, { parameters }) => {
-  const { checked, checkedText, disabled, labelText, name, size, uncheckedText, value, onChange } =
-    parameters?.props?.['bx-toggle'] ?? {};
+export const Default = args => {
+  const { checked, checkedText, disabled, labelText, name, size, uncheckedText, value, onChange } = args?.['bx-toggle'] ?? {};
   return html`
     <bx-toggle
       ?checked="${checked}"

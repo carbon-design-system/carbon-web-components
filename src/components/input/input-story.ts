@@ -16,7 +16,7 @@ import '../form/form-item';
 import createProps from './stories/helpers';
 import storyDocs from './input-story.mdx';
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const {
     autocomplete,
     autofocus,
@@ -35,7 +35,7 @@ export const Default = (_, { parameters }) => {
     validityMessage,
     value,
     onInput,
-  } = parameters?.props?.['bx-input'] ?? {};
+  } = args?.['bx-input'] ?? {};
   return html`
     <bx-input
       autocomplete="${ifNonNull(autocomplete)}"
@@ -61,8 +61,8 @@ export const Default = (_, { parameters }) => {
 
 Default.storyName = 'Default';
 
-export const formItem = (_, { parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, size, onInput } = parameters?.props?.['bx-input'] ?? {};
+export const formItem = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, size, onInput } = args?.['bx-input'] ?? {};
   return html`
     <bx-form-item>
       <bx-input
@@ -84,8 +84,8 @@ export const formItem = (_, { parameters }) => {
 
 formItem.storyName = 'Form item';
 
-export const withoutFormItemWrapper = (_, { parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, size, onInput } = parameters?.props?.['bx-input'] ?? {};
+export const withoutFormItemWrapper = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, size, onInput } = args?.['bx-input'] ?? {};
   return html`
     <bx-input
       value="${ifNonNull(value)}"

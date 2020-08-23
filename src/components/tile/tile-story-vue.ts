@@ -16,25 +16,25 @@ import {
   expandable as basEexpandable,
 } from './tile-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-tile :color-scheme="colorScheme">Default tile</bx-tile>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-tile']),
+  ...createVueBindingsFromProps(args?.['bx-tile']),
 });
 
 Object.assign(Default, baseDefault);
 
-export const clickable = (_, { parameters }) => ({
+export const clickable = args => ({
   template: `
     <bx-clickable-tile :color-scheme="colorScheme" :href="href">Clickable tile</bx-clickable-tile>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-clickable-tile']),
+  ...createVueBindingsFromProps(args?.['bx-clickable-tile']),
 });
 
 Object.assign(clickable, baseClickable);
 
-export const singleSelectable = (_, { parameters }) => ({
+export const singleSelectable = args => ({
   template: `
     <fieldset>
       <legend>Single-select tiles</legend>
@@ -67,12 +67,12 @@ export const singleSelectable = (_, { parameters }) => ({
       </bx-radio-tile>
     </fieldset>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-radio-tile']),
+  ...createVueBindingsFromProps(args?.['bx-radio-tile']),
 });
 
 Object.assign(singleSelectable, baseSingleSelectable);
 
-export const multiSelectable = (_, { parameters }) => ({
+export const multiSelectable = args => ({
   template: `
     <bx-selectable-tile
       :checkmark-label="checkmarkLabel"
@@ -85,12 +85,12 @@ export const multiSelectable = (_, { parameters }) => ({
       Multi-select Tile
     </bx-selectable-tile>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-selectable-tile']),
+  ...createVueBindingsFromProps(args?.['bx-selectable-tile']),
 });
 
 Object.assign(multiSelectable, baseMultiSelectable);
 
-export const expandable = (_, { parameters }) => {
+export const expandable = args => {
   const props = (({ disableChange, onBeforeChange, onChange, ...rest }) => {
     const handleBeforeChange = (event: CustomEvent) => {
       onBeforeChange(event);
@@ -103,7 +103,7 @@ export const expandable = (_, { parameters }) => {
       handleBeforeChange,
       handleAfterChange: onChange,
     };
-  })(parameters?.props?.['bx-expandable-tile']);
+  })(args?.['bx-expandable-tile']);
   return {
     template: `
       <bx-expandable-tile

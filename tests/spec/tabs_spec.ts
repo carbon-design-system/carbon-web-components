@@ -15,16 +15,9 @@ import BXTab from '../../src/components/tabs/tab';
 import { Default } from '../../src/components/tabs/tabs-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-tabs': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-tabs': props,
+  });
 
 describe('bx-tabs', function() {
   describe('Toggling', function() {

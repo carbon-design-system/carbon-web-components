@@ -18,8 +18,8 @@ const types = {
   [`Heading (${SKELETON_TEXT_TYPE.HEADING})`]: SKELETON_TEXT_TYPE.HEADING,
 };
 
-export const Default = (_, { parameters }) => {
-  const { type } = parameters?.props?.['bx-skeleton-text'] ?? {};
+export const Default = args => {
+  const { type } = args?.['bx-skeleton-text'] ?? {};
   return html`
     <bx-skeleton-text type="${ifNonNull(type)}"></bx-skeleton-text>
   `;

@@ -24,21 +24,10 @@ import {
 
 export { default } from './number-input-story';
 
-export const Default = (_, { parameters }) => {
-  const {
-    colorScheme,
-    disabled,
-    value,
-    placeholder,
-    invalid,
-    mobile,
-    min,
-    max,
-    size,
-    step,
-    light,
-    onInput,
-  } = parameters?.props?.['bx-number-input'];
+export const Default = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, light, onInput } = args?.[
+    'bx-number-input'
+  ];
   return (
     <BXNumberInput
       colorScheme={colorScheme}
@@ -59,21 +48,10 @@ export const Default = (_, { parameters }) => {
 
 Object.assign(Default, baseDefault);
 
-export const formItem = (_, { parameters }) => {
-  const {
-    colorScheme,
-    disabled,
-    value,
-    placeholder,
-    invalid,
-    mobile,
-    min,
-    max,
-    size,
-    step,
-    light,
-    onInput,
-  } = parameters?.props?.['bx-number-input'];
+export const formItem = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, light, onInput } = args?.[
+    'bx-number-input'
+  ];
   return (
     <BXFormItem>
       <BXNumberInput
@@ -101,21 +79,10 @@ export const formItem = (_, { parameters }) => {
 
 Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = (_, { parameters }) => {
-  const {
-    colorScheme,
-    disabled,
-    value,
-    placeholder,
-    invalid,
-    mobile,
-    min,
-    max,
-    size,
-    step,
-    light,
-    onInput,
-  } = parameters?.props?.['bx-number-input'];
+export const withoutFormItemWrapper = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, light, onInput } = args?.[
+    'bx-number-input'
+  ];
   return (
     <BXNumberInput
       value={value}

@@ -20,8 +20,8 @@ const states = {
   [`Failed (${INLINE_LOADING_STATE.ERROR})`]: INLINE_LOADING_STATE.ERROR,
 };
 
-export const Default = (_, { parameters }) => {
-  const { status } = parameters?.props?.['bx-inline-loading'] ?? {};
+export const Default = args => {
+  const { status } = args?.['bx-inline-loading'] ?? {};
   return html`
     <bx-inline-loading status="${ifNonNull(status)}">Loading data...</bx-inline-loading>
   `;

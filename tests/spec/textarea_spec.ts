@@ -27,16 +27,9 @@ const getValues = (formData: FormData) => {
 };
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-textarea': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-textarea': props,
+  });
 
 describe('bx-textarea', function() {
   const events = new EventManager();

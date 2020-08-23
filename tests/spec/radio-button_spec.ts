@@ -25,15 +25,7 @@ const getValues = (formData: FormData) => {
   return values;
 };
 
-const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props,
-      },
-    }
-  );
+const template = (props?) => Default(props);
 
 describe('bx-radio-button', function() {
   describe('Rendering', function() {

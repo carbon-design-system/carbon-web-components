@@ -16,9 +16,8 @@ import './page-sizes-select';
 import './pages-select';
 import storyDocs from './pagination-story.mdx';
 
-export const Default = (_, { parameters }) => {
-  const { atLastPage, pageSize, start, total, onChangedCurrent, onChangedPageSizesSelect } =
-    parameters?.props?.['bx-pagination'] ?? {};
+export const Default = args => {
+  const { atLastPage, pageSize, start, total, onChangedCurrent, onChangedPageSizesSelect } = args?.['bx-pagination'] ?? {};
   return html`
     <bx-pagination
       ?at-last-page="${atLastPage || undefined}"

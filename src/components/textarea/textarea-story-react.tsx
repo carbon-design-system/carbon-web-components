@@ -24,8 +24,8 @@ import {
 
 export { default } from './textarea-story';
 
-export const Default = (_, { parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-textarea'];
+export const Default = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, onInput } = args?.['bx-textarea'];
   return (
     <BXTextarea
       colorScheme={colorScheme}
@@ -40,8 +40,8 @@ export const Default = (_, { parameters }) => {
 
 Object.assign(Default, baseDefault);
 
-export const formItem = (_, { parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-textarea'];
+export const formItem = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, onInput } = args?.['bx-textarea'];
   return (
     <BXFormItem>
       <BXTextarea
@@ -61,8 +61,8 @@ export const formItem = (_, { parameters }) => {
 
 Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = (_, { parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-textarea'];
+export const withoutFormItemWrapper = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, onInput } = args?.['bx-textarea'];
   return (
     <BXTextarea
       colorScheme={colorScheme}

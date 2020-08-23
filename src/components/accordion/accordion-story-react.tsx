@@ -18,8 +18,8 @@ import { Default as baseDefault } from './accordion-story';
 
 export { default } from './accordion-story';
 
-export const Default = (_, { parameters }) => {
-  const { open, titleText, disableToggle, onBeforeToggle, onToggle } = parameters?.props?.['bx-accordion'];
+export const Default = args => {
+  const { open, titleText, disableToggle, onBeforeToggle, onToggle } = args?.['bx-accordion'];
   const handleBeforeToggle = (event: CustomEvent) => {
     onBeforeToggle(event);
     if (disableToggle) {

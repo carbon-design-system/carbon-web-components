@@ -18,8 +18,8 @@ import storyDocs from './tag-story.mdx';
 
 const noop = () => {};
 
-export const Default = (_, { parameters }) => {
-  const { type, title, disabled } = parameters?.props?.['bx-tag'] ?? {};
+export const Default = args => {
+  const { type, title, disabled } = args?.['bx-tag'] ?? {};
   return html`
     <bx-tag type=${ifNonNull(type)} title=${ifNonNull(title)} ?disabled=${disabled}>
       This is not a tag
@@ -49,9 +49,9 @@ Default.parameters = {
   },
 };
 
-export const filter = (_, { parameters }) => {
+export const filter = args => {
   const { open, type, title, disabled, disableClose, onClick, onBeforeClose = noop, onClose = noop } =
-    parameters?.props?.['bx-filter-tag'] ?? {};
+    args?.['bx-filter-tag'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {

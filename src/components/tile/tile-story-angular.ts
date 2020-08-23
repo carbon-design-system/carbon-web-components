@@ -17,25 +17,25 @@ import baseStory, {
   expandable as baseExpandable,
 } from './tile-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-tile [colorScheme]="colorScheme">Default tile</bx-tile>
   `,
-  props: parameters?.props?.['bx-tile'],
+  props: args?.['bx-tile'],
 });
 
 Object.assign(Default, baseDefault);
 
-export const clickable = (_, { parameters }) => ({
+export const clickable = args => ({
   template: `
     <bx-clickable-tile [colorScheme]="colorScheme" [href]="href">Clickable tile</bx-clickable-tile>
   `,
-  props: parameters?.props?.['bx-clickable-tile'],
+  props: args?.['bx-clickable-tile'],
 });
 
 Object.assign(clickable, baseClickable);
 
-export const singleSelectable = (_, { parameters }) => ({
+export const singleSelectable = args => ({
   template: `
     <fieldset>
       <legend>Single-select tiles</legend>
@@ -68,12 +68,12 @@ export const singleSelectable = (_, { parameters }) => ({
       </bx-radio-tile>
     </fieldset>
   `,
-  props: parameters?.props?.['bx-radio-tile'],
+  props: args?.['bx-radio-tile'],
 });
 
 Object.assign(singleSelectable, baseSingleSelectable);
 
-export const multiSelectable = (_, { parameters }) => ({
+export const multiSelectable = args => ({
   template: `
     <bx-selectable-tile
       [checkmarkLabel]="checkmarkLabel"
@@ -86,12 +86,12 @@ export const multiSelectable = (_, { parameters }) => ({
       Multi-select Tile
     </bx-selectable-tile>
   `,
-  props: parameters?.props?.['bx-selectable-tile'],
+  props: args?.['bx-selectable-tile'],
 });
 
 Object.assign(multiSelectable, baseMultiSelectable);
 
-export const expandable = (_, { parameters }) => ({
+export const expandable = args => ({
   template: `
     <bx-expandable-tile
       [colorScheme]="colorScheme"
@@ -119,7 +119,7 @@ export const expandable = (_, { parameters }) => ({
       handleBeforeChange,
       handleAfterChange: onChange,
     };
-  })(parameters?.props?.['bx-expandable-tile']),
+  })(args?.['bx-expandable-tile']),
 });
 
 Object.assign(expandable, baseExpandable);

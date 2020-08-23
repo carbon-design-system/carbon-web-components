@@ -12,16 +12,9 @@ import BXStructuredListRow from '../../src/components/structured-list/structured
 import { Default } from '../../src/components/structured-list/structured-list-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-structured-list': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-structured-list': props,
+  });
 
 describe('bx-structured-list', function() {
   describe('Selection', function() {

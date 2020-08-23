@@ -26,7 +26,8 @@ module.exports = {
     '@storybook/addon-docs',
     '@storybook/addon-knobs',
     '@storybook/addon-storysource',
-    path.resolve(__dirname, 'addon-carbon-theme/register'),
+    path.resolve(__dirname, 'addon-carbon-theme'),
+    path.resolve(__dirname, 'addon-knobs-args'),
   ],
   managerWebpack(config) {
     // Ignores our `.babelrc` for manager

@@ -20,8 +20,8 @@ import { Default as baseDefault, withInputBox as baseWithInputBox } from './slid
 
 export { default } from './slider-story';
 
-export const Default = (_, { parameters }) => {
-  const { disabled, labelText, max, min, name, step, value, onChange } = parameters?.props?.['bx-slider'];
+export const Default = args => {
+  const { disabled, labelText, max, min, name, step, value, onChange } = args?.['bx-slider'];
   return (
     <BXSlider
       disabled={disabled}
@@ -38,8 +38,8 @@ export const Default = (_, { parameters }) => {
 
 Object.assign(Default, baseDefault);
 
-export const withInputBox = (_, { parameters }) => {
-  const { disabled, labelText, max, min, name, step, value, onChange } = parameters?.props?.['bx-slider'];
+export const withInputBox = args => {
+  const { disabled, labelText, max, min, name, step, value, onChange } = args?.['bx-slider'];
   return (
     <BXSlider
       disabled={disabled}

@@ -54,9 +54,9 @@ const sizesHorizontal = {
   [`Short size (${DATE_PICKER_INPUT_SIZE_HORIZONTAL.SHORT})`]: DATE_PICKER_INPUT_SIZE_HORIZONTAL.SHORT,
 };
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, sizeHorizontal, validityMessage } =
-    parameters?.props?.['bx-date-picker-input'] ?? {};
+    args?.['bx-date-picker-input'] ?? {};
   return html`
     <bx-date-picker>
       <bx-date-picker-input
@@ -86,10 +86,10 @@ Default.parameters = {
   },
 };
 
-export const singleWithCalendar = (_, { parameters }) => {
-  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'] ?? {};
+export const singleWithCalendar = args => {
+  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'] ?? {};
   const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } =
-    parameters?.props?.['bx-date-picker-input'] ?? {};
+    args?.['bx-date-picker-input'] ?? {};
   return html`
     <bx-date-picker
       date-format="${ifNonNull(dateFormat)}"
@@ -122,10 +122,10 @@ singleWithCalendar.parameters = {
   knobs,
 };
 
-export const rangeWithCalendar = (_, { parameters }) => {
-  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'] ?? {};
+export const rangeWithCalendar = args => {
+  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'] ?? {};
   const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } =
-    parameters?.props?.['bx-date-picker-input'] ?? {};
+    args?.['bx-date-picker-input'] ?? {};
   return html`
     <bx-date-picker
       date-format="${ifNonNull(dateFormat)}"

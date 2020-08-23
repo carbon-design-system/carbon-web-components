@@ -11,9 +11,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { Default as baseDefault } from './loading-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `<bx-loading [inactive]="inactive" [type]="type"></bx-loading>`,
-  props: parameters?.props?.['bx-loading'],
+  props: args?.['bx-loading'],
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },

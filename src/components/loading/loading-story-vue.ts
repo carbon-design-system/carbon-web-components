@@ -12,11 +12,11 @@ import { Default as baseDefault } from './loading-story';
 
 export { default } from './loading-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-loading :inactive="inactive" :type="type"></bx-loading>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-loading']),
+  ...createVueBindingsFromProps(args?.['bx-loading']),
 });
 
 Object.assign(Default, baseDefault);

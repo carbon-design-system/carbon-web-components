@@ -28,8 +28,8 @@ const sizes = {
   [`Large size (${MODAL_SIZE.LARGE})`]: MODAL_SIZE.LARGE,
 };
 
-export const Default = (_, { parameters }) => {
-  const { open, size, disableClose, onBeforeClose, onClose } = parameters?.props?.['bx-modal'] ?? {};
+export const Default = args => {
+  const { open, size, disableClose, onBeforeClose, onClose } = args?.['bx-modal'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {

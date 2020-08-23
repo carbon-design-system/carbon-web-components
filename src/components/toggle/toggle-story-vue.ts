@@ -12,7 +12,7 @@ import { Default as baseDefault } from './toggle-story';
 
 export { default } from './toggle-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-toggle
       :checked="checked"
@@ -26,7 +26,7 @@ export const Default = (_, { parameters }) => ({
       @bx-toggle-changed="onChange"
     ></bx-toggle>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-toggle']),
+  ...createVueBindingsFromProps(args?.['bx-toggle']),
 });
 
 Object.assign(Default, baseDefault);

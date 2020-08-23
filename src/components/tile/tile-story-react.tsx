@@ -32,15 +32,15 @@ import baseStory, {
 const BXTileAboveTheFoldContent = createReactCustomElementType('bx-tile-above-the-fold-content', {});
 const BXTileBelowTheFoldContent = createReactCustomElementType('bx-tile-below-the-fold-content', {});
 
-export const Default = (_, { parameters }) => {
-  const { colorScheme } = parameters?.props?.['bx-tile'] ?? {};
+export const Default = args => {
+  const { colorScheme } = args?.['bx-tile'] ?? {};
   return <BXTile colorScheme={colorScheme}>Default tile</BXTile>;
 };
 
 Object.assign(Default, baseDefault);
 
-export const clickable = (_, { parameters }) => {
-  const { colorScheme, href } = parameters?.props?.['bx-clickable-tile'];
+export const clickable = args => {
+  const { colorScheme, href } = args?.['bx-clickable-tile'];
   return (
     <BXClickableTile colorScheme={colorScheme} href={href}>
       Clickable tile
@@ -50,8 +50,8 @@ export const clickable = (_, { parameters }) => {
 
 Object.assign(clickable, baseClickable);
 
-export const singleSelectable = (_, { parameters }) => {
-  const { checkmarkLabel, colorScheme, name, value, onInput } = parameters?.props?.['bx-radio-tile'];
+export const singleSelectable = args => {
+  const { checkmarkLabel, colorScheme, name, value, onInput } = args?.['bx-radio-tile'];
   return (
     <fieldset>
       <legend>Single-select tiles</legend>
@@ -70,8 +70,8 @@ export const singleSelectable = (_, { parameters }) => {
 
 Object.assign(singleSelectable, baseSingleSelectable);
 
-export const multiSelectable = (_, { parameters }) => {
-  const { checkmarkLabel, colorScheme, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'];
+export const multiSelectable = args => {
+  const { checkmarkLabel, colorScheme, name, selected, value, onInput } = args?.['bx-selectable-tile'];
   return (
     <BXSelectableTile
       checkmarkLabel={checkmarkLabel}
@@ -87,8 +87,8 @@ export const multiSelectable = (_, { parameters }) => {
 
 Object.assign(multiSelectable, baseMultiSelectable);
 
-export const expandable = (_, { parameters }) => {
-  const { colorScheme, expanded, disableChange, onBeforeChange, onChange } = parameters?.props?.['bx-expandable-tile'];
+export const expandable = args => {
+  const { colorScheme, expanded, disableChange, onBeforeChange, onChange } = args?.['bx-expandable-tile'];
   const handleBeforeChanged = (event: CustomEvent) => {
     onBeforeChange(event);
     if (disableChange) {

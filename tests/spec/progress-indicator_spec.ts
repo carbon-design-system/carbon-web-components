@@ -12,16 +12,9 @@ import { PROGRESS_STEP_STAT } from '../../src/components/progress-indicator/prog
 import { Default } from '../../src/components/progress-indicator/progress-indicator-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-progress-step': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-progress-step': props,
+  });
 
 describe('bx-progress-step', function() {
   describe('Rendering', function() {

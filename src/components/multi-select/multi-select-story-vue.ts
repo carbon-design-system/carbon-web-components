@@ -12,7 +12,7 @@ import { Default as baseDefault } from './multi-select-story';
 
 export { default } from './multi-select-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-multi-select
       :color-scheme="colorScheme"
@@ -49,7 +49,7 @@ export const Default = (_, { parameters }) => ({
         }
       },
       handleSelected: onSelect,
-    }))(parameters?.props?.['bx-multi-select'])
+    }))(args?.['bx-multi-select'])
   ),
 });
 

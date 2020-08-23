@@ -25,7 +25,7 @@ const kinds = {
 
 const noop = () => {};
 
-export const inline = (_, { parameters }) => {
+export const inline = args => {
   const {
     kind,
     title,
@@ -37,7 +37,7 @@ export const inline = (_, { parameters }) => {
     disableClose,
     onBeforeClose = noop,
     onClose = noop,
-  } = parameters?.props?.['bx-inline-notification'] ?? {};
+  } = args?.['bx-inline-notification'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -81,7 +81,7 @@ inline.parameters = {
   },
 };
 
-export const toast = (_, { parameters }) => {
+export const toast = args => {
   const {
     kind,
     title,
@@ -94,7 +94,7 @@ export const toast = (_, { parameters }) => {
     disableClose,
     onBeforeClose = noop,
     onClose = noop,
-  } = parameters?.props?.['bx-toast-notification'] ?? {};
+  } = args?.['bx-toast-notification'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {

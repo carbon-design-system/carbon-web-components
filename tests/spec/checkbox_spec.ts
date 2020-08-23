@@ -24,16 +24,9 @@ const getValues = (formData: FormData) => {
 };
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-checkbox': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-checkbox': props,
+  });
 
 describe('bx-checkbox', function() {
   describe('Rendering', function() {

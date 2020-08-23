@@ -17,7 +17,7 @@ import '../form/form-item';
 import createProps from './stories/helpers';
 import storyDocs from './textarea-story.mdx';
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const {
     autocomplete,
     autofocus,
@@ -36,7 +36,7 @@ export const Default = (_, { parameters }) => {
     onInput,
     rows,
     cols,
-  } = parameters?.props?.['bx-textarea'] ?? {};
+  } = args?.['bx-textarea'] ?? {};
   return html`
     <bx-textarea
       autocomplete="${ifNonNull(autocomplete)}"
@@ -69,8 +69,8 @@ Default.parameters = {
   },
 };
 
-export const formItem = (_, { parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'] ?? {};
+export const formItem = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, onInput, rows, cols } = args?.['bx-textarea'] ?? {};
   return html`
     <bx-form-item>
       <bx-textarea
@@ -100,8 +100,8 @@ formItem.parameters = {
   },
 };
 
-export const withoutFormItemWrapper = (_, { parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'] ?? {};
+export const withoutFormItemWrapper = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, onInput, rows, cols } = args?.['bx-textarea'] ?? {};
   return html`
     <bx-textarea
       color-scheme="${ifNonNull(colorScheme)}"

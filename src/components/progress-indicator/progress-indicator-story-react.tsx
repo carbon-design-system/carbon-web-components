@@ -23,9 +23,9 @@ import { Default as baseDefault, skeleton as baseSkeleton } from './progress-ind
 
 export { default } from './progress-indicator-story';
 
-export const Default = (_, { parameters }) => {
-  const { vertical } = parameters?.props?.['bx-progress-indicator'];
-  const { iconLabel, labelText, secondaryLabelText } = parameters?.props?.['bx-progress-step'];
+export const Default = args => {
+  const { vertical } = args?.['bx-progress-indicator'];
+  const { iconLabel, labelText, secondaryLabelText } = args?.['bx-progress-step'];
   return (
     <BXProgressIndicator vertical={vertical}>
       <BXProgressStep iconLabel={iconLabel} labelText={labelText} secondaryLabelText={secondaryLabelText} state="invalid" />
@@ -39,8 +39,8 @@ export const Default = (_, { parameters }) => {
 
 Object.assign(Default, baseDefault);
 
-export const skeleton = (_, { parameters }) => {
-  const { vertical } = parameters?.props?.['bx-progress-indicator-skeleton'];
+export const skeleton = args => {
+  const { vertical } = args?.['bx-progress-indicator-skeleton'];
   return (
     <BXProgressIndicatorSkeleton vertical={vertical}>
       <BXProgressStepSkeleton></BXProgressStepSkeleton>

@@ -11,7 +11,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { Default as baseDefault } from './tabs-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-tabs
       [triggerContent]="triggerContent"
@@ -40,7 +40,7 @@ export const Default = (_, { parameters }) => ({
       handleBeforeSelect,
       handleAfterSelect: onSelect,
     };
-  })(parameters?.props?.['bx-tabs']),
+  })(args?.['bx-tabs']),
 });
 
 Object.assign(Default, baseDefault);

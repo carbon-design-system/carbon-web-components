@@ -13,16 +13,9 @@ import BXOverflowMenu from '../../src/components/overflow-menu/overflow-menu';
 import { Default } from '../../src/components/overflow-menu/overflow-menu-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-overflow-menu': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-overflow-menu': props,
+  });
 
 describe('bx-overflow-menu', function() {
   describe('Missing menu body', function() {

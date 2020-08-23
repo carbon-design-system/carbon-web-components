@@ -22,8 +22,8 @@ import {
 
 export { default } from './input-story';
 
-export const Default = (_, { parameters }) => {
-  const { colorScheme, disabled, value, placeholder, size, invalid, type, onInput } = parameters?.props?.['bx-input'];
+export const Default = args => {
+  const { colorScheme, disabled, value, placeholder, size, invalid, type, onInput } = args?.['bx-input'];
   return (
     <BXInput
       colorScheme={colorScheme}
@@ -40,8 +40,8 @@ export const Default = (_, { parameters }) => {
 
 Object.assign(Default, baseDefault);
 
-export const formItem = (_, { parameters }) => {
-  const { colorScheme, disabled, value, placeholder, size, invalid, type, onInput } = parameters?.props?.['bx-input'];
+export const formItem = args => {
+  const { colorScheme, disabled, value, placeholder, size, invalid, type, onInput } = args?.['bx-input'];
   return (
     <BXFormItem>
       <BXInput
@@ -63,8 +63,8 @@ export const formItem = (_, { parameters }) => {
 
 Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = (_, { parameters }) => {
-  const { colorScheme, disabled, value, placeholder, size, invalid, type, onInput } = parameters?.props?.['bx-input'];
+export const withoutFormItemWrapper = args => {
+  const { colorScheme, disabled, value, placeholder, size, invalid, type, onInput } = args?.['bx-input'];
   return (
     <BXInput
       colorScheme={colorScheme}

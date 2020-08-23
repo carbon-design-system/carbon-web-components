@@ -39,7 +39,7 @@ $z-indexes: (
   floating: 10000
 );`;
 
-export const singleLine = (_, { parameters }) => ({
+export const singleLine = args => ({
   template: `
     <bx-code-snippet
       [codeAssistiveText]="codeAssistiveText"
@@ -53,12 +53,12 @@ export const singleLine = (_, { parameters }) => ({
       laboriosam!</bx-code-snippet
     >
   `,
-  props: parameters?.props?.['bx-code-snippet'],
+  props: args?.['bx-code-snippet'],
 });
 
 Object.assign(singleLine, baseSingleLine);
 
-export const multiLine = (_, { parameters }) => ({
+export const multiLine = args => ({
   template: `
     <bx-code-snippet
       type="multi"
@@ -72,12 +72,12 @@ export const multiLine = (_, { parameters }) => ({
       (click)="onClick($event)"
       >{{code}}</bx-code-snippet>
   `,
-  props: { ...parameters?.props?.['bx-code-snippet'], code: multilineCode },
+  props: { ...args?.['bx-code-snippet'], code: multilineCode },
 });
 
 Object.assign(multiLine, baseMultiLine);
 
-export const inline = (_, { parameters }) => ({
+export const inline = args => ({
   template: `
     <bx-code-snippet
       type="inline"
@@ -90,7 +90,7 @@ export const inline = (_, { parameters }) => ({
       >node -v</bx-code-snippet
     >
   `,
-  props: parameters?.props?.['bx-code-snippet'],
+  props: args?.['bx-code-snippet'],
 });
 
 Object.assign(inline, baseInline);

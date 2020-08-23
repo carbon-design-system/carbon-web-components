@@ -88,8 +88,8 @@ const storyContent = () => `
   </main>
 `;
 
-export const sideNav = (_, { parameters }) => {
-  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
+export const sideNav = args => {
+  const { collapseMode, expanded } = args?.['bx-side-nav'] ?? {};
   updateRailExpanded({ collapseMode, expanded });
   return {
     template: `
@@ -137,8 +137,8 @@ export const sideNav = (_, { parameters }) => {
       </div>
     `,
     ...createVueBindingsFromProps({
-      ...parameters?.props?.['bx-side-nav'],
-      ...parameters?.props?.['bx-side-nav-menu-item'],
+      ...args?.['bx-side-nav'],
+      ...args?.['bx-side-nav-menu-item'],
     }),
     created() {
       injectContentStyle();
@@ -149,8 +149,8 @@ export const sideNav = (_, { parameters }) => {
 
 Object.assign(sideNav, baseSideNav);
 
-export const sideNavWithIcons = (_, { parameters }) => {
-  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
+export const sideNavWithIcons = args => {
+  const { collapseMode, expanded } = args?.['bx-side-nav'] ?? {};
   updateRailExpanded({ collapseMode, expanded });
   return {
     template: `
@@ -210,8 +210,8 @@ export const sideNavWithIcons = (_, { parameters }) => {
       'fade-16': Fade16,
     },
     ...createVueBindingsFromProps({
-      ...parameters?.props?.['bx-side-nav'],
-      ...parameters?.props?.['bx-side-nav-menu-item'],
+      ...args?.['bx-side-nav'],
+      ...args?.['bx-side-nav-menu-item'],
     }),
     created() {
       injectContentStyle();
@@ -222,8 +222,8 @@ export const sideNavWithIcons = (_, { parameters }) => {
 
 Object.assign(sideNavWithIcons, baseSideNavWithIcons);
 
-export const header = (_, { parameters }) => {
-  const { collapseMode, expanded, usageMode } = parameters?.props?.['bx-side-nav'] ?? {};
+export const header = args => {
+  const { collapseMode, expanded, usageMode } = args?.['bx-side-nav'] ?? {};
   updateRailExpanded({ collapseMode, expanded, usageMode });
   return {
     template: `
@@ -294,8 +294,8 @@ export const header = (_, { parameters }) => {
       </div>
     `,
     ...createVueBindingsFromProps({
-      ...parameters?.props?.['bx-side-nav'],
-      ...parameters?.props?.['bx-side-nav-menu-item'],
+      ...args?.['bx-side-nav'],
+      ...args?.['bx-side-nav-menu-item'],
       handleButtonToggle(event) {
         updateRailExpanded({ collapseMode, expanded: event.detail.active, usageMode });
       },

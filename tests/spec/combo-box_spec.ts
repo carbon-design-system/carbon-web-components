@@ -16,16 +16,9 @@ import BXComboBoxItem from '../../src/components/combo-box/combo-box-item';
 import { Default } from '../../src/components/combo-box/combo-box-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-combo-box': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-combo-box': props,
+  });
 
 describe('bx-combo-box', function() {
   const events = new EventManager();

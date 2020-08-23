@@ -24,8 +24,8 @@ import {
 
 export { default } from './button-story';
 
-export const Default = (_, { parameters }) => {
-  const { kind, disabled, size, href } = parameters?.props?.['bx-btn'];
+export const Default = args => {
+  const { kind, disabled, size, href } = args?.['bx-btn'];
   return (
     <BXBtn kind={kind} disabled={disabled} size={size} href={href}>
       Button
@@ -35,8 +35,8 @@ export const Default = (_, { parameters }) => {
 
 Object.assign(Default, baseDefault);
 
-export const icon = (_, { parameters }) => {
-  const { kind, disabled, size, href } = parameters?.props?.['bx-btn'];
+export const icon = args => {
+  const { kind, disabled, size, href } = args?.['bx-btn'];
   return (
     <BXBtn kind={kind} disabled={disabled} size={size} href={href}>
       <Add16 slot="icon" />
@@ -46,8 +46,8 @@ export const icon = (_, { parameters }) => {
 
 Object.assign(icon, baseIcon);
 
-export const textAndIcon = (_, { parameters }) => {
-  const { kind, disabled, size, href, iconLayout } = parameters?.props?.['bx-btn'];
+export const textAndIcon = args => {
+  const { kind, disabled, size, href, iconLayout } = args?.['bx-btn'];
   return (
     <BXBtn kind={kind} disabled={disabled} size={size} href={href} iconLayout={iconLayout}>
       Button <Add16 slot="icon" />
@@ -57,8 +57,8 @@ export const textAndIcon = (_, { parameters }) => {
 
 Object.assign(textAndIcon, baseTextAndIcon);
 
-export const skeleton = (_, { parameters }) => {
-  const { disabled, size, href } = parameters?.props?.['bx-btn-skeleton'];
+export const skeleton = args => {
+  const { disabled, size, href } = args?.['bx-btn-skeleton'];
   return <BXBtnSkeleton disabled={disabled} size={size} href={href}></BXBtnSkeleton>;
 };
 

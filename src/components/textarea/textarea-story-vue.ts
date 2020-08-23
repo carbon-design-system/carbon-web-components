@@ -16,7 +16,7 @@ import {
 
 export { default } from './textarea-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-textarea
       :color-scheme="colorScheme"
@@ -27,12 +27,12 @@ export const Default = (_, { parameters }) => ({
       @input="onInput"
     ></bx-textarea>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-textarea']),
+  ...createVueBindingsFromProps(args?.['bx-textarea']),
 });
 
 Object.assign(Default, baseDefault);
 
-export const formItem = (_, { parameters }) => ({
+export const formItem = args => ({
   template: `
     <bx-form-item>
       <bx-textarea
@@ -49,12 +49,12 @@ export const formItem = (_, { parameters }) => ({
       </bx-textarea>
     </bx-form-item>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-textarea']),
+  ...createVueBindingsFromProps(args?.['bx-textarea']),
 });
 
 Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = (_, { parameters }) => ({
+export const withoutFormItemWrapper = args => ({
   template: `
     <bx-textarea
       :value="value"
@@ -69,7 +69,7 @@ export const withoutFormItemWrapper = (_, { parameters }) => ({
       <span slot="validity-message">Something isn't right</span>
     </bx-textarea>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-textarea']),
+  ...createVueBindingsFromProps(args?.['bx-textarea']),
 });
 
 Object.assign(withoutFormItemWrapper, baseWithoutFormItemWrapper);

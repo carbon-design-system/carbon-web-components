@@ -13,16 +13,9 @@ import BXTabs from '../../src/components/tabs/tabs';
 import { Default } from '../../src/components/content-switcher/content-switcher-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-content-switcher': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-content-switcher': props,
+  });
 
 describe('bx-content-switcher', function() {
   describe('Selecting an item', function() {

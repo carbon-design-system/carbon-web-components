@@ -17,9 +17,9 @@ import '../form/form-item';
 import createProps from './stories/helpers';
 import storyDocs from './number-input-story.mdx';
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, onInput, name } =
-    parameters?.props?.['bx-number-input'] ?? {};
+    args?.['bx-number-input'] ?? {};
   return html`
     <bx-number-input
       color-scheme="${ifNonNull(colorScheme)}"
@@ -46,9 +46,9 @@ Default.parameters = {
   },
 };
 
-export const formItem = (_, { parameters }) => {
+export const formItem = args => {
   const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, onInput } =
-    parameters?.props?.['bx-number-input'] ?? {};
+    args?.['bx-number-input'] ?? {};
   return html`
     <bx-form-item>
       <bx-number-input
@@ -82,9 +82,9 @@ formItem.parameters = {
   },
 };
 
-export const withoutFormItemWrapper = (_, { parameters }) => {
+export const withoutFormItemWrapper = args => {
   const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, onInput } =
-    parameters?.props?.['bx-number-input'] ?? {};
+    args?.['bx-number-input'] ?? {};
   return html`
     <bx-number-input
       value="${ifNonNull(value)}"

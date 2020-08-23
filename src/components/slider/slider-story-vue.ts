@@ -12,7 +12,7 @@ import { Default as baseDefault, withInputBox as baseWithInputBox } from './slid
 
 export { default } from './slider-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-slider
       :disabled="disabled"
@@ -25,12 +25,12 @@ export const Default = (_, { parameters }) => ({
       @bx-slider-changed="onChange"
     ></bx-slider>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-slider']),
+  ...createVueBindingsFromProps(args?.['bx-slider']),
 });
 
 Object.assign(Default, baseDefault);
 
-export const withInputBox = (_, { parameters }) => ({
+export const withInputBox = args => ({
   template: `
     <bx-slider
       :disabled="disabled"
@@ -45,7 +45,7 @@ export const withInputBox = (_, { parameters }) => ({
       <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
     </bx-slider>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-slider']),
+  ...createVueBindingsFromProps(args?.['bx-slider']),
 });
 
 Object.assign(withInputBox, baseWithInputBox);

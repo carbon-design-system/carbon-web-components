@@ -166,7 +166,7 @@ class BXCEDemoFileUploader {
   size = FILE_UPLOADER_ITEM_SIZE.REGULAR;
 }
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-ce-demo-file-uploader
       [accept]="accept"
@@ -189,9 +189,9 @@ export const Default = (_, { parameters }) => ({
       }
     },
   }))({
-    ...parameters?.props?.['bx-file-uploader'],
-    ...parameters?.props?.['bx-file-drop-container'],
-    ...parameters?.props?.['bx-file-uploader-item'],
+    ...args?.['bx-file-uploader'],
+    ...args?.['bx-file-drop-container'],
+    ...args?.['bx-file-uploader-item'],
   }),
 });
 

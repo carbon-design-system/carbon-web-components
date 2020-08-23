@@ -15,7 +15,7 @@ import baseStory, {
   withoutFormItemWrapper as baseWithoutFormItemWrapper,
 } from './textarea-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-textarea
       [colorScheme]="colorScheme"
@@ -26,12 +26,12 @@ export const Default = (_, { parameters }) => ({
       (input)="onInput()"
     ></bx-textarea>
   `,
-  props: parameters?.props?.['bx-textarea'],
+  props: args?.['bx-textarea'],
 });
 
 Object.assign(Default, baseDefault);
 
-export const formItem = (_, { parameters }) => ({
+export const formItem = args => ({
   template: `
     <bx-form-item>
       <bx-textarea
@@ -48,12 +48,12 @@ export const formItem = (_, { parameters }) => ({
       </bx-textarea>
     </bx-form-item>
   `,
-  props: parameters?.props?.['bx-textarea'],
+  props: args?.['bx-textarea'],
 });
 
 Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = (_, { parameters }) => ({
+export const withoutFormItemWrapper = args => ({
   template: `
     <bx-textarea
       [value]="value"
@@ -68,7 +68,7 @@ export const withoutFormItemWrapper = (_, { parameters }) => ({
       <span slot="validity-message">Something isn't right</span>
     </bx-textarea>
   `,
-  props: parameters?.props?.['bx-textarea'],
+  props: args?.['bx-textarea'],
 });
 
 Object.assign(withoutFormItemWrapper, baseWithoutFormItemWrapper);

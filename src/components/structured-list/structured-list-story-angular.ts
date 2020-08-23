@@ -11,7 +11,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { Default as baseDefault } from './structured-list-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-structured-list [selectionName]="selectionName">
       <bx-structured-list-head>
@@ -56,7 +56,7 @@ export const Default = (_, { parameters }) => ({
     selectionValues: !hasSelection
       ? []
       : ['structured-list-selection-0', 'structured-list-selection-1', 'structured-list-selection-2'],
-  }))(parameters?.props?.['bx-structured-list']),
+  }))(args?.['bx-structured-list']),
 });
 
 Object.assign(Default, baseDefault);

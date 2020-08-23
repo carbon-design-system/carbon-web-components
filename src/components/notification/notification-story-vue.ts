@@ -12,7 +12,7 @@ import { inline as baseInline, toast as baseToast } from './notification-story';
 
 export { default } from './notification-story';
 
-export const inline = (_, { parameters }) => ({
+export const inline = args => ({
   template: `
     <bx-inline-notification
       style="min-width: 30rem; margin-bottom: .5rem"
@@ -38,13 +38,13 @@ export const inline = (_, { parameters }) => ({
         }
       },
       handleClose: onClose,
-    }))(parameters?.props?.['bx-inline-notification'])
+    }))(args?.['bx-inline-notification'])
   ),
 });
 
 Object.assign(inline, baseInline);
 
-export const toast = (_, { parameters }) => ({
+export const toast = args => ({
   template: `
     <bx-toast-notification
       style="min-width: 30rem; margin-bottom: .5rem"
@@ -71,7 +71,7 @@ export const toast = (_, { parameters }) => ({
         }
       },
       handleClose: onClose,
-    }))(parameters?.props?.['bx-toast-notification'])
+    }))(args?.['bx-toast-notification'])
   ),
 });
 

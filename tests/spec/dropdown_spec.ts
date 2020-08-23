@@ -16,16 +16,9 @@ import BXDropdownItem from '../../src/components/dropdown/dropdown-item';
 import { Default } from '../../src/components/dropdown/dropdown-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-dropdown': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-dropdown': props,
+  });
 
 describe('bx-dropdown', function() {
   const events = new EventManager();

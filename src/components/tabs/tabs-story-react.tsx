@@ -23,8 +23,8 @@ import styles from './tabs-story.scss';
 
 export { default } from './tabs-story';
 
-export const Default = (_, { parameters }) => {
-  const { triggerContent, type, value, disableSelection, onBeforeSelect, onSelect } = parameters?.props?.['bx-tabs'];
+export const Default = args => {
+  const { triggerContent, type, value, disableSelection, onBeforeSelect, onSelect } = args?.['bx-tabs'];
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {

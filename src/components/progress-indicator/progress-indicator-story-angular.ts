@@ -11,7 +11,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { Default as baseDefault } from './progress-indicator-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-progress-indicator
       [vertical]="vertical"
@@ -47,12 +47,12 @@ export const Default = (_, { parameters }) => ({
       ></bx-progress-step>
     </bx-progress-indicator>
   `,
-  props: { ...parameters?.props?.['bx-progress-indicator'], ...parameters?.props?.['bx-progress-step'] },
+  props: { ...args?.['bx-progress-indicator'], ...args?.['bx-progress-step'] },
 });
 
 Object.assign(Default, baseDefault);
 
-export const skeleton = (_, { parameters }) => ({
+export const skeleton = args => ({
   template: `
     <bx-progress-indicator-skeleton [vertical]="vertical">
       <bx-progress-step-skeleton></bx-progress-step-skeleton>
@@ -60,7 +60,7 @@ export const skeleton = (_, { parameters }) => ({
       <bx-progress-step-skeleton></bx-progress-step-skeleton>
     </bx-progress-indicator-skeleton>
   `,
-  props: parameters?.props?.['bx-progress-indicator-skeleton'],
+  props: args?.['bx-progress-indicator-skeleton'],
 });
 
 export default Object.assign(baseStory, {

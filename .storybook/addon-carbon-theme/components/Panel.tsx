@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -27,9 +27,9 @@ const Panel = ({ api, active }) => {
   );
   return (
     active && (
-      <Form>
+      <Form translate="yes">
         <Form.Field label="Select Carbon theme:">
-          <Form.Select name="carbon-theme" value={currentTheme} onChange={handleChange} size="flex">
+          <Form.Select translate="yes" name="carbon-theme" value={currentTheme} onChange={handleChange} size="flex">
             <option key="white" value="white">
               white
             </option>

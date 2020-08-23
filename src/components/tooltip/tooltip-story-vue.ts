@@ -13,7 +13,7 @@ import { Default as baseDefault, definition as baseDefinition, icon as baseIcon 
 
 export { default } from './tooltip-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-tooltip :open="open">
       <bx-tooltip-body :direction="direction">
@@ -27,23 +27,23 @@ export const Default = (_, { parameters }) => ({
       </bx-tooltip-body>
     </bx-tooltip>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-tooltip']),
+  ...createVueBindingsFromProps(args?.['bx-tooltip']),
 });
 
 Object.assign(Default, baseDefault);
 
-export const definition = (_, { parameters }) => ({
+export const definition = args => ({
   template: `
     <bx-tooltip-definition :alignment="alignment" :body-text="bodyText" :direction="direction">
       Definition Tooltip
     </bx-tooltip-definition>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-tooltip-definition']),
+  ...createVueBindingsFromProps(args?.['bx-tooltip-definition']),
 });
 
 Object.assign(definition, baseDefinition);
 
-export const icon = (_, { parameters }) => ({
+export const icon = args => ({
   template: `
     <bx-tooltip-icon :alignment="alignment" :body-text="bodyText" :direction="direction">
       <filter-16></filter-16>
@@ -52,7 +52,7 @@ export const icon = (_, { parameters }) => ({
   components: {
     'filter-16': Filter16,
   },
-  ...createVueBindingsFromProps(parameters?.props?.['bx-tooltip-icon']),
+  ...createVueBindingsFromProps(args?.['bx-tooltip-icon']),
 });
 
 Object.assign(icon, baseIcon);

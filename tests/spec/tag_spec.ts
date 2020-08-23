@@ -12,16 +12,9 @@ import EventManager from '../utils/event-manager';
 import { filter } from '../../src/components/tag/tag-story';
 
 const filterTemplate = (props?) =>
-  filter(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-filter-tag': props,
-        },
-      },
-    }
-  );
+  filter({
+    'bx-filter-tag': props,
+  });
 
 describe('bx-filter-tag', function() {
   describe('Enabling/disabling', function() {

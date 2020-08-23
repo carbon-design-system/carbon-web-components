@@ -16,8 +16,8 @@ import { Default as baseDefault } from './loading-story';
 
 export { default } from './loading-story';
 
-export const Default = (_, { parameters }) => {
-  const props = parameters?.props?.['bx-loading'];
+export const Default = args => {
+  const props = args?.['bx-loading'];
   return <BXLoading inactive={props.inactive} type={props.type} />;
 };
 

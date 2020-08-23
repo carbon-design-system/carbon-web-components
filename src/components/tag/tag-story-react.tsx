@@ -18,8 +18,8 @@ import { Default as baseDefault, filter as baseFilter } from './tag-story';
 
 export { default } from './tag-story';
 
-export const Default = (_, { parameters }) => {
-  const { type, title, disabled } = parameters?.props?.['bx-tag'];
+export const Default = args => {
+  const { type, title, disabled } = args?.['bx-tag'];
   return (
     <BXTag type={type} title={title} disabled={disabled}>
       This is not a tag
@@ -29,8 +29,8 @@ export const Default = (_, { parameters }) => {
 
 Object.assign(Default, baseDefault);
 
-export const filter = (_, { parameters }) => {
-  const { open, type, title, disabled, disableClose, onClick, onBeforeClose, onClose } = parameters?.props?.['bx-filter-tag'];
+export const filter = args => {
+  const { open, type, title, disabled, disableClose, onClick, onBeforeClose, onClose } = args?.['bx-filter-tag'];
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {

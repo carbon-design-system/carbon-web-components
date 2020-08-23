@@ -18,16 +18,16 @@ import {
 
 export { default } from './button-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-btn :kind="kind" :disabled="disabled" :size="size" :href="href" @click="onClick">Button</bx-btn>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-btn']),
+  ...createVueBindingsFromProps(args?.['bx-btn']),
 });
 
 Object.assign(Default, baseDefault);
 
-export const icon = (_, { parameters }) => ({
+export const icon = args => ({
   template: `
     <bx-btn :kind="kind" :disabled="disabled" :size="size" :href="href" @click="onClick">
       <add-16 slot="icon"></add-16>
@@ -36,12 +36,12 @@ export const icon = (_, { parameters }) => ({
   components: {
     'add-16': Add16,
   },
-  ...createVueBindingsFromProps(parameters?.props?.['bx-btn']),
+  ...createVueBindingsFromProps(args?.['bx-btn']),
 });
 
 Object.assign(icon, baseIcon);
 
-export const textAndIcon = (_, { parameters }) => ({
+export const textAndIcon = args => ({
   template: `
     <bx-btn :kind="kind" :disabled="disabled" :size="size" :href="href" :icon-layout="iconLayout" @click="onClick">
       Button <add-16 slot="icon"></add-16>
@@ -50,16 +50,16 @@ export const textAndIcon = (_, { parameters }) => ({
   components: {
     'add-16': Add16,
   },
-  ...createVueBindingsFromProps(parameters?.props?.['bx-btn']),
+  ...createVueBindingsFromProps(args?.['bx-btn']),
 });
 
 Object.assign(textAndIcon, baseTextAndIcon);
 
-export const skeleton = (_, { parameters }) => ({
+export const skeleton = args => ({
   template: `
     <bx-btn-skeleton :disabled="disabled" :small="small" :href="href" @click="onClick"></bx-btn-skeleton>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-btn-skeleton']),
+  ...createVueBindingsFromProps(args?.['bx-btn-skeleton']),
 });
 
 Object.assign(skeleton, baseSkeleton);

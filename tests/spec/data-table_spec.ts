@@ -20,17 +20,10 @@ import BXTableToolbarSearch from '../../src/components/data-table/table-toolbar-
 import { Default } from '../../src/components/data-table/data-table-story';
 
 const template = ({ colorScheme = TABLE_COLOR_SCHEME.REGULAR, ...rest } = {}) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-table': { ...rest },
-          'bx-table-body': { colorScheme },
-        },
-      },
-    }
-  );
+  Default({
+    'bx-table': { ...rest },
+    'bx-table-body': { colorScheme },
+  });
 
 const headerCellTemplate = (props?) => {
   const { sortActive, sortCycle, sortDirection } = props ?? {};

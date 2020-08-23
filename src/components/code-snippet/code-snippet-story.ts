@@ -32,9 +32,9 @@ const defaultKnobs = {
   }),
 };
 
-export const singleLine = (_, { parameters }) => {
+export const singleLine = args => {
   const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, colorScheme, onClick } =
-    parameters?.props?.['bx-code-snippet'] ?? {};
+    args?.['bx-code-snippet'] ?? {};
   const children = `
     node -v Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis voluptate id incidunt molestiae
     officia possimus, quasi itaque alias, architecto hic, dicta fugit? Debitis delectus quidem explicabo vitae
@@ -59,7 +59,7 @@ singleLine.parameters = {
   knobs: defaultKnobs,
 };
 
-export const multiLine = (_, { parameters }) => {
+export const multiLine = args => {
   const {
     codeAssistiveText,
     copyButtonAssistiveText,
@@ -69,7 +69,7 @@ export const multiLine = (_, { parameters }) => {
     expandButtonText,
     colorScheme,
     onClick,
-  } = parameters?.props?.['bx-code-snippet'] ?? {};
+  } = args?.['bx-code-snippet'] ?? {};
   const children = `
 @mixin grid-container {
   width: 100%;
@@ -121,9 +121,9 @@ multiLine.parameters = {
   },
 };
 
-export const inline = (_, { parameters }) => {
+export const inline = args => {
   const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, colorScheme, onClick } =
-    parameters?.props?.['bx-code-snippet'] ?? {};
+    args?.['bx-code-snippet'] ?? {};
   return html`
     <bx-code-snippet
       type="inline"

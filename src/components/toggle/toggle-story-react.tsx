@@ -16,10 +16,8 @@ import { Default as baseDefault } from './toggle-story';
 
 export { default } from './toggle-story';
 
-export const Default = (_, { parameters }) => {
-  const { checked, checkedText, disabled, labelText, name, size, uncheckedText, value, onChange } = parameters?.props?.[
-    'bx-toggle'
-  ];
+export const Default = args => {
+  const { checked, checkedText, disabled, labelText, name, size, uncheckedText, value, onChange } = args?.['bx-toggle'];
   return (
     <BXToggle
       checked={checked}

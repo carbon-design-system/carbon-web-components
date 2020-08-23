@@ -7,15 +7,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { decorators as decoratorsOrig } from '../preview';
+import addons from '@storybook/addons';
 import containerStyles from '../_container.scss';
 import theme from './theme';
+
+addons.setConfig({
+  showRoots: true,
+  theme: theme,
+});
 
 const SORT_ORDER = ['introduction-welcome--page', 'introduction-form-paticipation--page'];
 
 export const parameters = {
   options: {
-    showRoots: true,
     storySort(lhs, rhs) {
       const [lhsId] = lhs;
       const [rhsId] = rhs;
@@ -26,7 +30,6 @@ export const parameters = {
       }
       return 0;
     },
-    theme: theme,
   },
 };
 
@@ -55,5 +58,4 @@ export const decorators = [
       `,
     };
   },
-  decoratorsOrig.find(({ name }) => name === 'decoratorParameters'),
 ];

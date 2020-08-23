@@ -12,7 +12,7 @@ import { Default as baseDefault } from './checkbox-story';
 
 export { default } from './checkbox-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-checkbox
       :checked="checked"
@@ -25,7 +25,7 @@ export const Default = (_, { parameters }) => ({
       @bx-checkbox-changed="onChange"
     ></bx-checkbox>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-checkbox']),
+  ...createVueBindingsFromProps(args?.['bx-checkbox']),
 });
 
 Object.assign(Default, baseDefault);

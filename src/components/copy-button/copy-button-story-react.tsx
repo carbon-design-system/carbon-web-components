@@ -16,8 +16,8 @@ import { Default as baseDefault } from './copy-button-story';
 
 export { default } from './copy-button-story';
 
-export const Default = (_, { parameters }) => {
-  const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } = parameters?.props?.['bx-copy-button'];
+export const Default = args => {
+  const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } = args?.['bx-copy-button'];
   return (
     <BXCopyButton
       buttonAssistiveText={buttonAssistiveText}

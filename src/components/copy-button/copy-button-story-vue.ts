@@ -12,7 +12,7 @@ import { Default as baseDefault } from './copy-button-story';
 
 export { default } from './copy-button-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-copy-button
       :button-assistive-text="buttonAssistiveText"
@@ -21,7 +21,7 @@ export const Default = (_, { parameters }) => ({
       @click="onClick"
     ></bx-copy-button>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-copy-button']),
+  ...createVueBindingsFromProps(args?.['bx-copy-button']),
 });
 
 Object.assign(Default, baseDefault);

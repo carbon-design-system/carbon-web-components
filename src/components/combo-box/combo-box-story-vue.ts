@@ -12,7 +12,7 @@ import { Default as baseDefault } from './combo-box-story';
 
 export { default } from './combo-box-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-combo-box
       :open="open"
@@ -50,7 +50,7 @@ export const Default = (_, { parameters }) => ({
         handleBeforeSelect,
         handleAfterSelect: onSelect,
       };
-    })(parameters?.props?.['bx-combo-box'])
+    })(args?.['bx-combo-box'])
   ),
 });
 

@@ -27,18 +27,10 @@ import {
 
 export { default } from './date-picker-story';
 
-export const Default = (_, { parameters }) => {
-  const {
-    colorScheme,
-    disabled,
-    hideLabel,
-    invalid,
-    labelText,
-    placeholder,
-    size,
-    sizeHorizontal,
-    validityMessage,
-  } = parameters?.props?.['bx-date-picker-input'];
+export const Default = args => {
+  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, sizeHorizontal, validityMessage } = args?.[
+    'bx-date-picker-input'
+  ];
   return (
     <BXDatePicker>
       <BXDatePickerInput
@@ -58,19 +50,11 @@ export const Default = (_, { parameters }) => {
 
 Object.assign(Default, baseDefault);
 
-export const singleWithCalendar = (_, { parameters }) => {
-  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
-  const {
-    colorScheme,
-    disabled,
-    hideLabel,
-    invalid,
-    labelText,
-    placeholder,
-    size,
-    validityMessage,
-    onInput,
-  } = parameters?.props?.['bx-date-picker-input'];
+export const singleWithCalendar = args => {
+  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'];
+  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } = args?.[
+    'bx-date-picker-input'
+  ];
   return (
     <BXDatePicker
       dateFormat={dateFormat}
@@ -97,19 +81,11 @@ export const singleWithCalendar = (_, { parameters }) => {
 
 Object.assign(singleWithCalendar, baseSingleWithCalendar);
 
-export const rangeWithCalendar = (_, { parameters }) => {
-  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'];
-  const {
-    colorScheme,
-    disabled,
-    hideLabel,
-    invalid,
-    labelText,
-    placeholder,
-    size,
-    validityMessage,
-    onInput,
-  } = parameters?.props?.['bx-date-picker-input'];
+export const rangeWithCalendar = args => {
+  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'];
+  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } = args?.[
+    'bx-date-picker-input'
+  ];
   return (
     <BXDatePicker
       dateFormat={dateFormat}

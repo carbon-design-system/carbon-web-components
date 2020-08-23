@@ -12,7 +12,7 @@ import { Default as baseDefault } from './tabs-story';
 
 export { default } from './tabs-story';
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const props = (({ onBeforeSelect, onSelect, ...rest }) => {
     function handleBeforeSelect(this: any, event: CustomEvent) {
       onBeforeSelect(event);
@@ -27,7 +27,7 @@ export const Default = (_, { parameters }) => {
       handleBeforeSelect,
       handleAfterSelect: onSelect,
     };
-  })(parameters?.props?.['bx-tabs']);
+  })(args?.['bx-tabs']);
   return {
     template: `
         <bx-tabs

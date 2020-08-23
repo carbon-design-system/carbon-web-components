@@ -24,8 +24,8 @@ const colorSchemes = {
   [`Light (${TILE_COLOR_SCHEME.LIGHT})`]: TILE_COLOR_SCHEME.LIGHT,
 };
 
-export const Default = (_, { parameters }) => {
-  const { colorScheme } = parameters?.props?.['bx-tile'] ?? {};
+export const Default = args => {
+  const { colorScheme } = args?.['bx-tile'] ?? {};
   return html`
     <bx-tile color-scheme="${ifNonNull(colorScheme)}">Default tile</bx-tile>
   `;
@@ -41,9 +41,8 @@ Default.parameters = {
   },
 };
 
-export const clickable = (_, { parameters }) => {
-  const { colorScheme, disabled, download, href, hreflang, ping, rel, target, type } =
-    parameters?.props?.['bx-clickable-tile'] ?? {};
+export const clickable = args => {
+  const { colorScheme, disabled, download, href, hreflang, ping, rel, target, type } = args?.['bx-clickable-tile'] ?? {};
   return html`
     <bx-clickable-tile
       color-scheme="${ifNonNull(colorScheme)}"
@@ -71,8 +70,8 @@ clickable.parameters = {
   },
 };
 
-export const singleSelectable = (_, { parameters }) => {
-  const { checkmarkLabel, colorScheme, name, value, onInput } = parameters?.props?.['bx-radio-tile'] ?? {};
+export const singleSelectable = args => {
+  const { checkmarkLabel, colorScheme, name, value, onInput } = args?.['bx-radio-tile'] ?? {};
   return html`
     <fieldset>
       <legend>Single-select tiles</legend>
@@ -121,8 +120,8 @@ singleSelectable.parameters = {
   },
 };
 
-export const multiSelectable = (_, { parameters }) => {
-  const { checkmarkLabel, colorScheme, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'] ?? {};
+export const multiSelectable = args => {
+  const { checkmarkLabel, colorScheme, name, selected, value, onInput } = args?.['bx-selectable-tile'] ?? {};
   return html`
     <bx-selectable-tile
       checkmark-label="${ifNonNull(checkmarkLabel)}"
@@ -148,8 +147,8 @@ multiSelectable.parameters = {
   },
 };
 
-export const expandable = (_, { parameters }) => {
-  const { colorScheme, expanded, disableChange, onBeforeChange, onChange } = parameters?.props?.['bx-expandable-tile'] ?? {};
+export const expandable = args => {
+  const { colorScheme, expanded, disableChange, onBeforeChange, onChange } = args?.['bx-expandable-tile'] ?? {};
   const handleBeforeChanged = (event: CustomEvent) => {
     onBeforeChange(event);
     if (disableChange) {

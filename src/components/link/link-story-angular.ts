@@ -11,13 +11,13 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { Default as baseDefault } from './link-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-link [disabled]="disabled" href="href" (click)="onClick($event)">
       Link
     </bx-link>
   `,
-  props: parameters?.props?.['bx-link'],
+  props: args?.['bx-link'],
 });
 
 Object.assign(Default, baseDefault);

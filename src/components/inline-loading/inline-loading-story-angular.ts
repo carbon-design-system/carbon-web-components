@@ -11,11 +11,11 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { Default as baseDefault } from './inline-loading-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-inline-loading [status]="status">Loading data...</bx-inline-loading>
   `,
-  props: parameters?.props?.['bx-inline-loading'],
+  props: args?.['bx-inline-loading'],
 });
 
 Object.assign(Default, baseDefault);

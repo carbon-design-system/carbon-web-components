@@ -12,7 +12,7 @@ import { Default as baseDefault } from './overflow-menu-story';
 
 export { default } from './overflow-menu-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
       <bx-overflow-menu :open="open" :color-scheme="colorScheme" :disabled="disabled">
         <bx-overflow-menu-body :direction="direction">
@@ -24,7 +24,7 @@ export const Default = (_, { parameters }) => ({
         </bx-overflow-menu-body>
       </bx-overflow-menu>
     `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-overflow-menu']),
+  ...createVueBindingsFromProps(args?.['bx-overflow-menu']),
 });
 
 Object.assign(Default, baseDefault);

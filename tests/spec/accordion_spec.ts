@@ -13,16 +13,9 @@ import BXAccordionItem from '../../src/components/accordion/accordion-item';
 import { Default } from '../../src/components/accordion/accordion-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-accordion': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-accordion': props,
+  });
 
 describe('bx-accordion', function() {
   describe('Toggling', function() {

@@ -17,9 +17,9 @@ import './progress-indicator-skeleton';
 import './progress-step-skeleton';
 import storyDocs from './progress-indicator-story.mdx';
 
-export const Default = (_, { parameters }) => {
-  const { vertical } = parameters?.props?.['bx-progress-indicator'] ?? {};
-  const { iconLabel, labelText, secondaryLabelText } = parameters?.props?.['bx-progress-step'] ?? {};
+export const Default = args => {
+  const { vertical } = args?.['bx-progress-indicator'] ?? {};
+  const { iconLabel, labelText, secondaryLabelText } = args?.['bx-progress-step'] ?? {};
   return html`
     <bx-progress-indicator ?vertical="${vertical}">
       <bx-progress-step
@@ -71,8 +71,8 @@ Default.parameters = {
   },
 };
 
-export const skeleton = (_, { parameters }) => {
-  const { vertical } = parameters?.props?.['bx-progress-indicator-skeleton'];
+export const skeleton = args => {
+  const { vertical } = args?.['bx-progress-indicator-skeleton'];
   return html`
     <bx-progress-indicator-skeleton ?vertical="${vertical}">
       <bx-progress-step-skeleton></bx-progress-step-skeleton>

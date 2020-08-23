@@ -15,16 +15,9 @@ import BXPagesSelect from '../../src/components/pagination/pages-select';
 import { Default } from '../../src/components/pagination/pagination-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-pagination': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-pagination': props,
+  });
 
 describe('bx-pagination', function() {
   const events = new EventManager();

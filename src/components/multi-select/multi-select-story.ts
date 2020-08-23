@@ -32,7 +32,7 @@ const types = {
   [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
 };
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const {
     clearSelectionLabel,
     colorScheme,
@@ -51,7 +51,7 @@ export const Default = (_, { parameters }) => {
     disableSelection,
     onBeforeSelect,
     onSelect,
-  } = parameters?.props?.['bx-multi-select'] ?? {};
+  } = args?.['bx-multi-select'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     if (onBeforeSelect) {
       onBeforeSelect(event);

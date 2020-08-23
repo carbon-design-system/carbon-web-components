@@ -15,7 +15,7 @@ import baseStory, {
   withoutFormItemWrapper as baseWithoutFormItemWrapper,
 } from './number-input-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-number-input
       [colorScheme]="colorScheme"
@@ -33,12 +33,12 @@ export const Default = (_, { parameters }) => ({
       (input)="onInput()"
     ></bx-number-input>
   `,
-  props: parameters?.props?.['bx-number-input'],
+  props: args?.['bx-number-input'],
 });
 
 Object.assign(Default, baseDefault);
 
-export const formItem = (_, { parameters }) => ({
+export const formItem = args => ({
   template: `
     <bx-form-item>
       <bx-number-input
@@ -62,12 +62,12 @@ export const formItem = (_, { parameters }) => ({
       </bx-number-input>
     </bx-form-item>
   `,
-  props: parameters?.props?.['bx-number-input'],
+  props: args?.['bx-number-input'],
 });
 
 Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = (_, { parameters }) => ({
+export const withoutFormItemWrapper = args => ({
   template: `
     <bx-number-input
       [value]="value"
@@ -87,7 +87,7 @@ export const withoutFormItemWrapper = (_, { parameters }) => ({
       <span slot="validity-message">Something isn't right</span>
     </bx-number-input>
   `,
-  props: parameters?.props?.['bx-number-input'],
+  props: args?.['bx-number-input'],
 });
 
 Object.assign(withoutFormItemWrapper, baseWithoutFormItemWrapper);

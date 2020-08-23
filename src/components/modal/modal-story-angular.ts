@@ -11,7 +11,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { Default as baseDefault } from './modal-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-modal
       [open]="open"
@@ -40,7 +40,7 @@ export const Default = (_, { parameters }) => ({
       }
     },
     handleClose: onClose,
-  }))(parameters?.props?.['bx-modal']),
+  }))(args?.['bx-modal']),
 });
 
 Object.assign(Default, baseDefault);

@@ -172,11 +172,11 @@ Vue.component('bx-ce-demo-file-uploader', {
   `,
 });
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const { props = {}, methods = {} } = createVueBindingsFromProps({
-    ...parameters?.props?.['bx-file-uploader'],
-    ...parameters?.props?.['bx-file-drop-container'],
-    ...parameters?.props?.['bx-file-uploader-item'],
+    ...args?.['bx-file-uploader'],
+    ...args?.['bx-file-drop-container'],
+    ...args?.['bx-file-uploader-item'],
   });
   return {
     template: `

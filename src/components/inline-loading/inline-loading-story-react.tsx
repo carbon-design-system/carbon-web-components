@@ -12,8 +12,8 @@ import { Default as baseDefault } from './inline-loading-story';
 
 export { default } from './inline-loading-story';
 
-export const Default = (_, { parameters }) => {
-  const { status } = parameters?.props?.['bx-inline-loading'];
+export const Default = args => {
+  const { status } = args?.['bx-inline-loading'];
   return <bx-inline-loading status={status}>Loading data...</bx-inline-loading>;
 };
 

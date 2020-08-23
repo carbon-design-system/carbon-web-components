@@ -12,7 +12,7 @@ import { Default as baseDefault } from './accordion-story';
 
 export { default } from './accordion-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-accordion
       @bx-accordion-item-beingtoggled="handleBeforeToggle"
@@ -49,7 +49,7 @@ export const Default = (_, { parameters }) => ({
         }
       },
       handleToggle: onToggle,
-    }))(parameters?.props?.['bx-accordion'])
+    }))(args?.['bx-accordion'])
   ),
 });
 

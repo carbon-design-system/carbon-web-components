@@ -12,13 +12,13 @@ import { Default as baseDefault } from './link-story';
 
 export { default } from './link-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-link :disabled="disabled" :href="href" @click="onClick">
       Link
     </bx-link>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-link']),
+  ...createVueBindingsFromProps(args?.['bx-link']),
 });
 
 Object.assign(Default, baseDefault);

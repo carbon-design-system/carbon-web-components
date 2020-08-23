@@ -18,8 +18,8 @@ import storyDocs from './content-switcher-story.mdx';
 
 const noop = () => {};
 
-export const Default = (_, { parameters }) => {
-  const { value, disableSelection, onBeforeSelect = noop, onSelect = noop } = parameters?.props?.['bx-content-switcher'] ?? {};
+export const Default = args => {
+  const { value, disableSelection, onBeforeSelect = noop, onSelect = noop } = args?.['bx-content-switcher'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {

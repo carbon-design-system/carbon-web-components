@@ -18,19 +18,10 @@ import { Default as baseDefault } from './search-story';
 
 export { default } from './search-story';
 
-export const Default = (_, { parameters }) => {
-  const {
-    closeButtonAssistiveText,
-    colorScheme,
-    disabled,
-    labelText,
-    name,
-    placeholder,
-    size,
-    type,
-    value,
-    onInput,
-  } = parameters?.props?.['bx-search'];
+export const Default = args => {
+  const { closeButtonAssistiveText, colorScheme, disabled, labelText, name, placeholder, size, type, value, onInput } = args?.[
+    'bx-search'
+  ];
   return (
     <BXSearch
       closeButtonAssistiveText={closeButtonAssistiveText}

@@ -33,7 +33,7 @@ const types = {
   [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
 };
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const {
     open,
     colorScheme,
@@ -47,7 +47,7 @@ export const Default = (_, { parameters }) => {
     disableSelection,
     onBeforeSelect,
     onSelect,
-  } = parameters?.props?.['bx-dropdown'] ?? {};
+  } = args?.['bx-dropdown'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     if (onBeforeSelect) {
       onBeforeSelect(event);

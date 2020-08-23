@@ -16,8 +16,8 @@ import { Default as baseDefault } from './checkbox-story';
 
 export { default } from './checkbox-story';
 
-export const Default = (_, { parameters }) => {
-  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onChange } = parameters?.props?.['bx-checkbox'];
+export const Default = args => {
+  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onChange } = args?.['bx-checkbox'];
   return (
     <BXCheckbox
       checked={checked}

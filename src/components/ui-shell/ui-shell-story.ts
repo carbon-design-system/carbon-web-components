@@ -99,9 +99,9 @@ const StoryContent = () => html`
   </main>
 `;
 
-export const sideNav = (_, { parameters }) => {
-  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
-  const { href } = parameters?.props?.['bx-side-nav-menu-item'] ?? {};
+export const sideNav = args => {
+  const { collapseMode, expanded } = args?.['bx-side-nav'] ?? {};
+  const { href } = args?.['bx-side-nav-menu-item'] ?? {};
   updateRailExpanded({ collapseMode, expanded });
   const result = html`
     <style>
@@ -166,9 +166,9 @@ sideNav.parameters = {
   },
 };
 
-export const sideNavWithIcons = (_, { parameters }) => {
-  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
-  const { href } = parameters?.props?.['bx-side-nav-menu-item'] ?? {};
+export const sideNavWithIcons = args => {
+  const { collapseMode, expanded } = args?.['bx-side-nav'] ?? {};
+  const { href } = args?.['bx-side-nav-menu-item'] ?? {};
   updateRailExpanded({ collapseMode, expanded });
   const result = html`
     <style>
@@ -228,9 +228,9 @@ sideNavWithIcons.parameters = {
   knobs: sideNav.parameters.knobs,
 };
 
-export const header = (_, { parameters }) => {
-  const { collapseMode, expanded, usageMode } = parameters?.props?.['bx-side-nav'] ?? {};
-  const { href } = parameters?.props?.['bx-side-nav-menu-item'] ?? {};
+export const header = args => {
+  const { collapseMode, expanded, usageMode } = args?.['bx-side-nav'] ?? {};
+  const { href } = args?.['bx-side-nav-menu-item'] ?? {};
   updateRailExpanded({ collapseMode, expanded, usageMode });
   const handleButtonToggle = event => {
     updateRailExpanded({ collapseMode, expanded: event.detail.active, usageMode });

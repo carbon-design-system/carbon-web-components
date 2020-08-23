@@ -28,8 +28,8 @@ import styles from './structured-list-story.scss';
 
 export { default } from './structured-list-story';
 
-export const Default = (_, { parameters }) => {
-  const { hasSelection } = parameters?.props?.['bx-structured-list'];
+export const Default = args => {
+  const { hasSelection } = args?.['bx-structured-list'];
   const selectionName = !hasSelection ? undefined : 'structured-list-selection';
   const selectionValues = !hasSelection
     ? []

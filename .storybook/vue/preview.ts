@@ -7,16 +7,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { decorators as decoratorsOrig } from '../preview';
+import addons from '@storybook/addons';
 import containerStyles from '../_container.scss';
 import theme from './theme';
 
-export const parameters = {
-  options: {
-    showRoots: true,
-    theme: theme,
-  },
-};
+addons.setConfig({
+  showRoots: true,
+  theme: theme,
+});
 
 export const decorators = [
   () => {
@@ -41,5 +39,4 @@ export const decorators = [
       `,
     };
   },
-  decoratorsOrig.find(({ name }) => name === 'decoratorParameters'),
 ];

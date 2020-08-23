@@ -12,7 +12,7 @@ import { Default as baseDefault } from './content-switcher-story';
 
 export { default } from './content-switcher-story';
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const props = (({ onBeforeSelect, onSelect, ...rest }) => {
     function handleBeforeSelect(this: any, event: CustomEvent) {
       onBeforeSelect(event);
@@ -27,7 +27,7 @@ export const Default = (_, { parameters }) => {
       handleBeforeSelect,
       handleAfterSelect: onSelect,
     };
-  })(parameters?.props?.['bx-content-switcher']);
+  })(args?.['bx-content-switcher']);
   return {
     template: `
       <bx-content-switcher

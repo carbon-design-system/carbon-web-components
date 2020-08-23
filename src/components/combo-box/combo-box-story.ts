@@ -31,7 +31,7 @@ const sizes = {
   [`Extra large size (${DROPDOWN_SIZE.EXTRA_LARGE})`]: DROPDOWN_SIZE.EXTRA_LARGE,
 };
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const {
     open,
     colorScheme,
@@ -47,7 +47,7 @@ export const Default = (_, { parameters }) => {
     disableSelection,
     onBeforeSelect,
     onSelect,
-  } = parameters?.props?.['bx-combo-box'] ?? {};
+  } = args?.['bx-combo-box'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     if (onBeforeSelect) {
       onBeforeSelect(event);

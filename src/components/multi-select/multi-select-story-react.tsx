@@ -18,7 +18,7 @@ import { Default as baseDefault } from './multi-select-story';
 
 export { default } from './multi-select-story';
 
-export const Default = (_, { parameters }) => {
+export const Default = args => {
   const {
     clearSelectionLabel,
     colorScheme,
@@ -37,7 +37,7 @@ export const Default = (_, { parameters }) => {
     disableSelection,
     onBeforeSelect,
     onSelect,
-  } = parameters?.props?.['bx-multi-select'];
+  } = args?.['bx-multi-select'];
   const handleBeforeSelect = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {

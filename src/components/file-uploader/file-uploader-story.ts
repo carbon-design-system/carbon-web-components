@@ -212,10 +212,10 @@ const defineDemoFileUploader = (() => {
   };
 })();
 
-export const Default = (_, { parameters }) => {
-  const { helperText, labelText } = parameters?.props?.['bx-file-uploader'] ?? {};
-  const { accept, disabled, multiple } = parameters?.props?.['bx-file-drop-container'] ?? {};
-  const { size, disableDelete, onBeforeDelete, onDelete } = parameters?.props?.['bx-file-uploader-item'] ?? {};
+export const Default = args => {
+  const { helperText, labelText } = args?.['bx-file-uploader'] ?? {};
+  const { accept, disabled, multiple } = args?.['bx-file-drop-container'] ?? {};
+  const { size, disableDelete, onBeforeDelete, onDelete } = args?.['bx-file-uploader-item'] ?? {};
   const handleBeforeDelete = (event: CustomEvent) => {
     onBeforeDelete(event);
     if (disableDelete) {

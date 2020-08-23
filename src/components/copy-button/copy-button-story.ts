@@ -15,8 +15,8 @@ import ifNonNull from '../../globals/directives/if-non-null';
 import './copy-button';
 import storyDocs from './copy-button-story.mdx';
 
-export const Default = (_, { parameters }) => {
-  const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } = parameters?.props?.['bx-copy-button'] ?? {};
+export const Default = args => {
+  const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } = args?.['bx-copy-button'] ?? {};
   return html`
     <bx-copy-button
       button-assistive-text="${ifNonNull(buttonAssistiveText)}"

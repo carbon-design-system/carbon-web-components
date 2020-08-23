@@ -24,16 +24,9 @@ const getValues = (formData: FormData) => {
 };
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-slider': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-slider': props,
+  });
 
 describe('bx-slider', function() {
   describe('Rendering', function() {

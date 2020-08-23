@@ -24,16 +24,9 @@ const getValues = (formData: FormData) => {
 };
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-toggle': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-toggle': props,
+  });
 
 describe('bx-toggle', function() {
   describe('Rendering', function() {

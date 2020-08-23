@@ -18,8 +18,8 @@ import { Default as baseDefault } from './content-switcher-story';
 
 export { default } from './content-switcher-story';
 
-export const Default = (_, { parameters }) => {
-  const { value, disableSelection, onBeforeSelect, onSelect } = parameters?.props?.['bx-content-switcher'];
+export const Default = args => {
+  const { value, disableSelection, onBeforeSelect, onSelect } = args?.['bx-content-switcher'];
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {

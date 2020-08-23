@@ -24,7 +24,7 @@ import {
 
 export { default } from './code-snippet-story';
 
-export const singleLine = (_, { parameters }) => {
+export const singleLine = args => {
   const {
     codeAssistiveText,
     copyButtonAssistiveText,
@@ -32,7 +32,7 @@ export const singleLine = (_, { parameters }) => {
     copyButtonFeedbackTimeout,
     colorScheme,
     onClick,
-  } = parameters?.props?.['bx-code-snippet'];
+  } = args?.['bx-code-snippet'];
   return (
     <BXCodeSnippet
       codeAssistiveText={codeAssistiveText}
@@ -51,7 +51,7 @@ export const singleLine = (_, { parameters }) => {
 
 Object.assign(singleLine, baseSingleLine);
 
-export const multiLine = (_, { parameters }) => {
+export const multiLine = args => {
   const {
     codeAssistiveText,
     copyButtonAssistiveText,
@@ -61,7 +61,7 @@ export const multiLine = (_, { parameters }) => {
     expandButtonText,
     colorScheme,
     onClick,
-  } = parameters?.props?.['bx-code-snippet'];
+  } = args?.['bx-code-snippet'];
   return (
     <BXCodeSnippet
       type="multi"
@@ -98,7 +98,7 @@ floating: 10000
 
 Object.assign(multiLine, baseMultiLine);
 
-export const inline = (_, { parameters }) => {
+export const inline = args => {
   const {
     codeAssistiveText,
     copyButtonAssistiveText,
@@ -106,7 +106,7 @@ export const inline = (_, { parameters }) => {
     copyButtonFeedbackTimeout,
     colorScheme,
     onClick,
-  } = parameters?.props?.['bx-code-snippet'];
+  } = args?.['bx-code-snippet'];
   return (
     <BXCodeSnippet
       type="inline"

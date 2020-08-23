@@ -12,16 +12,9 @@ import '../../src/components/link/link';
 import { Default } from '../../src/components/link/link-story';
 
 const template = (props?) =>
-  Default(
-    {},
-    {
-      parameters: {
-        props: {
-          'bx-link': props,
-        },
-      },
-    }
-  );
+  Default({
+    'bx-link': props,
+  });
 
 describe('bx-link', function() {
   describe('Misc attributes', function() {

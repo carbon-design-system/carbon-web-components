@@ -522,7 +522,7 @@ Vue.component('bx-ce-demo-data-table', {
   `,
 });
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-table :size="size">
       <bx-table-head>
@@ -563,15 +563,15 @@ export const Default = (_, { parameters }) => ({
       </bx-table-body>
     </bx-table>
   `,
-  ...createVueBindingsFromProps({ ...parameters?.props?.['bx-table'], ...parameters?.props?.['bx-table-body'] }),
+  ...createVueBindingsFromProps({ ...args?.['bx-table'], ...args?.['bx-table-body'] }),
 });
 
 Object.assign(Default, baseDefault);
 
-export const expandable = (_, { parameters }) => {
+export const expandable = args => {
   const { props = {}, methods = {} } = createVueBindingsFromProps({
-    ...parameters?.props?.['bx-table'],
-    ...parameters?.props?.['bx-table-body'],
+    ...args?.['bx-table'],
+    ...args?.['bx-table-body'],
   });
   return {
     template: `
@@ -652,12 +652,12 @@ export const expandable = (_, { parameters }) => {
 
 Object.assign(expandable, baseExpandable);
 
-export const sortable = (_, { parameters }) => {
+export const sortable = args => {
   const { props = {}, methods = {} } = createVueBindingsFromProps({
-    ...parameters?.props?.['bx-table'],
-    ...parameters?.props?.['bx-table-body'],
-    ...parameters?.props?.['bx-table-row'],
-    ...parameters?.props?.['bx-header-cell'],
+    ...args?.['bx-table'],
+    ...args?.['bx-table-body'],
+    ...args?.['bx-table-row'],
+    ...args?.['bx-header-cell'],
   });
   return {
     template: `
@@ -700,12 +700,12 @@ export const sortable = (_, { parameters }) => {
 
 Object.assign(sortable, baseSortable);
 
-export const sortableWithPagination = (_, { parameters }) => {
+export const sortableWithPagination = args => {
   const { props = {}, methods = {} } = createVueBindingsFromProps({
-    ...parameters?.props?.['bx-table'],
-    ...parameters?.props?.['bx-table-body'],
-    ...parameters?.props?.['bx-table-row'],
-    ...parameters?.props?.['bx-header-cell'],
+    ...args?.['bx-table'],
+    ...args?.['bx-table-body'],
+    ...args?.['bx-table-row'],
+    ...args?.['bx-header-cell'],
   });
   return {
     template: `

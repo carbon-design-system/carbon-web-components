@@ -11,7 +11,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { Default as baseDefault } from './radio-button-story';
 
-export const Default = (_, { parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-radio-button-group
       [disabled]="disabled"
@@ -27,8 +27,8 @@ export const Default = (_, { parameters }) => ({
     </bx-radio-button-group>
   `,
   props: {
-    ...parameters?.props?.['bx-radio-button-group'],
-    ...parameters?.props?.['bx-radio-button'],
+    ...args?.['bx-radio-button-group'],
+    ...args?.['bx-radio-button'],
   },
 });
 
