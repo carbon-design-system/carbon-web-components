@@ -34,6 +34,7 @@ export const inline = ({ parameters }) => {
     closeButtonLabel,
     iconLabel,
     open,
+    timeout,
     disableClose,
     onBeforeClose = noop,
     onClose = noop,
@@ -54,6 +55,7 @@ export const inline = ({ parameters }) => {
       close-button-label="${ifNonNull(closeButtonLabel)}"
       icon-label="${ifNonNull(iconLabel)}"
       ?open="${open}"
+      timeout="${ifNonNull(timeout)}"
       @bx-notification-beingclosed="${handleBeforeClose}"
       @bx-notification-closed="${onClose}"
     >
@@ -72,6 +74,7 @@ inline.story = {
         closeButtonLabel: textNullable('a11y label for the close button (close-button-label)', ''),
         iconLabel: textNullable('a11y label for the icon (icon-label)', ''),
         open: boolean('Open (open)', true),
+        timeout: textNullable('Timeout (in ms)', ''),
         disableClose: boolean(
           'Disable user-initiated close action (Call event.preventDefault() in bx-notification-beingclosed event)',
           false
@@ -93,6 +96,7 @@ export const toast = ({ parameters }) => {
     closeButtonLabel,
     iconLabel,
     open,
+    timeout,
     disableClose,
     onBeforeClose = noop,
     onClose = noop,
@@ -114,6 +118,7 @@ export const toast = ({ parameters }) => {
       close-button-label="${ifNonNull(closeButtonLabel)}"
       icon-label="${ifNonNull(iconLabel)}"
       ?open="${open}"
+      timeout="${ifNonNull(timeout)}"
       @bx-notification-beingclosed="${handleBeforeClose}"
       @bx-notification-closed="${onClose}"
     >

@@ -22,6 +22,7 @@ export const inline = ({ parameters }) => ({
       [closeButtonLabel]="closeButtonLabel"
       [iconLabel]="iconLabel"
       [open]="open"
+      [timeout]="timeout"
       (bx-notification-beingclosed)="handleBeforeClose($event)"
       (bx-notification-closed)="handleClose($event)"
     >
@@ -56,6 +57,7 @@ export const toast = ({ parameters }) => ({
       [closeButtonLabel]="closeButtonLabel"
       [iconLabel]="iconLabel"
       [open]="open"
+      [timeout]="timeout"
       (bx-notification-beingclosed)="handleBeforeClose($event)"
       (bx-notification-closed)="handleClose($event)"
     >
