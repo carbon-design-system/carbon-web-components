@@ -93,14 +93,14 @@ class BXInlineNotification extends FocusMixin(LitElement) {
    * @param event The event.
    */
   protected _handleClickCloseButton({ target }: MouseEvent) {
-    this._handleUserInitiatedClose(target);
+    this._handleInitiatedCloseEvent(target);
   }
 
   /**
-   * Handles user-initiated close request of this modal.
-   * @param triggeredBy The element that triggered this close request.
+   * Handles initiated close request of this modal.
+   * @param triggeredBy The element that triggered this close request if there is one.
    */
-  protected _handleUserInitiatedClose(triggeredBy: EventTarget | null) {
+  protected _handleInitiatedCloseEvent(triggeredBy: EventTarget | null | undefined) {
     if (this.open) {
       const init = {
         bubbles: true,
@@ -196,6 +196,12 @@ class BXInlineNotification extends FocusMixin(LitElement) {
   open = true;
 
   /**
+   * Notification time in ms until gets closed.
+   */
+  @property({ type: Number, reflect: true })
+  timeout: number | null | undefined;
+
+  /**
    * The subtitle.
    */
   @property()
@@ -212,6 +218,17 @@ class BXInlineNotification extends FocusMixin(LitElement) {
       this.setAttribute('role', 'alert');
     }
     super.connectedCallback();
+  }
+
+  updated(changedProperties) {
+    const openChanged = changedProperties.has('open');
+    const timeoutChanged = changedProperties.has('timeout');
+
+    if (openChanged || timeoutChanged) {
+      if (this.open && this.timeout) {
+        setTimeout(this._handleInitiatedCloseEvent.bind(this), this.timeout);
+      }
+    }
   }
 
   render() {
