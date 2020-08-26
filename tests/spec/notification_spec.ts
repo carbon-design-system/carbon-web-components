@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -60,6 +60,30 @@ describe('bx-inline-notification', function() {
       notification!.shadowRoot!.querySelector('button')!.click();
       await Promise.resolve();
       expect(notification!.open).toBe(false);
+    });
+  });
+
+  describe('Timeout', function() {
+    const timeout = 100;
+
+    let notification: BXInlineNotification | null;
+
+    beforeEach(async function() {
+      render(
+        inlineTemplate({
+          timeout,
+        }),
+        document.body
+      );
+      await Promise.resolve();
+      notification = document.body.querySelector('bx-inline-notification');
+    });
+
+    it('Should support closing after the timeout', async function() {
+      expect(notification!.open).toBe(true);
+      setTimeout(() => {
+        expect(notification!.open).toBe(false);
+      }, timeout);
     });
   });
 
