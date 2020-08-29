@@ -16,6 +16,7 @@
   <select
     aria-invalid="false"
     class="bx--select-input bx--select-input--lg"
+    id="input"
   >
     <optgroup
       class="bx--select-optgroup"
@@ -82,6 +83,7 @@
     aria-invalid="false"
     class="bx--select-input bx--select-input--xl"
     disabled=""
+    id="input"
   >
     <optgroup
       class="bx--select-optgroup"
@@ -151,6 +153,7 @@
     aria-describedby="validity-message"
     aria-invalid="true"
     class="bx--select-input bx--select-input--lg"
+    id="input"
   >
     <optgroup
       class="bx--select-optgroup"

@@ -343,6 +343,7 @@ class BXSelect extends ValidityMixin(FormMixin(LitElement)) {
       </label>
       <div class="${prefix}--select-input__wrapper" ?data-invalid="${invalid}">
         <select
+          id="input"
           class="${inputClasses}"
           ?disabled="${disabled}"
           aria-invalid="${String(Boolean(invalid))}"
