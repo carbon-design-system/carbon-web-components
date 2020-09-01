@@ -66,7 +66,7 @@ describe('bx-inline-notification', function() {
   describe('Timeout', function() {
     const timeout = 100;
 
-    let notification: BXInlineNotification | null;
+    let notification;
 
     beforeEach(async function() {
       render(
@@ -80,10 +80,15 @@ describe('bx-inline-notification', function() {
     });
 
     it('Should support closing after the timeout', async function() {
+      const initializeCloseEvent = (notification as any)._handleInitiatedCloseEvent;
+      spyOn(notification, '_setTimeout').and.callFake(() =>
+        // TODO: See if we can get around TS2683
+        // @ts-ignore
+        initializeCloseEvent.call(this)
+      );
       expect(notification!.open).toBe(true);
-      setTimeout(() => {
-        expect(notification!.open).toBe(false);
-      }, timeout);
+      await Promise.resolve();
+      expect(notification!.open).toBe(false);
     });
   });
 

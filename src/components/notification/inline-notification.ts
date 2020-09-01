@@ -84,9 +84,42 @@ const iconsForKinds = {
 @customElement(`${prefix}-inline-notification`)
 class BXInlineNotification extends FocusMixin(LitElement) {
   /**
+   * Current timeout identifier
+   */
+  protected _timeoutID?: number | null;
+
+  /**
    * Notification type.
    */
   protected _type = NOTIFICATION_TYPE.INLINE;
+
+  /**
+   * Creates a new timeout
+   * @param timeout the time in ms
+   */
+  protected _setTimeout(timeout: number) {
+    return setTimeout(this._handleInitiatedCloseEvent.bind(this), timeout);
+  }
+
+  /**
+   * Cancels the current timeout configured for the notification
+   * @param timeoutID current timeout's identifier
+   */
+  protected _cancelTimeout(timeoutID: number) {
+    clearTimeout(timeoutID);
+    this._timeoutID = null;
+  }
+
+  /**
+   * Overrides (if exists) the timeout to close the notification
+   * @param timeout the time in ms
+   */
+  protected _initializeTimeout(timeout: number) {
+    if (this._timeoutID) {
+      this._cancelTimeout(this._timeoutID);
+    }
+    this._timeoutID = this._setTimeout(timeout);
+  }
 
   /**
    * Handles `click` event on the close button.
@@ -100,7 +133,7 @@ class BXInlineNotification extends FocusMixin(LitElement) {
    * Handles initiated close request of this modal.
    * @param triggeredBy The element that triggered this close request if there is one.
    */
-  protected _handleInitiatedCloseEvent(triggeredBy: EventTarget | null | undefined) {
+  protected _handleInitiatedCloseEvent(triggeredBy?: EventTarget | null) {
     if (this.open) {
       const init = {
         bubbles: true,
@@ -199,7 +232,7 @@ class BXInlineNotification extends FocusMixin(LitElement) {
    * Notification time in ms until gets closed.
    */
   @property({ type: Number, reflect: true })
-  timeout: number | null | undefined;
+  timeout?: number | null;
 
   /**
    * The subtitle.
@@ -226,7 +259,9 @@ class BXInlineNotification extends FocusMixin(LitElement) {
 
     if (openChanged || timeoutChanged) {
       if (this.open && this.timeout) {
-        setTimeout(this._handleInitiatedCloseEvent.bind(this), this.timeout);
+        this._initializeTimeout(this.timeout);
+      } else if (!this.open && this._timeoutID) {
+        this._cancelTimeout(this._timeoutID);
       }
     }
   }
