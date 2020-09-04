@@ -69,7 +69,7 @@ describe('bx-inline-notification', function() {
     let notification;
 
     beforeEach(async function() {
-      const initializeTimerCloseEvent = (BXInlineNotification.prototype as any)._handleTimerInitiatedClose;
+      const initializeTimerCloseEvent = (BXInlineNotification.prototype as any)._handleUserOrTimerInitiatedClose;
       spyOn(BXInlineNotification.prototype as any, '_initializeTimeout').and.callFake(function() {
         // TODO: See if we can get around TS2683
         // @ts-ignore
