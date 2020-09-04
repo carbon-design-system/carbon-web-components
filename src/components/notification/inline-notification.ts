@@ -86,20 +86,12 @@ class BXInlineNotification extends FocusMixin(LitElement) {
   /**
    * Current timeout identifier
    */
-  protected _timeoutID?: number | null;
+  protected _timeoutID: number | null = null;
 
   /**
    * Notification type.
    */
   protected _type = NOTIFICATION_TYPE.INLINE;
-
-  /**
-   * Creates a new timeout
-   * @param timeout the time in ms
-   */
-  protected _setTimeout(timeout: number) {
-    return setTimeout(this._handleInitiatedCloseEvent.bind(this), timeout);
-  }
 
   /**
    * Cancels the current timeout configured for the notification
@@ -118,7 +110,27 @@ class BXInlineNotification extends FocusMixin(LitElement) {
     if (this._timeoutID) {
       this._cancelTimeout(this._timeoutID);
     }
-    this._timeoutID = this._setTimeout(timeout);
+    this._timeoutID = setTimeout(this._handleTimerInitiatedClose.bind(this), timeout);
+  }
+
+  /**
+   * Handles timeout close request of this modal.
+   */
+  protected _handleTimerInitiatedClose(triggeredBy: undefined) {
+    if (this.open) {
+      const init = {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+        detail: {
+          triggeredBy,
+        },
+      };
+      if (this.dispatchEvent(new CustomEvent((this.constructor as typeof BXInlineNotification).eventBeforeClose, init))) {
+        this.open = false;
+        this.dispatchEvent(new CustomEvent((this.constructor as typeof BXInlineNotification).eventClose, init));
+      }
+    }
   }
 
   /**
@@ -126,14 +138,14 @@ class BXInlineNotification extends FocusMixin(LitElement) {
    * @param event The event.
    */
   protected _handleClickCloseButton({ target }: MouseEvent) {
-    this._handleInitiatedCloseEvent(target);
+    this._handleUserInitiatedClose(target);
   }
 
   /**
-   * Handles initiated close request of this modal.
-   * @param triggeredBy The element that triggered this close request if there is one.
+   * Handles user-initiated close request of this modal.
+   * @param triggeredBy The element that triggered this close request.
    */
-  protected _handleInitiatedCloseEvent(triggeredBy?: EventTarget | null) {
+  protected _handleUserInitiatedClose(triggeredBy: EventTarget | null) {
     if (this.open) {
       const init = {
         bubbles: true,

@@ -69,9 +69,16 @@ describe('bx-inline-notification', function() {
     let notification;
 
     beforeEach(async function() {
+      const initializeTimerCloseEvent = (BXInlineNotification.prototype as any)._handleTimerInitiatedClose;
+      spyOn(BXInlineNotification.prototype as any, '_initializeTimeout').and.callFake(function() {
+        // TODO: See if we can get around TS2683
+        // @ts-ignore
+        initializeTimerCloseEvent.call(this);
+      });
       render(
         inlineTemplate({
           timeout,
+          open: false,
         }),
         document.body
       );
@@ -80,13 +87,7 @@ describe('bx-inline-notification', function() {
     });
 
     it('Should support closing after the timeout', async function() {
-      const initializeCloseEvent = (notification as any)._handleInitiatedCloseEvent;
-      spyOn(notification, '_setTimeout').and.callFake(() =>
-        // TODO: See if we can get around TS2683
-        // @ts-ignore
-        initializeCloseEvent.call(this)
-      );
-      expect(notification!.open).toBe(true);
+      notification.open = true;
       await Promise.resolve();
       expect(notification!.open).toBe(false);
     });
