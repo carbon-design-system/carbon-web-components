@@ -10,7 +10,7 @@
     "postinstall": "babel --plugins=./babel-plugin-redux-form-snowpack.js node_modules/redux-form/es/util/isHotReloading.js -o node_modules/redux-form/es/util/isHotReloading.js"
   },
   "dependencies": {
-    "carbon-components": "~10.17.0",
+    "carbon-components": "~10.19.0",
     "carbon-web-components": "^1.0.0",
     "lit-element": "~2.2.0",
     "lit-html": "^1.2.0",
