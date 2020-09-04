@@ -224,7 +224,7 @@ class BXInlineNotification extends FocusMixin(LitElement) {
    * Notification time in ms until gets closed.
    */
   @property({ type: Number, reflect: true })
-  timeout?: number | null;
+  timeout: number | null = null;
 
   /**
    * The subtitle.
