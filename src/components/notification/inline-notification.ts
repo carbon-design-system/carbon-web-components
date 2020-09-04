@@ -125,7 +125,7 @@ class BXInlineNotification extends FocusMixin(LitElement) {
    * Handles user-initiated or through timer close request of this modal.
    * @param triggeredBy The element that triggered this close request, if there is one.
    */
-  protected _handleUserOrTimerInitiatedClose(triggeredBy?: EventTarget | null) {
+  protected _handleUserOrTimerInitiatedClose(triggeredBy: EventTarget | null) {
     if (this.open) {
       const init = {
         bubbles: true,
