@@ -90,6 +90,7 @@ export { default as BXTabsSkeleton } from './components/tabs/tabs-skeleton';
 export { default as BXTabSkeleton } from './components/tabs/tab-skeleton';
 export { default as BXTag } from './components/tag/tag';
 export { default as BXFilterTag } from './components/tag/filter-tag';
+export { default as BXSkipToContent } from './components/skip-to-content/skip-to-content';
 export { default as BXTile } from './components/tile/tile';
 export { default as BXClickableTile } from './components/tile/clickable-tile';
 export { default as BXExpandableTile } from './components/tile/expandable-tile';

@@ -12,7 +12,7 @@ import { html } from 'lit-html'; // eslint-disable-line import/first
 import addons from '@storybook/addons';
 import { configure, addDecorator, addParameters, setCustomElements } from '@storybook/web-components'; // eslint-disable-line import/first
 import { withKnobs } from '@storybook/addon-knobs';
-import './components/focus-trap/focus-trap';
+import '../src/components/skip-to-content/skip-to-content';
 import customElementsMetadata from '../custom-elements.json';
 import { CURRENT_THEME } from './addon-carbon-theme/shared';
 import theme from './theme';
@@ -53,8 +53,9 @@ addDecorator(story => {
     <style>
       ${containerStyles}
     </style>
-    <bx-ce-demo-focus-trap href="#main-content" aria-label="Skip to main content">Skip to main content</bx-ce-demo-focus-trap>
+    <bx-skip-to-content href="#main-content"></bx-skip-to-content>
     <div
+      id="main-content"
       name="main-content"
       data-floating-menu-container
       role="${hasMainTag ? 'none' : 'main'}"
@@ -62,7 +63,6 @@ addDecorator(story => {
     >
       ${result}
     </div>
-    <bx-ce-demo-focus-trap href="#main-content" aria-label="End of content">End of content</bx-ce-demo-focus-trap>
   `;
 });
 
