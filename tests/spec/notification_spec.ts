@@ -59,6 +59,36 @@ describe('bx-inline-notification', function() {
     });
   });
 
+  describe('Timeout', function() {
+    const timeout = 100;
+
+    let notification;
+
+    beforeEach(async function() {
+      const initializeTimerCloseEvent = (BXInlineNotification.prototype as any)._handleUserOrTimerInitiatedClose;
+      spyOn(BXInlineNotification.prototype as any, '_initializeTimeout').and.callFake(function() {
+        // TODO: See if we can get around TS2683
+        // @ts-ignore
+        initializeTimerCloseEvent.call(this);
+      });
+      render(
+        inlineTemplate({
+          timeout,
+          open: false,
+        }),
+        document.body
+      );
+      await Promise.resolve();
+      notification = document.body.querySelector('bx-inline-notification');
+    });
+
+    it('Should support closing after the timeout', async function() {
+      notification.open = true;
+      await Promise.resolve();
+      expect(notification!.open).toBe(false);
+    });
+  });
+
   afterEach(async function() {
     await render(undefined!, document.body);
   });

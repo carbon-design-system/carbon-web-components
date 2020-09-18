@@ -29,6 +29,7 @@ export const inline = args => {
     closeButtonLabel,
     iconLabel,
     open,
+    timeout,
     disableClose,
     onBeforeClose,
     onClose,
@@ -49,6 +50,7 @@ export const inline = args => {
       closeButtonLabel={closeButtonLabel}
       iconLabel={iconLabel}
       open={open}
+      timeout={timeout}
       onBeforeClose={handleBeforeClose}
       onClose={onClose}
     />
@@ -67,6 +69,7 @@ export const toast = args => {
     closeButtonLabel,
     iconLabel,
     open,
+    timeout,
     disableClose,
     onBeforeClose,
     onClose,
@@ -88,6 +91,7 @@ export const toast = args => {
       closeButtonLabel={closeButtonLabel}
       iconLabel={iconLabel}
       open={open}
+      timeout={timeout}
       onBeforeClose={handleBeforeClose}
       onClose={onClose}
     />

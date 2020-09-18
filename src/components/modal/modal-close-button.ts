@@ -7,9 +7,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, customElement, LitElement } from 'lit-element';
+import { html, property, customElement, LitElement } from 'lit-element';
 import Close20 from '@carbon/icons/lib/close/20';
 import settings from 'carbon-components/es/globals/js/settings';
+import ifNonNull from '../../globals/directives/if-non-null';
 import styles from './modal.scss';
 
 const { prefix } = settings;
@@ -20,13 +21,20 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-modal-close-button`)
 class BXModalCloseButton extends LitElement {
+  /**
+   * The assistive text for the button.
+   */
+  @property({ attribute: 'assistive-text' })
+  assistiveText = 'Close';
+
   createRenderRoot() {
     return this.attachShadow({ mode: 'open', delegatesFocus: true });
   }
 
   render() {
+    const { assistiveText } = this;
     return html`
-      <button class="${prefix}--modal-close">
+      <button aria-label="${ifNonNull(assistiveText)}" class="${prefix}--modal-close" title="${ifNonNull(assistiveText)}">
         ${Close20({
           class: `${prefix}--modal-close__icon`,
         })}

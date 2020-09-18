@@ -9,6 +9,7 @@
 
 import addons from '@storybook/addons';
 import containerStyles from '../_container.scss';
+import '../../src/components/skip-to-content/skip-to-content';
 import theme from './theme';
 
 addons.setConfig({
@@ -50,11 +51,10 @@ export const decorators = [
     return {
       ...rest,
       template: `
-        <a href="#main-content" class="bx--assistive-text" aria-label="Skip to main content">Skip to main content</a>
+        <bx-skip-to-content href="#main-content"></bx-skip-to-content>
         <div id="main-content" data-floating-menu-container role="main" class="bx--body bx-ce-demo-devenv--container">
           ${template}
         </div>
-        <a href="#main-content" class="bx--assistive-text" aria-label="End of content">End of content</a>
       `,
     };
   },

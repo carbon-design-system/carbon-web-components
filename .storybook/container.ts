@@ -8,6 +8,7 @@
  */
 
 import { html, TemplateResult } from 'lit-html';
+import '../src/components/skip-to-content/skip-to-content';
 import containerStyles from './_container.scss'; // eslint-disable-line import/first
 
 /**
@@ -20,7 +21,9 @@ const container = ({ hasMainTag, children }: { hasMainTag?: boolean; children: T
   <style>
     ${containerStyles}
   </style>
+  <bx-skip-to-content href="#main-content"></bx-skip-to-content>
   <div
+    id="main-content"
     name="main-content"
     data-floating-menu-container
     role="${hasMainTag ? 'none' : 'main'}"
