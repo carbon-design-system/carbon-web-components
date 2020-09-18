@@ -12,7 +12,7 @@ import '../../src/polyfills';
 import addons from '@storybook/addons';
 import { configure, addDecorator, addParameters } from '@storybook/angular';
 import { withKnobs } from '@storybook/addon-knobs';
-import '../components/focus-trap/focus-trap';
+import '../../src/components/skip-to-content/skip-to-content';
 import { CURRENT_THEME } from '../addon-carbon-theme/shared';
 import theme from './theme';
 import containerStyles from '../_container.scss'; // eslint-disable-line import/first
@@ -56,11 +56,10 @@ addDecorator(story => {
   return {
     ...rest,
     template: `
-      <a href="#main-content" class="bx--assistive-text" aria-label="Skip to main content">Skip to main content</a>
+      <bx-skip-to-content href="#main-content"></bx-skip-to-content>
       <div id="main-content" data-floating-menu-container role="main" class="bx--body bx-ce-demo-devenv--container">
         ${template}
       </div>
-      <a href="#main-content" class="bx--assistive-text" aria-label="End of content">End of content</a>
     `,
   };
 });

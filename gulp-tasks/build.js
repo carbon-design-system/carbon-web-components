@@ -42,7 +42,7 @@ const promisifyStream = promisify(asyncDone);
 
 const cssStream = ({ banner, dir }) =>
   gulp
-    .src(`${config.srcDir}/**/*.scss`)
+    .src([`${config.srcDir}/**/*.scss`, `!${config.srcDir}/**/*-story.scss`])
     .pipe(
       header(`
         $feature-flags: (

@@ -12,7 +12,10 @@ import React, { StrictMode } from 'react';
 import addons from '@storybook/addons';
 import { configure, addDecorator, addParameters } from '@storybook/react'; // eslint-disable-line import/first
 import { withKnobs } from '@storybook/addon-knobs';
-import '../components/focus-trap/focus-trap';
+// Below path will be there when an application installs `carbon-web-components` package.
+// In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
+// @ts-ignore
+import BXSkipToContent from 'carbon-web-components/es/components-react/skip-to-content/skip-to-content';
 import { CURRENT_THEME } from '../addon-carbon-theme/shared';
 import theme from './theme';
 import containerStyles from '../_container.scss'; // eslint-disable-line import/first
@@ -60,15 +63,10 @@ addDecorator((story, { parameters }) => {
 addDecorator(story => (
   <StrictMode>
     <style>{containerStyles.cssText}</style>
-    <bx-ce-demo-focus-trap href="#main-content" aria-label="Skip to main content">
-      Skip to main content
-    </bx-ce-demo-focus-trap>
+    <BXSkipToContent href="#main-content" />
     <div id="main-content" data-floating-menu-container role="main" className="bx--body bx-ce-demo-devenv--container">
       {story()}
     </div>
-    <bx-ce-demo-focus-trap href="#main-content" aria-label="End of content">
-      End of content
-    </bx-ce-demo-focus-trap>
   </StrictMode>
 ));
 
