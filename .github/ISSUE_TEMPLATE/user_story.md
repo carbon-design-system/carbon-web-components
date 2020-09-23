@@ -4,7 +4,10 @@ about: Write a user story to begin solving their needs.
 title: ''
 labels: ''
 assignees: ''
----<!-- Avoid any type of solutions in this user story -->
+---
+
+<!-- Avoid any type of solutions in this user story -->
+
 <!-- replace _{{...}}_ with your own words or remove -->
 
 #### User Story
