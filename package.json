@@ -224,7 +224,7 @@
     "typescript": "^3.8.0",
     "use-debounce": "^3.2.0",
     "vue": "^2.6.0",
-    "vue-eslint-parser": "^6.0.0",      
+    "vue-eslint-parser": "^6.0.0",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.0",
     "web-component-analyzer": "^1.0.0",
@@ -245,12 +245,12 @@
       "header-max-length": [
         2,
         "always",
-        50
+        72
       ],
       "body-max-line-length": [
         2,
         "always",
-        72
+        80
       ]
     }
   },
