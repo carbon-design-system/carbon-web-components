@@ -209,7 +209,7 @@ Vue users can use our components in the same manner as native HTML tags, without
 
 ## List of available components
 
-View available web components at: https://custom-elements.carbondesignsystem.com/. You can see usage information in several ways:
+View available web components at: https://web-components.carbondesignsystem.com/. You can see usage information in several ways:
 
 1. Going to Docs tab, where it shows the usage and available attributes, properties and custom events.
 2. Clicking the **KNOBS** tab at the bottom and changing values there. Most knobs are shown as something like `Button kind (kind)`, where `kind` is the attribute name
