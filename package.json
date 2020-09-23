@@ -1,6 +1,6 @@
 {
   "name": "carbon-web-components",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "license": "Apache-2.0",
   "main": "es/index.js",
   "module": "es/index.js",
@@ -130,6 +130,7 @@
     "babel-loader": "^8.0.0",
     "babel-plugin-emotion": "^10.0.0",
     "babel-plugin-istanbul": "^4.1.0",
+    "babel-plugin-template-html-minifier": "^4.1.0",
     "babel-preset-vue": "^2.0.0",
     "bluebird": "^3.5.0",
     "carbon-components": "^10.17.0",
