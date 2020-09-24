@@ -78,7 +78,10 @@ class BXHeaderMenuButton extends FocusMixin(LitElement) {
   usageMode = SIDE_NAV_USAGE_MODE.REGULAR;
 
   createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+    return this.attachShadow({
+      mode: 'open',
+      delegatesFocus: Number((/Safari\/(\d+)/.exec(navigator.userAgent) ?? ['', 0])[1]) <= 537,
+    });
   }
 
   render() {
