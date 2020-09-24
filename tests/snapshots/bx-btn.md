@@ -8,6 +8,7 @@
 <button
   class="bx--btn bx--btn--primary"
   id="button"
+  part="button"
 >
   <slot>
   </slot>
@@ -25,6 +26,7 @@
   class="bx--btn bx--btn--disabled bx--btn--secondary bx--btn--sm"
   disabled=""
   id="button"
+  part="button"
   type="submit"
 >
   <slot>
@@ -42,6 +44,7 @@
   class="bx--btn bx--btn--primary"
   href="about:blank"
   id="button"
+  part="button"
   role="button"
 >
   <slot>
@@ -61,6 +64,7 @@
   href="about:blank"
   hreflang="en"
   id="button"
+  part="button"
   ping="about:blank"
   rel="noopener"
   role="link"
@@ -81,6 +85,7 @@
 <p
   class="bx--btn bx--btn--disabled bx--btn--secondary bx--btn--sm"
   id="button"
+  part="button"
 >
   <slot>
   </slot>
@@ -89,3 +94,4 @@
 </p>
 
 ```
+

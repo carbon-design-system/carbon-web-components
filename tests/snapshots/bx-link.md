@@ -9,6 +9,7 @@
   class="bx--link"
   href="about:blank"
   id="link"
+  part="link"
 >
   <slot>
   </slot>
@@ -25,6 +26,7 @@
   href="about:blank"
   hreflang="en"
   id="link"
+  part="link"
   ping="about:blank"
   rel="noopener"
   role="button"
