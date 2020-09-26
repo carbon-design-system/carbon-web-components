@@ -18,6 +18,7 @@ const { prefix } = settings;
 /**
  * Dropdown item.
  * @element bx-dropdown-item
+ * @csspart selected-icon The selected icon.
  */
 @customElement(`${prefix}-dropdown-item`)
 class BXDropdownItem extends LitElement {
@@ -59,7 +60,7 @@ class BXDropdownItem extends LitElement {
     return html`
       <div class="${prefix}--list-box__menu-item__option">
         <slot></slot>
-        ${!selected ? undefined : Checkmark16({ class: `${prefix}--list-box__menu-item__selected-icon` })}
+        ${!selected ? undefined : Checkmark16({ part: 'selected-icon', class: `${prefix}--list-box__menu-item__selected-icon` })}
       </div>
     `;
   }
