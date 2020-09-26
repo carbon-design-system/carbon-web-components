@@ -18,6 +18,8 @@ const { prefix } = settings;
 /**
  * The product name UI in header nav.
  * @element bx-header-name
+ * @csspart link The link.
+ * @csspart prefix The prefix content.
  */
 @customElement(`${prefix}-header-name`)
 class BXHeaderName extends FocusMixin(LitElement) {
@@ -45,10 +47,10 @@ class BXHeaderName extends FocusMixin(LitElement) {
     const namePrefixPart = !namePrefix
       ? undefined
       : html`
-          <span class="${prefix}--header__name--prefix">${namePrefix}</span>
+          <span part="prefix" class="${prefix}--header__name--prefix">${namePrefix}</span>
         `;
     return html`
-      <a class="${prefix}--header__name" href="${ifDefined(href)}">${namePrefixPart}&nbsp;<slot></slot></a>
+      <a part="link" class="${prefix}--header__name" href="${ifDefined(href)}">${namePrefixPart}&nbsp;<slot></slot></a>
     `;
   }
 

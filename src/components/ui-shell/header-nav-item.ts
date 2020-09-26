@@ -18,6 +18,8 @@ const { prefix } = settings;
 /**
  * Header nav item.
  * @element bx-header-nav-item
+ * @csspart link The link.
+ * @csspart title The title.
  */
 @customElement(`${prefix}-header-nav-item`)
 class BXHeaderNavItem extends FocusMixin(LitElement) {
@@ -43,8 +45,8 @@ class BXHeaderNavItem extends FocusMixin(LitElement) {
   render() {
     const { href, title } = this;
     return html`
-      <a role="menuitem" class="${prefix}--header__menu-item" tabindex="0" href="${ifDefined(href)}">
-        <span class="${prefix}--text-truncate--end"><slot>${title}</slot></span>
+      <a part="link" role="menuitem" class="${prefix}--header__menu-item" tabindex="0" href="${ifDefined(href)}">
+        <span part="title" class="${prefix}--text-truncate--end"><slot>${title}</slot></span>
       </a>
     `;
   }

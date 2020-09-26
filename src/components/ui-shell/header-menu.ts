@@ -22,6 +22,9 @@ const { prefix } = settings;
 /**
  * Header menu.
  * @element bx-header-menu
+ * @csspart trigger The trigger button.
+ * @csspart trigger-icon The trigger button icon.
+ * @csspart menu-body The menu body.
  */
 @customElement(`${prefix}-header-menu`)
 class BXHeaderMenu extends HostListenerMixin(FocusMixin(LitElement)) {
@@ -116,6 +119,7 @@ class BXHeaderMenu extends HostListenerMixin(FocusMixin(LitElement)) {
     return html`
       <a
         role="menuitem"
+        part="trigger"
         tabindex="0"
         class="${prefix}--header__menu-item ${prefix}--header__menu-title"
         href="javascript:void 0"
@@ -124,9 +128,9 @@ class BXHeaderMenu extends HostListenerMixin(FocusMixin(LitElement)) {
         @click=${handleClick}
         @keydown=${handleKeydownTrigger}
       >
-        ${triggerContent}${ChevronDownGlyph({ class: `${prefix}--header__menu-arrow` })}
+        ${triggerContent}${ChevronDownGlyph({ part: 'trigger-icon', class: `${prefix}--header__menu-arrow` })}
       </a>
-      <ul role="menu" class="${prefix}--header__menu" aria-label="${ifDefined(menuLabel)}">
+      <ul role="menu" part="menu-body" class="${prefix}--header__menu" aria-label="${ifDefined(menuLabel)}">
         <slot></slot>
       </ul>
     `;
