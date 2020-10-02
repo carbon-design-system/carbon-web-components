@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -58,6 +58,36 @@ describe('bx-inline-notification', function() {
     it('Should support closing', async function() {
       expect(notification!.open).toBe(true);
       notification!.shadowRoot!.querySelector('button')!.click();
+      await Promise.resolve();
+      expect(notification!.open).toBe(false);
+    });
+  });
+
+  describe('Timeout', function() {
+    const timeout = 100;
+
+    let notification;
+
+    beforeEach(async function() {
+      const initializeTimerCloseEvent = (BXInlineNotification.prototype as any)._handleUserOrTimerInitiatedClose;
+      spyOn(BXInlineNotification.prototype as any, '_initializeTimeout').and.callFake(function() {
+        // TODO: See if we can get around TS2683
+        // @ts-ignore
+        initializeTimerCloseEvent.call(this);
+      });
+      render(
+        inlineTemplate({
+          timeout,
+          open: false,
+        }),
+        document.body
+      );
+      await Promise.resolve();
+      notification = document.body.querySelector('bx-inline-notification');
+    });
+
+    it('Should support closing after the timeout', async function() {
+      notification.open = true;
       await Promise.resolve();
       expect(notification!.open).toBe(false);
     });

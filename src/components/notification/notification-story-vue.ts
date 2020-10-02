@@ -23,6 +23,7 @@ export const inline = ({ parameters }) => ({
       :close-button-label="closeButtonLabel"
       :icon-label="iconLabel"
       :open="open"
+      :timeout="timeout"
       @bx-notification-beingclosed="handleBeforeClose"
       @bx-notification-closed="handleClose"
     >
@@ -56,6 +57,7 @@ export const toast = ({ parameters }) => ({
       :close-button-label="closeButtonLabel"
       :icon-label="iconLabel"
       :open="open"
+      :timeout="timeout"
       @bx-notification-beingclosed="handleBeforeClose"
       @bx-notification-closed="handleClose"
     >

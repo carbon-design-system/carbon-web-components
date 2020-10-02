@@ -84,23 +84,48 @@ const iconsForKinds = {
 @customElement(`${prefix}-inline-notification`)
 class BXInlineNotification extends FocusMixin(LitElement) {
   /**
+   * Current timeout identifier
+   */
+  protected _timeoutID: number | null = null;
+
+  /**
    * Notification type.
    */
   protected _type = NOTIFICATION_TYPE.INLINE;
+
+  /**
+   * Cancels the current timeout configured for the notification
+   * @param timeoutID current timeout's identifier
+   */
+  protected _cancelTimeout(timeoutID: number) {
+    clearTimeout(timeoutID);
+    this._timeoutID = null;
+  }
+
+  /**
+   * Overrides (if exists) the timeout to close the notification
+   * @param timeout the time in ms
+   */
+  protected _initializeTimeout(timeout: number) {
+    if (this._timeoutID) {
+      this._cancelTimeout(this._timeoutID);
+    }
+    this._timeoutID = (setTimeout(this._handleUserOrTimerInitiatedClose.bind(this, null), timeout) as unknown) as number;
+  }
 
   /**
    * Handles `click` event on the close button.
    * @param event The event.
    */
   protected _handleClickCloseButton({ target }: MouseEvent) {
-    this._handleUserInitiatedClose(target);
+    this._handleUserOrTimerInitiatedClose(target);
   }
 
   /**
-   * Handles user-initiated close request of this modal.
-   * @param triggeredBy The element that triggered this close request.
+   * Handles user-initiated or through timer close request of this modal.
+   * @param triggeredBy The element that triggered this close request, if there is one.
    */
-  protected _handleUserInitiatedClose(triggeredBy: EventTarget | null) {
+  protected _handleUserOrTimerInitiatedClose(triggeredBy: EventTarget | null) {
     if (this.open) {
       const init = {
         bubbles: true,
@@ -196,6 +221,12 @@ class BXInlineNotification extends FocusMixin(LitElement) {
   open = true;
 
   /**
+   * Notification time in ms until gets closed.
+   */
+  @property({ type: Number, reflect: true })
+  timeout: number | null = null;
+
+  /**
    * The subtitle.
    */
   @property()
@@ -212,6 +243,19 @@ class BXInlineNotification extends FocusMixin(LitElement) {
       this.setAttribute('role', 'alert');
     }
     super.connectedCallback();
+  }
+
+  updated(changedProperties) {
+    const openChanged = changedProperties.has('open');
+    const timeoutChanged = changedProperties.has('timeout');
+
+    if (openChanged || timeoutChanged) {
+      if (this.open && this.timeout) {
+        this._initializeTimeout(this.timeout);
+      } else if (!this.open && this._timeoutID) {
+        this._cancelTimeout(this._timeoutID);
+      }
+    }
   }
 
   render() {
