@@ -281,12 +281,10 @@ class BXSelect extends ValidityMixin(FormMixin(LitElement)) {
 
   updated(changedProperties) {
     if (changedProperties.has('value')) {
-      const { value } = this;
-      if (value != null) {
-        // Ensures setting the `value` after rendering child `<option>`s/`<optgroup>`s when there is a change in `value`,
-        // given reflecting `value` requires child `<option>`s/`<optgroup>`s being there beforehand
-        this._selectNode.value = value;
-      }
+      const { value, _placeholderItemValue: placeholderItemValue } = this;
+      // Ensures setting the `value` after rendering child `<option>`s/`<optgroup>`s when there is a change in `value`,
+      // given reflecting `value` requires child `<option>`s/`<optgroup>`s being there beforehand
+      this._selectNode.value = !value ? placeholderItemValue : value;
     }
   }
 
