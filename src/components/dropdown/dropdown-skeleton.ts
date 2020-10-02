@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -22,7 +22,7 @@ class BXDropdownSkeleton extends LitElement {
     return html`
       <div class="${prefix}--skeleton ${prefix}--dropdown-v2 ${prefix}--list-box ${prefix}--form-item">
         <div class="${prefix}--list-box__field">
-          <span class="${prefix}--list-box__label" />
+          <span class="${prefix}--list-box__label"></span>
         </div>
       </div>
     `;
