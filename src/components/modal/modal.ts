@@ -133,20 +133,14 @@ class BXModal extends HostListenerMixin(LitElement) {
       const comparisonResult = (target as Node).compareDocumentPosition(relatedTarget as Node);
       // eslint-disable-next-line no-bitwise
       if (relatedTarget === startSentinelNode || comparisonResult & PRECEDING) {
-        await new Promise(resolve => {
-          // Some browsers not supporting `delegatesFocus` seems to require this, found in a derived class
-          setTimeout(resolve, 0);
-        });
+        await (this.constructor as typeof BXModal)._delay();
         if (!tryFocusElems(this.querySelectorAll(selectorTabbableForModal), true) && relatedTarget !== this) {
           this.focus();
         }
       }
       // eslint-disable-next-line no-bitwise
       else if (relatedTarget === endSentinelNode || comparisonResult & FOLLOWING) {
-        await new Promise(resolve => {
-          // Some browsers not supporting `delegatesFocus` seems to require this, found in a derived class
-          setTimeout(resolve, 0);
-        });
+        await (this.constructor as typeof BXModal)._delay();
         if (!tryFocusElems(this.querySelectorAll(selectorTabbableForModal))) {
           this.focus();
         }
@@ -236,10 +230,7 @@ class BXModal extends HostListenerMixin(LitElement) {
       if (this.open) {
         this._launcher = this.ownerDocument!.activeElement;
         const primaryFocusNode = this.querySelector((this.constructor as typeof BXModal).selectorPrimaryFocus);
-        await new Promise(resolve => {
-          // Some browsers not supporting `delegatesFocus` seems to require this, found in a derived class
-          setTimeout(resolve, 0);
-        });
+        await (this.constructor as typeof BXModal)._delay();
         if (primaryFocusNode) {
           // For cases where a `carbon-web-components` component (e.g. `<bx-btn>`) being `primaryFocusNode`,
           // where its first update/render cycle that makes it focusable happens after `<bx-modal>`'s first update/render cycle
@@ -252,6 +243,16 @@ class BXModal extends HostListenerMixin(LitElement) {
         this._launcher = null;
       }
     }
+  }
+
+  /**
+   * @param ms The number of milliseconds.
+   * @returns A promise that is resolves after the given milliseconds.
+   */
+  private static _delay(ms: number = 0) {
+    return new Promise(resolve => {
+      setTimeout(resolve, ms);
+    });
   }
 
   /**
