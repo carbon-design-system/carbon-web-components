@@ -15,6 +15,6 @@ jobs:
       - name: eslint
         uses: reviewdog/action-eslint@v1
         with:
-          github_token: ${{ secrets.GH_TOKEN }}
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GH_TOKEN }}
           reporter: github-pr-review
           eslint_flags: '**/*.{js,ts,tsx}'
