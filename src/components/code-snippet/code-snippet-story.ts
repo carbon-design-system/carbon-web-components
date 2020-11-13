@@ -154,8 +154,10 @@ export const skeletonSingleLine = () =>
 
 skeletonSingleLine.story = {
   name: 'Skeleton single line',
-  percy: {
-    skip: true,
+  parameters: {
+    percy: {
+      skip: true,
+    },
   },
 };
 
@@ -166,8 +168,10 @@ export const skeletonMultiLine = () =>
 
 skeletonMultiLine.story = {
   name: 'Skeleton multi line',
-  percy: {
-    skip: true,
+  parameters: {
+    percy: {
+      skip: true,
+    },
   },
 };
 
