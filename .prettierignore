@@ -2,6 +2,7 @@
 /docs/js
 /tests/coverage
 /tests/snapshots
+.github
 .yarn
 es
 node_modules
