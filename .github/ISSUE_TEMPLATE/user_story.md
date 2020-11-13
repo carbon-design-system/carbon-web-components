@@ -1,11 +1,12 @@
 ---
-
 name: "User story \U0001F5E3"
 about: Write a user story to begin solving their needs.
 title: ''
 labels: ''
 assignees: ''
----<!-- Avoid any type of solutions in this user story -->
+---
+
+<!-- Avoid any type of solutions in this user story -->
 
 <!-- replace _{{...}}_ with your own words or remove -->
 

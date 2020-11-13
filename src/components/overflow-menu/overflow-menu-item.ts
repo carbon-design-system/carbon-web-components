@@ -39,7 +39,10 @@ class BXOverflowMenuItem extends FocusMixin(LitElement) {
   href = '';
 
   createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+    return this.attachShadow({
+      mode: 'open',
+      delegatesFocus: Number((/Safari\/(\d+)/.exec(navigator.userAgent) ?? ['', 0])[1]) <= 537,
+    });
   }
 
   connectedCallback() {

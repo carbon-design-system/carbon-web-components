@@ -304,13 +304,6 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
   @property({ reflect: true })
   type = TABS_TYPE.REGULAR;
 
-  connectedCallback() {
-    if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = 0;
-    }
-    super.connectedCallback();
-  }
-
   shouldUpdate(changedProperties) {
     super.shouldUpdate(changedProperties);
     const { selectorItem } = this.constructor as typeof BXTabs;

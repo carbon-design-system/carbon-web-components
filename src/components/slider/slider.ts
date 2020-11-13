@@ -353,7 +353,10 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   value = 50;
 
   createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+    return this.attachShadow({
+      mode: 'open',
+      delegatesFocus: Number((/Safari\/(\d+)/.exec(navigator.userAgent) ?? ['', 0])[1]) <= 537,
+    });
   }
 
   connectedCallback() {

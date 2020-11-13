@@ -1973,24 +1973,24 @@
   dependencies:
     "@carbon/icon-helpers" "10.5.1"
 
-"@carbon/icons-react@^10.17.0":
-  version "10.17.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-10.17.0.tgz#17c0450f2280680e6e6c778f68613723c55f8f39"
-  integrity sha512-XAz8RZW+na2ZAGLrw+ojYtI+RwyiGTnmAM0H+TWeG451hZHJ84CnU34G608h9eThndgFgAYYPr4ariFlaXdgZA==
+"@carbon/icons-react@^10.20.0":
+  version "10.20.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-10.20.0.tgz#f69938a80bac78eee47ddd1c30e544f180d3e09b"
+  integrity sha512-xjdfCsbrgyWo5ykjmBYq/JZIfJ0rlhm2Da54gzNZjtHs416JFWYx0CbykEHzFwOulMOS8uba9uDyxtBUd1T3ew==
   dependencies:
     "@carbon/icon-helpers" "^10.9.0"
 
-"@carbon/icons-vue@^10.17.0":
-  version "10.17.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.17.0.tgz#0bffd6c3b10c9a92cebd7763a2a914010853314f"
-  integrity sha512-dp5Geg2XU/fDcHjFygM6Nzu4vsxAEJl1SorG4yccPlamtRZQw2PvJs2Y9YPBrno6Fe5r5e+9BsRPuoqnEA+opQ==
+"@carbon/icons-vue@^10.20.0":
+  version "10.20.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.20.0.tgz#da8d00cd32fc4e985f6295d3f9f07593cb78a314"
+  integrity sha512-q3JsKgCNsteM9WKEt2EPomUtDc/cWf6m348/Kjn8nOnVuoVWrWJ5H8SzaVMF/mZfUw5ZBJbqO/GonQM7vVD0ww==
   dependencies:
     "@carbon/icon-helpers" "^10.9.0"
 
-"@carbon/icons@^10.17.0":
-  version "10.17.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons/-/icons-10.17.0.tgz#c0795f33fd914ad03df9ce560228eb7c1c3ec6d5"
-  integrity sha512-7powaibflfzDXyV1cyJ9sXJycoQ2QDGnmTWQH3HNUR88Pwff2t9AwiNYh96r0as8sp4sJvKT1leL94A9lmVswA==
+"@carbon/icons@^10.20.0":
+  version "10.20.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons/-/icons-10.20.0.tgz#223dc74cef30611bbe4412b214ad131268573ba6"
+  integrity sha512-5phm6FswP6dDkFAeHDPPg9fpuan8i7/vh7idI01mDHxAaSzswdnf3iTW3+M5PaIvcJbXUHMcJLPpTgByPdnuKQ==
 
 "@chromaui/localtunnel@1.10.1":
   version "1.10.1"
@@ -6032,10 +6032,10 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
-carbon-components@^10.17.0:
-  version "10.17.0"
-  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.17.0.tgz#e1f5e219443b9317147013280224cdb89dbc0bf8"
-  integrity sha512-kTSWkgtTaW9FGBTHOCj0/Ir86RCNRBti0Ckf7yVC1LaQJ0VWy2/BLrwhfNWaWGCGUnx4A+qt8MwEuG1Yz07JhA==
+carbon-components@^10.23.0:
+  version "10.23.1"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.23.1.tgz#cf649a09aa25eac14dc158f0fb79ba625730026c"
+  integrity sha512-izeyNCo9cPfdw9358y5VPsDRzmGAO1wAjSnkD5gGEQO46P2HBdQcgXV1IqjAbFuit+TgfG/MrP38u+pmjp4zyQ==
   dependencies:
     flatpickr "4.6.1"
     lodash.debounce "^4.0.8"
@@ -8388,6 +8388,15 @@ eslint-plugin-import@^2.14.0:
     minimatch "^3.0.3"
     read-pkg-up "^2.0.0"
     resolve "^1.6.0"
+
+eslint-plugin-lit@^1.2.0:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-lit/-/eslint-plugin-lit-1.2.2.tgz#f11b3de0f1f5527791753648225c40b73596f94f"
+  integrity sha512-7phlR1GKO4zDsrxeBcPTHRTZrl5eGPHJblMmKyqAEYWVk5e8F1QOuVBKst973T+4AdGj0Ti4dWetL1C8XiAJnA==
+  dependencies:
+    parse5 "^6.0.1"
+    parse5-htmlparser2-tree-adapter "^6.0.1"
+    requireindex "^1.2.0"
 
 eslint-plugin-prettier@^3.0.0:
   version "3.0.1"
@@ -14668,6 +14677,13 @@ parse-passwd@^1.0.0:
   resolved "https://registry.npmjs.org/parse-passwd/-/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
   integrity sha1-bVuTSkVpk7I9N/QKOC1vFmao5cY=
 
+parse5-htmlparser2-tree-adapter@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/parse5-htmlparser2-tree-adapter/-/parse5-htmlparser2-tree-adapter-6.0.1.tgz#2cdf9ad823321140370d4dbf5d3e92c7c8ddc6e6"
+  integrity sha512-qPuWvbLgvDGilKc5BoicRovlT4MtYT6JfJyBOMDsKoiT+GiuP5qyrPCnR9HcPECIJJmZh5jRndyNThnhhb/vlA==
+  dependencies:
+    parse5 "^6.0.1"
+
 parse5-utils@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/parse5-utils/-/parse5-utils-2.0.0.tgz#c926c1764e2431a450a5941f302db9beaec9d78a"
@@ -14696,6 +14712,11 @@ parse5@^5.0.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.1.0.tgz#c59341c9723f414c452975564c7c00a68d58acd2"
   integrity sha512-fxNG2sQjHvlVAYmzBZS9YlDp6PTSSDwa98vkD4QgVDDCAo84z5X1t5XyJQ62ImdLXx5NdIIfihey6xpum9/gRQ==
+
+parse5@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/parse5/-/parse5-6.0.1.tgz#e1a1c085c569b3dc08321184f19a39cc27f7c30b"
+  integrity sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==
 
 parseqs@0.0.5:
   version "0.0.5"
@@ -16963,6 +16984,11 @@ require-main-filename@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
   integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
+
+requireindex@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.2.0.tgz#3463cdb22ee151902635aa6c9535d4de9c2ef1ef"
+  integrity sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==
 
 requires-port@^1.0.0:
   version "1.0.0"
