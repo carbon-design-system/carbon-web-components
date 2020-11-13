@@ -138,6 +138,9 @@ export const skeleton = ({ parameters }) => {
 
 skeleton.story = {
   parameters: {
+    percy: {
+      skip: true,
+    },
     knobs: {
       'bx-btn-skeleton': () => ({
         kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),

@@ -140,6 +140,14 @@ export const skeleton = () =>
     <bx-textarea-skeleton></bx-textarea-skeleton>
   `;
 
+skeleton.story = {
+  parameters: {
+    percy: {
+      skip: true,
+    },
+  },
+};
+
 export default {
   title: 'Components/Textarea',
 };
