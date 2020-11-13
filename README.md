@@ -21,6 +21,11 @@ A Carbon Design System variant that's as easy to use as native HTML elements, wi
     <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg"/>
   </a>
 </p>
+<p align="center">
+  <a href="https://percy.io/538fc19a/Carbon-Web-Components">
+    <img src="https://percy.io/static/images/percy-badge.svg" alt="This project is using Percy.io for visual regression testing" />
+  </a>
+</p>
 
 # `carbon-web-components`
 
@@ -209,7 +214,7 @@ Vue users can use our components in the same manner as native HTML tags, without
 
 ## List of available components
 
-View available web components at: https://custom-elements.carbondesignsystem.com/. You can see usage information in several ways:
+View available web components at: https://web-components.carbondesignsystem.com/. You can see usage information in several ways:
 
 1. Going to Docs tab, where it shows the usage and available attributes, properties and custom events.
 2. Clicking the **KNOBS** tab at the bottom and changing values there. Most knobs are shown as something like `Button kind (kind)`, where `kind` is the attribute name

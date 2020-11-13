@@ -83,7 +83,7 @@ const headerNavItemTemplate = (props?) => {
 const sideNavTemplate = (props?) => {
   const { collapseMode, expanded, usageMode, children } = props ?? {};
   return html`
-    <bx-header-menu-button></<bx-header-menu-button>>
+    <bx-header-menu-button></bx-header-menu-button>
     <bx-side-nav collapse-mode="${ifNonNull(collapseMode)}" ?expanded="${expanded}" usage-mode="${ifNonNull(usageMode)}">
       ${children}
     </bx-side-nav>
@@ -465,7 +465,9 @@ describe('ui-shell', function() {
       it('should tell existing child side nav item that the parent side nav menu has an icon', async function() {
         render(
           sideNavMenuTemplate({
-            children: html`<bx-side-nav-menu-item></<bx-side-nav-menu-item>`,
+            children: html`
+              <bx-side-nav-menu-item></bx-side-nav-menu-item>
+            `,
           }),
           document.body
         );

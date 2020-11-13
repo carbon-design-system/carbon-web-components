@@ -76,7 +76,7 @@ export const multiLine = ({ parameters }) => {
   width: 100%;
   padding-right: padding(mobile);
   padding-left: padding(mobile);
-  
+
   @include breakpoint(bp--xs--major) {
     padding-right: padding(xs);
     padding-left: padding(xs);
@@ -154,6 +154,11 @@ export const skeletonSingleLine = () =>
 
 skeletonSingleLine.story = {
   name: 'Skeleton single line',
+  parameters: {
+    percy: {
+      skip: true,
+    },
+  },
 };
 
 export const skeletonMultiLine = () =>
@@ -163,6 +168,11 @@ export const skeletonMultiLine = () =>
 
 skeletonMultiLine.story = {
   name: 'Skeleton multi line',
+  parameters: {
+    percy: {
+      skip: true,
+    },
+  },
 };
 
 export default {

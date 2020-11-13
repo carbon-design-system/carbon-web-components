@@ -127,6 +127,14 @@ export const skeleton = () => html`
   </bx-tabs-skeleton>
 `;
 
+skeleton.story = {
+  parameters: {
+    percy: {
+      skip: true,
+    },
+  },
+};
+
 export default {
   title: 'Components/Tabs',
 };

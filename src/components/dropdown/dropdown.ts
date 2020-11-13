@@ -501,7 +501,10 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
   value = '';
 
   createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+    return this.attachShadow({
+      mode: 'open',
+      delegatesFocus: Number((/Safari\/(\d+)/.exec(navigator.userAgent) ?? ['', 0])[1]) <= 537,
+    });
   }
 
   shouldUpdate(changedProperties) {
