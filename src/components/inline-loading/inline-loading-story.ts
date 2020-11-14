@@ -20,20 +20,19 @@ const states = {
   [`Failed (${INLINE_LOADING_STATE.ERROR})`]: INLINE_LOADING_STATE.ERROR,
 };
 
-export const defaultStory = ({ parameters }) => {
-  const { status } = parameters?.props?.['bx-inline-loading'] ?? {};
+export const Default = args => {
+  const { status } = args?.['bx-inline-loading'] ?? {};
   return html`
     <bx-inline-loading status="${ifNonNull(status)}">Loading data...</bx-inline-loading>
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export default {
   title: 'Components/Inline loading',
   parameters: {
+    ...storyDocs.parameters,
     percy: {
       skip: true,
     },

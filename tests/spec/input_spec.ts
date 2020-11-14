@@ -11,7 +11,7 @@ import { html, render } from 'lit-html';
 import EventManager from '../utils/event-manager';
 
 import BXInput, { INPUT_COLOR_SCHEME, INPUT_TYPE } from '../../src/components/input/input';
-import { defaultStory } from '../../src/components/input/input-story';
+import { Default } from '../../src/components/input/input-story';
 
 /**
  * @param formData A `FormData` instance.
@@ -27,12 +27,8 @@ const getValues = (formData: FormData) => {
 };
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-input': props,
-      },
-    },
+  Default({
+    'bx-input': props,
   });
 
 describe('bx-input', function() {

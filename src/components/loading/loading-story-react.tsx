@@ -12,13 +12,13 @@ import React from 'react';
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXLoading from 'carbon-web-components/es/components-react/loading/loading';
-import { defaultStory as baseDefaultStory } from './loading-story';
+import { Default as baseDefault } from './loading-story';
 
 export { default } from './loading-story';
 
-export const defaultStory = ({ parameters }) => {
-  const props = parameters?.props?.['bx-loading'];
+export const Default = args => {
+  const props = args?.['bx-loading'];
   return <BXLoading inactive={props.inactive} type={props.type} />;
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

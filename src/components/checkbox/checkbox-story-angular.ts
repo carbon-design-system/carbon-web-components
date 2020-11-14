@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './checkbox-story';
+import baseStory, { Default as baseDefault } from './checkbox-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-checkbox
       [checked]="checked"
@@ -24,10 +24,10 @@ export const defaultStory = ({ parameters }) => ({
       (bx-checkbox-changed)="onChange($event)"
     ></bx-checkbox>
   `,
-  props: parameters?.props?.['bx-checkbox'],
+  props: args?.['bx-checkbox'],
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export default Object.assign(baseStory, {
   decorators: [

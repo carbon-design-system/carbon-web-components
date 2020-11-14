@@ -497,9 +497,9 @@ const defineDemoDataTable = (() => {
   };
 })();
 
-export const defaultStory = ({ parameters }) => {
-  const { size } = parameters?.props?.['bx-table'] ?? {};
-  const { colorScheme } = parameters?.props?.['bx-table-body'] ?? {};
+export const Default = args => {
+  const { size } = args?.['bx-table'] ?? {};
+  const { colorScheme } = args?.['bx-table-body'] ?? {};
   return html`
     <bx-table size="${ifNonNull(size)}">
       <bx-table-head>
@@ -542,23 +542,22 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    knobs: {
-      'bx-table': () => ({
-        size: select('Table size (size)', sizes, null),
-      }),
-      'bx-table-body': () => ({
-        colorScheme: select('Color scheme (color-scheme in `<bx-table-body>`)', colorSchemes, null),
-      }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  knobs: {
+    'bx-table': () => ({
+      size: select('Table size (size)', sizes, null),
+    }),
+    'bx-table-body': () => ({
+      colorScheme: select('Color scheme (color-scheme in `<bx-table-body>`)', colorSchemes, null),
+    }),
   },
 };
 
-export const expandable = ({ parameters }) => {
-  const { size } = parameters?.props?.['bx-table'] ?? {};
-  const { zebra } = parameters?.props?.['bx-table-body'] ?? {};
+export const expandable = args => {
+  const { size } = args?.['bx-table'] ?? {};
+  const { zebra } = args?.['bx-table-body'] ?? {};
   const handleExpandRowAll = event => {
     const { currentTarget, detail } = event;
     const rows = currentTarget.querySelectorAll('bx-table-expand-row');
@@ -630,21 +629,19 @@ export const expandable = ({ parameters }) => {
   `;
 };
 
-expandable.story = {
-  parameters: {
-    knobs: {
-      ...defaultStory.story.parameters.knobs,
-      'bx-table-body': () => ({}),
-    },
+expandable.parameters = {
+  knobs: {
+    ...Default.parameters.knobs,
+    'bx-table-body': () => ({}),
   },
 };
 
-export const sortable = ({ parameters }) => {
-  const { size } = parameters?.props?.['bx-table'] ?? {};
-  const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'] ?? {};
-  const { colorScheme } = parameters?.props?.['bx-table-body'] ?? {};
-  const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
-  const { disableChangeSort, onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
+export const sortable = args => {
+  const { size } = args?.['bx-table'] ?? {};
+  const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = args?.['bx-table-header-row'] ?? {};
+  const { colorScheme } = args?.['bx-table-body'] ?? {};
+  const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = args?.['bx-table-row'] ?? {};
+  const { disableChangeSort, onBeforeSort } = args?.['bx-table-header-cell'] ?? {};
   const beforeChangeSelectionHandler = {
     handleEvent(event: CustomEvent) {
       if (event.type === 'bx-table-change-selection-all') {
@@ -688,44 +685,42 @@ export const sortable = ({ parameters }) => {
   `;
 };
 
-sortable.story = {
-  parameters: {
-    knobs: {
-      ...defaultStory.story.parameters.knobs,
-      'bx-table-header-row': () => ({
-        onBeforeChangeSelection: action('bx-table-change-selection-all'),
-      }),
-      'bx-table-row': () => {
-        const hasSelection = boolean('Supports selection feature (has-selection)', false);
-        return {
-          hasSelection,
-          disableChangeSelection:
-            hasSelection &&
-            boolean(
-              'Disable user-initiated change in selection ' +
-                '(Call event.preventDefault() in bx-table-row-change-selection/bx-table-change-selection-all events)',
-              false
-            ),
-          onBeforeChangeSelection: action('bx-table-row-change-selection'),
-        };
-      },
-      'bx-table-header-cell': () => ({
-        disableChangeSort: boolean(
-          'Disable user-initiated change in sorting (Call event.preventDefault() in bx-table-header-cell-sort event)',
-          false
-        ),
-        onBeforeSort: action('bx-table-header-cell-sort'),
-      }),
+sortable.parameters = {
+  knobs: {
+    ...Default.parameters.knobs,
+    'bx-table-header-row': () => ({
+      onBeforeChangeSelection: action('bx-table-change-selection-all'),
+    }),
+    'bx-table-row': () => {
+      const hasSelection = boolean('Supports selection feature (has-selection)', false);
+      return {
+        hasSelection,
+        disableChangeSelection:
+          hasSelection &&
+          boolean(
+            'Disable user-initiated change in selection ' +
+              '(Call event.preventDefault() in bx-table-row-change-selection/bx-table-change-selection-all events)',
+            false
+          ),
+        onBeforeChangeSelection: action('bx-table-row-change-selection'),
+      };
     },
+    'bx-table-header-cell': () => ({
+      disableChangeSort: boolean(
+        'Disable user-initiated change in sorting (Call event.preventDefault() in bx-table-header-cell-sort event)',
+        false
+      ),
+      onBeforeSort: action('bx-table-header-cell-sort'),
+    }),
   },
 };
 
-export const sortableWithPagination = ({ parameters }) => {
-  const { size } = parameters?.props?.['bx-table'] ?? {};
-  const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'] ?? {};
-  const { colorScheme } = parameters?.props?.['bx-table-body'] ?? {};
-  const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
-  const { disableChangeSort, onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
+export const sortableWithPagination = args => {
+  const { size } = args?.['bx-table'] ?? {};
+  const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = args?.['bx-table-header-row'] ?? {};
+  const { colorScheme } = args?.['bx-table-body'] ?? {};
+  const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = args?.['bx-table-row'] ?? {};
+  const { disableChangeSort, onBeforeSort } = args?.['bx-table-header-cell'] ?? {};
   const beforeChangeSelectionHandler = {
     handleEvent(event: CustomEvent) {
       if (event.type === 'bx-table-change-selection-all') {
@@ -771,16 +766,15 @@ export const sortableWithPagination = ({ parameters }) => {
   `;
 };
 
-sortableWithPagination.story = {
-  name: 'Sortable with pagination',
-  parameters: {
-    knobs: sortable.story.parameters.knobs,
-  },
+sortableWithPagination.storyName = 'Sortable with pagination';
+
+sortableWithPagination.parameters = {
+  knobs: sortable.parameters.knobs,
 };
 
-export const skeleton = ({ parameters }) => {
-  const { size } = parameters?.props?.['bx-table'];
-  const { colorScheme } = parameters?.props?.['bx-table-body'];
+export const skeleton = args => {
+  const { size } = args?.['bx-table'];
+  const { colorScheme } = args?.['bx-table-body'];
   return html`
     <bx-table size="${size}">
       <bx-table-head>
@@ -823,22 +817,18 @@ export const skeleton = ({ parameters }) => {
   `;
 };
 
-skeleton.story = {
-  parameters: {
-    percy: {
-      skip: true,
-    },
-    knobs: {
-      ...defaultStory.story.parameters.knobs,
-    },
+skeleton.parameters = {
+  percy: {
+    skip: true,
+  },
+  knobs: {
+    ...Default.parameters.knobs,
   },
 };
 
 export default {
   title: 'Components/Data table',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

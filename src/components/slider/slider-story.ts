@@ -16,8 +16,8 @@ import './slider-input';
 import './slider-skeleton';
 import storyDocs from './slider-story.mdx';
 
-export const defaultStory = ({ parameters }) => {
-  const { disabled, labelText, max, min, name, step, value, onChange } = parameters?.props?.['bx-slider'] || {};
+export const Default = args => {
+  const { disabled, labelText, max, min, name, step, value, onChange } = args?.['bx-slider'] || {};
   return html`
     <bx-slider
       ?disabled="${disabled}"
@@ -32,26 +32,25 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    knobs: {
-      'bx-slider': () => ({
-        disabled: boolean('Disabled (disabled)', false),
-        labelText: text('Label text (label-text)', 'Slider'),
-        name: text('Name (name)', ''),
-        max: number('The maximum value (max)', 100),
-        min: number('The minimum value (min)', 0),
-        step: number('The step (step)', 1),
-        value: number('Value (value)', 50),
-        onAfterChange: action('bx-slider-changed'),
-      }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  knobs: {
+    'bx-slider': () => ({
+      disabled: boolean('Disabled (disabled)', false),
+      labelText: text('Label text (label-text)', 'Slider'),
+      name: text('Name (name)', ''),
+      max: number('The maximum value (max)', 100),
+      min: number('The minimum value (min)', 0),
+      step: number('The step (step)', 1),
+      value: number('Value (value)', 50),
+      onAfterChange: action('bx-slider-changed'),
+    }),
   },
 };
 
-export const withInputBox = ({ parameters }) => {
-  const { disabled, labelText, max, min, name, step, value, onChange } = parameters?.props?.['bx-slider'] || {};
+export const withInputBox = args => {
+  const { disabled, labelText, max, min, name, step, value, onChange } = args?.['bx-slider'] || {};
   return html`
     <bx-slider
       ?disabled="${disabled}"
@@ -68,11 +67,10 @@ export const withInputBox = ({ parameters }) => {
   `;
 };
 
-withInputBox.story = {
-  name: 'With input box',
-  parameters: {
-    knobs: defaultStory.story.parameters.knobs,
-  },
+withInputBox.storyName = 'With input box';
+
+withInputBox.parameters = {
+  knobs: Default.parameters.knobs,
 };
 
 export const skeleton = () =>
@@ -80,19 +78,15 @@ export const skeleton = () =>
     <bx-slider-skeleton></bx-slider-skeleton>
   `;
 
-skeleton.story = {
-  parameters: {
-    percy: {
-      skip: true,
-    },
+skeleton.parameters = {
+  percy: {
+    skip: true,
   },
 };
 
 export default {
   title: 'Components/Slider',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

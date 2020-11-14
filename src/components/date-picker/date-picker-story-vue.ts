@@ -9,7 +9,7 @@
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   singleWithCalendar as baseSingleWithCalendar,
   rangeWithCalendar as baseRangeWithCalendar,
   skeletonSingle as baseSkeletonSingle,
@@ -19,7 +19,7 @@ import {
 
 export { default } from './date-picker-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-date-picker>
       <bx-date-picker-input
@@ -37,12 +37,12 @@ export const defaultStory = ({ parameters }) => ({
       </bx-date-picker-input>
     </bx-date-picker>
   `,
-  ...createVueBindingsFromProps({ ...parameters?.props?.['bx-date-picker-input'] }),
+  ...createVueBindingsFromProps({ ...args?.['bx-date-picker-input'] }),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const singleWithCalendar = ({ parameters }) => ({
+export const singleWithCalendar = args => ({
   template: `
     <bx-date-picker
       :date-format="dateFormat"
@@ -68,12 +68,12 @@ export const singleWithCalendar = ({ parameters }) => ({
       </bx-date-picker-input>
     </bx-date-picker>
   `,
-  ...createVueBindingsFromProps({ ...parameters?.props?.['bx-date-picker'], ...parameters?.props?.['bx-date-picker-input'] }),
+  ...createVueBindingsFromProps({ ...args?.['bx-date-picker'], ...args?.['bx-date-picker-input'] }),
 });
 
-singleWithCalendar.story = baseSingleWithCalendar.story;
+Object.assign(singleWithCalendar, baseSingleWithCalendar);
 
-export const rangeWithCalendar = ({ parameters }) => ({
+export const rangeWithCalendar = args => ({
   template: `
     <bx-date-picker
       :date-format="dateFormat"
@@ -113,22 +113,22 @@ export const rangeWithCalendar = ({ parameters }) => ({
       </bx-date-picker-input>
     </bx-date-picker>
   `,
-  ...createVueBindingsFromProps({ ...parameters?.props?.['bx-date-picker'], ...parameters?.props?.['bx-date-picker-input'] }),
+  ...createVueBindingsFromProps({ ...args?.['bx-date-picker'], ...args?.['bx-date-picker-input'] }),
 });
 
-rangeWithCalendar.story = baseRangeWithCalendar.story;
+Object.assign(rangeWithCalendar, baseRangeWithCalendar);
 
 export const skeletonSimple = () => ({
   template: `<bx-date-picker-input-skeleton></bx-date-picker-input-skeleton>`,
 });
 
-skeletonSimple.story = baseSkeletonSimple.story;
+Object.assign(skeletonSimple, baseSkeletonSimple);
 
 export const skeletonSingle = () => ({
   template: `<bx-date-picker-input-skeleton kind="single"></bx-date-picker-input-skeleton>`,
 });
 
-skeletonSingle.story = baseSkeletonSingle.story;
+Object.assign(skeletonSingle, baseSkeletonSingle);
 
 export const skeletonRange = () => ({
   template: `
@@ -137,11 +137,10 @@ export const skeletonRange = () => ({
   `,
 });
 
-skeletonRange.story = {
-  ...baseSkeletonRange.story,
+Object.assign(skeletonRange, baseSkeletonRange, {
   decorators: [
-    {
+    () => ({
       template: `<div><story/></div>`,
-    },
+    }),
   ],
-};
+});

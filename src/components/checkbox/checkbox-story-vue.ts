@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './checkbox-story';
+import { Default as baseDefault } from './checkbox-story';
 
 export { default } from './checkbox-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-checkbox
       :checked="checked"
@@ -25,7 +25,7 @@ export const defaultStory = ({ parameters }) => ({
       @bx-checkbox-changed="onChange"
     ></bx-checkbox>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-checkbox']),
+  ...createVueBindingsFromProps(args?.['bx-checkbox']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

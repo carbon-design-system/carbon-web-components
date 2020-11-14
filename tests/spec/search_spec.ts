@@ -11,15 +11,11 @@ import { render } from 'lit-html';
 import EventManager from '../utils/event-manager';
 import { INPUT_SIZE } from '../../src/components/input/input';
 import BXSearch, { SEARCH_COLOR_SCHEME } from '../../src/components/search/search';
-import { defaultStory } from '../../src/components/search/search-story';
+import { Default } from '../../src/components/search/search-story';
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-search': props,
-      },
-    },
+  Default({
+    'bx-search': props,
   });
 
 describe('bx-search', function() {

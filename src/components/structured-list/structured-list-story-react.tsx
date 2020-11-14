@@ -23,13 +23,13 @@ import BXStructuredListRow from 'carbon-web-components/es/components-react/struc
 // @ts-ignore
 // eslint-disable-next-line max-len
 import BXStructuredListHeaderCellSkeleton from 'carbon-web-components/es/components-react/structured-list/structured-list-header-cell-skeleton';
-import { defaultStory as baseDefaultStory } from './structured-list-story';
+import { Default as baseDefault } from './structured-list-story';
 import styles from './structured-list-story.scss';
 
 export { default } from './structured-list-story';
 
-export const defaultStory = ({ parameters }) => {
-  const { hasSelection } = parameters?.props?.['bx-structured-list'];
+export const Default = args => {
+  const { hasSelection } = args?.['bx-structured-list'];
   const selectionName = !hasSelection ? undefined : 'structured-list-selection';
   const selectionValues = !hasSelection
     ? []
@@ -73,7 +73,7 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => (
   <>

@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './tabs-story';
+import { Default as baseDefault } from './tabs-story';
 
 export { default } from './tabs-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const props = (({ onBeforeSelect, onSelect, ...rest }) => {
     function handleBeforeSelect(this: any, event: CustomEvent) {
       onBeforeSelect(event);
@@ -27,7 +27,7 @@ export const defaultStory = ({ parameters }) => {
       handleBeforeSelect,
       handleAfterSelect: onSelect,
     };
-  })(parameters?.props?.['bx-tabs']);
+  })(args?.['bx-tabs']);
   return {
     template: `
         <bx-tabs
@@ -49,7 +49,7 @@ export const defaultStory = ({ parameters }) => {
   };
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => ({
   template: `

@@ -16,11 +16,11 @@ import BXBreadcrumb from 'carbon-web-components/es/components-react/breadcrumb/b
 import BXBreadcrumbItem from 'carbon-web-components/es/components-react/breadcrumb/breadcrumb-item';
 // @ts-ignore
 import BXBreadcrumbLink from 'carbon-web-components/es/components-react/breadcrumb/breadcrumb-link';
-import { defaultStory as baseDefaultStory } from './breadcrumb-story';
+import { Default as baseDefault } from './breadcrumb-story';
 
 export { default } from './breadcrumb-story';
 
-export const defaultStory = () => (
+export const Default = () => (
   <BXBreadcrumb>
     <BXBreadcrumbItem>
       <BXBreadcrumbLink href="/#">Breadcrumb 1</BXBreadcrumbLink>
@@ -36,4 +36,4 @@ export const defaultStory = () => (
   </BXBreadcrumb>
 );
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

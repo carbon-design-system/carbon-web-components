@@ -11,7 +11,7 @@
 
 describe('bx-modal', () => {
   beforeAll(async () => {
-    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-modal--default-story`);
+    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-modal--default`);
   });
 
   it('should have modal closable', async () => {

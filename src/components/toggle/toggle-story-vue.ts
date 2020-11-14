@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './toggle-story';
+import { Default as baseDefault } from './toggle-story';
 
 export { default } from './toggle-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-toggle
       :checked="checked"
@@ -26,7 +26,7 @@ export const defaultStory = ({ parameters }) => ({
       @bx-toggle-changed="onChange"
     ></bx-toggle>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-toggle']),
+  ...createVueBindingsFromProps(args?.['bx-toggle']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

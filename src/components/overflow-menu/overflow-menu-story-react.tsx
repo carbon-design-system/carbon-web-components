@@ -16,12 +16,12 @@ import BXOverflowMenu from 'carbon-web-components/es/components-react/overflow-m
 import BXOverflowMenuBody from 'carbon-web-components/es/components-react/overflow-menu/overflow-menu-body';
 // @ts-ignore
 import BXOverflowMenuItem from 'carbon-web-components/es/components-react/overflow-menu/overflow-menu-item';
-import { defaultStory as baseDefaultStory } from './overflow-menu-story';
+import { Default as baseDefault } from './overflow-menu-story';
 
 export { default } from './overflow-menu-story';
 
-export const defaultStory = ({ parameters }) => {
-  const { open, colorScheme, disabled, direction } = parameters?.props?.['bx-overflow-menu'];
+export const Default = args => {
+  const { open, colorScheme, disabled, direction } = args?.['bx-overflow-menu'];
   return (
     <BXOverflowMenu colorScheme={colorScheme} disabled={disabled} open={open}>
       <BXOverflowMenuBody direction={direction}>
@@ -35,4 +35,4 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

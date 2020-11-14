@@ -9,15 +9,11 @@
 
 import { render } from 'lit-html';
 import '../../src/components/link/link';
-import { defaultStory } from '../../src/components/link/link-story';
+import { Default } from '../../src/components/link/link-story';
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-link': props,
-      },
-    },
+  Default({
+    'bx-link': props,
   });
 
 describe('bx-link', function() {
