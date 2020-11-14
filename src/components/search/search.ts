@@ -26,6 +26,11 @@ const { prefix } = settings;
 /**
  * Search box.
  * @element bx-search
+ * @csspart search-icon The search icon.
+ * @csspart label-text The label text.
+ * @csspart input The input box.
+ * @csspart close-button The close button.
+ * @csspart close-icon The close icon.
  * @fires bx-search-input - The custom event fired after the search content is changed upon a user gesture.
  */
 @customElement(`${prefix}-search`)
@@ -148,14 +153,16 @@ class BXSearch extends FocusMixin(LitElement) {
     });
     return html`
       ${Search16({
+        part: 'search-icon',
         class: `${prefix}--search-magnifier`,
         role: 'img',
       })}
-      <label for="input" class="${prefix}--label">
+      <label for="input" part="label-text" class="${prefix}--label">
         <slot>${labelText}</slot>
       </label>
       <input
         id="input"
+        part="input"
         type="${ifNonEmpty(type)}"
         class="${prefix}--search-input"
         ?disabled="${disabled}"
@@ -166,12 +173,14 @@ class BXSearch extends FocusMixin(LitElement) {
         @input="${handleInput}"
       />
       <button
+        part="close-button"
         class="${clearClasses}"
         @click="${handleClearInputButtonClick}"
         type="button"
         aria-label="${closeButtonAssistiveText}"
       >
         ${(size === INPUT_SIZE.SMALL ? Close16 : Close20)({
+          part: 'close-icon',
           'aria-label': closeButtonAssistiveText,
           role: 'img',
         })}
