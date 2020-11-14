@@ -54,6 +54,9 @@ lines.story = {
 export default {
   title: 'Components/Skeleton text',
   parameters: {
+    percy: {
+      skip: true,
+    },
     docs: {
       page: storyDocs,
     },
