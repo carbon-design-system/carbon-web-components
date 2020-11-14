@@ -108,6 +108,12 @@ export const skeleton = () =>
     <bx-dropdown-skeleton></bx-dropdown-skeleton>
   `;
 
+skeleton.parameters = {
+  percy: {
+    skip: true,
+  },
+};
+
 export default {
   title: 'Components/Dropdown',
   parameters: {

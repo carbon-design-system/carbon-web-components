@@ -9,12 +9,12 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './skip-to-content-story';
+import baseStory, { Default as baseDefault } from './skip-to-content-story';
 import styles from './skip-to-content-story.scss';
 
 /* eslint-disable max-len */
 
-export const defaultStory = () => ({
+export const Default = () => ({
   template: `
     <div class="bx--content bx--grid">
       <div class="bx--row">
@@ -64,7 +64,7 @@ export const defaultStory = () => ({
 
 /* eslint-enable max-len */
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export default Object.assign(baseStory, {
   decorators: [

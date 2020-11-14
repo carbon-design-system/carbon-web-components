@@ -71,6 +71,12 @@ export const skeleton = () =>
     <bx-radio-button-skeleton></bx-radio-button-skeleton>
   `;
 
+skeleton.parameters = {
+  percy: {
+    skip: true,
+  },
+};
+
 export default {
   title: 'Components/Radio button',
 };

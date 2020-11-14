@@ -52,5 +52,11 @@ export default {
   title: 'Components/Skeleton text',
   parameters: {
     ...storyDocs.parameters,
+    percy: {
+      skip: true,
+    },
+    docs: {
+      page: storyDocs,
+    },
   },
 };

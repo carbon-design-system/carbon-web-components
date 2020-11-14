@@ -10,3 +10,4 @@ storybook-static-vue
 tests/coverage
 .vscode
 .idea
+.env

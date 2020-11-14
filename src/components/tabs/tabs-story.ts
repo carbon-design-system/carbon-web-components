@@ -123,6 +123,12 @@ export const skeleton = () => html`
   </bx-tabs-skeleton>
 `;
 
+skeleton.parameters = {
+  percy: {
+    skip: true,
+  },
+};
+
 export default {
   title: 'Components/Tabs',
 };

@@ -109,6 +109,12 @@ export const skeleton = () => html`
   </bx-structured-list>
 `;
 
+skeleton.parameters = {
+  percy: {
+    skip: true,
+  },
+};
+
 export default {
   title: 'Components/Structured list',
 };

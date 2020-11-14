@@ -818,6 +818,9 @@ export const skeleton = args => {
 };
 
 skeleton.parameters = {
+  percy: {
+    skip: true,
+  },
   knobs: {
     ...Default.parameters.knobs,
   },

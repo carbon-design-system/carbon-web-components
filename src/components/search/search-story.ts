@@ -75,6 +75,12 @@ export const skeleton = () =>
     <bx-search-skeleton></bx-search-skeleton>
   `;
 
+skeleton.parameters = {
+  percy: {
+    skip: true,
+  },
+};
+
 export default {
   title: 'Components/Search',
 };

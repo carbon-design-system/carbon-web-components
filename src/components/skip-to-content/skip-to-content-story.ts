@@ -12,7 +12,7 @@ import './skip-to-content';
 import styles from './skip-to-content-story.scss';
 import storyDocs from './skip-to-content-story.mdx';
 
-export const defaultStory = () => html`
+export const Default = () => html`
   <style>
     ${styles}
   </style>
@@ -59,10 +59,6 @@ export const defaultStory = () => html`
     </div>
   </div>
 `;
-
-defaultStory.story = {
-  name: 'Default',
-};
 
 export default {
   title: 'Components/Skip to content',

@@ -178,12 +178,24 @@ export const skeletonSimple = () =>
 
 skeletonSimple.storyName = 'Skeleton simple';
 
+skeletonSimple.parameters = {
+  percy: {
+    skip: true,
+  },
+};
+
 export const skeletonSingle = () =>
   html`
     <bx-date-picker-input-skeleton kind="single"></bx-date-picker-input-skeleton>
   `;
 
 skeletonSingle.storyName = 'Skeleton single';
+
+skeletonSingle.parameters = {
+  percy: {
+    skip: true,
+  },
+};
 
 export const skeletonRange = () =>
   html`
@@ -199,6 +211,12 @@ skeletonRange.decorators = [
       <div>${story()}</div>
     `,
 ];
+
+skeletonRange.parameters = {
+  percy: {
+    skip: true,
+  },
+};
 
 export default {
   title: 'Components/Date picker',

@@ -75,7 +75,7 @@ export const multiLine = args => {
   width: 100%;
   padding-right: padding(mobile);
   padding-left: padding(mobile);
-  
+
   @include breakpoint(bp--xs--major) {
     padding-right: padding(xs);
     padding-left: padding(xs);
@@ -151,12 +151,24 @@ export const skeletonSingleLine = () =>
 
 skeletonSingleLine.storyName = 'Skeleton single line';
 
+skeletonSingleLine.parameters = {
+  percy: {
+    skip: true,
+  },
+};
+
 export const skeletonMultiLine = () =>
   html`
     <bx-code-snippet-skeleton type="multi"></bx-code-snippet-skeleton>
   `;
 
 skeletonMultiLine.storyName = 'Skeleton multi line';
+
+skeletonMultiLine.parameters = {
+  percy: {
+    skip: true,
+  },
+};
 
 export default {
   title: 'Components/Code snippet',

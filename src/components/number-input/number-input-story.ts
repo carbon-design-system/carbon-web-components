@@ -120,6 +120,12 @@ export const skeleton = () =>
     <bx-number-input-skeleton></bx-number-input-skeleton>
   `;
 
+skeleton.parameters = {
+  percy: {
+    skip: true,
+  },
+};
+
 export default {
   title: 'Components/Number Input',
 };

@@ -17,6 +17,12 @@ export const Default = () =>
 
 Default.storyName = 'Default';
 
+Default.parameters = {
+  percy: {
+    skip: true,
+  },
+};
+
 export default {
   title: 'Components/Skeleton placeholder',
 };
