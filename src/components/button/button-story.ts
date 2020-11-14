@@ -23,6 +23,7 @@ import storyDocs from './button-story.mdx';
 const kinds = {
   [`Primary button (${BUTTON_KIND.PRIMARY})`]: BUTTON_KIND.PRIMARY,
   [`Secondary button (${BUTTON_KIND.SECONDARY})`]: BUTTON_KIND.SECONDARY,
+  [`Tertiary button (${BUTTON_KIND.TERTIARY})`]: BUTTON_KIND.TERTIARY,
   [`Danger button (${BUTTON_KIND.DANGER})`]: BUTTON_KIND.DANGER,
   [`Ghost button (${BUTTON_KIND.GHOST})`]: BUTTON_KIND.GHOST,
 };
@@ -138,6 +139,9 @@ export const skeleton = ({ parameters }) => {
 
 skeleton.story = {
   parameters: {
+    percy: {
+      skip: true,
+    },
     knobs: {
       'bx-btn-skeleton': () => ({
         kind: select('Button kind (kind)', kinds, BUTTON_KIND.PRIMARY),

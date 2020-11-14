@@ -181,6 +181,11 @@ export const skeletonSimple = () =>
 
 skeletonSimple.story = {
   name: 'Skeleton simple',
+  parameters: {
+    percy: {
+      skip: true,
+    },
+  },
 };
 
 export const skeletonSingle = () =>
@@ -190,6 +195,11 @@ export const skeletonSingle = () =>
 
 skeletonSingle.story = {
   name: 'Skeleton single',
+  parameters: {
+    percy: {
+      skip: true,
+    },
+  },
 };
 
 export const skeletonRange = () =>
@@ -200,6 +210,11 @@ export const skeletonRange = () =>
 
 skeletonRange.story = {
   name: 'Skeleton range',
+  parameters: {
+    percy: {
+      skip: true,
+    },
+  },
   decorators: [
     story =>
       html`

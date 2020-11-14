@@ -80,6 +80,14 @@ export const skeleton = () =>
     <bx-slider-skeleton></bx-slider-skeleton>
   `;
 
+skeleton.story = {
+  parameters: {
+    percy: {
+      skip: true,
+    },
+  },
+};
+
 export default {
   title: 'Components/Slider',
   parameters: {

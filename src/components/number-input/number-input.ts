@@ -126,7 +126,9 @@ export default class BXNumberInput extends BXInput {
    * The value of the input.
    */
   @property({ reflect: true })
+  // @ts-ignore
   get value() {
+    // FIXME: Figure out how to deal with TS2611
     // once we have the input we can directly query for the value
     if (this._input) {
       return this._input.value;
@@ -202,7 +204,10 @@ export default class BXNumberInput extends BXInput {
   }
 
   createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+    return this.attachShadow({
+      mode: 'open',
+      delegatesFocus: Number((/Safari\/(\d+)/.exec(navigator.userAgent) ?? ['', 0])[1]) <= 537,
+    });
   }
 
   render() {

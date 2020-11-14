@@ -17,6 +17,11 @@ export const defaultStory = () =>
 
 defaultStory.story = {
   name: 'Default',
+  parameters: {
+    percy: {
+      skip: true,
+    },
+  },
 };
 
 export default {
