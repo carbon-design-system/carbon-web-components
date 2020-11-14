@@ -17,6 +17,10 @@ addons.setConfig({
   theme: theme,
 });
 
+export const parameters = {
+  layout: 'fullscreen', // https://github.com/storybookjs/storybook/issues/12041
+};
+
 export const decorators = [
   () => {
     // Vue doesn't allow `<style>` tag in its template

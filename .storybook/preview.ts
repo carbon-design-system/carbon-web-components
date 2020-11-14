@@ -28,6 +28,7 @@ addons.setConfig({
 const SORT_ORDER = ['introduction-welcome--page', 'introduction-form-paticipation--page', 'introduction-custom-styles--page'];
 
 export const parameters = {
+  layout: 'fullscreen', // https://github.com/storybookjs/storybook/issues/12041
   options: {
     storySort(lhs, rhs) {
       const [lhsId] = lhs;
