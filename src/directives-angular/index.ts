@@ -14,6 +14,7 @@ import { BXDropdownDirective } from './dropdown';
 import { BXInputDirective } from './input';
 import { BXMultiSelectDirective } from './multi-select';
 import { BXNumberInputDirective } from './number-input';
+import { BXSelectDirective } from './select';
 import { BXSliderDirective } from './slider';
 import { BXToggleDirective } from './toggle';
 
@@ -25,6 +26,7 @@ import { BXToggleDirective } from './toggle';
     BXInputDirective,
     BXMultiSelectDirective,
     BXNumberInputDirective,
+    BXSelectDirective,
     BXSliderDirective,
     BXToggleDirective,
   ],
@@ -35,6 +37,7 @@ import { BXToggleDirective } from './toggle';
     BXInputDirective,
     BXMultiSelectDirective,
     BXNumberInputDirective,
+    BXSelectDirective,
     BXSliderDirective,
     BXToggleDirective,
   ],

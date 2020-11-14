@@ -87,6 +87,9 @@ export const skeleton = ({ parameters }) => {
 
 skeleton.story = {
   parameters: {
+    percy: {
+      skip: true,
+    },
     knobs: {
       'bx-progress-indicator-skeleton': () => ({
         vertical: boolean('Vertical (vertical)', false),

@@ -1,0 +1,30 @@
+name: percy-update-base
+
+on:
+  push:
+    branches:
+      - master
+      - release/*
+
+jobs:
+  percy:
+    runs-on: ubuntu-16.04
+    strategy:
+      matrix:
+        node-version: ['12.x']
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: yarn install
+      - name: Install xvfb
+        run: sudo apt-get install xvfb
+      - name: Build
+        run: yarn build
+      - name: Set env vars
+        run: echo "PERCY_TOKEN=${{ secrets.PERCY_TOKEN }}" >> .env
+      - name: Run percy-storybook
+        run: yarn build-storybook && yarn percy-storybook --widths=320,1280
