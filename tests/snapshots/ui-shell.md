@@ -10,6 +10,7 @@
 <button
   aria-label="Open navigation menu"
   class="bx--header__action bx--header__menu-toggle bx--header__menu-trigger"
+  part="button"
 >
 </button>
 
@@ -22,6 +23,7 @@
   aria-label="button-label-inactive"
   class="bx--header__action bx--header__menu-toggle bx--header__menu-trigger"
   disabled=""
+  part="button"
 >
 </button>
 
@@ -34,6 +36,7 @@
   aria-label="button-label-active"
   class="bx--header__action bx--header__action--active bx--header__menu-toggle bx--header__menu-trigger"
   disabled=""
+  part="button"
 >
 </button>
 
@@ -51,12 +54,14 @@
   aria-haspopup="menu"
   class="bx--header__menu-item bx--header__menu-title"
   href="javascript:void 0"
+  part="trigger"
   role="menuitem"
   tabindex="0"
 >
 </a>
 <ul
   class="bx--header__menu"
+  part="menu-body"
   role="menu"
 >
   <slot>
@@ -73,6 +78,7 @@
   aria-haspopup="menu"
   class="bx--header__menu-item bx--header__menu-title"
   href="javascript:void 0"
+  part="trigger"
   role="menuitem"
   tabindex="0"
 >
@@ -81,6 +87,7 @@
 <ul
   aria-label="menu-label-foo"
   class="bx--header__menu"
+  part="menu-body"
   role="menu"
 >
   <slot>
@@ -96,7 +103,10 @@
 ####     `should render with minimum attributes`
 
 ```
-<a class="bx--header__name">
+<a
+  class="bx--header__name"
+  part="link"
+>
   <slot>
   </slot>
 </a>
@@ -109,8 +119,12 @@
 <a
   class="bx--header__name"
   href="about:blank"
+  part="link"
 >
-  <span class="bx--header__name--prefix">
+  <span
+    class="bx--header__name--prefix"
+    part="prefix"
+  >
     prefix-foo
   </span>
   <slot>
@@ -126,11 +140,15 @@
 ####     `should render with minimum attributes`
 
 ```
-<div class="bx-ce--header__divider">
+<div
+  class="bx-ce--header__divider"
+  part="divider"
+>
 </div>
 <ul
   aria-label="undefined"
   class="bx--header__menu-bar"
+  part="menu-body"
   role="menubar"
 >
   <slot>
@@ -142,11 +160,15 @@
 ####     `should render with various attributes`
 
 ```
-<div class="bx-ce--header__divider">
+<div
+  class="bx-ce--header__divider"
+  part="divider"
+>
 </div>
 <ul
   aria-label="menu-bar-label-foo"
   class="bx--header__menu-bar"
+  part="menu-body"
   role="menubar"
 >
   <slot>
@@ -164,10 +186,14 @@
 ```
 <a
   class="bx--header__menu-item"
+  part="link"
   role="menuitem"
   tabindex="0"
 >
-  <span class="bx--text-truncate--end">
+  <span
+    class="bx--text-truncate--end"
+    part="title"
+  >
     <slot>
     </slot>
   </span>
@@ -181,10 +207,14 @@
 <a
   class="bx--header__menu-item"
   href="about:blank"
+  part="link"
   role="menuitem"
   tabindex="0"
 >
-  <span class="bx--text-truncate--end">
+  <span
+    class="bx--text-truncate--end"
+    part="title"
+  >
     <slot>
     </slot>
   </span>
@@ -202,16 +232,21 @@
 <a
   class="bx--side-nav__link"
   href=""
+  part="link"
 >
   <div
     class="bx--side-nav__icon"
     hidden=""
     id="title-icon-container"
+    part="title-icon-container"
   >
     <slot name="title-icon">
     </slot>
   </div>
-  <span class="bx--side-nav__link-text">
+  <span
+    class="bx--side-nav__link-text"
+    part="title"
+  >
     <slot>
     </slot>
   </span>
@@ -225,15 +260,20 @@
 <a
   class="bx--side-nav__link bx--side-nav__link--current"
   href="about:blank"
+  part="link"
 >
   <div
     class="bx--side-nav__icon"
     id="title-icon-container"
+    part="title-icon-container"
   >
     <slot name="title-icon">
     </slot>
   </div>
-  <span class="bx--side-nav__link-text">
+  <span
+    class="bx--side-nav__link-text"
+    part="title"
+  >
     <slot>
     </slot>
   </span>
@@ -252,23 +292,32 @@
   aria-expanded="false"
   aria-haspopup="true"
   class="bx--side-nav__submenu"
+  part="expando"
   type="button"
 >
   <div
     class="bx--side-nav__icon"
     hidden=""
     id="title-icon-container"
+    part="title-icon-container"
   >
     <slot name="title-icon">
     </slot>
   </div>
-  <span class="bx--side-nav__submenu-title">
+  <span
+    class="bx--side-nav__submenu-title"
+    part="title"
+  >
   </span>
-  <div class="bx--side-nav__icon bx--side-nav__icon--small bx--side-nav__submenu-chevron">
+  <div
+    class="bx--side-nav__icon bx--side-nav__icon--small bx--side-nav__submenu-chevron"
+    part="expando-icon-container"
+  >
   </div>
 </button>
 <ul
   class="bx--side-nav__menu"
+  part="menu-body"
   role="menu"
 >
   <slot>
@@ -284,24 +333,33 @@
   aria-expanded="true"
   aria-haspopup="true"
   class="bx--side-nav__submenu"
+  part="expando"
   type="button"
 >
   <div
     class="bx--side-nav__icon"
     hidden=""
     id="title-icon-container"
+    part="title-icon-container"
   >
     <slot name="title-icon">
     </slot>
   </div>
-  <span class="bx--side-nav__submenu-title">
+  <span
+    class="bx--side-nav__submenu-title"
+    part="title"
+  >
     title-foo
   </span>
-  <div class="bx--side-nav__icon bx--side-nav__icon--small bx--side-nav__submenu-chevron">
+  <div
+    class="bx--side-nav__icon bx--side-nav__icon--small bx--side-nav__submenu-chevron"
+    part="expando-icon-container"
+  >
   </div>
 </button>
 <ul
   class="bx--side-nav__menu"
+  part="menu-body"
   role="menu"
 >
   <slot>
@@ -317,23 +375,32 @@
   aria-expanded="false"
   aria-haspopup="true"
   class="bx--side-nav__submenu"
+  part="expando"
   type="button"
 >
   <div
     class="bx--side-nav__icon"
     hidden=""
     id="title-icon-container"
+    part="title-icon-container"
   >
     <slot name="title-icon">
     </slot>
   </div>
-  <span class="bx--side-nav__submenu-title">
+  <span
+    class="bx--side-nav__submenu-title"
+    part="title"
+  >
   </span>
-  <div class="bx--side-nav__icon bx--side-nav__icon--small bx--side-nav__submenu-chevron">
+  <div
+    class="bx--side-nav__icon bx--side-nav__icon--small bx--side-nav__submenu-chevron"
+    part="expando-icon-container"
+  >
   </div>
 </button>
 <ul
   class="bx--side-nav__menu"
+  part="menu-body"
   role="menu"
 >
   <slot>
@@ -352,9 +419,13 @@
 <a
   class="bx--side-nav__link"
   href=""
+  part="link"
   role="menuitem"
 >
-  <span class="bx--side-nav__link-text">
+  <span
+    class="bx--side-nav__link-text"
+    part="title"
+  >
     <slot>
     </slot>
   </span>
@@ -368,9 +439,13 @@
 <a
   class="bx--side-nav__link bx--side-nav__link--current"
   href="about:blank"
+  part="link"
   role="menuitem"
 >
-  <span class="bx--side-nav__link-text">
+  <span
+    class="bx--side-nav__link-text"
+    part="title"
+  >
     <slot>
     </slot>
   </span>
