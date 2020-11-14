@@ -10,7 +10,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   singleWithCalendar as baseSingleWithCalendar,
   rangeWithCalendar as baseRangeWithCalendar,
   skeletonSimple as baseSkeletonSimple,
@@ -18,7 +18,7 @@ import baseStory, {
   skeletonRange as baseSkeletonRange,
 } from './date-picker-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
   <bx-date-picker [open]="open">
     <bx-date-picker-input
@@ -36,14 +36,14 @@ export const defaultStory = ({ parameters }) => ({
   </bx-date-picker>
 `,
   props: {
-    ...parameters?.props?.['bx-date-picker'],
-    ...parameters?.props?.['bx-date-picker-input'],
+    ...args?.['bx-date-picker'],
+    ...args?.['bx-date-picker-input'],
   },
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const singleWithCalendar = ({ parameters }) => ({
+export const singleWithCalendar = args => ({
   template: `
   <bx-date-picker
     [dateFormat]="dateFormat"
@@ -69,14 +69,14 @@ export const singleWithCalendar = ({ parameters }) => ({
   </bx-date-picker>
 `,
   props: {
-    ...parameters?.props?.['bx-date-picker'],
-    ...parameters?.props?.['bx-date-picker-input'],
+    ...args?.['bx-date-picker'],
+    ...args?.['bx-date-picker-input'],
   },
 });
 
-singleWithCalendar.story = baseSingleWithCalendar.story;
+Object.assign(singleWithCalendar, baseSingleWithCalendar);
 
-export const rangeWithCalendar = ({ parameters }) => ({
+export const rangeWithCalendar = args => ({
   template: `
   <bx-date-picker
     [dateFormat]="dateFormat"
@@ -115,24 +115,24 @@ export const rangeWithCalendar = ({ parameters }) => ({
   </bx-date-picker>
 `,
   props: {
-    ...parameters?.props?.['bx-date-picker'],
-    ...parameters?.props?.['bx-date-picker-input'],
+    ...args?.['bx-date-picker'],
+    ...args?.['bx-date-picker-input'],
   },
 });
 
-rangeWithCalendar.story = baseRangeWithCalendar.story;
+Object.assign(rangeWithCalendar, baseRangeWithCalendar);
 
 export const skeletonSimple = () => ({
   template: `<bx-date-picker-input-skeleton></bx-date-picker-input-skeleton>`,
 });
 
-skeletonSimple.story = baseSkeletonSimple.story;
+Object.assign(skeletonSimple, baseSkeletonSimple);
 
 export const skeletonSingle = () => ({
   template: `<bx-date-picker-input-skeleton kind="single"></bx-date-picker-input-skeleton>`,
 });
 
-skeletonSingle.story = baseSkeletonSingle.story;
+Object.assign(skeletonSingle, baseSkeletonSingle);
 
 export const skeletonRange = () => ({
   template: `
@@ -141,8 +141,7 @@ export const skeletonRange = () => ({
   `,
 });
 
-skeletonRange.story = {
-  ...baseSkeletonRange.story,
+Object.assign(skeletonRange, baseSkeletonRange, {
   decorators: [
     story => {
       const { template, ...rest } = story();
@@ -152,7 +151,7 @@ skeletonRange.story = {
       };
     },
   ],
-};
+});
 
 export default Object.assign(baseStory, {
   decorators: [

@@ -13,11 +13,7 @@ import { filter } from '../../src/components/tag/tag-story';
 
 const filterTemplate = (props?) =>
   filter({
-    parameters: {
-      props: {
-        'bx-filter-tag': props,
-      },
-    },
+    'bx-filter-tag': props,
   });
 
 describe('bx-filter-tag', function() {

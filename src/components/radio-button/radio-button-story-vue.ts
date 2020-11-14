@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './radio-button-story';
+import { Default as baseDefault } from './radio-button-story';
 
 export { default } from './radio-button-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-radio-button-group
       :disabled="disabled"
@@ -27,10 +27,10 @@ export const defaultStory = ({ parameters }) => ({
       <bx-radio-button :hide-label="hideLabel" :label-text="labelText" value="staging"></bx-radio-button>
     </bx-radio-button-group>
   `,
-  ...createVueBindingsFromProps({ ...parameters?.props?.['bx-radio-button-group'], ...parameters?.props?.['bx-radio-button'] }),
+  ...createVueBindingsFromProps({ ...args?.['bx-radio-button-group'], ...args?.['bx-radio-button'] }),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => ({
   template: `<bx-radio-button-skeleton></bx-radio-button-skeleton>`,

@@ -9,14 +9,14 @@
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   formItem as baseFormItem,
   withoutFormItemWrapper as baseWithoutFormItemWrapper,
 } from './textarea-story';
 
 export { default } from './textarea-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-textarea
       :color-scheme="colorScheme"
@@ -27,12 +27,12 @@ export const defaultStory = ({ parameters }) => ({
       @input="onInput"
     ></bx-textarea>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-textarea']),
+  ...createVueBindingsFromProps(args?.['bx-textarea']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const formItem = ({ parameters }) => ({
+export const formItem = args => ({
   template: `
     <bx-form-item>
       <bx-textarea
@@ -49,12 +49,12 @@ export const formItem = ({ parameters }) => ({
       </bx-textarea>
     </bx-form-item>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-textarea']),
+  ...createVueBindingsFromProps(args?.['bx-textarea']),
 });
 
-formItem.story = baseFormItem.story;
+Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = ({ parameters }) => ({
+export const withoutFormItemWrapper = args => ({
   template: `
     <bx-textarea
       :value="value"
@@ -69,10 +69,10 @@ export const withoutFormItemWrapper = ({ parameters }) => ({
       <span slot="validity-message">Something isn't right</span>
     </bx-textarea>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-textarea']),
+  ...createVueBindingsFromProps(args?.['bx-textarea']),
 });
 
-withoutFormItemWrapper.story = baseWithoutFormItemWrapper.story;
+Object.assign(withoutFormItemWrapper, baseWithoutFormItemWrapper);
 
 export const skeleton = () => ({
   template: `<bx-textarea-skeleton></bx-textarea-skeleton>`,

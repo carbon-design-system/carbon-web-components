@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,7 +10,7 @@
 import { html, render } from 'lit-html';
 import BXRadioButtonGroup, { RADIO_BUTTON_ORIENTATION } from '../../src/components/radio-button/radio-button-group';
 import { RADIO_BUTTON_LABEL_POSITION } from '../../src/components/radio-button/radio-button';
-import { defaultStory } from '../../src/components/radio-button/radio-button-story';
+import { Default } from '../../src/components/radio-button/radio-button-story';
 
 /**
  * @param formData A `FormData` instance.
@@ -25,12 +25,7 @@ const getValues = (formData: FormData) => {
   return values;
 };
 
-const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props,
-    },
-  });
+const template = (props?) => Default(props);
 
 describe('bx-radio-button', function() {
   describe('Rendering', function() {

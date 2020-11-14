@@ -4,6 +4,7 @@
     "sourceType": "module"
   },
   "extends": [
+    "plugin:lit/recommended",
     "../.eslintrc.js"
   ],
   "env": {

@@ -1,14 +1,14 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import { html, render } from 'lit-html';
-import { defaultStory } from '../../src/components/slider/slider-story';
+import { Default } from '../../src/components/slider/slider-story';
 
 /**
  * @param formData A `FormData` instance.
@@ -24,12 +24,8 @@ const getValues = (formData: FormData) => {
 };
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-slider': props,
-      },
-    },
+  Default({
+    'bx-slider': props,
   });
 
 describe('bx-slider', function() {

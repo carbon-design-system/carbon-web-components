@@ -11,7 +11,7 @@
 
 describe('bx-tooltip', () => {
   beforeAll(async () => {
-    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-tooltip--default-story`);
+    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-tooltip--default`);
   });
 
   it('should have overflow menu interactive', async () => {

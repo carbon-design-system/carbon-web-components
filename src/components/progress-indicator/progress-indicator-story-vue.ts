@@ -1,18 +1,18 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './progress-indicator-story';
+import { Default as baseDefault } from './progress-indicator-story';
 
 export { default } from './progress-indicator-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-progress-indicator
       :vertical="vertical"
@@ -48,12 +48,12 @@ export const defaultStory = ({ parameters }) => ({
       ></bx-progress-step>
     </bx-progress-indicator>
   `,
-  ...createVueBindingsFromProps({ ...parameters?.props?.['bx-progress-indicator'], ...parameters?.props?.['bx-progress-step'] }),
+  ...createVueBindingsFromProps({ ...args?.['bx-progress-indicator'], ...args?.['bx-progress-step'] }),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const skeleton = ({ parameters }) => ({
+export const skeleton = args => ({
   template: `
     <bx-progress-indicator-skeleton :vertical="vertical">
       <bx-progress-step-skeleton></bx-progress-step-skeleton>
@@ -61,5 +61,5 @@ export const skeleton = ({ parameters }) => ({
       <bx-progress-step-skeleton></bx-progress-step-skeleton>
     </bx-progress-indicator-skeleton>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-progress-indicator-skeleton']),
+  ...createVueBindingsFromProps(args?.['bx-progress-indicator-skeleton']),
 });

@@ -18,7 +18,7 @@ import {
 
 export { default } from './code-snippet-story';
 
-export const singleLine = ({ parameters }) => ({
+export const singleLine = args => ({
   template: `
     <bx-code-snippet
       :code-assistive-text="codeAssistiveText"
@@ -31,12 +31,12 @@ export const singleLine = ({ parameters }) => ({
     officia possimus, quasi itaque alias, architecto hic, dicta fugit? Debitis delectus quidem explicabo vitae fuga
     laboriosam!</bx-code-snippet>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-code-snippet']),
+  ...createVueBindingsFromProps(args?.['bx-code-snippet']),
 });
 
-singleLine.story = baseSingleLine.story;
+Object.assign(singleLine, baseSingleLine);
 
-export const multiLine = ({ parameters }) => ({
+export const multiLine = args => ({
   template: `
     <bx-code-snippet
       type="multi"
@@ -70,12 +70,12 @@ overflowHidden: - 1,
 floating: 10000
 );</bx-code-snippet>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-code-snippet']),
+  ...createVueBindingsFromProps(args?.['bx-code-snippet']),
 });
 
-multiLine.story = baseMultiLine.story;
+Object.assign(multiLine, baseMultiLine);
 
-export const inline = ({ parameters }) => ({
+export const inline = args => ({
   template: `
     <bx-code-snippet
       type="inline"
@@ -87,19 +87,19 @@ export const inline = ({ parameters }) => ({
       @click="onClick"
     >node -v</bx-code-snippet>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-code-snippet']),
+  ...createVueBindingsFromProps(args?.['bx-code-snippet']),
 });
 
 export const skeletonSingleLine = () => ({
   template: `<bx-code-snippet-skeleton type="single"></bx-code-snippet-skeleton>`,
 });
 
-skeletonSingleLine.story = baseSkeletonSingleLine.story;
+Object.assign(skeletonSingleLine, baseSkeletonSingleLine);
 
 export const skeletonMultiLine = () => ({
   template: `<bx-code-snippet-skeleton type="multi"></bx-code-snippet-skeleton>`,
 });
 
-skeletonMultiLine.story = baseSkeletonMultiLine.story;
+Object.assign(skeletonMultiLine, baseSkeletonMultiLine);
 
-inline.story = baseInline.story;
+Object.assign(inline, baseInline);

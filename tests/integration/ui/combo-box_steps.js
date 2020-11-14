@@ -11,7 +11,7 @@
 
 describe('bx-combo-box', () => {
   beforeAll(async () => {
-    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-combo-box--default-story`);
+    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-combo-box--default`);
   });
 
   it('should have combo box interactive', async () => {

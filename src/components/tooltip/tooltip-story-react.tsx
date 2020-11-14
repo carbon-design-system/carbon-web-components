@@ -23,13 +23,13 @@ import BXTooltipFooter from 'carbon-web-components/es/components-react/tooltip/t
 import BXTooltipDefinition from 'carbon-web-components/es/components-react/tooltip/tooltip-definition';
 // @ts-ignore
 import BXTooltipIcon from 'carbon-web-components/es/components-react/tooltip/tooltip-icon';
-import { defaultStory as baseDefaultStory, definition as baseDefinition, icon as baseIcon } from './tooltip-story';
+import { Default as baseDefault, definition as baseDefinition, icon as baseIcon } from './tooltip-story';
 import styles from './tooltip-story.scss';
 
 export { default } from './tooltip-story';
 
-export const defaultStory = ({ parameters }) => {
-  const { open, direction } = parameters?.props?.['bx-tooltip'];
+export const Default = args => {
+  const { open, direction } = args?.['bx-tooltip'];
   return (
     <>
       <style>{styles.cssText}</style>
@@ -51,10 +51,10 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const definition = ({ parameters }) => {
-  const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-definition'];
+export const definition = args => {
+  const { alignment, bodyText, direction } = args?.['bx-tooltip-definition'];
   return (
     <BXTooltipDefinition alignment={alignment} bodyText={bodyText} direction={direction}>
       Definition Tooltip
@@ -62,10 +62,10 @@ export const definition = ({ parameters }) => {
   );
 };
 
-definition.story = baseDefinition.story;
+Object.assign(definition, baseDefinition);
 
-export const icon = ({ parameters }) => {
-  const { alignment, bodyText, direction } = parameters?.props?.['bx-tooltip-icon'];
+export const icon = args => {
+  const { alignment, bodyText, direction } = args?.['bx-tooltip-icon'];
   return (
     <BXTooltipIcon alignment={alignment} bodyText={bodyText} direction={direction}>
       <Filter16 />
@@ -73,4 +73,4 @@ export const icon = ({ parameters }) => {
   );
 };
 
-icon.story = baseIcon.story;
+Object.assign(icon, baseIcon);

@@ -14,28 +14,13 @@ import EventManager from '../utils/event-manager';
 
 import BXDatePicker from '../../src/components/date-picker/date-picker';
 import BXDatePickerInput from '../../src/components/date-picker/date-picker-input';
-import { defaultStory, singleWithCalendar, rangeWithCalendar } from '../../src/components/date-picker/date-picker-story';
+import { Default, singleWithCalendar, rangeWithCalendar } from '../../src/components/date-picker/date-picker-story';
 
-const defaultTemplate = (props?) =>
-  defaultStory({
-    parameters: {
-      props,
-    },
-  });
+const defaultTemplate = (props?) => Default(props);
 
-const singleWithCalendarTemplate = (props?) =>
-  singleWithCalendar({
-    parameters: {
-      props,
-    },
-  });
+const singleWithCalendarTemplate = (props?) => singleWithCalendar(props);
 
-const rangeWithCalendarTemplate = (props?) =>
-  rangeWithCalendar({
-    parameters: {
-      props,
-    },
-  });
+const rangeWithCalendarTemplate = (props?) => rangeWithCalendar(props);
 
 describe('bx-date-picker', function() {
   const events = new EventManager();
