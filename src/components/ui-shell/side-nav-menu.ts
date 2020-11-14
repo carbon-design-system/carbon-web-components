@@ -20,6 +20,12 @@ const { prefix } = settings;
  * Side nav menu.
  * @element bx-side-nav-menu
  * @slot title-icon - The icon.
+ * @csspart expando The expando.
+ * @csspart expando-icon-container The expando icon container.
+ * @csspart expando-icon The expando icon.
+ * @csspart title The title.
+ * @csspart title-icon-container The title icon container.
+ * @csspart menu-body The menu body.
  */
 @customElement(`${prefix}-side-nav-menu`)
 class BXSideNavMenu extends FocusMixin(LitElement) {
@@ -146,20 +152,24 @@ class BXSideNavMenu extends FocusMixin(LitElement) {
     return html`
       <button
         type="button"
+        part="expando"
         aria-haspopup="true"
         aria-expanded="${String(Boolean(expanded && !forceCollapsed))}"
         class="${prefix}--side-nav__submenu"
         @click=${handleClickExpando}
       >
-        <div id="title-icon-container" hidden class="${prefix}--side-nav__icon">
+        <div id="title-icon-container" part="title-icon-container" hidden class="${prefix}--side-nav__icon">
           <slot name="title-icon" @slotchange=${handleSlotChangeTitleIcon}></slot>
         </div>
-        <span class="${prefix}--side-nav__submenu-title">${title}</span>
-        <div class="${prefix}--side-nav__icon ${prefix}--side-nav__icon--small ${prefix}--side-nav__submenu-chevron">
-          ${ChevronDown20()}
+        <span part="title" class="${prefix}--side-nav__submenu-title">${title}</span>
+        <div
+          part="expando-icon-container"
+          class="${prefix}--side-nav__icon ${prefix}--side-nav__icon--small ${prefix}--side-nav__submenu-chevron"
+        >
+          ${ChevronDown20({ part: 'expando-icon' })}
         </div>
       </button>
-      <ul class="${prefix}--side-nav__menu" role="menu">
+      <ul part="menu-body" class="${prefix}--side-nav__menu" role="menu">
         <slot @slotchange=${handleSlotChange}></slot>
       </ul>
     `;
