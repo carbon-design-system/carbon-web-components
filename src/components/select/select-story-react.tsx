@@ -16,11 +16,11 @@ import BXSelect from 'carbon-web-components/es/components-react/select/select';
 import BXSelectItem from 'carbon-web-components/es/components-react/select/select-item';
 // @ts-ignore
 import BXSelectItemGroup from 'carbon-web-components/es/components-react/select/select-item-group';
-import { defaultStory as baseDefaultStory } from './select-story';
+import { Default as baseDefault } from './select-story';
 
 export { default } from './select-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const {
     autofocus,
     colorScheme,
@@ -34,7 +34,7 @@ export const defaultStory = ({ parameters }) => {
     validityMessage,
     value,
     onInput,
-  } = parameters?.props?.['bx-select'] ?? {};
+  } = args?.['bx-select'] ?? {};
   return (
     <BXSelect
       autofocus={autofocus}
@@ -62,4 +62,4 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

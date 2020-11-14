@@ -11,7 +11,7 @@
 
 describe('bx-dropdown', () => {
   beforeAll(async () => {
-    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-dropdown--default-story`);
+    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-dropdown--default`);
   });
 
   it('should have dropdown interactive', async () => {

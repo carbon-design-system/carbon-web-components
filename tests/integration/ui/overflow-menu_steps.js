@@ -11,7 +11,7 @@
 
 describe('bx-overflow-menu', () => {
   beforeAll(async () => {
-    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-overflow-menu--default-story`);
+    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-overflow-menu--default`);
   });
 
   it('should have overflow menu interactive', async () => {

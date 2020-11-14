@@ -24,27 +24,25 @@ const colorSchemes = {
   [`Light (${TILE_COLOR_SCHEME.LIGHT})`]: TILE_COLOR_SCHEME.LIGHT,
 };
 
-export const defaultStory = ({ parameters }) => {
-  const { colorScheme } = parameters?.props?.['bx-tile'] ?? {};
+export const Default = args => {
+  const { colorScheme } = args?.['bx-tile'] ?? {};
   return html`
     <bx-tile color-scheme="${ifNonNull(colorScheme)}">Default tile</bx-tile>
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    knobs: {
-      'bx-tile': () => ({
-        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
-      }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  knobs: {
+    'bx-tile': () => ({
+      colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
+    }),
   },
 };
 
-export const clickable = ({ parameters }) => {
-  const { colorScheme, disabled, download, href, hreflang, ping, rel, target, type } =
-    parameters?.props?.['bx-clickable-tile'] ?? {};
+export const clickable = args => {
+  const { colorScheme, disabled, download, href, hreflang, ping, rel, target, type } = args?.['bx-clickable-tile'] ?? {};
   return html`
     <bx-clickable-tile
       color-scheme="${ifNonNull(colorScheme)}"
@@ -62,20 +60,18 @@ export const clickable = ({ parameters }) => {
   `;
 };
 
-clickable.story = {
-  parameters: {
-    knobs: {
-      'bx-clickable-tile': () => ({
-        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
-        disabled: boolean('Disabled (disabled)', false),
-        href: textNullable('Href for clickable UI (href)', ''),
-      }),
-    },
+clickable.parameters = {
+  knobs: {
+    'bx-clickable-tile': () => ({
+      colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
+      disabled: boolean('Disabled (disabled)', false),
+      href: textNullable('Href for clickable UI (href)', ''),
+    }),
   },
 };
 
-export const singleSelectable = ({ parameters }) => {
-  const { checkmarkLabel, colorScheme, name, value, onInput } = parameters?.props?.['bx-radio-tile'] ?? {};
+export const singleSelectable = args => {
+  const { checkmarkLabel, colorScheme, name, value, onInput } = args?.['bx-radio-tile'] ?? {};
   return html`
     <fieldset>
       <legend>Single-select tiles</legend>
@@ -110,23 +106,22 @@ export const singleSelectable = ({ parameters }) => {
   `;
 };
 
-singleSelectable.story = {
-  name: 'Single-selectable',
-  parameters: {
-    knobs: {
-      'bx-radio-tile': () => ({
-        checkmarkLabel: textNullable('Label text for the checkmark icon (checkmark-label)', ''),
-        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
-        name: textNullable('Name (name)', 'selectable-tile'),
-        value: textNullable('Value (value)', ''),
-        onInput: action('input'),
-      }),
-    },
+singleSelectable.storyName = 'Single-selectable';
+
+singleSelectable.parameters = {
+  knobs: {
+    'bx-radio-tile': () => ({
+      checkmarkLabel: textNullable('Label text for the checkmark icon (checkmark-label)', ''),
+      colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
+      name: textNullable('Name (name)', 'selectable-tile'),
+      value: textNullable('Value (value)', ''),
+      onInput: action('input'),
+    }),
   },
 };
 
-export const multiSelectable = ({ parameters }) => {
-  const { checkmarkLabel, colorScheme, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'] ?? {};
+export const multiSelectable = args => {
+  const { checkmarkLabel, colorScheme, name, selected, value, onInput } = args?.['bx-selectable-tile'] ?? {};
   return html`
     <bx-selectable-tile
       checkmark-label="${ifNonNull(checkmarkLabel)}"
@@ -141,20 +136,19 @@ export const multiSelectable = ({ parameters }) => {
   `;
 };
 
-multiSelectable.story = {
-  name: 'Multi-selectable',
-  parameters: {
-    knobs: {
-      'bx-selectable-tile': () => ({
-        ...singleSelectable.story.parameters.knobs['bx-radio-tile'](),
-        selected: boolean('Selected (selected)', false),
-      }),
-    },
+multiSelectable.storyName = 'Multi-selectable';
+
+multiSelectable.parameters = {
+  knobs: {
+    'bx-selectable-tile': () => ({
+      ...singleSelectable.parameters.knobs['bx-radio-tile'](),
+      selected: boolean('Selected (selected)', false),
+    }),
   },
 };
 
-export const expandable = ({ parameters }) => {
-  const { colorScheme, expanded, disableChange, onBeforeChange, onChange } = parameters?.props?.['bx-expandable-tile'] ?? {};
+export const expandable = args => {
+  const { colorScheme, expanded, disableChange, onBeforeChange, onChange } = args?.['bx-expandable-tile'] ?? {};
   const handleBeforeChanged = (event: CustomEvent) => {
     onBeforeChange(event);
     if (disableChange) {
@@ -178,21 +172,19 @@ export const expandable = ({ parameters }) => {
   `;
 };
 
-expandable.story = {
-  parameters: {
-    knobs: {
-      'bx-expandable-tile': () => ({
-        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
-        expanded: boolean('Expanded (expanded)', false),
-        disableChange: boolean(
-          'Disable user-initiated change in expanded state ' +
-            '(Call event.preventDefault() in bx-expandable-tile-beingchanged event)',
-          false
-        ),
-        onBeforeChange: action('bx-expandable-tile-beingchanged'),
-        onChange: action('bx-expandable-tile-changed'),
-      }),
-    },
+expandable.parameters = {
+  knobs: {
+    'bx-expandable-tile': () => ({
+      colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
+      expanded: boolean('Expanded (expanded)', false),
+      disableChange: boolean(
+        'Disable user-initiated change in expanded state ' +
+          '(Call event.preventDefault() in bx-expandable-tile-beingchanged event)',
+        false
+      ),
+      onBeforeChange: action('bx-expandable-tile-beingchanged'),
+      onChange: action('bx-expandable-tile-changed'),
+    }),
   },
 };
 
@@ -205,8 +197,6 @@ export default {
       `,
   ],
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

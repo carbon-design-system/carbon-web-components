@@ -31,7 +31,7 @@ const sizes = {
   [`Extra large size (${DROPDOWN_SIZE.EXTRA_LARGE})`]: DROPDOWN_SIZE.EXTRA_LARGE,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const {
     open,
     colorScheme,
@@ -47,7 +47,7 @@ export const defaultStory = ({ parameters }) => {
     disableSelection,
     onBeforeSelect,
     onSelect,
-  } = parameters?.props?.['bx-combo-box'] ?? {};
+  } = args?.['bx-combo-box'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     if (onBeforeSelect) {
       onBeforeSelect(event);
@@ -81,16 +81,12 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export default {
   title: 'Components/Combo box',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
     knobs: {
       'bx-combo-box': () => ({
         open: boolean('Open (open)', false),

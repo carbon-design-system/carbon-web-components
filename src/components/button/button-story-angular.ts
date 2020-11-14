@@ -11,47 +11,48 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import { Add16Module } from '@carbon/icons-angular/lib/add/16';
 import baseStory, {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
+  icon as baseIcon,
   textAndIcon as baseTextAndIcon,
   skeleton as baseSkeleton,
 } from './button-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-btn [kind]="kind" [disabled]="disabled" [size]="size" [href]="href" (click)="onClick($event)">Button</bx-btn>
   `,
-  props: parameters?.props?.['bx-btn'],
+  props: args?.['bx-btn'],
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const icon = ({ parameters }) => ({
+export const icon = args => ({
   template: `
     <bx-btn [kind]="kind" [disabled]="disabled" [size]="size" [href]="href" (click)="onClick($event)">
       <ibm-icon-add16 slot="icon"></ibm-icon-add16>
     </bx-btn>
   `,
-  props: parameters?.props?.['bx-btn'],
+  props: args?.['bx-btn'],
 });
 
-icon.story = {
+Object.assign(icon, baseIcon, {
   decorators: [
     moduleMetadata({
       imports: [Add16Module],
     }),
   ],
-};
+});
 
-export const textAndIcon = ({ parameters }) => ({
+export const textAndIcon = args => ({
   template: `
     <bx-btn [kind]="kind" [disabled]="disabled" [size]="size" [href]="href" [iconLayout]="iconLayout" (click)="onClick($event)">
       Button <ibm-icon-add16 slot="icon"></ibm-icon-add16>
     </bx-btn>
   `,
-  props: parameters?.props?.['bx-btn'],
+  props: args?.['bx-btn'],
 });
 
-textAndIcon.story = Object.assign(baseTextAndIcon.story, {
+Object.assign(textAndIcon, baseTextAndIcon, {
   decorators: [
     moduleMetadata({
       imports: [Add16Module],
@@ -59,14 +60,14 @@ textAndIcon.story = Object.assign(baseTextAndIcon.story, {
   ],
 });
 
-export const skeleton = ({ parameters }) => ({
+export const skeleton = args => ({
   template: `
     <bx-btn-skeleton [disabled]="disabled" [small]="small" [href]="href" (click)="onClick($event)"></bx-btn-skeleton>
   `,
-  props: parameters?.props?.['bx-btn-skeleton'],
+  props: args?.['bx-btn-skeleton'],
 });
 
-skeleton.story = baseSkeleton.story;
+Object.assign(skeleton, baseSkeleton);
 
 export default Object.assign(baseStory, {
   decorators: [

@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { defaultStory as baseDefaultStory } from './skip-to-content-story';
+import { Default as baseDefault } from './skip-to-content-story';
 import styles from './skip-to-content-story.scss';
 
 export { default } from './skip-to-content-story';
@@ -24,7 +24,7 @@ const injectStoryStyle = () => {
 
 /* eslint-disable max-len */
 
-export const defaultStory = () => ({
+export const Default = () => ({
   template: `
     <div class="bx--content bx--grid">
       <div class="bx--row">
@@ -76,4 +76,4 @@ export const defaultStory = () => ({
 
 /* eslint-enable max-len */
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

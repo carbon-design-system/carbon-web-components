@@ -1,17 +1,17 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
-import { defaultStory as baseDefaultStory } from './skeleton-text-story';
+import { Default as baseDefault } from './skeleton-text-story';
 
 export { default } from './skeleton-text-story';
 
-export const defaultStory = () => ({
+export const Default = () => ({
   template: `
     <bx-skeleton-text></bx-skeleton-text>
   `,
@@ -25,12 +25,10 @@ export const lines = () => ({
   `,
 });
 
-lines.story = {
-  decorators: [
-    () => ({
-      template: `<div style="width: 300px"><story /></div>`,
-    }),
-  ],
-};
+lines.decorators = [
+  () => ({
+    template: `<div style="width: 300px"><story /></div>`,
+  }),
+];
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

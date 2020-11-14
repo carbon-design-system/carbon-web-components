@@ -12,12 +12,12 @@ import React from 'react';
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXCopyButton from 'carbon-web-components/es/components-react/copy-button/copy-button';
-import { defaultStory as baseDefaultStory } from './copy-button-story';
+import { Default as baseDefault } from './copy-button-story';
 
 export { default } from './copy-button-story';
 
-export const defaultStory = ({ parameters }) => {
-  const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } = parameters?.props?.['bx-copy-button'];
+export const Default = args => {
+  const { buttonAssistiveText, feedbackText, feedbackTimeout, onClick } = args?.['bx-copy-button'];
   return (
     <BXCopyButton
       buttonAssistiveText={buttonAssistiveText}
@@ -28,4 +28,4 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

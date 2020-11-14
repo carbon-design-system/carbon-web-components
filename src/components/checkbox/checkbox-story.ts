@@ -15,9 +15,8 @@ import ifNonNull from '../../globals/directives/if-non-null';
 import './checkbox';
 import storyDocs from './checkbox-story.mdx';
 
-export const defaultStory = ({ parameters }) => {
-  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onChange } =
-    parameters?.props?.['bx-checkbox'] ?? {};
+export const Default = args => {
+  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onChange } = args?.['bx-checkbox'] ?? {};
   return html`
     <bx-checkbox
       ?checked="${checked}"
@@ -32,16 +31,12 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export default {
   title: 'Components/Checkbox',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
     knobs: {
       'bx-checkbox': () => ({
         checked: boolean('Checked (checked)', false),

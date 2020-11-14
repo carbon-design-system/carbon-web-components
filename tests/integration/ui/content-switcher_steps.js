@@ -11,7 +11,7 @@
 
 describe('bx-content-switcher', () => {
   beforeAll(async () => {
-    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-content-switcher--default-story`);
+    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-content-switcher--default`);
   });
 
   it('should have content switcher interactive', async () => {

@@ -11,7 +11,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, { inline as baseInline, toast as baseToast } from './notification-story';
 
-export const inline = ({ parameters }) => ({
+export const inline = args => ({
   template: `
     <bx-inline-notification
       style="min-width: 30rem; margin-bottom: .5rem"
@@ -37,15 +37,15 @@ export const inline = ({ parameters }) => ({
       }
     },
     handleClose: onClose,
-  }))(parameters?.props?.['bx-inline-notification']),
+  }))(args?.['bx-inline-notification']),
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },
 });
 
-inline.story = baseInline.story;
+Object.assign(inline, baseInline);
 
-export const toast = ({ parameters }) => ({
+export const toast = args => ({
   template: `
     <bx-toast-notification
       style="min-width: 30rem; margin-bottom: .5rem"
@@ -72,13 +72,13 @@ export const toast = ({ parameters }) => ({
       }
     },
     handleClose: onClose,
-  }))(parameters?.props?.['bx-toast-notification']),
+  }))(args?.['bx-toast-notification']),
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },
 });
 
-toast.story = baseToast.story;
+Object.assign(toast, baseToast);
 
 export default Object.assign(baseStory, {
   decorators: [

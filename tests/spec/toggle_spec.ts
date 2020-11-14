@@ -8,7 +8,7 @@
  */
 
 import { html, render } from 'lit-html';
-import { defaultStory } from '../../src/components/toggle/toggle-story';
+import { Default } from '../../src/components/toggle/toggle-story';
 
 /**
  * @param formData A `FormData` instance.
@@ -24,12 +24,8 @@ const getValues = (formData: FormData) => {
 };
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-toggle': props,
-      },
-    },
+  Default({
+    'bx-toggle': props,
   });
 
 describe('bx-toggle', function() {

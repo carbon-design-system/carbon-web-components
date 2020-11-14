@@ -13,15 +13,11 @@ import EventManager from '../utils/event-manager';
 
 import BXComboBox from '../../src/components/combo-box/combo-box';
 import BXComboBoxItem from '../../src/components/combo-box/combo-box-item';
-import { defaultStory } from '../../src/components/combo-box/combo-box-story';
+import { Default } from '../../src/components/combo-box/combo-box-story';
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-combo-box': props,
-      },
-    },
+  Default({
+    'bx-combo-box': props,
   });
 
 describe('bx-combo-box', function() {

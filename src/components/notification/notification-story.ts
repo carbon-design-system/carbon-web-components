@@ -25,7 +25,7 @@ const kinds = {
 
 const noop = () => {};
 
-export const inline = ({ parameters }) => {
+export const inline = args => {
   const {
     kind,
     title,
@@ -38,7 +38,7 @@ export const inline = ({ parameters }) => {
     disableClose,
     onBeforeClose = noop,
     onClose = noop,
-  } = parameters?.props?.['bx-inline-notification'] ?? {};
+  } = args?.['bx-inline-notification'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -63,30 +63,28 @@ export const inline = ({ parameters }) => {
   `;
 };
 
-inline.story = {
-  parameters: {
-    knobs: {
-      'bx-inline-notification': () => ({
-        kind: select('The notification kind (kind)', kinds, NOTIFICATION_KIND.INFO),
-        title: textNullable('Title (title)', 'Notification title'),
-        subtitle: textNullable('Subtitle (subtitle)', 'Subtitle text goes here.'),
-        hideCloseButton: boolean('Hide the close button (hide-close-button)', false),
-        closeButtonLabel: textNullable('a11y label for the close button (close-button-label)', ''),
-        iconLabel: textNullable('a11y label for the icon (icon-label)', ''),
-        open: boolean('Open (open)', true),
-        timeout: textNullable('Timeout (in ms)', ''),
-        disableClose: boolean(
-          'Disable user-initiated close action (Call event.preventDefault() in bx-notification-beingclosed event)',
-          false
-        ),
-        onBeforeClose: action('bx-notification-beingclosed'),
-        onClose: action('bx-notification-closed'),
-      }),
-    },
+inline.parameters = {
+  knobs: {
+    'bx-inline-notification': () => ({
+      kind: select('The notification kind (kind)', kinds, NOTIFICATION_KIND.INFO),
+      title: textNullable('Title (title)', 'Notification title'),
+      subtitle: textNullable('Subtitle (subtitle)', 'Subtitle text goes here.'),
+      hideCloseButton: boolean('Hide the close button (hide-close-button)', false),
+      closeButtonLabel: textNullable('a11y label for the close button (close-button-label)', ''),
+      iconLabel: textNullable('a11y label for the icon (icon-label)', ''),
+      open: boolean('Open (open)', true),
+      timeout: textNullable('Timeout (in ms)', ''),
+      disableClose: boolean(
+        'Disable user-initiated close action (Call event.preventDefault() in bx-notification-beingclosed event)',
+        false
+      ),
+      onBeforeClose: action('bx-notification-beingclosed'),
+      onClose: action('bx-notification-closed'),
+    }),
   },
 };
 
-export const toast = ({ parameters }) => {
+export const toast = args => {
   const {
     kind,
     title,
@@ -100,7 +98,7 @@ export const toast = ({ parameters }) => {
     disableClose,
     onBeforeClose = noop,
     onClose = noop,
-  } = parameters?.props?.['bx-toast-notification'] ?? {};
+  } = args?.['bx-toast-notification'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -126,22 +124,18 @@ export const toast = ({ parameters }) => {
   `;
 };
 
-toast.story = {
-  parameters: {
-    knobs: {
-      'bx-toast-notification': () => ({
-        ...inline.story.parameters.knobs['bx-inline-notification'](),
-        caption: textNullable('Caption (caption)', 'Time stamp [00:00:00]'),
-      }),
-    },
+toast.parameters = {
+  knobs: {
+    'bx-toast-notification': () => ({
+      ...inline.parameters.knobs['bx-inline-notification'](),
+      caption: textNullable('Caption (caption)', 'Time stamp [00:00:00]'),
+    }),
   },
 };
 
 export default {
   title: 'Components/Notifications',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

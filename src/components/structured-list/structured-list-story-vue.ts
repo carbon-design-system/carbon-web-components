@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './structured-list-story';
+import { Default as baseDefault } from './structured-list-story';
 
 export { default } from './structured-list-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-structured-list :selection-name="selectionName">
       <bx-structured-list-head>
@@ -58,8 +58,8 @@ export const defaultStory = ({ parameters }) => ({
       selectionValues: !hasSelection
         ? []
         : ['structured-list-selection-0', 'structured-list-selection-1', 'structured-list-selection-2'],
-    }))(parameters?.props?.['bx-structured-list'])
+    }))(args?.['bx-structured-list'])
   ),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

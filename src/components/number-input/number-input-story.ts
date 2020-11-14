@@ -17,9 +17,9 @@ import '../form/form-item';
 import createProps from './stories/helpers';
 import storyDocs from './number-input-story.mdx';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, onInput, name } =
-    parameters?.props?.['bx-number-input'] ?? {};
+    args?.['bx-number-input'] ?? {};
   return html`
     <bx-number-input
       color-scheme="${ifNonNull(colorScheme)}"
@@ -38,18 +38,17 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    knobs: {
-      'bx-number-input': () => createProps({ ...knobs, textNullable }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  knobs: {
+    'bx-number-input': () => createProps({ ...knobs, textNullable }),
   },
 };
 
-export const formItem = ({ parameters }) => {
+export const formItem = args => {
   const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, onInput } =
-    parameters?.props?.['bx-number-input'] ?? {};
+    args?.['bx-number-input'] ?? {};
   return html`
     <bx-form-item>
       <bx-number-input
@@ -75,18 +74,17 @@ export const formItem = ({ parameters }) => {
   `;
 };
 
-formItem.story = {
-  name: 'Form item',
-  parameters: {
-    knobs: {
-      'bx-number-input': () => createProps({ ...knobs, textNullable }),
-    },
+formItem.storyName = 'Form item';
+
+formItem.parameters = {
+  knobs: {
+    'bx-number-input': () => createProps({ ...knobs, textNullable }),
   },
 };
 
-export const withoutFormItemWrapper = ({ parameters }) => {
+export const withoutFormItemWrapper = args => {
   const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, onInput } =
-    parameters?.props?.['bx-number-input'] ?? {};
+    args?.['bx-number-input'] ?? {};
   return html`
     <bx-number-input
       value="${ifNonNull(value)}"
@@ -108,15 +106,12 @@ export const withoutFormItemWrapper = ({ parameters }) => {
   `;
 };
 
-withoutFormItemWrapper.story = {
-  name: 'Without form item wrapper',
-  parameters: {
-    docs: {
-      page: storyDocs,
-    },
-    knobs: {
-      'bx-number-input': () => createProps({ ...knobs, textNullable }),
-    },
+withoutFormItemWrapper.storyName = 'Without form item wrapper';
+
+withoutFormItemWrapper.parameters = {
+  ...storyDocs.parameters,
+  knobs: {
+    'bx-number-input': () => createProps({ ...knobs, textNullable }),
   },
 };
 
@@ -125,11 +120,9 @@ export const skeleton = () =>
     <bx-number-input-skeleton></bx-number-input-skeleton>
   `;
 
-skeleton.story = {
-  parameters: {
-    percy: {
-      skip: true,
-    },
+skeleton.parameters = {
+  percy: {
+    skip: true,
   },
 };
 

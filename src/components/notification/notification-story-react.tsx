@@ -20,7 +20,7 @@ import { inline as baseInline, toast as baseToast } from './notification-story';
 
 export { default } from './notification-story';
 
-export const inline = ({ parameters }) => {
+export const inline = args => {
   const {
     kind,
     title,
@@ -33,7 +33,7 @@ export const inline = ({ parameters }) => {
     disableClose,
     onBeforeClose,
     onClose,
-  } = parameters?.props?.['bx-inline-notification'];
+  } = args?.['bx-inline-notification'];
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -57,9 +57,9 @@ export const inline = ({ parameters }) => {
   );
 };
 
-inline.story = baseInline.story;
+Object.assign(inline, baseInline);
 
-export const toast = ({ parameters }) => {
+export const toast = args => {
   const {
     kind,
     title,
@@ -73,7 +73,7 @@ export const toast = ({ parameters }) => {
     disableClose,
     onBeforeClose,
     onClose,
-  } = parameters?.props?.['bx-toast-notification'];
+  } = args?.['bx-toast-notification'];
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -98,4 +98,4 @@ export const toast = ({ parameters }) => {
   );
 };
 
-toast.story = baseToast.story;
+Object.assign(toast, baseToast);
