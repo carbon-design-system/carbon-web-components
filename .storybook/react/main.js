@@ -78,7 +78,7 @@ class CreateReactCustomElementTypeProxyPlugin {
 }
 
 module.exports = {
-  stories: ['../../src/**/*-story-react.tsx'],
+  stories: ['../../docs/**/*-story-react.mdx', '../../src/**/*-story-react.tsx'],
   addons,
   managerWebpack,
   webpackFinal(config, options) {

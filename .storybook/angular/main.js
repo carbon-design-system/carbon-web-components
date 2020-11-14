@@ -16,7 +16,7 @@ const arrayify = value => (Array.isArray(value) ? value : value != null ? [value
 const testMatches = (test, s) => arrayify(test).some(item => item.test && item.test(s));
 
 module.exports = {
-  stories: ['../../src/**/*-story-angular.ts'],
+  stories: ['../../docs/**/*-story-angular.mdx', '../../src/**/*-story-angular.ts'],
   addons,
   managerWebpack,
   webpackFinal(config, options) {
