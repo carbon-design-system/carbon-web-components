@@ -20,13 +20,11 @@ import Add24 from 'carbon-web-components/es/icons/add/24';
 // @ts-ignore
 import Add32 from 'carbon-web-components/es/icons/add/32';
 
-export const defaultStory = () => html`
+export const Default = () => html`
   ${Add16()} ${Add20()} ${Add24()} ${Add32()}
 `;
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export const withCustomClass = () => html`
   <style>
@@ -38,18 +36,14 @@ export const withCustomClass = () => html`
   ${Add32({ class: 'test-class' })}
 `;
 
-withCustomClass.story = {
-  name: 'With custom class',
-};
+withCustomClass.storyName = 'With custom class';
 
 export const withAriaLabel = () => html`
   ${Add16({ 'aria-label': 'add' })} ${Add20({ 'aria-label': 'add' })} ${Add24({ 'aria-label': 'add' })}
   ${Add32({ 'aria-label': 'add' })}
 `;
 
-withAriaLabel.story = {
-  name: 'With aria-label',
-};
+withAriaLabel.storyName = 'With aria-label';
 
 export const withTitle = () => html`
   ${Add16({
@@ -70,9 +64,7 @@ export const withTitle = () => html`
   })}
 `;
 
-withTitle.story = {
-  name: 'With title',
-};
+withTitle.storyName = 'With title';
 
 export default {
   title: 'Components/Icon',

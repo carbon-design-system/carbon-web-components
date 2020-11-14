@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './select-story';
+import baseStory, { Default as baseDefault } from './select-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-select
       [autofocus]="autofocus"
@@ -38,10 +38,10 @@ export const defaultStory = ({ parameters }) => ({
       </bx-select-item-group>
     </bx-select>
   `,
-  props: parameters?.props?.['bx-select'],
+  props: args?.['bx-select'],
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export default Object.assign(baseStory, {
   decorators: [

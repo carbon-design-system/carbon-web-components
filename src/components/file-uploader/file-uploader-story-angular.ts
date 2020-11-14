@@ -11,7 +11,7 @@ import { Component, Input, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { delay } from 'bluebird';
 import { moduleMetadata } from '@storybook/angular';
 import { FILE_UPLOADER_ITEM_SIZE, FILE_UPLOADER_ITEM_STATE } from './file-uploader-item';
-import baseStory, { defaultStory as baseDefaultStory } from './file-uploader-story';
+import baseStory, { Default as baseDefault } from './file-uploader-story';
 import { FileData } from './stories/types';
 
 /**
@@ -166,7 +166,7 @@ class BXCEDemoFileUploader {
   size = FILE_UPLOADER_ITEM_SIZE.REGULAR;
 }
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-ce-demo-file-uploader
       [accept]="accept"
@@ -189,13 +189,13 @@ export const defaultStory = ({ parameters }) => ({
       }
     },
   }))({
-    ...parameters?.props?.['bx-file-uploader'],
-    ...parameters?.props?.['bx-file-drop-container'],
-    ...parameters?.props?.['bx-file-uploader-item'],
+    ...args?.['bx-file-uploader'],
+    ...args?.['bx-file-drop-container'],
+    ...args?.['bx-file-uploader-item'],
   }),
 });
 
-defaultStory.story = Object.assign(baseDefaultStory.story, {
+Object.assign(Default, baseDefault, {
   decorators: [
     moduleMetadata({
       declarations: [BXCEDemoFileUploader],

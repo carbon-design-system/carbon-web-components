@@ -13,11 +13,7 @@ import { inline } from '../../src/components/notification/notification-story';
 
 const inlineTemplate = (props?) =>
   inline({
-    parameters: {
-      props: {
-        'bx-inline-notification': props,
-      },
-    },
+    'bx-inline-notification': props,
   });
 
 describe('bx-inline-notification', function() {

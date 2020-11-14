@@ -13,7 +13,7 @@ import { INPUT_SIZE } from '../../src/components/input/input';
 import BXSelect, { SELECT_COLOR_SCHEME } from '../../src/components/select/select';
 import BXSelectItem from '../../src/components/select/select-item';
 import BXSelectItemGroup from '../../src/components/select/select-item-group';
-import { defaultStory } from '../../src/components/select/select-story';
+import { Default } from '../../src/components/select/select-story';
 
 /**
  * @param formData A `FormData` instance.
@@ -27,13 +27,10 @@ const getValues = (formData: FormData) => {
   }
   return values;
 };
+
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-select': props,
-      },
-    },
+  Default({
+    'bx-select': props,
   });
 
 describe('bx-select', function() {

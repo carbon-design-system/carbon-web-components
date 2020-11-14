@@ -17,15 +17,15 @@ import BXTextareaSkeleton from 'carbon-web-components/es/components-react/textar
 // @ts-ignore
 import BXFormItem from 'carbon-web-components/es/components-react/form/form-item';
 import {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   formItem as baseFormItem,
   withoutFormItemWrapper as baseWithoutFormItemWrapper,
 } from './textarea-story';
 
 export { default } from './textarea-story';
 
-export const defaultStory = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-textarea'];
+export const Default = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, onInput } = args?.['bx-textarea'];
   return (
     <BXTextarea
       colorScheme={colorScheme}
@@ -38,10 +38,10 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const formItem = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-textarea'];
+export const formItem = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, onInput } = args?.['bx-textarea'];
   return (
     <BXFormItem>
       <BXTextarea
@@ -59,10 +59,10 @@ export const formItem = ({ parameters }) => {
   );
 };
 
-formItem.story = baseFormItem.story;
+Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, onInput } = parameters?.props?.['bx-textarea'];
+export const withoutFormItemWrapper = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, onInput } = args?.['bx-textarea'];
   return (
     <BXTextarea
       colorScheme={colorScheme}
@@ -78,6 +78,6 @@ export const withoutFormItemWrapper = ({ parameters }) => {
   );
 };
 
-withoutFormItemWrapper.story = baseWithoutFormItemWrapper.story;
+Object.assign(withoutFormItemWrapper, baseWithoutFormItemWrapper);
 
 export const skeleton = () => <BXTextareaSkeleton />;

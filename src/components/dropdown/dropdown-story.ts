@@ -33,7 +33,7 @@ const types = {
   [`Inline (${DROPDOWN_TYPE.INLINE})`]: DROPDOWN_TYPE.INLINE,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const {
     open,
     colorScheme,
@@ -47,7 +47,7 @@ export const defaultStory = ({ parameters }) => {
     disableSelection,
     onBeforeSelect,
     onSelect,
-  } = parameters?.props?.['bx-dropdown'] ?? {};
+  } = args?.['bx-dropdown'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     if (onBeforeSelect) {
       onBeforeSelect(event);
@@ -79,28 +79,27 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    knobs: {
-      'bx-dropdown': () => ({
-        open: boolean('Open (open)', false),
-        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
-        disabled: boolean('Disabled (disabled)', false),
-        helperText: textNullable('Helper text (helper-text)', 'Optional helper text'),
-        labelText: textNullable('Label text (label-text)', 'Dropdown title'),
-        size: select('Dropdown size (size)', sizes, null),
-        type: select('Dropdown type (type)', types, null),
-        value: textNullable('The value of the selected item (value)', ''),
-        triggerContent: textNullable('The default content of the trigger button (trigger-content)', 'Select an item'),
-        disableSelection: boolean(
-          'Disable user-initiated selection change (Call event.preventDefault() in bx-dropdown-beingselected event)',
-          false
-        ),
-        onBeforeSelect: action('bx-dropdown-beingselected'),
-        onSelect: action('bx-dropdown-selected'),
-      }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  knobs: {
+    'bx-dropdown': () => ({
+      open: boolean('Open (open)', false),
+      colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
+      disabled: boolean('Disabled (disabled)', false),
+      helperText: textNullable('Helper text (helper-text)', 'Optional helper text'),
+      labelText: textNullable('Label text (label-text)', 'Dropdown title'),
+      size: select('Dropdown size (size)', sizes, null),
+      type: select('Dropdown type (type)', types, null),
+      value: textNullable('The value of the selected item (value)', ''),
+      triggerContent: textNullable('The default content of the trigger button (trigger-content)', 'Select an item'),
+      disableSelection: boolean(
+        'Disable user-initiated selection change (Call event.preventDefault() in bx-dropdown-beingselected event)',
+        false
+      ),
+      onBeforeSelect: action('bx-dropdown-beingselected'),
+      onSelect: action('bx-dropdown-selected'),
+    }),
   },
 };
 
@@ -109,19 +108,15 @@ export const skeleton = () =>
     <bx-dropdown-skeleton></bx-dropdown-skeleton>
   `;
 
-skeleton.story = {
-  parameters: {
-    percy: {
-      skip: true,
-    },
+skeleton.parameters = {
+  percy: {
+    skip: true,
   },
 };
 
 export default {
   title: 'Components/Dropdown',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

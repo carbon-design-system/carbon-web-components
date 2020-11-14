@@ -11,7 +11,7 @@
 
 describe('bx-multi-select', () => {
   beforeAll(async () => {
-    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-multi-select--default-story`);
+    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-multi-select--default`);
   });
 
   it('should have multi select interactive', async () => {

@@ -28,8 +28,8 @@ const sizes = {
   [`Large size (${MODAL_SIZE.LARGE})`]: MODAL_SIZE.LARGE,
 };
 
-export const defaultStory = ({ parameters }) => {
-  const { open, size, disableClose, onBeforeClose, onClose } = parameters?.props?.['bx-modal'] ?? {};
+export const Default = args => {
+  const { open, size, disableClose, onBeforeClose, onClose } = args?.['bx-modal'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -52,16 +52,12 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export default {
   title: 'Components/Modal',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
     knobs: {
       'bx-modal': () => ({
         open: boolean('Open (open)', true),

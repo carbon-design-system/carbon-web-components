@@ -22,7 +22,7 @@ import BXSelectableTile from 'carbon-web-components/es/components-react/tile/sel
 import BXExpandableTile from 'carbon-web-components/es/components-react/tile/expandable-tile';
 import createReactCustomElementType from '../../globals/wrappers/createReactCustomElementType';
 import baseStory, {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   clickable as baseClickable,
   singleSelectable as baseSingleSelectable,
   multiSelectable as baseMultiSelectable,
@@ -32,15 +32,15 @@ import baseStory, {
 const BXTileAboveTheFoldContent = createReactCustomElementType('bx-tile-above-the-fold-content', {});
 const BXTileBelowTheFoldContent = createReactCustomElementType('bx-tile-below-the-fold-content', {});
 
-export const defaultStory = ({ parameters }) => {
-  const { colorScheme } = parameters?.props?.['bx-tile'] ?? {};
+export const Default = args => {
+  const { colorScheme } = args?.['bx-tile'] ?? {};
   return <BXTile colorScheme={colorScheme}>Default tile</BXTile>;
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const clickable = ({ parameters }) => {
-  const { colorScheme, href } = parameters?.props?.['bx-clickable-tile'];
+export const clickable = args => {
+  const { colorScheme, href } = args?.['bx-clickable-tile'];
   return (
     <BXClickableTile colorScheme={colorScheme} href={href}>
       Clickable tile
@@ -48,10 +48,10 @@ export const clickable = ({ parameters }) => {
   );
 };
 
-clickable.story = baseClickable.story;
+Object.assign(clickable, baseClickable);
 
-export const singleSelectable = ({ parameters }) => {
-  const { checkmarkLabel, colorScheme, name, value, onInput } = parameters?.props?.['bx-radio-tile'];
+export const singleSelectable = args => {
+  const { checkmarkLabel, colorScheme, name, value, onInput } = args?.['bx-radio-tile'];
   return (
     <fieldset>
       <legend>Single-select tiles</legend>
@@ -68,10 +68,10 @@ export const singleSelectable = ({ parameters }) => {
   );
 };
 
-singleSelectable.story = baseSingleSelectable.story;
+Object.assign(singleSelectable, baseSingleSelectable);
 
-export const multiSelectable = ({ parameters }) => {
-  const { checkmarkLabel, colorScheme, name, selected, value, onInput } = parameters?.props?.['bx-selectable-tile'];
+export const multiSelectable = args => {
+  const { checkmarkLabel, colorScheme, name, selected, value, onInput } = args?.['bx-selectable-tile'];
   return (
     <BXSelectableTile
       checkmarkLabel={checkmarkLabel}
@@ -85,10 +85,10 @@ export const multiSelectable = ({ parameters }) => {
   );
 };
 
-multiSelectable.story = baseMultiSelectable.story;
+Object.assign(multiSelectable, baseMultiSelectable);
 
-export const expandable = ({ parameters }) => {
-  const { colorScheme, expanded, disableChange, onBeforeChange, onChange } = parameters?.props?.['bx-expandable-tile'];
+export const expandable = args => {
+  const { colorScheme, expanded, disableChange, onBeforeChange, onChange } = args?.['bx-expandable-tile'];
   const handleBeforeChanged = (event: CustomEvent) => {
     onBeforeChange(event);
     if (disableChange) {
@@ -105,7 +105,7 @@ export const expandable = ({ parameters }) => {
   );
 };
 
-expandable.story = baseExpandable.story;
+Object.assign(expandable, baseExpandable);
 
 // Creating a shallow clone with spread operator seems to cause
 // `Cannot read property 'name' of undefined` error in `@storybook/source-loader`

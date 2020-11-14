@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,15 +10,11 @@
 import { render } from 'lit-html';
 import EventManager from '../utils/event-manager';
 import BXAccordionItem from '../../src/components/accordion/accordion-item';
-import { defaultStory } from '../../src/components/accordion/accordion-story';
+import { Default } from '../../src/components/accordion/accordion-story';
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-accordion': props,
-      },
-    },
+  Default({
+    'bx-accordion': props,
   });
 
 describe('bx-accordion', function() {

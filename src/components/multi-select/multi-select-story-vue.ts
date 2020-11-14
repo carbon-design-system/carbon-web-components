@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './multi-select-story';
+import { Default as baseDefault } from './multi-select-story';
 
 export { default } from './multi-select-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-multi-select
       :color-scheme="colorScheme"
@@ -49,8 +49,8 @@ export const defaultStory = ({ parameters }) => ({
         }
       },
       handleSelected: onSelect,
-    }))(parameters?.props?.['bx-multi-select'])
+    }))(args?.['bx-multi-select'])
   ),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

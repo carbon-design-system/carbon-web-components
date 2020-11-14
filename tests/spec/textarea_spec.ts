@@ -11,7 +11,7 @@ import { html, render } from 'lit-html';
 import EventManager from '../utils/event-manager';
 
 import BXTextarea, { TEXTAREA_COLOR_SCHEME } from '../../src/components/textarea/textarea';
-import { defaultStory } from '../../src/components/textarea/textarea-story';
+import { Default } from '../../src/components/textarea/textarea-story';
 
 /**
  * @param formData A `FormData` instance.
@@ -27,12 +27,8 @@ const getValues = (formData: FormData) => {
 };
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-textarea': props,
-      },
-    },
+  Default({
+    'bx-textarea': props,
   });
 
 describe('bx-textarea', function() {

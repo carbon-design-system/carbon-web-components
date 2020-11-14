@@ -32,9 +32,9 @@ const defaultKnobs = {
   }),
 };
 
-export const singleLine = ({ parameters }) => {
+export const singleLine = args => {
   const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, colorScheme, onClick } =
-    parameters?.props?.['bx-code-snippet'] ?? {};
+    args?.['bx-code-snippet'] ?? {};
   const children = `
     node -v Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, veritatis voluptate id incidunt molestiae
     officia possimus, quasi itaque alias, architecto hic, dicta fugit? Debitis delectus quidem explicabo vitae
@@ -53,14 +53,13 @@ export const singleLine = ({ parameters }) => {
   `;
 };
 
-singleLine.story = {
-  name: 'Single line',
-  parameters: {
-    knobs: defaultKnobs,
-  },
+singleLine.storyName = 'Single line';
+
+singleLine.parameters = {
+  knobs: defaultKnobs,
 };
 
-export const multiLine = ({ parameters }) => {
+export const multiLine = args => {
   const {
     codeAssistiveText,
     copyButtonAssistiveText,
@@ -70,7 +69,7 @@ export const multiLine = ({ parameters }) => {
     expandButtonText,
     colorScheme,
     onClick,
-  } = parameters?.props?.['bx-code-snippet'] ?? {};
+  } = args?.['bx-code-snippet'] ?? {};
   const children = `
 @mixin grid-container {
   width: 100%;
@@ -110,22 +109,21 @@ $z-indexes: (
 `;
 };
 
-multiLine.story = {
-  name: 'Multi line',
-  parameters: {
-    knobs: {
-      'bx-code-snippet': () => ({
-        ...defaultKnobs['bx-code-snippet'](),
-        collapseButtonText: textNullable('The text for the collapse button (collapse-button-text)', ''),
-        expandButtonText: textNullable('The text for the expand button (expand-button-text)', ''),
-      }),
-    },
+multiLine.storyName = 'Multi line';
+
+multiLine.parameters = {
+  knobs: {
+    'bx-code-snippet': () => ({
+      ...defaultKnobs['bx-code-snippet'](),
+      collapseButtonText: textNullable('The text for the collapse button (collapse-button-text)', ''),
+      expandButtonText: textNullable('The text for the expand button (expand-button-text)', ''),
+    }),
   },
 };
 
-export const inline = ({ parameters }) => {
+export const inline = args => {
   const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, colorScheme, onClick } =
-    parameters?.props?.['bx-code-snippet'] ?? {};
+    args?.['bx-code-snippet'] ?? {};
   return html`
     <bx-code-snippet
       type="inline"
@@ -140,11 +138,10 @@ export const inline = ({ parameters }) => {
   `;
 };
 
-inline.story = {
-  name: 'Inline',
-  parameters: {
-    knobs: defaultKnobs,
-  },
+inline.storyName = 'Inline';
+
+inline.parameters = {
+  knobs: defaultKnobs,
 };
 
 export const skeletonSingleLine = () =>
@@ -152,12 +149,11 @@ export const skeletonSingleLine = () =>
     <bx-code-snippet-skeleton type="single"></bx-code-snippet-skeleton>
   `;
 
-skeletonSingleLine.story = {
-  name: 'Skeleton single line',
-  parameters: {
-    percy: {
-      skip: true,
-    },
+skeletonSingleLine.storyName = 'Skeleton single line';
+
+skeletonSingleLine.parameters = {
+  percy: {
+    skip: true,
   },
 };
 
@@ -166,20 +162,17 @@ export const skeletonMultiLine = () =>
     <bx-code-snippet-skeleton type="multi"></bx-code-snippet-skeleton>
   `;
 
-skeletonMultiLine.story = {
-  name: 'Skeleton multi line',
-  parameters: {
-    percy: {
-      skip: true,
-    },
+skeletonMultiLine.storyName = 'Skeleton multi line';
+
+skeletonMultiLine.parameters = {
+  percy: {
+    skip: true,
   },
 };
 
 export default {
   title: 'Components/Code snippet',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

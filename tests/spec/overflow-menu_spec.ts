@@ -10,15 +10,11 @@
 import { render } from 'lit-html';
 
 import BXOverflowMenu from '../../src/components/overflow-menu/overflow-menu';
-import { defaultStory } from '../../src/components/overflow-menu/overflow-menu-story';
+import { Default } from '../../src/components/overflow-menu/overflow-menu-story';
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-overflow-menu': props,
-      },
-    },
+  Default({
+    'bx-overflow-menu': props,
   });
 
 describe('bx-overflow-menu', function() {

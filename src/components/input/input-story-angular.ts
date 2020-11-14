@@ -10,12 +10,12 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
 import baseStory, {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   formItem as baseFormItem,
   withoutFormItemWrapper as baseWithoutFormItemWrapper,
 } from './input-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-input
       [colorScheme]="colorScheme"
@@ -28,12 +28,12 @@ export const defaultStory = ({ parameters }) => ({
       (input)="onInput()"
     ></bx-input>
   `,
-  props: parameters?.props?.['bx-input'],
+  props: args?.['bx-input'],
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const formItem = ({ parameters }) => ({
+export const formItem = args => ({
   template: `
     <bx-form-item>
       <bx-input
@@ -51,12 +51,12 @@ export const formItem = ({ parameters }) => ({
       </bx-input>
     </bx-form-item>
   `,
-  props: parameters?.props?.['bx-input'],
+  props: args?.['bx-input'],
 });
 
-formItem.story = baseFormItem.story;
+Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = ({ parameters }) => ({
+export const withoutFormItemWrapper = args => ({
   template: `
     <bx-input
       [value]="value"
@@ -72,10 +72,10 @@ export const withoutFormItemWrapper = ({ parameters }) => ({
       <span slot="validity-message">Something isn't right</span>
     </bx-input>
   `,
-  props: parameters?.props?.['bx-input'],
+  props: args?.['bx-input'],
 });
 
-withoutFormItemWrapper.story = baseWithoutFormItemWrapper.story;
+Object.assign(withoutFormItemWrapper, baseWithoutFormItemWrapper);
 
 export default Object.assign(baseStory, {
   decorators: [

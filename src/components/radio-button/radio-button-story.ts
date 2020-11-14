@@ -27,9 +27,9 @@ const labelPositions = {
   [`Right (${RADIO_BUTTON_LABEL_POSITION.RIGHT})`]: RADIO_BUTTON_LABEL_POSITION.RIGHT,
 };
 
-export const defaultStory = ({ parameters }) => {
-  const { disabled, labelPosition, orientation, name, value, onChange } = parameters?.props?.['bx-radio-button-group'] ?? {};
-  const { hideLabel, labelText } = parameters?.props?.['bx-radio-button'] ?? {};
+export const Default = args => {
+  const { disabled, labelPosition, orientation, name, value, onChange } = args?.['bx-radio-button-group'] ?? {};
+  const { hideLabel, labelText } = args?.['bx-radio-button'] ?? {};
   return html`
     <bx-radio-button-group
       ?disabled="${disabled}"
@@ -46,26 +46,23 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    docs: {
-      page: storyDocs,
-    },
-    knobs: {
-      'bx-radio-button-group': () => ({
-        disabled: boolean('Disabled (disabled)', false),
-        labelPosition: select('Label position (label-position)', labelPositions, RADIO_BUTTON_LABEL_POSITION.RIGHT),
-        orientation: select('Orientation (orientation)', orientations, RADIO_BUTTON_ORIENTATION.HORIZONTAL),
-        name: textNullable('Name (name)', 'radio-group'),
-        value: textNullable('Value (value)', ''),
-        onChange: action('bx-radio-button-group-changed'),
-      }),
-      'bx-radio-button': () => ({
-        hideLabel: boolean('Hide label (hide-label)', false),
-        labelText: textNullable('Label text (label-text)', 'Radio button'),
-      }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  ...storyDocs.parameters,
+  knobs: {
+    'bx-radio-button-group': () => ({
+      disabled: boolean('Disabled (disabled)', false),
+      labelPosition: select('Label position (label-position)', labelPositions, RADIO_BUTTON_LABEL_POSITION.RIGHT),
+      orientation: select('Orientation (orientation)', orientations, RADIO_BUTTON_ORIENTATION.HORIZONTAL),
+      name: textNullable('Name (name)', 'radio-group'),
+      value: textNullable('Value (value)', ''),
+      onChange: action('bx-radio-button-group-changed'),
+    }),
+    'bx-radio-button': () => ({
+      hideLabel: boolean('Hide label (hide-label)', false),
+      labelText: textNullable('Label text (label-text)', 'Radio button'),
+    }),
   },
 };
 
@@ -74,11 +71,9 @@ export const skeleton = () =>
     <bx-radio-button-skeleton></bx-radio-button-skeleton>
   `;
 
-skeleton.story = {
-  parameters: {
-    percy: {
-      skip: true,
-    },
+skeleton.parameters = {
+  percy: {
+    skip: true,
   },
 };
 

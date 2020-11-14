@@ -27,12 +27,12 @@ import BXModalLabel from 'carbon-web-components/es/components-react/modal/modal-
 import BXModalBody from 'carbon-web-components/es/components-react/modal/modal-body';
 // @ts-ignore
 import BXModalFooter from 'carbon-web-components/es/components-react/modal/modal-footer';
-import { defaultStory as baseDefaultStory } from './modal-story';
+import { Default as baseDefault } from './modal-story';
 
 export { default } from './modal-story';
 
-export const defaultStory = ({ parameters }) => {
-  const { open, size, disableClose, onBeforeClose, onClose } = parameters?.props?.['bx-modal'];
+export const Default = args => {
+  const { open, size, disableClose, onBeforeClose, onClose } = args?.['bx-modal'];
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -59,4 +59,4 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

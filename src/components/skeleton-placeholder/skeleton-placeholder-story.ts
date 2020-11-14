@@ -10,17 +10,16 @@
 import { html } from 'lit-element';
 import './skeleton-placeholder';
 
-export const defaultStory = () =>
+export const Default = () =>
   html`
     <bx-skeleton-placeholder></bx-skeleton-placeholder>
   `;
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    percy: {
-      skip: true,
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  percy: {
+    skip: true,
   },
 };
 
