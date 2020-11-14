@@ -29,7 +29,7 @@ const sizes = {
   [`Extra large size (${INPUT_SIZE.EXTRA_LARGE})`]: INPUT_SIZE.EXTRA_LARGE,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const {
     autofocus,
     colorScheme,
@@ -54,7 +54,7 @@ export const defaultStory = ({ parameters }) => {
       </bx-select-item-group>
     `,
     onInput,
-  } = parameters?.props?.['bx-select'] ?? {};
+  } = args?.['bx-select'] ?? {};
   return html`
     <bx-select
       ?autofocus="${autofocus}"
@@ -75,23 +75,20 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    knobs: {
-      'bx-select': () => ({
-        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
-        disabled: boolean('Disabled (disabled)', false),
-        helperText: textNullable('Helper text (helper-text)', 'Optional helper text'),
-        invalid: boolean('Invalid (invalid)', false),
-        labelText: textNullable('Label text (label-text)', 'Select'),
-        placeholder: textNullable('Placeholder text (placeholder)', 'Optional placeholder text'),
-        size: select('Dropdown size (size)', sizes, null),
-        validityMessage: textNullable('The validity message (validity-message)', ''),
-        value: textNullable('The value of the selected item (value)', ''),
-        onInput: action('input'),
-      }),
-    },
+Default.parameters = {
+  knobs: {
+    'bx-select': () => ({
+      colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
+      disabled: boolean('Disabled (disabled)', false),
+      helperText: textNullable('Helper text (helper-text)', 'Optional helper text'),
+      invalid: boolean('Invalid (invalid)', false),
+      labelText: textNullable('Label text (label-text)', 'Select'),
+      placeholder: textNullable('Placeholder text (placeholder)', 'Optional placeholder text'),
+      size: select('Dropdown size (size)', sizes, null),
+      validityMessage: textNullable('The validity message (validity-message)', ''),
+      value: textNullable('The value of the selected item (value)', ''),
+      onInput: action('input'),
+    }),
   },
 };
 

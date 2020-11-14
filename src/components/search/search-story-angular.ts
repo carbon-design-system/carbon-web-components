@@ -8,11 +8,11 @@
  */
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { defaultStory as baseDefaultStory } from './search-story';
+import { Default as baseDefault } from './search-story';
 
 export { default } from './search-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-search
       [closeButtonAssistiveText]="closeButtonAssistiveText"
@@ -28,13 +28,13 @@ export const defaultStory = ({ parameters }) => ({
       (bx-search-input)="onInput($event)"
     ></bx-search>
   `,
-  props: parameters?.props?.['bx-search'],
+  props: args?.['bx-search'],
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => ({
   template: `<bx-search-skeleton></bx-search-skeleton>`,

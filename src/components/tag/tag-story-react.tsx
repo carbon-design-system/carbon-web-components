@@ -14,12 +14,12 @@ import React from 'react';
 import BXTag from 'carbon-web-components/es/components-react/tag/tag';
 // @ts-ignore
 import BXFilterTag from 'carbon-web-components/es/components-react/tag/filter-tag';
-import { defaultStory as baseDefaultStory, filter as baseFilter } from './tag-story';
+import { Default as baseDefault, filter as baseFilter } from './tag-story';
 
 export { default } from './tag-story';
 
-export const defaultStory = ({ parameters }) => {
-  const { type, title, disabled } = parameters?.props?.['bx-tag'];
+export const Default = args => {
+  const { type, title, disabled } = args?.['bx-tag'];
   return (
     <BXTag type={type} title={title} disabled={disabled}>
       This is not a tag
@@ -27,10 +27,10 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const filter = ({ parameters }) => {
-  const { open, type, title, disabled, disableClose, onClick, onBeforeClose, onClose } = parameters?.props?.['bx-filter-tag'];
+export const filter = args => {
+  const { open, type, title, disabled, disableClose, onClick, onBeforeClose, onClose } = args?.['bx-filter-tag'];
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -51,4 +51,4 @@ export const filter = ({ parameters }) => {
   );
 };
 
-filter.story = baseFilter.story;
+Object.assign(filter, baseFilter);

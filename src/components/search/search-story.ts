@@ -28,9 +28,9 @@ const sizes = {
   [`Extra large size (${INPUT_SIZE.EXTRA_LARGE})`]: INPUT_SIZE.EXTRA_LARGE,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const { closeButtonAssistiveText, colorScheme, disabled, labelText, name, placeholder, size, type, value, onInput } =
-    parameters?.props?.['bx-search'] ?? {};
+    args?.['bx-search'] ?? {};
   return html`
     <bx-search
       close-button-assistive-text="${ifNonNull(closeButtonAssistiveText)}"
@@ -47,29 +47,26 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    docs: {
-      page: storyDocs,
-    },
-    knobs: {
-      'bx-search': () => ({
-        closeButtonAssistiveText: textNullable(
-          'The label text for the close button (close-button-assistive-text)',
-          'Clear search input'
-        ),
-        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
-        disabled: boolean('Disabled (disabled)', false),
-        labelText: textNullable('Label text (label-text)', 'Search'),
-        name: textNullable('Name (name)', ''),
-        placeholder: textNullable('Placeholder text (placeholder)', ''),
-        size: select('Searh size (size)', sizes, null),
-        type: textNullable('The type of the <input> (type)', ''),
-        value: textNullable('Value (value)', ''),
-        onInput: action('bx-search-input'),
-      }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  ...storyDocs.parameters,
+  knobs: {
+    'bx-search': () => ({
+      closeButtonAssistiveText: textNullable(
+        'The label text for the close button (close-button-assistive-text)',
+        'Clear search input'
+      ),
+      colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
+      disabled: boolean('Disabled (disabled)', false),
+      labelText: textNullable('Label text (label-text)', 'Search'),
+      name: textNullable('Name (name)', ''),
+      placeholder: textNullable('Placeholder text (placeholder)', ''),
+      size: select('Searh size (size)', sizes, null),
+      type: textNullable('The type of the <input> (type)', ''),
+      value: textNullable('Value (value)', ''),
+      onInput: action('bx-search-input'),
+    }),
   },
 };
 
@@ -78,11 +75,9 @@ export const skeleton = () =>
     <bx-search-skeleton></bx-search-skeleton>
   `;
 
-skeleton.story = {
-  parameters: {
-    percy: {
-      skip: true,
-    },
+skeleton.parameters = {
+  percy: {
+    skip: true,
   },
 };
 

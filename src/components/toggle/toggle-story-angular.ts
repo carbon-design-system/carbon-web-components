@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './toggle-story';
+import baseStory, { Default as baseDefault } from './toggle-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-toggle
       [checked]="checked"
@@ -25,13 +25,13 @@ export const defaultStory = ({ parameters }) => ({
       (bx-toggle-changed)="onChange($event)"
     ></bx-toggle>
   `,
-  props: parameters?.props?.['bx-toggle'],
+  props: args?.['bx-toggle'],
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export default Object.assign(baseStory, {
   decorators: [

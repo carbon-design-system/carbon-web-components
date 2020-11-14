@@ -9,32 +9,32 @@
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
 import {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   clickable as baseClickable,
   singleSelectable as baseSingleSelectable,
   multiSelectable as baseMultiSelectable,
   expandable as basEexpandable,
 } from './tile-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-tile :color-scheme="colorScheme">Default tile</bx-tile>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-tile']),
+  ...createVueBindingsFromProps(args?.['bx-tile']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const clickable = ({ parameters }) => ({
+export const clickable = args => ({
   template: `
     <bx-clickable-tile :color-scheme="colorScheme" :href="href">Clickable tile</bx-clickable-tile>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-clickable-tile']),
+  ...createVueBindingsFromProps(args?.['bx-clickable-tile']),
 });
 
-clickable.story = baseClickable.story;
+Object.assign(clickable, baseClickable);
 
-export const singleSelectable = ({ parameters }) => ({
+export const singleSelectable = args => ({
   template: `
     <fieldset>
       <legend>Single-select tiles</legend>
@@ -67,12 +67,12 @@ export const singleSelectable = ({ parameters }) => ({
       </bx-radio-tile>
     </fieldset>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-radio-tile']),
+  ...createVueBindingsFromProps(args?.['bx-radio-tile']),
 });
 
-singleSelectable.story = baseSingleSelectable.story;
+Object.assign(singleSelectable, baseSingleSelectable);
 
-export const multiSelectable = ({ parameters }) => ({
+export const multiSelectable = args => ({
   template: `
     <bx-selectable-tile
       :checkmark-label="checkmarkLabel"
@@ -85,12 +85,12 @@ export const multiSelectable = ({ parameters }) => ({
       Multi-select Tile
     </bx-selectable-tile>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-selectable-tile']),
+  ...createVueBindingsFromProps(args?.['bx-selectable-tile']),
 });
 
-multiSelectable.story = baseMultiSelectable.story;
+Object.assign(multiSelectable, baseMultiSelectable);
 
-export const expandable = ({ parameters }) => {
+export const expandable = args => {
   const props = (({ disableChange, onBeforeChange, onChange, ...rest }) => {
     const handleBeforeChange = (event: CustomEvent) => {
       onBeforeChange(event);
@@ -103,7 +103,7 @@ export const expandable = ({ parameters }) => {
       handleBeforeChange,
       handleAfterChange: onChange,
     };
-  })(parameters?.props?.['bx-expandable-tile']);
+  })(args?.['bx-expandable-tile']);
   return {
     template: `
       <bx-expandable-tile
@@ -124,7 +124,7 @@ export const expandable = ({ parameters }) => {
   };
 };
 
-expandable.story = basEexpandable.story;
+Object.assign(expandable, basEexpandable);
 
 export default {
   title: 'Components/Tile',

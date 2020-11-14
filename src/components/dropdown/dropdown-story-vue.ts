@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './dropdown-story';
+import { Default as baseDefault } from './dropdown-story';
 
 export { default } from './dropdown-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const props = (({ onBeforeSelect, onSelect, ...rest }) => {
     function handleBeforeSelect(this: any, event: CustomEvent) {
       onBeforeSelect(event);
@@ -27,7 +27,7 @@ export const defaultStory = ({ parameters }) => {
       handleBeforeSelect,
       handleAfterSelect: onSelect,
     };
-  })(parameters?.props?.['bx-dropdown']);
+  })(args?.['bx-dropdown']);
   return {
     template: `
       <bx-dropdown
@@ -54,7 +54,7 @@ export const defaultStory = ({ parameters }) => {
   };
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => ({
   template: `<bx-dropdown-skeleton></bx-dropdown-skeleton>`,

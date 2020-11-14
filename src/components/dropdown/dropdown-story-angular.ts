@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './dropdown-story';
+import baseStory, { Default as baseDefault } from './dropdown-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-dropdown
       [open]="open"
@@ -44,10 +44,10 @@ export const defaultStory = ({ parameters }) => ({
       handleBeforeSelect,
       handleAfterSelect: onSelect,
     };
-  })(parameters?.props?.['bx-dropdown']),
+  })(args?.['bx-dropdown']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => ({
   template: `<bx-dropdown-skeleton></bx-dropdown-skeleton>`,

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -9,17 +9,17 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './loading-story';
+import baseStory, { Default as baseDefault } from './loading-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `<bx-loading [inactive]="inactive" [type]="type"></bx-loading>`,
-  props: parameters?.props?.['bx-loading'],
+  props: args?.['bx-loading'],
   moduleMetadata: {
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
   },
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export default Object.assign(baseStory, {
   decorators: [

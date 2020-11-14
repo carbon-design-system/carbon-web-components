@@ -12,11 +12,11 @@ import React from 'react';
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXSkeletonText from 'carbon-web-components/es/components-react/skeleton-text/skeleton-text';
-import { defaultStory as baseDefaultStory } from './skeleton-text-story';
+import { Default as baseDefault } from './skeleton-text-story';
 
 export { default } from './skeleton-text-story';
 
-export const defaultStory = () => <BXSkeletonText />;
+export const Default = () => <BXSkeletonText />;
 
 export const lines = () => (
   <>
@@ -26,8 +26,6 @@ export const lines = () => (
   </>
 );
 
-lines.story = {
-  decorators: [story => <div style={{ width: '300px' }}>{story()}</div>],
-};
+lines.decorators = [story => <div style={{ width: '300px' }}>{story()}</div>];
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

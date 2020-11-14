@@ -17,7 +17,7 @@ import BXBtn from '../button/button';
 import { TABLE_COLOR_SCHEME, TABLE_SIZE } from './table';
 import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import baseStory, {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   expandable as baseExpandable,
   sortable as baseSortable,
   sortableWithPagination as baseSortableWithPagination,
@@ -581,7 +581,7 @@ class BXCEDemoDataTable {
   };
 }
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-table [size]="size">
       <bx-table-head>
@@ -622,12 +622,12 @@ export const defaultStory = ({ parameters }) => ({
       </bx-table-body>
     </bx-table>
   `,
-  props: { ...parameters?.props?.['bx-table'], ...parameters?.props?.['bx-table-body'] },
+  props: { ...args?.['bx-table'], ...args?.['bx-table-body'] },
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const expandable = ({ parameters }) => ({
+export const expandable = args => ({
   template: `
     <bx-table
       [size]="size"
@@ -684,8 +684,8 @@ export const expandable = ({ parameters }) => ({
     </bx-table>
   `,
   props: {
-    ...parameters?.props?.['bx-table'],
-    ...parameters?.props?.['bx-table-body'],
+    ...args?.['bx-table'],
+    ...args?.['bx-table-body'],
     handleExpandRowAll(event) {
       const { currentTarget, detail } = event;
       const rows = currentTarget.querySelectorAll('bx-table-expand-row');
@@ -702,9 +702,9 @@ export const expandable = ({ parameters }) => ({
   },
 });
 
-expandable.story = baseExpandable.story;
+Object.assign(expandable, baseExpandable);
 
-export const sortable = ({ parameters }) => ({
+export const sortable = args => ({
   template: `
     <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
@@ -722,9 +722,9 @@ export const sortable = ({ parameters }) => ({
     </bx-ce-demo-data-table>
   `,
   props: (props => {
-    const { onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
-    const { onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
-    const { onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
+    const { onBeforeChangeSelectionAll } = args?.['bx-table-header-row'];
+    const { onBeforeChangeSelection } = args?.['bx-table-row'] ?? {};
+    const { onBeforeSort } = args?.['bx-table-header-cell'] ?? {};
     const handleBeforeChangeSelection = (event: CustomEvent) => {
       if (event.type === 'bx-table-change-selection-all') {
         onBeforeChangeSelectionAll(event);
@@ -741,14 +741,14 @@ export const sortable = ({ parameters }) => ({
       handleBeforeSort: onBeforeSort,
     };
   })({
-    ...parameters?.props?.['bx-table'],
-    ...parameters?.props?.['bx-table-body'],
-    ...parameters?.props?.['bx-table-row'],
-    ...parameters?.props?.['bx-header-cell'],
+    ...args?.['bx-table'],
+    ...args?.['bx-table-body'],
+    ...args?.['bx-table-row'],
+    ...args?.['bx-header-cell'],
   }),
 });
 
-sortable.story = Object.assign(baseSortable.story, {
+Object.assign(sortable, baseSortable, {
   decorators: [
     moduleMetadata({
       declarations: [
@@ -764,7 +764,7 @@ sortable.story = Object.assign(baseSortable.story, {
   ],
 });
 
-export const sortableWithPagination = ({ parameters }) => ({
+export const sortableWithPagination = args => ({
   template: `
     <!-- TODO: Figure out how to style <bx-ce-demo-data-table> -->
     <!-- Refer to <bx-ce-demo-data-table> implementation at the top for details -->
@@ -784,9 +784,9 @@ export const sortableWithPagination = ({ parameters }) => ({
     </bx-ce-demo-data-table>
   `,
   props: (props => {
-    const { onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
-    const { onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
-    const { onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
+    const { onBeforeChangeSelectionAll } = args?.['bx-table-header-row'];
+    const { onBeforeChangeSelection } = args?.['bx-table-row'] ?? {};
+    const { onBeforeSort } = args?.['bx-table-header-cell'] ?? {};
     const handleBeforeChangeSelection = (event: CustomEvent) => {
       if (event.type === 'bx-table-change-selection-all') {
         onBeforeChangeSelectionAll(event);
@@ -803,14 +803,14 @@ export const sortableWithPagination = ({ parameters }) => ({
       handleBeforeSort: onBeforeSort,
     };
   })({
-    ...parameters?.props?.['bx-table'],
-    ...parameters?.props?.['bx-table-body'],
-    ...parameters?.props?.['bx-table-row'],
-    ...parameters?.props?.['bx-header-cell'],
+    ...args?.['bx-table'],
+    ...args?.['bx-table-body'],
+    ...args?.['bx-table-row'],
+    ...args?.['bx-header-cell'],
   }),
 });
 
-sortableWithPagination.story = Object.assign(baseSortableWithPagination.story, {
+Object.assign(sortableWithPagination, baseSortableWithPagination, {
   decorators: [
     moduleMetadata({
       declarations: [

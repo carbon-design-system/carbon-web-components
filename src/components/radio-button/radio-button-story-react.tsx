@@ -16,13 +16,13 @@ import BXRadioButtonGroup from 'carbon-web-components/es/components-react/radio-
 import BXRadioButton from 'carbon-web-components/es/components-react/radio-button/radio-button';
 // @ts-ignore
 import BXRadioButtonSkeleton from 'carbon-web-components/es/components-react/radio-button/radio-button-skeleton';
-import { defaultStory as baseDefaultStory } from './radio-button-story';
+import { Default as baseDefault } from './radio-button-story';
 
 export { default } from './radio-button-story';
 
-export const defaultStory = ({ parameters }) => {
-  const { disabled, labelPosition, orientation, name, value, onChange } = parameters?.props?.['bx-radio-button-group'];
-  const { hideLabel, labelText } = parameters?.props?.['bx-radio-button'];
+export const Default = args => {
+  const { disabled, labelPosition, orientation, name, value, onChange } = args?.['bx-radio-button-group'];
+  const { hideLabel, labelText } = args?.['bx-radio-button'];
   return (
     <BXRadioButtonGroup
       disabled={disabled}
@@ -38,6 +38,6 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => <BXRadioButtonSkeleton />;

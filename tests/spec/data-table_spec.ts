@@ -17,16 +17,12 @@ import BXTableRow from '../../src/components/data-table/table-row';
 import BXTableExpandRow from '../../src/components/data-table/table-expand-row';
 import BXTableExpandedRow from '../../src/components/data-table/table-expanded-row';
 import BXTableToolbarSearch from '../../src/components/data-table/table-toolbar-search';
-import { defaultStory } from '../../src/components/data-table/data-table-story';
+import { Default } from '../../src/components/data-table/data-table-story';
 
 const template = ({ colorScheme = TABLE_COLOR_SCHEME.REGULAR, ...rest } = {}) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-table': { ...rest },
-        'bx-table-body': { colorScheme },
-      },
-    },
+  Default({
+    'bx-table': { ...rest },
+    'bx-table-body': { colorScheme },
   });
 
 const headerCellTemplate = (props?) => {

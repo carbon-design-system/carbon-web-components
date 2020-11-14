@@ -12,12 +12,12 @@ import React from 'react';
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXCheckbox from 'carbon-web-components/es/components-react/checkbox/checkbox';
-import { defaultStory as baseDefaultStory } from './checkbox-story';
+import { Default as baseDefault } from './checkbox-story';
 
 export { default } from './checkbox-story';
 
-export const defaultStory = ({ parameters }) => {
-  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onChange } = parameters?.props?.['bx-checkbox'];
+export const Default = args => {
+  const { checked, disabled, hideLabel, indeterminate, labelText, name, value, onChange } = args?.['bx-checkbox'];
   return (
     <BXCheckbox
       checked={checked}
@@ -32,4 +32,4 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
