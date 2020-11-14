@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory } from './search-story';
+import { Default as baseDefault } from './search-story';
 
 export { default } from './search-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-search
       :close-button-assistive-text="closeButtonAssistiveText"
@@ -28,10 +28,10 @@ export const defaultStory = ({ parameters }) => ({
       @bx-search-input="onInput"
     ></bx-search>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-search']),
+  ...createVueBindingsFromProps(args?.['bx-search']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => ({
   template: `<bx-search-skeleton></bx-search-skeleton>`,

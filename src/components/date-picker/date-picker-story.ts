@@ -54,9 +54,9 @@ const sizesHorizontal = {
   [`Short size (${DATE_PICKER_INPUT_SIZE_HORIZONTAL.SHORT})`]: DATE_PICKER_INPUT_SIZE_HORIZONTAL.SHORT,
 };
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, sizeHorizontal, validityMessage } =
-    parameters?.props?.['bx-date-picker-input'] ?? {};
+    args?.['bx-date-picker-input'] ?? {};
   return html`
     <bx-date-picker>
       <bx-date-picker-input
@@ -75,22 +75,21 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    knobs: {
-      'bx-date-picker-input': () => ({
-        ...knobs['bx-date-picker-input'](),
-        sizeHorizontal: select('Horizontal size (size-horizontal)', sizesHorizontal, null),
-      }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  knobs: {
+    'bx-date-picker-input': () => ({
+      ...knobs['bx-date-picker-input'](),
+      sizeHorizontal: select('Horizontal size (size-horizontal)', sizesHorizontal, null),
+    }),
   },
 };
 
-export const singleWithCalendar = ({ parameters }) => {
-  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'] ?? {};
+export const singleWithCalendar = args => {
+  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'] ?? {};
   const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } =
-    parameters?.props?.['bx-date-picker-input'] ?? {};
+    args?.['bx-date-picker-input'] ?? {};
   return html`
     <bx-date-picker
       date-format="${ifNonNull(dateFormat)}"
@@ -117,17 +116,16 @@ export const singleWithCalendar = ({ parameters }) => {
   `;
 };
 
-singleWithCalendar.story = {
-  name: 'Single with calendar',
-  parameters: {
-    knobs,
-  },
+singleWithCalendar.storyName = 'Single with calendar';
+
+singleWithCalendar.parameters = {
+  knobs,
 };
 
-export const rangeWithCalendar = ({ parameters }) => {
-  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = parameters?.props?.['bx-date-picker'] ?? {};
+export const rangeWithCalendar = args => {
+  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'] ?? {};
   const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } =
-    parameters?.props?.['bx-date-picker-input'] ?? {};
+    args?.['bx-date-picker-input'] ?? {};
   return html`
     <bx-date-picker
       date-format="${ifNonNull(dateFormat)}"
@@ -167,11 +165,10 @@ export const rangeWithCalendar = ({ parameters }) => {
   `;
 };
 
-rangeWithCalendar.story = {
-  name: 'Range with calendar',
-  parameters: {
-    knobs,
-  },
+rangeWithCalendar.storyName = 'Range with calendar';
+
+rangeWithCalendar.parameters = {
+  knobs,
 };
 
 export const skeletonSimple = () =>
@@ -179,12 +176,11 @@ export const skeletonSimple = () =>
     <bx-date-picker-input-skeleton></bx-date-picker-input-skeleton>
   `;
 
-skeletonSimple.story = {
-  name: 'Skeleton simple',
-  parameters: {
-    percy: {
-      skip: true,
-    },
+skeletonSimple.storyName = 'Skeleton simple';
+
+skeletonSimple.parameters = {
+  percy: {
+    skip: true,
   },
 };
 
@@ -193,12 +189,11 @@ export const skeletonSingle = () =>
     <bx-date-picker-input-skeleton kind="single"></bx-date-picker-input-skeleton>
   `;
 
-skeletonSingle.story = {
-  name: 'Skeleton single',
-  parameters: {
-    percy: {
-      skip: true,
-    },
+skeletonSingle.storyName = 'Skeleton single';
+
+skeletonSingle.parameters = {
+  percy: {
+    skip: true,
   },
 };
 
@@ -208,26 +203,24 @@ export const skeletonRange = () =>
     <bx-date-picker-input-skeleton kind="to"></bx-date-picker-input-skeleton>
   `;
 
-skeletonRange.story = {
-  name: 'Skeleton range',
-  parameters: {
-    percy: {
-      skip: true,
-    },
+skeletonRange.storyName = 'Skeleton range';
+
+skeletonRange.decorators = [
+  story =>
+    html`
+      <div>${story()}</div>
+    `,
+];
+
+skeletonRange.parameters = {
+  percy: {
+    skip: true,
   },
-  decorators: [
-    story =>
-      html`
-        <div>${story()}</div>
-      `,
-  ],
 };
 
 export default {
   title: 'Components/Date picker',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

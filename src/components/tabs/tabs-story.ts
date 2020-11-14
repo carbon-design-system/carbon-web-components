@@ -26,9 +26,8 @@ const types = {
   [`Container type (${TABS_TYPE.CONTAINER})`]: TABS_TYPE.CONTAINER,
 };
 
-export const defaultStory = ({ parameters }) => {
-  const { triggerContent, type, value, disableSelection, onBeforeSelect = noop, onSelect = noop } =
-    parameters?.props?.['bx-tabs'] || {};
+export const Default = args => {
+  const { triggerContent, type, value, disableSelection, onBeforeSelect = noop, onSelect = noop } = args?.['bx-tabs'] || {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -92,28 +91,25 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    docs: {
-      page: storyDocs,
-    },
-    knobs: {
-      'bx-tabs': () => ({
-        triggerContent: textNullable(
-          'The default content of the trigger button for narrow screen (trigger-content)',
-          'Select an item'
-        ),
-        type: select('Tabs type (type)', types, null),
-        value: textNullable('The value of the selected item (value)', 'staging'),
-        disableSelection: boolean(
-          'Disable user-initiated selection change (Call event.preventDefault() in bx-content-switcher-beingselected event)',
-          false
-        ),
-        onBeforeSelect: action('bx-tabs-beingselected'),
-        onSelect: action('bx-tabs-selected'),
-      }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  ...storyDocs.parameters,
+  knobs: {
+    'bx-tabs': () => ({
+      triggerContent: textNullable(
+        'The default content of the trigger button for narrow screen (trigger-content)',
+        'Select an item'
+      ),
+      type: select('Tabs type (type)', types, null),
+      value: textNullable('The value of the selected item (value)', 'staging'),
+      disableSelection: boolean(
+        'Disable user-initiated selection change (Call event.preventDefault() in bx-content-switcher-beingselected event)',
+        false
+      ),
+      onBeforeSelect: action('bx-tabs-beingselected'),
+      onSelect: action('bx-tabs-selected'),
+    }),
   },
 };
 
@@ -127,11 +123,9 @@ export const skeleton = () => html`
   </bx-tabs-skeleton>
 `;
 
-skeleton.story = {
-  parameters: {
-    percy: {
-      skip: true,
-    },
+skeleton.parameters = {
+  percy: {
+    skip: true,
   },
 };
 

@@ -17,7 +17,7 @@ import '../form/form-item';
 import createProps from './stories/helpers';
 import storyDocs from './textarea-story.mdx';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const {
     autocomplete,
     autofocus,
@@ -36,7 +36,7 @@ export const defaultStory = ({ parameters }) => {
     onInput,
     rows,
     cols,
-  } = parameters?.props?.['bx-textarea'] ?? {};
+  } = args?.['bx-textarea'] ?? {};
   return html`
     <bx-textarea
       autocomplete="${ifNonNull(autocomplete)}"
@@ -61,17 +61,16 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-  parameters: {
-    knobs: {
-      'bx-textarea': () => createProps({ ...knobs, textNullable }),
-    },
+Default.storyName = 'Default';
+
+Default.parameters = {
+  knobs: {
+    'bx-textarea': () => createProps({ ...knobs, textNullable }),
   },
 };
 
-export const formItem = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'] ?? {};
+export const formItem = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, onInput, rows, cols } = args?.['bx-textarea'] ?? {};
   return html`
     <bx-form-item>
       <bx-textarea
@@ -93,17 +92,16 @@ export const formItem = ({ parameters }) => {
   `;
 };
 
-formItem.story = {
-  name: 'Form item',
-  parameters: {
-    knobs: {
-      'bx-textarea': () => createProps({ ...knobs, textNullable }),
-    },
+formItem.storyName = 'Form item';
+
+formItem.parameters = {
+  knobs: {
+    'bx-textarea': () => createProps({ ...knobs, textNullable }),
   },
 };
 
-export const withoutFormItemWrapper = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, onInput, rows, cols } = parameters?.props?.['bx-textarea'] ?? {};
+export const withoutFormItemWrapper = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, onInput, rows, cols } = args?.['bx-textarea'] ?? {};
   return html`
     <bx-textarea
       color-scheme="${ifNonNull(colorScheme)}"
@@ -123,15 +121,12 @@ export const withoutFormItemWrapper = ({ parameters }) => {
   `;
 };
 
-withoutFormItemWrapper.story = {
-  name: 'Without form item wrapper',
-  parameters: {
-    docs: {
-      page: storyDocs,
-    },
-    knobs: {
-      'bx-textarea': () => createProps({ ...knobs, textNullable }),
-    },
+withoutFormItemWrapper.storyName = 'Without form item wrapper';
+
+withoutFormItemWrapper.parameters = {
+  ...storyDocs.parameters,
+  knobs: {
+    'bx-textarea': () => createProps({ ...knobs, textNullable }),
   },
 };
 
@@ -140,11 +135,9 @@ export const skeleton = () =>
     <bx-textarea-skeleton></bx-textarea-skeleton>
   `;
 
-skeleton.story = {
-  parameters: {
-    percy: {
-      skip: true,
-    },
+skeleton.parameters = {
+  percy: {
+    skip: true,
   },
 };
 

@@ -63,7 +63,7 @@ import BXBtnElement from '../button/button';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 import {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   expandable as baseExpandable,
   sortable as baseSortable,
   sortableWithPagination as baseSortableWithPagination,
@@ -440,9 +440,9 @@ BXCEDemoDataTable.defaultProps = {
   start: 0,
 };
 
-export const defaultStory = ({ parameters }) => {
-  const { size } = parameters?.props?.['bx-table'];
-  const { colorScheme } = parameters?.props?.['bx-table-body'];
+export const Default = args => {
+  const { size } = args?.['bx-table'];
+  const { colorScheme } = args?.['bx-table-body'];
   return (
     <bx-table size={size}>
       <bx-table-head>
@@ -485,10 +485,10 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const expandable = ({ parameters }) => {
-  const { size } = parameters?.props?.['bx-table'];
+export const expandable = args => {
+  const { size } = args?.['bx-table'];
   const handleExpandRowAll = useCallback(event => {
     const { currentTarget, detail } = event;
     const rows = currentTarget.closest('bx-table').querySelectorAll('bx-table-expand-row');
@@ -557,14 +557,14 @@ export const expandable = ({ parameters }) => {
   );
 };
 
-expandable.story = baseExpandable.story;
+Object.assign(expandable, baseExpandable);
 
-export const sortable = ({ parameters }) => {
-  const { size } = parameters?.props?.['bx-table'];
-  const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
-  const { colorScheme } = parameters?.props?.['bx-table-body'];
-  const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
-  const { disableChangeSort, onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
+export const sortable = args => {
+  const { size } = args?.['bx-table'];
+  const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = args?.['bx-table-header-row'];
+  const { colorScheme } = args?.['bx-table-body'];
+  const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = args?.['bx-table-row'] ?? {};
+  const { disableChangeSort, onBeforeSort } = args?.['bx-table-header-cell'] ?? {};
   const beforeChangeSelectionHandler = (event: CustomEvent) => {
     if (event.type === 'bx-table-change-selection-all') {
       onBeforeChangeSelectionAll(event);
@@ -600,14 +600,14 @@ export const sortable = ({ parameters }) => {
   );
 };
 
-sortable.story = baseSortable.story;
+Object.assign(sortable, baseSortable);
 
-export const sortableWithPagination = ({ parameters }) => {
-  const { size } = parameters?.props?.['bx-table'];
-  const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = parameters?.props?.['bx-table-header-row'];
-  const { colorScheme } = parameters?.props?.['bx-table-body'];
-  const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = parameters?.props?.['bx-table-row'] ?? {};
-  const { disableChangeSort, onBeforeSort } = parameters?.props?.['bx-table-header-cell'] ?? {};
+export const sortableWithPagination = args => {
+  const { size } = args?.['bx-table'];
+  const { onBeforeChangeSelection: onBeforeChangeSelectionAll } = args?.['bx-table-header-row'];
+  const { colorScheme } = args?.['bx-table-body'];
+  const { hasSelection, disableChangeSelection, onBeforeChangeSelection } = args?.['bx-table-row'] ?? {};
+  const { disableChangeSort, onBeforeSort } = args?.['bx-table-header-cell'] ?? {};
   const beforeChangeSelectionHandler = (event: CustomEvent) => {
     if (event.type === 'bx-table-change-selection-all') {
       onBeforeChangeSelectionAll(event);
@@ -645,4 +645,4 @@ export const sortableWithPagination = ({ parameters }) => {
   );
 };
 
-sortableWithPagination.story = baseSortableWithPagination.story;
+Object.assign(sortableWithPagination, baseSortableWithPagination);

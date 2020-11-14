@@ -14,11 +14,11 @@ import React from 'react';
 import BXMultiSelect from 'carbon-web-components/es/components-react/multi-select/multi-select';
 // @ts-ignore
 import BXMultiSelectItem from 'carbon-web-components/es/components-react/multi-select/multi-select-item';
-import { defaultStory as baseDefaultStory } from './multi-select-story';
+import { Default as baseDefault } from './multi-select-story';
 
 export { default } from './multi-select-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const {
     clearSelectionLabel,
     colorScheme,
@@ -37,7 +37,7 @@ export const defaultStory = ({ parameters }) => {
     disableSelection,
     onBeforeSelect,
     onSelect,
-  } = parameters?.props?.['bx-multi-select'];
+  } = args?.['bx-multi-select'];
   const handleBeforeSelect = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -71,4 +71,4 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

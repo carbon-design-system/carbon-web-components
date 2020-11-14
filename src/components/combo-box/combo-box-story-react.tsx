@@ -14,11 +14,11 @@ import React from 'react';
 import BXComboBox from 'carbon-web-components/es/components-react/combo-box/combo-box';
 // @ts-ignore
 import BXComboBoxItem from 'carbon-web-components/es/components-react/combo-box/combo-box-item';
-import { defaultStory as baseDefaultStory } from './combo-box-story';
+import { Default as baseDefault } from './combo-box-story';
 
 export { default } from './combo-box-story';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const {
     open,
     colorScheme,
@@ -35,7 +35,7 @@ export const defaultStory = ({ parameters }) => {
     disableSelection,
     onBeforeSelect,
     onSelect,
-  } = parameters?.props?.['bx-combo-box'];
+  } = args?.['bx-combo-box'];
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -67,4 +67,4 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

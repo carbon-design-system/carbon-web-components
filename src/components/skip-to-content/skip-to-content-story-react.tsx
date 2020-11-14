@@ -8,12 +8,12 @@
  */
 
 import React from 'react';
-import { defaultStory as baseDefaultStory } from './skip-to-content-story';
+import { Default as baseDefault } from './skip-to-content-story';
 import styles from './skip-to-content-story.scss';
 
 export { default } from './skip-to-content-story';
 
-export const defaultStory = () => (
+export const Default = () => (
   <>
     <style type="text/css">{styles.cssText}</style>
     <div className="bx--content bx--grid">
@@ -56,4 +56,4 @@ export const defaultStory = () => (
   </>
 );
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

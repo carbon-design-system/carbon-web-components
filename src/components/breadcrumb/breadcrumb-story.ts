@@ -12,7 +12,7 @@ import './breadcrumb';
 import './breadcrumb-item';
 import './breadcrumb-link';
 
-export const defaultStory = () =>
+export const Default = () =>
   html`
     <bx-breadcrumb>
       <bx-breadcrumb-item>
@@ -27,9 +27,7 @@ export const defaultStory = () =>
     </bx-breadcrumb>
   `;
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
 export default {
   title: 'Components/Breadcrumb',

@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './combo-box-story';
+import baseStory, { Default as baseDefault } from './combo-box-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-combo-box
       [open]="open"
@@ -47,10 +47,10 @@ export const defaultStory = ({ parameters }) => ({
       handleBeforeSelect,
       handleAfterSelect: onSelect,
     };
-  })(parameters?.props?.['bx-combo-box']),
+  })(args?.['bx-combo-box']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export default Object.assign(baseStory, {
   decorators: [

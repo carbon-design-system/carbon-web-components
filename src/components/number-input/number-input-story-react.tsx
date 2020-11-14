@@ -17,28 +17,17 @@ import BXNumberInputSkeleton from 'carbon-web-components/es/components-react/num
 // @ts-ignore
 import BXFormItem from 'carbon-web-components/es/components-react/form/form-item';
 import {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   formItem as baseFormItem,
   withoutFormItemWrapper as baseWithoutFormItemWrapper,
 } from './number-input-story';
 
 export { default } from './number-input-story';
 
-export const defaultStory = ({ parameters }) => {
-  const {
-    colorScheme,
-    disabled,
-    value,
-    placeholder,
-    invalid,
-    mobile,
-    min,
-    max,
-    size,
-    step,
-    light,
-    onInput,
-  } = parameters?.props?.['bx-number-input'];
+export const Default = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, light, onInput } = args?.[
+    'bx-number-input'
+  ];
   return (
     <BXNumberInput
       colorScheme={colorScheme}
@@ -57,23 +46,12 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const formItem = ({ parameters }) => {
-  const {
-    colorScheme,
-    disabled,
-    value,
-    placeholder,
-    invalid,
-    mobile,
-    min,
-    max,
-    size,
-    step,
-    light,
-    onInput,
-  } = parameters?.props?.['bx-number-input'];
+export const formItem = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, light, onInput } = args?.[
+    'bx-number-input'
+  ];
   return (
     <BXFormItem>
       <BXNumberInput
@@ -99,23 +77,12 @@ export const formItem = ({ parameters }) => {
   );
 };
 
-formItem.story = baseFormItem.story;
+Object.assign(formItem, baseFormItem);
 
-export const withoutFormItemWrapper = ({ parameters }) => {
-  const {
-    colorScheme,
-    disabled,
-    value,
-    placeholder,
-    invalid,
-    mobile,
-    min,
-    max,
-    size,
-    step,
-    light,
-    onInput,
-  } = parameters?.props?.['bx-number-input'];
+export const withoutFormItemWrapper = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, light, onInput } = args?.[
+    'bx-number-input'
+  ];
   return (
     <BXNumberInput
       value={value}
@@ -137,6 +104,6 @@ export const withoutFormItemWrapper = ({ parameters }) => {
   );
 };
 
-withoutFormItemWrapper.story = baseWithoutFormItemWrapper.story;
+Object.assign(withoutFormItemWrapper, baseWithoutFormItemWrapper);
 
 export const skeleton = () => <BXNumberInputSkeleton />;

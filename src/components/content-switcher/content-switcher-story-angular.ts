@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory } from './content-switcher-story';
+import baseStory, { Default as baseDefault } from './content-switcher-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-content-switcher
       [value]="value"
@@ -37,10 +37,10 @@ export const defaultStory = ({ parameters }) => ({
       handleBeforeSelect,
       handleAfterSelect: onSelect,
     };
-  })(parameters?.props?.['bx-content-switcher']),
+  })(args?.['bx-content-switcher']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export default Object.assign(baseStory, {
   decorators: [
