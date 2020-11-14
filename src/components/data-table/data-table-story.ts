@@ -825,6 +825,9 @@ export const skeleton = ({ parameters }) => {
 
 skeleton.story = {
   parameters: {
+    percy: {
+      skip: true,
+    },
     knobs: {
       ...defaultStory.story.parameters.knobs,
     },

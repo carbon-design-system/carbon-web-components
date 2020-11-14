@@ -34,6 +34,9 @@ defaultStory.story = {
 export default {
   title: 'Components/Inline loading',
   parameters: {
+    percy: {
+      skip: true,
+    },
     docs: {
       page: storyDocs,
     },
