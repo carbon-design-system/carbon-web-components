@@ -9,11 +9,13 @@
   aria-checked="false"
   class="bx--checkbox"
   id="checkbox"
+  part="input"
   type="checkbox"
 >
 <label
   class="bx--checkbox-label"
   for="checkbox"
+  part="label"
 >
   <span class="bx--checkbox-label-text">
     <slot>
@@ -32,12 +34,14 @@
   disabled=""
   id="checkbox"
   name="name-foo"
+  part="input"
   type="checkbox"
   value="value-foo"
 >
 <label
   class="bx--checkbox-label bx--visually-hidden"
   for="checkbox"
+  part="label"
 >
   <span class="bx--checkbox-label-text">
     <slot>

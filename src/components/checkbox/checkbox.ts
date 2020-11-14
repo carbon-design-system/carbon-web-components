@@ -21,6 +21,8 @@ const { prefix } = settings;
  * Check box.
  * @element bx-checkbox
  * @fires bx-checkbox-changed - The custom event fired after this changebox changes its checked state.
+ * @csspart input The checkbox.
+ * @csspart label The label.
  */
 @customElement(`${prefix}-checkbox`)
 class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
@@ -113,6 +115,7 @@ class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
       <input
         id="checkbox"
         type="checkbox"
+        part="input"
         class="${`${prefix}--checkbox`}"
         aria-checked="${indeterminate ? 'mixed' : String(Boolean(checked))}"
         .checked="${checked}"
@@ -122,7 +125,7 @@ class BXCheckbox extends FocusMixin(FormMixin(LitElement)) {
         value="${ifNonNull(value)}"
         @change="${handleChange}"
       />
-      <label for="checkbox" class="${labelClasses}">
+      <label for="checkbox" part="label" class="${labelClasses}">
         <span class="${prefix}--checkbox-label-text"><slot>${labelText}</slot></span>
       </label>
     `;

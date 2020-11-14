@@ -22,6 +22,8 @@ const { prefix } = settings;
 /**
  * The trigger button for side nav in header nav.
  * @element bx-header-menu-button
+ * @csspart button The button.
+ * @csspart toggle-icon The toggle icon.
  * @fires bx-header-menu-button-toggled - The custom event fired after this header menu button is toggled upon a user gesture.
  */
 @customElement(`${prefix}-header-menu-button`)
@@ -94,8 +96,8 @@ class BXHeaderMenuButton extends FocusMixin(LitElement) {
       [`${prefix}--header__action--active`]: active,
     });
     return html`
-      <button class="${classes}" ?disabled=${disabled} aria-label="${ifNonNull(buttonLabel)}" @click=${handleClick}>
-        ${active ? Close20() : Menu20()}
+      <button part="button" class="${classes}" ?disabled=${disabled} aria-label="${ifNonNull(buttonLabel)}" @click=${handleClick}>
+        ${(active ? Close20 : Menu20)({ slot: 'toggle-icon' })}
       </button>
     `;
   }

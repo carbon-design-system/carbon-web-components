@@ -8,6 +8,7 @@
 <label
   class="bx--label"
   for="input"
+  part="label-text"
 >
   <slot>
   </slot>
@@ -15,11 +16,13 @@
 <input
   class="bx--search-input"
   id="input"
+  part="input"
   role="searchbox"
 >
 <button
   aria-label=""
   class="bx--search-close bx--search-close--hidden"
+  part="close-button"
   type="button"
 >
 </button>
@@ -32,6 +35,7 @@
 <label
   class="bx--label"
   for="input"
+  part="label-text"
 >
   <slot>
     label-text-foo
@@ -42,6 +46,7 @@
   disabled=""
   id="input"
   name="name-foo"
+  part="input"
   placeholder="placeholder-foo"
   role="searchbox"
   type="submit"
@@ -50,6 +55,7 @@
 <button
   aria-label="close-button-assistive-text-foo"
   class="bx--search-close"
+  part="close-button"
   type="button"
 >
 </button>

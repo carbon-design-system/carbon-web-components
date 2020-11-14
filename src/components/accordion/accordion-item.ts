@@ -57,6 +57,10 @@ const observeResize = (observer: ResizeObserver, elem: Element) => {
  *   The custom event fired before this accordion item is being toggled upon a user gesture.
  *   Cancellation of this event stops the user-initiated action of toggling this accordion item.
  * @fires bx-accordion-item-toggled - The custom event fired after this accordion item is toggled upon a user gesture.
+ * @csspart expando The expando button.
+ * @csspart expando-icon The expando icon.
+ * @csspart title The title.
+ * @csspart content The content.
  */
 @customElement(`${prefix}-accordion-item`)
 class BXAccordionItem extends FocusMixin(LitElement) {
@@ -165,6 +169,7 @@ class BXAccordionItem extends FocusMixin(LitElement) {
     return html`
       <button
         type="button"
+        part="expando"
         class="${prefix}--accordion__heading"
         aria-controls="content"
         aria-expanded="${String(Boolean(open))}"
@@ -172,11 +177,12 @@ class BXAccordionItem extends FocusMixin(LitElement) {
         @keydown="${handleKeydownExpando}"
       >
         ${ChevronRight16({
+          part: 'expando-icon',
           class: `${prefix}--accordion__arrow`,
         })}
-        <div class="${prefix}--accordion__title"><slot name="title">${titleText}</slot></div>
+        <div part="title" class="${prefix}--accordion__title"><slot name="title">${titleText}</slot></div>
       </button>
-      <div id="content" class="${contentClasses}"><slot></slot></div>
+      <div id="content" part="content" class="${contentClasses}"><slot></slot></div>
     `;
   }
 

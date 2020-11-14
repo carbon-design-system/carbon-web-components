@@ -19,6 +19,8 @@ const { prefix } = settings;
 /**
  * Modal close button.
  * @element bx-modal-close-button
+ * @csspart button The button.
+ * @csspart close-icon The close icon.
  */
 @customElement(`${prefix}-modal-close-button`)
 class BXModalCloseButton extends FocusMixin(LitElement) {
@@ -38,8 +40,14 @@ class BXModalCloseButton extends FocusMixin(LitElement) {
   render() {
     const { assistiveText } = this;
     return html`
-      <button aria-label="${ifNonNull(assistiveText)}" class="${prefix}--modal-close" title="${ifNonNull(assistiveText)}">
+      <button
+        part="button"
+        aria-label="${ifNonNull(assistiveText)}"
+        class="${prefix}--modal-close"
+        title="${ifNonNull(assistiveText)}"
+      >
         ${Close20({
+          part: 'close-icon',
           class: `${prefix}--modal-close__icon`,
         })}
       </button>
