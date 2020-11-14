@@ -9,9 +9,9 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { defaultStory as baseDefaultStory, withInputBox as baseWithInputBox } from './slider-story';
+import baseStory, { Default as baseDefault, withInputBox as baseWithInputBox } from './slider-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-slider
       [disabled]="disabled"
@@ -24,12 +24,12 @@ export const defaultStory = ({ parameters }) => ({
       (bx-slider-changed)="onChange($event)"
     ></bx-slider>
   `,
-  props: parameters?.props?.['bx-slider'],
+  props: args?.['bx-slider'],
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const withInputBox = ({ parameters }) => ({
+export const withInputBox = args => ({
   template: `
     <bx-slider
       [disabled]="disabled"
@@ -44,10 +44,10 @@ export const withInputBox = ({ parameters }) => ({
       <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
     </bx-slider>
   `,
-  props: parameters?.props?.['bx-slider'],
+  props: args?.['bx-slider'],
 });
 
-withInputBox.story = baseWithInputBox.story;
+Object.assign(withInputBox, baseWithInputBox);
 
 export const skeleton = () => ({
   template: `<bx-slider-skeleton></bx-slider-skeleton>`,

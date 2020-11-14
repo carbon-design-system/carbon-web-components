@@ -16,7 +16,7 @@ import '../form/form-item';
 import createProps from './stories/helpers';
 import storyDocs from './input-story.mdx';
 
-export const defaultStory = ({ parameters }) => {
+export const Default = args => {
   const {
     autocomplete,
     autofocus,
@@ -35,7 +35,7 @@ export const defaultStory = ({ parameters }) => {
     validityMessage,
     value,
     onInput,
-  } = parameters?.props?.['bx-input'] ?? {};
+  } = args?.['bx-input'] ?? {};
   return html`
     <bx-input
       autocomplete="${ifNonNull(autocomplete)}"
@@ -59,12 +59,10 @@ export const defaultStory = ({ parameters }) => {
   `;
 };
 
-defaultStory.story = {
-  name: 'Default',
-};
+Default.storyName = 'Default';
 
-export const formItem = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, size, onInput } = parameters?.props?.['bx-input'] ?? {};
+export const formItem = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, size, onInput } = args?.['bx-input'] ?? {};
   return html`
     <bx-form-item>
       <bx-input
@@ -84,12 +82,10 @@ export const formItem = ({ parameters }) => {
   `;
 };
 
-formItem.story = {
-  name: 'Form item',
-};
+formItem.storyName = 'Form item';
 
-export const withoutFormItemWrapper = ({ parameters }) => {
-  const { colorScheme, disabled, value, placeholder, invalid, size, onInput } = parameters?.props?.['bx-input'] ?? {};
+export const withoutFormItemWrapper = args => {
+  const { colorScheme, disabled, value, placeholder, invalid, size, onInput } = args?.['bx-input'] ?? {};
   return html`
     <bx-input
       value="${ifNonNull(value)}"
@@ -107,16 +103,12 @@ export const withoutFormItemWrapper = ({ parameters }) => {
   `;
 };
 
-withoutFormItemWrapper.story = {
-  name: 'Without form item wrapper',
-};
+withoutFormItemWrapper.storyName = 'Without form item wrapper';
 
 export default {
   title: 'Components/Input',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
     knobs: {
       'bx-input': () => createProps({ ...knobs, textNonEmpty: textNullable }),
     },

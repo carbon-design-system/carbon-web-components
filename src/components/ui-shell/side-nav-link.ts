@@ -18,7 +18,9 @@ const { prefix } = settings;
 /**
  * Side nav menu item.
  * @element bx-side-nav-link
- * @slot title-icon - The icon.
+ * @slot link - The link.
+ * @slot title - The title.
+ * @slot title-icon-container - The title icon container.
  */
 @customElement(`${prefix}-side-nav-link`)
 class BXSideNavLink extends FocusMixin(LitElement) {
@@ -54,7 +56,10 @@ class BXSideNavLink extends FocusMixin(LitElement) {
   title!: string;
 
   createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+    return this.attachShadow({
+      mode: 'open',
+      delegatesFocus: Number((/Safari\/(\d+)/.exec(navigator.userAgent) ?? ['', 0])[1]) <= 537,
+    });
   }
 
   connectedCallback() {
@@ -71,11 +76,11 @@ class BXSideNavLink extends FocusMixin(LitElement) {
       [`${prefix}--side-nav__link--current`]: active,
     });
     return html`
-      <a class="${classes}" href="${href}">
-        <div id="title-icon-container" hidden class="${prefix}--side-nav__icon">
+      <a part="link" class="${classes}" href="${href}">
+        <div id="title-icon-container" part="title-icon-container" hidden class="${prefix}--side-nav__icon">
           <slot name="title-icon" @slotchange=${handleSlotChangeTitleIcon}></slot>
         </div>
-        <span class="${prefix}--side-nav__link-text">
+        <span part="title" class="${prefix}--side-nav__link-text">
           <slot>${title}</slot>
         </span>
       </a>

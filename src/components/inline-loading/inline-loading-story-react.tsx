@@ -1,20 +1,20 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import React from 'react';
-import { defaultStory as baseDefaultStory } from './inline-loading-story';
+import { Default as baseDefault } from './inline-loading-story';
 
 export { default } from './inline-loading-story';
 
-export const defaultStory = ({ parameters }) => {
-  const { status } = parameters?.props?.['bx-inline-loading'];
+export const Default = args => {
+  const { status } = args?.['bx-inline-loading'];
   return <bx-inline-loading status={status}>Loading data...</bx-inline-loading>;
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

@@ -12,15 +12,11 @@ import EventManager from '../utils/event-manager';
 import { forEach } from '../../src/globals/internal/collection-helpers';
 import BXTabs from '../../src/components/tabs/tabs';
 import BXTab from '../../src/components/tabs/tab';
-import { defaultStory } from '../../src/components/tabs/tabs-story';
+import { Default } from '../../src/components/tabs/tabs-story';
 
 const template = (props?) =>
-  defaultStory({
-    parameters: {
-      props: {
-        'bx-tabs': props,
-      },
-    },
+  Default({
+    'bx-tabs': props,
   });
 
 describe('bx-tabs', function() {

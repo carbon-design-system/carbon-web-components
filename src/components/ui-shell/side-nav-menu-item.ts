@@ -19,6 +19,8 @@ const { prefix } = settings;
 /**
  * Side nav menu item.
  * @element bx-side-nav-menu-item
+ * @csspart link The link.
+ * @csspart title The title.
  */
 @customElement(`${prefix}-side-nav-menu-item`)
 class BXSideNavMenuItem extends FocusMixin(LitElement) {
@@ -41,7 +43,10 @@ class BXSideNavMenuItem extends FocusMixin(LitElement) {
   title!: string;
 
   createRenderRoot() {
-    return this.attachShadow({ mode: 'open', delegatesFocus: true });
+    return this.attachShadow({
+      mode: 'open',
+      delegatesFocus: Number((/Safari\/(\d+)/.exec(navigator.userAgent) ?? ['', 0])[1]) <= 537,
+    });
   }
 
   shouldUpdate(changedProperties) {
@@ -62,8 +67,8 @@ class BXSideNavMenuItem extends FocusMixin(LitElement) {
       [`${prefix}--side-nav__link--current`]: active,
     });
     return html`
-      <a role="menuitem" class="${classes}" href="${href}">
-        <span class="${prefix}--side-nav__link-text">
+      <a role="menuitem" part="link" class="${classes}" href="${href}">
+        <span part="title" class="${prefix}--side-nav__link-text">
           <slot>${title}</slot>
         </span>
       </a>

@@ -16,6 +16,8 @@ const { prefix } = settings;
 /**
  * Header.
  * @element bx-header-nav
+ * @csspart menu-body The menu body.
+ * @csspart divider The divider.
  */
 @customElement(`${prefix}-header-nav`)
 class BXHeaderNav extends LitElement {
@@ -35,8 +37,8 @@ class BXHeaderNav extends LitElement {
   render() {
     const { menuBarLabel } = this;
     return html`
-      <div class="${prefix}-ce--header__divider"></div>
-      <ul role="menubar" class="${prefix}--header__menu-bar" aria-label="${menuBarLabel}">
+      <div part="divider" class="${prefix}-ce--header__divider"></div>
+      <ul role="menubar" part="menu-body" class="${prefix}--header__menu-bar" aria-label="${menuBarLabel}">
         <slot></slot>
       </ul>
     `;

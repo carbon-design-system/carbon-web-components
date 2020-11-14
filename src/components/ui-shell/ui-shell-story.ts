@@ -99,9 +99,9 @@ const StoryContent = () => html`
   </main>
 `;
 
-export const sideNav = ({ parameters }) => {
-  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
-  const { href } = parameters?.props?.['bx-side-nav-menu-item'] ?? {};
+export const sideNav = args => {
+  const { collapseMode, expanded } = args?.['bx-side-nav'] ?? {};
+  const { href } = args?.['bx-side-nav-menu-item'] ?? {};
   updateRailExpanded({ collapseMode, expanded });
   const result = html`
     <style>
@@ -152,24 +152,23 @@ export const sideNav = ({ parameters }) => {
   return result;
 };
 
-sideNav.story = {
-  name: 'Side nav',
-  parameters: {
-    knobs: {
-      'bx-side-nav': () => ({
-        expanded: boolean('Expanded (expanded)', true),
-        collapseMode: select('Collapse mode (collapse-mode)', collapseModes, null),
-      }),
-      'bx-side-nav-menu-item': () => ({
-        href: textNullable('Link href (href)', 'javascript:void 0'), // eslint-disable-line no-script-url
-      }),
-    },
+sideNav.storyName = 'Side nav';
+
+sideNav.parameters = {
+  knobs: {
+    'bx-side-nav': () => ({
+      expanded: boolean('Expanded (expanded)', true),
+      collapseMode: select('Collapse mode (collapse-mode)', collapseModes, null),
+    }),
+    'bx-side-nav-menu-item': () => ({
+      href: textNullable('Link href (href)', 'javascript:void 0'), // eslint-disable-line no-script-url
+    }),
   },
 };
 
-export const sideNavWithIcons = ({ parameters }) => {
-  const { collapseMode, expanded } = parameters?.props?.['bx-side-nav'] ?? {};
-  const { href } = parameters?.props?.['bx-side-nav-menu-item'] ?? {};
+export const sideNavWithIcons = args => {
+  const { collapseMode, expanded } = args?.['bx-side-nav'] ?? {};
+  const { href } = args?.['bx-side-nav-menu-item'] ?? {};
   updateRailExpanded({ collapseMode, expanded });
   const result = html`
     <style>
@@ -223,16 +222,15 @@ export const sideNavWithIcons = ({ parameters }) => {
   return result;
 };
 
-sideNavWithIcons.story = {
-  name: 'Side nav with icons',
-  parameters: {
-    knobs: sideNav.story.parameters.knobs,
-  },
+sideNavWithIcons.storyName = 'Side nav with icons';
+
+sideNavWithIcons.parameters = {
+  knobs: sideNav.parameters.knobs,
 };
 
-export const header = ({ parameters }) => {
-  const { collapseMode, expanded, usageMode } = parameters?.props?.['bx-side-nav'] ?? {};
-  const { href } = parameters?.props?.['bx-side-nav-menu-item'] ?? {};
+export const header = args => {
+  const { collapseMode, expanded, usageMode } = args?.['bx-side-nav'] ?? {};
+  const { href } = args?.['bx-side-nav-menu-item'] ?? {};
   updateRailExpanded({ collapseMode, expanded, usageMode });
   const handleButtonToggle = event => {
     updateRailExpanded({ collapseMode, expanded: event.detail.active, usageMode });
@@ -312,23 +310,19 @@ export const header = ({ parameters }) => {
   return result;
 };
 
-header.story = {
-  parameters: {
-    knobs: {
-      'bx-side-nav': () => ({
-        ...sideNav.story.parameters.knobs['bx-side-nav'](),
-        usageMode: select('Usage mode (usage-mode)', usageModes, null),
-      }),
-      'bx-side-nav-menu-item': sideNav.story.parameters.knobs['bx-side-nav-menu-item'],
-    },
+header.parameters = {
+  knobs: {
+    'bx-side-nav': () => ({
+      ...sideNav.parameters.knobs['bx-side-nav'](),
+      usageMode: select('Usage mode (usage-mode)', usageModes, null),
+    }),
+    'bx-side-nav-menu-item': sideNav.parameters.knobs['bx-side-nav-menu-item'],
   },
 };
 
 export default {
   title: 'Components/UI Shell',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

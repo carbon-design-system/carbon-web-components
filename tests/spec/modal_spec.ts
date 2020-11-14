@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -39,6 +39,7 @@ describe('bx-modal', function() {
     });
 
     it('Should focus on modal upon showning', async function() {
+      spyOn(BXModal as any, '_delay').and.callFake(() => {});
       elem!.innerHTML = '<input type="text">';
       const input = elem!.querySelector('input');
       spyOn(input!, 'focus');
@@ -49,6 +50,7 @@ describe('bx-modal', function() {
     });
 
     it('Should support specifying the primary focus element', async function() {
+      spyOn(BXModal as any, '_delay').and.callFake(() => {});
       elem!.innerHTML = '<input type="text"><button data-modal-primary-focus></button>';
       const input = elem!.querySelector('input');
       const button = elem!.querySelector('button');
@@ -62,6 +64,7 @@ describe('bx-modal', function() {
     });
 
     it('Should support using primary button in footer as the primary focus element', async function() {
+      spyOn(BXModal as any, '_delay').and.callFake(() => {});
       elem!.innerHTML = '<input type="text"><bx-modal-footer><bx-btn kind="primary"></bx-btn></bx-modal-footer>';
       const input = elem!.querySelector('input');
       const button = elem!.querySelector('bx-btn');
@@ -244,6 +247,7 @@ describe('bx-modal', function() {
     });
 
     it('Should support forward focus-wrap', async function() {
+      spyOn(BXModal as any, '_delay').and.callFake(() => {});
       (elem as BXModal).open = true;
       await Promise.resolve();
       buttonAfter!.focus();
@@ -251,6 +255,7 @@ describe('bx-modal', function() {
     });
 
     it('Should support backward focus-wrap', async function() {
+      spyOn(BXModal as any, '_delay').and.callFake(() => {});
       (elem as BXModal).open = true;
       await Promise.resolve();
       buttonBefore!.focus();

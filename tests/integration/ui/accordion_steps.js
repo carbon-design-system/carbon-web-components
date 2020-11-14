@@ -11,7 +11,7 @@
 
 describe('bx-accordion', () => {
   beforeAll(async () => {
-    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-accordion--default-story`);
+    await page.goto(`http://localhost:${process.env.PORT}/iframe.html?id=components-accordion--default`);
   });
 
   it('should have accordion interactive', async () => {

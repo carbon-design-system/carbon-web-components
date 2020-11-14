@@ -8,14 +8,12 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import findLast from 'lodash-es/findLast';
 import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import styles from './modal.scss';
 import { selectorTabbable } from '../../globals/settings';
-import { find } from '../../globals/internal/collection-helpers';
 
 const { prefix } = settings;
 
@@ -50,8 +48,36 @@ export enum MODAL_SIZE {
 }
 
 /**
+ * Tries to focus on the given elements and bails out if one of the is successful.
+ * @param elems The elements.
+ * @param reverse `true` to go through the list in reverse order.
+ * @returns `true` if one of the attempts is successful, `false` otherwise.
+ */
+function tryFocusElems(elems: NodeListOf<HTMLElement>, reverse: boolean = false) {
+  if (!reverse) {
+    for (let i = 0; i < elems.length; ++i) {
+      const elem = elems[i];
+      elem.focus();
+      if (elem.ownerDocument!.activeElement === elem) {
+        return true;
+      }
+    }
+  } else {
+    for (let i = elems.length - 1; i >= 0; --i) {
+      const elem = elems[i];
+      elem.focus();
+      if (elem.ownerDocument!.activeElement === elem) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+/**
  * Modal.
  * @element bx-modal
+ * @csspart dialog The dialog.
  * @fires bx-modal-beingclosed
  *   The custom event fired before this modal is being closed upon a user gesture.
  *   Cancellation of this event stops the user-initiated action of closing this modal.
@@ -94,7 +120,7 @@ class BXModal extends HostListenerMixin(LitElement) {
    */
   @HostListener('shadowRoot:focusout')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
-  private _handleBlur = ({ target, relatedTarget }: FocusEvent) => {
+  private _handleBlur = async ({ target, relatedTarget }: FocusEvent) => {
     const oldContains = target !== this && this.contains(target as Node);
     const currentContains = relatedTarget !== this && this.contains(relatedTarget as Node);
 
@@ -108,23 +134,15 @@ class BXModal extends HostListenerMixin(LitElement) {
       const comparisonResult = (target as Node).compareDocumentPosition(relatedTarget as Node);
       // eslint-disable-next-line no-bitwise
       if (relatedTarget === startSentinelNode || comparisonResult & PRECEDING) {
-        const tabbable = findLast(this.querySelectorAll(selectorTabbableForModal), elem =>
-          Boolean((elem as HTMLElement).offsetParent)
-        );
-        if (tabbable) {
-          (tabbable as HTMLElement).focus();
-        } else if (relatedTarget !== this) {
+        await (this.constructor as typeof BXModal)._delay();
+        if (!tryFocusElems(this.querySelectorAll(selectorTabbableForModal), true) && relatedTarget !== this) {
           this.focus();
         }
       }
       // eslint-disable-next-line no-bitwise
       else if (relatedTarget === endSentinelNode || comparisonResult & FOLLOWING) {
-        const tabbable = find(this.querySelectorAll(selectorTabbableForModal), elem =>
-          Boolean((elem as HTMLElement).offsetParent)
-        );
-        if (tabbable) {
-          (tabbable as HTMLElement).focus();
-        } else {
+        await (this.constructor as typeof BXModal)._delay();
+        if (!tryFocusElems(this.querySelectorAll(selectorTabbableForModal))) {
           this.focus();
         }
       }
@@ -201,18 +219,11 @@ class BXModal extends HostListenerMixin(LitElement) {
     });
     return html`
       <a id="start-sentinel" class="${prefix}--visually-hidden" href="javascript:void 0" role="navigation"></a>
-      <div class=${containerClasses} role="dialog" tabidnex="-1" @click=${this._handleClickContainer}>
+      <div part="dialog" class=${containerClasses} role="dialog" tabidnex="-1" @click=${this._handleClickContainer}>
         <slot></slot>
       </div>
       <a id="end-sentinel" class="${prefix}--visually-hidden" href="javascript:void 0" role="navigation"></a>
     `;
-  }
-
-  connectedCallback() {
-    if (!this.hasAttribute('tabindex')) {
-      this.setAttribute('tabindex', '0');
-    }
-    super.connectedCallback();
   }
 
   async updated(changedProperties) {
@@ -220,29 +231,29 @@ class BXModal extends HostListenerMixin(LitElement) {
       if (this.open) {
         this._launcher = this.ownerDocument!.activeElement;
         const primaryFocusNode = this.querySelector((this.constructor as typeof BXModal).selectorPrimaryFocus);
+        await (this.constructor as typeof BXModal)._delay();
         if (primaryFocusNode) {
           // For cases where a `carbon-web-components` component (e.g. `<bx-btn>`) being `primaryFocusNode`,
           // where its first update/render cycle that makes it focusable happens after `<bx-modal>`'s first update/render cycle
-          await 0;
           (primaryFocusNode as HTMLElement).focus();
-        } else {
-          const tabbable = find(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), elem =>
-            Boolean((elem as HTMLElement).offsetParent)
-          );
-          if (tabbable) {
-            // For cases where a `carbon-web-components` component (e.g. `<bx-btn>`) being `tabbable`,
-            // where its first update/render cycle that makes it focusable happens after `<bx-modal>`'s first update/render cycle
-            await 0;
-            (tabbable as HTMLElement).focus();
-          } else {
-            this.focus();
-          }
+        } else if (!tryFocusElems(this.querySelectorAll((this.constructor as typeof BXModal).selectorTabbable), true)) {
+          this.focus();
         }
       } else if (this._launcher && typeof (this._launcher as HTMLElement).focus === 'function') {
         (this._launcher as HTMLElement).focus();
         this._launcher = null;
       }
     }
+  }
+
+  /**
+   * @param ms The number of milliseconds.
+   * @returns A promise that is resolves after the given milliseconds.
+   */
+  private static _delay(ms: number = 0) {
+    return new Promise(resolve => {
+      setTimeout(resolve, ms);
+    });
   }
 
   /**

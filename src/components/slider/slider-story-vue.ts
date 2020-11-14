@@ -8,11 +8,11 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { defaultStory as baseDefaultStory, withInputBox as baseWithInputBox } from './slider-story';
+import { Default as baseDefault, withInputBox as baseWithInputBox } from './slider-story';
 
 export { default } from './slider-story';
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-slider
       :disabled="disabled"
@@ -25,12 +25,12 @@ export const defaultStory = ({ parameters }) => ({
       @bx-slider-changed="onChange"
     ></bx-slider>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-slider']),
+  ...createVueBindingsFromProps(args?.['bx-slider']),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const withInputBox = ({ parameters }) => ({
+export const withInputBox = args => ({
   template: `
     <bx-slider
       :disabled="disabled"
@@ -45,10 +45,10 @@ export const withInputBox = ({ parameters }) => ({
       <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
     </bx-slider>
   `,
-  ...createVueBindingsFromProps(parameters?.props?.['bx-slider']),
+  ...createVueBindingsFromProps(args?.['bx-slider']),
 });
 
-withInputBox.story = baseWithInputBox.story;
+Object.assign(withInputBox, baseWithInputBox);
 
 export const skeleton = () => ({
   template: `<bx-slider-skeleton></bx-slider-skeleton>`,

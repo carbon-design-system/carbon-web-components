@@ -18,7 +18,7 @@ import { TABLE_SORT_DIRECTION } from './table-header-cell';
 import { rows as demoRows, rowsMany as demoRowsMany, columns as demoColumns, sortInfo as demoSortInfo } from './stories/data';
 import { TDemoTableColumn, TDemoTableRow, TDemoSortInfo } from './stories/types';
 import {
-  defaultStory as baseDefaultStory,
+  Default as baseDefault,
   expandable as baseExpandable,
   sortable as baseSortable,
   sortableWithPagination as baseSortableWithPagination,
@@ -522,7 +522,7 @@ Vue.component('bx-ce-demo-data-table', {
   `,
 });
 
-export const defaultStory = ({ parameters }) => ({
+export const Default = args => ({
   template: `
     <bx-table :size="size">
       <bx-table-head>
@@ -563,15 +563,15 @@ export const defaultStory = ({ parameters }) => ({
       </bx-table-body>
     </bx-table>
   `,
-  ...createVueBindingsFromProps({ ...parameters?.props?.['bx-table'], ...parameters?.props?.['bx-table-body'] }),
+  ...createVueBindingsFromProps({ ...args?.['bx-table'], ...args?.['bx-table-body'] }),
 });
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
-export const expandable = ({ parameters }) => {
+export const expandable = args => {
   const { props = {}, methods = {} } = createVueBindingsFromProps({
-    ...parameters?.props?.['bx-table'],
-    ...parameters?.props?.['bx-table-body'],
+    ...args?.['bx-table'],
+    ...args?.['bx-table-body'],
   });
   return {
     template: `
@@ -650,14 +650,14 @@ export const expandable = ({ parameters }) => {
   };
 };
 
-expandable.story = baseExpandable.story;
+Object.assign(expandable, baseExpandable);
 
-export const sortable = ({ parameters }) => {
+export const sortable = args => {
   const { props = {}, methods = {} } = createVueBindingsFromProps({
-    ...parameters?.props?.['bx-table'],
-    ...parameters?.props?.['bx-table-body'],
-    ...parameters?.props?.['bx-table-row'],
-    ...parameters?.props?.['bx-header-cell'],
+    ...args?.['bx-table'],
+    ...args?.['bx-table-body'],
+    ...args?.['bx-table-row'],
+    ...args?.['bx-header-cell'],
   });
   return {
     template: `
@@ -698,14 +698,14 @@ export const sortable = ({ parameters }) => {
   };
 };
 
-sortable.story = baseSortable.story;
+Object.assign(sortable, baseSortable);
 
-export const sortableWithPagination = ({ parameters }) => {
+export const sortableWithPagination = args => {
   const { props = {}, methods = {} } = createVueBindingsFromProps({
-    ...parameters?.props?.['bx-table'],
-    ...parameters?.props?.['bx-table-body'],
-    ...parameters?.props?.['bx-table-row'],
-    ...parameters?.props?.['bx-header-cell'],
+    ...args?.['bx-table'],
+    ...args?.['bx-table-body'],
+    ...args?.['bx-table-row'],
+    ...args?.['bx-header-cell'],
   });
   return {
     template: `
@@ -748,4 +748,4 @@ export const sortableWithPagination = ({ parameters }) => {
   };
 };
 
-sortableWithPagination.story = baseSortableWithPagination.story;
+Object.assign(sortableWithPagination, baseSortableWithPagination);

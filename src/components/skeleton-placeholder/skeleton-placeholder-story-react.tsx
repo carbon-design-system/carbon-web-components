@@ -12,10 +12,10 @@ import React from 'react';
 // In our dev env, we auto-generate the file and re-map below path to to point to the generated file.
 // @ts-ignore
 import BXSkeletonPlaceholder from 'carbon-web-components/es/components-react/skeleton-placeholder/skeleton-placeholder';
-import { defaultStory as baseDefaultStory } from './skeleton-placeholder-story';
+import { Default as baseDefault } from './skeleton-placeholder-story';
 
 export { default } from './skeleton-placeholder-story';
 
-export const defaultStory = () => <BXSkeletonPlaceholder />;
+export const Default = () => <BXSkeletonPlaceholder />;
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);

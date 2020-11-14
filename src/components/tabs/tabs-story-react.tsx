@@ -18,13 +18,13 @@ import BXTab from 'carbon-web-components/es/components-react/tabs/tab';
 import BXTabsSkeleton from 'carbon-web-components/es/components-react/tabs/tabs-skeleton';
 // @ts-ignore
 import BXTabSkeleton from 'carbon-web-components/es/components-react/tabs/tab-skeleton';
-import { defaultStory as baseDefaultStory } from './tabs-story';
+import { Default as baseDefault } from './tabs-story';
 import styles from './tabs-story.scss';
 
 export { default } from './tabs-story';
 
-export const defaultStory = ({ parameters }) => {
-  const { triggerContent, type, value, disableSelection, onBeforeSelect, onSelect } = parameters?.props?.['bx-tabs'];
+export const Default = args => {
+  const { triggerContent, type, value, disableSelection, onBeforeSelect, onSelect } = args?.['bx-tabs'];
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -92,7 +92,7 @@ export const defaultStory = ({ parameters }) => {
   );
 };
 
-defaultStory.story = baseDefaultStory.story;
+Object.assign(Default, baseDefault);
 
 export const skeleton = () => (
   <BXTabsSkeleton>
