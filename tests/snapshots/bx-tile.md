@@ -10,6 +10,7 @@
 <a
   class="bx--link bx--tile bx--tile--clickable"
   id="link"
+  part="link"
   role="button"
 >
   <slot>
@@ -27,6 +28,7 @@
   href="about:blank"
   hreflang="en"
   id="link"
+  part="link"
   ping="about:blank"
   rel="noopener"
   role="button"

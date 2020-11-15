@@ -19,6 +19,7 @@ const { prefix } = settings;
 /**
  * Link.
  * @element bx-link
+ * @csspart link The link.
  */
 @customElement(`${prefix}-link`)
 class BXLink extends FocusMixin(LitElement) {
@@ -42,19 +43,19 @@ class BXLink extends FocusMixin(LitElement) {
   /**
    * The default file name.
    */
-  @property()
+  @property({ reflect: true })
   download!: string;
 
   /**
    * Link `href`.
    */
-  @property()
+  @property({ reflect: true })
   href!: string;
 
   /**
    * The language of what `href` points to.
    */
-  @property()
+  @property({ reflect: true })
   hreflang!: string;
 
   /**
@@ -66,25 +67,25 @@ class BXLink extends FocusMixin(LitElement) {
   /**
    * URLs to ping.
    */
-  @property()
+  @property({ reflect: true })
   ping!: string;
 
   /**
    * The link type.
    */
-  @property()
+  @property({ reflect: true })
   rel!: string;
 
   /**
    * The link target.
    */
-  @property()
+  @property({ reflect: true })
   target!: string;
 
   /**
    * MIME type of the `target`.
    */
-  @property()
+  @property({ reflect: true })
   type!: string;
 
   createRenderRoot() {
@@ -103,6 +104,7 @@ class BXLink extends FocusMixin(LitElement) {
       : html`
           <a
             id="link"
+            part="link"
             role="${ifNonNull(linkRole)}"
             class="${classes}"
             download="${ifNonNull(download)}"

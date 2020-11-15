@@ -84,6 +84,7 @@ export enum BUTTON_ICON_LAYOUT {
 /**
  * Button.
  * @element bx-btn
+ * @csspart button The button.
  */
 @customElement(`${prefix}-btn`)
 class BXButton extends FocusMixin(LitElement) {
@@ -124,19 +125,19 @@ class BXButton extends FocusMixin(LitElement) {
   /**
    * The default file name, used if this button is rendered as `<a>`.
    */
-  @property()
+  @property({ reflect: true })
   download!: string;
 
   /**
    * Link `href`. If present, this button is rendered as `<a>`.
    */
-  @property()
+  @property({ reflect: true })
   href!: string;
 
   /**
    * The language of what `href` points to, if this button is rendered as `<a>`.
    */
-  @property()
+  @property({ reflect: true })
   hreflang!: string;
 
   /**
@@ -160,13 +161,13 @@ class BXButton extends FocusMixin(LitElement) {
   /**
    * URLs to ping, if this button is rendered as `<a>`.
    */
-  @property()
+  @property({ reflect: true })
   ping!: string;
 
   /**
    * The link type, if this button is rendered as `<a>`.
    */
-  @property()
+  @property({ reflect: true })
   rel!: string;
 
   /**
@@ -178,13 +179,13 @@ class BXButton extends FocusMixin(LitElement) {
   /**
    * The link target, if this button is rendered as `<a>`.
    */
-  @property()
+  @property({ reflect: true })
   target!: string;
 
   /**
    * The default behavior if the button is rendered as `<button>`. MIME type of the `target`if this button is rendered as `<a>`.
    */
-  @property()
+  @property({ reflect: true })
   type!: string;
 
   createRenderRoot() {
@@ -223,7 +224,7 @@ class BXButton extends FocusMixin(LitElement) {
     if (href) {
       return disabled
         ? html`
-            <p id="button" class="${classes}">
+            <p id="button" part="button" class="${classes}">
               <slot @slotchange="${handleSlotChange}"></slot>
               <slot name="icon" @slotchange="${handleSlotChange}"></slot>
             </p>
@@ -231,6 +232,7 @@ class BXButton extends FocusMixin(LitElement) {
         : html`
             <a
               id="button"
+              part="button"
               role="${ifNonNull(linkRole)}"
               class="${classes}"
               download="${ifNonNull(download)}"
@@ -247,7 +249,14 @@ class BXButton extends FocusMixin(LitElement) {
           `;
     }
     return html`
-      <button id="button" class="${classes}" ?autofocus="${autofocus}" ?disabled="${disabled}" type="${ifNonNull(type)}">
+      <button
+        id="button"
+        part="button"
+        class="${classes}"
+        ?autofocus="${autofocus}"
+        ?disabled="${disabled}"
+        type="${ifNonNull(type)}"
+      >
         <slot @slotchange="${handleSlotChange}"></slot>
         <slot name="icon" @slotchange="${handleSlotChange}"></slot>
       </button>
