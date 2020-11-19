@@ -104,6 +104,25 @@ module.exports = {
           .pipe(prettier())
           .pipe(header(banner))
           .pipe(gulp.dest(path.resolve(config.jsDestDir, 'icons')))
+          .pipe(
+            rename(pathObj => {
+              pathObj.extname = '.d.ts';
+            })
+          )
+          .pipe(
+            through2.obj((file, enc, done) => {
+              file.contents = Buffer.from(`
+                import { SVGTemplateResult } from 'lit-html';
+                declare const svgResultCarbonIcon:
+                  ({ children, ...attrs }?: { children?: SVGTemplateResult; [attr: string]: any }) => SVGTemplateResult;
+                export default svgResultCarbonIcon;
+              `);
+              done(null, file);
+            })
+          )
+          .pipe(prettier())
+          .pipe(header(banner))
+          .pipe(gulp.dest(path.resolve(config.jsDestDir, 'icons')))
       );
     },
 
