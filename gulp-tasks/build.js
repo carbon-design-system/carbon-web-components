@@ -104,11 +104,14 @@ module.exports = {
           .pipe(prettier())
           .pipe(header(banner))
           .pipe(gulp.dest(path.resolve(config.jsDestDir, 'icons')))
-          .pipe(
-            rename(pathObj => {
-              pathObj.extname = '.d.ts';
-            })
-          )
+      );
+    },
+
+    async iconTypes() {
+      const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
+      await promisifyStream(() =>
+        gulp
+          .src([`${config.iconsDir}/**/*.js`, `!${config.iconsDir}/index.js`])
           .pipe(
             through2.obj((file, enc, done) => {
               file.contents = Buffer.from(`
@@ -118,6 +121,11 @@ module.exports = {
                 export default svgResultCarbonIcon;
               `);
               done(null, file);
+            })
+          )
+          .pipe(
+            rename(pathObj => {
+              pathObj.extname = '.d.ts';
             })
           )
           .pipe(prettier())
