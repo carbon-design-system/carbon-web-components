@@ -25,7 +25,7 @@ describe('Custom style example with inherited component class', () => {
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/theme-zoning/package.json`,
         `cd ${tmpDir}/theme-zoning`,
         'yarn install',
-        `yarn start --open=none --port=${PORT}`,
+        `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn start --open=none --port=${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,

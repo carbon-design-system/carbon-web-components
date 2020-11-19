@@ -25,7 +25,8 @@ describe('IE example', () => {
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/ie/package.json`,
         `cd ${tmpDir}/ie`,
         'yarn install',
-        `yarn webpack-dev-server --mode=development --open=false --port=${PORT}`,
+        // eslint-disable-next-line max-len
+        `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn webpack-dev-server --mode=development --open=false --port=${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,

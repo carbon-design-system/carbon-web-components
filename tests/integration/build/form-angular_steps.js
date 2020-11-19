@@ -25,7 +25,7 @@ describe('Angular form example', () => {
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/form-angular/package.json`,
         `cd ${tmpDir}/form-angular`,
         'yarn install',
-        `yarn ng serve --port ${PORT}`,
+        `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn ng serve --port ${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
