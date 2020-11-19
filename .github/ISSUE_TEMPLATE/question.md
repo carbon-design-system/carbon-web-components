@@ -25,4 +25,6 @@ details below!
 
 ## Relevant information
 
+## Name and organization
+
 <!-- Provide as much useful information as you can -->
