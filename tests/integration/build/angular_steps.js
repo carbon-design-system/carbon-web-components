@@ -25,7 +25,7 @@ describe('Angular example', () => {
         `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/angular/package.json`,
         `cd ${tmpDir}/angular`,
         'yarn install',
-        `yarn ng serve --port ${PORT}`,
+        `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn ng serve --port ${PORT}`,
       ].join(' && '),
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,

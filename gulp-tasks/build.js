@@ -107,6 +107,33 @@ module.exports = {
       );
     },
 
+    async iconTypes() {
+      const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
+      await promisifyStream(() =>
+        gulp
+          .src([`${config.iconsDir}/**/*.js`, `!${config.iconsDir}/index.js`])
+          .pipe(
+            through2.obj((file, enc, done) => {
+              file.contents = Buffer.from(`
+                import { SVGTemplateResult } from 'lit-html';
+                declare const svgResultCarbonIcon:
+                  ({ children, ...attrs }?: { children?: SVGTemplateResult; [attr: string]: any }) => SVGTemplateResult;
+                export default svgResultCarbonIcon;
+              `);
+              done(null, file);
+            })
+          )
+          .pipe(
+            rename(pathObj => {
+              pathObj.extname = '.d.ts';
+            })
+          )
+          .pipe(prettier())
+          .pipe(header(banner))
+          .pipe(gulp.dest(path.resolve(config.jsDestDir, 'icons')))
+      );
+    },
+
     async css() {
       const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
       await Promise.all([promisifyStream(() => cssStream({ banner })), promisifyStream(() => cssStream({ banner, dir: 'rtl' }))]);
