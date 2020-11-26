@@ -9,14 +9,20 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import './link';
+import { LINK_SIZE } from './link';
 import storyDocs from './link-story.mdx';
 
+const sizes = {
+  'Regular size': null,
+  [`Small size (${LINK_SIZE.SMALL})`]: LINK_SIZE.SMALL,
+  [`Large size (${LINK_SIZE.LARGE})`]: LINK_SIZE.LARGE,
+};
+
 export const Default = args => {
-  const { disabled, download, href, hreflang, linkRole, ping, rel, target, type, onClick } = args?.['bx-link'] ?? {};
+  const { disabled, download, href, hreflang, linkRole, ping, rel, size, target, type, onClick } = args?.['bx-link'] ?? {};
   return html`
     <bx-link
       ?disabled="${disabled}"
@@ -26,6 +32,7 @@ export const Default = args => {
       link-role="${ifNonNull(linkRole)}"
       ping="${ifNonNull(ping)}"
       rel="${ifNonNull(rel)}"
+      size="${ifNonNull(size)}"
       target="${ifNonNull(target)}"
       type="${ifNonNull(type)}"
       @click="${onClick}"
@@ -46,6 +53,7 @@ export default {
         disabled: boolean('Disabled (disabled)', false),
         href: textNullable('Link href (href)', 'https://github.com/carbon-design-system/carbon-web-components'),
         onClick: action('click'),
+        size: select('Link size (size)', sizes, null),
       }),
     },
   },
