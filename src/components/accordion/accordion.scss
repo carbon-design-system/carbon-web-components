@@ -25,7 +25,7 @@ $css--plex: true !default;
   }
 }
 
-:host(#{$prefix}-accordion-item[open]) {
+:host(#{$prefix}-accordion-item[open]:not([disabled])) {
   @extend .#{$prefix}--accordion__item--active;
 
   .#{$prefix}--accordion__content {
