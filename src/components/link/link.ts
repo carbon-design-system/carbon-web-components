@@ -17,6 +17,26 @@ import styles from './link.scss';
 const { prefix } = settings;
 
 /**
+ * Link size.
+ */
+export enum LINK_SIZE {
+  /**
+   * Regular size
+   */
+  REGULAR = '',
+
+  /**
+   * Small size.
+   */
+  SMALL = 'sm',
+
+  /**
+   * Large size.
+   */
+  LARGE = 'lg',
+}
+
+/**
  * Link.
  * @element bx-link
  * @csspart link The link.
@@ -27,10 +47,11 @@ class BXLink extends FocusMixin(LitElement) {
    * The CSS class list for the link node.
    */
   protected get _classes() {
-    const { disabled } = this;
+    const { disabled, size } = this;
     return classMap({
       [`${prefix}--link`]: true,
       [`${prefix}--link--disabled`]: disabled,
+      [`${prefix}--link--${size}`]: size,
     });
   }
 
@@ -75,6 +96,12 @@ class BXLink extends FocusMixin(LitElement) {
    */
   @property({ reflect: true })
   rel!: string;
+
+  /**
+   * Link size.
+   */
+  @property({ reflect: true })
+  size = LINK_SIZE.REGULAR;
 
   /**
    * The link target.

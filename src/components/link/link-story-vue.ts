@@ -14,7 +14,7 @@ export { default } from './link-story';
 
 export const Default = args => ({
   template: `
-    <bx-link :disabled="disabled" :href="href" @click="onClick">
+    <bx-link :disabled="disabled" :href="href" @click="onClick" :size="size">
       Link
     </bx-link>
   `,

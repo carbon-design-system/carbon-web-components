@@ -13,7 +13,7 @@ import baseStory, { Default as baseDefault } from './link-story';
 
 export const Default = args => ({
   template: `
-    <bx-link [disabled]="disabled" href="href" (click)="onClick($event)">
+    <bx-link [disabled]="disabled" [href]="href" (click)="onClick($event)" [size]="size">
       Link
     </bx-link>
   `,
