@@ -25,6 +25,8 @@ const kinds = {
   [`Secondary button (${BUTTON_KIND.SECONDARY})`]: BUTTON_KIND.SECONDARY,
   [`Tertiary button (${BUTTON_KIND.TERTIARY})`]: BUTTON_KIND.TERTIARY,
   [`Danger button (${BUTTON_KIND.DANGER})`]: BUTTON_KIND.DANGER,
+  [`Danger tertiary button (${BUTTON_KIND.DANGER_TERTIARY})`]: BUTTON_KIND.DANGER_TERTIARY,
+  [`Danger ghost button (${BUTTON_KIND.DANGER_GHOST})`]: BUTTON_KIND.DANGER_GHOST,
   [`Ghost button (${BUTTON_KIND.GHOST})`]: BUTTON_KIND.GHOST,
 };
 
