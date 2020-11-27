@@ -124,7 +124,13 @@ class BXAccordionItem extends FocusMixin(LitElement) {
   });
 
   /**
-   * `true` if the check box should be open.
+   * `true` if the accordion item should be disabled.
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
+   * `true` if the accordion item should be open.
    */
   @property({ type: Boolean, reflect: true })
   open = false;
@@ -154,6 +160,7 @@ class BXAccordionItem extends FocusMixin(LitElement) {
 
   render() {
     const {
+      disabled,
       titleText,
       open,
       _currentBreakpoint: currentBreakpoint,
@@ -168,6 +175,7 @@ class BXAccordionItem extends FocusMixin(LitElement) {
     });
     return html`
       <button
+        ?disabled="${disabled}"
         type="button"
         part="expando"
         class="${prefix}--accordion__heading"
