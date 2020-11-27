@@ -17,9 +17,9 @@ import { Default as baseDefault } from './link-story';
 export { default } from './link-story';
 
 export const Default = args => {
-  const { disabled, href, onClick } = args?.['bx-link'];
+  const { disabled, href, onClick, size } = args?.['bx-link'];
   return (
-    <BXLink disabled={disabled} href={href} onClick={onClick}>
+    <BXLink disabled={disabled} href={href} onClick={onClick} size={size}>
       Link
     </BXLink>
   );
