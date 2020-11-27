@@ -17,7 +17,7 @@ import storyDocs from './accordion-story.mdx';
 const noop = () => {};
 
 export const Default = args => {
-  const { open, titleText, disableToggle, onBeforeToggle = noop, onToggle = noop } = args?.['bx-accordion'] ?? {};
+  const { open, titleText, disabled, disableToggle, onBeforeToggle = noop, onToggle = noop } = args?.['bx-accordion'] ?? {};
   const handleBeforeToggle = (event: CustomEvent) => {
     onBeforeToggle(event);
     if (disableToggle) {
@@ -26,7 +26,7 @@ export const Default = args => {
   };
   return html`
     <bx-accordion @bx-accordion-item-beingtoggled="${handleBeforeToggle}" @bx-accordion-item-toggled="${onToggle}">
-      <bx-accordion-item ?open="${open}" title-text=${titleText}>
+      <bx-accordion-item ?disabled="${disabled}" ?open="${open}" title-text=${titleText}>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
           aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -59,6 +59,7 @@ export default {
       'bx-accordion': () => ({
         open: boolean('Open the section (open)', false),
         titleText: text('The title (title-text)', 'Section title'),
+        disabled: boolean('Disable accordion item (disabled)', false),
         disableToggle: boolean(
           'Disable user-initiated toggle action (Call event.preventDefault() in bx-accordion-beingtoggled event)',
           false
