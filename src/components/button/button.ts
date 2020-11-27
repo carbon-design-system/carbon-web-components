@@ -73,7 +73,7 @@ export enum BUTTON_SIZE {
   /**
    * X-Large size.
    */
-  XLARGE = 'xl',
+  EXTRA_LARGE = 'xl',
 
   /**
    * Size for form field.
