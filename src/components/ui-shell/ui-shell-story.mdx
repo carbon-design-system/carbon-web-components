@@ -30,6 +30,17 @@ Side nav in UI Shell consists of the following components:
 
 Unlike `<bx-dropdown>`, etc., user gesture of side nav item won't update the selection by itself. The assumption is that following the link in `<side-nav-link>`/`<side-nav-menu-item>` triggers routing in application, and application chooses which `<side-nav-link>`/`<side-nav-menu-item>` to set `active` attribute to, with the new URL.
 
+### Using with header nav
+
+If `<bx-side-nav>` is used along with header (`<bx-header>`), the side nav should be pushed down. To do that, add below style to your application:
+
+```css
+bx-header ~ bx-side-nav {
+  margin-top: 3rem;
+  height: calc(100% - 3rem);
+}
+```
+
 ### `<bx-side-nav>` attributes and properties
 
 Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-side-nav expanded>`) and `false` means not setting the attribute (e.g. `<bx-side-nav>` without `expanded` attribute).
