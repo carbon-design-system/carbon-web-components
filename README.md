@@ -77,13 +77,13 @@ Our example at [CodeSandbox](https://codesandbox.io) shows the most basic usage:
 
 [![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/basic)
 
-The first thing you need is **setting up a module bundler** to resolve ECMAScript `import`s. Above example uses [Parcel](https://parceljs.org). You can use other bundlers like [Rollup](https://rollupjs.org/)/[Webpack](https://webpack.js.org), too.
+The first thing you need is **setting up a module bundler** to resolve ECMAScript `import`s. Above example uses [Webpack](https://webpack.js.org). You can use other bundlers like [Rollup](https://rollupjs.org/), too.
 
 Once you set up a module bundler, you can start importing our component modules, like:
 
 ```javascript
-import 'carbon-web-components/es/components/dropdown/dropdown';
-import 'carbon-web-components/es/components/dropdown/dropdown-item';
+import 'carbon-web-components/es/components/dropdown/dropdown.js';
+import 'carbon-web-components/es/components/dropdown/dropdown-item.js';
 ```
 
 Once you do that, you can use our components in the same manner as native HTML tags, like:
@@ -170,8 +170,8 @@ You can use wrapper React components in `carbon-web-components/es/components-rea
 ```javascript
 import React from 'react';
 import { render } from 'react-dom';
-import BXDropdown from 'carbon-web-components/es/components-react/dropdown/dropdown';
-import BXDropdownItem from 'carbon-web-components/es/components-react/dropdown/dropdown-item';
+import BXDropdown from 'carbon-web-components/es/components-react/dropdown/dropdown.js';
+import BXDropdownItem from 'carbon-web-components/es/components-react/dropdown/dropdown-item.js';
 
 const App = () => (
   <BXDropdown triggerContent="Select an item">
