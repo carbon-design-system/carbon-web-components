@@ -177,6 +177,7 @@
     "gulp-sourcemaps": "^2.6.0",
     "gulp-typescript": "^5.0.0",
     "husky": "^4.2.0",
+    "http-server": "^0.12.0",
     "is-plain-obj": "^2.1.0",
     "is-port-reachable": "^3.0.0",
     "istanbul-instrumenter-loader": "^3.0.0",
