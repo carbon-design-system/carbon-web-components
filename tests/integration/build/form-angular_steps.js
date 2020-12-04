@@ -12,7 +12,7 @@
 const path = require('path');
 const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev-server');
 
-const PORT = 8084;
+const PORT = 8085;
 
 describe('Angular form example', () => {
   beforeAll(async () => {
