@@ -13,11 +13,6 @@
     label-text-foo
   </slot>
 </label>
-<div class="bx--form__helper-text bx--form__helper-text--disabled">
-  <slot name="helper-text">
-    helper-text-foo
-  </slot>
-</div>
 <div class="bx--text-area__wrapper">
   <textarea
     autocomplete=""
@@ -34,6 +29,11 @@
     rows="4"
   >
   </textarea>
+</div>
+<div class="bx--form__helper-text bx--form__helper-text--disabled">
+  <slot name="helper-text">
+    helper-text-foo
+  </slot>
 </div>
 <div class="bx--form-requirement">
   <slot name="validity-message">

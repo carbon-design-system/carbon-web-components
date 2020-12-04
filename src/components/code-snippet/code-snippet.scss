@@ -36,8 +36,7 @@ $css--plex: true !default;
     align-items: center;
     overflow-x: auto;
     position: relative;
-    padding-bottom: $carbon--spacing-05;
-    height: rem(56px);
+    height: 100%;
   }
 
   button.#{$prefix}--btn.#{$prefix}--snippet-btn--expand {
