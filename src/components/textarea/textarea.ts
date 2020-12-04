@@ -195,11 +195,6 @@ export default class BXTextarea extends ValidityMixin(FormMixin(LitElement)) {
           ${this.labelText}
         </slot>
       </label>
-      <div class="${helperTextClasses}">
-        <slot name="helper-text">
-          ${this.helperText}
-        </slot>
-      </div>
       <div class="${prefix}--text-area__wrapper" ?data-invalid="${this.invalid}">
         ${this.invalid ? invalidIcon : null}
         <textarea
@@ -219,6 +214,11 @@ export default class BXTextarea extends ValidityMixin(FormMixin(LitElement)) {
           .value="${this.value}"
           @input="${this._handleInput}"
         ></textarea>
+      </div>
+      <div class="${helperTextClasses}">
+        <slot name="helper-text">
+          ${this.helperText}
+        </slot>
       </div>
       <div class="${prefix}--form-requirement">
         <slot name="validity-message">

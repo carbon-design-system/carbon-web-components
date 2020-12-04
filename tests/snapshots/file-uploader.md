@@ -1,6 +1,6 @@
 # `file-uploader`
 
-## `bx-file-uploader-shell`
+## `bx-file-uploader`
 
 ##   `Misc attributes`
 
@@ -267,5 +267,49 @@
   </p>
 </div>
 
+```
+
+## `bx-file-uploader-shell`
+
+##   `Misc attributes`
+
+####     `should render with minimum attributes`
+
+```
+<strong class="bx--file--label">
+  <slot name="label-text">
+  </slot>
+</strong>
+<p class="bx--label-description">
+  <slot name="helperText-text">
+  </slot>
+</p>
+<slot name="drop-container">
+</slot>
+<div class="bx--file-container">
+  <slot>
+  </slot>
+</div>
+```
+
+####     `should render with various attributes`
+
+```
+<strong class="bx--file--label">
+  <slot name="label-text">
+    label-text-foo
+  </slot>
+</strong>
+<p class="bx--label-description">
+  <slot name="helperText-text">
+    helper-text-foo
+  </slot>
+</p>
+<slot name="drop-container">
+</slot>
+<div class="bx--file-container">
+  <slot>
+  </slot>
+</div>
 ```
 

@@ -95,7 +95,8 @@ class BXTooltipBody extends BXFloatingMenu {
 
   render() {
     return html`
-      <span class="${prefix}--tooltip__caret"></span><slot></slot>
+      <span class="${prefix}--tooltip__caret"></span>
+      <div class="${prefix}--tooltip__content"><slot></slot></div>
     `;
   }
 
