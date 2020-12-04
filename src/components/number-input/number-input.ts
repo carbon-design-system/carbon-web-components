@@ -307,13 +307,13 @@ export default class BXNumberInput extends BXInput {
             ${this.labelText}
           </slot>
         </label>
+        <div class="${prefix}--number__input-wrapper">
+          ${this.mobile ? mobileLayout : defaultLayout}
+        </div>
         <div class="${helperTextClasses}">
           <slot name="helper-text">
             ${this.helperText}
           </slot>
-        </div>
-        <div class="${prefix}--number__input-wrapper">
-          ${this.mobile ? mobileLayout : defaultLayout}
         </div>
         <div class="${prefix}--form-requirement" ?hidden="${!isGenericallyInvalid()}">
           <slot name="validity-message">
