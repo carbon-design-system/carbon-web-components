@@ -299,12 +299,12 @@ export const booleanSerializer = value => (!value ? undefined : '');
  * @param value A React prop value.
  * @returns Serialized version of React prop value, as a number attribute in a custom element.
  */
-export const numberSerializer = value => String(value);
+export const numberSerializer = value => (value == null ? value : String(value));
 
 /**
  * @param value A React prop value.
  * @returns Serialized version of React prop value, as a object attribute in a custom element.
  */
-export const objectSerializer = JSON.stringify;
+export const objectSerializer = value => (value == null ? value : JSON.stringify(value));
 
 export default createReactCustomElementType;
