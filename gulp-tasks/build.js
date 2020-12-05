@@ -14,6 +14,7 @@ const path = require('path');
 const { promisify } = require('util');
 const asyncDone = require('async-done');
 const gulp = require('gulp');
+const gulpif = require('gulp-if');
 const filter = require('gulp-filter');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
@@ -33,6 +34,7 @@ const babelPluginCreateReactCustomElementType = require('../tools/babel-plugin-c
 const babelPluginCreateReactCustomElementTypeDef = require('../tools/babel-plugin-create-react-custom-element-type-def');
 const babelPluginResourceCJSPaths = require('../tools/babel-plugin-resource-cjs-paths');
 const babelPluginResourceJSPaths = require('../tools/babel-plugin-resource-js-paths');
+const reLicense = require('../tools/license-text');
 const fixHostPseudo = require('../tools/postcss-fix-host-pseudo');
 const createSVGResultFromCarbonIcon = require('../tools/svg-result-carbon-icon');
 
@@ -315,8 +317,9 @@ module.exports = {
       );
     },
 
-    scriptsNode() {
-      return (
+    async scriptsNode() {
+      const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
+      await promisifyStream(() =>
         gulp
           .src(
             [
@@ -344,6 +347,15 @@ module.exports = {
           )
           // Avoids generating `.js` from interface-only `.ts` files
           .pipe(filter(file => stripComments(file.contents.toString()).replace(/\s/g, '')))
+          .pipe(
+            gulpif(
+              file => reLicense.test(file.contents.toString()),
+              through2.obj((file, enc, done) => {
+                done(null, file);
+              }),
+              header(banner)
+            )
+          )
           .pipe(sourcemaps.write('.'))
           .pipe(gulp.dest(config.cjsDestDir))
       );
