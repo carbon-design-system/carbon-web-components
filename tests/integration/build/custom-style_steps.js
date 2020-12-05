@@ -26,7 +26,7 @@ describe('Custom style example with inherited component class', () => {
     await replaceDependencies([`${tmpDir}/custom-style/package.json`]);
     await exec('yarn', ['install'], { cwd: `${tmpDir}/custom-style` });
     await setupDevServer({
-      command: `cd ${tmpDir}/custom-style && yarn start --open=none --port=${PORT}`,
+      command: `cd ${tmpDir}/custom-style && node ${path.resolve(__dirname, 'webpack-server.js')} --port=${PORT}`,
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
     });
