@@ -45,6 +45,8 @@ module.exports = async config => {
   }
   const tmpDir = await promisify(mkdir)('cce-');
   process.env.CCE_EXAMPLE_TMPDIR = tmpDir;
+  process.env.NODE_OPTIONS = '--max-old-space-size=8192';
+  process.env.YARN_CACHE_FOLDER = `${tmpDir}/.yarn-cache`;
   track();
   await setup(config);
   await setupPackages(tmpDir);

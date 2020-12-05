@@ -10,7 +10,10 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs-extra');
 const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev-server');
+const exec = require('../exec');
+const replaceDependencies = require('../replace-dependencies');
 
 const PORT = 3001;
 
@@ -19,14 +22,11 @@ describe('React SSR example', () => {
     const projectRoot = path.resolve(__dirname, '../../..');
     const src = path.resolve(projectRoot, 'examples/codesandbox/react-ssr');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
+    await fs.copy(src, `${tmpDir}/react-ssr`);
+    await replaceDependencies([`${tmpDir}/react-ssr/package.json`]);
+    await exec('yarn', ['install'], { cwd: `${tmpDir}/react-ssr` });
     await setupDevServer({
-      command: [
-        `cp -r ${src} ${tmpDir}`,
-        `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/react-ssr/package.json`,
-        `cd ${tmpDir}/react-ssr`,
-        `cross-env YARN_CACHE_FOLDER=${tmpDir}/.yarn-cache yarn install`,
-        `cross-env NODE_OPTIONS="--max-old-space-size=8192" PORT=${PORT} yarn start`,
-      ].join(' && '),
+      command: `cd ${tmpDir}/react-ssr && cross-env PORT=${PORT} yarn start`,
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
     });

@@ -10,7 +10,10 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs-extra');
 const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev-server');
+const exec = require('../exec');
+const replaceDependencies = require('../replace-dependencies');
 
 const PORT = 3002;
 
@@ -19,14 +22,11 @@ describe('Next example', () => {
     const projectRoot = path.resolve(__dirname, '../../..');
     const src = path.resolve(projectRoot, 'examples/codesandbox/next');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
+    await fs.copy(src, `${tmpDir}/next`);
+    await replaceDependencies([`${tmpDir}/next/package.json`]);
+    await exec('yarn', ['install'], { cwd: `${tmpDir}/next` });
     await setupDevServer({
-      command: [
-        `cp -r ${src} ${tmpDir}`,
-        `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/next/package.json`,
-        `cd ${tmpDir}/next`,
-        `cross-env YARN_CACHE_FOLDER=${tmpDir}/.yarn-cache yarn install`,
-        `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn start -p ${PORT}`,
-      ].join(' && '),
+      command: `cd ${tmpDir}/next && cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn start -p ${PORT}`,
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
     });
