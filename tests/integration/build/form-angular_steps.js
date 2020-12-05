@@ -15,7 +15,7 @@ const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev
 const exec = require('../exec');
 const replaceDependencies = require('../replace-dependencies');
 
-const PORT = 8084;
+const PORT = 8085;
 
 describe('Angular form example', () => {
   beforeAll(async () => {

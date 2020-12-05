@@ -42,13 +42,15 @@ jobs:
       - name: Install xvfb
         if: matrix.os == 'ubuntu-latest'
         run: sudo apt-get install xvfb
+      - name: Build storybook
+        run: yarn wca && yarn build-storybook
       - name: Run checks with xvfb
         if: matrix.os == 'ubuntu-latest'
-        run: yarn wca && xvfb-run --auto-servernum yarn test:integration:ui
+        run: xvfb-run --auto-servernum yarn test:integration:ui
         env:
           CCE_UI_INTEGRATION_TEST_BROWSER: ${{ matrix.browser }}
       - name: Run checks without xvfb
         if: matrix.os != 'ubuntu-latest'
-        run: yarn wca && yarn test:integration:ui
+        run: yarn test:integration:ui
         env:
           CCE_UI_INTEGRATION_TEST_BROWSER: ${{ matrix.browser }}

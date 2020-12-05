@@ -183,11 +183,6 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
           ${this.labelText}
         </slot>
       </label>
-      <div class="${helperTextClasses}">
-        <slot name="helper-text">
-          ${this.helperText}
-        </slot>
-      </div>
       <div class="${prefix}--text-input__field-wrapper" ?data-invalid="${this.invalid}">
         ${this.invalid ? invalidIcon : null}
         <input
@@ -206,6 +201,11 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
           .value="${this.value}"
           @input="${handleInput}"
         />
+      </div>
+      <div class="${helperTextClasses}">
+        <slot name="helper-text">
+          ${this.helperText}
+        </slot>
       </div>
       <div class="${prefix}--form-requirement">
         <slot name="validity-message">

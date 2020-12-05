@@ -13,10 +13,6 @@
     <slot name="label-text">
     </slot>
   </label>
-  <div class="bx--form__helper-text bx--form__helper-text--disabled">
-    <slot name="helper-text">
-    </slot>
-  </div>
   <div class="bx--number__input-wrapper">
     <input
       aria-atomic="true"
@@ -50,6 +46,10 @@
       >
       </button>
     </div>
+  </div>
+  <div class="bx--form__helper-text bx--form__helper-text--disabled">
+    <slot name="helper-text">
+    </slot>
   </div>
   <div
     class="bx--form-requirement"
