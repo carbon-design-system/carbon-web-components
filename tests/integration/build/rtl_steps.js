@@ -10,7 +10,10 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs-extra');
 const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev-server');
+const exec = require('../exec');
+const replaceDependencies = require('../replace-dependencies');
 
 const PORT = 8083;
 
@@ -19,15 +22,11 @@ describe('RTL example', () => {
     const projectRoot = path.resolve(__dirname, '../../..');
     const src = path.resolve(projectRoot, 'examples/codesandbox/rtl');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
+    await fs.copy(src, `${tmpDir}/rtl`);
+    await replaceDependencies([`${tmpDir}/rtl/package.json`]);
+    await exec('yarn', ['install'], { cwd: `${tmpDir}/rtl` });
     await setupDevServer({
-      command: [
-        `cp -r ${src} ${tmpDir}`,
-        `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/rtl/package.json`,
-        `cd ${tmpDir}/rtl`,
-        'yarn install',
-        // eslint-disable-next-line max-len
-        `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn webpack-dev-server --mode=development --open=false --port=${PORT}`,
-      ].join(' && '),
+      command: `cd ${tmpDir}/rtl && yarn webpack-dev-server --mode=development --open=false --port=${PORT}`,
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
     });

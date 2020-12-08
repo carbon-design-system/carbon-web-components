@@ -10,7 +10,10 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs-extra');
 const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev-server');
+const exec = require('../exec');
+const replaceDependencies = require('../replace-dependencies');
 
 const PORT = 3000;
 
@@ -19,14 +22,11 @@ describe('React example', () => {
     const projectRoot = path.resolve(__dirname, '../../..');
     const src = path.resolve(projectRoot, 'examples/codesandbox/react');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
+    await fs.copy(src, `${tmpDir}/react`);
+    await replaceDependencies([`${tmpDir}/react/package.json`]);
+    await exec('yarn', ['install'], { cwd: `${tmpDir}/react` });
     await setupDevServer({
-      command: [
-        `cp -r ${src} ${tmpDir}`,
-        `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/react/package.json`,
-        `cd ${tmpDir}/react`,
-        'yarn install',
-        `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn start --open=none --port=${PORT}`,
-      ].join(' && '),
+      command: `cd ${tmpDir}/react && node ${path.resolve(__dirname, 'webpack-server.js')} --port=${PORT}`,
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
     });

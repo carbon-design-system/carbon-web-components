@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2020
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -65,7 +65,7 @@ module.exports = {
 
     dist() {
       return gulp
-        .src([`${config.jsDestDir}/**/*`, '!**/*.json', '!**/*.map'])
+        .src([`${config.cjsDestDir}/**/*`, `${config.jsDestDir}/**/*`, '!**/*.json', '!**/*.map'])
         .pipe(filter(file => !file.stat.isDirectory()))
         .pipe(gulpCheckLicense());
     },

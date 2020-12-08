@@ -9,10 +9,10 @@
 
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
-import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
+import { TILE_COLOR_SCHEME } from './defs';
 import styles from './tile.scss';
 
-export { FORM_ELEMENT_COLOR_SCHEME as TILE_COLOR_SCHEME } from '../../globals/shared-enums';
+export { TILE_COLOR_SCHEME };
 
 const { prefix } = settings;
 
@@ -26,7 +26,7 @@ class BXTile extends LitElement {
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+  colorScheme = TILE_COLOR_SCHEME.REGULAR;
 
   render() {
     return html`

@@ -11,54 +11,12 @@ import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import FocusMixin from '../../globals/mixins/focus';
+import { TOOLTIP_ALIGNMENT, TOOLTIP_DIRECTION } from './defs';
 import styles from './tooltip.scss';
 
+export { TOOLTIP_ALIGNMENT, TOOLTIP_DIRECTION };
+
 const { prefix } = settings;
-
-/**
- * The alignment choices of tooltip.
- */
-export enum TOOLTIP_ALIGNMENT {
-  /**
-   * Align the top/left position tooltip body to the one of its trigger button.
-   */
-  START = 'start',
-
-  /**
-   * Align the center position tooltip body to the one of its trigger button.
-   */
-  CENTER = 'center',
-
-  /**
-   * Align the bottom/right position tooltip body to the one of its trigger button.
-   */
-  END = 'end',
-}
-
-/**
- * The direction/positioning/orientation choices of tooltip.
- */
-export enum TOOLTIP_DIRECTION {
-  /**
-   * Put tooltip body at the left of its trigger button.
-   */
-  LEFT = 'left',
-
-  /**
-   * Put tooltip body at the top of its trigger button.
-   */
-  TOP = 'top',
-
-  /**
-   * Put tooltip body at the right of its trigger button.
-   */
-  RIGHT = 'right',
-
-  /**
-   * Put tooltip body at the bottom of its trigger button.
-   */
-  BOTTOM = 'bottom',
-}
 
 /**
  * Definition tooltip.

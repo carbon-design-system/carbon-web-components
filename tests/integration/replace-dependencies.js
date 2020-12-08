@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * Copyright IBM Corp. 2020
  *
@@ -11,7 +9,6 @@
 
 const fs = require('fs');
 const { promisify } = require('util');
-const commander = require('commander');
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
@@ -45,14 +42,4 @@ const replace = async files => {
   );
 };
 
-const { args } = commander.parse(process.argv);
-
-replace(args).then(
-  () => {
-    process.exit(0);
-  },
-  error => {
-    console.error(error); // eslint-disable-line no-console
-    process.exit(1);
-  }
-);
+module.exports = replace;

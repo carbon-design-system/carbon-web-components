@@ -10,16 +10,16 @@
 import settings from 'carbon-components/es/globals/js/settings';
 import { html, property, customElement, LitElement } from 'lit-element';
 import OverflowMenuVertical16 from '@carbon/icons/lib/overflow-menu--vertical/16';
-import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import HostListener from '../../globals/decorators/host-listener';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import { find } from '../../globals/internal/collection-helpers';
 import BXFloatingMenuTrigger from '../floating-menu/floating-menu-trigger';
+import { OVERFLOW_MENU_COLOR_SCHEME } from './defs';
 import BXOverflowMenuBody from './overflow-menu-body';
 import styles from './overflow-menu.scss';
 
-export { FORM_ELEMENT_COLOR_SCHEME as OVERFLOW_MENU_COLOR_SCHEME } from '../../globals/shared-enums';
+export { OVERFLOW_MENU_COLOR_SCHEME };
 
 const { prefix } = settings;
 
@@ -72,7 +72,7 @@ class BXOverflowMenu extends HostListenerMixin(FocusMixin(LitElement)) implement
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+  colorScheme = OVERFLOW_MENU_COLOR_SCHEME.REGULAR;
 
   /**
    * `true` if this overflow menu should be disabled.

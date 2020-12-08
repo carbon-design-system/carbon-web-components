@@ -11,56 +11,16 @@ import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import Calendar16 from '@carbon/icons/lib/calendar/16';
 import settings from 'carbon-components/es/globals/js/settings';
-import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import ValidityMixin from '../../globals/mixins/validity';
 import { INPUT_SIZE } from '../input/input';
+import { DATE_PICKER_INPUT_COLOR_SCHEME, DATE_PICKER_INPUT_KIND, DATE_PICKER_INPUT_SIZE_HORIZONTAL } from './defs';
 import styles from './date-picker.scss';
 
-export { FORM_ELEMENT_COLOR_SCHEME as DATE_PICKER_INPUT_COLOR_SCHEME } from '../../globals/shared-enums';
+export { DATE_PICKER_INPUT_COLOR_SCHEME, DATE_PICKER_INPUT_KIND, DATE_PICKER_INPUT_SIZE_HORIZONTAL };
 
 const { prefix } = settings;
-
-/**
- * Date picker input kinds.
- */
-export enum DATE_PICKER_INPUT_KIND {
-  /**
-   * One for simple variant of date picker, comes without the calendar dropdown.
-   */
-  SIMPLE = 'simple',
-
-  /**
-   * One for single variant of date picker.
-   */
-  SINGLE = 'single',
-
-  /**
-   * One for the start date for the range variant.
-   */
-  FROM = 'from',
-
-  /**
-   * One for the end date for the range variant.
-   */
-  TO = 'to',
-}
-
-/**
- * Horizontal size, applicable only to the simple variant.
- */
-export enum DATE_PICKER_INPUT_SIZE_HORIZONTAL {
-  /**
-   * Regular size.
-   */
-  REGULAR = '',
-
-  /**
-   * Short size.
-   */
-  SHORT = 'short',
-}
 
 /**
  * The input box for date picker.
@@ -157,7 +117,7 @@ class BXDatePickerInput extends ValidityMixin(FocusMixin(LitElement)) {
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+  colorScheme = DATE_PICKER_INPUT_COLOR_SCHEME.REGULAR;
 
   /**
    * `true` if the check box should be disabled.

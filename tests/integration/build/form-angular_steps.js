@@ -10,7 +10,10 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs-extra');
 const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev-server');
+const exec = require('../exec');
+const replaceDependencies = require('../replace-dependencies');
 
 const PORT = 8085;
 
@@ -19,14 +22,11 @@ describe('Angular form example', () => {
     const projectRoot = path.resolve(__dirname, '../../..');
     const src = path.resolve(projectRoot, 'examples/codesandbox/form/angular');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
+    await fs.copy(src, `${tmpDir}/form-angular`);
+    await replaceDependencies([`${tmpDir}/form-angular/package.json`]);
+    await exec('yarn', ['install'], { cwd: `${tmpDir}/form-angular` });
     await setupDevServer({
-      command: [
-        `cp -r ${src} ${tmpDir}/form-angular`,
-        `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/form-angular/package.json`,
-        `cd ${tmpDir}/form-angular`,
-        'yarn install',
-        `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn ng serve --port ${PORT}`,
-      ].join(' && '),
+      command: `cd ${tmpDir}/form-angular && yarn ng serve --port ${PORT}`,
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
     });

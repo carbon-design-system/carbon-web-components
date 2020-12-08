@@ -10,7 +10,10 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs-extra');
 const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev-server');
+const exec = require('../exec');
+const replaceDependencies = require('../replace-dependencies');
 
 const PORT = 1236;
 
@@ -19,14 +22,11 @@ describe('Custom style example with inherited component class', () => {
     const projectRoot = path.resolve(__dirname, '../../..');
     const src = path.resolve(projectRoot, 'examples/codesandbox/styling/custom-style');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
+    await fs.copy(src, `${tmpDir}/custom-style`);
+    await replaceDependencies([`${tmpDir}/custom-style/package.json`]);
+    await exec('yarn', ['install'], { cwd: `${tmpDir}/custom-style` });
     await setupDevServer({
-      command: [
-        `cp -r ${src} ${tmpDir}`,
-        `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/custom-style/package.json`,
-        `cd ${tmpDir}/custom-style`,
-        'yarn install',
-        `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn start --open=none --port=${PORT}`,
-      ].join(' && '),
+      command: `cd ${tmpDir}/custom-style && node ${path.resolve(__dirname, 'webpack-server.js')} --port=${PORT}`,
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
     });

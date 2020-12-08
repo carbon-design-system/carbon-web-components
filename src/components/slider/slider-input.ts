@@ -10,12 +10,12 @@
 import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
-import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
+import { SLIDER_INPUT_COLOR_SCHEME } from './defs';
 import styles from './slider.scss';
 
-export { FORM_ELEMENT_COLOR_SCHEME as SLIDER_INPUT_COLOR_SCHEME } from '../../globals/shared-enums';
+export { SLIDER_INPUT_COLOR_SCHEME };
 
 const { prefix } = settings;
 
@@ -76,7 +76,7 @@ class BXSliderInput extends FocusMixin(LitElement) {
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+  colorScheme = SLIDER_INPUT_COLOR_SCHEME.REGULAR;
 
   /**
    * `true` if the check box should be disabled.

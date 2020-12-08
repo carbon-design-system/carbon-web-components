@@ -10,8 +10,11 @@
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import { forEach, indexOf } from '../../globals/internal/collection-helpers';
+import { NAVIGATION_DIRECTION } from './defs';
 import BXSwitch from './content-switcher-item';
 import styles from './content-switcher.scss';
+
+export { NAVIGATION_DIRECTION };
 
 const { prefix } = settings;
 
@@ -28,16 +31,6 @@ const capIndex = (index: number, length: number) => {
     return 0;
   }
   return index;
-};
-
-/**
- * Navigation direction, associated with key symbols.
- */
-export const NAVIGATION_DIRECTION = {
-  Left: -1,
-  ArrowLeft: -1,
-  Right: 1,
-  ArrowRight: 1,
 };
 
 /**

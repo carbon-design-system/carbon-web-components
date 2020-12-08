@@ -10,7 +10,10 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs-extra');
 const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev-server');
+const exec = require('../exec');
+const replaceDependencies = require('../replace-dependencies');
 
 const PORT = 3001;
 
@@ -19,14 +22,11 @@ describe('Redux-form example', () => {
     const projectRoot = path.resolve(__dirname, '../../..');
     const src = path.resolve(projectRoot, 'examples/codesandbox/form/redux-form');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
+    await fs.copy(src, `${tmpDir}/redux-form`);
+    await replaceDependencies([`${tmpDir}/redux-form/package.json`]);
+    await exec('yarn', ['install'], { cwd: `${tmpDir}/redux-form` });
     await setupDevServer({
-      command: [
-        `cp -r ${src} ${tmpDir}/redux-form`,
-        `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/redux-form/package.json`,
-        `cd ${tmpDir}/redux-form`,
-        'yarn install',
-        `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn start --open=none --port=${PORT}`,
-      ].join(' && '),
+      command: `cd ${tmpDir}/redux-form && node ${path.resolve(__dirname, 'webpack-server.js')} --port=${PORT}`,
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
     });

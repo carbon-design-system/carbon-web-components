@@ -11,10 +11,10 @@ import { html, property, customElement, LitElement } from 'lit-element';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import settings from 'carbon-components/es/globals/js/settings';
-import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import HostListener from '../../globals/decorators/host-listener';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
+import { TILE_COLOR_SCHEME } from './defs';
 import styles from './tile.scss';
 
 const { prefix } = settings;
@@ -72,7 +72,7 @@ class BXExpandableTile extends HostListenerMixin(FocusMixin(LitElement)) {
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+  colorScheme = TILE_COLOR_SCHEME.REGULAR;
 
   /**
    * `true` to expand this expandable tile.

@@ -14,34 +14,12 @@ import ErrorFilled16 from '@carbon/icons/lib/error--filled/16';
 import settings from 'carbon-components/es/globals/js/settings';
 import LOADING_TYPE from '../loading/types';
 import getLoadingIcon from '../loading/loading-icon';
+import { INLINE_LOADING_STATE } from './defs';
 import styles from './inline-loading.scss';
 
+export { INLINE_LOADING_STATE };
+
 const { prefix } = settings;
-
-/**
- * Loading state for inline loading spinner.
- */
-export enum INLINE_LOADING_STATE {
-  /**
-   * Inactive state.
-   */
-  INACTIVE = 'inactive',
-
-  /**
-   * State for loading in progress.
-   */
-  ACTIVE = 'active',
-
-  /**
-   * State for loading successful.
-   */
-  FINISHED = 'finished',
-
-  /**
-   * State for loading failure.
-   */
-  ERROR = 'error',
-}
 
 /**
  * Lnline loading spinner.

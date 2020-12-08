@@ -14,88 +14,18 @@ import { ifDefined } from 'lit-html/directives/if-defined';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
-import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import ValidityMixin from '../../globals/mixins/validity';
 import HostListener from '../../globals/decorators/host-listener';
 import { find, forEach, indexOf } from '../../globals/internal/collection-helpers';
+import { DROPDOWN_COLOR_SCHEME, DROPDOWN_KEYBOARD_ACTION, DROPDOWN_SIZE, DROPDOWN_TYPE, NAVIGATION_DIRECTION } from './defs';
 import BXDropdownItem from './dropdown-item';
 import styles from './dropdown.scss';
 
-export { FORM_ELEMENT_COLOR_SCHEME as DROPDOWN_COLOR_SCHEME } from '../../globals/shared-enums';
+export { DROPDOWN_COLOR_SCHEME, DROPDOWN_KEYBOARD_ACTION, DROPDOWN_SIZE, DROPDOWN_TYPE, NAVIGATION_DIRECTION };
 
 const { prefix } = settings;
-
-/**
- * Navigation direction, associated with key symbols.
- */
-export const NAVIGATION_DIRECTION = {
-  Up: -1,
-  ArrowUp: -1,
-  Down: 1,
-  ArrowDown: 1,
-};
-
-/**
- * The keyboard action categories for dropdown.
- */
-export enum DROPDOWN_KEYBOARD_ACTION {
-  /**
-   * Not doing any action.
-   */
-  NONE = 'none',
-
-  /**
-   * Keyboard action to close menu.
-   */
-  CLOSING = 'closing',
-
-  /**
-   * Keyboard action to navigate back/forward.
-   */
-  NAVIGATING = 'navigating',
-
-  /**
-   * Keyboard action to open/close menu on the trigger button or select/deselect a menu item.
-   */
-  TRIGGERING = 'triggering',
-}
-
-/**
- * Dropdown size.
- */
-export enum DROPDOWN_SIZE {
-  /**
-   * Regular size.
-   */
-  REGULAR = '',
-
-  /**
-   * Small size.
-   */
-  SMALL = 'sm',
-
-  /**
-   * Extra large size.
-   */
-  EXTRA_LARGE = 'xl',
-}
-
-/**
- * Dropdown types.
- */
-export enum DROPDOWN_TYPE {
-  /**
-   * Regular type.
-   */
-  REGULAR = '',
-
-  /**
-   * Inline type.
-   */
-  INLINE = 'inline',
-}
 
 /**
  * Dropdown.
@@ -402,7 +332,7 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+  colorScheme = DROPDOWN_COLOR_SCHEME.REGULAR;
 
   /**
    * `true` if this dropdown should be disabled.

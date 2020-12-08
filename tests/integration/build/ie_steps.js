@@ -10,7 +10,10 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs-extra');
 const { setup: setupDevServer, teardown: teardownDevServer } = require('jest-dev-server');
+const exec = require('../exec');
+const replaceDependencies = require('../replace-dependencies');
 
 const PORT = 8081;
 
@@ -19,15 +22,11 @@ describe('IE example', () => {
     const projectRoot = path.resolve(__dirname, '../../..');
     const src = path.resolve(projectRoot, 'examples/codesandbox/ie');
     const tmpDir = process.env.CCE_EXAMPLE_TMPDIR;
+    await fs.copy(src, `${tmpDir}/ie`);
+    await replaceDependencies([`${tmpDir}/ie/package.json`]);
+    await exec('yarn', ['install'], { cwd: `${tmpDir}/ie` });
     await setupDevServer({
-      command: [
-        `cp -r ${src} ${tmpDir}`,
-        `node ${projectRoot}/tests/integration/replace-dependencies.js ${tmpDir}/ie/package.json`,
-        `cd ${tmpDir}/ie`,
-        'yarn install',
-        // eslint-disable-next-line max-len
-        `cross-env NODE_OPTIONS="--max-old-space-size=8192" yarn webpack-dev-server --mode=development --open=false --port=${PORT}`,
-      ].join(' && '),
+      command: `cd ${tmpDir}/ie && node ${path.resolve(__dirname, 'webpack-server.js')} --port=${PORT}`,
       launchTimeout: Number(process.env.LAUNCH_TIMEOUT),
       port: PORT,
     });

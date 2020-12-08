@@ -13,22 +13,14 @@ import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import CaretUp16 from '@carbon/icons/lib/caret--up/16';
 import CaretDown16 from '@carbon/icons/lib/caret--down/16';
-import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
+import { NUMBER_INPUT_COLOR_SCHEME, NUMBER_INPUT_VALIDATION_STATUS } from './defs';
 import styles from './number-input.scss';
 import BXInput, { INPUT_SIZE } from '../input/input';
 
-export { FORM_ELEMENT_COLOR_SCHEME as NUMBER_INPUT_COLOR_SCHEME } from '../../globals/shared-enums';
+export { NUMBER_INPUT_COLOR_SCHEME, NUMBER_INPUT_VALIDATION_STATUS };
 
 const { prefix } = settings;
-
-/**
- * Works in conjunction with VALIDATION_STATUS
- */
-export enum NUMBER_INPUT_VALIDATION_STATUS {
-  EXCEEDED_MAXIMUM = 'exceeded_maximum',
-  EXCEEDED_MINIMUM = 'exceeded_minimum',
-}
 
 /**
  * Number input.
@@ -78,7 +70,7 @@ export default class BXNumberInput extends BXInput {
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+  colorScheme = NUMBER_INPUT_COLOR_SCHEME.REGULAR;
 
   /**
    * The minimum value allowed in the input

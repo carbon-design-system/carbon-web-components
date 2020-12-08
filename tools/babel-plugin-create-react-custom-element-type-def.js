@@ -31,7 +31,8 @@ module.exports = function generateCreateReactCustomElementType(api) {
       Program(path, { file }) {
         const declaredProps = {};
         const customEvents = {};
-        const context = { file, declaredProps, customEvents };
+        const namedExportsSources = {};
+        const context = { file, declaredProps, customEvents, namedExportsSources };
         // Gathers metadata of custom element properties and events, into `context`
         path.traverse(metadataVisitor, context);
 

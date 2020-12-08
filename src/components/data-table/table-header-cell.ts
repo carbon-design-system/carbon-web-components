@@ -12,57 +12,12 @@ import { html, property, customElement, LitElement } from 'lit-element';
 import Arrows16 from '@carbon/icons/lib/arrows/16';
 import ArrowDown16 from '@carbon/icons/lib/arrow--down/16';
 import FocusMixin from '../../globals/mixins/focus';
+import { TABLE_SORT_CYCLE, TABLE_SORT_CYCLES, TABLE_SORT_DIRECTION } from './defs';
 import styles from './data-table.scss';
 
+export { TABLE_SORT_CYCLE, TABLE_SORT_CYCLES, TABLE_SORT_DIRECTION };
+
 const { prefix } = settings;
-
-/**
- * Table sort state.
- */
-export enum TABLE_SORT_DIRECTION {
-  /**
-   * Not sorted.
-   */
-  NONE = 'none',
-
-  /**
-   * Sorted ascendingly.
-   */
-  ASCENDING = 'ascending',
-
-  /**
-   * Sorted descendingly.
-   */
-  DESCENDING = 'descending',
-}
-
-/**
- * Table sort cycle.
- */
-export enum TABLE_SORT_CYCLE {
-  BI_STATES_FROM_ASCENDING = 'bi-states-from-ascending',
-  BI_STATES_FROM_DESCENDING = 'bi-states-from-descending',
-  TRI_STATES_FROM_ASCENDING = 'tri-states-from-ascending',
-  TRI_STATES_FROM_DESCENDING = 'tri-states-from-descending',
-}
-
-/**
- * Mapping of table sort cycles to table sort states.
- */
-export const TABLE_SORT_CYCLES = {
-  [TABLE_SORT_CYCLE.BI_STATES_FROM_ASCENDING]: [TABLE_SORT_DIRECTION.ASCENDING, TABLE_SORT_DIRECTION.DESCENDING],
-  [TABLE_SORT_CYCLE.BI_STATES_FROM_DESCENDING]: [TABLE_SORT_DIRECTION.DESCENDING, TABLE_SORT_DIRECTION.ASCENDING],
-  [TABLE_SORT_CYCLE.TRI_STATES_FROM_ASCENDING]: [
-    TABLE_SORT_DIRECTION.NONE,
-    TABLE_SORT_DIRECTION.ASCENDING,
-    TABLE_SORT_DIRECTION.DESCENDING,
-  ],
-  [TABLE_SORT_CYCLE.TRI_STATES_FROM_DESCENDING]: [
-    TABLE_SORT_DIRECTION.NONE,
-    TABLE_SORT_DIRECTION.DESCENDING,
-    TABLE_SORT_DIRECTION.ASCENDING,
-  ],
-};
 
 /**
  * Data table header cell.

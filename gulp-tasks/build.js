@@ -14,6 +14,7 @@ const path = require('path');
 const { promisify } = require('util');
 const asyncDone = require('async-done');
 const gulp = require('gulp');
+const gulpif = require('gulp-if');
 const filter = require('gulp-filter');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
@@ -31,7 +32,9 @@ const rtlcss = require('rtlcss');
 const replaceExtension = require('replace-ext');
 const babelPluginCreateReactCustomElementType = require('../tools/babel-plugin-create-react-custom-element-type');
 const babelPluginCreateReactCustomElementTypeDef = require('../tools/babel-plugin-create-react-custom-element-type-def');
+const babelPluginResourceCJSPaths = require('../tools/babel-plugin-resource-cjs-paths');
 const babelPluginResourceJSPaths = require('../tools/babel-plugin-resource-js-paths');
+const reLicense = require('../tools/license-text');
 const fixHostPseudo = require('../tools/postcss-fix-host-pseudo');
 const createSVGResultFromCarbonIcon = require('../tools/svg-result-carbon-icon');
 
@@ -40,7 +43,7 @@ const config = require('./config');
 const readFileAsync = promisify(readFile);
 const promisifyStream = promisify(asyncDone);
 
-const cssStream = ({ banner, dir }) =>
+const buildModulesCSS = ({ banner, dir }) =>
   gulp
     .src([`${config.srcDir}/**/*.scss`, `!${config.srcDir}/**/*-story.scss`])
     .pipe(
@@ -69,9 +72,9 @@ const cssStream = ({ banner, dir }) =>
     .pipe(
       through2.obj((file, enc, done) => {
         file.contents = Buffer.from(`
-        import { css } from 'lit-element';
-        export default css([${JSON.stringify(String(file.contents))}]);
-      `);
+          import { css } from 'lit-element';
+          export default css([${JSON.stringify(String(file.contents))}]);
+        `);
         file.path = replaceExtension(file.path, dir === 'rtl' ? '.rtl.css.js' : '.css.js');
         done(null, file);
       })
@@ -79,6 +82,89 @@ const cssStream = ({ banner, dir }) =>
     .pipe(prettier())
     .pipe(header(banner))
     .pipe(gulp.dest(path.resolve(config.jsDestDir)));
+
+const buildModulesReact = ({ banner, targetEnv = 'browser' }) => {
+  let stream = gulp
+    .src([
+      `${config.srcDir}/components/**/*.ts`,
+      `!${config.srcDir}/**/defs.ts*`,
+      `!${config.srcDir}/**/*-story*.ts*`,
+      `!${config.srcDir}/**/stories/*.ts`,
+    ])
+    .pipe(
+      babel({
+        babelrc: false,
+        plugins: [
+          ['@babel/plugin-syntax-decorators', { decoratorsBeforeExport: true }],
+          '@babel/plugin-syntax-typescript',
+          '@babel/plugin-proposal-nullish-coalescing-operator',
+          '@babel/plugin-proposal-optional-chaining',
+          [babelPluginCreateReactCustomElementType, { nonUpgradable: targetEnv === 'node' }],
+        ],
+      })
+    );
+
+  if (targetEnv === 'node') {
+    stream = stream.pipe(
+      babel({
+        babelrc: false,
+        // Ensures `babel-plugin-resource-cjs-paths` runs before `@babel/plugin-transform-modules-commonjs`
+        plugins: [babelPluginResourceCJSPaths, '@babel/plugin-transform-modules-commonjs'],
+      })
+    );
+  }
+
+  const destDir = {
+    browser: `${config.jsDestDir}/components-react`,
+    node: `${config.cjsDestDir}/components-react-node`,
+  }[targetEnv];
+
+  return stream
+    .pipe(prettier())
+    .pipe(header(banner))
+    .pipe(gulp.dest(destDir));
+};
+
+const buildModulesReactDefs = ({ banner, targetEnv = 'browser' }) => {
+  const destDir = {
+    browser: `${config.jsDestDir}/components-react`,
+    node: `${config.cjsDestDir}/components-react-node`,
+  }[targetEnv];
+
+  const componentDestDir = {
+    browser: `${config.jsDestDir}/components`,
+    node: `${config.cjsDestDir}/components`,
+  }[targetEnv];
+
+  let stream = gulp.src([`${config.srcDir}/components/**/defs.ts`]).pipe(
+    through2.obj((file, enc, done) => {
+      const importSource = replaceExtension(
+        path.relative(
+          path.dirname(path.resolve(__dirname, '..', destDir, file.relative)),
+          path.resolve(__dirname, '..', componentDestDir, file.relative)
+        ),
+        '.js'
+      );
+      file.contents = Buffer.from(`export * from ${JSON.stringify(importSource)}`);
+      file.path = replaceExtension(file.path, '.js');
+      done(null, file);
+    })
+  );
+
+  if (targetEnv === 'node') {
+    stream = stream.pipe(
+      babel({
+        babelrc: false,
+        plugins: ['@babel/plugin-transform-modules-commonjs'],
+      })
+    );
+  }
+
+  return stream
+    .pipe(prettier())
+    .pipe(header(banner))
+    .pipe(gulp.dest(destDir));
+};
 
 module.exports = {
   modules: {
@@ -136,30 +222,26 @@ module.exports = {
 
     async css() {
       const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
-      await Promise.all([promisifyStream(() => cssStream({ banner })), promisifyStream(() => cssStream({ banner, dir: 'rtl' }))]);
+      await Promise.all([
+        promisifyStream(() => buildModulesCSS({ banner })),
+        promisifyStream(() => buildModulesCSS({ banner, dir: 'rtl' })),
+      ]);
     },
 
     async react() {
       const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
-      await promisifyStream(() =>
-        gulp
-          .src([`${config.srcDir}/components/**/*.ts`, `!${config.srcDir}/**/*-story*.ts*`, `!${config.srcDir}/**/stories/*.ts`])
-          .pipe(
-            babel({
-              babelrc: false,
-              plugins: [
-                ['@babel/plugin-syntax-decorators', { decoratorsBeforeExport: true }],
-                '@babel/plugin-syntax-typescript',
-                '@babel/plugin-proposal-nullish-coalescing-operator',
-                '@babel/plugin-proposal-optional-chaining',
-                babelPluginCreateReactCustomElementType,
-              ],
-            })
-          )
-          .pipe(prettier())
-          .pipe(header(banner))
-          .pipe(gulp.dest(`${config.jsDestDir}/components-react`))
-      );
+      await Promise.all([
+        promisifyStream(() => buildModulesReact({ banner })),
+        promisifyStream(() => buildModulesReact({ banner, targetEnv: 'node' })),
+      ]);
+    },
+
+    async reactDefs() {
+      const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
+      await Promise.all([
+        promisifyStream(() => buildModulesReactDefs({ banner })),
+        promisifyStream(() => buildModulesReactDefs({ banner, targetEnv: 'node' })),
+      ]);
     },
 
     async reactTypes() {
@@ -232,6 +314,50 @@ module.exports = {
           .pipe(filter(file => stripComments(file.contents.toString(), { sourceType: 'module' }).replace(/\s/g, '')))
           .pipe(sourcemaps.write('.'))
           .pipe(gulp.dest(config.jsDestDir))
+      );
+    },
+
+    async scriptsNode() {
+      const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
+      await promisifyStream(() =>
+        gulp
+          .src(
+            [
+              `${config.srcDir}/components/**/defs.ts`,
+              `${config.srcDir}/globals/**/*.ts`,
+              `!${config.srcDir}/globals/decorators/**/*.ts`,
+              `!${config.srcDir}/globals/directives/**/*.ts`,
+              `!${config.srcDir}/globals/internal/**/*.ts`,
+              `!${config.srcDir}/globals/mixins/**/*.ts`,
+            ],
+            { base: config.srcDir }
+          )
+          .pipe(sourcemaps.init())
+          .pipe(
+            babel({
+              presets: ['@babel/preset-modules'],
+              // Ensures `babel-plugin-resource-cjs-paths` runs before `@babel/plugin-transform-modules-commonjs`
+              plugins: [
+                // `version` field ensures `@babel/plugin-transform-runtime` is applied to newer helpers like decorator
+                ['@babel/plugin-transform-runtime', { useESModules: false, version: '7.8.0' }],
+                babelPluginResourceCJSPaths,
+                '@babel/plugin-transform-modules-commonjs',
+              ],
+            })
+          )
+          // Avoids generating `.js` from interface-only `.ts` files
+          .pipe(filter(file => stripComments(file.contents.toString()).replace(/\s/g, '')))
+          .pipe(
+            gulpif(
+              file => reLicense.test(file.contents.toString()),
+              through2.obj((file, enc, done) => {
+                done(null, file);
+              }),
+              header(banner)
+            )
+          )
+          .pipe(sourcemaps.write('.'))
+          .pipe(gulp.dest(config.cjsDestDir))
       );
     },
 

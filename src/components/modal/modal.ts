@@ -12,8 +12,11 @@ import { classMap } from 'lit-html/directives/class-map';
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import HostListener from '../../globals/decorators/host-listener';
 import HostListenerMixin from '../../globals/mixins/host-listener';
+import { MODAL_SIZE } from './defs';
 import styles from './modal.scss';
 import { selectorTabbable } from '../../globals/settings';
+
+export { MODAL_SIZE };
 
 const { prefix } = settings;
 
@@ -21,31 +24,6 @@ const { prefix } = settings;
 const PRECEDING = Node.DOCUMENT_POSITION_PRECEDING | Node.DOCUMENT_POSITION_CONTAINS;
 // eslint-disable-next-line no-bitwise
 const FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING | Node.DOCUMENT_POSITION_CONTAINED_BY;
-
-/**
- * Modal size.
- */
-export enum MODAL_SIZE {
-  /**
-   * Extra small size.
-   */
-  EXTRA_SMALL = 'xs',
-
-  /**
-   * Small size.
-   */
-  SMALL = 'sm',
-
-  /**
-   * Regular size.
-   */
-  REGULAR = '',
-
-  /**
-   * Large size.
-   */
-  LARGE = 'lg',
-}
 
 /**
  * Tries to focus on the given elements and bails out if one of the is successful.

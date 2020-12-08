@@ -11,53 +11,15 @@ import { customElement, LitElement, html, property } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
-import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
 import FormMixin from '../../globals/mixins/form';
 import ValidityMixin from '../../globals/mixins/validity';
+import { INPUT_COLOR_SCHEME, INPUT_SIZE, INPUT_TYPE } from './defs';
 import styles from './input.scss';
 
-export { FORM_ELEMENT_COLOR_SCHEME as INPUT_COLOR_SCHEME } from '../../globals/shared-enums';
+export { INPUT_COLOR_SCHEME, INPUT_SIZE, INPUT_TYPE };
 
 const { prefix } = settings;
-
-/**
- * Input size.
- */
-export enum INPUT_SIZE {
-  /**
-   * Small size.
-   */
-  SMALL = 'sm',
-
-  /**
-   * Regular size, same as large size.
-   */
-  REGULAR = 'lg',
-
-  /**
-   * Large size.
-   */
-  LARGE = 'lg',
-
-  /**
-   * Extra large size.
-   */
-  EXTRA_LARGE = 'xl',
-}
-
-/**
- * Supported input types.
- *
- * For this component we only support textual types
- */
-export enum INPUT_TYPE {
-  EMAIL = 'email',
-  PASSWORD = 'password',
-  TEL = 'tel',
-  TEXT = 'text',
-  URL = 'url',
-}
 
 /**
  * Input element. Supports all the usual attributes for textual input types
@@ -100,7 +62,7 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+  colorScheme = INPUT_COLOR_SCHEME.REGULAR;
 
   /**
    * Controls the disabled state of the input

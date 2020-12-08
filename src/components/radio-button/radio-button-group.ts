@@ -13,25 +13,13 @@ import FormMixin from '../../globals/mixins/form';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
 import { find, forEach } from '../../globals/internal/collection-helpers';
-import BXRadioButton, { RADIO_BUTTON_LABEL_POSITION } from './radio-button';
+import { RADIO_BUTTON_LABEL_POSITION, RADIO_BUTTON_ORIENTATION } from './defs';
+import BXRadioButton from './radio-button';
 import styles from './radio-button.scss';
 
+export { RADIO_BUTTON_ORIENTATION };
+
 const { prefix } = settings;
-
-/**
- * How to lay out radio buttons.
- */
-export enum RADIO_BUTTON_ORIENTATION {
-  /**
-   * Laying out radio buttons horizontally.
-   */
-  HORIZONTAL = 'horizontal',
-
-  /**
-   * Laying out radio buttons vertically.
-   */
-  VERTICAL = 'vertical',
-}
 
 /**
  * Radio button group.

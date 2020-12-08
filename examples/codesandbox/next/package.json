@@ -1,0 +1,20 @@
+{
+  "name": "carbon-web-components-next-getting-started",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sample project for getting started with the Web Components from the Carbon Design System with Next.js.",
+  "scripts": {
+    "start": "next"
+  },
+  "license": "Apache-2",
+  "dependencies": {
+    "carbon-components": "~10.23.0",
+    "carbon-web-components": "^1.7.0",
+    "lit-element": "~2.4.0",
+    "lit-html": "~1.3.0",
+    "lodash-es": "^4.17.0",
+    "next": "^10.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  }
+}

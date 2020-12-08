@@ -13,13 +13,13 @@ import Close16 from '@carbon/icons/lib/close/16';
 import Close20 from '@carbon/icons/lib/close/20';
 import Search16 from '@carbon/icons/lib/search/16';
 import settings from 'carbon-components/es/globals/js/settings';
-import { FORM_ELEMENT_COLOR_SCHEME } from '../../globals/shared-enums';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
 import FocusMixin from '../../globals/mixins/focus';
 import { INPUT_SIZE } from '../input/input';
+import { SEARCH_COLOR_SCHEME } from './defs';
 import styles from './search.scss';
 
-export { FORM_ELEMENT_COLOR_SCHEME as SEARCH_COLOR_SCHEME } from '../../globals/shared-enums';
+export { SEARCH_COLOR_SCHEME };
 
 const { prefix } = settings;
 
@@ -83,7 +83,7 @@ class BXSearch extends FocusMixin(LitElement) {
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = FORM_ELEMENT_COLOR_SCHEME.REGULAR;
+  colorScheme = SEARCH_COLOR_SCHEME.REGULAR;
 
   /**
    * `true` if the search box should be disabled.

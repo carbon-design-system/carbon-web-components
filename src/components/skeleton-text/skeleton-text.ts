@@ -10,29 +10,12 @@
 import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
+import { SKELETON_TEXT_TYPE } from './defs';
 import styles from './skeleton-text.scss';
 
+export { SKELETON_TEXT_TYPE };
+
 const { prefix } = settings;
-
-/**
- * Skeleton text types.
- */
-export enum SKELETON_TEXT_TYPE {
-  /**
-   * Regular variant.
-   */
-  REGULAR = '',
-
-  /**
-   * Heading variant.
-   */
-  HEADING = 'heading',
-
-  /**
-   * Line variant.
-   */
-  LINE = 'line',
-}
 
 /**
  * Skeleton text.
