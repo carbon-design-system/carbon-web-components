@@ -19,6 +19,7 @@ import './modal-heading';
 import './modal-label';
 import './modal-body';
 import './modal-footer';
+import styles from './modal-story.scss';
 import storyDocs from './modal-story.mdx';
 
 const sizes = {
@@ -56,6 +57,14 @@ Default.storyName = 'Default';
 
 export default {
   title: 'Components/Modal',
+  decorators: [
+    story => html`
+      <style type="text/css">
+        ${styles.cssText}
+      </style>
+      ${story()}
+    `,
+  ],
   parameters: {
     ...storyDocs.parameters,
     knobs: {
