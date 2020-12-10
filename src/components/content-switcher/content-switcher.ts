@@ -10,11 +10,11 @@
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import { forEach, indexOf } from '../../globals/internal/collection-helpers';
-import { NAVIGATION_DIRECTION } from './defs';
+import { NAVIGATION_DIRECTION, CONTENT_SWITCHER_SIZE } from './defs';
 import BXSwitch from './content-switcher-item';
 import styles from './content-switcher.scss';
 
-export { NAVIGATION_DIRECTION };
+export { NAVIGATION_DIRECTION, CONTENT_SWITCHER_SIZE };
 
 const { prefix } = settings;
 
@@ -149,6 +149,12 @@ class BXContentSwitcher extends LitElement {
    */
   @property({ reflect: true })
   value = '';
+
+  /**
+   * Content switcher size.
+   */
+  @property({ reflect: true })
+  size = CONTENT_SWITCHER_SIZE.REGULAR;
 
   shouldUpdate(changedProperties) {
     if (changedProperties.has('value')) {
