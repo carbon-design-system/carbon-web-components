@@ -23,6 +23,19 @@ $css--plex: true !default;
     padding-top: calc((#{$container-03} - #{map-get($body-long-01, 'line-height')}rem) / 2);
     min-height: $container-03;
   }
+
+  &[size='sm'] {
+    .#{$prefix}--accordion__heading {
+      min-height: rem(32px);
+      padding: rem(5px) 0;
+    }
+  }
+
+  &[size='xl'] {
+    .#{$prefix}--accordion__heading {
+      min-height: rem(48px);
+    }
+  }
 }
 
 :host(#{$prefix}-accordion-item[open]:not([disabled])) {
