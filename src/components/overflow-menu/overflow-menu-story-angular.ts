@@ -13,7 +13,7 @@ import baseStory, { Default as baseDefault } from './overflow-menu-story';
 
 export const Default = args => ({
   template: `
-    <bx-overflow-menu [open]="open" [colorScheme]="colorScheme" [disabled]="disabled">
+    <bx-overflow-menu [open]="open" [colorScheme]="colorScheme" [disabled]="disabled" [size]="size">
       <bx-overflow-menu-body [direction]="direction">
         <bx-overflow-menu-item>Option 1</bx-overflow-menu-item>
         <bx-overflow-menu-item>Option 2</bx-overflow-menu-item>

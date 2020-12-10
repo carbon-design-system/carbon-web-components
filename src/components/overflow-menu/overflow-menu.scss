@@ -13,6 +13,16 @@ $css--plex: true !default;
   @extend .#{$prefix}--overflow-menu;
 }
 
+:host(#{$prefix}-overflow-menu)[size='sm'] {
+  width: rem(32px);
+  height: rem(32px);
+}
+
+:host(#{$prefix}-overflow-menu)[size='xl'] {
+  width: rem(48px);
+  height: rem(48px);
+}
+
 :host(#{$prefix}-overflow-menu[disabled]) {
   cursor: not-allowed;
 

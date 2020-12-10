@@ -8,3 +8,23 @@
  */
 
 export { FORM_ELEMENT_COLOR_SCHEME as OVERFLOW_MENU_COLOR_SCHEME } from '../../globals/shared-enums';
+
+/**
+ * Overflow menu size.
+ */
+export enum OVERFLOW_MENU_SIZE {
+  /**
+   * Regular size.
+   */
+  REGULAR = '',
+
+  /**
+   * Small size.
+   */
+  SMALL = 'sm',
+
+  /**
+   * X-Large size.
+   */
+  EXTRA_LARGE = 'xl',
+}

@@ -21,9 +21,9 @@ import { Default as baseDefault } from './overflow-menu-story';
 export { default } from './overflow-menu-story';
 
 export const Default = args => {
-  const { open, colorScheme, disabled, direction } = args?.['bx-overflow-menu'];
+  const { open, colorScheme, disabled, direction, size } = args?.['bx-overflow-menu'];
   return (
-    <BXOverflowMenu colorScheme={colorScheme} disabled={disabled} open={open}>
+    <BXOverflowMenu colorScheme={colorScheme} disabled={disabled} open={open} size={size}>
       <BXOverflowMenuBody direction={direction}>
         <BXOverflowMenuItem>Option 1</BXOverflowMenuItem>
         <BXOverflowMenuItem>Option 2</BXOverflowMenuItem>
