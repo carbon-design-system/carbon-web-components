@@ -18,19 +18,19 @@ export const Default = args => ({
       @bx-accordion-item-beingtoggled="handleBeforeToggle"
       @bx-accordion-item-toggled="handleToggle"
     >
-      <bx-accordion-item :open="open" :title-text="titleText" :disabled="disabled">
+      <bx-accordion-item :open="open" :title-text="titleText" :disabled="disabled" :size="size">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
           aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
       </bx-accordion-item>
-      <bx-accordion-item :open="open" :title-text="titleText">
+      <bx-accordion-item :open="open" :title-text="titleText" :size="size">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
           aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
       </bx-accordion-item>
-      <bx-accordion-item :open="open">
+      <bx-accordion-item :open="open" :size="size">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
           aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
