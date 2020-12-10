@@ -188,6 +188,14 @@ render(<App />, document.getElementById('root'));
 
 Note: Using the React wrapper requires an additional dependency, [`prop-types`](https://www.npmjs.com/package/prop-types).
 
+To run the wrapper React components in SSR environment requires Node `12.16.3` or above that supports ["conditional mapping" feature](https://github.com/jkrems/proposal-pkg-exports#2-conditional-mapping):
+
+[![Edit carbon-web-components with React SSR](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/react-ssr)
+
+Same Node version requirement applies to Next.js:
+
+[![Edit carbon-web-components with React SSR](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/next)
+
 ### Vue
 
 [![Edit carbon-web-components with Vue](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/vue)
