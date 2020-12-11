@@ -16,3 +16,23 @@ export const NAVIGATION_DIRECTION = {
   Right: 1,
   ArrowRight: 1,
 };
+
+/**
+ * Button size.
+ */
+export enum CONTENT_SWITCHER_SIZE {
+  /**
+   * Regular size.
+   */
+  REGULAR = '',
+
+  /**
+   * Small size.
+   */
+  SMALL = 'sm',
+
+  /**
+   * X-Large size.
+   */
+  EXTRA_LARGE = 'xl',
+}

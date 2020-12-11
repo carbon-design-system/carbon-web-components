@@ -9,17 +9,23 @@
 
 import { html } from 'lit-element';
 import { action } from '@storybook/addon-actions';
-import { boolean } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import './content-switcher';
+import { CONTENT_SWITCHER_SIZE } from './content-switcher';
 import './content-switcher-item';
 import storyDocs from './content-switcher-story.mdx';
 
 const noop = () => {};
 
+const sizes = {
+  'Regular size': null,
+  [`Small size (${CONTENT_SWITCHER_SIZE.SMALL})`]: CONTENT_SWITCHER_SIZE.SMALL,
+  [`XL size (${CONTENT_SWITCHER_SIZE.EXTRA_LARGE})`]: CONTENT_SWITCHER_SIZE.EXTRA_LARGE,
+};
+
 export const Default = args => {
-  const { value, disableSelection, onBeforeSelect = noop, onSelect = noop } = args?.['bx-content-switcher'] ?? {};
+  const { value, disableSelection, onBeforeSelect = noop, onSelect = noop, size } = args?.['bx-content-switcher'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -31,6 +37,7 @@ export const Default = args => {
       value="${ifNonNull(value)}"
       @bx-content-switcher-beingselected="${handleBeforeSelected}"
       @bx-content-switcher-selected="${onSelect}"
+      size="${size}"
     >
       <bx-content-switcher-item value="all">Option 1</bx-content-switcher-item>
       <bx-content-switcher-item value="cloudFoundry" disabled>Option 2</bx-content-switcher-item>
@@ -50,6 +57,7 @@ export default {
     knobs: {
       'bx-content-switcher': () => ({
         value: textNullable('The value of the selected item (value)', ''),
+        size: select('Button size (size)', sizes, null),
         disableSelection: boolean(
           'Disable user-initiated selection change (Call event.preventDefault() in bx-content-switcher-beingselected event)',
           false
