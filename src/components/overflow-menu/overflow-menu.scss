@@ -13,6 +13,14 @@ $css--plex: true !default;
   @extend .#{$prefix}--overflow-menu;
 }
 
+:host(#{$prefix}-overflow-menu)[size='sm'] {
+  @extend .#{$prefix}--overflow-menu--sm;
+}
+
+:host(#{$prefix}-overflow-menu)[size='xl'] {
+  @extend .#{$prefix}--overflow-menu--xl;
+}
+
 :host(#{$prefix}-overflow-menu[disabled]) {
   cursor: not-allowed;
 
