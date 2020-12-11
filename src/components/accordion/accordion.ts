@@ -7,9 +7,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
-import { html, customElement, LitElement } from 'lit-element';
+import { forEach } from '../../globals/internal/collection-helpers';
+import { ACCORDION_SIZE } from './defs';
 import styles from './accordion.scss';
+
+export { ACCORDION_SIZE };
 
 const { prefix } = settings;
 
@@ -19,6 +23,12 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-accordion`)
 class BXAccordion extends LitElement {
+  /**
+   * Accordion size.
+   */
+  @property({ reflect: true })
+  size = ACCORDION_SIZE.REGULAR;
+
   connectedCallback() {
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'list');
@@ -26,10 +36,23 @@ class BXAccordion extends LitElement {
     super.connectedCallback();
   }
 
+  updated(changedProperties) {
+    if (changedProperties.has('size')) {
+      // Propagate `size` attribute to descendants until `:host-context()` gets supported in all major browsers
+      forEach(this.querySelectorAll((this.constructor as typeof BXAccordion).selectorAccordionItems), elem => {
+        elem.setAttribute('size', this.size);
+      });
+    }
+  }
+
   render() {
     return html`
       <slot></slot>
     `;
+  }
+
+  static get selectorAccordionItems() {
+    return `${prefix}-accordion-item`;
   }
 
   static styles = styles;
