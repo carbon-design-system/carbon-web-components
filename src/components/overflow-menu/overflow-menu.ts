@@ -15,11 +15,11 @@ import FocusMixin from '../../globals/mixins/focus';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import { find } from '../../globals/internal/collection-helpers';
 import BXFloatingMenuTrigger from '../floating-menu/floating-menu-trigger';
-import { OVERFLOW_MENU_COLOR_SCHEME } from './defs';
+import { OVERFLOW_MENU_COLOR_SCHEME, OVERFLOW_MENU_SIZE } from './defs';
 import BXOverflowMenuBody from './overflow-menu-body';
 import styles from './overflow-menu.scss';
 
-export { OVERFLOW_MENU_COLOR_SCHEME };
+export { OVERFLOW_MENU_COLOR_SCHEME, OVERFLOW_MENU_SIZE };
 
 const { prefix } = settings;
 
@@ -85,6 +85,12 @@ class BXOverflowMenu extends HostListenerMixin(FocusMixin(LitElement)) implement
    */
   @property({ type: Boolean, reflect: true })
   open = false;
+
+  /**
+   * Overflow menu size.
+   */
+  @property({ reflect: true })
+  size = OVERFLOW_MENU_SIZE.REGULAR;
 
   /**
    * @returns The position of the trigger button in the viewport.
