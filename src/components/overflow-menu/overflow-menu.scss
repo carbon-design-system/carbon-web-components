@@ -14,13 +14,11 @@ $css--plex: true !default;
 }
 
 :host(#{$prefix}-overflow-menu)[size='sm'] {
-  width: rem(32px);
-  height: rem(32px);
+  @extend .#{$prefix}--overflow-menu--sm;
 }
 
 :host(#{$prefix}-overflow-menu)[size='xl'] {
-  width: rem(48px);
-  height: rem(48px);
+  @extend .#{$prefix}--overflow-menu--xl;
 }
 
 :host(#{$prefix}-overflow-menu[disabled]) {
