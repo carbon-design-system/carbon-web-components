@@ -16,6 +16,7 @@ export const Default = args => ({
     <bx-accordion
       (bx-accordion-item-beingtoggled)="handleBeforeToggle($event)"
       (bx-accordion-item-toggled)="handleToggle($event)"
+      [size]="size"
     >
       <bx-accordion-item [open]="open" [titleText]="titleText" [disabled]="disabled">
         <p>
@@ -29,7 +30,7 @@ export const Default = args => ({
           aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
       </bx-accordion-item>
-      <bx-accordion-item [open]="open">
+      <bx-accordion-item [open]="open" [titleText]="titleText">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
           aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.

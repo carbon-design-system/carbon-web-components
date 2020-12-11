@@ -21,3 +21,23 @@ export enum ACCORDION_ITEM_BREAKPOINT {
    */
   MEDIUM = 'md',
 }
+
+/**
+ * Button size.
+ */
+export enum ACCORDION_SIZE {
+  /**
+   * Regular size.
+   */
+  REGULAR = '',
+
+  /**
+   * Small size.
+   */
+  SMALL = 'sm',
+
+  /**
+   * X-Large size.
+   */
+  EXTRA_LARGE = 'xl',
+}
