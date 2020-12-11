@@ -14,11 +14,11 @@ $css--plex: true !default;
 }
 
 :host(#{$prefix}-content-switcher[size='sm']) {
-  height: rem(32px);
+  @extend .#{$prefix}--content-switcher--sm;
 }
 
 :host(#{$prefix}-content-switcher[size='xl']) {
-  height: rem(48px);
+  @extend .#{$prefix}--content-switcher--xl;
 }
 
 :host(#{$prefix}-content-switcher-item) {
