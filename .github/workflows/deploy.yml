@@ -24,8 +24,8 @@ jobs:
         uses: carbon-design-system/action-ibmcloud-cf@v1.0.0
         with:
           cloud-api-key: ${{ secrets.CF_TOKEN }}
-          cf-org: carbon-design-system
-          cf-space: production
+          cf-org: ibm-digital-design
+          cf-space: ibmdotcom-production
           cf-region: us-south
           cf-app: carbon-web-components
           cf-manifest: manifest.yml
