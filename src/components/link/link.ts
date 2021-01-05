@@ -1,14 +1,14 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import { classMap } from 'lit-html/directives/class-map';
-import { html, property, customElement, LitElement } from 'lit-element';
+import { html, property, customElement, LitElement, query } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
@@ -43,6 +43,9 @@ export enum LINK_SIZE {
  */
 @customElement(`${prefix}-link`)
 class BXLink extends FocusMixin(LitElement) {
+  @query('#link')
+  protected _linkNode?: HTMLAnchorElement | HTMLParagraphElement;
+
   /**
    * The CSS class list for the link node.
    */
@@ -53,6 +56,21 @@ class BXLink extends FocusMixin(LitElement) {
       [`${prefix}--link--disabled`]: disabled,
       [`${prefix}--link--${size}`]: size,
     });
+  }
+
+  /**
+   * Handles `click` event on the `<a>`.
+   */
+  protected _handleClick() {} // eslint-disable-line class-methods-use-this
+
+  /**
+   * @returns The inner content.
+   */
+  // eslint-disable-next-line class-methods-use-this
+  protected _renderInner() {
+    return html`
+      <slot></slot>
+    `;
   }
 
   /**
@@ -123,7 +141,19 @@ class BXLink extends FocusMixin(LitElement) {
   }
 
   render() {
-    const { disabled, download, href, hreflang, linkRole, ping, rel, target, type, _classes: classes } = this;
+    const {
+      disabled,
+      download,
+      href,
+      hreflang,
+      linkRole,
+      ping,
+      rel,
+      target,
+      type,
+      _classes: classes,
+      _handleClick: handleClick,
+    } = this;
     return disabled
       ? html`
           <p id="link" class="${classes}"><slot></slot></p>
@@ -141,8 +171,9 @@ class BXLink extends FocusMixin(LitElement) {
             rel="${ifNonNull(rel)}"
             target="${ifNonNull(target)}"
             type="${ifNonNull(type)}"
+            @click="${handleClick}"
           >
-            <slot></slot>
+            ${this._renderInner()}
           </a>
         `;
   }
