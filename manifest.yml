@@ -4,4 +4,4 @@ applications:
   memory: 64M
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
 routes:
-  - route: web-components.carbondesignsystem.com
+  - route: carbon-web-components.mybluemix.net
