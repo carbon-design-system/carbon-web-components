@@ -20,12 +20,13 @@ jobs:
         run: yarn build
       - name: Building carbon-web-components storybook
         run: yarn build-storybook
-      - name: Deploying carbon-web-components storybook to IBM Cloud
-        uses: carbon-design-system/action-ibmcloud-cf@v1.0.0
-        with:
-          cloud-api-key: ${{ secrets.CF_TOKEN }}
-          cf-org: ibm-digital-design
-          cf-space: ibmdotcom-production
-          cf-region: us-south
-          cf-app: carbon-web-components
-          cf-manifest: manifest.yml
+      - name: Building carbon-web-components storybook (Angular)
+        run: yarn build-storybook:angular && cp -r storybook-static-angular storybook-static/angular
+      - name: Building carbon-web-components storybook (React)
+        run: yarn build-storybook:react && cp -r storybook-static-react storybook-static/react
+      - name: Building carbon-web-components storybook (Vue)
+        run: yarn build-storybook:vue && cp -r storybook-static-vue storybook-static/vue
+      - name: Deploying carbon-web-components storybook to GH pages
+        run: ./tools/deploy.sh
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
