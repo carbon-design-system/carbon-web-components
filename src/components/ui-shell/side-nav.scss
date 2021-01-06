@@ -59,8 +59,12 @@ $css--plex: true !default;
   width: auto;
   height: auto;
 
-  .#{$prefix}--side-nav__icon[hidden] {
-    display: none;
+  .#{$prefix}--side-nav__icon {
+    color: $shell-side-nav-text-01;
+
+    &[hidden] {
+      display: none;
+    }
   }
 }
 
