@@ -45,6 +45,7 @@
 <p
   class="bx--link bx--link--disabled"
   id="link"
+  part="link"
 >
   <slot>
   </slot>

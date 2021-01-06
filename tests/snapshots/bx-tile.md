@@ -47,6 +47,7 @@
 <p
   class="bx--link bx--link--disabled bx--tile bx--tile--clickable bx--tile--light"
   id="link"
+  part="link"
 >
   <slot>
   </slot>
