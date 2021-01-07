@@ -1,4 +1,4 @@
-name: Deploy carbon-web-components storybook to IBM Cloud
+name: Deploy carbon-web-components storybook to GH pages
 
 on:
   push:
@@ -20,12 +20,12 @@ jobs:
         run: yarn build
       - name: Building carbon-web-components storybook
         run: yarn build-storybook
-      - name: Building carbon-web-components storybook (Angular)
-        run: yarn build-storybook:angular && cp -r storybook-static-angular storybook-static/angular
       - name: Building carbon-web-components storybook (React)
         run: yarn build-storybook:react && cp -r storybook-static-react storybook-static/react
       - name: Building carbon-web-components storybook (Vue)
         run: yarn build-storybook:vue && cp -r storybook-static-vue storybook-static/vue
+      - name: Building carbon-web-components storybook (Angular)
+        run: yarn build-storybook:angular && cp -r storybook-static-angular storybook-static/angular
       - name: Deploying carbon-web-components storybook to GH pages
         run: ./tools/deploy.sh
         env:
