@@ -178,7 +178,7 @@
 
 ```
 <button
-  class="bx--btn bx--btn--ghost bx--btn--sm bx--snippet-btn--expand"
+  class="bx--btn bx--btn--field bx--btn--ghost bx--snippet-btn--expand"
   type="button"
 >
   <span

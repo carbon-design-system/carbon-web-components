@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019
+// Copyright IBM Corp. 2019, 2021
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -7,6 +7,7 @@
 
 $css--plex: true !default;
 
+@import 'carbon-components/scss/globals/scss/typography';
 @import 'carbon-components/scss/components/loading/loading';
 
 :host(#{$prefix}-loading) {

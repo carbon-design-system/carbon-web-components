@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,14 +19,17 @@ const { prefix } = settings;
  * @param [options.type] The spinner type.
  * @returns The spinner icon.
  */
-export default ({ assistiveText, type }: { assistiveText?: string; type?: string }) => html`
-  <svg class="${prefix}--loading__svg" viewBox="-75 -75 150 150">
-    ${!assistiveText
-      ? undefined
-      : html`
-          <title>${assistiveText}</title>
-        `}
-    <circle ?hidden="${type !== LOADING_TYPE.SMALL}" class="${prefix}--loading__background" cx="0" cy="0" r="37.5" />
-    <circle class="${prefix}--loading__stroke" cx="0" cy="0" r="37.5" />
-  </svg>
-`;
+export default ({ assistiveText, type }: { assistiveText?: string; type?: string }) => {
+  const radius = type === LOADING_TYPE.SMALL ? '42' : '44';
+  return html`
+    <svg class="${prefix}--loading__svg" viewBox="0 0 100 100">
+      ${!assistiveText
+        ? undefined
+        : html`
+            <title>${assistiveText}</title>
+          `}
+      <circle ?hidden="${type !== LOADING_TYPE.SMALL}" class="${prefix}--loading__background" cx="50%" cy="50%" r="${radius}" />
+      <circle class="${prefix}--loading__stroke" cx="50%" cy="50%" r="${radius}" />
+    </svg>
+  `;
+};

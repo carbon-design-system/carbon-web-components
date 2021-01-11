@@ -109,11 +109,11 @@
     "@babel/preset-react": "^7.10.0",
     "@babel/template": "^7.10.0",
     "@babel/traverse": "^7.11.0",
-    "@carbon/icon-helpers": "^10.10.0",
-    "@carbon/icons": "^10.22.0",
+    "@carbon/icon-helpers": "^10.11.0",
+    "@carbon/icons": "^10.23.0",
     "@carbon/icons-angular": "^10.8.0",
-    "@carbon/icons-react": "^10.22.0",
-    "@carbon/icons-vue": "^10.22.0",
+    "@carbon/icons-react": "^10.23.0",
+    "@carbon/icons-vue": "^10.23.0",
     "@commitlint/cli": "^7.5.0",
     "@commitlint/config-conventional": "^7.5.0",
     "@open-wc/semantic-dom-diff": "^0.15.0",
@@ -152,7 +152,7 @@
     "babel-plugin-template-html-minifier": "^4.1.0",
     "babel-preset-vue": "^2.0.0",
     "bluebird": "^3.5.0",
-    "carbon-components": "^10.25.0",
+    "carbon-components": "^10.26.0",
     "child-process-promise": "^2.2.0",
     "commander": "^2.13.0",
     "core-js": "^3.0.0",
@@ -260,7 +260,7 @@
     "zone.js": "^0.8.0"
   },
   "peerDependencies": {
-    "carbon-components": "~10.25.0",
+    "carbon-components": "~10.26.0",
     "flatpickr": "4.6.1",
     "lit-element": "^2.3.0",
     "lit-html": "^1.2.0"
