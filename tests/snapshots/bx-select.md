@@ -27,12 +27,14 @@
         label="Option 1"
         value="all"
       >
+        Option 1
       </option>
       <option
         class="bx--select-option"
         label="Option 2"
         value="cloudFoundry"
       >
+        Option 2
       </option>
     </optgroup>
     <optgroup
@@ -44,18 +46,21 @@
         label="Option 3"
         value="staging"
       >
+        Option 3
       </option>
       <option
         class="bx--select-option"
         label="Option 4"
         value="dea"
       >
+        Option 4
       </option>
       <option
         class="bx--select-option"
         label="Option 5"
         value="router"
       >
+        Option 5
       </option>
     </optgroup>
   </select>
@@ -94,12 +99,14 @@
         label="Option 1"
         value="all"
       >
+        Option 1
       </option>
       <option
         class="bx--select-option"
         label="Option 2"
         value="cloudFoundry"
       >
+        Option 2
       </option>
     </optgroup>
     <optgroup
@@ -111,18 +118,21 @@
         label="Option 3"
         value="staging"
       >
+        Option 3
       </option>
       <option
         class="bx--select-option"
         label="Option 4"
         value="dea"
       >
+        Option 4
       </option>
       <option
         class="bx--select-option"
         label="Option 5"
         value="router"
       >
+        Option 5
       </option>
     </optgroup>
   </select>
@@ -164,12 +174,14 @@
         label="Option 1"
         value="all"
       >
+        Option 1
       </option>
       <option
         class="bx--select-option"
         label="Option 2"
         value="cloudFoundry"
       >
+        Option 2
       </option>
     </optgroup>
     <optgroup
@@ -181,18 +193,21 @@
         label="Option 3"
         value="staging"
       >
+        Option 3
       </option>
       <option
         class="bx--select-option"
         label="Option 4"
         value="dea"
       >
+        Option 4
       </option>
       <option
         class="bx--select-option"
         label="Option 5"
         value="router"
       >
+        Option 5
       </option>
     </optgroup>
   </select>
