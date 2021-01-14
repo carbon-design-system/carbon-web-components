@@ -97,7 +97,7 @@ class BXSelect extends ValidityMixin(FormMixin(LitElement)) {
                   ?selected="${selected}"
                   value="${ifNonNull(value)}"
                 >
-                  ${ifNonNull(textContent)}
+                  ${textContent}
                 </option>
               `
             : html`
