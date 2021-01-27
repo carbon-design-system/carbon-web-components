@@ -1,13 +1,13 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
-import { customElement, LitElement, html, property } from 'lit-element';
+import { html, property, query, customElement, LitElement } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
@@ -30,6 +30,17 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-input`)
 export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
+  /**
+   * The underlying input element
+   */
+  @query('input')
+  protected _input!: HTMLInputElement;
+
+  /**
+   * The internal value.
+   */
+  protected _value = '';
+
   /**
    * Handles `oninput` event on the `<input>`.
    * @param event The event.
@@ -146,7 +157,27 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
    * The value of the input.
    */
   @property({ reflect: true })
-  value = '';
+  get value() {
+    // FIXME: Figure out how to deal with TS2611
+    // once we have the input we can directly query for the value
+    if (this._input) {
+      return this._input.value;
+    }
+    // but before then _value will work fine
+    return this._value;
+  }
+
+  set value(value) {
+    const oldValue = this._value;
+    this._value = value;
+    // make sure that lit-element updates the right properties
+    this.requestUpdate('value', oldValue);
+    // we set the value directly on the input (when available)
+    // so that programatic manipulation updates the UI correctly
+    if (this._input) {
+      this._input.value = value;
+    }
+  }
 
   createRenderRoot() {
     return this.attachShadow({
@@ -198,7 +229,7 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
           ?readonly="${this.readonly}"
           ?required="${this.required}"
           type="${ifNonEmpty(this.type)}"
-          .value="${this.value}"
+          .value="${this._value}"
           @input="${handleInput}"
         />
       </div>
