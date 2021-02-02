@@ -216,9 +216,9 @@ Vue users can use our components in the same manner as native HTML tags, without
 
 ## Running React/Angular/Vue Storybook demo
 
-- React: `yarn storybook:react` (Live demo: https://carbon-custom-elements-react.netlify.com/)
-- Angular: `yarn storybook:angular` (Live demo: https://carbon-custom-elements-angular.netlify.com/)
-- Vue: `yarn storybook:vue` (Live demo: https://carbon-custom-elements-vue.netlify.com/)
+- React: `yarn storybook:react` (Live demo: https://web-components.carbondesignsystem.com/react/index.html)
+- Angular: `yarn storybook:angular` (Live demo: https://web-components.carbondesignsystem.com/angular/index.html)
+- Vue: `yarn storybook:vue` (Live demo: https://web-components.carbondesignsystem.com/vue/index.html)
 
 ## List of available components
 
