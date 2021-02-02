@@ -4,6 +4,7 @@ set -e
 
 cd storybook-static
 echo "web-components.carbondesignsystem.com" > CNAME
+touch .nojekyll
 
 git init
 git config user.name "carbon-bot"
