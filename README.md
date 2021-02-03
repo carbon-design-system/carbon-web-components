@@ -31,8 +31,6 @@ A Carbon Design System variant that's as easy to use as native HTML elements, wi
 
 `carbon-web-components` is a variant of Carbon Design System with Custom Elements v1 and Shadow DOM v1 specs.
 
-Has been experimenting with enthusiasm, and now has a stable version.
-
 The effort stems from https://github.com/carbon-design-system/issue-tracking/issues/121. If you are interested in this project, adding 👍 to the description of that GH issue, or even contributing, will be greatly appreciated!
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -216,9 +214,9 @@ Vue users can use our components in the same manner as native HTML tags, without
 
 ## Running React/Angular/Vue Storybook demo
 
-- React: `yarn storybook:react` (Live demo: https://carbon-custom-elements-react.netlify.com/)
-- Angular: `yarn storybook:angular` (Live demo: https://carbon-custom-elements-angular.netlify.com/)
-- Vue: `yarn storybook:vue` (Live demo: https://carbon-custom-elements-vue.netlify.com/)
+- React: `yarn storybook:react` (Live demo: https://web-components.carbondesignsystem.com/react/index.html)
+- Angular: `yarn storybook:angular` (Live demo: https://web-components.carbondesignsystem.com/angular/index.html)
+- Vue: `yarn storybook:vue` (Live demo: https://web-components.carbondesignsystem.com/vue/index.html)
 
 ## List of available components
 
