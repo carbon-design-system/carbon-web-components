@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -285,6 +285,9 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
     }
     forEach(items, (item, i) => {
       (item as BXDropdownItem).highlighted = i === nextIndex;
+      if (i === nextIndex) {
+        (item as HTMLElement).focus();
+      }
     });
 
     const nextItem = items[nextIndex];

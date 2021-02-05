@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -54,6 +54,12 @@ class BXDropdownItem extends LitElement {
    */
   @property()
   value = '';
+
+  updated(changedProperties) {
+    if (changedProperties.has('highlighted')) {
+      this.setAttribute('tabindex', `${this.highlighted ? 0 : -1}`);
+    }
+  }
 
   render() {
     const { selected } = this;
