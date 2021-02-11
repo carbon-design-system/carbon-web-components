@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -63,6 +63,12 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
    */
   @query(`.${prefix}--list-box`)
   protected _listBoxNode!: HTMLDivElement;
+
+  /**
+   * The `<input` node in ComboBox, used to get value.
+   */
+  @query(`input`)
+  protected _inputNode;
 
   /**
    * The `<slot>` element for the helper text in the shadow DOM.
@@ -295,7 +301,9 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
 
     const nextItemText = nextItem.textContent;
     if (nextItemText) {
-      this._assistiveStatusText = nextItemText;
+      this._assistiveStatusText = `${nextItemText}${
+        this._inputNode && this._inputNode.value ? `, Current input is: ${this._inputNode.value}` : ''
+      }`;
     }
     this.requestUpdate();
   }
@@ -584,7 +592,13 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
         ${menuBody}
       </div>
       ${helper}
-      <div class="${prefix}--assistive-text" role="status" aria-live="assertive" aria-relevant="additions text">
+      <div
+        id="assistiveStatus"
+        class="${prefix}--assistive-text"
+        role="status"
+        aria-live="assertive"
+        aria-relevant="additions text"
+      >
         ${assistiveStatusText}
       </div>
     `;

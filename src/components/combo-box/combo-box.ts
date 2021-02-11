@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -147,7 +147,9 @@ class BXComboBox extends BXDropdown {
         placeholder="${triggerContent}"
         .value=${filterInputValue}
         role="combobox"
+        aria-hidden="true"
         aria-label="${inputLabel}"
+        aria-labelledby="assistiveStatus"
         aria-controls="menu-body"
         aria-autocomplete="list"
         @input=${handleInput}
