@@ -62,7 +62,6 @@
 <ul
   class="bx--header__menu"
   part="menu-body"
-  role="menu"
 >
   <slot>
   </slot>
@@ -88,7 +87,6 @@
   aria-label="menu-label-foo"
   class="bx--header__menu"
   part="menu-body"
-  role="menu"
 >
   <slot>
   </slot>
