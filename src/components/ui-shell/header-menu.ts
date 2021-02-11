@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -130,7 +130,7 @@ class BXHeaderMenu extends HostListenerMixin(FocusMixin(LitElement)) {
       >
         ${triggerContent}${ChevronDownGlyph({ part: 'trigger-icon', class: `${prefix}--header__menu-arrow` })}
       </a>
-      <ul role="menu" part="menu-body" class="${prefix}--header__menu" aria-label="${ifDefined(menuLabel)}">
+      <ul part="menu-body" class="${prefix}--header__menu" aria-label="${ifDefined(menuLabel)}">
         <slot></slot>
       </ul>
     `;
