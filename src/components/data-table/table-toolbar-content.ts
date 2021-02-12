@@ -27,7 +27,7 @@ class BXTableToolbarContent extends LitElement {
 
   updated(changedProperties) {
     if (changedProperties.has('hasBatchActions')) {
-      this.setAttribute('tabindex', `${this.hasBatchActions ? -1 : 0}`);
+      this.setAttribute('tabindex', `${this.hasBatchActions ? '-1' : ''}`);
     }
   }
 

@@ -49,7 +49,7 @@ class BXTableBatchActions extends LitElement {
 
   updated(changedProperties) {
     if (changedProperties.has('active')) {
-      this.setAttribute('tabindex', `${this.active ? 0 : -1}`);
+      this.setAttribute('tabindex', `${this.active ? '' : '-1'}`);
     }
   }
 
