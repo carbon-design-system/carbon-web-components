@@ -112,12 +112,16 @@
 ####     `should render with various attributes`
 
 ```
-<div class="bx--table-column-checkbox">
+<div
+  class="bx--table-column-checkbox"
+  part="selection-container"
+>
   <input
     class="bx--checkbox"
     disabled=""
     id="selection"
     name="selection-name-foo"
+    part="selection"
     type="checkbox"
     value="selection-value-foo"
   >
@@ -156,12 +160,16 @@
   <button class="bx--table-expand__button">
   </button>
 </div>
-<div class="bx--table-column-checkbox">
+<div
+  class="bx--table-column-checkbox"
+  part="selection-container"
+>
   <input
     class="bx--checkbox"
     disabled=""
     id="selection"
     name="selection-name-foo"
+    part="selection"
     type="checkbox"
     value="selection-value-foo"
   >
