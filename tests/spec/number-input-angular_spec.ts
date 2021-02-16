@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -54,14 +54,14 @@ describe('Angular directive for bx-number-input', () => {
     expect(fixture.componentInstance.model.number).toBe(16);
   });
 
-  it('should send the value to model upon `input` event', async function() {
+  it('should send the value to model upon `bx-number-input` event', async function() {
     const fixture = TestBed.createComponent(NumberInputAngularTest);
     fixture.detectChanges(); // Ensures event handlers are set up
     await Promise.resolve(); // Ensures event handlers are set up
     const debugElement = fixture.debugElement.query(By.css('bx-number-input'));
     ((debugElement as unknown) as BXNumberInput).value = '16';
     await Promise.resolve(); // Ensure the `value` is propagated to the `<input>` in shadow DOM
-    debugElement.triggerEventHandler('input', { target: debugElement });
+    debugElement.triggerEventHandler('bx-number-input', { target: debugElement });
     fixture.detectChanges();
     expect(fixture.componentInstance.model.number).toBe(16);
   });
