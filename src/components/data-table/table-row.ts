@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,6 +17,8 @@ const { prefix } = settings;
 /**
  * Data table row.
  * @element bx-table-row
+ * @csspart selection-container The container of the checkbox.
+ * @csspart selection The checkbox.
  * @fires bx-table-row-change-selection
  *   The custom event fired before this row is selected/unselected upon a user gesture.
  *   Cancellation of this event stops the user-initiated change in selection.
@@ -52,10 +54,11 @@ class BXTableRow extends FocusMixin(LitElement) {
     return !selectionName
       ? undefined
       : html`
-          <div class="${prefix}--table-column-checkbox">
+          <div part="selection-container" class="${prefix}--table-column-checkbox">
             ${html`
               <input
                 id="selection"
+                part="selection"
                 class="${prefix}--checkbox"
                 type="checkbox"
                 value="${selectionValue}"

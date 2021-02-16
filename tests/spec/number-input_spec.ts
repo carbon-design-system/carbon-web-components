@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -204,6 +204,28 @@ describe('bx-number-input', function() {
       const stepSize = Number(input.step);
       input.stepDown();
       expect(Number(input.value)).toEqual(initialValue - stepSize);
+    });
+
+    it('should increment values upon user gesture', async function() {
+      const input = elem as BXNumberInput;
+      const initialValue = Number(input.value);
+      const stepSize = Number(input.step);
+      const spyInput = jasmine.createSpy('input');
+      events.on(elem, 'bx-number-input', spyInput);
+      (elem.shadowRoot!.querySelector('button.up-icon') as HTMLElement).click();
+      expect(Number(input.value)).toEqual(initialValue + stepSize);
+      expect(Number(spyInput.calls.argsFor(0)[0].detail.value)).toBe(initialValue + stepSize);
+    });
+
+    it('should decrement values upon user gesture', async function() {
+      const input = elem as BXNumberInput;
+      const initialValue = Number(input.value);
+      const stepSize = Number(input.step);
+      const spyInput = jasmine.createSpy('input');
+      events.on(elem, 'bx-number-input', spyInput);
+      (elem.shadowRoot!.querySelector('button.down-icon') as HTMLElement).click();
+      expect(Number(input.value)).toEqual(initialValue - stepSize);
+      expect(Number(spyInput.calls.argsFor(0)[0].detail.value)).toBe(initialValue - stepSize);
     });
 
     it('should increment values by the step amount', async function() {
