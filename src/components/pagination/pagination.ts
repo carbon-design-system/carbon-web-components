@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -223,27 +223,29 @@ class BXPagination extends FocusMixin(HostListenerMixin(LitElement)) {
       <div class="${prefix}--pagination__left">
         <slot name="page-sizes-select"></slot>
         <div class="${prefix}-ce--pagination__divider"></div>
-        <span class="${prefix}--pagination__text">${this._renderStatusText()}</span>
+        <span class="${prefix}--pagination__text ${prefix}--pagination__items-count">${this._renderStatusText()}</span>
       </div>
       <div class="${prefix}-ce--pagination__divider"></div>
       <div class="${prefix}--pagination__right">
         <slot></slot>
-        <button
-          ?disabled="${prevButtonDisabled}"
-          class="${prevButtonClasses}"
-          title="${prevButtonText}"
-          @click="${handleClickPrevButton}"
-        >
-          ${CaretLeft24()}
-        </button>
-        <button
-          ?disabled="${nextButtonDisabled}"
-          class="${nextButtonClasses}"
-          title="${nextButtonText}"
-          @click="${handleClickNextButton}"
-        >
-          ${CaretRight24()}
-        </button>
+        <div class="${prefix}--pagination__control-buttons">
+          <button
+            ?disabled="${prevButtonDisabled}"
+            class="${prevButtonClasses}"
+            title="${prevButtonText}"
+            @click="${handleClickPrevButton}"
+          >
+            ${CaretLeft24()}
+          </button>
+          <button
+            ?disabled="${nextButtonDisabled}"
+            class="${nextButtonClasses}"
+            title="${nextButtonText}"
+            @click="${handleClickNextButton}"
+          >
+            ${CaretRight24()}
+          </button>
+        </div>
       </div>
     `;
   }
