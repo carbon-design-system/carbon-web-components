@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -21,10 +21,9 @@ export { default } from './date-picker-story';
 
 export const Default = args => ({
   template: `
-    <bx-date-picker>
+    <bx-date-picker :disabled="disabled">
       <bx-date-picker-input
         :color-scheme="colorScheme"
-        :disabled="disabled"
         :hide-label="hideLabel"
         :invalid="invalid"
         :label-text="labelText"
@@ -37,7 +36,7 @@ export const Default = args => ({
       </bx-date-picker-input>
     </bx-date-picker>
   `,
-  ...createVueBindingsFromProps({ ...args?.['bx-date-picker-input'] }),
+  ...createVueBindingsFromProps({ ...args?.['bx-date-picker'], ...args?.['bx-date-picker-input'] }),
 });
 
 Object.assign(Default, baseDefault);
@@ -46,6 +45,7 @@ export const singleWithCalendar = args => ({
   template: `
     <bx-date-picker
       :date-format="dateFormat"
+      :disabled="disabled"
       :enabled-range="enabledRange"
       :open="open"
       :value="value"
@@ -54,7 +54,6 @@ export const singleWithCalendar = args => ({
     >
       <bx-date-picker-input
         :color-scheme="colorScheme"
-        :disabled="disabled"
         :hide-label="hideLabel"
         :invalid="invalid"
         kind="single"
@@ -77,6 +76,7 @@ export const rangeWithCalendar = args => ({
   template: `
     <bx-date-picker
       :date-format="dateFormat"
+      :disabled="disabled"
       :enabled-range="enabledRange"
       :open="open"
       :value="value"
@@ -85,7 +85,6 @@ export const rangeWithCalendar = args => ({
     >
       <bx-date-picker-input
         :color-scheme="colorScheme"
-        :disabled="disabled"
         :hide-label="hideLabel"
         :invalid="invalid"
         kind="from"
@@ -99,7 +98,6 @@ export const rangeWithCalendar = args => ({
       </bx-date-picker-input>
       <bx-date-picker-input
         :color-scheme="colorScheme"
-        :disabled="disabled"
         :hide-label="hideLabel"
         :invalid="invalid"
         kind="to"

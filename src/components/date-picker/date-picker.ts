@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -13,6 +13,7 @@ import { Instance as FlatpickrInstance } from 'flatpickr/dist/types/instance';
 import { Locale as FlatpickrLocale } from 'flatpickr/dist/types/locale';
 import { Options as FlatpickrOptions, Plugin as FlatpickrPlugin } from 'flatpickr/dist/types/options';
 import settings from 'carbon-components/es/globals/js/settings';
+import FormMixin from '../../globals/mixins/form';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
 import { getISODateString, parseISODateString } from './iso-date';
@@ -56,7 +57,7 @@ enum DATE_PICKER_MODE {
  * @fires bx-date-picker-changed - The custom event fired on this element when Flatpickr updates its value.
  */
 @customElement(`${prefix}-date-picker`)
-class BXDatePicker extends HostListenerMixin(LitElement) {
+class BXDatePicker extends HostListenerMixin(FormMixin(LitElement)) {
   /**
    * The slotted `<bx-date-input kind="from">`.
    */
@@ -193,6 +194,14 @@ class BXDatePicker extends HostListenerMixin(LitElement) {
     this._value = detail.selectedDates.map(date => getISODateString(date)).join('/');
   };
 
+  _handleFormdata(event: Event) {
+    const { formData } = event as any; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
+    const { disabled, name, value } = this;
+    if (!disabled) {
+      formData.append(name, value);
+    }
+  }
+
   /**
    * Handles `slotchange` event in the `<slot>`.
    */
@@ -265,6 +274,12 @@ class BXDatePicker extends HostListenerMixin(LitElement) {
   dateFormat!: string;
 
   /**
+   * Controls the disabled state of the input
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
    * The localization data.
    */
   @property({ attribute: false })
@@ -275,6 +290,12 @@ class BXDatePicker extends HostListenerMixin(LitElement) {
    */
   @property({ attribute: 'enabled-range' })
   enabledRange!: string;
+
+  /**
+   * Name for the input in the `FormData`
+   */
+  @property()
+  name = '';
 
   /**
    * `true` if the date picker should be open.
@@ -307,7 +328,10 @@ class BXDatePicker extends HostListenerMixin(LitElement) {
   }
 
   updated(changedProperties) {
-    const { calendar, open } = this;
+    const { calendar, disabled, open } = this;
+    const { selectorInputFrom, selectorInputTo } = this.constructor as typeof BXDatePicker;
+    const inputFrom = this.querySelector(selectorInputFrom) as BXDatePickerInput;
+    const inputTo = this.querySelector(selectorInputTo) as BXDatePickerInput;
     if (calendar && changedProperties.has('dateFormat')) {
       const { dateFormat } = this;
       calendar.set({ dateFormat });
@@ -336,6 +360,13 @@ class BXDatePicker extends HostListenerMixin(LitElement) {
         calendar.close();
       }
     }
+    if (changedProperties.has('disabled')) {
+      [inputFrom, inputTo].forEach(input => {
+        if (input) {
+          input.disabled = disabled;
+        }
+      });
+    }
     if (changedProperties.has('value')) {
       const { value } = this;
       const dates = value
@@ -351,9 +382,6 @@ class BXDatePicker extends HostListenerMixin(LitElement) {
       }
       if (calendar) {
         calendar.setDate(dates);
-        const { selectorInputFrom, selectorInputTo } = this.constructor as typeof BXDatePicker;
-        const inputFrom = this.querySelector(selectorInputFrom) as BXDatePickerInput;
-        const inputTo = this.querySelector(selectorInputTo) as BXDatePickerInput;
         [inputFrom, inputTo].forEach((input, i) => {
           if (input) {
             input.value = !dates[i] ? '' : calendar.formatDate(new Date(dates[i]), calendar.config.dateFormat);
