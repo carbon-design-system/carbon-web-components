@@ -10,7 +10,7 @@
   </slot>
   <div class="bx-ce--pagination__divider">
   </div>
-  <span class="bx--pagination__text">
+  <span class="bx--pagination__items-count bx--pagination__text">
     Item 1–10
   </span>
 </div>
@@ -19,17 +19,19 @@
 <div class="bx--pagination__right">
   <slot>
   </slot>
-  <button
-    class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index"
-    disabled=""
-    title="Previous page"
-  >
-  </button>
-  <button
-    class="bx--pagination__button bx--pagination__button--forward"
-    title="Next page"
-  >
-  </button>
+  <div class="bx--pagination__control-buttons">
+    <button
+      class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index"
+      disabled=""
+      title="Previous page"
+    >
+    </button>
+    <button
+      class="bx--pagination__button bx--pagination__button--forward"
+      title="Next page"
+    >
+    </button>
+  </div>
 </div>
 
 ```
@@ -42,7 +44,7 @@
   </slot>
   <div class="bx-ce--pagination__divider">
   </div>
-  <span class="bx--pagination__text">
+  <span class="bx--pagination__items-count bx--pagination__text">
     11–30 of 200 items
   </span>
 </div>
@@ -51,16 +53,18 @@
 <div class="bx--pagination__right">
   <slot>
   </slot>
-  <button
-    class="bx--pagination__button bx--pagination__button--backward"
-    title="Previous page"
-  >
-  </button>
-  <button
-    class="bx--pagination__button bx--pagination__button--forward"
-    title="Next page"
-  >
-  </button>
+  <div class="bx--pagination__control-buttons">
+    <button
+      class="bx--pagination__button bx--pagination__button--backward"
+      title="Previous page"
+    >
+    </button>
+    <button
+      class="bx--pagination__button bx--pagination__button--forward"
+      title="Next page"
+    >
+    </button>
+  </div>
 </div>
 
 ```
