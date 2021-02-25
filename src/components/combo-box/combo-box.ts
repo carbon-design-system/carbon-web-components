@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -228,6 +228,21 @@ class BXComboBox extends BXDropdown {
    */
   static get selectorItemSelected() {
     return `${prefix}-combo-box-item[selected]`;
+  }
+
+  /**
+   * The name of the custom event fired before this combo box item is being toggled upon a user gesture.
+   * Cancellation of this event stops the user-initiated action of toggling this combo box item.
+   */
+  static get eventBeforeToggle() {
+    return `${prefix}-combo-box-beingtoggled`;
+  }
+
+  /**
+   * The name of the custom event fired after this combo box item is toggled upon a user gesture.
+   */
+  static get eventToggle() {
+    return `${prefix}-combo-box-toggled`;
   }
 
   /**

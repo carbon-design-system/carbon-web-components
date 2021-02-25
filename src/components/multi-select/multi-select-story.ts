@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -49,14 +49,25 @@ export const Default = args => {
     validityMessage,
     value,
     disableSelection,
+    disableToggle,
     onBeforeSelect,
+    onBeforeToggle,
     onSelect,
+    onToggle,
   } = args?.['bx-multi-select'] ?? {};
-  const handleBeforeSelected = (event: CustomEvent) => {
+  const handleBeforeSelect = (event: CustomEvent) => {
     if (onBeforeSelect) {
       onBeforeSelect(event);
     }
     if (disableSelection) {
+      event.preventDefault();
+    }
+  };
+  const handleBeforeToggle = (event: CustomEvent) => {
+    if (onBeforeToggle) {
+      onBeforeToggle(event);
+    }
+    if (disableToggle) {
       event.preventDefault();
     }
   };
@@ -76,8 +87,10 @@ export const Default = args => {
       type=${ifNonNull(type)}
       validity-message=${ifNonNull(validityMessage)}
       value="${ifNonNull(value)}"
-      @bx-multi-select-beingselected=${handleBeforeSelected}
+      @bx-multi-select-beingselected=${handleBeforeSelect}
+      @bx-multi-select-beingtoggled=${handleBeforeToggle}
       @bx-multi-select-selected=${onSelect}
+      @bx-multi-select-toggled=${onToggle}
     >
       <bx-multi-select-item value="all">Option 1</bx-multi-select-item>
       <bx-multi-select-item value="cloudFoundry">Option 2</bx-multi-select-item>
@@ -113,8 +126,14 @@ export default {
           'Disable user-initiated selection change (Call event.preventDefault() in bx-multi-select-beingselected event)',
           false
         ),
+        disableToggle: boolean(
+          'Disable user-initiated toggle of open state (Call event.preventDefault() in bx-multi-select-beingtoggled event)',
+          false
+        ),
         onBeforeSelect: action('bx-multi-select-beingselected'),
+        onBeforeToggle: action('bx-multi-select-beingtoggled'),
         onSelect: action('bx-multi-select-selected'),
+        onToggle: action('bx-multi-select-toggled'),
       }),
     },
   },

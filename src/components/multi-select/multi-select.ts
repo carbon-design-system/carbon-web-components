@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -183,6 +183,21 @@ class BXMultiSelect extends BXDropdown {
    */
   static get selectorItemSelected() {
     return `${prefix}-multi-select-item[selected]`;
+  }
+
+  /**
+   * The name of the custom event fired before this multi select item is being toggled upon a user gesture.
+   * Cancellation of this event stops the user-initiated action of toggling this multi select item.
+   */
+  static get eventBeforeToggle() {
+    return `${prefix}-multi-select-beingtoggled`;
+  }
+
+  /**
+   * The name of the custom event fired after this multi select item is toggled upon a user gesture.
+   */
+  static get eventToggle() {
+    return `${prefix}-multi-select-toggled`;
   }
 
   /**

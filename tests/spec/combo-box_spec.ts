@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -71,22 +71,28 @@ describe('bx-combo-box', function() {
     it('should remove "open" stateful modifier class (closed default state)', async function() {
       (elem as BXComboBox).open = true;
       await Promise.resolve();
-      (elem as HTMLElement).click();
-      expect(elem.classList.contains('bx--list-box--expanded')).toBe(false);
+      const inner = elem.shadowRoot!.querySelector('div[role="listbox"]');
+      (inner as HTMLElement).click();
+      await Promise.resolve();
+      expect(inner!.classList.contains('bx--list-box--expanded')).toBe(false);
     });
 
     it('should always close dropdown when clicking document', async function() {
       (elem as BXComboBox).open = true;
       await Promise.resolve();
-      document.documentElement.click();
-      expect(elem.classList.contains('bx--list-box--expanded')).toBe(false);
+      elem.dispatchEvent(new CustomEvent('focusout'));
+      await Promise.resolve();
+      const inner = elem.shadowRoot!.querySelector('div[role="listbox"]');
+      expect(inner!.classList.contains('bx--list-box--expanded')).toBe(false);
     });
 
     it('should close dropdown when clicking on an item', async function() {
       (elem as BXComboBox).open = true;
       await Promise.resolve();
       (itemNode as HTMLElement).click();
-      expect(elem.classList.contains('bx--list-box--expanded')).toBe(false);
+      await Promise.resolve();
+      const inner = elem.shadowRoot!.querySelector('div[role="listbox"]');
+      expect(inner!.classList.contains('bx--list-box--expanded')).toBe(false);
     });
 
     it('should support enter key to open the menu', async function() {
@@ -99,6 +105,28 @@ describe('bx-combo-box', function() {
       inner!.dispatchEvent(event);
       await Promise.resolve();
       expect(inner!.classList.contains('bx--list-box--expanded')).toBe(false);
+    });
+
+    it('should provide a way to cancel opening', async function() {
+      events.on(elem, 'bx-combo-box-beingtoggled', (event: CustomEvent) => {
+        event.preventDefault();
+      });
+      const inner = elem.shadowRoot!.querySelector('div[role="listbox"]');
+      (inner as HTMLElement).click();
+      await Promise.resolve();
+      expect(inner!.classList.contains('bx--list-box--expanded')).toBe(false);
+    });
+
+    it('should provide a way to cancel closing', async function() {
+      (elem as BXComboBox).open = true;
+      await Promise.resolve();
+      events.on(elem, 'bx-combo-box-beingtoggled', (event: CustomEvent) => {
+        event.preventDefault();
+      });
+      const inner = elem.shadowRoot!.querySelector('div[role="listbox"]');
+      (inner as HTMLElement).click();
+      await Promise.resolve();
+      expect(inner!.classList.contains('bx--list-box--expanded')).toBe(true);
     });
   });
 
