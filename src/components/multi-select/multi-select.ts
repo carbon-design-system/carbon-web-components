@@ -25,7 +25,12 @@ const { prefix } = settings;
  * @fires bx-multi-select-beingselected
  *   The custom event fired before a multi select item is selected upon a user gesture.
  *   Cancellation of this event stops changing the user-initiated selection.
- * @fires bx-multi-select-selected - The custom event fired after a a multi select item is selected upon a user gesture.
+ * @fires bx-multi-select-selected - The custom event fired after a multi select item is selected upon a user gesture.
+ * @fires bx-multi-select-beingtoggled
+ *   The custom event fired before the open state of this multi select is toggled upon a user gesture.
+ *   Cancellation of this event stops the user-initiated toggling.
+ * @fires bx-multi-select-toggled
+ *   The custom event fired after the open state of this multi select is toggled upon a user gesture.
  */
 @customElement(`${prefix}-multi-select`)
 class BXMultiSelect extends BXDropdown {

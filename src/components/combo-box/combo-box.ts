@@ -26,7 +26,11 @@ const { prefix } = settings;
  * @fires bx-combo-box-beingselected
  *   The custom event fired before a combo box item is selected upon a user gesture.
  *   Cancellation of this event stops changing the user-initiated selection.
- * @fires bx-combo-box-selected - The custom event fired after a a combo box item is selected upon a user gesture.
+ * @fires bx-combo-box-beingtoggled
+ *   The custom event fired before the open state of this combo box is toggled upon a user gesture.
+ *   Cancellation of this event stops the user-initiated toggling.
+ * @fires bx-combo-box-selected - The custom event fired after a combo box item is selected upon a user gesture.
+ * @fires bx-combo-box-toggled - The custom event fired after the open state of this combo box is toggled upon a user gesture.
  */
 @customElement(`${prefix}-combo-box`)
 class BXComboBox extends BXDropdown {

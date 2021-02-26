@@ -38,7 +38,11 @@ const { prefix } = settings;
  * @fires bx-dropdown-beingselected
  *   The custom event fired before a dropdown item is selected upon a user gesture.
  *   Cancellation of this event stops changing the user-initiated selection.
- * @fires bx-dropdown-selected - The custom event fired after a a dropdown item is selected upon a user gesture.
+ * @fires bx-dropdown-beingtoggled
+ *   The custom event fired before the open state of this dropdown is toggled upon a user gesture.
+ *   Cancellation of this event stops the user-initiated toggling.
+ * @fires bx-dropdown-selected - The custom event fired after a dropdown item is selected upon a user gesture.
+ * @fires bx-dropdown-toggled - The custom event fired after the open state of this dropdown is toggled upon a user gesture.
  */
 @customElement(`${prefix}-dropdown`)
 class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))) {
