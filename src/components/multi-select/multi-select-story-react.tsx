@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -35,12 +35,25 @@ export const Default = args => {
     type,
     validityMessage,
     disableSelection,
+    disableToggle,
     onBeforeSelect,
+    onBeforeToggle,
     onSelect,
+    onToggle,
   } = args?.['bx-multi-select'];
   const handleBeforeSelect = (event: CustomEvent) => {
-    onBeforeSelect(event);
+    if (onBeforeSelect) {
+      onBeforeSelect(event);
+    }
     if (disableSelection) {
+      event.preventDefault();
+    }
+  };
+  const handleBeforeToggle = (event: CustomEvent) => {
+    if (onBeforeToggle) {
+      onBeforeToggle(event);
+    }
+    if (disableToggle) {
       event.preventDefault();
     }
   };
@@ -61,7 +74,9 @@ export const Default = args => {
       type={type}
       validityMessage={validityMessage}
       onBeforeSelect={handleBeforeSelect}
-      onSelect={onSelect}>
+      onBeforeToggle={handleBeforeToggle}
+      onSelect={onSelect}
+      onToggle={onToggle}>
       <BXMultiSelectItem value="all">Option 1</BXMultiSelectItem>
       <BXMultiSelectItem value="cloudFoundry">Option 2</BXMultiSelectItem>
       <BXMultiSelectItem value="staging">Option 3</BXMultiSelectItem>

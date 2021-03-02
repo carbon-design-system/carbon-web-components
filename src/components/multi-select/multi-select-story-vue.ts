@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -29,8 +29,10 @@ export const Default = args => ({
       :trigger-content="triggerContent"
       :type="type"
       :validity-message="validityMessage"
-      @bx-multi-select-beingselected="handleBeforeSelected"
-      @bx-multi-select-selected="handleSelected"
+      @bx-multi-select-beingselected="handleBeforeSelect"
+      @bx-multi-select-beingtoggled="handleBeforeToggle"
+      @bx-multi-select-selected="handleSelect"
+      @bx-multi-select-toggled="handleToggle"
     >
       <bx-multi-select-item value="all">Option 1</bx-multi-select-item>
       <bx-multi-select-item value="cloudFoundry">Option 2</bx-multi-select-item>
@@ -40,16 +42,35 @@ export const Default = args => ({
     </bx-multi-select>
   `,
   ...createVueBindingsFromProps(
-    (({ disableSelection, onBeforeSelect, onSelect, ...rest }) => ({
-      ...rest,
-      handleBeforeSelected: (event: CustomEvent) => {
-        onBeforeSelect(event);
-        if (disableSelection) {
+    (({ onBeforeSelect, onBeforeToggle, onSelect, onToggle, ...rest }) => {
+      function handleBeforeSelect(this: any, event: CustomEvent) {
+        if (onBeforeSelect) {
+          onBeforeSelect(event);
+        }
+        // NOTE: Using class property ref instead of closure ref (from `original`)
+        // because updating event handlers via Storybook Vue `methods` (upon knob update) does not seem to work
+        if (this.disableSelection) {
           event.preventDefault();
         }
-      },
-      handleSelected: onSelect,
-    }))(args?.['bx-multi-select'])
+      }
+      function handleBeforeToggle(this: any, event: CustomEvent) {
+        if (onBeforeToggle) {
+          onBeforeToggle(event);
+        }
+        // NOTE: Using class property ref instead of closure ref (from `original`)
+        // because updating event handlers via Storybook Vue `methods` (upon knob update) does not seem to work
+        if (this.disableToggle) {
+          event.preventDefault();
+        }
+      }
+      return {
+        ...rest,
+        handleBeforeSelect,
+        handleBeforeToggle,
+        handleSelect: onSelect,
+        handleToggle: onToggle,
+      };
+    })(args?.['bx-multi-select'])
   ),
 });
 

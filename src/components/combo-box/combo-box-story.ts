@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -45,14 +45,25 @@ export const Default = args => {
     validityMessage,
     value,
     disableSelection,
+    disableToggle,
     onBeforeSelect,
+    onBeforeToggle,
     onSelect,
+    onToggle,
   } = args?.['bx-combo-box'] ?? {};
-  const handleBeforeSelected = (event: CustomEvent) => {
+  const handleBeforeSelect = (event: CustomEvent) => {
     if (onBeforeSelect) {
       onBeforeSelect(event);
     }
     if (disableSelection) {
+      event.preventDefault();
+    }
+  };
+  const handleBeforeToggle = (event: CustomEvent) => {
+    if (onBeforeToggle) {
+      onBeforeToggle(event);
+    }
+    if (disableToggle) {
       event.preventDefault();
     }
   };
@@ -69,8 +80,10 @@ export const Default = args => {
       value=${value}
       trigger-content=${triggerContent}
       type=${ifNonNull(type)}
-      @bx-combo-box-beingselected=${handleBeforeSelected}
+      @bx-combo-box-beingselected=${handleBeforeSelect}
+      @bx-combo-box-beingtoggled=${handleBeforeToggle}
       @bx-combo-box-selected=${onSelect}
+      @bx-combo-box-toggled=${onToggle}
     >
       <bx-combo-box-item value="all">Option 1</bx-combo-box-item>
       <bx-combo-box-item value="cloudFoundry">Option 2</bx-combo-box-item>
@@ -104,8 +117,14 @@ export default {
           'Disable user-initiated selection change (Call event.preventDefault() in bx-combo-box-beingselected event)',
           false
         ),
+        disableToggle: boolean(
+          'Disable user-initiated toggle of open state (Call event.preventDefault() in bx-combo-box-beingtoggled event)',
+          false
+        ),
         onBeforeSelect: action('bx-combo-box-beingselected'),
+        onBeforeToggle: action('bx-combo-box-beingtoggled'),
         onSelect: action('bx-combo-box-selected'),
+        onToggle: action('bx-combo-box-toggled'),
       }),
     },
   },

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -38,7 +38,11 @@ const { prefix } = settings;
  * @fires bx-dropdown-beingselected
  *   The custom event fired before a dropdown item is selected upon a user gesture.
  *   Cancellation of this event stops changing the user-initiated selection.
- * @fires bx-dropdown-selected - The custom event fired after a a dropdown item is selected upon a user gesture.
+ * @fires bx-dropdown-beingtoggled
+ *   The custom event fired before the open state of this dropdown is toggled upon a user gesture.
+ *   Cancellation of this event stops the user-initiated toggling.
+ * @fires bx-dropdown-selected - The custom event fired after a dropdown item is selected upon a user gesture.
+ * @fires bx-dropdown-toggled - The custom event fired after the open state of this dropdown is toggled upon a user gesture.
  */
 @customElement(`${prefix}-dropdown`)
 class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))) {
@@ -237,25 +241,37 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
    * @param [force] If specified, forces the open state to the given one.
    */
   protected _handleUserInitiatedToggle(force: boolean = !this.open) {
-    this.open = force;
-    if (this.open) {
-      this._assistiveStatusText = this.selectingItemsAssistiveText;
-    } else {
-      const {
-        selectedItemAssistiveText,
-        triggerContent,
-        _assistiveStatusText: assistiveStatusText,
-        _selectedItemContent: selectedItemContent,
-      } = this;
-      const selectedItemText = (selectedItemContent && selectedItemContent.textContent) || triggerContent;
-      if (selectedItemText && assistiveStatusText !== selectedItemAssistiveText) {
-        this._assistiveStatusText = selectedItemText;
+    const { eventBeforeToggle, eventToggle } = this.constructor as typeof BXDropdown;
+    const init = {
+      bubbles: true,
+      cancelable: true,
+      composed: true,
+      detail: {
+        open: force,
+      },
+    };
+    if (this.dispatchEvent(new CustomEvent(eventBeforeToggle, init))) {
+      this.open = force;
+      if (this.open) {
+        this._assistiveStatusText = this.selectingItemsAssistiveText;
+      } else {
+        const {
+          selectedItemAssistiveText,
+          triggerContent,
+          _assistiveStatusText: assistiveStatusText,
+          _selectedItemContent: selectedItemContent,
+        } = this;
+        const selectedItemText = (selectedItemContent && selectedItemContent.textContent) || triggerContent;
+        if (selectedItemText && assistiveStatusText !== selectedItemAssistiveText) {
+          this._assistiveStatusText = selectedItemText;
+        }
+        forEach(this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItemHighlighted), item => {
+          (item as BXDropdownItem).highlighted = false;
+        });
       }
-      forEach(this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItemHighlighted), item => {
-        (item as BXDropdownItem).highlighted = false;
-      });
+      this.requestUpdate();
+      this.dispatchEvent(new CustomEvent(eventToggle, init));
     }
-    this.requestUpdate();
   }
 
   /**
@@ -629,6 +645,21 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
    */
   static get eventSelect() {
     return `${prefix}-dropdown-selected`;
+  }
+
+  /**
+   * The name of the custom event fired before this dropdown item is being toggled upon a user gesture.
+   * Cancellation of this event stops the user-initiated action of toggling this dropdown item.
+   */
+  static get eventBeforeToggle() {
+    return `${prefix}-dropdown-beingtoggled`;
+  }
+
+  /**
+   * The name of the custom event fired after this dropdown item is toggled upon a user gesture.
+   */
+  static get eventToggle() {
+    return `${prefix}-dropdown-toggled`;
   }
 
   static styles = styles;

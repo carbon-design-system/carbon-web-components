@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -25,7 +25,12 @@ const { prefix } = settings;
  * @fires bx-multi-select-beingselected
  *   The custom event fired before a multi select item is selected upon a user gesture.
  *   Cancellation of this event stops changing the user-initiated selection.
- * @fires bx-multi-select-selected - The custom event fired after a a multi select item is selected upon a user gesture.
+ * @fires bx-multi-select-selected - The custom event fired after a multi select item is selected upon a user gesture.
+ * @fires bx-multi-select-beingtoggled
+ *   The custom event fired before the open state of this multi select is toggled upon a user gesture.
+ *   Cancellation of this event stops the user-initiated toggling.
+ * @fires bx-multi-select-toggled
+ *   The custom event fired after the open state of this multi select is toggled upon a user gesture.
  */
 @customElement(`${prefix}-multi-select`)
 class BXMultiSelect extends BXDropdown {
@@ -183,6 +188,21 @@ class BXMultiSelect extends BXDropdown {
    */
   static get selectorItemSelected() {
     return `${prefix}-multi-select-item[selected]`;
+  }
+
+  /**
+   * The name of the custom event fired before this multi select item is being toggled upon a user gesture.
+   * Cancellation of this event stops the user-initiated action of toggling this multi select item.
+   */
+  static get eventBeforeToggle() {
+    return `${prefix}-multi-select-beingtoggled`;
+  }
+
+  /**
+   * The name of the custom event fired after this multi select item is toggled upon a user gesture.
+   */
+  static get eventToggle() {
+    return `${prefix}-multi-select-toggled`;
   }
 
   /**

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -35,12 +35,25 @@ export const Default = args => {
     type,
     value,
     disableSelection,
+    disableToggle,
     onBeforeSelect,
+    onBeforeToggle,
     onSelect,
+    onToggle,
   } = args?.['bx-dropdown'];
-  const handleBeforeSelected = (event: CustomEvent) => {
-    onBeforeSelect(event);
+  const handleBeforeSelect = (event: CustomEvent) => {
+    if (onBeforeSelect) {
+      onBeforeSelect(event);
+    }
     if (disableSelection) {
+      event.preventDefault();
+    }
+  };
+  const handleBeforeToggle = (event: CustomEvent) => {
+    if (onBeforeToggle) {
+      onBeforeToggle(event);
+    }
+    if (disableToggle) {
       event.preventDefault();
     }
   };
@@ -58,8 +71,10 @@ export const Default = args => {
       triggerContent={triggerContent}
       type={type}
       value={value}
-      onBeforeSelect={handleBeforeSelected}
-      onSelect={onSelect}>
+      onBeforeSelect={handleBeforeSelect}
+      onBeforeToggle={handleBeforeToggle}
+      onSelect={onSelect}
+      onToggle={onToggle}>
       <BXDropdownItem value="all">Option 1</BXDropdownItem>
       <BXDropdownItem value="cloudFoundry">Option 2</BXDropdownItem>
       <BXDropdownItem value="staging">Option 3</BXDropdownItem>
