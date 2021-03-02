@@ -61,7 +61,8 @@ class BXLink extends FocusMixin(LitElement) {
   /**
    * Handles `click` event on the `<a>`.
    */
-  protected _handleClick() {} // eslint-disable-line class-methods-use-this
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  protected _handleClick(_: MouseEvent) {}
 
   /**
    * @returns The inner content.
