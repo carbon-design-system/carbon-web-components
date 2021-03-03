@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -94,13 +94,13 @@ describe('bx-tooltip', function() {
       await Promise.resolve(); // Calls `update()` of `<bx-tooltip>`
       await Promise.resolve(); // Calls `update()` of `<bx-tooltip-body>`
       const floatingMenuContainer = document.body.querySelector('div[data-floating-menu-container]');
-      expect(ResizeObserver.prototype.observe).toHaveBeenCalledWith(floatingMenuContainer);
-      expect(ResizeObserver.prototype.observe).toHaveBeenCalledWith(trigger?.parentElement);
+      expect(ResizeObserver.prototype.observe).toHaveBeenCalledWith(floatingMenuContainer!);
+      expect(ResizeObserver.prototype.observe).toHaveBeenCalledWith(trigger!.parentElement!);
       trigger!.shadowRoot!.firstElementChild!.dispatchEvent(new CustomEvent('click', { bubbles: true, composed: true }));
       await Promise.resolve(); // Calls `update()` of `<bx-tooltip>`
       await Promise.resolve(); // Calls `update()` of `<bx-tooltip-body>`
-      expect(ResizeObserver.prototype.unobserve).toHaveBeenCalledWith(trigger?.parentElement);
-      expect(ResizeObserver.prototype.unobserve).toHaveBeenCalledWith(floatingMenuContainer);
+      expect(ResizeObserver.prototype.unobserve).toHaveBeenCalledWith(trigger!.parentElement!);
+      expect(ResizeObserver.prototype.unobserve).toHaveBeenCalledWith(floatingMenuContainer!);
     });
   });
 
