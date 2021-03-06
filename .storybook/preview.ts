@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -22,7 +22,7 @@ addons.getChannel().on(CURRENT_THEME, theme => {
 
 addons.setConfig({
   showRoots: true,
-  theme: theme,
+  theme,
 });
 
 const SORT_ORDER = ['introduction-welcome--page', 'introduction-form-paticipation--page', 'introduction-custom-styles--page'];
@@ -40,6 +40,7 @@ export const parameters = {
       }
       return 0;
     },
+    theme,
   },
 };
 
