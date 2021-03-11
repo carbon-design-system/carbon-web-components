@@ -30,6 +30,7 @@
       aria-autocomplete="list"
       aria-controls="menu-body"
       aria-label=""
+      aria-labelledby="assistiveStatus"
       class="bx--text-input"
       id="trigger-label"
       placeholder="undefined"
@@ -51,6 +52,7 @@
   aria-live="assertive"
   aria-relevant="additions text"
   class="bx--assistive-text"
+  id="assistiveStatus"
   role="status"
 >
 </div>
@@ -86,6 +88,7 @@
       aria-autocomplete="list"
       aria-controls="menu-body"
       aria-label=""
+      aria-labelledby="assistiveStatus"
       class="bx--text-input"
       disabled=""
       id="trigger-label"
@@ -126,6 +129,7 @@
   aria-live="assertive"
   aria-relevant="additions text"
   class="bx--assistive-text"
+  id="assistiveStatus"
   role="status"
 >
 </div>

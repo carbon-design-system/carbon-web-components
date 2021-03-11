@@ -49,6 +49,7 @@
   aria-live="assertive"
   aria-relevant="additions text"
   class="bx--assistive-text"
+  id="assistiveStatus"
   role="status"
 >
 </div>
@@ -123,6 +124,7 @@
   aria-live="assertive"
   aria-relevant="additions text"
   class="bx--assistive-text"
+  id="assistiveStatus"
   role="status"
 >
 </div>
