@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,6 +17,7 @@ import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
 import { INPUT_COLOR_SCHEME, INPUT_SIZE } from '../input/input';
 import './select';
+import storyDocs from './select-story.mdx';
 
 const colorSchemes = {
   [`Regular`]: null,
@@ -94,4 +95,7 @@ Default.parameters = {
 
 export default {
   title: 'Components/Select',
+  parameters: {
+    ...storyDocs.parameters,
+  },
 };

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -33,12 +33,25 @@ export const Default = args => {
     value,
     triggerContent,
     disableSelection,
+    disableToggle,
     onBeforeSelect,
+    onBeforeToggle,
     onSelect,
+    onToggle,
   } = args?.['bx-combo-box'];
-  const handleBeforeSelected = (event: CustomEvent) => {
-    onBeforeSelect(event);
+  const handleBeforeSelect = (event: CustomEvent) => {
+    if (onBeforeSelect) {
+      onBeforeSelect(event);
+    }
     if (disableSelection) {
+      event.preventDefault();
+    }
+  };
+  const handleBeforeToggle = (event: CustomEvent) => {
+    if (onBeforeToggle) {
+      onBeforeToggle(event);
+    }
+    if (disableToggle) {
       event.preventDefault();
     }
   };
@@ -56,8 +69,10 @@ export const Default = args => {
       validityMessage={validityMessage}
       value={value}
       triggerContent={triggerContent}
-      onBeforeSelect={handleBeforeSelected}
-      onSelect={onSelect}>
+      onBeforeSelect={handleBeforeSelect}
+      onBeforeToggle={handleBeforeToggle}
+      onSelect={onSelect}
+      onToggle={onToggle}>
       <BXComboBoxItem value="all">Option 1</BXComboBoxItem>
       <BXComboBoxItem value="cloudFoundry">Option 2</BXComboBoxItem>
       <BXComboBoxItem value="staging">Option 3</BXComboBoxItem>

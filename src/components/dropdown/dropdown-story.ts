@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -45,14 +45,25 @@ export const Default = args => {
     value,
     triggerContent,
     disableSelection,
+    disableToggle,
     onBeforeSelect,
+    onBeforeToggle,
     onSelect,
+    onToggle,
   } = args?.['bx-dropdown'] ?? {};
-  const handleBeforeSelected = (event: CustomEvent) => {
+  const handleBeforeSelect = (event: CustomEvent) => {
     if (onBeforeSelect) {
       onBeforeSelect(event);
     }
     if (disableSelection) {
+      event.preventDefault();
+    }
+  };
+  const handleBeforeToggle = (event: CustomEvent) => {
+    if (onBeforeToggle) {
+      onBeforeToggle(event);
+    }
+    if (disableToggle) {
       event.preventDefault();
     }
   };
@@ -67,8 +78,10 @@ export const Default = args => {
       type="${ifNonNull(type)}"
       value=${ifNonNull(value)}
       trigger-content=${ifNonNull(triggerContent)}
-      @bx-dropdown-beingselected=${handleBeforeSelected}
+      @bx-dropdown-beingselected=${handleBeforeSelect}
+      @bx-dropdown-beingtoggled=${handleBeforeToggle}
       @bx-dropdown-selected=${onSelect}
+      @bx-dropdown-toggled=${onToggle}
     >
       <bx-dropdown-item value="all">Option 1</bx-dropdown-item>
       <bx-dropdown-item value="cloudFoundry">Option 2</bx-dropdown-item>
@@ -97,8 +110,14 @@ Default.parameters = {
         'Disable user-initiated selection change (Call event.preventDefault() in bx-dropdown-beingselected event)',
         false
       ),
+      disableToggle: boolean(
+        'Disable user-initiated toggle of open state (Call event.preventDefault() in bx-dropdown-beingtoggled event)',
+        false
+      ),
       onBeforeSelect: action('bx-dropdown-beingselected'),
+      onBeforeToggle: action('bx-dropdown-beingtoggled'),
       onSelect: action('bx-dropdown-selected'),
+      onToggle: action('bx-dropdown-toggled'),
     }),
   },
 };

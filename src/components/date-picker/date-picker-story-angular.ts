@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -20,10 +20,9 @@ import baseStory, {
 
 export const Default = args => ({
   template: `
-  <bx-date-picker [open]="open">
+  <bx-date-picker [disabled]="disabled" [open]="open">
     <bx-date-picker-input
       [colorScheme]="colorScheme"
-      [disabled]="disabled"
       [hideLabel]="hideLabel"
       [invalid]="invalid"
       [labelText]="labelText"
@@ -47,6 +46,7 @@ export const singleWithCalendar = args => ({
   template: `
   <bx-date-picker
     [dateFormat]="dateFormat"
+    [disabled]="disabled"
     [enabledRange]="enabledRange"
     [open]="open"
     [value]="value"
@@ -55,7 +55,6 @@ export const singleWithCalendar = args => ({
   >
     <bx-date-picker-input
       [colorScheme]="colorScheme"
-      [disabled]="disabled"
       [hideLabel]="hideLabel"
       [invalid]="invalid"
       kind="single"
@@ -80,6 +79,7 @@ export const rangeWithCalendar = args => ({
   template: `
   <bx-date-picker
     [dateFormat]="dateFormat"
+    [disabled]="disabled"
     [enabledRange]="enabledRange"
     [open]="open"
     [value]="value"
@@ -88,7 +88,6 @@ export const rangeWithCalendar = args => ({
   >
     <bx-date-picker-input
       [colorScheme]="colorScheme"
-      [disabled]="disabled"
       [hideLabel]="hideLabel"
       [invalid]="invalid"
       kind="from"
@@ -101,7 +100,6 @@ export const rangeWithCalendar = args => ({
     </bx-date-picker-input>
     <bx-date-picker-input
       [colorScheme]="colorScheme"
-      [disabled]="disabled"
       [hideLabel]="hideLabel"
       [invalid]="invalid"
       kind="to"

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -26,7 +26,9 @@ export const Default = args => ({
       [value]="value"
       [triggerContent]="triggerContent"
       (bx-combo-box-beingselected)="handleBeforeSelect($event)"
-      (bx-combo-box-selected)="handleAfterSelect($event)"
+      (bx-combo-box-beingtoggled)="handleBeforeToggle($event)"
+      (bx-combo-box-selected)="handleSelect($event)"
+      (bx-combo-box-toggled)="handleToggle($event)"
     >
       <bx-combo-box-item value="all">Option 1</bx-combo-box-item>
       <bx-combo-box-item value="cloudFoundry">Option 2</bx-combo-box-item>
@@ -35,17 +37,29 @@ export const Default = args => ({
       <bx-combo-box-item value="router">Option 5</bx-combo-box-item>
     </bx-combo-box>
   `,
-  props: (({ disableSelection, onBeforeSelect, onSelect, ...rest }) => {
+  props: (({ disableSelection, disableToggle, onBeforeSelect, onBeforeToggle, onSelect, onToggle, ...rest }) => {
     const handleBeforeSelect = (event: CustomEvent) => {
-      onBeforeSelect(event);
+      if (onBeforeSelect) {
+        onBeforeSelect(event);
+      }
       if (disableSelection) {
+        event.preventDefault();
+      }
+    };
+    const handleBeforeToggle = (event: CustomEvent) => {
+      if (onBeforeToggle) {
+        onBeforeToggle(event);
+      }
+      if (disableToggle) {
         event.preventDefault();
       }
     };
     return {
       ...rest,
       handleBeforeSelect,
-      handleAfterSelect: onSelect,
+      handleBeforeToggle,
+      handleSelect: onSelect,
+      handleToggle: onToggle,
     };
   })(args?.['bx-combo-box']),
 });

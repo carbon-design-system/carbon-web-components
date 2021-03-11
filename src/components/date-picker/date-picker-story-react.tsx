@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -28,14 +28,13 @@ import {
 export { default } from './date-picker-story';
 
 export const Default = args => {
-  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, sizeHorizontal, validityMessage } = args?.[
-    'bx-date-picker-input'
-  ];
+  const { disabled } = args?.['bx-date-picker'] ?? {};
+  const { colorScheme, hideLabel, invalid, labelText, placeholder, size, sizeHorizontal, validityMessage } =
+    args?.['bx-date-picker-input'] ?? {};
   return (
-    <BXDatePicker>
+    <BXDatePicker disabled={disabled}>
       <BXDatePickerInput
         colorScheme={colorScheme}
-        disabled={disabled}
         hideLabel={hideLabel}
         invalid={invalid}
         labelText={labelText}
@@ -51,13 +50,14 @@ export const Default = args => {
 Object.assign(Default, baseDefault);
 
 export const singleWithCalendar = args => {
-  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'];
-  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } = args?.[
+  const { dateFormat, disabled, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'];
+  const { colorScheme, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } = args?.[
     'bx-date-picker-input'
   ];
   return (
     <BXDatePicker
       dateFormat={dateFormat}
+      disabled={disabled}
       enabledRange={enabledRange}
       open={open}
       value={value}
@@ -65,7 +65,6 @@ export const singleWithCalendar = args => {
       onFlatpickrError={onFlatpickrError}>
       <BXDatePickerInput
         colorScheme={colorScheme}
-        disabled={disabled}
         hideLabel={hideLabel}
         invalid={invalid}
         kind="single"
@@ -82,13 +81,14 @@ export const singleWithCalendar = args => {
 Object.assign(singleWithCalendar, baseSingleWithCalendar);
 
 export const rangeWithCalendar = args => {
-  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'];
-  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } = args?.[
+  const { dateFormat, disabled, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'];
+  const { colorScheme, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } = args?.[
     'bx-date-picker-input'
   ];
   return (
     <BXDatePicker
       dateFormat={dateFormat}
+      disabled={disabled}
       enabledRange={enabledRange}
       open={open}
       value={value}
@@ -96,7 +96,6 @@ export const rangeWithCalendar = args => {
       onFlatpickrError={onFlatpickrError}>
       <BXDatePickerInput
         colorScheme={colorScheme}
-        disabled={disabled}
         hideLabel={hideLabel}
         invalid={invalid}
         kind="from"
@@ -108,7 +107,6 @@ export const rangeWithCalendar = args => {
       />
       <BXDatePickerInput
         colorScheme={colorScheme}
-        disabled={disabled}
         hideLabel={hideLabel}
         invalid={invalid}
         kind="to"

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -28,7 +28,9 @@ export const Default = args => ({
       :value="value"
       :trigger-content="triggerContent"
       @bx-combo-box-beingselected="handleBeforeSelect"
-      @bx-combo-box-selected="handleAfterSelect"
+      @bx-combo-box-beingtoggled="handleBeforeToggle"
+      @bx-combo-box-selected="handleSelect"
+      @bx-combo-box-toggled="handleToggle"
     >
       <bx-combo-box-item value="all">Option 1</bx-combo-box-item>
       <bx-combo-box-item value="cloudFoundry">Option 2</bx-combo-box-item>
@@ -38,17 +40,33 @@ export const Default = args => ({
     </bx-combo-box>
   `,
   ...createVueBindingsFromProps(
-    (({ disableSelection, onBeforeSelect, onSelect, ...rest }) => {
-      const handleBeforeSelect = (event: CustomEvent) => {
-        onBeforeSelect(event);
-        if (disableSelection) {
+    (({ onBeforeSelect, onBeforeToggle, onSelect, onToggle, ...rest }) => {
+      function handleBeforeSelect(this: any, event: CustomEvent) {
+        if (onBeforeSelect) {
+          onBeforeSelect(event);
+        }
+        // NOTE: Using class property ref instead of closure ref (from `original`)
+        // because updating event handlers via Storybook Vue `methods` (upon knob update) does not seem to work
+        if (this.disableSelection) {
           event.preventDefault();
         }
-      };
+      }
+      function handleBeforeToggle(this: any, event: CustomEvent) {
+        if (onBeforeToggle) {
+          onBeforeToggle(event);
+        }
+        // NOTE: Using class property ref instead of closure ref (from `original`)
+        // because updating event handlers via Storybook Vue `methods` (upon knob update) does not seem to work
+        if (this.disableToggle) {
+          event.preventDefault();
+        }
+      }
       return {
         ...rest,
         handleBeforeSelect,
-        handleAfterSelect: onSelect,
+        handleBeforeToggle,
+        handleSelect: onSelect,
+        handleToggle: onToggle,
       };
     })(args?.['bx-combo-box'])
   ),
