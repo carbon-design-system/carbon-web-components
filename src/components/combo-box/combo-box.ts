@@ -142,7 +142,7 @@ class BXComboBox extends BXDropdown {
   }
 
   protected _renderTriggerContent(): TemplateResult {
-    const { disabled, inputLabel, triggerContent, _filterInputValue: filterInputValue, _handleInput: handleInput } = this;
+    const { disabled, triggerContent, _filterInputValue: filterInputValue, _handleInput: handleInput } = this;
     return html`
       <input
         id="trigger-label"
@@ -151,7 +151,6 @@ class BXComboBox extends BXDropdown {
         placeholder="${triggerContent}"
         .value=${filterInputValue}
         role="combobox"
-        aria-label="${inputLabel}"
         aria-labelledby="assistiveStatus"
         aria-controls="menu-body"
         aria-autocomplete="list"
@@ -182,12 +181,6 @@ class BXComboBox extends BXDropdown {
    */
   @property({ attribute: 'clear-selection-label' })
   clearSelectionLabel = '';
-
-  /**
-   * The `aria-label` attribute for the `<input>` for filtering.
-   */
-  @property({ attribute: 'input-label' })
-  inputLabel = '';
 
   /**
    * The custom item matching callback.
