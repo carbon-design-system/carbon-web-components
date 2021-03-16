@@ -317,9 +317,10 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
 
     const nextItemText = nextItem.textContent;
     if (nextItemText) {
-      this._assistiveStatusText = `${nextItemText}${
-        this._inputNode && this._inputNode.value ? `, Current input is: ${this._inputNode.value}` : ''
-      }`;
+      this._assistiveStatusText = this.formatSelectedItemStatusText({
+        latestSelection: `${nextItemText}`,
+        currentItem: `${this._inputNode.value}`,
+      });
     }
     this.requestUpdate();
   }
@@ -363,6 +364,13 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
    */
   @property({ type: Boolean, reflect: true })
   disabled = false;
+
+  /**
+   * The formatter, used for announcing selected item and current item. Should be changed upon the locale the UI is rendered with.
+   */
+  @property({ attribute: false })
+  formatSelectedItemStatusText = ({ latestSelection, currentItem }) =>
+    currentItem === '' ? `${latestSelection}` : `${latestSelection}, Current input is: ${currentItem}`;
 
   /**
    * The helper text.
