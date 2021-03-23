@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,9 +19,9 @@ import { Default as baseDefault, filter as baseFilter } from './tag-story';
 export { default } from './tag-story';
 
 export const Default = args => {
-  const { type, title, disabled } = args?.['bx-tag'];
+  const { size, type, title, disabled } = args?.['bx-tag'];
   return (
-    <BXTag type={type} title={title} disabled={disabled}>
+    <BXTag size={size} type={type} title={title} disabled={disabled}>
       This is not a tag
     </BXTag>
   );
@@ -30,7 +30,7 @@ export const Default = args => {
 Object.assign(Default, baseDefault);
 
 export const filter = args => {
-  const { open, type, title, disabled, disableClose, onClick, onBeforeClose, onClose } = args?.['bx-filter-tag'];
+  const { open, size, type, title, disabled, disableClose, onClick, onBeforeClose, onClose } = args?.['bx-filter-tag'];
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -40,6 +40,7 @@ export const filter = args => {
   return (
     <BXFilterTag
       open={open}
+      size={size}
       type={type}
       title={title}
       disabled={disabled}
