@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019, 2020
+// Copyright IBM Corp. 2019, 2021
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -86,6 +86,21 @@ $css--plex: true !default;
   &:hover {
     background-color: transparent;
   }
+}
+
+:host(#{$prefix}-tag[size='sm']),
+:host(#{$prefix}-filter-tag[size='sm']) {
+  @extend .#{$prefix}--tag--sm;
+
+  .#{$prefix}--tag__close-icon {
+    width: rem(18px);
+    height: rem(18px);
+    margin-left: rem(5px);
+  }
+}
+
+:host(#{$prefix}-filter-tag[size='sm']) {
+  padding-right: 0;
 }
 
 // Skeleton state
