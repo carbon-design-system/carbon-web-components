@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -15,13 +15,13 @@ import HostListenerMixin from '../../globals/mixins/host-listener';
 import HostListener from '../../globals/decorators/host-listener';
 import { find, forEach } from '../../globals/internal/collection-helpers';
 import BXContentSwitcher, { NAVIGATION_DIRECTION } from '../content-switcher/content-switcher';
-import { NAVIGATION_DIRECTION_NARROW, TABS_KEYBOARD_ACTION, TABS_TYPE } from './defs';
+import { NAVIGATION_DIRECTION_NARROW, TABS_COLOR_SCHEME, TABS_KEYBOARD_ACTION, TABS_TYPE } from './defs';
 import BXTab from './tab';
 import styles from './tabs.scss';
 
 const { prefix } = settings;
 
-export { NAVIGATION_DIRECTION, NAVIGATION_DIRECTION_NARROW, TABS_KEYBOARD_ACTION, TABS_TYPE };
+export { NAVIGATION_DIRECTION, NAVIGATION_DIRECTION_NARROW, TABS_COLOR_SCHEME, TABS_KEYBOARD_ACTION, TABS_TYPE };
 
 /**
  * Tabs.
@@ -230,6 +230,12 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
     this._assistiveStatusText = this.selectedItemAssistiveText;
     this._handleUserInitiatedToggle(false);
   }
+
+  /**
+   * The color scheme.
+   */
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = TABS_COLOR_SCHEME.REGULAR;
 
   /**
    * An assistive text for screen reader to announce, telling the open state.

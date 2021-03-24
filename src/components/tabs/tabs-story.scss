@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019, 2020
+// Copyright IBM Corp. 2019, 2021
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -10,12 +10,7 @@
 
 .bx-ce-demo-devenv--tab-panels {
   flex: 1;
-  margin-top: $carbon--spacing-03;
   padding: $carbon--spacing-05;
   align-self: stretch;
   background-color: $ui-01;
-}
-
-bx-tabs[type='container'] ~ .bx-ce-demo-devenv--tab-panels {
-  margin-top: 0;
 }

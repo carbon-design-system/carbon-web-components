@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -12,7 +12,7 @@ import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import { TABS_TYPE } from './tabs';
+import { TABS_COLOR_SCHEME, TABS_TYPE } from './tabs';
 import './tab';
 import './tabs-skeleton';
 import './tab-skeleton';
@@ -21,13 +21,19 @@ import storyDocs from './tabs-story.mdx';
 
 const noop = () => {};
 
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${TABS_COLOR_SCHEME.LIGHT})`]: TABS_COLOR_SCHEME.LIGHT,
+};
+
 const types = {
   'Regular type': null,
   [`Container type (${TABS_TYPE.CONTAINER})`]: TABS_TYPE.CONTAINER,
 };
 
 export const Default = args => {
-  const { triggerContent, type, value, disableSelection, onBeforeSelect = noop, onSelect = noop } = args?.['bx-tabs'] || {};
+  const { colorScheme, triggerContent, type, value, disableSelection, onBeforeSelect = noop, onSelect = noop } =
+    args?.['bx-tabs'] || {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -39,6 +45,7 @@ export const Default = args => {
       ${styles}
     </style>
     <bx-tabs
+      color-scheme="${ifNonNull(colorScheme)}"
       trigger-content="${ifNonNull(triggerContent)}"
       type="${ifNonNull(type)}"
       value="${ifNonNull(value)}"
@@ -97,6 +104,7 @@ Default.parameters = {
   ...storyDocs.parameters,
   knobs: {
     'bx-tabs': () => ({
+      colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
       triggerContent: textNullable(
         'The default content of the trigger button for narrow screen (trigger-content)',
         'Select an item'
