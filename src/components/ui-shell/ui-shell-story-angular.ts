@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -113,6 +113,7 @@ export const sideNav = args => {
               L0 menu item
             </bx-side-nav-menu-item>
           </bx-side-nav-menu>
+          <bx-side-nav-divider></bx-side-nav-divider>
           <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
           <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
         </bx-side-nav-items>
@@ -172,6 +173,7 @@ export const sideNavWithIcons = args => {
               L0 menu item
             </bx-side-nav-menu-item>
           </bx-side-nav-menu>
+          <bx-side-nav-divider></bx-side-nav-divider>
           <bx-side-nav-link href="javascript:void(0)">
             <ibm-icon-fade16 slot="title-icon"></ibm-icon-fade16>
             L0 link
@@ -263,6 +265,7 @@ export const header = args => {
               L0 menu item
             </bx-side-nav-menu-item>
           </bx-side-nav-menu>
+          <bx-side-nav-divider></bx-side-nav-divider>
           <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
           <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
         </bx-side-nav-items>

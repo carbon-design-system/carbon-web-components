@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,6 +19,7 @@ import ifNonNull from '../../globals/directives/if-non-null';
 import { SIDE_NAV_COLLAPSE_MODE, SIDE_NAV_USAGE_MODE } from './side-nav';
 import './side-nav-items';
 import './side-nav-link';
+import './side-nav-divider';
 import './side-nav-menu';
 import './side-nav-menu-item';
 import './header';
@@ -142,6 +143,7 @@ export const sideNav = args => {
             L0 menu item
           </bx-side-nav-menu-item>
         </bx-side-nav-menu>
+        <bx-side-nav-divider></bx-side-nav-divider>
         <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
         <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
       </bx-side-nav-items>
@@ -212,6 +214,7 @@ export const sideNavWithIcons = args => {
             L0 menu item
           </bx-side-nav-menu-item>
         </bx-side-nav-menu>
+        <bx-side-nav-divider></bx-side-nav-divider>
         <bx-side-nav-link href="javascript:void(0)">${Fade16({ slot: 'title-icon' })}L0 link</bx-side-nav-link>
         <bx-side-nav-link href="javascript:void(0)">${Fade16({ slot: 'title-icon' })}L0 link</bx-side-nav-link>
       </bx-side-nav-items>
@@ -300,6 +303,7 @@ export const header = args => {
             L0 menu item
           </bx-side-nav-menu-item>
         </bx-side-nav-menu>
+        <bx-side-nav-divider></bx-side-nav-divider>
         <bx-side-nav-link href="javascript:void(0)">${Fade16({ slot: 'title-icon' })}L0 link</bx-side-nav-link>
         <bx-side-nav-link href="javascript:void(0)">${Fade16({ slot: 'title-icon' })}L0 link</bx-side-nav-link>
       </bx-side-nav-items>
