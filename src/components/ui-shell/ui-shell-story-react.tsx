@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -21,6 +21,8 @@ import BXSideNav, {
 import BXSideNavItems from 'carbon-web-components/es/components-react/ui-shell/side-nav-items';
 // @ts-ignore
 import BXSideNavLink from 'carbon-web-components/es/components-react/ui-shell/side-nav-link';
+// @ts-ignore
+import BXSideNavDivider from 'carbon-web-components/es/components-react/ui-shell/side-nav-divider';
 // @ts-ignore
 import BXSideNavMenu from 'carbon-web-components/es/components-react/ui-shell/side-nav-menu';
 // @ts-ignore
@@ -123,6 +125,7 @@ export const sideNav = args => {
             <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
             <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
           </BXSideNavMenu>
+          <BXSideNavDivider />
           <BXSideNavLink href="javascript:void(0)">L0 link</BXSideNavLink>
           <BXSideNavLink href="javascript:void(0)">L0 link</BXSideNavLink>
         </BXSideNavItems>
@@ -163,6 +166,7 @@ export const sideNavWithIcons = args => {
             <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
             <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
           </BXSideNavMenu>
+          <BXSideNavDivider />
           <BXSideNavLink href="javascript:void(0)">
             <Fade16 slot="title-icon" />
             L0 link
@@ -225,6 +229,7 @@ export const header = args => {
             <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
             <BXSideNavMenuItem href={href}>L0 menu item</BXSideNavMenuItem>
           </BXSideNavMenu>
+          <BXSideNavDivider />
           <BXSideNavLink href="javascript:void(0)">L0 link</BXSideNavLink>
           <BXSideNavLink href="javascript:void(0)">L0 link</BXSideNavLink>
         </BXSideNavItems>
