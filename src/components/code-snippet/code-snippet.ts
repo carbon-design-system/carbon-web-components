@@ -31,11 +31,7 @@ const { prefix } = settings;
  * @returns The template result for the expando.
  */
 const renderExpando = ({ children, handleClick }: { children: string | TemplateResult; handleClick: EventListener }) => html`
-  <button
-    type="button"
-    class="${prefix}--btn ${prefix}--btn--ghost ${prefix}--btn--field ${prefix}--snippet-btn--expand"
-    @click="${handleClick}"
-  >
+  <button type="button" class="${prefix}--snippet-btn--expand" @click="${handleClick}">
     <span id="button-text" class="${prefix}--snippet-btn--text">
       ${children}
     </span>
