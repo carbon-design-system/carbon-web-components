@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,7 +19,7 @@ import { Default as baseDefault } from './content-switcher-story';
 export { default } from './content-switcher-story';
 
 export const Default = args => {
-  const { value, disableSelection, onBeforeSelect, onSelect, size } = args?.['bx-content-switcher'];
+  const { colorScheme, value, disableSelection, onBeforeSelect, onSelect, size } = args?.['bx-content-switcher'];
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -27,7 +27,12 @@ export const Default = args => {
     }
   };
   return (
-    <BXContentSwitcher value={value} onBeforeSelect={handleBeforeSelected} onSelect={onSelect} size={size}>
+    <BXContentSwitcher
+      colorScheme={colorScheme}
+      value={value}
+      onBeforeSelect={handleBeforeSelected}
+      onSelect={onSelect}
+      size={size}>
       <BXContentSwitcherItem value="all">Option 1</BXContentSwitcherItem>
       <BXContentSwitcherItem value="cloudFoundry" disabled>
         Option 2

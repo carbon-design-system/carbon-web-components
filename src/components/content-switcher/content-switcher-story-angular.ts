@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -14,6 +14,7 @@ import baseStory, { Default as baseDefault } from './content-switcher-story';
 export const Default = args => ({
   template: `
     <bx-content-switcher
+      [colorScheme]="colorScheme"
       [value]="value"
       (bx-content-switcher-beingselected)="handleBeforeSelect($event)"
       (bx-content-switcher-selected)="handleAfterSelect($event)"

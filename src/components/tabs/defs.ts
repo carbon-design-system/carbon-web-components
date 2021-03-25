@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export { FORM_ELEMENT_COLOR_SCHEME as TABS_COLOR_SCHEME } from '../../globals/shared-enums';
+export { CONTENT_SWITCHER_COLOR_SCHEME as TABS_COLOR_SCHEME } from '../content-switcher/defs';
 
 /**
  * Navigation direction for narrow mode, associated with key symbols.

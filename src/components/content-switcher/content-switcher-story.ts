@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -12,11 +12,16 @@ import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import { CONTENT_SWITCHER_SIZE } from './content-switcher';
+import { CONTENT_SWITCHER_COLOR_SCHEME, CONTENT_SWITCHER_SIZE } from './content-switcher';
 import './content-switcher-item';
 import storyDocs from './content-switcher-story.mdx';
 
 const noop = () => {};
+
+const colorSchemes = {
+  [`Regular`]: null,
+  [`Light (${CONTENT_SWITCHER_COLOR_SCHEME.LIGHT})`]: CONTENT_SWITCHER_COLOR_SCHEME.LIGHT,
+};
 
 const sizes = {
   'Regular size': null,
@@ -25,7 +30,8 @@ const sizes = {
 };
 
 export const Default = args => {
-  const { value, disableSelection, onBeforeSelect = noop, onSelect = noop, size } = args?.['bx-content-switcher'] ?? {};
+  const { colorScheme, value, disableSelection, onBeforeSelect = noop, onSelect = noop, size } =
+    args?.['bx-content-switcher'] ?? {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -34,6 +40,7 @@ export const Default = args => {
   };
   return html`
     <bx-content-switcher
+      color-scheme="${ifNonNull(colorScheme)}"
       value="${ifNonNull(value)}"
       @bx-content-switcher-beingselected="${handleBeforeSelected}"
       @bx-content-switcher-selected="${onSelect}"
@@ -56,6 +63,7 @@ export default {
     ...storyDocs.parameters,
     knobs: {
       'bx-content-switcher': () => ({
+        colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
         value: textNullable('The value of the selected item (value)', ''),
         size: select('Button size (size)', sizes, null),
         disableSelection: boolean(

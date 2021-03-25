@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019, 2020
+// Copyright IBM Corp. 2019, 2021
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -43,12 +43,35 @@ $css--plex: true !default;
       z-index: 2;
       left: 0;
     }
+  }
 
-    &.#{$prefix}--content-switcher--selected,
-    &:focus,
-    &:hover {
+  &[color-scheme='light'] {
+    .#{$prefix}--content-switcher-btn {
+      background-color: $ui-02;
+
+      &:hover {
+        background-color: $hover-light-ui;
+      }
+
       &::before {
-        background-color: transparent;
+        background-color: $decorative-01;
+      }
+
+      &.#{$prefix}--content-switcher--selected {
+        background-color: $ui-05;
+      }
+    }
+  }
+
+  &,
+  &[color-scheme='light'] {
+    .#{$prefix}--content-switcher-btn {
+      &.#{$prefix}--content-switcher--selected,
+      &:focus,
+      &:hover {
+        &::before {
+          background-color: transparent;
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,11 +10,11 @@
 import { html, property, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import { forEach, indexOf } from '../../globals/internal/collection-helpers';
-import { NAVIGATION_DIRECTION, CONTENT_SWITCHER_SIZE } from './defs';
+import { NAVIGATION_DIRECTION, CONTENT_SWITCHER_COLOR_SCHEME, CONTENT_SWITCHER_SIZE } from './defs';
 import BXSwitch from './content-switcher-item';
 import styles from './content-switcher.scss';
 
-export { NAVIGATION_DIRECTION, CONTENT_SWITCHER_SIZE };
+export { NAVIGATION_DIRECTION, CONTENT_SWITCHER_COLOR_SCHEME, CONTENT_SWITCHER_SIZE };
 
 const { prefix } = settings;
 
@@ -145,6 +145,12 @@ class BXContentSwitcher extends LitElement {
   }
 
   /**
+   * The color scheme.
+   */
+  @property({ attribute: 'color-scheme', reflect: true })
+  colorScheme = CONTENT_SWITCHER_COLOR_SCHEME.REGULAR;
+
+  /**
    * The value of the selected item.
    */
   @property({ reflect: true })
@@ -164,6 +170,15 @@ class BXContentSwitcher extends LitElement {
       });
     }
     return true;
+  }
+
+  updated(changedProperties) {
+    if (changedProperties.has('colorScheme')) {
+      // Propagate `color-scheme` attribute to descendants until `:host-context()` gets supported in all major browsers
+      forEach(this.querySelectorAll((this.constructor as typeof BXContentSwitcher).selectorItem), elem => {
+        elem.setAttribute('color-scheme', this.colorScheme);
+      });
+    }
   }
 
   /**
