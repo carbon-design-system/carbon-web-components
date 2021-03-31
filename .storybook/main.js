@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -81,13 +81,13 @@ module.exports = {
     // Supports `*-story.mdx`
     config.module.rules = deepReplace(
       config.module.rules,
-      (value, key) => key === 'test' && testMatches(value, 'button.stories.mdx') && !testMatches(value, 'button-story.mdx'),
-      value => [...arrayify(value), /\-story(\-(angular|react|vue))?.mdx$/]
+      (value, key) => key === 'test' && testMatches(value, 'button.stories.mdx') && !testMatches(value, 'foo.mdx'),
+      value => [...arrayify(value), /\-story(\-(angular|react|vue))\.mdx$/]
     );
     config.module.rules = deepReplace(
       config.module.rules,
-      (value, key) => key === 'exclude' && testMatches(value, 'button.stories.mdx') && !testMatches(value, 'button-story.mdx'),
-      value => [...arrayify(value), /\-story(\-(angular|react|vue))?.mdx$/]
+      (value, key) => key === 'exclude' && testMatches(value, 'button.stories.mdx') && !testMatches(value, 'foo.mdx'),
+      value => [...arrayify(value), /\-story(\-(angular|react|vue))\.mdx$/]
     );
 
     config.module.rules.push(
