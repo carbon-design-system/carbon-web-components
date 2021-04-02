@@ -10,6 +10,7 @@
 'use strict';
 
 const path = require('path');
+const sass = require('node-sass');
 const rtlcss = require('rtlcss');
 const deepReplace = require('../tools/deep-replace');
 
@@ -116,6 +117,7 @@ module.exports = {
         test: /\.scss$/,
         sideEffects: true,
         use: [
+          'cache-loader',
           require.resolve('../tools/css-result-loader'),
           {
             loader: 'postcss-loader',
@@ -130,14 +132,18 @@ module.exports = {
             },
           },
           {
-            loader: 'fast-sass-loader',
+            loader: 'sass-loader',
             options: {
-              includePaths: [path.resolve(__dirname, '..', 'node_modules')],
-              data: `
+              additionalData: `
                 $feature-flags: (
                   enable-css-custom-properties: true,
                 );
               `,
+              implementation: sass,
+              webpackImporter: false,
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, '..', 'node_modules')],
+              },
             },
           },
         ],
