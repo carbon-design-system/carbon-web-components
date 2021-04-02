@@ -134,15 +134,15 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
+              additionalData: `
+                $feature-flags: (
+                  enable-css-custom-properties: true,
+                );
+              `,
               implementation: sass,
               webpackImporter: false,
               sassOptions: {
                 includePaths: [path.resolve(__dirname, '..', 'node_modules')],
-                data: `
-                  $feature-flags: (
-                    enable-css-custom-properties: true,
-                  );
-                `,
               },
             },
           },
