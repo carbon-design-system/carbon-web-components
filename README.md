@@ -75,16 +75,16 @@ Our example at [CodeSandbox](https://codesandbox.io) shows the most basic usage:
 
 [![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/basic)
 
-The first thing you need is **setting up a module bundler** to resolve ECMAScript `import`s. Above example uses [Webpack](https://webpack.js.org). You can use other bundlers like [Rollup](https://rollupjs.org/), too.
+The first thing you need is **setting up a module bundler** to resolve ECMAScript `import`s. Above example uses [Webpack](https://webpack.js.org). You can use other bundlers like [Rollup](https://rollupjs.org/) too.
 
-Once you set up a module bundler, you can start importing our component modules, like:
+Once you set up a module bundler, you can start importing our component modules, for example:
 
 ```javascript
 import 'carbon-web-components/es/components/dropdown/dropdown.js';
 import 'carbon-web-components/es/components/dropdown/dropdown-item.js';
 ```
 
-Once you do that, you can use our components in the same manner as native HTML tags, like:
+Once you do that, you can use our components in the same manner as native HTML tags, for example:
 
 ```html
 <bx-dropdown trigger-content="Select an item">
@@ -96,7 +96,7 @@ Once you do that, you can use our components in the same manner as native HTML t
 </bx-dropdown>
 ```
 
-If you just want to try our components for demonstrations, etc., you can use CDNs that support module mapping (e.g. [JSPM](https://jspm.org)). With it, you can just import our modules in `<script type="module">`:
+If you just want to try our components for demonstrations and so on, you can use CDNs that support module mapping (for example, [JSPM](https://jspm.org)). With it, you can import just our modules in `<script type="module">`:
 
 ```html
 <!DOCTYPE html>
@@ -137,7 +137,7 @@ If you just want to try our components for demonstrations, etc., you can use CDN
 
 [![Edit carbon-web-components with Angular](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/angular)
 
-Angular users can use our components in the same manner as native HTML tags, too, once you add [`CUSTOM_ELEMENTS_SCHEMA`](https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA) schema to your Angular module, like:
+Angular users can use our components in the same manner as native HTML tags, too, once you add [`CUSTOM_ELEMENTS_SCHEMA`](https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA) schema to your Angular module, for example:
 
 ```javascript
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
