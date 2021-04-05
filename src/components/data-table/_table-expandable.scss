@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2020
+// Copyright IBM Corp. 2020, 2021
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -12,7 +12,7 @@
     width: 2.5rem;
     height: 3rem;
     vertical-align: middle;
-    padding: 0 $spacing-05;
+    padding: 0;
     border-bottom: 1px solid $ui-03;
     transition: transform $duration--moderate-01 motion(standard, productive);
   }
