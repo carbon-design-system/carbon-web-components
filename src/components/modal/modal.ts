@@ -197,7 +197,7 @@ class BXModal extends HostListenerMixin(LitElement) {
     });
     return html`
       <a id="start-sentinel" class="${prefix}--visually-hidden" href="javascript:void 0" role="navigation"></a>
-      <div part="dialog" class=${containerClasses} role="dialog" tabidnex="-1" @click=${this._handleClickContainer}>
+      <div part="dialog" class=${containerClasses} role="dialog" tabindex="-1" @click=${this._handleClickContainer}>
         <slot></slot>
       </div>
       <a id="end-sentinel" class="${prefix}--visually-hidden" href="javascript:void 0" role="navigation"></a>
