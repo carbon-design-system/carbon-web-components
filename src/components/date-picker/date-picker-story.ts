@@ -1,5 +1,5 @@
 /**
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -30,6 +30,7 @@ const sizes = {
 const knobs = {
   'bx-date-picker': () => ({
     dateFormat: textNullable('The date format (date-format)', 'm/d/Y'),
+    disabled: boolean('Disabled (disabled in <bx-date-picker-input>)', false),
     enabledRange: textNullable('Minimum/maximum dates in ISO8601 date format, separated by `/` (enabled-range)', ''),
     open: boolean('Open (open)', false),
     value: textNullable('Value in ISO8601 date format, separated by `/` (value)', ''),
@@ -38,7 +39,6 @@ const knobs = {
   }),
   'bx-date-picker-input': () => ({
     colorScheme: select('Color scheme (color-scheme in <bx-date-picker-input>)', colorSchemes, null),
-    disabled: boolean('Disabled (disabled in <bx-date-picker-input>)', false),
     hideLabel: boolean('Hide label (hide-label in <bx-date-picker-input>)', false),
     invalid: boolean('Show invalid state  (invalid)', false),
     labelText: textNullable('Label text (label-text in <bx-date-picker-input>)', 'Date Picker label'),
@@ -55,13 +55,13 @@ const sizesHorizontal = {
 };
 
 export const Default = args => {
-  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, sizeHorizontal, validityMessage } =
+  const { disabled, name, value } = args?.['bx-date-picker'] ?? {};
+  const { colorScheme, hideLabel, invalid, labelText, placeholder, size, sizeHorizontal, validityMessage } =
     args?.['bx-date-picker-input'] ?? {};
   return html`
-    <bx-date-picker>
+    <bx-date-picker ?disabled="${disabled}" name="${ifNonNull(name)}" value="${ifNonNull(value)}">
       <bx-date-picker-input
         color-scheme="${ifNonNull(colorScheme)}"
-        ?disabled="${disabled}"
         ?hide-label="${hideLabel}"
         ?invalid="${invalid}"
         label-text="${ifNonNull(labelText)}"
@@ -87,13 +87,15 @@ Default.parameters = {
 };
 
 export const singleWithCalendar = args => {
-  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'] ?? {};
-  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } =
+  const { dateFormat, disabled, enabledRange, name, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'] ?? {};
+  const { colorScheme, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } =
     args?.['bx-date-picker-input'] ?? {};
   return html`
     <bx-date-picker
       date-format="${ifNonNull(dateFormat)}"
+      ?disabled="${disabled}"
       enabled-range="${ifNonNull(enabledRange)}"
+      name="${ifNonNull(name)}"
       ?open="${open}"
       value="${ifNonNull(value)}"
       @bx-date-picker-changed="${onChanged}"
@@ -101,7 +103,6 @@ export const singleWithCalendar = args => {
     >
       <bx-date-picker-input
         color-scheme="${ifNonNull(colorScheme)}"
-        ?disabled="${disabled}"
         ?hide-label="${hideLabel}"
         ?invalid="${invalid}"
         kind="single"
@@ -123,13 +124,15 @@ singleWithCalendar.parameters = {
 };
 
 export const rangeWithCalendar = args => {
-  const { dateFormat, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'] ?? {};
-  const { colorScheme, disabled, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } =
+  const { dateFormat, disabled, enabledRange, name, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'] ?? {};
+  const { colorScheme, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } =
     args?.['bx-date-picker-input'] ?? {};
   return html`
     <bx-date-picker
       date-format="${ifNonNull(dateFormat)}"
+      ?disabled="${disabled}"
       enabled-range="${ifNonNull(enabledRange)}"
+      name="${ifNonNull(name)}"
       ?open="${open}"
       value="${ifNonNull(value)}"
       @bx-date-picker-changed="${onChanged}"
@@ -137,7 +140,6 @@ export const rangeWithCalendar = args => {
     >
       <bx-date-picker-input
         color-scheme="${ifNonNull(colorScheme)}"
-        ?disabled="${disabled}"
         ?hide-label="${hideLabel}"
         ?invalid="${invalid}"
         kind="from"
@@ -150,7 +152,6 @@ export const rangeWithCalendar = args => {
       </bx-date-picker-input>
       <bx-date-picker-input
         color-scheme="${ifNonNull(colorScheme)}"
-        ?disabled="${disabled}"
         ?hide-label="${hideLabel}"
         ?invalid="${invalid}"
         kind="to"

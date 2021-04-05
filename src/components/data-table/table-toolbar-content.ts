@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -24,6 +24,12 @@ class BXTableToolbarContent extends LitElement {
    */
   @property({ type: Boolean, reflect: true, attribute: 'has-batch-actions' })
   hasBatchActions = false;
+
+  updated(changedProperties) {
+    if (changedProperties.has('hasBatchActions')) {
+      this.setAttribute('tabindex', `${this.hasBatchActions ? '-1' : ''}`);
+    }
+  }
 
   render() {
     return html`

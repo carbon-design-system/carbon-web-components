@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,6 +17,7 @@ import './drop-container';
 import { FILE_UPLOADER_ITEM_SIZE, FILE_UPLOADER_ITEM_STATE } from './file-uploader-item';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import { FileData } from './stories/types';
+import storyDocs from './file-uploader-story.mdx';
 
 const sizes = {
   'Regular size': null,
@@ -243,6 +244,7 @@ Default.storyName = 'Default';
 export default {
   title: 'Components/File uploader',
   parameters: {
+    ...storyDocs.parameters,
     knobs: {
       'bx-file-uploader': () => ({
         helperText: textNullable('Helper text (helper-text)', 'Only .jpg and .png files. 500kb max file size'),
