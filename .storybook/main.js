@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,6 +10,7 @@
 'use strict';
 
 const path = require('path');
+const sass = require('node-sass');
 const rtlcss = require('rtlcss');
 const deepReplace = require('../tools/deep-replace');
 
@@ -81,13 +82,13 @@ module.exports = {
     // Supports `*-story.mdx`
     config.module.rules = deepReplace(
       config.module.rules,
-      (value, key) => key === 'test' && testMatches(value, 'button.stories.mdx') && !testMatches(value, 'button-story.mdx'),
-      value => [...arrayify(value), /\-story(\-(angular|react|vue))?.mdx$/]
+      (value, key) => key === 'test' && testMatches(value, 'button.stories.mdx') && !testMatches(value, 'foo.mdx'),
+      value => [...arrayify(value), /\-story(\-(angular|react|vue))\.mdx$/]
     );
     config.module.rules = deepReplace(
       config.module.rules,
-      (value, key) => key === 'exclude' && testMatches(value, 'button.stories.mdx') && !testMatches(value, 'button-story.mdx'),
-      value => [...arrayify(value), /\-story(\-(angular|react|vue))?.mdx$/]
+      (value, key) => key === 'exclude' && testMatches(value, 'button.stories.mdx') && !testMatches(value, 'foo.mdx'),
+      value => [...arrayify(value), /\-story(\-(angular|react|vue))\.mdx$/]
     );
 
     config.module.rules.push(
@@ -116,6 +117,7 @@ module.exports = {
         test: /\.scss$/,
         sideEffects: true,
         use: [
+          'cache-loader',
           require.resolve('../tools/css-result-loader'),
           {
             loader: 'postcss-loader',
@@ -130,14 +132,18 @@ module.exports = {
             },
           },
           {
-            loader: 'fast-sass-loader',
+            loader: 'sass-loader',
             options: {
-              includePaths: [path.resolve(__dirname, '..', 'node_modules')],
-              data: `
+              additionalData: `
                 $feature-flags: (
                   enable-css-custom-properties: true,
                 );
               `,
+              implementation: sass,
+              webpackImporter: false,
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, '..', 'node_modules')],
+              },
             },
           },
         ],

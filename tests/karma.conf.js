@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -12,6 +12,7 @@
 /* eslint-disable global-require */
 
 const path = require('path');
+const sass = require('node-sass');
 
 function normalizeBrowser(browser) {
   return (
@@ -158,15 +159,19 @@ module.exports = function setupKarma(config) {
                 },
               },
               {
-                loader: 'fast-sass-loader',
+                loader: 'sass-loader',
                 options: {
-                  includePaths: [path.resolve(__dirname, '..', 'node_modules')],
-                  data: `
+                  additionalData: `
                     $feature-flags: (
                       grid: ${useExperimentalFeatures},
                       ui-shell: true,
                     );
                   `,
+                  implementation: sass,
+                  webpackImporter: false,
+                  sassOptions: {
+                    includePaths: [path.resolve(__dirname, '..', 'node_modules')],
+                  },
                 },
               },
             ],

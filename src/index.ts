@@ -12,6 +12,8 @@ export { default as BXAccordionItem } from './components/accordion/accordion-ite
 export { default as BXButton } from './components/button/button';
 export { default as BXButtonSkeleton } from './components/button/button-skeleton';
 export { default as BXBreadcrumb } from './components/breadcrumb/breadcrumb';
+export { default as BXBreadcrumbItem } from './components/breadcrumb/breadcrumb-item';
+export { default as BXBreadcrumbLink } from './components/breadcrumb/breadcrumb-link';
 export { default as BXCheckbox } from './components/checkbox/checkbox';
 export { default as BXCodeSnippet } from './components/code-snippet/code-snippet';
 export { default as BXCodeSnippetSkeleton } from './components/code-snippet/code-snippet-skeleton';
