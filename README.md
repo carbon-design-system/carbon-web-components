@@ -144,9 +144,12 @@ If you just want to try our components for demonstrations and so on, you can use
 ## JavaScript framework support
 
 In addition to the available Web Component versions of Carbon components, this
-library also supports usage with JavaScript frameworks such as Angular, React,
+library also supports usage with JavaScript frameworks like Angular, React,
 and Vue if the desire is to use instead of the pure framework versions of
-Carbon components.
+Carbon components. Specifically for React, this library comes with a wrapper
+implementation around the Carbon Web Components for more seamless integration
+with your React application.
+
 This is achievable since Web Components is the modern browser standard, and
 works well with other front-end frameworks that exist in the application. In
 turn, this also comes with the benefits of encapsulation within the Shadow DOM:
