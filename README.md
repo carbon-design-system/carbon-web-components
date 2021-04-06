@@ -38,10 +38,11 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 
 - [Getting started](#getting-started)
   - [Basic usage](#basic-usage)
+  - [Other usage guides](#other-usage-guides)
+- [JavaScript framework support](#javascript-framework-support)
   - [Angular](#angular)
   - [React](#react)
   - [Vue](#vue)
-  - [Other usage guides](#other-usage-guides)
 - [Getting started with development](#getting-started-with-development)
 - [Running React/Angular/Vue Storybook demo](#running-reactangularvue-storybook-demo)
 - [List of available components](#list-of-available-components)
@@ -50,6 +51,7 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 - [Creating build](#creating-build)
 - [Running unit test](#running-unit-test)
 - [Running build integration test](#running-build-integration-test)
+- [Running UI integration test](#running-ui-integration-test)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -133,6 +135,25 @@ If you just want to try our components for demonstrations and so on, you can use
 </html>
 ```
 
+### Other usage guides
+
+- [Having components participate in form](./docs/form.md)
+- [Using custom styles in components](./docs/styling.md)
+- [Using `carbon-web-components` with old build toolchain](./docs/old-build-toolchain.md)
+
+## JavaScript framework support
+
+In addition to the available Web Component versions of Carbon components, this
+library also supports usage with JavaScript frameworks like Angular, React,
+and Vue if the desire is to use instead of the pure framework versions of
+Carbon components. Specifically for React, this library comes with a wrapper
+implementation around the Carbon Web Components for more seamless integration
+with your React application.
+
+This is achievable since Web Components is the modern browser standard, and
+works well with other front-end frameworks that exist in the application. In
+turn, this also comes with the benefits of encapsulation within the Shadow DOM:
+
 ### Angular
 
 [![Edit carbon-web-components with Angular](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/angular)
@@ -199,12 +220,6 @@ Same Node version requirement applies to Next.js:
 [![Edit carbon-web-components with Vue](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/vue)
 
 Vue users can use our components in the same manner as native HTML tags, without any additional steps!
-
-### Other usage guides
-
-- [Having components participate in form](./docs/form.md)
-- [Using custom styles in components](./docs/styling.md)
-- [Using `carbon-web-components` with old build toolchain](./docs/old-build-toolchain.md)
 
 ## Getting started with development
 
