@@ -189,6 +189,24 @@ describe('bx-combo-box', function() {
       expect((elem.shadowRoot!.getElementById('trigger-label') as HTMLInputElement).value).toBe('Option 1');
     });
 
+    it('should provide a way to cancel clearing selection', async function() {
+      events.on(elem, 'bx-combo-box-beingselected', (event: CustomEvent) => {
+        expect(event.detail.item).toBeUndefined();
+        event.preventDefault();
+      });
+      const inner = elem.shadowRoot!.querySelector('div[role="listbox"]');
+      (elem.shadowRoot!.querySelector('.bx--list-box__selection') as HTMLElement).click();
+      await Promise.resolve();
+      expect((elem as BXComboBox).value).toBe('all');
+      expect(inner!.classList.contains('bx--list-box--expanded')).toBe(true);
+      expect(itemNodes[0].hasAttribute('selected')).toBe(true);
+      expect(itemNodes[1].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[2].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[3].hasAttribute('selected')).toBe(false);
+      expect(itemNodes[4].hasAttribute('selected')).toBe(false);
+      expect((elem.shadowRoot!.getElementById('trigger-label') as HTMLInputElement).value).toBe('Option 1');
+    });
+
     it('should reflect the added child to the selection', async function() {
       const itemNode = document.createElement('bx-combo-box-item');
       itemNode.textContent = 'text-added';
