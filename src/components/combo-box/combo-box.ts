@@ -121,7 +121,7 @@ class BXComboBox extends BXDropdown {
     this._filterInputValue = '';
     this._filterInputNode.focus();
     this.open = false;
-    this.requestUpdate();
+    this.value = '';
   }
 
   protected _handleUserInitiatedSelectItem(item?: BXComboBoxItem) {
