@@ -86,7 +86,7 @@ import 'carbon-web-components/es/components/dropdown/dropdown.js';
 import 'carbon-web-components/es/components/dropdown/dropdown-item.js';
 ```
 
-nce you've imported the component modules, you can use our components in the same manner as native HTML tags, for example:
+Once you've imported the component modules, you can use our components in the same manner as native HTML tags, for example:
 
 ```html
 <bx-dropdown trigger-content="Select an item">
