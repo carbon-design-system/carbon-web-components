@@ -77,7 +77,7 @@ Our example at [CodeSandbox](https://codesandbox.io) shows the most basic usage:
 
 [![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/basic)
 
-The first thing you need is **setting up a module bundler** to resolve ECMAScript `import`s. Above example uses [Webpack](https://webpack.js.org). You can use other bundlers like [Rollup](https://rollupjs.org/) too.
+The first thing you need is **setting up a module bundler** to resolve ECMAScript `import`s. The above example uses [Webpack](https://webpack.js.org), but you can use other bundlers like [Rollup](https://rollupjs.org/) too.
 
 Once you set up a module bundler, you can start importing our component modules, for example:
 
@@ -86,7 +86,7 @@ import 'carbon-web-components/es/components/dropdown/dropdown.js';
 import 'carbon-web-components/es/components/dropdown/dropdown-item.js';
 ```
 
-Once you do that, you can use our components in the same manner as native HTML tags, for example:
+Once you've imported the component modules, you can use our components in the same manner as native HTML tags, for example:
 
 ```html
 <bx-dropdown trigger-content="Select an item">
@@ -98,7 +98,7 @@ Once you do that, you can use our components in the same manner as native HTML t
 </bx-dropdown>
 ```
 
-If you just want to try our components for demonstrations and so on, you can use CDNs that support module mapping (for example, [JSPM](https://jspm.org)). With it, you can import just our modules in `<script type="module">`:
+If you just want to try our components for demonstrations and so on, you can use CDNs that support module mapping (for example, [JSPM](https://jspm.org)). With CDNs, you can import just our modules in `<script type="module">`:
 
 ```html
 <!DOCTYPE html>
