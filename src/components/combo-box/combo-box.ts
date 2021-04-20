@@ -120,8 +120,7 @@ class BXComboBox extends BXDropdown {
     });
     this._filterInputValue = '';
     this._filterInputNode.focus();
-    this.open = false;
-    this.requestUpdate();
+    this._handleUserInitiatedSelectItem();
   }
 
   protected _handleUserInitiatedSelectItem(item?: BXComboBoxItem) {
@@ -139,6 +138,18 @@ class BXComboBox extends BXDropdown {
       this.requestUpdate();
     }
     super._handleUserInitiatedSelectItem(item);
+  }
+
+  protected _selectionDidChange(itemToSelect?: BXComboBoxItem) {
+    this.value = !itemToSelect ? '' : itemToSelect.value;
+    forEach(this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItemSelected), item => {
+      (item as BXComboBoxItem).selected = false;
+    });
+    if (itemToSelect) {
+      itemToSelect.selected = true;
+      this._assistiveStatusText = this.selectedItemAssistiveText;
+    }
+    this._handleUserInitiatedToggle(false);
   }
 
   protected _renderTriggerContent(): TemplateResult {
