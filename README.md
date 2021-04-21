@@ -17,11 +17,6 @@ A Carbon Design System variant that's as easy to use as native HTML elements, wi
   </a>
 </p>
 <p align="center">
-  <a href="https://www.netlify.com" target="_blank">
-    <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg"/>
-  </a>
-</p>
-<p align="center">
   <a href="https://percy.io/538fc19a/Carbon-Web-Components">
     <img src="https://percy.io/static/images/percy-badge.svg" alt="This project is using Percy.io for visual regression testing" />
   </a>
