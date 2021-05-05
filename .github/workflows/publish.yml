@@ -1,0 +1,39 @@
+name: Publish carbon-web-components to NPM
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --offline
+      - name: Build project
+        run: yarn build
+      - name: Publish to NPM
+        id: publish
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+      - name: Create CHANGELOG
+        if: steps.publish.outputs.version != steps.publish.outputs['old-version']
+        uses: heinrichreimer/github-changelog-generator-action@v2.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sinceTag: v${{ steps.publish.outputs['old-version'] }}
+      - name: Create Github Release
+        if: steps.publish.outputs.version != steps.publish.outputs['old-version']
+        uses: ncipollo/release-action@v1
+        with:
+          bodyFile: "CHANGELOG.md"
+          tag: v${{ steps.publish.outputs.version }}
+          commit: master
+          token: ${{ secrets.GITHUB_TOKEN }}
