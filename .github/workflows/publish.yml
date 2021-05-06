@@ -23,17 +23,18 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-      - name: Create CHANGELOG
-        if: steps.publish.outputs.version != steps.publish.outputs['old-version']
-        uses: heinrichreimer/github-changelog-generator-action@v2.2
+      - name: Conventional Changelog Action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sinceTag: v${{ steps.publish.outputs['old-version'] }}
+          github-token: ${{ secrets.github_token }}
+          release-count: 1
+          output-file: "false"
       - name: Create Github Release
         if: steps.publish.outputs.version != steps.publish.outputs['old-version']
         uses: ncipollo/release-action@v1
         with:
-          bodyFile: "CHANGELOG.md"
+          body: ${{ steps.changelog.outputs.clean_changelog }}
           tag: v${{ steps.publish.outputs.version }}
           commit: master
           token: ${{ secrets.GITHUB_TOKEN }}
