@@ -29,6 +29,8 @@ jobs:
         with:
           github-token: ${{ secrets.github_token }}
           release-count: 1
+          skip-version-file: 'true'
+          skip-commit: 'true'
           output-file: "false"
       - name: Create Github Release
         if: steps.publish.outputs.version != steps.publish.outputs['old-version']
