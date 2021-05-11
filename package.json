@@ -109,7 +109,7 @@
     "@babel/preset-react": "^7.10.0",
     "@babel/template": "^7.10.0",
     "@babel/traverse": "^7.11.0",
-    "@carbon/icon-helpers": "^10.15.0",
+    "@carbon/icon-helpers": "^10.16.0",
     "@carbon/icons": "^10.31.0",
     "@carbon/icons-angular": "^10.8.0",
     "@carbon/icons-react": "^10.31.0",
