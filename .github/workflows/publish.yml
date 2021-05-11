@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - fix/publish-changelog
 
 jobs:
   publish:
@@ -23,20 +24,17 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-      - name: Conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          github-token: ${{ secrets.github_token }}
-          release-count: 1
-          skip-version-file: 'true'
-          skip-commit: 'true'
-          output-file: "false"
+          dry-run: true
+      - name: Create changelog
+        if: steps.publish.outputs.version != steps.publish.outputs['old-version']
+        run: |
+          npm install -g conventional-changelog-cli
+          CHANGELOG=$(conventional-changelog -r 1)
       - name: Create Github Release
         if: steps.publish.outputs.version != steps.publish.outputs['old-version']
         uses: ncipollo/release-action@v1
         with:
-          body: ${{ steps.changelog.outputs.clean_changelog }}
+          body: ${{ env.CHANGELOG }}
           tag: v${{ steps.publish.outputs.version }}
-          commit: master
+          commit: fix/publish-changelog
           token: ${{ secrets.GITHUB_TOKEN }}
