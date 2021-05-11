@@ -1,6 +1,6 @@
 {
   "name": "carbon-web-components",
-  "version": "1.13.2",
+  "version": "1.13.3",
   "license": "Apache-2.0",
   "main": "es/index.js",
   "module": "es/index.js",
