@@ -19,7 +19,7 @@
   align-items: center;
   justify-content: center;
   content: '';
-  background-color: transparent;
+  background-color: $overlay;
   opacity: 0;
   visibility: hidden;
   transition: background-color $duration--slow-02 motion(exit, expressive),
@@ -69,10 +69,6 @@
       }
     }
   }
-}
-
-:host(#{$prefix}-modal[open]) {
-  @extend .#{$prefix}--modal.is-visible;
 }
 
 :host(#{$prefix}-modal-header) {
