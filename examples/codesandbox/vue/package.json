@@ -7,7 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "carbon-components": "~10.32.0",
+    "carbon-components": "~10.34.0",
     "carbon-web-components": "^1.0.0",
     "lit-element": "~2.2.0",
     "lit-html": "^1.2.0",
@@ -30,7 +30,11 @@
       "autoprefixer": {}
     }
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "eslintConfig": {
     "parser": "vue-eslint-parser",
     "parserOptions": {
