@@ -226,7 +226,7 @@
     "null-loader": "^2.0.0",
     "playwright": "^1.0.0",
     "polymer-webpack-loader": "^2.0.0",
-    "postcss": "^7.0.0",
+    "postcss": "^8.2.10",
     "postcss-loader": "^3.0.0",
     "postcss-selector-parser": "^6.0.0",
     "prettier": "^1.19.0",
