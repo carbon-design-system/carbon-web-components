@@ -3756,38 +3756,38 @@
   resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-10.5.1.tgz#a13426cf137eb6080cfe46405a567bd470b597a3"
   integrity sha512-CPNDoDQYjCGg51WfI7w2Iwgz0S+svh0E3hWh3aybnDMhUPlikz8QFiWNpD55NSXAYe1C21CtRla6Rgxa1EkmNg==
 
-"@carbon/icon-helpers@^10.16.0":
-  version "10.16.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-10.16.0.tgz#66f20b9bba49c6ec4c956b8e9e7ec65bdf40da8f"
-  integrity sha512-cN1sM0xvlDEN1pYPDWoHcikGysCTnfA49/12H92dBkn14fpRmB87shIe3hzKlW6h4QP7CrnF0hB5SCkA2KC7Ng==
+"@carbon/icon-helpers@^10.17.0":
+  version "10.17.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-10.17.0.tgz#0360d15c61006d3c3360e7d2636c1ec6d75e7002"
+  integrity sha512-/Tpi+Kz3bCjwS9gTOS+wibstOsEHYsoz67nrGyZ1BbX1fhzaHL++ZgSdkPDbu80KobYcYg6eVBrMh9v1LXFlNQ==
 
-"@carbon/icons-angular@^10.8.0":
-  version "10.8.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-angular/-/icons-angular-10.8.0.tgz#8e1bf8ad77a12d882f37261136908b4138657ebc"
-  integrity sha512-XTkxEucy8YWSXWoMn0v1iEsAhnu7QV3pDZQ4N8sbDjXg632l/kmVpYz9TZUz8wB4O6wN8mzbNt7TWrwsfeHC7g==
+"@carbon/icons-angular@^10.8.3":
+  version "10.8.3"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-angular/-/icons-angular-10.8.3.tgz#374369a5e27e491c2b63bcabb3f0d3f1d54b6ebd"
+  integrity sha512-bVZ2HXiIepyOKlc/Ll7Y1xqO4LLPssU8JKe/ylJ24pt+JyJ89Fv0jYJds1ArafwTq89e+XZeUBpBsXeHjm3KfA==
   dependencies:
     "@carbon/icon-helpers" "10.5.1"
 
-"@carbon/icons-react@^10.31.0":
-  version "10.31.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-10.31.0.tgz#d1d79d00c72ae118bcf556d560e6efc1b362b751"
-  integrity sha512-9aUdErOQGZfPgjx+/tDw4lb0XHhkkwdHI/3Q74s3/OFxjcsl/MTbn36I15sanMqElBTAO3a/lU/mhFVnHqhjxw==
+"@carbon/icons-react@^10.32.0":
+  version "10.32.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-10.32.0.tgz#7dd4c188bf1f0db7b7e27e167318ac28b39e02e1"
+  integrity sha512-pTEJDRWZpqp4qwT37KXjeO3iSrnubqVrEad7pvBs+hL6Yqg/dx/Bt0Sxj1xPWA0v9Pd23xO4uAZEwnlRPotQZw==
   dependencies:
-    "@carbon/icon-helpers" "^10.16.0"
+    "@carbon/icon-helpers" "^10.17.0"
     "@carbon/telemetry" "0.0.0-alpha.6"
     prop-types "^15.7.2"
 
-"@carbon/icons-vue@^10.31.0":
-  version "10.31.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.31.0.tgz#de0ea29eb88353de0a1c5eec0c9c3d1a28fd1305"
-  integrity sha512-0byV+570cKak9GP6Zo9Ap5RevHy5r2xqps7Cq2GNoaBR/Dc0k7a7Y89n4Yj1d2R9rs8FuRO49mnbSNUAQmDBnA==
+"@carbon/icons-vue@^10.32.0":
+  version "10.32.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.32.0.tgz#cbb63aa8ebfa8395894baa116659e537771946e0"
+  integrity sha512-f9h6e5eOfOEgE4BeQbCjhn5ASJrjDKey1jBQRI/QNaMlIVgzbzAhMaV766Wh4apFSNhZZVJMAcIpJHBIvYEzzA==
   dependencies:
-    "@carbon/icon-helpers" "^10.16.0"
+    "@carbon/icon-helpers" "^10.17.0"
 
-"@carbon/icons@^10.31.0":
-  version "10.31.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons/-/icons-10.31.0.tgz#9af43e9d7874c9cac26ed1bfd562d5eff363fde7"
-  integrity sha512-w3yH/tV+/EMq7MOVPniFrQx24I9vZi5HORvDP7UKFf3G7Hqrp2FlM9yowre/fpcGoE7d134Z32gws5+dsuu78Q==
+"@carbon/icons@^10.32.0":
+  version "10.32.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons/-/icons-10.32.0.tgz#626e6b8b7c02d0e1f04caffc6444864541072866"
+  integrity sha512-waP9w3odynUHin6OcL4QWZHi9pI8q6q2+6hGbzbDCLAl92lB5w+X14WM5qwPTav2V5Qwit3tNOrf3xzn5vySPg==
 
 "@carbon/telemetry@0.0.0-alpha.6":
   version "0.0.0-alpha.6"
@@ -8350,10 +8350,10 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
-carbon-components@^10.34.0:
-  version "10.34.0"
-  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.34.0.tgz#38a8bc4e03193e09459b22caf0fe2c72a64a63e8"
-  integrity sha512-KgWIFvJv5lg0puFsjXwIqv99ew8u1gUnrjN6/0vmyz2T/sJxGkDuiGAUlZsjmpsF+z2weK9pDu4cutjHYId2Sg==
+carbon-components@^10.35.0:
+  version "10.35.0"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.35.0.tgz#2669d8f6f989a5dc96843c43a5ac12e4a9c3dfa7"
+  integrity sha512-1njVUjaN/+gVd5WkHPW4EkmweZvpsWOaUP2FgRglxLQNtRXbi902HJYsl9mufV3Op/oGvN4rSdtttxgYCf8YFg==
   dependencies:
     "@carbon/telemetry" "0.0.0-alpha.6"
     flatpickr "4.6.1"
@@ -22985,7 +22985,7 @@ walker@^1.0.7, walker@~1.0.5:
 
 warning@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.npmjs.org/warning/-/warning-3.0.0.tgz#32e5377cb572de4ab04753bdf8821c01ed605b7c"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-3.0.0.tgz#32e5377cb572de4ab04753bdf8821c01ed605b7c"
   integrity sha1-MuU3fLVy3kqwR1O9+IIcAe1gW3w=
   dependencies:
     loose-envify "^1.0.0"
