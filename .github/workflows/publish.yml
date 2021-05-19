@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - fix/publish-changelog
 
 jobs:
   publish:
@@ -26,7 +25,6 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-          dry-run: true
       - name: Create changelog
         if: steps.publish.outputs.version != steps.publish.outputs['old-version']
         env:
@@ -40,5 +38,5 @@ jobs:
         with:
           bodyFile: "CHANGELOG.md"
           tag: v${{ steps.publish.outputs.version }}
-          commit: fix/publish-changelog
+          commit: master
           token: ${{ secrets.GITHUB_TOKEN }}
