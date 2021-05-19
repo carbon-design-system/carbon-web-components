@@ -31,13 +31,12 @@ jobs:
           INPUT_TOKEN: ''
         run: |
           npm install -g conventional-changelog-cli
-          CHANGELOG="$(conventional-changelog -r 1)"
-          echo $CHANGELOG
+          conventional-changelog -r 1 >> CHANGELOG.md
       - name: Create Github Release
         if: steps.publish.outputs.version != steps.publish.outputs['old-version']
         uses: ncipollo/release-action@v1
         with:
-          body: ${{ env.CHANGELOG }}
+          bodyFile: "CHANGELOG.md"
           tag: v${{ steps.publish.outputs.version }}
           commit: fix/publish-changelog
           token: ${{ secrets.GITHUB_TOKEN }}

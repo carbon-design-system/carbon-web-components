@@ -12,3 +12,4 @@ tests/coverage
 .vscode
 .idea
 .env
+CHANGELOG.md
