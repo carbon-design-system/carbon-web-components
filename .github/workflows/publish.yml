@@ -1,4 +1,4 @@
-name: Publish carbon-web-components to NPM
+name: publish
 
 on:
   push:
@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+        with:
+          fetch-depth: 0
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
@@ -23,20 +25,18 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-      - name: Conventional Changelog Action
-        id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          github-token: ${{ secrets.github_token }}
-          release-count: 1
-          skip-version-file: 'true'
-          skip-commit: 'true'
-          output-file: "false"
+      - name: Create changelog
+        if: steps.publish.outputs.version != steps.publish.outputs['old-version']
+        env:
+          INPUT_TOKEN: ''
+        run: |
+          npm install -g conventional-changelog-cli
+          conventional-changelog -r 1 >> CHANGELOG.md
       - name: Create Github Release
         if: steps.publish.outputs.version != steps.publish.outputs['old-version']
         uses: ncipollo/release-action@v1
         with:
-          body: ${{ steps.changelog.outputs.clean_changelog }}
+          bodyFile: "CHANGELOG.md"
           tag: v${{ steps.publish.outputs.version }}
           commit: master
           token: ${{ secrets.GITHUB_TOKEN }}
