@@ -27,8 +27,9 @@ jobs:
           dry-run: true
       - name: Create changelog
         if: steps.publish.outputs.version != steps.publish.outputs['old-version']
+        env:
+          INPUT_TOKEN: ''
         run: |
-          rm -f ./.npmrc
           npm install -g conventional-changelog-cli
           CHANGELOG=$(conventional-changelog -r 1)
       - name: Create Github Release
