@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -20,6 +20,7 @@ export const inline = args => ({
       :title="title"
       :subtitle="subtitle"
       :hide-close-button="hideCloseButton"
+      :low-contrast="lowContrast"
       :close-button-label="closeButtonLabel"
       :icon-label="iconLabel"
       :open="open"
@@ -54,6 +55,7 @@ export const toast = args => ({
       :subtitle="subtitle"
       :caption="caption"
       :hide-close-button="hideCloseButton"
+      :low-contrast="lowContrast"
       :close-button-label="closeButtonLabel"
       :icon-label="iconLabel"
       :open="open"
