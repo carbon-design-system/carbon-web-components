@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -174,6 +174,12 @@ class BXInlineNotification extends FocusMixin(LitElement) {
    */
   @property({ reflect: true })
   kind = NOTIFICATION_KIND.SUCCESS;
+
+  /**
+   * Low contrast mode
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'low-contrast' })
+  lowContrast = false;
 
   /**
    * `true` if the notification should be open.
