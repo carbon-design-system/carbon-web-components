@@ -15,6 +15,7 @@ import { html, property, query, customElement, LitElement } from 'lit-element';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import FocusMixin from '../../globals/mixins/focus';
+import FormMixin from '../../globals/mixins/form';
 import HostListenerMixin from '../../globals/mixins/host-listener';
 import ValidityMixin from '../../globals/mixins/validity';
 import HostListener from '../../globals/decorators/host-listener';
@@ -45,7 +46,7 @@ const { prefix } = settings;
  * @fires bx-dropdown-toggled - The custom event fired after the open state of this dropdown is toggled upon a user gesture.
  */
 @customElement(`${prefix}-dropdown`)
-class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))) {
+class BXDropdown extends ValidityMixin(HostListenerMixin(FormMixin(FocusMixin(LitElement)))) {
   /**
    * The latest status of this dropdown, for screen reader to accounce.
    */
@@ -345,6 +346,18 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
   /* eslint-enable class-methods-use-this */
 
   /**
+   * Handles event to include selected value on the parent form.
+   * @param event The event.
+   */
+  _handleFormdata(event: Event) {
+    const { formData } = event as any; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
+    const { disabled, name, value } = this;
+    if (!disabled) {
+      formData.append(name, value);
+    }
+  }
+
+  /**
    * The color scheme.
    */
   @property({ attribute: 'color-scheme', reflect: true })
@@ -373,6 +386,12 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FocusMixin(LitElement))
    */
   @property({ attribute: 'label-text' })
   labelText = '';
+
+  /**
+   * Name for the dropdown in the `FormData`
+   */
+  @property()
+  name = '';
 
   /**
    * `true` if this dropdown should be open.
