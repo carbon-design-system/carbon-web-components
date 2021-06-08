@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -86,7 +86,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   private get _rate() {
     const { max, min, value } = this;
     // Copes with out-of-range value coming programmatically or from `<bx-slider-input>`
-    return Math.min(Number(max), Math.max(Number(min), value)) / (Number(max) - Number(min));
+    return Math.min(Number(max), Math.max(Number(min), value - Number(min))) / (Number(max) - Number(min));
   }
 
   private set _rate(rate: number) {
