@@ -80,6 +80,7 @@ class BXComboBox extends BXDropdown {
     const items = this.querySelectorAll((this.constructor as typeof BXComboBox).selectorItem);
     const index = !this._filterInputNode.value ? -1 : findIndex(items, this._testItemWithQueryText, this);
     forEach(items, (item, i) => {
+      if (i === index) item.scrollIntoView();
       (item as BXComboBoxItem).highlighted = i === index;
     });
     const { _filterInputNode: filterInput } = this;
