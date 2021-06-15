@@ -43,6 +43,23 @@ export enum LINK_SIZE {
  */
 @customElement(`${prefix}-link`)
 class BXLink extends FocusMixin(LitElement) {
+  /**
+   * `true` if there is an icon.
+   */
+  private _hasIcon = false;
+
+  /**
+   * Handles `slotchange` event.
+   */
+  private _handleSlotChange({ target }: Event) {
+    const { name } = target as HTMLSlotElement;
+    const hasContent = (target as HTMLSlotElement)
+      .assignedNodes()
+      .some(node => node.nodeType !== Node.TEXT_NODE || node!.textContent!.trim());
+    this[name === 'icon' ? '_hasIcon' : ''] = hasContent;
+    this.requestUpdate();
+  }
+
   @query('#link')
   protected _linkNode?: HTMLAnchorElement | HTMLParagraphElement;
 
@@ -69,8 +86,10 @@ class BXLink extends FocusMixin(LitElement) {
    */
   // eslint-disable-next-line class-methods-use-this
   protected _renderInner() {
+    const { _hasIcon: hasIcon, _handleSlotChange: handleSlotChange } = this;
     return html`
-      <slot></slot>
+      <slot @slotchange="${handleSlotChange}"></slot>
+      <div ?hidden="${!hasIcon}" class="${prefix}--link__icon"><slot name="icon" @slotchange="${handleSlotChange}"></slot></div>
     `;
   }
 
