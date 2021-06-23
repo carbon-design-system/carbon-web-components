@@ -51,7 +51,7 @@ class BXLink extends FocusMixin(LitElement) {
   /**
    * Handles `slotchange` event.
    */
-  private _handleSlotChange({ target }: Event) {
+  protected _handleSlotChange({ target }: Event) {
     const { name } = target as HTMLSlotElement;
     const hasContent = (target as HTMLSlotElement)
       .assignedNodes()
