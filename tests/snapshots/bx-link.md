@@ -13,6 +13,13 @@
 >
   <slot>
   </slot>
+  <div
+    class="bx--link__icon"
+    hidden=""
+  >
+    <slot name="icon">
+    </slot>
+  </div>
 </a>
 
 ```
@@ -35,6 +42,13 @@
 >
   <slot>
   </slot>
+  <div
+    class="bx--link__icon"
+    hidden=""
+  >
+    <slot name="icon">
+    </slot>
+  </div>
 </a>
 
 ```
@@ -49,6 +63,15 @@
 >
   <slot>
   </slot>
+</p>
+<div
+  class="bx--link__icon"
+  hidden=""
+>
+  <slot name="icon">
+  </slot>
+</div>
+<p>
 </p>
 
 ```

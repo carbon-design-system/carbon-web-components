@@ -84,6 +84,12 @@ class BXButton extends FocusMixin(LitElement) {
   iconLayout = BUTTON_ICON_LAYOUT.REGULAR;
 
   /**
+   * `true` if expressive theme enabled.
+   */
+  @property({ type: Boolean, reflect: true })
+  isExpressive = false;
+
+  /**
    * Button kind.
    */
   @property({ reflect: true })
@@ -139,6 +145,7 @@ class BXButton extends FocusMixin(LitElement) {
       download,
       href,
       hreflang,
+      isExpressive,
       linkRole,
       kind,
       ping,
@@ -155,8 +162,11 @@ class BXButton extends FocusMixin(LitElement) {
       [`${prefix}--btn--${kind}`]: kind,
       [`${prefix}--btn--disabled`]: disabled,
       [`${prefix}--btn--icon-only`]: hasIcon && !hasMainContent,
-      [`${prefix}--btn--${size}`]: size,
+      [`${prefix}--btn--sm`]: size === 'sm' && !isExpressive,
+      [`${prefix}--btn--xl`]: size === 'xl',
+      [`${prefix}--btn--field`]: size === 'field' && !isExpressive,
       [`${prefix}-ce--btn--has-icon`]: hasIcon,
+      [`${prefix}--btn--expressive`]: isExpressive,
     });
     if (href) {
       return disabled

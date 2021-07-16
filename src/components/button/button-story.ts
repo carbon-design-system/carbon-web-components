@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -43,7 +43,7 @@ const iconLayouts = {
 };
 
 export const Default = args => {
-  const { autofocus, disabled, download, href, hreflang, kind, linkRole, ping, rel, size, target, type, onClick } =
+  const { autofocus, disabled, download, href, hreflang, isExpressive, kind, linkRole, ping, rel, size, target, type, onClick } =
     args?.['bx-btn'] ?? {};
   return html`
     <bx-btn
@@ -52,6 +52,7 @@ export const Default = args => {
       download="${ifNonNull(download)}"
       href="${ifNonNull(href)}"
       hreflang="${ifNonNull(hreflang)}"
+      ?isExpressive="${isExpressive}"
       kind="${ifNonNull(kind)}"
       link-role="${ifNonNull(linkRole)}"
       ping="${ifNonNull(ping)}"
@@ -74,18 +75,20 @@ Default.parameters = {
       size: select('Button size (size)', sizes, null),
       href: textNullable('Link href (href)', ''),
       onClick: action('click'),
+      isExpressive: boolean('expressive (isExpressive)', false),
     }),
   },
 };
 
 export const icon = args => {
-  const { kind, disabled, size, href, onClick } = args?.['bx-btn'] ?? {};
+  const { kind, disabled, size, href, isExpressive, onClick } = args?.['bx-btn'] ?? {};
   return html`
     <bx-btn
       kind=${ifNonNull(kind)}
       ?disabled=${disabled}
       size=${ifNonNull(size)}
       href=${ifNonNull(href || undefined)}
+      ?isExpressive="${isExpressive}"
       @click=${onClick}
     >
       ${Add16({ slot: 'icon' })}
@@ -96,12 +99,13 @@ export const icon = args => {
 icon.parameters = Default.parameters;
 
 export const textAndIcon = args => {
-  const { kind, disabled, size, href, iconLayout, onClick } = args?.['bx-btn'] ?? {};
+  const { kind, disabled, size, href, iconLayout, isExpressive, onClick } = args?.['bx-btn'] ?? {};
   return html`
     <bx-btn
       kind=${ifNonNull(kind)}
       ?disabled=${disabled}
       icon-layout="${ifNonNull(iconLayout)}"
+      ?isExpressive="${isExpressive}"
       size=${ifNonNull(size)}
       href=${ifNonNull(href || undefined)}
       @click=${onClick}
@@ -122,14 +126,21 @@ textAndIcon.parameters = {
       size: select('Button size (size)', sizes, null),
       href: textNullable('Link href (href)', ''),
       onClick: action('click'),
+      isExpressive: boolean('expressive (isExpressive)', false),
     }),
   },
 };
 
 export const skeleton = args => {
-  const { disabled, size, href, onClick } = args?.['bx-btn-skeleton'];
+  const { disabled, size, href, isExpressive, onClick } = args?.['bx-btn-skeleton'];
   return html`
-    <bx-btn-skeleton ?disabled=${disabled} size=${ifNonNull(size)} href=${ifNonNull(href || undefined)} @click=${onClick}>
+    <bx-btn-skeleton
+      ?disabled=${disabled}
+      size=${ifNonNull(size)}
+      href=${ifNonNull(href || undefined)}
+      ?isExpressive="${isExpressive}"
+      @click=${onClick}
+    >
     </bx-btn-skeleton>
   `;
 };
@@ -145,6 +156,7 @@ skeleton.parameters = {
       size: select('Button size (size)', sizes, null),
       href: textNullable('Link href (href)', ''),
       onClick: action('click'),
+      isExpressive: boolean('expressive (isExpressive)', false),
     }),
   },
 };
