@@ -29,6 +29,11 @@ $css--plex: true !default;
     margin-left: calc(#{rem(60px)} - #{$spacing-04} - #{$icon-size-01});
   }
 
+  &[isExpressive] ::slotted([slot='icon']) {
+    width: rem(20px);
+    height: rem(20px);
+  }
+
   &[icon-layout='condensed'] ::slotted([slot='icon']) {
     margin-left: $spacing-03;
   }

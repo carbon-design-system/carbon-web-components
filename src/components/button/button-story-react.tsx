@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -25,9 +25,9 @@ import {
 export { default } from './button-story';
 
 export const Default = args => {
-  const { kind, disabled, size, href } = args?.['bx-btn'];
+  const { kind, disabled, size, href, isExpressive } = args?.['bx-btn'];
   return (
-    <BXBtn kind={kind} disabled={disabled} size={size} href={href}>
+    <BXBtn kind={kind} disabled={disabled} size={size} href={href} isExpressive={isExpressive}>
       Button
     </BXBtn>
   );
@@ -36,9 +36,9 @@ export const Default = args => {
 Object.assign(Default, baseDefault);
 
 export const icon = args => {
-  const { kind, disabled, size, href } = args?.['bx-btn'];
+  const { kind, disabled, size, href, isExpressive } = args?.['bx-btn'];
   return (
-    <BXBtn kind={kind} disabled={disabled} size={size} href={href}>
+    <BXBtn kind={kind} disabled={disabled} size={size} href={href} isExpressive={isExpressive}>
       <Add16 slot="icon" />
     </BXBtn>
   );
@@ -47,9 +47,9 @@ export const icon = args => {
 Object.assign(icon, baseIcon);
 
 export const textAndIcon = args => {
-  const { kind, disabled, size, href, iconLayout } = args?.['bx-btn'];
+  const { kind, disabled, size, href, iconLayout, isExpressive } = args?.['bx-btn'];
   return (
-    <BXBtn kind={kind} disabled={disabled} size={size} href={href} iconLayout={iconLayout}>
+    <BXBtn kind={kind} disabled={disabled} size={size} href={href} iconLayout={iconLayout} isExpressive={isExpressive}>
       Button <Add16 slot="icon" />
     </BXBtn>
   );
@@ -58,8 +58,8 @@ export const textAndIcon = args => {
 Object.assign(textAndIcon, baseTextAndIcon);
 
 export const skeleton = args => {
-  const { disabled, size, href } = args?.['bx-btn-skeleton'];
-  return <BXBtnSkeleton disabled={disabled} size={size} href={href}></BXBtnSkeleton>;
+  const { disabled, size, href, isExpressive } = args?.['bx-btn-skeleton'];
+  return <BXBtnSkeleton disabled={disabled} size={size} href={href} isExpressive={isExpressive}></BXBtnSkeleton>;
 };
 
 Object.assign(skeleton, baseSkeleton);

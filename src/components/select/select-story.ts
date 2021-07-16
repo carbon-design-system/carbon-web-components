@@ -69,7 +69,7 @@ export const Default = args => {
       size="${ifNonNull(size)}"
       validity-message="${ifNonNull(validityMessage)}"
       value="${ifNonNull(value)}"
-      @input="${ifNonNull(onInput)}"
+      @bx-select-selected="${ifNonNull(onInput)}"
     >
       ${children}
     </bx-select>
@@ -88,7 +88,7 @@ Default.parameters = {
       size: select('Dropdown size (size)', sizes, null),
       validityMessage: textNullable('The validity message (validity-message)', ''),
       value: textNullable('The value of the selected item (value)', ''),
-      onInput: action('input'),
+      onInput: action('bx-select-selected'),
     }),
   },
 };

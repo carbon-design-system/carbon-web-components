@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Introduction/Form paticipation" />
+<Meta title="Introduction/Form participation" />
 
 # Having components participate in form
 
@@ -24,7 +24,7 @@ button.addEventListener('click', () => {
   });
   event.formData = formData;
   form.dispatchEvent(event);
-  // Now `formData` is populated with the data in `<bx-input>`, etc. in the `<form>`.
+  // Now `formData` is populated with the data in components such as `<bx-input>` or `<bx-dropdown>`, etc. in the `<form>`.
   // You can use `formData` with `fetch()`/XHR instead of letting `<form>` submit the data
 });
 ```
