@@ -13,3 +13,4 @@ tests/coverage
 .idea
 .env
 CHANGELOG.md
+.npmrc
