@@ -8,7 +8,7 @@
  */
 
 import { classMap } from 'lit-html/directives/class-map';
-import { html, customElement, LitElement, property } from 'lit-element';
+import { html, LitElement, property } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import styles from './list.scss';
 
@@ -17,7 +17,6 @@ const { prefix } = settings;
 /**
  * Ordered list.
  */
-@customElement(`${prefix}-unordered-list`)
 class BXUnorderedList extends LitElement {
   /**
    * `true` if expressive theme enabled.
@@ -56,6 +55,10 @@ class BXUnorderedList extends LitElement {
   }
 
   static styles = styles;
+}
+
+if (!customElements.get(`${prefix}-unordered-list`)) {
+  customElements.define(`${prefix}-unordered-list`, BXUnorderedList);
 }
 
 export default BXUnorderedList;

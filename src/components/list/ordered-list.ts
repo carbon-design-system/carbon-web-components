@@ -8,7 +8,7 @@
  */
 
 import { classMap } from 'lit-html/directives/class-map';
-import { html, customElement } from 'lit-element';
+import { html } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
 import BXUnorderedList from './unordered-list';
 
@@ -17,7 +17,6 @@ const { prefix } = settings;
 /**
  * Ordered list.
  */
-@customElement(`${prefix}-ordered-list`)
 class BXOrderedList extends BXUnorderedList {
   render() {
     const classes = classMap({
@@ -31,6 +30,10 @@ class BXOrderedList extends BXUnorderedList {
       </ol>
     `;
   }
+}
+
+if (!customElements.get(`${prefix}-ordered-list`)) {
+  customElements.define(`${prefix}-ordered-list`, BXOrderedList);
 }
 
 export default BXOrderedList;
