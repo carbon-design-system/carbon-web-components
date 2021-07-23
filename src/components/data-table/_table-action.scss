@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019
+// Copyright IBM Corp. 2019, 2021
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -55,10 +55,12 @@
   @extend .#{$prefix}--toolbar-action;
   @extend .#{$prefix}--toolbar-search-container-expandable;
 
+  flex: none;
+  transition: flex 175ms $carbon--standard-easing;
+
   .#{$prefix}--search {
-    width: $layout-04;
+    width: 100%;
     height: 100%;
-    position: initial;
 
     .#{$prefix}--search-magnifier {
       height: $layout-04;
@@ -85,6 +87,8 @@
 
 :host(#{$prefix}-table-toolbar-search[expanded]) {
   @extend .#{$prefix}--toolbar-search-container-active;
+
+  flex: auto;
 }
 
 :host(#{$prefix}-table-toolbar-search[persistent]) {
