@@ -56,7 +56,7 @@
   @extend .#{$prefix}--toolbar-search-container-expandable;
 
   flex: none;
-  transition: flex $duration--fast-02 motion(entrance, productive);
+  transition: flex 175ms $carbon--standard-easing;
 
   .#{$prefix}--search {
     width: 100%;
