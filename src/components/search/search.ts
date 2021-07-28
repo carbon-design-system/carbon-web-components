@@ -70,6 +70,10 @@ class BXSearch extends FocusMixin(LitElement) {
         })
       );
       this.value = '';
+
+      // set focus on back to input once search is cleared
+      const input = this.shadowRoot!.querySelector('input');
+      (input as HTMLElement).focus();
     }
   }
 
