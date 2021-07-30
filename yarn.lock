@@ -8352,10 +8352,10 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
-carbon-components@^10.40.0:
-  version "10.40.0"
-  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.40.0.tgz#59c339dd964624cd07802dc695ceed6f32a07ef7"
-  integrity sha512-tIc0qHVLilWCelkH56al4ILwZRA4AbbwJEFt0mnGtefmgQ3O1UJLm5/ybp7VnWeHwUnip7PljHSDwHUzQcj5zg==
+carbon-components@^10.40.1:
+  version "10.40.1"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.40.1.tgz#622625738718d6cbff0b09c94b9d57927c9a200d"
+  integrity sha512-cfbX61r76vWX7yfPHELB2tp68MUJnhNeAiGSCo1cgLmPBRqra4XXiQXymTR5UN4AEsJiuXjc9U0vivWsZdE9Ow==
   dependencies:
     "@carbon/telemetry" "0.0.0-alpha.6"
     flatpickr "4.6.1"
