@@ -3756,10 +3756,10 @@
   resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-10.5.1.tgz#a13426cf137eb6080cfe46405a567bd470b597a3"
   integrity sha512-CPNDoDQYjCGg51WfI7w2Iwgz0S+svh0E3hWh3aybnDMhUPlikz8QFiWNpD55NSXAYe1C21CtRla6Rgxa1EkmNg==
 
-"@carbon/icon-helpers@^10.20.0":
-  version "10.20.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-10.20.0.tgz#4e6752b984fcbfd5851af5c4dfdab5031bb4aa1d"
-  integrity sha512-Qe/xHnMDwji541+2ibn90eFI5xWh51SQ6ehmHncagNrPIJb3a+x1DMhQcAMUF6YKwGzSbb5VQfay5wFoxcaf+A==
+"@carbon/icon-helpers@^10.21.0":
+  version "10.21.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-10.21.0.tgz#446223e26afe436455cfffcc4da235e6a23dfe3f"
+  integrity sha512-axRNtdg5PAIpPFXGYAHRk2JudHhgHlu/o00BkFlsbMhgsLhEgsUddLZoVjCByBCEPxLwt9CSk048VmcKuJzm7w==
 
 "@carbon/icons-angular@^10.8.3":
   version "10.8.3"
@@ -3768,26 +3768,26 @@
   dependencies:
     "@carbon/icon-helpers" "10.5.1"
 
-"@carbon/icons-react@^10.36.0":
-  version "10.36.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-10.36.0.tgz#a09dc6b4bcda2f43063014af38e112081a2a91fb"
-  integrity sha512-lWmG8v09XTVKPsGd0kbZgYAwvQ99XB3Szt0y91W3b2zKXiSilyFuSbG9Vd6fwrfaP84QG48MnCFdct0Aww57Xg==
+"@carbon/icons-react@^10.37.0":
+  version "10.37.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-10.37.0.tgz#3d4355eb03c2165ddd7705ce977df03d6beaea78"
+  integrity sha512-13wHwN9BikOj9RhT/m8jeJQ61l5yNXiXQ0KR//9rFnz27gWO0huWb8qiBnHsicbQdl4oe+TVcm/WKF3PcJwUJA==
   dependencies:
-    "@carbon/icon-helpers" "^10.20.0"
+    "@carbon/icon-helpers" "^10.21.0"
     "@carbon/telemetry" "0.0.0-alpha.6"
     prop-types "^15.7.2"
 
-"@carbon/icons-vue@^10.36.0":
-  version "10.36.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.36.0.tgz#59d1f16948ed268f0124df6e709d4052839a62f5"
-  integrity sha512-1alSskkN5qerMSwAO+wPhBdfPoi4yRlX7YmH8W4VEhynL1a6JJoKwN5ZxTrEAlxGI2xvpviF6jY9QNwnC0rgdw==
+"@carbon/icons-vue@^10.37.0":
+  version "10.37.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.37.0.tgz#2f75f4a3bafd9145386ef74de62c6e6c21c32907"
+  integrity sha512-da/1P6Kx7TKrNZJmQfIAe40pbEBFM8DZJzQcwy2HAYCk5plDyka9KN9aDq2f3bk8O+IMIZStttXDAO9M3HDw0w==
   dependencies:
-    "@carbon/icon-helpers" "^10.20.0"
+    "@carbon/icon-helpers" "^10.21.0"
 
-"@carbon/icons@^10.36.0":
-  version "10.36.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons/-/icons-10.36.0.tgz#255de337aafe50c5507e223b92deaaa464b51ef0"
-  integrity sha512-5p/62+zZRdg21GIFk0+BtDiDqC2rfdqM4fjstW/nhugob/zjZMNUXwNYH001bhEuOLvewzENgF3EQwGYb1NFfg==
+"@carbon/icons@^10.37.0":
+  version "10.37.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons/-/icons-10.37.0.tgz#017c6cee1a6c108d3ccc7a00e64261530df72292"
+  integrity sha512-9dLevNsei6SL0RG5k5P0niOYwFVp3iNSwQ+4MFRitOGSsHUo9Vvxv/fib0ATgK7vu/Wpyiyyn+f6wJYhhzf9Qw==
   dependencies:
     svgson "^5.2.1"
 
@@ -8352,10 +8352,10 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
-carbon-components@^10.40.0:
-  version "10.40.0"
-  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.40.0.tgz#59c339dd964624cd07802dc695ceed6f32a07ef7"
-  integrity sha512-tIc0qHVLilWCelkH56al4ILwZRA4AbbwJEFt0mnGtefmgQ3O1UJLm5/ybp7VnWeHwUnip7PljHSDwHUzQcj5zg==
+carbon-components@^10.41.0:
+  version "10.41.0"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.41.0.tgz#9634274b5235b155e0d03c26b932c5563ced82d9"
+  integrity sha512-aImbbY4EFFxt6uLHEtVaHwA1jTtDFGxkWPijPJpfK89ihKQb1F3nO9lhKnssxb/9943h1/olnwKDseuZy3AuhQ==
   dependencies:
     "@carbon/telemetry" "0.0.0-alpha.6"
     flatpickr "4.6.1"
