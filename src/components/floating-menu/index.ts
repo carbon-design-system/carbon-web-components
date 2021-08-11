@@ -8,4 +8,3 @@
  */
 
 import './floating-menu';
-import './floating-menu-trigger';
