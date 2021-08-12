@@ -10,7 +10,8 @@
 'use strict';
 
 const gulp = require('gulp');
+require('./build/dist');
 require('./build/modules');
 require('./build/sass');
 
-gulp.task('build', gulp.parallel(gulp.task('build:modules'), gulp.task('build:sass')));
+gulp.task('build', gulp.parallel(gulp.task('build:modules'), gulp.task('build:sass'), gulp.task('build:dist')));

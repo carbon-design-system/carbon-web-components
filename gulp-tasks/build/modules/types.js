@@ -23,7 +23,7 @@ const config = require('../../config');
  * @returns {*} gulp stream
  */
 function types() {
-  const tsProject = typescript.createProject(path.resolve(__dirname, '../tsconfig.json'));
+  const tsProject = typescript.createProject(path.resolve(__dirname, '../../../tsconfig.json'));
   const { dts } = gulp
     .src([
       `${config.srcDir}/**/*.ts`,

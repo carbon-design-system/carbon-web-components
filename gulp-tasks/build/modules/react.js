@@ -81,7 +81,7 @@ const buildModulesReact = ({ banner, targetEnv = 'browser' }) => {
  * @returns {Promise<void>} Gulp stream
  */
 async function react() {
-  const banner = await readFileAsync(path.resolve(__dirname, '../tools/license.js'), 'utf8');
+  const banner = await readFileAsync(path.resolve(__dirname, '../../../tools/license.js'), 'utf8');
   await Promise.all([
     promisifyStream(() => buildModulesReact({ banner })),
     promisifyStream(() => buildModulesReact({ banner, targetEnv: 'node' })),

@@ -20,7 +20,7 @@ const config = require('./config');
  * @private
  */
 function _clean() {
-  return Promise.all([del(config.cjsDestDir), del(config.jsDestDir), del(config.sassDestDir)]);
+  return Promise.all([del(config.cjsDestDir), del(config.jsDestDir), del(config.sassDestDir), del(config.distDestDir)]);
 }
 
 // Clean task
