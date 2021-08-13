@@ -1,5 +1,6 @@
 custom-elements.json
 docs/js
+dist
 es
 lib
 node_modules
