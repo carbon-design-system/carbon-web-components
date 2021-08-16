@@ -32,7 +32,12 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Getting started](#getting-started)
-  - [Basic usage](#basic-usage)
+  - [Using CDN](#using-cdn)
+    - [How to install](#how-to-install)
+    - [Basic usage](#basic-usage)
+  - [Using ES imports](#using-es-imports)
+    - [How to install](#how-to-install-1)
+    - [Basic usage](#basic-usage-1)
   - [Other usage guides](#other-usage-guides)
 - [JavaScript framework support](#javascript-framework-support)
   - [Angular](#angular)
