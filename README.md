@@ -52,6 +52,113 @@ The effort stems from https://github.com/carbon-design-system/issue-tracking/iss
 
 ## Getting started
 
+### Using CDN
+
+#### How to install
+
+All components are available via CDN. This means that they can be added to your application without the need of any
+bundler configuration. Each component is available by the `latest` tag, or referencing a specific version (starting at
+version `v1.16.0`):
+
+```html
+<!-- By `latest` tag -->
+<script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/accordion.min.js"></script>
+
+<!-- By specific version -->
+<script type="module" src="https://1.www.s81c.com/common/carbon/web-components/version/v1.16.0/accordion.min.js"></script>
+```
+
+These are the list of available components via CDN:
+
+- accordion.min.js
+- breadcrumb.min.js
+- button.min.js
+- checkbox.min.js
+- code-snippet.min.js
+- combo-box.min.js
+- content-switcher.min.js
+- copy-button.min.js
+- data-table.min.js
+- date-picker.min.js
+- dropdown.min.js
+- file-uploader.min.js
+- floating-menu.min.js
+- form.min.js
+- inline-loading.min.js
+- input.min.js
+- link.min.js
+- list.min.js
+- loading.min.js
+- modal.min.js
+- multi-select.min.js
+- notification.min.js
+- number-input.min.js
+- overflow-menu.min.js
+- pagination.min.js
+- progress-indicator.min.js
+- radio-button.min.js
+- search.min.js
+- select.min.js
+- skeleton-placeholder.min.js
+- skeleton-text.min.js
+- skip-to-content.min.js
+- slider.min.js
+- structured-list.min.js
+- tabs.min.js
+- tag.min.js
+- textarea.min.js
+- tile.min.js
+- toggle.min.js
+- tooltip.min.js
+- ui-shell.min.js
+
+To use the right-to-left (RTL) version of the artifacts, change the file extention from `.min.js` to `.rtl.min.js`. For
+example:
+
+```html
+<!-- By `latest` tag (RTL) -->
+<script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/accordion.rtl.min.js"></script>
+
+<!-- By specific version (RTL) -->
+<script type="module" src="https://1.www.s81c.com/common/carbon/web-components/version/v1.16.0/accordion.rtl.min.js"></script>
+```
+
+#### Basic usage
+
+The CDN artifacts define the custom elements for the browser, so they can be directly used once the script tag has been
+added to the page. For example:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/dropdown.min.js"></script>
+    <style type="text/css">
+      // Suppresses the custom element until it has been defined
+      bx-dropdown:not(:defined),
+      bx-dropdown-item:not(:defined) {
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <bx-dropdown trigger-content="Select an item">
+        <bx-dropdown-item value="all">Option 1</bx-dropdown-item>
+        <bx-dropdown-item value="cloudFoundry">Option 2</bx-dropdown-item>
+        <bx-dropdown-item value="staging">Option 3</bx-dropdown-item>
+        <bx-dropdown-item value="dea">Option 4</bx-dropdown-item>
+        <bx-dropdown-item value="router">Option 5</bx-dropdown-item>
+      </bx-dropdown>
+    </div>
+  </body>
+</html>
+```
+
+### Using ES imports
+
+#### How to install
+
 To install `carbon-web-components` in your project, you will need to run the
 following command using [npm](https://www.npmjs.com/):
 
@@ -66,7 +173,7 @@ instead:
 yarn add carbon-web-components carbon-components lit-html lit-element
 ```
 
-### Basic usage
+#### Basic usage
 
 Our example at [CodeSandbox](https://codesandbox.io) shows the most basic usage:
 
@@ -91,43 +198,6 @@ Once you've imported the component modules, you can use our components in the sa
   <bx-dropdown-item value="dea">Option 4</bx-dropdown-item>
   <bx-dropdown-item value="router">Option 5</bx-dropdown-item>
 </bx-dropdown>
-```
-
-If you just want to try our components for demonstrations and so on, you can use CDNs that support module mapping (for example, [JSPM](https://jspm.org)). With CDNs, you can import just our modules in `<script type="module">`:
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <script type="module">
-      import 'https://jspm.dev/carbon-web-components/es/components/dropdown/dropdown.js';
-      import 'https://jspm.dev/carbon-web-components/es/components/dropdown/dropdown-item.js';
-    </script>
-    <style type="text/css">
-      #app {
-        font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
-        width: 300px;
-        margin: 2rem;
-      }
-
-      bx-dropdown:not(:defined),
-      bx-dropdown-item:not(:defined) {
-        visibility: hidden;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="app">
-      <bx-dropdown trigger-content="Select an item">
-        <bx-dropdown-item value="all">Option 1</bx-dropdown-item>
-        <bx-dropdown-item value="cloudFoundry">Option 2</bx-dropdown-item>
-        <bx-dropdown-item value="staging">Option 3</bx-dropdown-item>
-        <bx-dropdown-item value="dea">Option 4</bx-dropdown-item>
-        <bx-dropdown-item value="router">Option 5</bx-dropdown-item>
-      </bx-dropdown>
-    </div>
-  </body>
-</html>
 ```
 
 ### Other usage guides
