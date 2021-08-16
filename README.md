@@ -160,6 +160,10 @@ added to the page. For example:
 </html>
 ```
 
+Our example at [CodeSandbox](https://codesandbox.io) shows examples using only CDN artifacts:
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/cdn)
+
 ### Using ES imports
 
 #### How to install
