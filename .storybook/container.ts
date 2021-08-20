@@ -7,7 +7,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, TemplateResult } from 'lit-html';
+import { html } from 'lit-html';
+import type { TemplateResult } from 'lit-html';
 import '../src/components/skip-to-content/skip-to-content';
 import containerStyles from './_container.scss'; // eslint-disable-line import/first
 
