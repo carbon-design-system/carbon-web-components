@@ -26,7 +26,7 @@ const PRECEDING = Node.DOCUMENT_POSITION_PRECEDING | Node.DOCUMENT_POSITION_CONT
 const FOLLOWING = Node.DOCUMENT_POSITION_FOLLOWING | Node.DOCUMENT_POSITION_CONTAINED_BY;
 
 /**
- * Tries to focus on the given elements and bails out if one of the is successful.
+ * Tries to focus on the given elements and bails out if one of them is successful.
  * @param elems The elements.
  * @param reverse `true` to go through the list in reverse order.
  * @returns `true` if one of the attempts is successful, `false` otherwise.
