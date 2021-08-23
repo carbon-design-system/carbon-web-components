@@ -99,14 +99,17 @@ class BXModal extends HostListenerMixin(LitElement) {
   @HostListener('shadowRoot:focusout')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleBlur = async ({ target, relatedTarget }: FocusEvent) => {
+    const { open, _startSentinelNode: startSentinelNode, _endSentinelNode: endSentinelNode } = this;
     const oldContains = target !== this && this.contains(target as Node);
-    const currentContains = relatedTarget !== this && this.contains(relatedTarget as Node);
+    const currentContains =
+      relatedTarget !== this &&
+      (this.contains(relatedTarget as Node) ||
+        (this.shadowRoot?.contains(relatedTarget as Node) && relatedTarget !== (endSentinelNode as Node)));
 
     // Performs focus wrapping if _all_ of the following is met:
     // * This modal is open
     // * The viewport still has focus
     // * Modal body used to have focus but no longer has focus
-    const { open, _startSentinelNode: startSentinelNode, _endSentinelNode: endSentinelNode } = this;
     const { selectorTabbable: selectorTabbableForModal } = this.constructor as typeof BXModal;
     if (open && relatedTarget && oldContains && !currentContains) {
       const comparisonResult = (target as Node).compareDocumentPosition(relatedTarget as Node);
