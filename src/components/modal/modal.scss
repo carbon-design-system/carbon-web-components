@@ -72,7 +72,7 @@
 }
 
 :host(#{$prefix}-modal[open]) {
-  @extend .#{$prefix}--modal.is-visible;
+  @extend .#{$prefix}--modal, .is-visible;
 }
 
 :host(#{$prefix}-modal-header) {
