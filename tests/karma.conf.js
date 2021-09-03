@@ -12,7 +12,7 @@
 /* eslint-disable global-require */
 
 const path = require('path');
-const sass = require('node-sass');
+const sass = require('sass');
 
 function normalizeBrowser(browser) {
   return (
