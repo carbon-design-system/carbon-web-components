@@ -39,6 +39,18 @@ $css--plex: true !default;
   .#{$prefix}--btn--icon-only ::slotted([slot='icon']) {
     position: static;
   }
+
+  // custom styles for ghost variants not found in core Carbon
+  &[kind='ghost'],
+  &[kind='danger-ghost'] {
+    .#{$prefix}--btn {
+      padding-right: rem(63px);
+    }
+
+    &[icon-layout='condensed'] {
+      padding-right: rem(39px);
+    }
+  }
 }
 
 :host(#{$prefix}-btn[kind='ghost']:hover) .#{$prefix}--btn--ghost,
