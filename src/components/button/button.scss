@@ -32,8 +32,8 @@ $css--plex: true !default;
     height: rem(20px);
   }
 
-  &[icon-layout='condensed'] ::slotted([slot='icon']) {
-    margin-left: $spacing-03;
+  &[icon-layout='condensed'] .#{$prefix}--btn {
+    padding-right: rem(39px);
   }
 
   .#{$prefix}--btn--icon-only ::slotted([slot='icon']) {
