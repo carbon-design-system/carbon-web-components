@@ -157,7 +157,7 @@
     "babel-preset-vue": "^2.0.0",
     "bluebird": "^3.5.0",
     "cache-loader": "^4.1.0",
-    "carbon-components": "^10.42.0",
+    "carbon-components": "^10.43.0",
     "child-process-promise": "^2.2.0",
     "commander": "^2.13.0",
     "core-js": "^3.0.0",
@@ -275,7 +275,7 @@
     "zone.js": "^0.8.0"
   },
   "peerDependencies": {
-    "carbon-components": "~10.42.0",
+    "carbon-components": "~10.43.0",
     "flatpickr": "4.6.1",
     "lit-element": "^2.3.0",
     "lit-html": "^1.2.0"
