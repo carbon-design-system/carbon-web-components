@@ -40,15 +40,15 @@ $css--plex: true !default;
     position: static;
   }
 
-  // custom styles for ghost variants not found in core Carbon
   &[kind='ghost'],
   &[kind='danger-ghost'] {
-    .#{$prefix}--btn {
-      padding-right: rem(63px);
+    ::slotted([slot='icon']) {
+      position: static;
+      margin-left: rem(8px);
     }
 
-    &[icon-layout='condensed'] {
-      padding-right: rem(39px);
+    &[icon-layout='condensed'] .#{$prefix}--btn {
+      padding-right: rem(16px);
     }
   }
 }
