@@ -29,8 +29,7 @@ $css--plex: true !default;
   @extend .#{$prefix}--toast-notification--success;
 
   &[low-contrast] {
-    @extend .#{$prefix}--toast-notification--low-contrast;
-    @extend .#{$prefix}--toast-notification--low-contrast.#{$prefix}--toast-notification--success;
+    @extend .#{$prefix}--toast-notification--low-contrast, .#{$prefix}--toast-notification--success;
   }
 }
 
@@ -38,8 +37,7 @@ $css--plex: true !default;
   @extend .#{$prefix}--toast-notification--info;
 
   &[low-contrast] {
-    @extend .#{$prefix}--toast-notification--low-contrast;
-    @extend .#{$prefix}--toast-notification--low-contrast.#{$prefix}--toast-notification--info;
+    @extend .#{$prefix}--toast-notification--low-contrast, .#{$prefix}--toast-notification--info;
   }
 }
 
@@ -47,8 +45,7 @@ $css--plex: true !default;
   @extend .#{$prefix}--toast-notification--warning;
 
   &[low-contrast] {
-    @extend .#{$prefix}--toast-notification--low-contrast;
-    @extend .#{$prefix}--toast-notification--low-contrast.#{$prefix}--toast-notification--warning;
+    @extend .#{$prefix}--toast-notification--low-contrast, .#{$prefix}--toast-notification--warning;
   }
 }
 
@@ -56,7 +53,6 @@ $css--plex: true !default;
   @extend .#{$prefix}--toast-notification--error;
 
   &[low-contrast] {
-    @extend .#{$prefix}--toast-notification--low-contrast;
-    @extend .#{$prefix}--toast-notification--low-contrast.#{$prefix}--toast-notification--error;
+    @extend .#{$prefix}--toast-notification--low-contrast, .#{$prefix}--toast-notification--error;
   }
 }

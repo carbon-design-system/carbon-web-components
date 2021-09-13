@@ -11,7 +11,7 @@
 
 const path = require('path');
 const { promisify } = require('util');
-const sass = require('node-sass');
+const sass = require('sass');
 const { createFilter } = require('rollup-pluginutils');
 
 const renderSass = promisify(sass.render);
