@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019, 2020
+// Copyright IBM Corp. 2019, 2021
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -15,8 +15,7 @@ $css--plex: true !default;
 }
 
 :host(#{$prefix}-structured-list-head) ::slotted(#{$prefix}-structured-list-header-row) {
-  @extend .#{$prefix}--structured-list-row;
-  @extend .#{$prefix}--structured-list-row.#{$prefix}--structured-list-row--header-row;
+  @extend .#{$prefix}--structured-list-row, .#{$prefix}--structured-list-row--header-row;
 }
 
 :host(#{$prefix}-structured-list-header-row) {
