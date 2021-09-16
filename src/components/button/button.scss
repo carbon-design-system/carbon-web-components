@@ -20,13 +20,11 @@ $css--plex: true !default;
     max-width: 100%;
   }
 
-  .#{$prefix}-ce--btn--has-icon {
-    padding-right: 12px;
-  }
-
   ::slotted([slot='icon']) {
     fill: currentColor;
-    margin-left: calc(#{rem(60px)} - #{$spacing-04} - #{$icon-size-01});
+    position: absolute;
+    right: rem(16px);
+    flex-shrink: 0;
   }
 
   &[isExpressive] ::slotted([slot='icon']) {
@@ -34,12 +32,24 @@ $css--plex: true !default;
     height: rem(20px);
   }
 
-  &[icon-layout='condensed'] ::slotted([slot='icon']) {
-    margin-left: $spacing-03;
+  &[icon-layout='condensed'] .#{$prefix}--btn {
+    padding-right: rem(39px);
   }
 
   .#{$prefix}--btn--icon-only ::slotted([slot='icon']) {
-    margin-left: 0;
+    position: static;
+  }
+
+  &[kind='ghost'],
+  &[kind='danger-ghost'] {
+    ::slotted([slot='icon']) {
+      position: static;
+      margin-left: rem(8px);
+    }
+
+    &[icon-layout='condensed'] .#{$prefix}--btn {
+      padding-right: rem(16px);
+    }
   }
 }
 
