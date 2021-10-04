@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -125,8 +125,8 @@ class BXRadioButton extends HostListenerMixin(FocusMixin(LitElement)) {
   @HostListener('click')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleClick = () => {
-    const { _radioButtonDelegate: radioButtonDelegate } = this;
-    if (radioButtonDelegate) {
+    const { disabled, _radioButtonDelegate: radioButtonDelegate } = this;
+    if (radioButtonDelegate && !disabled) {
       this.checked = true;
       if (this._manager) {
         this._manager.select(radioButtonDelegate);
@@ -241,7 +241,7 @@ class BXRadioButton extends HostListenerMixin(FocusMixin(LitElement)) {
   }
 
   render() {
-    const { checked, hideLabel, labelText, name, value } = this;
+    const { checked, hideLabel, labelText, name, value, disabled } = this;
     const innerLabelClasses = classMap({
       [`${prefix}--visually-hidden`]: hideLabel,
     });
@@ -251,6 +251,7 @@ class BXRadioButton extends HostListenerMixin(FocusMixin(LitElement)) {
         type="radio"
         class="${prefix}--radio-button"
         .checked=${checked}
+        ?disabled="${disabled}"
         name=${ifNonNull(name)}
         value=${ifNonNull(value)}
       />
