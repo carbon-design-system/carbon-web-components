@@ -31,6 +31,7 @@
 ```
 <input
   class="bx--radio-button"
+  disabled=""
   id="input"
   name="name-foo"
   tabindex="0"
