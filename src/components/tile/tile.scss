@@ -12,6 +12,7 @@ $css--plex: true !default;
 
 :host(#{$prefix}-tile) {
   @extend .#{$prefix}--tile;
+  position: relative;
 }
 
 :host(#{$prefix}-clickable-tile) {
@@ -24,7 +25,6 @@ $css--plex: true !default;
   }
 
   .#{$prefix}--tile {
-    position: relative;
     // Overrides what `.#{$prefix}--link` defines
     padding: $carbon--spacing-05;
     outline: 2px solid transparent;
