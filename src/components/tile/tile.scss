@@ -12,7 +12,6 @@ $css--plex: true !default;
 
 :host(#{$prefix}-tile) {
   @extend .#{$prefix}--tile;
-  position: relative;
 }
 
 :host(#{$prefix}-clickable-tile) {
@@ -62,6 +61,7 @@ $css--plex: true !default;
 :host(#{$prefix}-expandable-tile) {
   @extend .#{$prefix}--tile;
   @extend .#{$prefix}--tile--expandable;
+  position: relative;
 
   ::slotted(#{$prefix}-tile-above-the-fold-content) {
     @extend .#{$prefix}--tile-content__above-the-fold;
