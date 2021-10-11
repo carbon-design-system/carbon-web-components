@@ -14,6 +14,8 @@ import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import { BUTTON_KIND, BUTTON_SIZE, BUTTON_ICON_LAYOUT } from './defs';
 import styles from './button.scss';
+import HostListener from '../../globals/decorators/host-listener';
+import HostListenerMixin from '../../globals/mixins/host-listener';
 
 export { BUTTON_KIND, BUTTON_SIZE, BUTTON_ICON_LAYOUT };
 
@@ -25,7 +27,7 @@ const { prefix } = settings;
  * @csspart button The button.
  */
 @customElement(`${prefix}-btn`)
-class BXButton extends FocusMixin(LitElement) {
+class BXButton extends HostListenerMixin(FocusMixin(LitElement)) {
   /**
    * `true` if there is an icon.
    */
@@ -46,6 +48,15 @@ class BXButton extends FocusMixin(LitElement) {
       .some(node => node.nodeType !== Node.TEXT_NODE || node!.textContent!.trim());
     this[name === 'icon' ? '_hasIcon' : '_hasMainContent'] = hasContent;
     this.requestUpdate();
+  }
+
+  @HostListener('click', { capture: true })
+  // @ts-ignore
+  private _handleDisabledClick(event: Event) {
+    const { disabled } = this;
+    if (disabled) {
+      event.stopPropagation();
+    }
   }
 
   /**
