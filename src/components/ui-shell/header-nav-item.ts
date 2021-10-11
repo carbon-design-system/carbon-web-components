@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -35,6 +35,12 @@ class BXHeaderNavItem extends FocusMixin(LitElement) {
   @property()
   title!: string;
 
+  /**
+   * As child of <ul>, this element must have role of listitem
+   */
+  @property({ reflect: true })
+  role: string = 'listitem';
+
   createRenderRoot() {
     return this.attachShadow({
       mode: 'open',
@@ -45,7 +51,7 @@ class BXHeaderNavItem extends FocusMixin(LitElement) {
   render() {
     const { href, title } = this;
     return html`
-      <a part="link" role="menuitem" class="${prefix}--header__menu-item" tabindex="0" href="${ifDefined(href)}">
+      <a part="link" class="${prefix}--header__menu-item" tabindex="0" href="${ifDefined(href)}">
         <span part="title" class="${prefix}--text-truncate--end"><slot>${title}</slot></span>
       </a>
     `;

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -38,7 +38,7 @@ class BXHeaderNav extends LitElement {
     const { menuBarLabel } = this;
     return html`
       <div part="divider" class="${prefix}-ce--header__divider"></div>
-      <ul role="menubar" part="menu-body" class="${prefix}--header__menu-bar" aria-label="${menuBarLabel}">
+      <ul part="menu-body" class="${prefix}--header__menu-bar" aria-label="${menuBarLabel}">
         <slot></slot>
       </ul>
     `;

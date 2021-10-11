@@ -118,7 +118,6 @@ class BXHeaderMenu extends HostListenerMixin(FocusMixin(LitElement)) {
     const { expanded, triggerContent, menuLabel, _handleClick: handleClick, _handleKeydownTrigger: handleKeydownTrigger } = this;
     return html`
       <a
-        role="menuitem"
         part="trigger"
         tabindex="0"
         class="${prefix}--header__menu-item ${prefix}--header__menu-title"
@@ -130,7 +129,7 @@ class BXHeaderMenu extends HostListenerMixin(FocusMixin(LitElement)) {
       >
         ${triggerContent}${ChevronDownGlyph({ part: 'trigger-icon', class: `${prefix}--header__menu-arrow` })}
       </a>
-      <ul role="menu" part="menu-body" class="${prefix}--header__menu" aria-label="${ifDefined(menuLabel)}">
+      <ul part="menu-body" class="${prefix}--header__menu" aria-label="${ifDefined(menuLabel)}">
         <slot></slot>
       </ul>
     `;

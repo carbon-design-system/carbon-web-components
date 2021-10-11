@@ -127,7 +127,7 @@ $css--plex: true !default;
   width: auto;
   height: auto;
 
-  a.#{$prefix}--side-nav__link[role='menuitem'] {
+  a.#{$prefix}--side-nav__link {
     height: mini-units(4);
     min-height: mini-units(4);
     padding-left: mini-units(4);
@@ -135,7 +135,7 @@ $css--plex: true !default;
   }
 }
 
-:host(#{$prefix}-side-nav-menu-item[parent-has-icon]) a.#{$prefix}--side-nav__link[role='menuitem'] {
+:host(#{$prefix}-side-nav-menu-item[parent-has-icon]) a.#{$prefix}--side-nav__link {
   padding-left: mini-units(9);
 }
 

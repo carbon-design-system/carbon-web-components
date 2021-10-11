@@ -55,14 +55,12 @@
   class="bx--header__menu-item bx--header__menu-title"
   href="javascript:void 0"
   part="trigger"
-  role="menuitem"
   tabindex="0"
 >
 </a>
 <ul
   class="bx--header__menu"
   part="menu-body"
-  role="menu"
 >
   <slot>
   </slot>
@@ -79,7 +77,6 @@
   class="bx--header__menu-item bx--header__menu-title"
   href="javascript:void 0"
   part="trigger"
-  role="menuitem"
   tabindex="0"
 >
   trigger-content-foo
@@ -88,7 +85,6 @@
   aria-label="menu-label-foo"
   class="bx--header__menu"
   part="menu-body"
-  role="menu"
 >
   <slot>
   </slot>
@@ -149,7 +145,6 @@
   aria-label="undefined"
   class="bx--header__menu-bar"
   part="menu-body"
-  role="menubar"
 >
   <slot>
   </slot>
@@ -169,7 +164,6 @@
   aria-label="menu-bar-label-foo"
   class="bx--header__menu-bar"
   part="menu-body"
-  role="menubar"
 >
   <slot>
   </slot>
@@ -187,7 +181,6 @@
 <a
   class="bx--header__menu-item"
   part="link"
-  role="menuitem"
   tabindex="0"
 >
   <span
@@ -208,7 +201,6 @@
   class="bx--header__menu-item"
   href="about:blank"
   part="link"
-  role="menuitem"
   tabindex="0"
 >
   <span
@@ -318,7 +310,6 @@
 <ul
   class="bx--side-nav__menu"
   part="menu-body"
-  role="menu"
 >
   <slot>
   </slot>
@@ -360,7 +351,6 @@
 <ul
   class="bx--side-nav__menu"
   part="menu-body"
-  role="menu"
 >
   <slot>
   </slot>
@@ -401,7 +391,6 @@
 <ul
   class="bx--side-nav__menu"
   part="menu-body"
-  role="menu"
 >
   <slot>
   </slot>
@@ -420,7 +409,6 @@
   class="bx--side-nav__link"
   href=""
   part="link"
-  role="menuitem"
 >
   <span
     class="bx--side-nav__link-text"
@@ -440,7 +428,6 @@
   class="bx--side-nav__link bx--side-nav__link--current"
   href="about:blank"
   part="link"
-  role="menuitem"
 >
   <span
     class="bx--side-nav__link-text"
