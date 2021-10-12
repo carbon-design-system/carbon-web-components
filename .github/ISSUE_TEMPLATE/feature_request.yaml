@@ -1,0 +1,65 @@
+name: Feature Request 💡
+description:
+  Suggest a new idea for the project.
+title: '[YOUR TITLE]: Brief description'
+labels: ['Feature request']
+body:
+  - type: markdown
+    attributes:
+      value: '## Feature Request 💡'
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: "Provide a clear and concise description of what the problem this new feature is trying to solve. (For example, I find it frustrating when...)"
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: The solution
+      description: "Provide a clear and concise description of what you would like to happen instead."
+    validations:
+      required: true
+  - type: input
+    id: application
+    attributes:
+      label: Application/website
+      description: "What application/website do you work on?"
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Business priority
+      options:
+        - 'High Priority = pressing release'
+        - 'Medium Priority = upcoming release but is not pressing'
+        - 'Low Priority = release date is not dependent on fix or not upcoming'
+    validations:
+      required: true
+  - type: textarea
+    id: time-frame
+    attributes:
+      label: "What time frame would this ideally be needed by (if applicable)"
+    validations:
+      required: false
+  - type: textarea
+    id: user-research
+    attributes:
+      label: Examples
+      description: Provide sample content, references, or audits of solutions solving the same problem in other applications/websites.
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: Please confirm the following
+      options:
+        - label:
+            I agree to follow this project's [Code of
+            Conduct](https://github.com/carbon-design-system/carbon-web-components/blob/master/.github/CODE_OF_CONDUCT.md)
+          required: true
+        - label:
+            I checked the [current
+            issues](https://github.com/carbon-design-system/carbon-web-components/issues) for
+            duplicate issues
