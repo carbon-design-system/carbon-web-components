@@ -3768,26 +3768,26 @@
   dependencies:
     "@carbon/icon-helpers" "10.5.1"
 
-"@carbon/icons-react@^10.40.0":
-  version "10.40.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-10.40.0.tgz#ab90b59d5f3cf7f6e6d8411137037c87fa184b23"
-  integrity sha512-qxMbqugguxopy5Ya/SwQaYM4gFEzsC9LZa1DxmILtRARyJ+rHGq/e1q0Qj73GwWcU7HfsbhBHvUdIfRnHMtNPQ==
+"@carbon/icons-react@^10.41.0":
+  version "10.41.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-10.41.0.tgz#d9e411f21cc93dbfa68520b32955fde439d7b159"
+  integrity sha512-34+zTinj8fA6QOwlw35zMCVdto5uMKr6W0DNKHBLNM3omqAxS3RUIy4qxVjVNCk3mFnL7Knpun25haEaOnAcqw==
   dependencies:
     "@carbon/icon-helpers" "^10.24.0"
     "@carbon/telemetry" "0.0.0-alpha.6"
     prop-types "^15.7.2"
 
-"@carbon/icons-vue@^10.40.0":
-  version "10.40.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.40.0.tgz#611d6092784486509ce020e2f62a25ffee103dd6"
-  integrity sha512-6SM7vSxtxQpqDMTRFAMzGSQyrIGUbRYYlQzXalcd/NOxczJXlZfHCIphqs4mjHrfcQ3PpjmgBT9kXRB1CXS4nw==
+"@carbon/icons-vue@^10.41.0":
+  version "10.41.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.41.0.tgz#154c1d1c5db5714ef4eacf301babc4adf0815f04"
+  integrity sha512-cS/nKIv/l92+r9E0Xrt2bG78WSdROYzt6D+AXnMwgwBPhCN7kJc4mKiKyYI7LScrwgsJ8y4Ay2PUrn5txebaxw==
   dependencies:
     "@carbon/icon-helpers" "^10.24.0"
 
-"@carbon/icons@^10.40.0":
-  version "10.40.0"
-  resolved "https://registry.yarnpkg.com/@carbon/icons/-/icons-10.40.0.tgz#f08e923aa587251539ff38c2fca8ca9a6ea461cb"
-  integrity sha512-oGMTUR6OXXIvkGJWt5+aIGIuA0nJIRsygTIEB7yya20VqZ0z3dMU8wT20ZvxHQ/+NGxEWhJHi0F6fKiu+vqi+A==
+"@carbon/icons@^10.41.0":
+  version "10.41.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons/-/icons-10.41.0.tgz#71150ef0b140e8f9d01e3b8be8cf33b2f7bb402d"
+  integrity sha512-rSiAwXOxRCOHW2FIB+t424irqDllCHsYZumKgK0cR+eMSQ8AD3MCCVngSykcmiHEuSKFkRbPALx+Eg9Dfx9GnQ==
   dependencies:
     svgson "^5.2.1"
 
@@ -8372,10 +8372,10 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
-carbon-components@^10.45.0:
-  version "10.45.0"
-  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.45.0.tgz#db5f0a53cda4e53dbd7aeaed9a99d86184484b66"
-  integrity sha512-+bpckp18pIp5kutda8gpGbkQ88O1FzhSSFSA1IQ4pPJnOjyBnNu+ebiBJOZt0ccOXZPDkyuSKxhQeCboyVCUwA==
+carbon-components@^10.46.0:
+  version "10.46.0"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.46.0.tgz#f167baa23bbc08a0e53a312eca835a2414b67d21"
+  integrity sha512-BWO1d/CBGZgyMjGN+nOkjqlfRek56/uFpyKMs443IeaJGvhZ0r7SFC5aeipxlg/BCwhxl5dcruzQ9d0MykNxSw==
   dependencies:
     "@carbon/telemetry" "0.0.0-alpha.6"
     flatpickr "4.6.1"
