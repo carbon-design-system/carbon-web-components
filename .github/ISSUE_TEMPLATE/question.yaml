@@ -1,0 +1,55 @@
+name: Question 🤔
+description:
+  Usage question or discussion about Carbon for IBM.com.
+title: '[YOUR TITLE]: Brief description'
+labels: ['question']
+body:
+  - type: markdown
+    attributes:
+      value: '## Question 🤔'
+  - type: markdown
+    attributes:
+      value: "Hi there! 👋 Hope everything is going okay using projects from Carbon Web Components. It looks like you might have a question about our work, so we wanted to share a couple resources that you could use if you haven't tried them yet 🙂."
+  - type: markdown
+    attributes:
+      value: "If you're an IBMer, we have a couple of Slack channels available across all IBM Workspaces:"
+  - type: markdown
+    attributes:
+      value: "- #carbon-web-components for questions about Carbon Web Components
+
+- #carbon-for-ibm-dotcom for questions about Carbon for IBM.com
+
+- #carbon-design-system for questions about the Carbon Design System"
+  - type: markdown
+    attributes:
+      value: "If these resources don't work out, help us out by filling out a couple of details below!"
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+    validations:
+      required: true
+  - type: textarea
+    id: relevant-information
+    attributes:
+      label: Relevant information
+  - type: textarea
+    id: organization
+    attributes:
+      label: Name and organization
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: Please confirm the following
+      options:
+        - label:
+            I agree to follow this project's [Code of
+            Conduct](https://github.com/carbon-design-system/carbon-web-components/blob/master/.github/CODE_OF_CONDUCT.md)
+          required: true
+        - label:
+            I checked the [current
+            issues](https://github.com/carbon-design-system/carbon-web-components/issues) for
+            duplicate issues

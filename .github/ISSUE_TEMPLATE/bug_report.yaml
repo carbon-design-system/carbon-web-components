@@ -1,0 +1,97 @@
+name: Bug report 🐛
+description:
+  Something isn't working as expected? Here is the right place to report.
+title: '[YOUR TITLE]: Brief description'
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: '## Bug report 🐛'
+  - type: markdown
+    attributes:
+      value: 'Use the form below to report any bugs you find. Feel free to leave blank any sections that aren’t relevant but try to include as much detail as possible. The more details we have, the faster we can respond.'
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: "What did you expect to happen? What happened instead?"
+    validations:
+      required: true
+  - type: textarea
+    id: components
+    attributes:
+      label: Component(s) impacted
+      description: "Component(s) impacted? Please include screenshots, or code and relevant URLs."
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      description: "What browser(s) are you working in?"
+      multiple: true
+      options:
+        - Chrome
+        - Safari
+        - Firefox
+        - Microsoft Edge
+  - type: input
+    id: version
+    attributes:
+      label: Carbon Web Components version
+      description: "What version of Carbon Web Components are you using?"
+      placeholder: e.g. v1.17.0
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - 'Severity 1 = The design is broken in a critical way that blocks users from completing tasks or damages the brand. Affects major functionality, no workaround.'
+        - 'Severity 2 = Aspects of design is broken, and impedes users in a significant way, but there is a way to complete their tasks. Affects major functionality, has a workaround.'
+        - 'Severity 3 = The problem is visible or noticeable to users but does not impede the usability or functionality. Affects minor functionality, has a workaround.'
+        - 'Severity 4 = The problem is not visible to or noticeable to an average user. Affects minor functionality, no workaround needed.'
+    validations:
+      required: true
+  - type: input
+    id: application
+    attributes:
+      label: Application/website
+      description: "What application/website do you work on?"
+    validations:
+      required: true
+  - type: input
+    id: example-url
+    attributes:
+      label: CodeSandbox example
+      description:
+        'Use the
+        [codesandbox examples](https://github.com/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox)
+        to help re-create the issue.'
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: "Steps to reproduce the issue (if applicable)"
+  - type: textarea
+    id: release-date
+    attributes:
+      label: "Release date (if applicable)"
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: Please confirm the following
+      options:
+        - label:
+            I agree to follow this project's [Code of
+            Conduct](https://github.com/carbon-design-system/carbon-web-components/blob/master/.github/CODE_OF_CONDUCT.md)
+          required: true
+        - label:
+            I checked the [current
+            issues](https://github.com/carbon-design-system/carbon-web-components/issues) for
+            duplicate issues
