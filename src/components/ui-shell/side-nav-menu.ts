@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -169,7 +169,7 @@ class BXSideNavMenu extends FocusMixin(LitElement) {
           ${ChevronDown20({ part: 'expando-icon' })}
         </div>
       </button>
-      <ul part="menu-body" class="${prefix}--side-nav__menu" role="menu">
+      <ul part="menu-body" class="${prefix}--side-nav__menu">
         <slot @slotchange=${handleSlotChange}></slot>
       </ul>
     `;
