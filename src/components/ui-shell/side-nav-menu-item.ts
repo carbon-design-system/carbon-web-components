@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -67,7 +67,7 @@ class BXSideNavMenuItem extends FocusMixin(LitElement) {
       [`${prefix}--side-nav__link--current`]: active,
     });
     return html`
-      <a role="menuitem" part="link" class="${classes}" href="${href}">
+      <a part="link" class="${classes}" href="${href}">
         <span part="title" class="${prefix}--side-nav__link-text">
           <slot>${title}</slot>
         </span>
