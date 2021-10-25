@@ -263,7 +263,7 @@ describe('bx-multi-select', function() {
       spyOn(trigger!, 'focus');
       elem
         .shadowRoot!.querySelector('.bx--list-box__selection--multi svg')!
-        .dispatchEvent(Object.assign(new CustomEvent('keydown', { bubbles: true }), { key: ' ' }));
+        .dispatchEvent(Object.assign(new CustomEvent('keypress', { bubbles: true }), { key: ' ' }));
       await Promise.resolve();
       expect(itemNodes[0].hasAttribute('selected')).toBe(false);
       expect(itemNodes[1].hasAttribute('selected')).toBe(false);
@@ -280,7 +280,7 @@ describe('bx-multi-select', function() {
       spyOn(trigger!, 'focus');
       elem
         .shadowRoot!.querySelector('.bx--list-box__selection--multi svg')!
-        .dispatchEvent(Object.assign(new CustomEvent('keydown', { bubbles: true }), { key: 'Enter' }));
+        .dispatchEvent(Object.assign(new CustomEvent('keypress', { bubbles: true }), { key: 'Enter' }));
       await Promise.resolve();
       expect(itemNodes[0].hasAttribute('selected')).toBe(false);
       expect(itemNodes[1].hasAttribute('selected')).toBe(false);

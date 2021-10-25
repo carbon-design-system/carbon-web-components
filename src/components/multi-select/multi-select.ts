@@ -217,6 +217,7 @@ class BXMultiSelect extends BXDropdown {
    */
   protected _navigate(direction: number) {
     if (!this.filterable) {
+      this._triggerNode.focus();
       super._navigate(direction);
     } else {
       // only navigate through remaining item
