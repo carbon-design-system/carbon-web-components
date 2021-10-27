@@ -8,10 +8,7 @@
  */
 
 import { html, property, query, customElement, LitElement } from 'lit-element';
-import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
-import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
-import ifNonEmpty from '../../globals/directives/if-non-empty';
 import FormMixin from '../../globals/mixins/form';
 import ValidityMixin from '../../globals/mixins/validity';
 import { INPUT_COLOR_SCHEME, INPUT_SIZE, INPUT_TYPE } from './defs';
@@ -179,70 +176,9 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
     }
   }
 
-  createRenderRoot() {
-    return this.attachShadow({
-      mode: 'open',
-      delegatesFocus: Number((/Safari\/(\d+)/.exec(navigator.userAgent) ?? ['', 0])[1]) <= 537,
-    });
-  }
-
   render() {
-    const { _handleInput: handleInput } = this;
-
-    const invalidIcon = WarningFilled16({ class: `${prefix}--text-input__invalid-icon` });
-
-    const inputClasses = classMap({
-      [`${prefix}--text-input`]: true,
-      [`${prefix}--text-input--${this.colorScheme}`]: this.colorScheme,
-      [`${prefix}--text-input--invalid`]: this.invalid,
-      [`${prefix}--text-input--${this.size}`]: this.size,
-    });
-
-    const labelClasses = classMap({
-      [`${prefix}--label`]: true,
-      [`${prefix}--label--disabled`]: this.disabled,
-    });
-
-    const helperTextClasses = classMap({
-      [`${prefix}--form__helper-text`]: true,
-      [`${prefix}--form__helper-text--disabled`]: this.disabled,
-    });
-
     return html`
-      <label class="${labelClasses}" for="input">
-        <slot name="label-text">
-          ${this.labelText}
-        </slot>
-      </label>
-      <div class="${prefix}--text-input__field-wrapper" ?data-invalid="${this.invalid}">
-        ${this.invalid ? invalidIcon : null}
-        <input
-          ?autocomplete="${this.autocomplete}"
-          ?autofocus="${this.autofocus}"
-          class="${inputClasses}"
-          ?data-invalid="${this.invalid}"
-          ?disabled="${this.disabled}"
-          id="input"
-          name="${ifNonEmpty(this.name)}"
-          pattern="${ifNonEmpty(this.pattern)}"
-          placeholder="${ifNonEmpty(this.placeholder)}"
-          ?readonly="${this.readonly}"
-          ?required="${this.required}"
-          type="${ifNonEmpty(this.type)}"
-          .value="${this._value}"
-          @input="${handleInput}"
-        />
-      </div>
-      <div class="${helperTextClasses}">
-        <slot name="helper-text">
-          ${this.helperText}
-        </slot>
-      </div>
-      <div class="${prefix}--form-requirement">
-        <slot name="validity-message">
-          ${this.validityMessage}
-        </slot>
-      </div>
+      <input />
     `;
   }
 
