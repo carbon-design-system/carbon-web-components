@@ -7,10 +7,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, property, query, customElement, LitElement } from 'lit-element';
+import { html, customElement, LitElement } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
-import FormMixin from '../../globals/mixins/form';
-import ValidityMixin from '../../globals/mixins/validity';
 import { INPUT_COLOR_SCHEME, INPUT_SIZE, INPUT_TYPE } from './defs';
 import styles from './input.scss';
 
@@ -26,156 +24,7 @@ const { prefix } = settings;
  * @slot validity-message - The validity message. If present and non-empty, this input shows the UI of its invalid state.
  */
 @customElement(`${prefix}-input`)
-export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
-  /**
-   * The underlying input element
-   */
-  @query('input')
-  protected _input!: HTMLInputElement;
-
-  /**
-   * The internal value.
-   */
-  protected _value = '';
-
-  /**
-   * Handles `oninput` event on the `<input>`.
-   * @param event The event.
-   */
-  protected _handleInput({ target }: Event) {
-    this.value = (target as HTMLInputElement).value;
-  }
-
-  _handleFormdata(event: Event) {
-    const { formData } = event as any; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
-    const { disabled, name, value } = this;
-    if (!disabled) {
-      formData.append(name, value);
-    }
-  }
-
-  /**
-   * May be any of the standard HTML autocomplete options
-   */
-  @property()
-  autocomplete = '';
-
-  /**
-   * Sets the input to be focussed automatically on page load. Defaults to false
-   */
-  @property({ type: Boolean })
-  autofocus = false;
-
-  /**
-   * The color scheme.
-   */
-  @property({ attribute: 'color-scheme', reflect: true })
-  colorScheme = INPUT_COLOR_SCHEME.REGULAR;
-
-  /**
-   * Controls the disabled state of the input
-   */
-  @property({ type: Boolean, reflect: true })
-  disabled = false;
-
-  /**
-   * The helper text.
-   */
-  @property({ attribute: 'helper-text' })
-  helperText = '';
-
-  /**
-   * Controls the invalid state and visibility of the `validityMessage`
-   */
-  @property({ type: Boolean, reflect: true })
-  invalid = false;
-
-  /**
-   * The label text.
-   */
-  @property({ attribute: 'label-text' })
-  labelText = '';
-
-  /**
-   * Name for the input in the `FormData`
-   */
-  @property()
-  name = '';
-
-  /**
-   * Pattern to validate the input against for HTML validity checking
-   */
-  @property()
-  pattern = '';
-
-  /**
-   * Value to display when the input has an empty `value`
-   */
-  @property({ reflect: true })
-  placeholder = '';
-
-  /**
-   * Controls the readonly state of the input
-   */
-  @property({ type: Boolean, reflect: true })
-  readonly = false;
-
-  /**
-   * Boolean property to set the required status
-   */
-  @property({ type: Boolean, reflect: true })
-  required = false;
-
-  /**
-   * The special validity message for `required`.
-   */
-  @property({ attribute: 'required-validity-message' })
-  requiredValidityMessage = 'Please fill out this field.';
-
-  /**
-   * The input box size.
-   */
-  @property({ reflect: true })
-  size = INPUT_SIZE.REGULAR;
-
-  /**
-   * The type of the input. Can be one of the types listed in the INPUT_TYPE enum
-   */
-  @property({ reflect: true })
-  type = INPUT_TYPE.TEXT;
-
-  /**
-   * The validity message. If present and non-empty, this input shows the UI of its invalid state.
-   */
-  @property({ attribute: 'validity-message' })
-  validityMessage = '';
-
-  /**
-   * The value of the input.
-   */
-  @property({ reflect: true })
-  get value() {
-    // FIXME: Figure out how to deal with TS2611
-    // once we have the input we can directly query for the value
-    if (this._input) {
-      return this._input.value;
-    }
-    // but before then _value will work fine
-    return this._value;
-  }
-
-  set value(value) {
-    const oldValue = this._value;
-    this._value = value;
-    // make sure that lit-element updates the right properties
-    this.requestUpdate('value', oldValue);
-    // we set the value directly on the input (when available)
-    // so that programatic manipulation updates the UI correctly
-    if (this._input) {
-      this._input.value = value;
-    }
-  }
-
+export default class BXInput extends LitElement {
   render() {
     return html`
       <input />
