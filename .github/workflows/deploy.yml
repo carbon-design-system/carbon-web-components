@@ -1,7 +1,7 @@
 name: deploy
 
 on:
-  push:
+  create:
     tags:
       - 'v*'
 
