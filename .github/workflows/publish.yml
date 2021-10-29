@@ -25,6 +25,14 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+      - name: Tag with the latest version
+        if: steps.publish.outputs.version != steps.publish.outputs['old-version']
+        run: |
+          git config --global user.email ${{ secrets.BOT_EMAIL }}
+          git config --global user.name ${{ secrets.BOT_NAME }}
+
+          git tag -a v${{ steps.publish.outputs.version }} -m "Release v${{ steps.publish.outputs.version }}"
+          git push --tags
       - name: Create changelog
         if: steps.publish.outputs.version != steps.publish.outputs['old-version']
         env:
@@ -38,5 +46,4 @@ jobs:
         with:
           bodyFile: "CHANGELOG.md"
           tag: v${{ steps.publish.outputs.version }}
-          commit: master
           token: ${{ secrets.GITHUB_TOKEN }}
