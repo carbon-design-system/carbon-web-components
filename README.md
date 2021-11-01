@@ -172,15 +172,31 @@ To install `carbon-web-components` in your project, you will need to run the
 following command using [npm](https://www.npmjs.com/):
 
 ```bash
-npm install --save carbon-web-components carbon-components lit-html lit-element
+npm install --save carbon-web-components
 ```
 
 If you prefer [Yarn](https://yarnpkg.com/en/), use the following command
 instead:
 
 ```bash
-yarn add carbon-web-components carbon-components lit-html lit-element
+yarn add carbon-web-components
 ```
+
+> NOTE: Carbon and Lit dependencies will be managed by Carbon Web Components starting in
+> `v1.19.0`. For earlier versions, these dependencies will have to be installed
+> separately:
+>
+> npm:
+>
+> ```bash
+> npm install --save carbon-components lit-html lit-element
+> ```
+>
+> Yarn:
+>
+> ```bash
+> yarn add carbon-components lit-html lit-element
+> ```
 
 #### Basic usage
 

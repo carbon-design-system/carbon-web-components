@@ -14,4 +14,6 @@ tests/coverage
 .vscode
 .idea
 .env
+.npmrc
+yarn-error.log
 CHANGELOG.md
