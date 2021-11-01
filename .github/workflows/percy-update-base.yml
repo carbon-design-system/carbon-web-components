@@ -8,7 +8,7 @@ on:
 
 jobs:
   percy:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['12.x']
