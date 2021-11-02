@@ -8372,7 +8372,7 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
-carbon-components@10.47.0:
+carbon-components@^10.47.0:
   version "10.47.0"
   resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.47.0.tgz#fbc984531e3abe9d072dc88b371bd5bb397c2b0d"
   integrity sha512-ThjNOMUL6kFgMORvLII76WMGD4VEqgSA+wft5AK9imhsAIFP/54LxzAH+FSpZxP+VA0FjbunUUIv3pKOodedbA==
