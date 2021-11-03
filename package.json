@@ -269,7 +269,7 @@
     "vue-eslint-parser": "^6.0.0",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.0",
-    "web-component-analyzer": "^1.0.0",
+    "web-component-analyzer": "^1.1.6",
     "webpack": "^4.28.0",
     "webpack-dev-server": "^3.11.0",
     "zone.js": "^0.8.0"
