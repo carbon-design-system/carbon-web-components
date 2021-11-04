@@ -133,8 +133,45 @@ class BXMultiSelect extends BXDropdown {
       } else {
         this._triggerNode.focus();
       }
+    } else if (this.filterable) {
+      this._handleKeypressInnerFlterable(event);
     } else {
       super._handleKeypressInner(event);
+    }
+  }
+
+  /**
+   * Special andler for the `keypress` event, ensures space selection for filterable
+   * variation is disabled
+   */
+
+  protected _handleKeypressInnerFlterable(event: KeyboardEvent) {
+    const { key } = event;
+    const action = (this.constructor as typeof BXDropdown).getAction(key);
+    if (!this.open) {
+      switch (action) {
+        case DROPDOWN_KEYBOARD_ACTION.TRIGGERING:
+          this._handleUserInitiatedToggle(true);
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (key) {
+        case 'Enter':
+          {
+            const constructor = this.constructor as typeof BXDropdown;
+            const highlightedItem = this.querySelector(constructor.selectorItemHighlighted) as BXMultiSelectItem;
+            if (highlightedItem) {
+              this._handleUserInitiatedSelectItem(highlightedItem);
+            } else {
+              this._handleUserInitiatedToggle(false);
+            }
+          }
+          break;
+        default:
+          break;
+      }
     }
   }
 
