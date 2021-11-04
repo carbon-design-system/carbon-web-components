@@ -9,7 +9,7 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { moduleMetadata } from '@storybook/angular';
-import baseStory, { Default as baseDefault } from './multi-select-story';
+import baseStory, { Default as baseDefault, Filterable as filterableStory } from './multi-select-story';
 
 export const Default = args => ({
   template: `
@@ -123,7 +123,7 @@ export const Filterable = args => ({
   })(args?.['bx-multi-select']),
 });
 
-Object.assign(Filterable, baseDefault);
+Object.assign(Filterable, filterableStory);
 
 export default Object.assign(baseStory, {
   decorators: [

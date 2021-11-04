@@ -14,7 +14,7 @@ import React from 'react';
 import BXMultiSelect from 'carbon-web-components/es/components-react/multi-select/multi-select';
 // @ts-ignore
 import BXMultiSelectItem from 'carbon-web-components/es/components-react/multi-select/multi-select-item';
-import { Default as baseDefault } from './multi-select-story';
+import { Default as baseDefault, Filterable as filterableStory } from './multi-select-story';
 
 export { default } from './multi-select-story';
 
@@ -148,8 +148,9 @@ export const Filterable = args => {
       onBeforeToggle={handleBeforeToggle}
       onSelect={onSelect}
       onToggle={onToggle}>
-      <BXMultiSelectItem value="example"
-        >An example option that is really long to show what should be done to handle long text</BXMultiSelectItem>
+      <BXMultiSelectItem value="example">
+        An example option that is really long to show what should be done to handle long text
+      </BXMultiSelectItem>
       <BXMultiSelectItem value="all">Option 1</BXMultiSelectItem>
       <BXMultiSelectItem value="cloudFoundry">Option 2</BXMultiSelectItem>
       <BXMultiSelectItem value="staging">Option 3</BXMultiSelectItem>
@@ -159,4 +160,4 @@ export const Filterable = args => {
   );
 };
 
-Object.assign(Filterable, baseDefault);
+Object.assign(Filterable, filterableStory);

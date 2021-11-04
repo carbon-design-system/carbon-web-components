@@ -8,7 +8,7 @@
  */
 
 import createVueBindingsFromProps from '../../../.storybook/vue/create-vue-bindings-from-props';
-import { Default as baseDefault } from './multi-select-story';
+import { Default as baseDefault, Filterable as filterableStory } from './multi-select-story';
 
 export { default } from './multi-select-story';
 
@@ -18,7 +18,6 @@ export const Default = args => ({
       :color-scheme="colorScheme"
       :disabled="disabled"
       :invalid="invalid"
-      :light="light"
       :open="open"
       :clear-selection-label="clearSelectionLabel"
       :helper-text="helperText"
@@ -83,7 +82,6 @@ export const Filterable = args => ({
       :color-scheme="colorScheme"
       :disabled="disabled"
       :invalid="invalid"
-      :light="light"
       :open="open"
       :clear-selection-label="clearSelectionLabel"
       :helper-text="helperText"
@@ -142,4 +140,4 @@ export const Filterable = args => ({
   ),
 });
 
-Object.assign(Filterable, baseDefault);
+Object.assign(Filterable, filterableStory);
