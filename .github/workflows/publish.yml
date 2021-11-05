@@ -7,15 +7,18 @@ on:
 
 jobs:
   publish:
+    # Prevents action from creating a PR on forks
+    if: github.repository == github.event.pull_request.head.repo.full_name
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: '14.x'
+          cache: 'yarn'
       - name: Install dependencies
         run: yarn install --frozen-lockfile --offline
       - name: Build project
@@ -25,6 +28,14 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+      - name: Tag with the latest version
+        if: steps.publish.outputs.version != steps.publish.outputs['old-version']
+        run: |
+          git config --global user.email ${{ secrets.BOT_EMAIL }}
+          git config --global user.name ${{ secrets.BOT_NAME }}
+
+          git tag -a v${{ steps.publish.outputs.version }} -m "Release v${{ steps.publish.outputs.version }}"
+          git push --tags
       - name: Create changelog
         if: steps.publish.outputs.version != steps.publish.outputs['old-version']
         env:
@@ -38,5 +49,4 @@ jobs:
         with:
           bodyFile: "CHANGELOG.md"
           tag: v${{ steps.publish.outputs.version }}
-          commit: master
           token: ${{ secrets.GITHUB_TOKEN }}

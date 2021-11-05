@@ -7,13 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
       - name: Install dependencies
         run: yarn install --frozen-lockfile --offline
       - run: sudo apt-get install xvfb
@@ -23,7 +24,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
-        node-version: [12.x]
+        node-version: [14.x]
         browser: [chromium, firefox, webkit]
         exclude:
           - os: ubuntu-latest
@@ -32,11 +33,12 @@ jobs:
             browser: webkit
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
       - name: Install dependencies
         run: yarn install --frozen-lockfile --offline
       - name: Install xvfb
