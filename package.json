@@ -67,7 +67,7 @@
     "lint:scripts": "eslint --ext .js,.ts,.tsx .",
     "lint:scripts:staged": "eslint",
     "lint:src": "yarn lint:license:src && yarn lint:scripts",
-    "reset": "yarn cache clean && yarn clean && yarn install && yarn build",
+    "reset": "yarn cache clean && yarn clean && rimraf node_modules && yarn install && yarn build",
     "test": "gulp test && yarn test:integration",
     "test:integration": "yarn test:integration:build && yarn test:integration:ui",
     "test:integration:build": "jest -c tests/integration/build/jest.config.js --runInBand",
