@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -29,13 +29,12 @@ export enum VALIDATION_STATUS {
 const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
   abstract class ValidityMixinImpl extends Base {
     // Not using TypeScript `protected` due to: microsoft/TypeScript#17744
-    // Using `string` instead of `VALIDATION_STATUS` until we can require TypeScript 3.8
     /**
      * @param state The form validation status.
      * @returns The form validation error messages associated with the given status.
      * @protected
      */
-    _getValidityMessage(state: string) {
+    _getValidityMessage(state: VALIDATION_STATUS) {
       return {
         [VALIDATION_STATUS.NO_ERROR]: '',
         [VALIDATION_STATUS.ERROR_REQUIRED]: this.requiredValidityMessage,
@@ -43,13 +42,12 @@ const ValidityMixin = <T extends Constructor<HTMLElement>>(Base: T) => {
     }
 
     // Not using TypeScript `protected` due to: microsoft/TypeScript#17744
-    // Using `string` instead of `VALIDATION_STATUS` until we can require TypeScript 3.8
     /**
      * Checks if the value meets the constraints.
      * @returns `VALIDATION_STATUS.NO_ERROR` if the value meets the constraints. Some other values otherwise.
      * @protected
      */
-    _testValidity(): string {
+    _testValidity(): VALIDATION_STATUS {
       const { required, value } = this;
       return required && !value ? VALIDATION_STATUS.ERROR_REQUIRED : VALIDATION_STATUS.NO_ERROR;
     }

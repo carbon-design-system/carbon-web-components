@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -199,7 +199,7 @@ describe('bx-select', function() {
       const elem = document.body.querySelector('bx-select');
       const { _attributeToProperty: origAttributeToProperty } = elem as any;
       let caught;
-      await new Promise(resolve => {
+      await new Promise<void>(resolve => {
         spyOn(BXSelect.prototype as any, '_attributeToProperty').and.callFake(function() {
           try {
             // TODO: See if we can get around TS2683

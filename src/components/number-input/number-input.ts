@@ -17,6 +17,7 @@ import ifNonEmpty from '../../globals/directives/if-non-empty';
 import { NUMBER_INPUT_COLOR_SCHEME, NUMBER_INPUT_VALIDATION_STATUS } from './defs';
 import styles from './number-input.scss';
 import BXInput, { INPUT_SIZE } from '../input/input';
+import { VALIDATION_STATUS } from '../../globals/mixins/validity';
 
 export { NUMBER_INPUT_COLOR_SCHEME, NUMBER_INPUT_VALIDATION_STATUS };
 
@@ -94,7 +95,9 @@ export default class BXNumberInput extends BXInput {
   @query('input')
   protected _input!: HTMLInputElement;
 
-  _testValidity() {
+  // TODO: Fix this type error
+  // @ts-ignore
+  _testValidity(): NUMBER_INPUT_VALIDATION_STATUS | VALIDATION_STATUS {
     if (this._input?.valueAsNumber > Number(this.max)) {
       return NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM;
     }
@@ -104,7 +107,7 @@ export default class BXNumberInput extends BXInput {
     return super._testValidity();
   }
 
-  _getValidityMessage(state: string) {
+  _getValidityMessage(state: NUMBER_INPUT_VALIDATION_STATUS | VALIDATION_STATUS) {
     if (Object.values(NUMBER_INPUT_VALIDATION_STATUS).includes(state as NUMBER_INPUT_VALIDATION_STATUS)) {
       const stateMessageMap = {
         [NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM]: this.validityMessageMax,
@@ -112,7 +115,7 @@ export default class BXNumberInput extends BXInput {
       };
       return stateMessageMap[state];
     }
-    return super._getValidityMessage(state);
+    return super._getValidityMessage(state as VALIDATION_STATUS);
   }
 
   protected _min = '';
