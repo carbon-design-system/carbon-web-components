@@ -255,7 +255,7 @@
     "rollup-pluginutils": "^2.8.0",
     "rtlcss": "^2.4.0",
     "rxjs": "^6.4.0",
-    "sass": "^1.39.0",
+    "sass": "1.40.0",
     "sass-loader": "^10.2.0",
     "strip-comments": "^1.0.0",
     "style-loader": "^2.0.0",
