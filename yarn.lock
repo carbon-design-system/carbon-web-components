@@ -4655,10 +4655,12 @@
   dependencies:
     mkdirp "^1.0.4"
 
-"@open-wc/semantic-dom-diff@~0.16.0":
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/@open-wc/semantic-dom-diff/-/semantic-dom-diff-0.16.0.tgz#6a49ef4947a2fd5470a19b36d2651881cfd37b97"
-  integrity sha512-b74psFvCVnoG2mLbXuhsMehoW/pgos7scUcd2WPSbmD+J1Y9jAU3pV1z8GDGrfykFWIE2aZTUgGAPNm8BakAGA==
+"@open-wc/semantic-dom-diff@~0.17.0":
+  version "0.17.10"
+  resolved "https://registry.yarnpkg.com/@open-wc/semantic-dom-diff/-/semantic-dom-diff-0.17.10.tgz#3adbff47577f69825edc74585d4950b9197531c8"
+  integrity sha512-7RAJqHsaFGA8LoBlgaScTxSu5FXga89Af1RXv3n/Rmv/x/W5mmyIKMfUR3F/RJofm2/FwnLWtaHgwS9qB1eNfg==
+  dependencies:
+    "@types/chai" "^4.2.11"
 
 "@percy-io/in-percy@~0.1.11":
   version "0.1.11"
@@ -5575,6 +5577,11 @@
     "@types/keyv" "*"
     "@types/node" "*"
     "@types/responselike" "*"
+
+"@types/chai@^4.2.11":
+  version "4.2.22"
+  resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.2.22.tgz#47020d7e4cf19194d43b5202f35f75bd2ad35ce7"
+  integrity sha512-tFfcE+DSTzWAgifkjik9AySNqIyNoYwmR+uecPwwD/XRNfvOjmC/FjCxpiUGDkDVDphPfCUecSQVFw+lN3M3kQ==
 
 "@types/clone@^0.1.29":
   version "0.1.30"
