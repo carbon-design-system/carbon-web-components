@@ -4655,10 +4655,10 @@
   dependencies:
     mkdirp "^1.0.4"
 
-"@open-wc/semantic-dom-diff@~0.15.6":
-  version "0.15.6"
-  resolved "https://registry.yarnpkg.com/@open-wc/semantic-dom-diff/-/semantic-dom-diff-0.15.6.tgz#4474cc91ab001376b91a6aa1ce304556f6a6a4bf"
-  integrity sha512-dxDjgksHW1wWMs6FSl0GA24n6cB5cj7Ug2w53ztjdOefwg2P/I/zjII9Qvyms4LNvjgXD1asfoy3jye3ADQG3w==
+"@open-wc/semantic-dom-diff@~0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@open-wc/semantic-dom-diff/-/semantic-dom-diff-0.16.0.tgz#6a49ef4947a2fd5470a19b36d2651881cfd37b97"
+  integrity sha512-b74psFvCVnoG2mLbXuhsMehoW/pgos7scUcd2WPSbmD+J1Y9jAU3pV1z8GDGrfykFWIE2aZTUgGAPNm8BakAGA==
 
 "@percy-io/in-percy@~0.1.11":
   version "0.1.11"
