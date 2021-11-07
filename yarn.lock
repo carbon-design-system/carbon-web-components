@@ -4655,10 +4655,10 @@
   dependencies:
     mkdirp "^1.0.4"
 
-"@open-wc/semantic-dom-diff@~0.17.0":
-  version "0.17.10"
-  resolved "https://registry.yarnpkg.com/@open-wc/semantic-dom-diff/-/semantic-dom-diff-0.17.10.tgz#3adbff47577f69825edc74585d4950b9197531c8"
-  integrity sha512-7RAJqHsaFGA8LoBlgaScTxSu5FXga89Af1RXv3n/Rmv/x/W5mmyIKMfUR3F/RJofm2/FwnLWtaHgwS9qB1eNfg==
+"@open-wc/semantic-dom-diff@~0.18.0":
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/@open-wc/semantic-dom-diff/-/semantic-dom-diff-0.18.0.tgz#0b9efcb86a7dd0a3460daa8d1cfa81a6056eaac0"
+  integrity sha512-TyW5WwzcKemtoAY+mennsUoy+at+Tw6deO15eTaV6k5IeIpEqPz/0K8QWcXcawpExWVBzmJ+H1rMJLhENj9iUw==
   dependencies:
     "@types/chai" "^4.2.11"
 
