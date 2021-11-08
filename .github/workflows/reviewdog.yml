@@ -1,5 +1,10 @@
 name: reviewdog
 on: [pull_request]
+
+concurrency:
+  group: reviewdog-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   eslint:
     name: runner / eslint

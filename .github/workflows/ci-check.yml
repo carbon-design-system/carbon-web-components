@@ -2,6 +2,10 @@ name: ci-check
 
 on: [push, pull_request]
 
+concurrency:
+  group: ci-check-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   ci-check:
     runs-on: ubuntu-latest
