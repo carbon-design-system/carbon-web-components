@@ -6,6 +6,10 @@ on:
       - master
       - release/*
 
+concurrency:
+  group: percy-update-base-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   percy:
     # Prevents action from creating a PR on forks
