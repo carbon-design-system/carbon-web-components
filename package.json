@@ -67,7 +67,7 @@
     "lint:scripts": "eslint --ext .js,.ts,.tsx .",
     "lint:scripts:staged": "eslint",
     "lint:src": "yarn lint:license:src && yarn lint:scripts",
-    "reset": "yarn cache clean && yarn clean && yarn install && yarn build",
+    "reset": "yarn cache clean && yarn clean && rimraf node_modules && yarn install && yarn build",
     "test": "gulp test && yarn test:integration",
     "test:integration": "yarn test:integration:build && yarn test:integration:ui",
     "test:integration:build": "jest -c tests/integration/build/jest.config.js --runInBand",
@@ -88,7 +88,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.8.0",
-    "carbon-components": "^10.47.1",
+    "carbon-components": "10.47.1",
     "lit-element": "^2.5.1",
     "lit-html": "^1.4.1",
     "lodash-es": "^4.17.21"
@@ -255,8 +255,8 @@
     "rollup-pluginutils": "^2.8.0",
     "rtlcss": "^2.4.0",
     "rxjs": "^6.4.0",
-    "sass": "^1.39.0",
-    "sass-loader": "^10.0.0",
+    "sass": "~1.40.0",
+    "sass-loader": "^10.2.0",
     "strip-comments": "^1.0.0",
     "style-loader": "^2.0.0",
     "temp": "~0.9.4",
