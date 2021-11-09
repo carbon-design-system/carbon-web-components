@@ -7,8 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
-
 const del = require('del');
 const gulp = require('gulp');
 const config = require('./config');

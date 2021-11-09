@@ -7,8 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
-
 const path = require('path');
 const { createFilter } = require('rollup-pluginutils');
 const createSVGResultCarbonIcon = require('./svg-result-carbon-icon');
