@@ -4313,6 +4313,11 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@lit/reactive-element@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@lit/reactive-element/-/reactive-element-1.0.1.tgz#853cacd4d78d79059f33f66f8e7b0e5c34bee294"
+  integrity sha512-nSD5AA2AZkKuXuvGs8IK7K5ZczLAogfDd26zT9l6S7WzvqALdVWcW5vMUiTnZyj5SPcNwNNANj0koeV1ieqTFQ==
+
 "@mdx-js/loader@^1.6.22":
   version "1.6.22"
   resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-1.6.22.tgz#d9e8fe7f8185ff13c9c8639c048b123e30d322c4"
@@ -15482,14 +15487,15 @@ listr2@^3.2.2:
     through "^2.3.8"
     wrap-ansi "^7.0.0"
 
-lit-element@^2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/lit-element/-/lit-element-2.5.1.tgz#3fa74b121a6cd22902409ae3859b7847d01aa6b6"
-  integrity sha512-ogu7PiJTA33bEK0xGu1dmaX5vhcRjBXCFexPja0e7P7jqLhTpNKYRPmE+GmiCaRVAbiQKGkUgkh/i6+bh++dPQ==
+lit-element@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/lit-element/-/lit-element-3.0.1.tgz#3c545af17d8a46268bc1dd5623a47486e6ff76f4"
+  integrity sha512-vs9uybH9ORyK49CFjoNGN85HM9h5bmisU4TQ63phe/+GYlwvY/3SIFYKdjV6xNvzz8v2MnVC+9+QOkPqh+Q3Ew==
   dependencies:
-    lit-html "^1.1.1"
+    "@lit/reactive-element" "^1.0.0"
+    lit-html "^2.0.0"
 
-lit-html@^1.1.1, lit-html@^1.4.0, lit-html@^1.4.1:
+lit-html@^1.4.0, lit-html@^1.4.1, lit-html@^2.0.0:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/lit-html/-/lit-html-1.4.1.tgz#0c6f3ee4ad4eb610a49831787f0478ad8e9ae5e0"
   integrity sha512-B9btcSgPYb1q4oSOb/PrOT6Z/H+r6xuNzfH4lFli/AWhYwdtrgQkQWBbIc6mdnf6E2IL3gDXdkkqNktpU0OZQA==
