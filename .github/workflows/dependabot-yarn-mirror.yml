@@ -15,9 +15,6 @@ jobs:
         node-version: ['14.x']
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{github.event.pull_request.head.ref}}
-          token: ${{secrets.GH_TOKEN}}
       - uses: fregante/setup-git-user@v1
       - name: Use Node.js
         uses: actions/setup-node@v2
@@ -28,6 +25,7 @@ jobs:
         if: contains(github.event.pull_request.labels.*.name, 'dependencies')
         run: |
           yarn
+          git checkout -b ${{github.event.pull_request.head.ref}}
           git add -A
           if [[ ! -z $(git status -s) ]] ; then
             git commit -m "chore(yarn): update yarn offline mirror"
