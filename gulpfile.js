@@ -7,8 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
-
 require('./gulp-tasks/build');
 require('./gulp-tasks/clean');
 require('./gulp-tasks/lint');
