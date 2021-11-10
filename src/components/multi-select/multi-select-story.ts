@@ -103,6 +103,81 @@ export const Default = args => {
 
 Default.storyName = 'Default';
 
+export const Filterable = args => {
+  const {
+    clearSelectionLabel,
+    colorScheme,
+    disabled,
+    helperText,
+    invalid,
+    labelText,
+    open,
+    size,
+    toggleLabelClosed,
+    toggleLabelOpen,
+    triggerContent,
+    type,
+    validityMessage,
+    value,
+    disableSelection,
+    disableToggle,
+    onBeforeSelect,
+    onBeforeToggle,
+    onSelect,
+    onToggle,
+  } = args?.['bx-multi-select'] ?? {};
+  const handleBeforeSelect = (event: CustomEvent) => {
+    if (onBeforeSelect) {
+      onBeforeSelect(event);
+    }
+    if (disableSelection) {
+      event.preventDefault();
+    }
+  };
+  const handleBeforeToggle = (event: CustomEvent) => {
+    if (onBeforeToggle) {
+      onBeforeToggle(event);
+    }
+    if (disableToggle) {
+      event.preventDefault();
+    }
+  };
+  return html`
+    <bx-multi-select
+      filterable="true"
+      color-scheme="${ifNonNull(colorScheme)}"
+      ?disabled=${disabled}
+      ?invalid=${invalid}
+      ?open=${open}
+      clear-selection-label=${ifNonNull(clearSelectionLabel)}
+      helper-text=${ifNonNull(helperText)}
+      label-text=${ifNonNull(labelText)}
+      size=${ifNonNull(size)}
+      toggle-label-closed=${ifNonNull(toggleLabelClosed)}
+      toggle-label-open=${ifNonNull(toggleLabelOpen)}
+      trigger-content=${ifNonNull(triggerContent)}
+      type=${ifNonNull(type)}
+      validity-message=${ifNonNull(validityMessage)}
+      value="${ifNonNull(value)}"
+      @bx-multi-select-beingselected=${handleBeforeSelect}
+      @bx-multi-select-beingtoggled=${handleBeforeToggle}
+      @bx-multi-select-selected=${onSelect}
+      @bx-multi-select-toggled=${onToggle}
+    >
+      <bx-multi-select-item value="example"
+        >An example option that is really long to show what should be done to handle long text</bx-multi-select-item
+      >
+      <bx-multi-select-item value="all">Option 1</bx-multi-select-item>
+      <bx-multi-select-item value="cloudFoundry">Option 2</bx-multi-select-item>
+      <bx-multi-select-item value="staging">Option 3</bx-multi-select-item>
+      <bx-multi-select-item value="dea">Option 4</bx-multi-select-item>
+      <bx-multi-select-item value="router">Option 5</bx-multi-select-item>
+    </bx-multi-select>
+  `;
+};
+
+Filterable.storyName = 'Filterable';
+
 export default {
   title: 'Components/Multi select',
   parameters: {
