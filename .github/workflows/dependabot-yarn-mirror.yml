@@ -24,8 +24,8 @@ jobs:
       - name: Update yarn offline mirror
         if: contains(github.event.pull_request.labels.*.name, 'dependencies')
         run: |
-          yarn
           git checkout -b ${{github.event.pull_request.head.ref}}
+          yarn
           git add -A
           if [[ ! -z $(git status -s) ]] ; then
             git commit -m "chore(yarn): update yarn offline mirror"
