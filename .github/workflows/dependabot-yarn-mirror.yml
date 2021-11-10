@@ -28,7 +28,7 @@ jobs:
           git config --global github.token ${{ secrets.GH_TOKEN }}
 
           git checkout -b ${{github.event.pull_request.head.ref}}
-          git pull origin ${{github.event.pull_request.head.ref}}
+          git pull
 
           yarn
           git add -A
