@@ -26,7 +26,7 @@ jobs:
           git config --global user.email ${{ secrets.BOT_EMAIL }}
           git config --global user.name ${{ secrets.BOT_NAME }}
           git config --global github.token ${{ secrets.GH_TOKEN }}
-
+          git config --global pull.rebase false
           git checkout -b ${{github.event.pull_request.head.ref}}
           git pull
 
