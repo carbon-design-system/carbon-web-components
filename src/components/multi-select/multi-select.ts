@@ -8,9 +8,9 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import { html, property, query, customElement } from 'lit-element';
+import { html, property, query, customElement, TemplateResult } from 'lit-element';
 import Close16 from '@carbon/icons/lib/close/16';
-import { filter, forEach } from '../../globals/internal/collection-helpers';
+import { filter, forEach, indexOf } from '../../globals/internal/collection-helpers';
 import BXDropdown, { DROPDOWN_KEYBOARD_ACTION } from '../dropdown/dropdown';
 import BXMultiSelectItem from './multi-select-item';
 import styles from './multi-select.scss';
@@ -34,16 +34,31 @@ const { prefix } = settings;
  */
 @customElement(`${prefix}-multi-select`)
 class BXMultiSelect extends BXDropdown {
+  @property({ type: Boolean })
+  filterable;
+
   /**
    * The count of selected items.
    */
   private _selectedItemsCount = 0;
 
   /**
+   * The clear button.
+   */
+  @query('#clear-button')
+  private _clearButtonNode!: HTMLElement;
+
+  /**
    * The selection button.
    */
   @query('#selection-button')
   private _selectionButtonNode!: HTMLElement;
+
+  /**
+   * The `<input>` for filtering.
+   */
+  @query('input')
+  private _filterInputNode!: HTMLInputElement;
 
   /**
    * The trigger button.
@@ -79,29 +94,84 @@ class BXMultiSelect extends BXDropdown {
   protected _handleClickInner(event: MouseEvent) {
     if (this._selectionButtonNode?.contains(event.target as Node)) {
       this._handleUserInitiatedSelectItem();
+      if (this.filterable) {
+        this._filterInputNode.focus();
+      } else {
+        this._triggerNode.focus();
+      }
+    } else if (this._clearButtonNode?.contains(event.target as Node)) {
+      this._handleUserInitiatedClearInput();
     } else {
       const shouldIgnoreClickInner = elem =>
         elem.closest && elem.closest((this.constructor as typeof BXMultiSelect).selectorIgnoreClickInner);
       if (!event.composedPath().some(shouldIgnoreClickInner)) {
         super._handleClickInner(event);
       }
+      if (this.filterable) this._filterInputNode.focus();
     }
   }
 
-  protected _handleKeydownInner(event: KeyboardEvent) {
+  /**
+   * Handler for the `keypress` event, ensures filter still works upon entering space
+   */
+  protected _handleKeypressInner(event: KeyboardEvent) {
     const { key } = event;
+    const action = (this.constructor as typeof BXDropdown).getAction(key);
+    const { TRIGGERING } = DROPDOWN_KEYBOARD_ACTION;
+
     if (
-      this._selectionButtonNode?.contains(event.target as Node) &&
-      (this.constructor as typeof BXMultiSelect).TRIGGER_KEYS.has(key)
+      this._clearButtonNode?.contains(event.target as Node) &&
+      // Space key should be handled by `<input>` unless "clear selection" button has focus
+      (action === TRIGGERING || key === ' ')
     ) {
+      this._handleUserInitiatedClearInput();
+    } else if (this._selectionButtonNode?.contains(event.target as Node)) {
       this._handleUserInitiatedSelectItem();
-      this._triggerNode.focus();
-    } else {
-      // Ensures up/down keys won't keep focus on "clear selection" button
-      if (DROPDOWN_KEYBOARD_ACTION.NAVIGATING === (this.constructor as typeof BXMultiSelect).getAction(key)) {
+      this.open = true;
+      if (this.filterable) {
+        this._filterInputNode.focus();
+      } else {
         this._triggerNode.focus();
       }
-      super._handleKeydownInner(event);
+    } else if (this.filterable) {
+      this._handleKeypressInnerFlterable(event);
+    } else {
+      super._handleKeypressInner(event);
+    }
+  }
+
+  /**
+   * Special andler for the `keypress` event, ensures space selection for filterable
+   * variation is disabled
+   */
+
+  protected _handleKeypressInnerFlterable(event: KeyboardEvent) {
+    const { key } = event;
+    const action = (this.constructor as typeof BXDropdown).getAction(key);
+    if (!this.open) {
+      switch (action) {
+        case DROPDOWN_KEYBOARD_ACTION.TRIGGERING:
+          this._handleUserInitiatedToggle(true);
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (key) {
+        case 'Enter':
+          {
+            const constructor = this.constructor as typeof BXDropdown;
+            const highlightedItem = this.querySelector(constructor.selectorItemHighlighted) as BXMultiSelectItem;
+            if (highlightedItem) {
+              this._handleUserInitiatedSelectItem(highlightedItem);
+            } else {
+              this._handleUserInitiatedToggle(false);
+            }
+          }
+          break;
+        default:
+          break;
+      }
     }
   }
 
@@ -120,6 +190,104 @@ class BXMultiSelect extends BXDropdown {
             ${selectedItemsCount} ${Close16({ 'aria-label': clearSelectionLabel })}
           </div>
         `;
+  }
+
+  /**
+    @returns The main content of the trigger button.
+   */
+  protected _renderTriggerContent(): TemplateResult {
+    const { triggerContent, _selectedItemContent: selectedItemContent } = this;
+    return !this.filterable
+      ? html`
+          <span id="trigger-label" class="${prefix}--list-box__label">${selectedItemContent || triggerContent}</span>
+        `
+      : html`
+          <input
+            id="trigger-label"
+            class="${prefix}--text-input"
+            placeholder="${triggerContent}"
+            role="combobox"
+            aria-controls="menu-body"
+            aria-autocomplete="list"
+            @input="${this._handleInput}"
+          />
+        `;
+  }
+
+  protected _renderFollowingTriggerContent(): TemplateResult | void {
+    const { clearSelectionLabel, _filterInputNode: filterInputNode } = this;
+    return filterInputNode && filterInputNode.value.length > 0 && this.filterable
+      ? html`
+          <div id="clear-button" role="button" class="${prefix}--list-box__selection" tabindex="0" title="${clearSelectionLabel}">
+            ${Close16({ 'aria-label': clearSelectionLabel })}
+          </div>
+        `
+      : undefined;
+  }
+
+  /**
+   * Handles `input` event on the `<input>` for filtering.
+   */
+  protected _handleInput() {
+    const items = this.querySelectorAll((this.constructor as typeof BXMultiSelect).selectorItem);
+    const inputValue = this._filterInputNode.value.toLocaleLowerCase();
+
+    if (!this.open) this.open = true;
+
+    forEach(items, item => {
+      const itemValue = (item as HTMLElement).innerText.toLocaleLowerCase();
+
+      if (!itemValue.includes(inputValue)) {
+        (item as BXMultiSelectItem).setAttribute('filtered', '');
+        (item as BXMultiSelectItem).removeAttribute('highlighted');
+      } else {
+        (item as BXMultiSelectItem).removeAttribute('filtered');
+      }
+    });
+
+    this.requestUpdate();
+  }
+
+  /**
+   * Navigate through dropdown items.
+   * @param direction `-1` to navigate backward, `1` to navigate forward.
+   */
+  protected _navigate(direction: number) {
+    if (!this.filterable) {
+      this._triggerNode.focus();
+      super._navigate(direction);
+    } else {
+      // only navigate through remaining item
+      const constructor = this.constructor as typeof BXMultiSelect;
+      const items = this.querySelectorAll(constructor.selectorItemResults);
+      const highlightedItem = this.querySelector(constructor.selectorItemHighlighted);
+      const highlightedIndex = indexOf(items, highlightedItem!);
+
+      let nextIndex = highlightedIndex + direction;
+      if (nextIndex < 0) {
+        nextIndex = items.length - 1;
+      }
+      if (nextIndex >= items.length) {
+        nextIndex = 0;
+      }
+      forEach(items, (item, i) => {
+        (item as BXMultiSelectItem).highlighted = i === nextIndex;
+      });
+    }
+  }
+
+  /**
+   * Handles user-initiated clearing the `<input>` for filtering.
+   */
+  protected _handleUserInitiatedClearInput() {
+    const constructor = this.constructor as typeof BXMultiSelect;
+    const items = this.querySelectorAll(constructor.selectorItemFiltered);
+    this._filterInputNode.value = '';
+    this.open = true;
+    this._filterInputNode.focus();
+    forEach(items, item => {
+      (item as BXMultiSelectItem).removeAttribute('filtered');
+    });
   }
 
   /**
@@ -181,6 +349,20 @@ class BXMultiSelect extends BXDropdown {
    */
   static get selectorItem() {
     return `${prefix}-multi-select-item`;
+  }
+
+  /**
+   * A selector that will return remaining items after a filter.
+   */
+  static get selectorItemFiltered() {
+    return `${prefix}-multi-select-item[filtered]`;
+  }
+
+  /**
+   * A selector that will return remaining items after a filter.
+   */
+  static get selectorItemResults() {
+    return `${prefix}-multi-select-item:not([filtered])`;
   }
 
   /**

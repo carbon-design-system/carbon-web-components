@@ -24,6 +24,19 @@ In the most basic case, you can simply put `<bx-multi-select>` and `<bx-multi-se
 </bx-multi-select>
 ```
 
+## Filter mode
+
+If you'd like to have a search bar to filter through the dropdown options, you can add the `filterable` boolean to the `<bx-multi-select>` component.
+
+```html
+<bx-multi-select value="foo,baz" filterable>
+  <bx-multi-select-item value="foo">Foo</bx-multi-select-item>
+  <bx-multi-select-item value="bar">Bar</bx-multi-select-item>
+  <bx-multi-select-item value="baz">Baz</bx-multi-select-item>
+</bx-multi-select>
+```
+
+
 Often you want to render the multi select items from your data. Below is an example of [`lit-html`](https://lit-html.polymer-project.org), but similar stories apply to React, Angular, Vue, Backbone, Knockout and many others:
 
 ```javascript
