@@ -7,8 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
-
 /* eslint-disable global-require */
 
 const path = require('path');
