@@ -7,8 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
-
 const sass = require('sass');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');

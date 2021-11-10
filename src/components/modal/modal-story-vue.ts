@@ -115,6 +115,4 @@ Object.assign(ThreeButtons, baseThreeButtons);
 
 // Creating a shallow clone with spread operator seems to cause
 // `Cannot read property 'name' of undefined` error in `@storybook/source-loader`
-export default Object.assign({}, baseStory, {
-  decorators: [],
-});
+export default { ...baseStory, decorators: [] };
