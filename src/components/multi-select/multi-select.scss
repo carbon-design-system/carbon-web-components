@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019, 2020
+// Copyright IBM Corp. 2019, 2021
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -28,6 +28,21 @@ $css--plex: true !default;
   .#{$prefix}--list-box__menu {
     top: 100%;
     margin-top: 1px;
+  }
+
+  .#{$prefix}--text-input {
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &[filterable] {
+    .#{$prefix}--list-box__field:focus-within {
+      outline: 2px solid $focus;
+      outline-offset: -2px;
+    }
   }
 }
 
@@ -63,6 +78,10 @@ $css--plex: true !default;
       margin: 0;
       flex-direction: row;
     }
+  }
+
+  &[filtered] {
+    display: none;
   }
 }
 
