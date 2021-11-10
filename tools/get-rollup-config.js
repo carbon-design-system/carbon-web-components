@@ -7,8 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
-
 const autoprefixer = require('autoprefixer');
 const babel = require('rollup-plugin-babel');
 const commonjs = require('rollup-plugin-commonjs');
