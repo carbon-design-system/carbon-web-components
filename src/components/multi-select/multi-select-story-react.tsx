@@ -14,7 +14,7 @@ import React from 'react';
 import BXMultiSelect from 'carbon-web-components/es/components-react/multi-select/multi-select';
 // @ts-ignore
 import BXMultiSelectItem from 'carbon-web-components/es/components-react/multi-select/multi-select-item';
-import { Default as baseDefault } from './multi-select-story';
+import { Default as baseDefault, Filterable as filterableStory } from './multi-select-story';
 
 export { default } from './multi-select-story';
 
@@ -87,3 +87,77 @@ export const Default = args => {
 };
 
 Object.assign(Default, baseDefault);
+
+export const Filterable = args => {
+  const {
+    clearSelectionLabel,
+    colorScheme,
+    disabled,
+    helperText,
+    invalid,
+    labelText,
+    light,
+    open,
+    size,
+    toggleLabelClosed,
+    toggleLabelOpen,
+    triggerContent,
+    type,
+    validityMessage,
+    disableSelection,
+    disableToggle,
+    onBeforeSelect,
+    onBeforeToggle,
+    onSelect,
+    onToggle,
+  } = args?.['bx-multi-select'];
+  const handleBeforeSelect = (event: CustomEvent) => {
+    if (onBeforeSelect) {
+      onBeforeSelect(event);
+    }
+    if (disableSelection) {
+      event.preventDefault();
+    }
+  };
+  const handleBeforeToggle = (event: CustomEvent) => {
+    if (onBeforeToggle) {
+      onBeforeToggle(event);
+    }
+    if (disableToggle) {
+      event.preventDefault();
+    }
+  };
+  return (
+    <BXMultiSelect
+      filterable={true}
+      colorScheme={colorScheme}
+      disabled={disabled}
+      invalid={invalid}
+      light={light}
+      open={open}
+      clearSelectionLabel={clearSelectionLabel}
+      helperText={helperText}
+      labelText={labelText}
+      size={size}
+      toggleLabelClosed={toggleLabelClosed}
+      toggleLabelOpen={toggleLabelOpen}
+      triggerContent={triggerContent}
+      type={type}
+      validityMessage={validityMessage}
+      onBeforeSelect={handleBeforeSelect}
+      onBeforeToggle={handleBeforeToggle}
+      onSelect={onSelect}
+      onToggle={onToggle}>
+      <BXMultiSelectItem value="example">
+        An example option that is really long to show what should be done to handle long text
+      </BXMultiSelectItem>
+      <BXMultiSelectItem value="all">Option 1</BXMultiSelectItem>
+      <BXMultiSelectItem value="cloudFoundry">Option 2</BXMultiSelectItem>
+      <BXMultiSelectItem value="staging">Option 3</BXMultiSelectItem>
+      <BXMultiSelectItem value="dea">Option 4</BXMultiSelectItem>
+      <BXMultiSelectItem value="router">Option 5</BXMultiSelectItem>
+    </BXMultiSelect>
+  );
+};
+
+Object.assign(Filterable, filterableStory);
