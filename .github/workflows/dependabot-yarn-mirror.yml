@@ -23,17 +23,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: yarn
-      - name: Get branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: get_branch
       - name: Update yarn offline mirror
         if: contains(github.event.pull_request.labels.*.name, 'dependencies')
         run: |
           yarn
-          git checkout -b ${{ steps.get_branch.outputs.branch }}
           git add -A
           if [[ ! -z $(git status -s) ]] ; then
             git commit -m "chore(yarn): update yarn offline mirror"
-            git push origin ${{ steps.get_branch.outputs.branch }}
+            git push origin ${{ github.head_ref }}
           fi
