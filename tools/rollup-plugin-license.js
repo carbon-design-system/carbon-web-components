@@ -7,8 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
-
 const path = require('path');
 const readPkgUp = require('read-pkg-up');
 const MagicString = require('magic-string');

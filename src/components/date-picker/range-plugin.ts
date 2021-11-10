@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -30,7 +30,7 @@ import { Plugin } from 'flatpickr/dist/types/options';
  *     Without that, Flatpickr clears the `<input>` when end date hasn't been selected yet (which we don't want).
  */
 export default (config: Config): Plugin => {
-  const factory = rangePlugin(Object.assign({ position: 'left' }, config));
+  const factory = rangePlugin({ position: 'left', ...config });
   return (fp: FlatpickrInstance) => {
     const origRangePlugin = factory(fp);
     const { onReady: origOnReady } = origRangePlugin;

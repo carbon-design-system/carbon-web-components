@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -109,6 +109,4 @@ Object.assign(expandable, baseExpandable);
 
 // Creating a shallow clone with spread operator seems to cause
 // `Cannot read property 'name' of undefined` error in `@storybook/source-loader`
-export default Object.assign({}, baseStory, {
-  decorators: [story => <div>{story()}</div>],
-});
+export default { ...baseStory, decorators: [story => <div>{story()}</div>] };
