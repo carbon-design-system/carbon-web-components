@@ -10,18 +10,36 @@
 const restrictedGlobals = require('eslint-restricted-globals');
 
 module.exports = {
-  plugins: ['babel'],
+  extends: ['eslint-config-airbnb-base', 'eslint-config-prettier'],
+  plugins: ['babel', 'prettier'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'script',
   },
-  extends: ['carbon-base'],
   env: {
     node: true,
     es6: true,
+    browser: true,
   },
   rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+        trailingComma: 'es5',
+      },
+    ],
+    'max-len': [2, 130, 4],
+    'no-param-reassign': [
+      2,
+      {
+        props: false,
+      },
+    ],
+    'no-plusplus': 0,
+    'no-underscore-dangle': 0,
+    'prefer-rest-params': 0,
     'no-restricted-globals': ['error', 'isFinite'].concat(restrictedGlobals),
     'no-unused-expressions': 0,
     'babel/no-unused-expressions': 2,
