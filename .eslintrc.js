@@ -10,8 +10,8 @@
 const restrictedGlobals = require('eslint-restricted-globals');
 
 module.exports = {
-  extends: ['eslint-config-airbnb-base', 'eslint-config-prettier'],
-  plugins: ['babel', 'prettier'],
+  extends: ['airbnb-base', 'plugin:prettier/recommended'],
+  plugins: ['babel'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 6,
@@ -23,13 +23,6 @@ module.exports = {
     browser: true,
   },
   rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        trailingComma: 'es5',
-      },
-    ],
     'max-len': [2, 130, 4],
     'no-param-reassign': [
       2,
