@@ -185,8 +185,7 @@ class BXMultiSelect extends BXDropdown {
             role="button"
             class="${prefix}--list-box__selection ${prefix}--list-box__selection--multi ${prefix}--tag--filter"
             tabindex="0"
-            title="${clearSelectionLabel}"
-          >
+            title="${clearSelectionLabel}">
             ${selectedItemsCount} ${Close16({ 'aria-label': clearSelectionLabel })}
           </div>
         `;
@@ -198,9 +197,7 @@ class BXMultiSelect extends BXDropdown {
   protected _renderTriggerContent(): TemplateResult {
     const { triggerContent, _selectedItemContent: selectedItemContent } = this;
     return !this.filterable
-      ? html`
-          <span id="trigger-label" class="${prefix}--list-box__label">${selectedItemContent || triggerContent}</span>
-        `
+      ? html` <span id="trigger-label" class="${prefix}--list-box__label">${selectedItemContent || triggerContent}</span> `
       : html`
           <input
             id="trigger-label"
@@ -209,8 +206,7 @@ class BXMultiSelect extends BXDropdown {
             role="combobox"
             aria-controls="menu-body"
             aria-autocomplete="list"
-            @input="${this._handleInput}"
-          />
+            @input="${this._handleInput}" />
         `;
   }
 

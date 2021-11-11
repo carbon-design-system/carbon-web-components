@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -17,17 +17,17 @@ import createReactCustomElementType, {
   objectSerializer,
 } from '../../src/globals/wrappers/createReactCustomElementType';
 
-describe('React wrapper', function() {
+describe('React wrapper', function () {
   let container;
   const events = new EventManager();
 
-  beforeEach(function() {
+  beforeEach(function () {
     container = document.createElement('div');
     document.body.appendChild(container);
   });
 
-  describe('Handling `null`/undefined`', function() {
-    it('Should not set the attribute for `undefined`', function() {
+  describe('Handling `null`/undefined`', function () {
+    it('Should not set the attribute for `undefined`', function () {
       const Component = createReactCustomElementType('test-foo', {});
       act(() => {
         render(React.createElement(Component, { foo: undefined }), container);
@@ -35,7 +35,7 @@ describe('React wrapper', function() {
       expect(container.querySelector('test-foo').hasAttribute('foo')).toBe(false);
     });
 
-    it('Should not set the attribute for `null`', function() {
+    it('Should not set the attribute for `null`', function () {
       const Component = createReactCustomElementType('test-foo', {});
       act(() => {
         render(React.createElement(Component, { foo: null }), container);
@@ -44,8 +44,8 @@ describe('React wrapper', function() {
     });
   });
 
-  describe('Attribute mapping', function() {
-    it('Should use the property name as the attribute name by default', function() {
+  describe('Attribute mapping', function () {
+    it('Should use the property name as the attribute name by default', function () {
       const Component = createReactCustomElementType('test-foo', {});
       act(() => {
         render(React.createElement(Component, { foo: 'value-foo' }), container);
@@ -53,7 +53,7 @@ describe('React wrapper', function() {
       expect(container.querySelector('test-foo').getAttribute('foo')).toBe('value-foo');
     });
 
-    it('Should use the attribute name specified in the mapping', function() {
+    it('Should use the attribute name specified in the mapping', function () {
       const Component = createReactCustomElementType('test-foo', {
         foo: {
           attribute: 'attrib-foo',
@@ -66,8 +66,8 @@ describe('React wrapper', function() {
     });
   });
 
-  describe('Serialization', function() {
-    it('Should support converting boolean prop', function() {
+  describe('Serialization', function () {
+    it('Should support converting boolean prop', function () {
       const Component = createReactCustomElementType('test-foo', {
         foo: {
           serialize: booleanSerializer,
@@ -83,7 +83,7 @@ describe('React wrapper', function() {
       expect(container.querySelector('test-foo').hasAttribute('foo')).toBe(false);
     });
 
-    it('Should support converting number prop', function() {
+    it('Should support converting number prop', function () {
       const Component = createReactCustomElementType('test-foo', {
         foo: {
           serialize: numberSerializer,
@@ -95,7 +95,7 @@ describe('React wrapper', function() {
       expect(container.querySelector('test-foo').getAttribute('foo')).toBe('1');
     });
 
-    it('Should support converting object prop', function() {
+    it('Should support converting object prop', function () {
       const Component = createReactCustomElementType('test-foo', {
         foo: {
           serialize: objectSerializer,
@@ -108,8 +108,8 @@ describe('React wrapper', function() {
     });
   });
 
-  describe('Direct property mapping', function() {
-    it('Should map to properties instead of to attributes', function() {
+  describe('Direct property mapping', function () {
+    it('Should map to properties instead of to attributes', function () {
       const Component = createReactCustomElementType('test-foo', {
         foo: {
           attribute: false,
@@ -122,8 +122,8 @@ describe('React wrapper', function() {
     });
   });
 
-  describe('Event handling', function() {
-    it('Should support string-based event descriptor', function() {
+  describe('Event handling', function () {
+    it('Should support string-based event descriptor', function () {
       const Component = createReactCustomElementType('test-foo', {
         onClick: {
           event: 'click',
@@ -137,7 +137,7 @@ describe('React wrapper', function() {
       expect(spyClick).toHaveBeenCalled();
     });
 
-    it('Should support object-based event descriptor with event options', function() {
+    it('Should support object-based event descriptor with event options', function () {
       const Component = createReactCustomElementType('test-foo', {
         onClick: {
           event: {
@@ -167,7 +167,7 @@ describe('React wrapper', function() {
     });
   });
 
-  afterEach(function() {
+  afterEach(function () {
     if (container) {
       unmountComponentAtNode(container);
       if (container.parentNode) {

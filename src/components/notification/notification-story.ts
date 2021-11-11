@@ -59,8 +59,7 @@ export const inline = args => {
       ?open="${open}"
       timeout="${ifNonNull(timeout)}"
       @bx-notification-beingclosed="${handleBeforeClose}"
-      @bx-notification-closed="${onClose}"
-    >
+      @bx-notification-closed="${onClose}">
     </bx-inline-notification>
   `;
 };
@@ -123,8 +122,7 @@ export const toast = args => {
       ?open="${open}"
       timeout="${ifNonNull(timeout)}"
       @bx-notification-beingclosed="${handleBeforeClose}"
-      @bx-notification-closed="${onClose}"
-    >
+      @bx-notification-closed="${onClose}">
     </bx-toast-notification>
   `;
 };

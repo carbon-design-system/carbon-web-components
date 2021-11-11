@@ -437,8 +437,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
             aria-valuenow="${value}"
             style="left: ${rate * 100}%"
             @keydown="${handleKeydownThumb}"
-            @mousedown="${handleMousedownThumb}"
-          ></div>
+            @mousedown="${handleMousedownThumb}"></div>
           <div id="track" class="${prefix}--slider__track" @mousedown="${handleMousedownTrack}"></div>
           <div class="${prefix}-ce--slider__filled-track-container">
             <div class="${prefix}--slider__filled-track" style="transform: translate(0%, -50%) scaleX(${rate})"></div>
@@ -449,8 +448,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
             name="${ifNonEmpty(name)}"
             .value="${value}"
             min="${ifNonEmpty(min)}"
-            max="${ifNonEmpty(max)}"
-          />
+            max="${ifNonEmpty(max)}" />
         </div>
         <span class="${prefix}--slider__range-label">
           <slot name="max-text">${formatMaxText({ max })}</slot>

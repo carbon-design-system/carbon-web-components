@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -25,14 +25,8 @@ import {
 export { default } from './code-snippet-story';
 
 export const singleLine = args => {
-  const {
-    codeAssistiveText,
-    copyButtonAssistiveText,
-    copyButtonFeedbackText,
-    copyButtonFeedbackTimeout,
-    colorScheme,
-    onClick,
-  } = args?.['bx-code-snippet'];
+  const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, colorScheme, onClick } =
+    args?.['bx-code-snippet'];
   return (
     <BXCodeSnippet
       codeAssistiveText={codeAssistiveText}
@@ -99,14 +93,8 @@ floating: 10000
 Object.assign(multiLine, baseMultiLine);
 
 export const inline = args => {
-  const {
-    codeAssistiveText,
-    copyButtonAssistiveText,
-    copyButtonFeedbackText,
-    copyButtonFeedbackTimeout,
-    colorScheme,
-    onClick,
-  } = args?.['bx-code-snippet'];
+  const { codeAssistiveText, copyButtonAssistiveText, copyButtonFeedbackText, copyButtonFeedbackTimeout, colorScheme, onClick } =
+    args?.['bx-code-snippet'];
   return (
     <BXCodeSnippet
       type="inline"

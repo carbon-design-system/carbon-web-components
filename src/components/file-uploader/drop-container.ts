@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -148,8 +148,7 @@ class BXFileDropContainer extends HostListenerMixin(LitElement) {
             accept="${ifNonEmpty(accept)}"
             ?disabled="${disabled}"
             ?multiple="${multiple}"
-            @change="${handleChange}"
-          />
+            @change="${handleChange}" />
         </div>
       </label>
     `;

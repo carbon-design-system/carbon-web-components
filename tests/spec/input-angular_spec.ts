@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -44,24 +44,24 @@ class TextareaAngularTest {
 }
 
 describe('Angular directive for bx-input', () => {
-  beforeAll(function() {
+  beforeAll(function () {
     TestBed.resetTestEnvironment();
     TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     TestBed.configureTestingModule({
       declarations: [BXInputDirective, InputAngularTest],
       imports: [FormsModule],
     });
   });
 
-  it('should send the value to model upon `input` event', async function() {
+  it('should send the value to model upon `input` event', async function () {
     const fixture = TestBed.createComponent(InputAngularTest);
     fixture.detectChanges(); // Ensures event handlers are set up
     await Promise.resolve(); // Ensures event handlers are set up
     const debugElement = fixture.debugElement.query(By.css('bx-input'));
-    ((debugElement as unknown) as BXInput).value = 'value-foo';
+    (debugElement as unknown as BXInput).value = 'value-foo';
     debugElement.triggerEventHandler('input', { target: debugElement });
     fixture.detectChanges();
     expect(fixture.componentInstance.model.username).toBe('value-foo');
@@ -69,24 +69,24 @@ describe('Angular directive for bx-input', () => {
 });
 
 describe('Angular directive for bx-textarea', () => {
-  beforeAll(function() {
+  beforeAll(function () {
     TestBed.resetTestEnvironment();
     TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     TestBed.configureTestingModule({
       declarations: [BXInputDirective, TextareaAngularTest],
       imports: [FormsModule],
     });
   });
 
-  it('should send the value to model upon `input` event', async function() {
+  it('should send the value to model upon `input` event', async function () {
     const fixture = TestBed.createComponent(TextareaAngularTest);
     fixture.detectChanges(); // Ensures event handlers are set up
     await Promise.resolve(); // Ensures event handlers are set up
     const debugElement = fixture.debugElement.query(By.css('bx-textarea'));
-    ((debugElement as unknown) as BXTextarea).value = 'value-foo';
+    (debugElement as unknown as BXTextarea).value = 'value-foo';
     debugElement.triggerEventHandler('input', { target: debugElement });
     fixture.detectChanges();
     expect(fixture.componentInstance.model.username).toBe('value-foo');

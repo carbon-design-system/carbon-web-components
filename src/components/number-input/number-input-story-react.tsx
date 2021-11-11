@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -25,9 +25,8 @@ import {
 export { default } from './number-input-story';
 
 export const Default = args => {
-  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, light, onInput } = args?.[
-    'bx-number-input'
-  ];
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, light, onInput } =
+    args?.['bx-number-input'];
   return (
     <BXNumberInput
       colorScheme={colorScheme}
@@ -49,9 +48,8 @@ export const Default = args => {
 Object.assign(Default, baseDefault);
 
 export const formItem = args => {
-  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, light, onInput } = args?.[
-    'bx-number-input'
-  ];
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, light, onInput } =
+    args?.['bx-number-input'];
   return (
     <BXFormItem>
       <BXNumberInput
@@ -80,9 +78,8 @@ export const formItem = args => {
 Object.assign(formItem, baseFormItem);
 
 export const withoutFormItemWrapper = args => {
-  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, light, onInput } = args?.[
-    'bx-number-input'
-  ];
+  const { colorScheme, disabled, value, placeholder, invalid, mobile, min, max, size, step, light, onInput } =
+    args?.['bx-number-input'];
   return (
     <BXNumberInput
       value={value}

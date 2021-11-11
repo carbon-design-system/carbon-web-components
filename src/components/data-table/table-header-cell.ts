@@ -132,16 +132,13 @@ class BXTableHeaderCell extends FocusMixin(LitElement) {
           part="sort-button"
           class="${prefix}--table-sort"
           title="${this.textContent}"
-          @click=${this._handleClickSortButton}
-        >
+          @click=${this._handleClickSortButton}>
           <span part="label-text" class="${prefix}--table-header-label"><slot @slotchange=${this._handleSlotChange}></slot></span>
           ${sortIcon}
         </button>
       `;
     }
-    return html`
-      <slot></slot>
-    `;
+    return html`<slot></slot>`;
   }
 
   /**

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -155,9 +155,7 @@ Vue.component('bx-ce-demo-data-table', {
     /**
      * Unique ID used for ID refs.
      */
-    uniqueId: Math.random()
-      .toString(36)
-      .slice(2),
+    uniqueId: Math.random().toString(36).slice(2),
   }),
 
   computed: {

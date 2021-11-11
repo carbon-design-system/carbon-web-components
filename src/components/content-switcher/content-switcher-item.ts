@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -90,8 +90,7 @@ class BXContentSwitcherItem extends FocusMixin(LitElement) {
         ?disabled="${disabled}"
         tabindex="${selected ? '0' : '-1'}"
         aria-controls="${ifNonNull(target)}"
-        aria-selected="${Boolean(selected)}"
-      >
+        aria-selected="${Boolean(selected)}">
         <span class="${prefix}--content-switcher__label"><slot></slot></span>
       </button>
     `;

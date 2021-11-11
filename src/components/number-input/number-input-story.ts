@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -33,8 +33,7 @@ export const Default = args => {
       max="${ifNonNull(max)}"
       size="${ifNonNull(size)}"
       step="${ifNonNull(step)}"
-      @input="${onInput}"
-    ></bx-number-input>
+      @input="${onInput}"></bx-number-input>
   `;
 };
 
@@ -62,8 +61,7 @@ export const formItem = args => {
         max="${ifNonNull(max)}"
         size="${ifNonNull(size)}"
         step="${ifNonNull(step)}"
-        @input="${onInput}"
-      >
+        @input="${onInput}">
         <span slot="label-text">Label text</span>
         <span slot="helper-text">Optional helper text</span>
         <span slot="validity-message">Something isn't right</span>
@@ -97,8 +95,7 @@ export const withoutFormItemWrapper = args => {
       max="${ifNonNull(max)}"
       size="${ifNonNull(size)}"
       step="${ifNonNull(step)}"
-      @input="${onInput}"
-    >
+      @input="${onInput}">
       <span slot="label-text">Label text</span>
       <span slot="helper-text">Optional helper text</span>
       <span slot="validity-message">Something isn't right</span>
@@ -115,10 +112,7 @@ withoutFormItemWrapper.parameters = {
   },
 };
 
-export const skeleton = () =>
-  html`
-    <bx-number-input-skeleton></bx-number-input-skeleton>
-  `;
+export const skeleton = () => html` <bx-number-input-skeleton></bx-number-input-skeleton> `;
 
 skeleton.parameters = {
   percy: {

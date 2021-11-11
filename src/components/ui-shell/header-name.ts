@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -46,9 +46,7 @@ class BXHeaderName extends FocusMixin(LitElement) {
     const { href, prefix: namePrefix } = this;
     const namePrefixPart = !namePrefix
       ? undefined
-      : html`
-          <span part="prefix" class="${prefix}--header__name--prefix">${namePrefix}</span>
-        `;
+      : html` <span part="prefix" class="${prefix}--header__name--prefix">${namePrefix}</span> `;
     return html`
       <a part="link" class="${prefix}--header__name" href="${ifDefined(href)}">${namePrefixPart}&nbsp;<slot></slot></a>
     `;

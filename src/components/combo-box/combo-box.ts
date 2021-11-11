@@ -166,8 +166,7 @@ class BXComboBox extends BXDropdown {
         aria-label="${inputLabel}"
         aria-controls="menu-body"
         aria-autocomplete="list"
-        @input=${handleInput}
-      />
+        @input=${handleInput} />
     `;
   }
 
@@ -181,8 +180,7 @@ class BXComboBox extends BXDropdown {
             role="button"
             class="${prefix}--list-box__selection"
             tabindex="0"
-            title="${clearSelectionLabel}"
-          >
+            title="${clearSelectionLabel}">
             ${Close16({ 'aria-label': clearSelectionLabel })}
           </div>
         `;

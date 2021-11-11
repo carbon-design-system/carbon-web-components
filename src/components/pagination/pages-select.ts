@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -77,21 +77,15 @@ class BXPagesSelect extends FocusMixin(LitElement) {
     // https://github.com/Polymer/lit-html/issues/1052
     return html`
       <div class="${prefix}--select__page-number">
-        <label for="select" class="${prefix}--label ${prefix}--visually-hidden">
-          ${formatLabelText({ count: total })}
-        </label>
+        <label for="select" class="${prefix}--label ${prefix}--visually-hidden"> ${formatLabelText({ count: total })} </label>
         <select class="${prefix}--select-input" .value="${value}" @change="${handleChange}">
           ${Array.from(new Array(total)).map(
-            (_item, index) => html`
-              <option value=${index} ?selected="${index === value}">${index + 1}</option>
-            `
+            (_item, index) => html` <option value=${index} ?selected="${index === value}">${index + 1}</option> `
           )}
         </select>
         ${ChevronDown16({ class: `${prefix}--select__arrow` })}
       </div>
-      <span class="${prefix}--pagination__text">
-        ${formatSupplementalText({ count: total })}
-      </span>
+      <span class="${prefix}--pagination__text"> ${formatSupplementalText({ count: total })} </span>
     `;
   }
 

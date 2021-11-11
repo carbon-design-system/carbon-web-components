@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -124,13 +124,7 @@ const BXCEDemoDataTable = ({
   onChangeSelectionAll?: (event: CustomEvent) => void;
   onSort?: (event: CustomEvent) => void;
 }) => {
-  const uniqueId = useMemo(
-    () =>
-      Math.random()
-        .toString(36)
-        .slice(2),
-    []
-  );
+  const uniqueId = useMemo(() => Math.random().toString(36).slice(2), []);
   const elementId = id || uniqueId;
 
   const [pageSize, setPageSize] = useState(propPageSize);
@@ -266,9 +260,7 @@ const BXCEDemoDataTable = ({
   );
 
   const pagination =
-    typeof pageSize === 'undefined' ? (
-      undefined
-    ) : (
+    typeof pageSize === 'undefined' ? undefined : (
       <BXPagination page-size={pageSize} start={adjustedStart} total={filteredRows.length} onChangeCurrent={handleChangeStart}>
         <BXPageSizesSelect slot="page-sizes-select" onChange={handleChangePageSize}>
           <option value="5">5</option>

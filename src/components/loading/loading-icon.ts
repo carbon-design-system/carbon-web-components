@@ -23,11 +23,7 @@ export default ({ assistiveText, type }: { assistiveText?: string; type?: string
   const radius = type === LOADING_TYPE.SMALL ? '42' : '44';
   return html`
     <svg class="${prefix}--loading__svg" viewBox="0 0 100 100">
-      ${!assistiveText
-        ? undefined
-        : html`
-            <title>${assistiveText}</title>
-          `}
+      ${!assistiveText ? undefined : html` <title>${assistiveText}</title> `}
       <circle ?hidden="${type !== LOADING_TYPE.SMALL}" class="${prefix}--loading__background" cx="50%" cy="50%" r="${radius}" />
       <circle class="${prefix}--loading__stroke" cx="50%" cy="50%" r="${radius}" />
     </svg>

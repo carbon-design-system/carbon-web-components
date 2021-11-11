@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -44,8 +44,7 @@ class BXModalCloseButton extends FocusMixin(LitElement) {
         part="button"
         aria-label="${ifNonNull(assistiveText)}"
         class="${prefix}--modal-close"
-        title="${ifNonNull(assistiveText)}"
-      >
+        title="${ifNonNull(assistiveText)}">
         ${Close20({
           part: 'close-icon',
           class: `${prefix}--modal-close__icon`,

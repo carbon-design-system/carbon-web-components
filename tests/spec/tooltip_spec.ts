@@ -15,16 +15,12 @@ import BXTooltipBody from '../../src/components/tooltip/tooltip-body';
 import { TOOLTIP_ALIGNMENT, TOOLTIP_DIRECTION } from '../../src/components/tooltip/tooltip-definition';
 import { definition, icon } from '../../src/components/tooltip/tooltip-story';
 
-const bodyTemplate = () => html`
-  <bx-tooltip-body></bx-tooltip-body>
-`;
+const bodyTemplate = () => html` <bx-tooltip-body></bx-tooltip-body> `;
 const contentTemplate = ({ hasBody = true }: { hasBody?: boolean } = {}) => html`
   <div data-floating-menu-container style="position:relative">
     <!-- <div> for resize testing, distinguishing the parent node of <bx-tooltip> vs. the floating menu container -->
     <div>
-      <bx-tooltip>
-        ${!hasBody ? undefined : bodyTemplate()}
-      </bx-tooltip>
+      <bx-tooltip> ${!hasBody ? undefined : bodyTemplate()} </bx-tooltip>
     </div>
   </div>
 `;
@@ -41,17 +37,17 @@ const iconTemplate = (props?) =>
     'bx-tooltip-icon': props,
   });
 
-describe('bx-tooltip', function() {
-  describe('Missing menu body', function() {
+describe('bx-tooltip', function () {
+  describe('Missing menu body', function () {
     let trigger: BXTooltip | null;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       render(template({ hasBody: false }), document.body);
       await Promise.resolve();
       trigger = document.body.querySelector('bx-tooltip');
     });
 
-    it('Should be tolerant of missing menu body', async function() {
+    it('Should be tolerant of missing menu body', async function () {
       trigger!.shadowRoot!.firstElementChild!.dispatchEvent(new CustomEvent('click', { bubbles: true, composed: true }));
       await Promise.resolve();
       expect(trigger!.open).toBe(true);
@@ -62,18 +58,18 @@ describe('bx-tooltip', function() {
     });
   });
 
-  describe('Toggling', function() {
+  describe('Toggling', function () {
     let trigger: BXTooltip | null;
     let body: BXTooltipBody | null;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       render(template(), document.body);
       await Promise.resolve();
       trigger = document.body.querySelector('bx-tooltip');
       body = document.body.querySelector('bx-tooltip-body');
     });
 
-    it('Should open and close the menu', async function() {
+    it('Should open and close the menu', async function () {
       trigger!.shadowRoot!.firstElementChild!.dispatchEvent(new CustomEvent('click', { bubbles: true, composed: true }));
       await Promise.resolve();
       expect(trigger!.open).toBe(true);
@@ -87,7 +83,7 @@ describe('bx-tooltip', function() {
       expect(trigger?.getAttribute('aria-expanded')).toBe('false');
     });
 
-    it('Should start observing element resizes when tooltip gets open', async function() {
+    it('Should start observing element resizes when tooltip gets open', async function () {
       spyOn(ResizeObserver.prototype, 'observe');
       spyOn(ResizeObserver.prototype, 'unobserve');
       trigger!.shadowRoot!.firstElementChild!.dispatchEvent(new CustomEvent('click', { bubbles: true, composed: true }));
@@ -104,18 +100,18 @@ describe('bx-tooltip', function() {
     });
   });
 
-  describe('Placing', function() {
+  describe('Placing', function () {
     let trigger: BXTooltip | null;
     let body: BXTooltipBody | null;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       render(template(), document.body);
       await Promise.resolve();
       trigger = document.body.querySelector('bx-tooltip');
       body = document.body.querySelector('bx-tooltip-body');
     });
 
-    it('Should place and position', async function() {
+    it('Should place and position', async function () {
       // TODO: Figure out why `spyOnProperty()` with a property name that actually exists causes a TS error
       // @ts-ignore
       spyOnProperty(body, 'position').and.returnValue({
@@ -131,20 +127,20 @@ describe('bx-tooltip', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await render(template({ hasContent: false }), document.body);
   });
 });
 
-describe('bx-tooltip-definition', function() {
-  describe('Rendering', function() {
-    it('Should render with minimum attributes', async function() {
+describe('bx-tooltip-definition', function () {
+  describe('Rendering', function () {
+    it('Should render with minimum attributes', async function () {
       render(definitionTemplate(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-tooltip-definition')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('Should render with various attributes', async function() {
+    it('Should render with various attributes', async function () {
       render(
         definitionTemplate({
           alignment: TOOLTIP_ALIGNMENT.START,
@@ -158,20 +154,20 @@ describe('bx-tooltip-definition', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await render(definitionTemplate({ hasContent: false }), document.body);
   });
 });
 
-describe('bx-tooltip-icon', function() {
-  describe('Rendering', function() {
-    it('Should render with minimum attributes', async function() {
+describe('bx-tooltip-icon', function () {
+  describe('Rendering', function () {
+    it('Should render with minimum attributes', async function () {
       render(iconTemplate(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-tooltip-icon')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('Should render with various attributes', async function() {
+    it('Should render with various attributes', async function () {
       render(
         iconTemplate({
           alignment: TOOLTIP_ALIGNMENT.START,
@@ -185,7 +181,7 @@ describe('bx-tooltip-icon', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await render(iconTemplate({ hasContent: false }), document.body);
   });
 });

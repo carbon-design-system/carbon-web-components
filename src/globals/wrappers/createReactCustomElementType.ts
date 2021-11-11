@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -72,17 +72,19 @@ interface CustomElementTypeProps {
  * @param refs List of React refs to merge.
  * @returns Merged React ref.
  */
-const mergeRefs = <T>(...refs: React.Ref<T>[]) => el => {
-  refs.forEach(ref => {
-    // https://github.com/facebook/react/issues/13029#issuecomment-410002316
-    if (typeof ref === 'function') {
-      ref(el);
-    } else if (Object(ref) === ref) {
-      // `React.Ref.current` is read-only for regular use case, but we update it here
-      (ref as { current: T }).current = el;
-    }
-  });
-};
+const mergeRefs =
+  <T>(...refs: React.Ref<T>[]) =>
+  el => {
+    refs.forEach(ref => {
+      // https://github.com/facebook/react/issues/13029#issuecomment-410002316
+      if (typeof ref === 'function') {
+        ref(el);
+      } else if (Object(ref) === ref) {
+        // `React.Ref.current` is read-only for regular use case, but we update it here
+        (ref as { current: T }).current = el;
+      }
+    });
+  };
 
 /**
  * @param prop A prop value.

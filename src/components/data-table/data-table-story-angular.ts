@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -204,8 +204,7 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
       <bx-table-batch-actions
         [active]="hasSelection && _selectedRowsCountInFiltered"
         [selectedRowsCount]="_selectedRowsCountInFiltered"
-        (bx-table-batch-actions-cancel-clicked)="_handleCancelSelection($event)"
-      >
+        (bx-table-batch-actions-cancel-clicked)="_handleCancelSelection($event)">
         <bx-btn icon-layout="condensed" (click)="_handleDeleteRows($event)">
           Delete
           <ibm-icon-delete16 slot="icon"></ibm-icon-delete16>
@@ -219,15 +218,9 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
         <bx-overflow-menu>
           <ibm-icon-settings16 slot="icon"></ibm-icon-settings16>
           <bx-overflow-menu-body>
-            <bx-overflow-menu-item>
-              Action 1
-            </bx-overflow-menu-item>
-            <bx-overflow-menu-item>
-              Action 2
-            </bx-overflow-menu-item>
-            <bx-overflow-menu-item>
-              Action 3
-            </bx-overflow-menu-item>
+            <bx-overflow-menu-item> Action 1 </bx-overflow-menu-item>
+            <bx-overflow-menu-item> Action 2 </bx-overflow-menu-item>
+            <bx-overflow-menu-item> Action 3 </bx-overflow-menu-item>
           </bx-overflow-menu-body>
         </bx-overflow-menu>
         <bx-btn>Primary Button</bx-btn>
@@ -237,20 +230,17 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
       [size]="size"
       (bx-table-row-change-selection)="_handleChangeSelection($event)"
       (bx-table-change-selection-all)="_handleChangeSelectionAll($event)"
-      (bx-table-header-cell-sort)="_handleChangeSort($event)"
-    >
+      (bx-table-header-cell-sort)="_handleChangeSort($event)">
       <bx-table-head>
         <bx-table-header-row
           [selected]="_selectedAllInFiltered"
           [selectionName]="!hasSelection ? undefined : _selectionId"
-          [selectionValue]="!hasSelection ? undefined : _selectionId"
-        >
+          [selectionValue]="!hasSelection ? undefined : _selectionId">
           <bx-table-header-cell
             *ngFor="let column of columns"
             [sortCycle]="column.sortCycle"
             [sortDirection]="column | BXCETableColumnSortDirection: _sortInfo"
-            [attr.data-column-id]="column.id"
-          >
+            [attr.data-column-id]="column.id">
             {{ column.title }}
           </bx-table-header-cell>
         </bx-table-header-row>
@@ -266,8 +256,7 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
           [selected]="hasSelection && row.selected"
           [selectionName]="!hasSelection ? undefined : (row.id | BXCETableRowSelectionId: _selectionId)"
           [selectionValue]="!hasSelection ? undefined : 'selected'"
-          [attr.data-row-id]="row.id"
-        >
+          [attr.data-row-id]="row.id">
           <bx-table-cell *ngFor="let column of columns">{{ row[column.id] }}</bx-table-cell>
         </bx-table-row>
       </bx-table-body>
@@ -278,8 +267,7 @@ class BXCETableRowSelectionIdPipe implements PipeTransform {
       [start]="start"
       [total]="(rows | BXCETableRowsFilterWith: { searchString: _searchString }).length"
       (bx-pagination-changed-current)="_handleChangeStart($event)"
-      (bx-page-sizes-select-changed)="_handleChangePageSize($event)"
-    >
+      (bx-page-sizes-select-changed)="_handleChangePageSize($event)">
       <bx-page-sizes-select slot="page-sizes-select">
         <option value="5">5</option>
         <option value="10">10</option>
@@ -323,9 +311,7 @@ class BXCEDemoDataTable {
   /**
    * Unique ID used for ID refs.
    */
-  _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
+  _uniqueId = Math.random().toString(36).slice(2);
 
   /**
    * A ID prefix for table selection checkbox names.
@@ -481,8 +467,9 @@ class BXCEDemoDataTable {
    */
   _recomputeSelected() {
     const { _searchString: searchString, _rows: rows } = this;
-    const selectedRowsCount = rows!.filter(row => row.selected && (!searchString || doesRowMatchSearchString(row, searchString)))
-      .length;
+    const selectedRowsCount = rows!.filter(
+      row => row.selected && (!searchString || doesRowMatchSearchString(row, searchString))
+    ).length;
     this._selectedRowsCountInFiltered = selectedRowsCount;
     this._selectedAllInFiltered =
       selectedRowsCount > 0 &&

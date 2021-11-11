@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,9 +19,7 @@ export const Default = () => html`
   <div class="bx--content bx--grid">
     <div class="bx--row">
       <div class="bx--col-lg-13">
-        <h2>
-          Purpose and function
-        </h2>
+        <h2>Purpose and function</h2>
         <p>
           The shell is perhaps the most crucial piece of any UI built with Carbon. It contains the shared navigation framework for
           the entire design system and ties the products in IBM’s portfolio together in a cohesive and elegant way. The shell is
@@ -38,16 +36,12 @@ export const Default = () => html`
           the bottom or side of the screen. The Carbon UI shell is roughly analogous in function to these parts of the Mac UI. For
           example, the app switcher portion of the shell can be compared to the dock in MacOS.
         </p>
-        <h2>
-          Header responsive behavior
-        </h2>
+        <h2>Header responsive behavior</h2>
         <p>
           As a header scales down to fit smaller screen sizes, headers with persistent side nav menus should have the side nav
           collapse into “hamburger” menu. See the example to better understand responsive behavior of the header.
         </p>
-        <h2>
-          Secondary navigation
-        </h2>
+        <h2>Secondary navigation</h2>
         <p>
           The side-nav contains secondary navigation and fits below the header. It can be configured to be either fixed-width or
           flexible, with only one level of nested items allowed. Both links and category lists can be used in the side-nav and may

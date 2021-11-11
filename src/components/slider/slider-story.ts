@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -27,8 +27,7 @@ export const Default = args => {
       name="${ifNonNull(name)}"
       step="${ifNonNull(step)}"
       value="${ifNonNull(value)}"
-      @bx-slider-changed="${onChange}"
-    ></bx-slider>
+      @bx-slider-changed="${onChange}"></bx-slider>
   `;
 };
 
@@ -60,8 +59,7 @@ export const withInputBox = args => {
       name="${ifNonNull(name)}"
       step="${ifNonNull(step)}"
       value="${ifNonNull(value)}"
-      @bx-slider-changed="${onChange}"
-    >
+      @bx-slider-changed="${onChange}">
       <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
     </bx-slider>
   `;
@@ -73,10 +71,7 @@ withInputBox.parameters = {
   knobs: Default.parameters.knobs,
 };
 
-export const skeleton = () =>
-  html`
-    <bx-slider-skeleton></bx-slider-skeleton>
-  `;
+export const skeleton = () => html` <bx-slider-skeleton></bx-slider-skeleton> `;
 
 skeleton.parameters = {
   percy: {

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -42,12 +42,12 @@ class SelectAngularTest {
 }
 
 describe('Angular directive for bx-select', () => {
-  beforeAll(function() {
+  beforeAll(function () {
     TestBed.resetTestEnvironment();
     TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     TestBed.configureTestingModule({
       declarations: [BXSelectDirective, SelectAngularTest],
       imports: [FormsModule],
@@ -55,12 +55,12 @@ describe('Angular directive for bx-select', () => {
     });
   });
 
-  it('should send the value to model upon `input` event', async function() {
+  it('should send the value to model upon `input` event', async function () {
     const fixture = TestBed.createComponent(SelectAngularTest);
     fixture.detectChanges(); // Ensures event handlers are set up
     await Promise.resolve(); // Ensures event handlers are set up
     const debugElement = fixture.debugElement.query(By.css('bx-select'));
-    ((debugElement as unknown) as BXSelect).value = 'staging';
+    (debugElement as unknown as BXSelect).value = 'staging';
     await Promise.resolve(); // Ensure the `value` is propagated to the `<input>` in shadow DOM
     debugElement.triggerEventHandler('input', { target: debugElement });
     fixture.detectChanges();

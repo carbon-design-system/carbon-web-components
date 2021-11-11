@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -18,17 +18,17 @@ const template = (props?) =>
     'bx-search': props,
   });
 
-describe('bx-search', function() {
+describe('bx-search', function () {
   const events = new EventManager();
 
-  describe('Misc attributes', function() {
-    it('should render with minimum attributes', async function() {
+  describe('Misc attributes', function () {
+    it('should render with minimum attributes', async function () {
       render(template(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-search')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('should render with various attributes', async function() {
+    it('should render with various attributes', async function () {
       render(
         template({
           closeButtonAssistiveText: 'close-button-assistive-text-foo',
@@ -48,8 +48,8 @@ describe('bx-search', function() {
     });
   });
 
-  describe('Typing in the search box', function() {
-    it('should reflect the value', async function() {
+  describe('Typing in the search box', function () {
+    it('should reflect the value', async function () {
       render(template({ value: 'value-foo' }), document.body);
       await Promise.resolve();
       const search = document.body.querySelector('bx-search');
@@ -59,7 +59,7 @@ describe('bx-search', function() {
       expect((search as BXSearch).value).toBe('value-bar');
     });
 
-    it('Should fire bx-search-input event upon typing', async function() {
+    it('Should fire bx-search-input event upon typing', async function () {
       render(template({ value: 'value-foo' }), document.body);
       await Promise.resolve();
       const search = document.body.querySelector('bx-search');
@@ -74,8 +74,8 @@ describe('bx-search', function() {
     });
   });
 
-  describe('Clearing the input', function() {
-    it('should clear the value', async function() {
+  describe('Clearing the input', function () {
+    it('should clear the value', async function () {
       render(template({ value: 'value-foo' }), document.body);
       await Promise.resolve();
       const search = document.body.querySelector('bx-search');
@@ -83,7 +83,7 @@ describe('bx-search', function() {
       expect((search as BXSearch).value).toBe('');
     });
 
-    it('Should fire bx-search-input event upon clearing', async function() {
+    it('Should fire bx-search-input event upon clearing', async function () {
       render(template({ value: 'value-foo' }), document.body);
       await Promise.resolve();
       const search = document.body.querySelector('bx-search');
@@ -96,7 +96,7 @@ describe('bx-search', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await render(undefined!, document.body);
     events.reset();
   });

@@ -57,9 +57,7 @@ const StoryContent = () => html`
     <div class="bx--grid">
       <div class="bx--row">
         <div class="bx--offset-lg-3 bx--col-lg-13">
-          <h2>
-            Purpose and function
-          </h2>
+          <h2>Purpose and function</h2>
           <p>
             The shell is perhaps the most crucial piece of any UI built with Carbon. It contains the shared navigation framework
             for the entire design system and ties the products in IBM’s portfolio together in a cohesive and elegant way. The
@@ -77,16 +75,12 @@ const StoryContent = () => html`
             along the bottom or side of the screen. The Carbon UI shell is roughly analogous in function to these parts of the Mac
             UI. For example, the app switcher portion of the shell can be compared to the dock in MacOS.
           </p>
-          <h2>
-            Header responsive behavior
-          </h2>
+          <h2>Header responsive behavior</h2>
           <p>
             As a header scales down to fit smaller screen sizes, headers with persistent side nav menus should have the side nav
             collapse into “hamburger” menu. See the example to better understand responsive behavior of the header.
           </p>
-          <h2>
-            Secondary navigation
-          </h2>
+          <h2>Secondary navigation</h2>
           <p>
             The side-nav contains secondary navigation and fits below the header. It can be configured to be either fixed-width or
             flexible, with only one level of nested items allowed. Both links and category lists can be used in the side-nav and
@@ -111,37 +105,19 @@ export const sideNav = args => {
     <bx-side-nav aria-label="Side navigation" collapse-mode="${ifNonNull(collapseMode)}" ?expanded=${expanded}>
       <bx-side-nav-items>
         <bx-side-nav-menu title="L0 menu">
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
         </bx-side-nav-menu>
         <bx-side-nav-menu title="L0 menu">
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item active aria-current="page" href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item active aria-current="page" href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
         </bx-side-nav-menu>
         <bx-side-nav-menu title="L0 menu">
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
         </bx-side-nav-menu>
         <bx-side-nav-divider></bx-side-nav-divider>
         <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
@@ -180,39 +156,21 @@ export const sideNavWithIcons = args => {
       <bx-side-nav-items>
         <bx-side-nav-menu title="L0 menu">
           ${Fade16({ slot: 'title-icon' })}
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
         </bx-side-nav-menu>
         <bx-side-nav-menu title="L0 menu">
           ${Fade16({ slot: 'title-icon' })}
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item active aria-current="page" href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item active aria-current="page" href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
         </bx-side-nav-menu>
         <bx-side-nav-menu title="L0 menu">
           ${Fade16({ slot: 'title-icon' })}
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
         </bx-side-nav-menu>
         <bx-side-nav-divider></bx-side-nav-divider>
         <bx-side-nav-link href="javascript:void(0)">${Fade16({ slot: 'title-icon' })}L0 link</bx-side-nav-link>
@@ -246,8 +204,7 @@ export const header = args => {
       <bx-header-menu-button
         button-label-active="Close menu"
         button-label-inactive="Open menu"
-        @bx-header-menu-button-toggled="${handleButtonToggle}"
-      ></bx-header-menu-button>
+        @bx-header-menu-button-toggled="${handleButtonToggle}"></bx-header-menu-button>
       <bx-header-name href="javascript:void 0" prefix="IBM">[Platform]</bx-header-name>
       <bx-header-nav menu-bar-label="IBM [Platform]">
         <bx-header-nav-item href="javascript:void 0">Link 1</bx-header-nav-item>
@@ -264,44 +221,25 @@ export const header = args => {
       aria-label="Side navigation"
       collapse-mode="${ifNonNull(collapseMode)}"
       ?expanded=${expanded}
-      usage-mode="${ifNonNull(usageMode)}"
-    >
+      usage-mode="${ifNonNull(usageMode)}">
       <bx-side-nav-items>
         <bx-side-nav-menu title="L0 menu">
           ${Fade16({ slot: 'title-icon' })}
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
         </bx-side-nav-menu>
         <bx-side-nav-menu title="L0 menu">
           ${Fade16({ slot: 'title-icon' })}
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item active aria-current="page" href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item active aria-current="page" href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
         </bx-side-nav-menu>
         <bx-side-nav-menu title="L0 menu">
           ${Fade16({ slot: 'title-icon' })}
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
-          <bx-side-nav-menu-item href="${ifNonNull(href)}">
-            L0 menu item
-          </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
+          <bx-side-nav-menu-item href="${ifNonNull(href)}"> L0 menu item </bx-side-nav-menu-item>
         </bx-side-nav-menu>
         <bx-side-nav-divider></bx-side-nav-divider>
         <bx-side-nav-link href="javascript:void(0)">${Fade16({ slot: 'title-icon' })}L0 link</bx-side-nav-link>

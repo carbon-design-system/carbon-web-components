@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -28,9 +28,9 @@ const template = (props?) =>
     'bx-toggle': props,
   });
 
-describe('bx-toggle', function() {
-  describe('Rendering', function() {
-    it('Should render with minimum attributes', async function() {
+describe('bx-toggle', function () {
+  describe('Rendering', function () {
+    it('Should render with minimum attributes', async function () {
       render(
         template({
           id: 'id-foo',
@@ -41,7 +41,7 @@ describe('bx-toggle', function() {
       expect(document.body.querySelector('bx-toggle')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('Should render with various attributes', async function() {
+    it('Should render with various attributes', async function () {
       render(
         template({
           id: 'id-foo',
@@ -61,8 +61,8 @@ describe('bx-toggle', function() {
     });
   });
 
-  describe('Event-based form participation', function() {
-    it('Should respond to `formdata` event', async function() {
+  describe('Event-based form participation', function () {
+    it('Should respond to `formdata` event', async function () {
       render(
         html`
           <form>
@@ -84,7 +84,7 @@ describe('bx-toggle', function() {
       expect(getValues(formData)).toEqual({ 'name-foo': 'value-foo' });
     });
 
-    it('Should respond to `formdata` event with default value', async function() {
+    it('Should respond to `formdata` event with default value', async function () {
       render(
         html`
           <form>
@@ -105,7 +105,7 @@ describe('bx-toggle', function() {
       expect(getValues(formData)).toEqual({ 'name-foo': 'on' });
     });
 
-    it('Should not respond to `formdata` event if unchecked', async function() {
+    it('Should not respond to `formdata` event if unchecked', async function () {
       render(
         html`
           <form>
@@ -126,7 +126,7 @@ describe('bx-toggle', function() {
       expect(getValues(formData)).toEqual({});
     });
 
-    it('Should not respond to `formdata` event if disabled', async function() {
+    it('Should not respond to `formdata` event if disabled', async function () {
       render(
         html`
           <form>
@@ -150,7 +150,7 @@ describe('bx-toggle', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await render(template({ hasContent: false }), document.body);
   });
 });

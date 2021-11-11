@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -74,8 +74,7 @@ class BXToggle extends BXCheckbox {
         ?disabled="${disabled}"
         name="${ifNonNull(name)}"
         value="${ifNonNull(value)}"
-        @change="${handleChange}"
-      />
+        @change="${handleChange}" />
       <label for="checkbox" class="${prefix}--toggle-input__label">
         <slot name="label-text">${labelText}</slot>
         <span class="${prefix}--toggle__switch">

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -36,12 +36,12 @@ class ComboBoxAngularTest {
 }
 
 describe('Angular directive for bx-combo-box', () => {
-  beforeAll(function() {
+  beforeAll(function () {
     TestBed.resetTestEnvironment();
     TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     TestBed.configureTestingModule({
       declarations: [BXComboBoxDirective, ComboBoxAngularTest],
       imports: [FormsModule],
@@ -49,7 +49,7 @@ describe('Angular directive for bx-combo-box', () => {
     });
   });
 
-  it('should send the value to model upon `change` event', async function() {
+  it('should send the value to model upon `change` event', async function () {
     const fixture = TestBed.createComponent(ComboBoxAngularTest);
     fixture.detectChanges(); // Ensures event handlers are set up
     await Promise.resolve(); // Ensures event handlers are set up

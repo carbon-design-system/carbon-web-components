@@ -20,17 +20,17 @@ const template = (props?) =>
     'bx-combo-box': props,
   });
 
-describe('bx-combo-box', function() {
+describe('bx-combo-box', function () {
   const events = new EventManager();
 
-  describe('Misc attributes', function() {
-    it('should render with minimum attributes', async function() {
+  describe('Misc attributes', function () {
+    it('should render with minimum attributes', async function () {
       render(template(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-combo-box')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('should render with various attributes', async function() {
+    it('should render with various attributes', async function () {
       render(
         template({
           disabled: true,
@@ -50,25 +50,25 @@ describe('bx-combo-box', function() {
     });
   });
 
-  describe('Toggling', function() {
+  describe('Toggling', function () {
     let elem: Element;
     let itemNode: Element;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       render(template(), document.body);
       await Promise.resolve();
       elem = document.body.querySelector('bx-combo-box')!;
       itemNode = elem.querySelector('bx-combo-box-item')!;
     });
 
-    it('should add "open" stateful modifier class', async function() {
+    it('should add "open" stateful modifier class', async function () {
       const inner = elem.shadowRoot!.querySelector('div[role="listbox"]');
       (inner as HTMLElement).click();
       await Promise.resolve();
       expect(inner!.classList.contains('bx--list-box--expanded')).toBe(true);
     });
 
-    it('should remove "open" stateful modifier class (closed default state)', async function() {
+    it('should remove "open" stateful modifier class (closed default state)', async function () {
       (elem as BXComboBox).open = true;
       await Promise.resolve();
       const inner = elem.shadowRoot!.querySelector('div[role="listbox"]');
@@ -77,7 +77,7 @@ describe('bx-combo-box', function() {
       expect(inner!.classList.contains('bx--list-box--expanded')).toBe(false);
     });
 
-    it('should always close dropdown when clicking document', async function() {
+    it('should always close dropdown when clicking document', async function () {
       (elem as BXComboBox).open = true;
       await Promise.resolve();
       elem.dispatchEvent(new CustomEvent('focusout'));
@@ -86,7 +86,7 @@ describe('bx-combo-box', function() {
       expect(inner!.classList.contains('bx--list-box--expanded')).toBe(false);
     });
 
-    it('should close dropdown when clicking on an item', async function() {
+    it('should close dropdown when clicking on an item', async function () {
       (elem as BXComboBox).open = true;
       await Promise.resolve();
       (itemNode as HTMLElement).click();
@@ -95,7 +95,7 @@ describe('bx-combo-box', function() {
       expect(inner!.classList.contains('bx--list-box--expanded')).toBe(false);
     });
 
-    it('should support enter key to open the menu', async function() {
+    it('should support enter key to open the menu', async function () {
       const inner = elem.shadowRoot!.querySelector('div[role="listbox"]');
       const event = new CustomEvent('keypress', { bubbles: true });
       (event as any).key = 'Enter';
@@ -107,7 +107,7 @@ describe('bx-combo-box', function() {
       expect(inner!.classList.contains('bx--list-box--expanded')).toBe(false);
     });
 
-    it('should provide a way to cancel opening', async function() {
+    it('should provide a way to cancel opening', async function () {
       events.on(elem, 'bx-combo-box-beingtoggled', (event: CustomEvent) => {
         event.preventDefault();
       });
@@ -117,7 +117,7 @@ describe('bx-combo-box', function() {
       expect(inner!.classList.contains('bx--list-box--expanded')).toBe(false);
     });
 
-    it('should provide a way to cancel closing', async function() {
+    it('should provide a way to cancel closing', async function () {
       (elem as BXComboBox).open = true;
       await Promise.resolve();
       events.on(elem, 'bx-combo-box-beingtoggled', (event: CustomEvent) => {
@@ -130,18 +130,18 @@ describe('bx-combo-box', function() {
     });
   });
 
-  describe('Selecting an item', function() {
+  describe('Selecting an item', function () {
     let elem: Element;
     let itemNodes: NodeListOf<Element>;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       render(template({ open: true, value: 'all' }), document.body);
       await Promise.resolve();
       elem = document.body.querySelector('bx-combo-box')!;
       itemNodes = elem.querySelectorAll('bx-combo-box-item');
     });
 
-    it('should add/remove "selected" modifier class', async function() {
+    it('should add/remove "selected" modifier class', async function () {
       (document.body.querySelector('bx-combo-box-item[value="staging"]') as HTMLElement).click();
       await Promise.resolve();
       expect(itemNodes[0].hasAttribute('selected')).toBe(false);
@@ -151,19 +151,19 @@ describe('bx-combo-box', function() {
       expect(itemNodes[4].hasAttribute('selected')).toBe(false);
     });
 
-    it('should update text', async function() {
+    it('should update text', async function () {
       (document.body.querySelector('bx-combo-box-item[value="staging"]') as HTMLElement).click();
       await Promise.resolve();
       expect((elem.shadowRoot!.getElementById('trigger-label') as HTMLInputElement).value).toBe('Option 3');
     });
 
-    it('should update value', async function() {
+    it('should update value', async function () {
       (document.body.querySelector('bx-combo-box-item[value="staging"]') as HTMLElement).click();
       await Promise.resolve();
       expect((elem as BXComboBox).value).toBe('staging');
     });
 
-    it('should provide a way to switch item with a value', async function() {
+    it('should provide a way to switch item with a value', async function () {
       (elem as BXComboBox).value = 'staging';
       await Promise.resolve(); // Update cycle for `<bx-combo-box>`
       await Promise.resolve(); // Update cycle for `<bx-combo-box-item>`
@@ -174,7 +174,7 @@ describe('bx-combo-box', function() {
       expect(itemNodes[4].hasAttribute('selected')).toBe(false);
     });
 
-    it('should provide a way to cancel switching item', async function() {
+    it('should provide a way to cancel switching item', async function () {
       events.on(elem, 'bx-combo-box-beingselected', (event: CustomEvent) => {
         expect(event.detail.item).toBe(document.body.querySelector('bx-combo-box-item[value="staging"]'));
         event.preventDefault();
@@ -189,7 +189,7 @@ describe('bx-combo-box', function() {
       expect((elem.shadowRoot!.getElementById('trigger-label') as HTMLInputElement).value).toBe('Option 1');
     });
 
-    it('should provide a way to cancel clearing selection', async function() {
+    it('should provide a way to cancel clearing selection', async function () {
       events.on(elem, 'bx-combo-box-beingselected', (event: CustomEvent) => {
         expect(event.detail.item).toBeUndefined();
         event.preventDefault();
@@ -207,10 +207,10 @@ describe('bx-combo-box', function() {
       expect((elem.shadowRoot!.getElementById('trigger-label') as HTMLInputElement).value).toBe('Option 1');
     });
 
-    it('should reflect the added child to the selection', async function() {
+    it('should reflect the added child to the selection', async function () {
       const itemNode = document.createElement('bx-combo-box-item');
       itemNode.textContent = 'text-added';
-      ((itemNode as unknown) as BXComboBoxItem).value = 'value-added';
+      (itemNode as unknown as BXComboBoxItem).value = 'value-added';
       elem.appendChild(itemNode);
       (elem as BXComboBox).value = 'value-added';
       await delay(0); // Workaround for IE MutationObserver scheduling bug for moving elements to slot
@@ -222,12 +222,12 @@ describe('bx-combo-box', function() {
     });
   });
 
-  describe('Typeahead', function() {
+  describe('Typeahead', function () {
     let elem: Element;
     let inputNode: HTMLInputElement;
     let itemNodes: NodeListOf<Element>;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       render(template(), document.body);
       await Promise.resolve();
       elem = document.body.querySelector('bx-combo-box')!;
@@ -235,7 +235,7 @@ describe('bx-combo-box', function() {
       itemNodes = elem.querySelectorAll('bx-combo-box-item');
     });
 
-    it('Should highlight the item user types', async function() {
+    it('Should highlight the item user types', async function () {
       inputNode.value = 'Option 3';
       inputNode.dispatchEvent(new CustomEvent('input', { bubbles: true }));
       await Promise.resolve();
@@ -248,7 +248,7 @@ describe('bx-combo-box', function() {
       expect(itemNodes[4].hasAttribute('highlighted')).toBe(false);
     });
 
-    it('Should highlight the first much if user types matches to multiple items', async function() {
+    it('Should highlight the first much if user types matches to multiple items', async function () {
       inputNode.value = 'Option';
       inputNode.dispatchEvent(new CustomEvent('input', { bubbles: true }));
       await Promise.resolve();
@@ -261,7 +261,7 @@ describe('bx-combo-box', function() {
       expect(itemNodes[4].hasAttribute('highlighted')).toBe(false);
     });
 
-    it('Should clear highlight if no item matches to what user types', async function() {
+    it('Should clear highlight if no item matches to what user types', async function () {
       inputNode.value = 'Option 3';
       inputNode.dispatchEvent(new CustomEvent('input', { bubbles: true }));
       await Promise.resolve();
@@ -277,7 +277,7 @@ describe('bx-combo-box', function() {
       expect(itemNodes[4].hasAttribute('highlighted')).toBe(false);
     });
 
-    it('Should clear highlight if user types an empty value', async function() {
+    it('Should clear highlight if user types an empty value', async function () {
       inputNode.value = 'Option 3';
       inputNode.dispatchEvent(new CustomEvent('input', { bubbles: true }));
       await Promise.resolve();
@@ -293,7 +293,7 @@ describe('bx-combo-box', function() {
       expect(itemNodes[4].hasAttribute('highlighted')).toBe(false);
     });
 
-    it('Should support clearing the typeahead', async function() {
+    it('Should support clearing the typeahead', async function () {
       inputNode.value = 'Option 3';
       inputNode.dispatchEvent(new CustomEvent('input', { bubbles: true }));
       await Promise.resolve();
@@ -312,7 +312,7 @@ describe('bx-combo-box', function() {
       expect(itemNodes[3].hasAttribute('selected')).toBe(false);
     });
 
-    it('Should support clearing the typeahead by space key', async function() {
+    it('Should support clearing the typeahead by space key', async function () {
       inputNode.value = 'Option 3';
       inputNode.dispatchEvent(new CustomEvent('input', { bubbles: true }));
       await Promise.resolve();
@@ -334,7 +334,7 @@ describe('bx-combo-box', function() {
       expect(itemNodes[3].hasAttribute('selected')).toBe(false);
     });
 
-    it('Should support clearing the typeahead by enter key', async function() {
+    it('Should support clearing the typeahead by enter key', async function () {
       inputNode.value = 'Option 3';
       inputNode.dispatchEvent(new CustomEvent('input', { bubbles: true }));
       await Promise.resolve();
@@ -356,7 +356,7 @@ describe('bx-combo-box', function() {
       expect(itemNodes[3].hasAttribute('selected')).toBe(false);
     });
 
-    it('Should support selecting an item after typing', async function() {
+    it('Should support selecting an item after typing', async function () {
       (elem as BXComboBox).open = true;
       await Promise.resolve();
       (document.body.querySelector('bx-combo-box-item[value="staging"]') as HTMLElement).click();
@@ -376,7 +376,7 @@ describe('bx-combo-box', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     events.reset();
     await render(undefined!, document.body);
   });
