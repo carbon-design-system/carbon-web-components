@@ -7,8 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
-
 const fs = require('fs');
 const gulp = require('gulp');
 const path = require('path');

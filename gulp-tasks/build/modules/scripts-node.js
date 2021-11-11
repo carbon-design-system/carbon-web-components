@@ -7,8 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-'use strict';
-
 const asyncDone = require('async-done');
 const babel = require('gulp-babel');
 const filter = require('gulp-filter');
