@@ -11047,10 +11047,10 @@ expect-playwright@^0.2.1:
   resolved "https://registry.yarnpkg.com/expect-playwright/-/expect-playwright-0.2.2.tgz#5a466dd76d5fb3cdd22f8749cef37158bf681ac2"
   integrity sha512-dcnfNZitSmp496SCh1LIcHreqQ9X4Pvk2nLHfLmBPqo23N0wr7b3PAFPK+xYJtND5Hn4jPqliDJBA31cRVeOHg==
 
-expect-playwright@~0.2.6:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/expect-playwright/-/expect-playwright-0.2.6.tgz#fb690763ea386c6b88494512119817beb2c61cf1"
-  integrity sha512-zb+0L9ayNPhFm89F0BOQP8yTckETbA33wmWoxcnUY/A0pFsd7e4Tn8YrDsLiMQ7gZX2dD3LQHH9TWSnvEJi8rw==
+expect-playwright@~0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/expect-playwright/-/expect-playwright-0.8.0.tgz#6d4ebe0bdbdd3c1693d880d97153b96a129ae4e8"
+  integrity sha512-+kn8561vHAY+dt+0gMqqj1oY+g5xWrsuGMk4QGxotT2WS545nVqqjs37z6hrYfIuucwqthzwJfCJUEYqixyljg==
 
 expect-puppeteer@^4.4.0:
   version "4.4.0"

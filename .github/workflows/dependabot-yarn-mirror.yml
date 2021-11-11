@@ -8,14 +8,15 @@ concurrency:
 
 jobs:
   update-offline-mirror:
-    if: github.repository == github.event.pull_request.head.repo.full_name
+    if: github.repository == github.event.pull_request.head.repo.full_name && contains(github.event.pull_request.labels.*.name, 'dependencies')
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['14.x']
     steps:
       - uses: actions/checkout@v2
-      - uses: fregante/setup-git-user@v1
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
@@ -24,7 +25,9 @@ jobs:
       - name: Update yarn offline mirror
         if: contains(github.event.pull_request.labels.*.name, 'dependencies')
         run: |
-          git checkout -b ${{github.event.pull_request.head.ref}}
+          git config --global user.email ${{ secrets.BOT_EMAIL }}
+          git config --global user.name ${{ secrets.BOT_NAME }}
+
           yarn
           git add -A
           if [[ ! -z $(git status -s) ]] ; then

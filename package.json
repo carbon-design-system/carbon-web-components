@@ -183,7 +183,7 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-restricted-globals": "~0.2.0",
     "execa": "^5.1.1",
-    "expect-playwright": "~0.2.6",
+    "expect-playwright": "~0.8.0",
     "expect-puppeteer": "^4.4.0",
     "file-loader": "^6.0.0",
     "flatpickr": "4.6.1",
