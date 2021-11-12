@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: View PR author
-        run: echo "This PR is opened by ${{ github.event.pull_request.user }}"
+        run: echo "This PR is opened by ${{ toJson(github.event.pull_request.user) }}"
       - name: Check
         run: |
           echo "github.repository ${{ github.repository}}"
