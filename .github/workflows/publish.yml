@@ -8,7 +8,7 @@ on:
 jobs:
   publish:
     # Prevents action from creating a PR on forks
-    if: github.repository == github.event.pull_request.head.repo.full_name
+    if: github.repository == 'carbon-design-system/carbon-web-components'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

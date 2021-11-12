@@ -12,6 +12,8 @@ concurrency:
 
 jobs:
   percy:
+    # Prevents action from creating a PR on forks
+    if: github.repository == 'carbon-design-system/carbon-web-components'
     runs-on: ubuntu-latest
     strategy:
       matrix:
