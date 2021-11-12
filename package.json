@@ -124,7 +124,7 @@
     "@carbon/icons-vue": "^10.42.0",
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
-    "@open-wc/semantic-dom-diff": "~0.18.0",
+    "@open-wc/semantic-dom-diff": "~0.19.5",
     "@percy-io/in-percy": "~0.1.11",
     "@percy/storybook": "^3.3.1",
     "@storybook/addon-actions": "^6.3.12",
