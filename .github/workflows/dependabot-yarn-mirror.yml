@@ -8,29 +8,28 @@ concurrency:
 
 jobs:
   update-offline-mirror:
-    if: github.repository == github.event.pull_request.head.repo.full_name && contains(github.event.pull_request.labels.*.name, 'dependencies')
+    # if: github.repository == github.event.pull_request.head.repo.full_name && contains(github.event.pull_request.labels.*.name, 'dependencies')
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: ['14.x']
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{github.event.pull_request.head.ref}}
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: yarn
-      - name: Update yarn offline mirror
-        if: contains(github.event.pull_request.labels.*.name, 'dependencies')
-        run: |
-          git config --global user.email ${{ secrets.BOT_EMAIL }}
-          git config --global user.name ${{ secrets.BOT_NAME }}
+      - name: View PR author
+        run: echo "This PR is opened by ${{ github.event.pull_request.user.login }} ."
+      # - uses: actions/checkout@v2
+      #   with:
+      #     ref: ${{github.event.pull_request.head.ref}}
+      # - name: Use Node.js
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '14.x'
+      #     cache: yarn
+      # - name: Update yarn offline mirror
+      #   if: contains(github.event.pull_request.labels.*.name, 'dependencies')
+      #   run: |
+      #     git config --global user.email ${{ secrets.BOT_EMAIL }}
+      #     git config --global user.name ${{ secrets.BOT_NAME }}
 
-          yarn
-          git add -A
-          if [[ ! -z $(git status -s) ]] ; then
-            git commit -m "chore(yarn): update yarn offline mirror"
-            git push origin ${{ github.head_ref }}
-          fi
+      #     yarn
+      #     git add -A
+      #     if [[ ! -z $(git status -s) ]] ; then
+      #       git commit -m "chore(yarn): update yarn offline mirror"
+      #       git push origin ${{ github.head_ref }}
+      #     fi
