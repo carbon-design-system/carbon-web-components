@@ -13,6 +13,11 @@ jobs:
     steps:
       - name: View PR author
         run: echo "This PR is opened by ${{ github.event.pull_request.user }}"
+      - name: Check
+        run: echo "github.repository ${{ github.repository}}"
+        run: echo "github.event.pull_request.head.repo.full_name ${{ github.event.pull_request.head.repo.full_name }}"
+        run: echo "Result ${{ github.repository == github.event.pull_request.head.repo.full_name }}"
+        run: echo "Deps Label ${{ contains(github.event.pull_request.labels.*.name, 'dependencies') }}"
       # - uses: actions/checkout@v2
       #   with:
       #     ref: ${{github.event.pull_request.head.ref}}
