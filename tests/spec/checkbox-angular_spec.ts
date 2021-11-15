@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -30,24 +30,24 @@ class CheckboxAngularTest {
 }
 
 describe('Angular directive for bx-checkbox', () => {
-  beforeAll(function() {
+  beforeAll(function () {
     TestBed.resetTestEnvironment();
     TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     TestBed.configureTestingModule({
       declarations: [BXCheckboxDirective, CheckboxAngularTest],
       imports: [FormsModule],
     });
   });
 
-  it('should send the value to model upon `bx-checkbox-changed` event', async function() {
+  it('should send the value to model upon `bx-checkbox-changed` event', async function () {
     const fixture = TestBed.createComponent(CheckboxAngularTest);
     fixture.detectChanges(); // Ensures event handlers are set up
     await Promise.resolve(); // Ensures event handlers are set up
     const debugElement = fixture.debugElement.query(By.css('bx-checkbox'));
-    ((debugElement as unknown) as BXCheckbox).checked = true;
+    (debugElement as unknown as BXCheckbox).checked = true;
     debugElement.triggerEventHandler('bx-checkbox-changed', { target: debugElement });
     fixture.detectChanges();
     expect(fixture.componentInstance.model.checked).toBe(true);

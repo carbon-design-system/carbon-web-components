@@ -90,9 +90,7 @@ export default class BXFilterTag extends HostListenerMixin(FocusMixin(LitElement
     const { disabled } = this;
     return html`
       <slot></slot>
-      <button class="${prefix}--tag__close-icon" ?disabled=${disabled}>
-        ${Close16({ 'aria-label': this.title })}
-      </button>
+      <button class="${prefix}--tag__close-icon" ?disabled=${disabled}>${Close16({ 'aria-label': this.title })}</button>
     `;
   }
 

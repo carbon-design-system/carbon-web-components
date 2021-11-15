@@ -51,9 +51,8 @@ Object.assign(Default, baseDefault);
 
 export const singleWithCalendar = args => {
   const { dateFormat, disabled, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'];
-  const { colorScheme, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } = args?.[
-    'bx-date-picker-input'
-  ];
+  const { colorScheme, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } =
+    args?.['bx-date-picker-input'];
   return (
     <BXDatePicker
       dateFormat={dateFormat}
@@ -82,9 +81,8 @@ Object.assign(singleWithCalendar, baseSingleWithCalendar);
 
 export const rangeWithCalendar = args => {
   const { dateFormat, disabled, enabledRange, open, value, onChanged, onFlatpickrError } = args?.['bx-date-picker'];
-  const { colorScheme, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } = args?.[
-    'bx-date-picker-input'
-  ];
+  const { colorScheme, hideLabel, invalid, labelText, placeholder, size, validityMessage, onInput } =
+    args?.['bx-date-picker-input'];
   return (
     <BXDatePicker
       dateFormat={dateFormat}

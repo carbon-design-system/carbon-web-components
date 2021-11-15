@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -79,9 +79,7 @@ Vue.component('bx-ce-demo-file-uploader', {
       const newFiles: FileData[] = addedFiles.map(
         item =>
           ({
-            id: Math.random()
-              .toString(36)
-              .slice(2),
+            id: Math.random().toString(36).slice(2),
             file: item,
             state: FILE_UPLOADER_ITEM_STATE.UPLOADING,
           } as FileData)

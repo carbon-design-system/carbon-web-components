@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -16,15 +16,15 @@ const template = (props?) =>
     'bx-progress-step': props,
   });
 
-describe('bx-progress-step', function() {
-  describe('Rendering', function() {
-    it('Should render with minimum attributes', async function() {
+describe('bx-progress-step', function () {
+  describe('Rendering', function () {
+    it('Should render with minimum attributes', async function () {
       render(template(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-progress-step')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('Should render with various attributes', async function() {
+    it('Should render with various attributes', async function () {
       render(
         template({
           disabled: true,
@@ -39,7 +39,7 @@ describe('bx-progress-step', function() {
       expect(document.body.querySelector('bx-progress-step[state="complete"]')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    afterEach(async function() {
+    afterEach(async function () {
       await render(undefined!, document.body);
     });
   });

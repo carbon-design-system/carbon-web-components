@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -42,8 +42,7 @@ export const Default = args => {
       size="${ifNonNull(size)}"
       type="${ifNonNull(type)}"
       value="${ifNonNull(value)}"
-      @bx-search-input="${onInput}"
-    ></bx-search>
+      @bx-search-input="${onInput}"></bx-search>
   `;
 };
 
@@ -70,10 +69,7 @@ Default.parameters = {
   },
 };
 
-export const skeleton = () =>
-  html`
-    <bx-search-skeleton></bx-search-skeleton>
-  `;
+export const skeleton = () => html` <bx-search-skeleton></bx-search-skeleton> `;
 
 skeleton.parameters = {
   percy: {

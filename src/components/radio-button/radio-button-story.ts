@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -37,8 +37,7 @@ export const Default = args => {
       orientation="${ifNonNull(orientation)}"
       name="${ifNonNull(name)}"
       value="${ifNonNull(value)}"
-      @bx-radio-button-group-changed="${onChange}"
-    >
+      @bx-radio-button-group-changed="${onChange}">
       <bx-radio-button ?hide-label="${hideLabel}" label-text="${ifNonNull(labelText)}" value="all"></bx-radio-button>
       <bx-radio-button ?hide-label="${hideLabel}" label-text="${ifNonNull(labelText)}" value="cloudFoundry"></bx-radio-button>
       <bx-radio-button ?hide-label="${hideLabel}" label-text="${ifNonNull(labelText)}" value="staging"></bx-radio-button>
@@ -66,10 +65,7 @@ Default.parameters = {
   },
 };
 
-export const skeleton = () =>
-  html`
-    <bx-radio-button-skeleton></bx-radio-button-skeleton>
-  `;
+export const skeleton = () => html` <bx-radio-button-skeleton></bx-radio-button-skeleton> `;
 
 skeleton.parameters = {
   percy: {

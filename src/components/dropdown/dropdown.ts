@@ -331,9 +331,7 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FormMixin(FocusMixin(Li
    */
   protected _renderTriggerContent(): TemplateResult {
     const { triggerContent, _selectedItemContent: selectedItemContent } = this;
-    return html`
-      <span id="trigger-label" class="${prefix}--list-box__label">${selectedItemContent || triggerContent}</span>
-    `;
+    return html` <span id="trigger-label" class="${prefix}--list-box__label">${selectedItemContent || triggerContent}</span> `;
   }
 
   /* eslint-disable class-methods-use-this */
@@ -597,8 +595,7 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FormMixin(FocusMixin(Li
         ?data-invalid=${invalid}
         @click=${handleClickInner}
         @keydown=${handleKeydownInner}
-        @keypress=${handleKeypressInner}
-      >
+        @keypress=${handleKeypressInner}>
         ${validityIcon}
         <div
           part="trigger-button"
@@ -609,12 +606,9 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FormMixin(FocusMixin(Li
           aria-expanded="${String(open)}"
           aria-haspopup="listbox"
           aria-owns="menu-body"
-          aria-controls="menu-body"
-        >
+          aria-controls="menu-body">
           ${this._renderPrecedingTriggerContent()}${this._renderTriggerContent()}${this._renderFollowingTriggerContent()}
-          <div class="${iconContainerClasses}">
-            ${ChevronDown16({ 'aria-label': toggleLabel })}
-          </div>
+          <div class="${iconContainerClasses}">${ChevronDown16({ 'aria-label': toggleLabel })}</div>
         </div>
         ${menuBody}
       </div>

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -29,8 +29,7 @@ import { FileData } from './stories/types';
         [accept]="accept"
         [disabled]="disabled"
         [multiple]="multiple"
-        (bx-file-drop-container-changed)="_handleChange($event)"
-      >
+        (bx-file-drop-container-changed)="_handleChange($event)">
         Drag and drop files here or click to upload
       </bx-file-drop-container>
       <bx-file-uploader-item
@@ -40,8 +39,7 @@ import { FileData } from './stories/types';
         [size]="size"
         [state]="file.state"
         [validityMessage]="file.validityMessage"
-        (bx-file-uploader-item-deleted)="_handleDelete($event)"
-      >
+        (bx-file-uploader-item-deleted)="_handleDelete($event)">
         {{ file.file.name }}
         <span slot="validity-message-supplement">{{ file.supplementalValidityMessage }}</span>
       </bx-file-uploader-item>
@@ -63,9 +61,7 @@ class BXCEDemoFileUploader {
     const newFiles: FileData[] = addedFiles.map(
       item =>
         ({
-          id: Math.random()
-            .toString(36)
-            .slice(2),
+          id: Math.random().toString(36).slice(2),
           file: item,
           state: FILE_UPLOADER_ITEM_STATE.UPLOADING,
         } as FileData)

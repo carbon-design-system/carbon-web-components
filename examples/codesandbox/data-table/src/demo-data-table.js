@@ -90,9 +90,7 @@ class BXCEDemoDataTable extends LitElement {
   /**
    * Unique ID used for form elements.
    */
-  _uniqueId = Math.random()
-    .toString(36)
-    .slice(2);
+  _uniqueId = Math.random().toString(36).slice(2);
 
   /**
    * @param lhs A value.
@@ -237,8 +235,7 @@ class BXCEDemoDataTable extends LitElement {
         start="${start}"
         total="${filteredRows.length}"
         @bx-pagination-changed-current="${handleChangeStart}"
-        @bx-page-sizes-select-changed="${handleChangePageSize}"
-      >
+        @bx-page-sizes-select-changed="${handleChangePageSize}">
         <bx-page-sizes-select slot="page-sizes-select">
           <option value="5">5</option>
           <option value="10">10</option>
@@ -369,8 +366,7 @@ class BXCEDemoDataTable extends LitElement {
         <bx-table-batch-actions
           ?active="${hasBatchActions}"
           selected-rows-count="${selectedRowsCountInFiltered}"
-          @bx-table-batch-actions-cancel-clicked="${handleCancelSelection}"
-        >
+          @bx-table-batch-actions-cancel-clicked="${handleCancelSelection}">
           <bx-btn @click="${handleDeleteRows}">Delete ${Delete16({ slot: 'icon' })}</bx-btn>
           <bx-btn @click="${handleDownloadRows}" href="javascript:void 0" download="table-data.json">
             Download ${Download16({ slot: 'icon' })}
@@ -381,15 +377,9 @@ class BXCEDemoDataTable extends LitElement {
           <bx-overflow-menu>
             ${Settings16({ slot: 'icon' })}
             <bx-overflow-menu-body>
-              <bx-overflow-menu-item>
-                Action 1
-              </bx-overflow-menu-item>
-              <bx-overflow-menu-item>
-                Action 2
-              </bx-overflow-menu-item>
-              <bx-overflow-menu-item>
-                Action 3
-              </bx-overflow-menu-item>
+              <bx-overflow-menu-item> Action 1 </bx-overflow-menu-item>
+              <bx-overflow-menu-item> Action 2 </bx-overflow-menu-item>
+              <bx-overflow-menu-item> Action 3 </bx-overflow-menu-item>
             </bx-overflow-menu-body>
           </bx-overflow-menu>
           <bx-btn>Primary Button</bx-btn>
@@ -399,14 +389,12 @@ class BXCEDemoDataTable extends LitElement {
         size="${size}"
         @bx-table-row-change-selection=${this._handleChangeSelection}
         @bx-table-change-selection-all=${this._handleChangeSelectionAll}
-        @bx-table-header-cell-sort=${this._handleChangeSort}
-      >
+        @bx-table-header-cell-sort=${this._handleChangeSort}>
         <bx-table-head>
           <bx-table-header-row
             ?selected=${selectedAllInFiltered}
             selection-name=${ifNonNull(selectionAllName)}
-            selection-value=${ifNonNull(selectionAllName)}
-          >
+            selection-value=${ifNonNull(selectionAllName)}>
             ${repeat(
               columns,
               ({ id: columnId }) => columnId,
@@ -417,8 +405,7 @@ class BXCEDemoDataTable extends LitElement {
                   <bx-table-header-cell
                     sort-cycle="${ifNonNull(sortCycle)}"
                     sort-direction="${ifNonNull(sortDirectionForThisCell)}"
-                    data-column-id="${columnId}"
-                  >
+                    data-column-id="${columnId}">
                     ${title}
                   </bx-table-header-cell>
                 `;
@@ -439,14 +426,11 @@ class BXCEDemoDataTable extends LitElement {
                   ?selected=${hasSelection && selected}
                   selection-name="${ifNonNull(selectionName)}"
                   selection-value="${ifNonNull(selectionValue)}"
-                  data-row-id="${rowId}"
-                >
+                  data-row-id="${rowId}">
                   ${repeat(
                     columns,
                     ({ id: columnId }) => columnId,
-                    ({ id: columnId }) => html`
-                      <bx-table-cell>${row[columnId]}</bx-table-cell>
-                    `
+                    ({ id: columnId }) => html` <bx-table-cell>${row[columnId]}</bx-table-cell> `
                   )}
                 </bx-table-row>
               `;

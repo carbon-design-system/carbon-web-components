@@ -32,9 +32,7 @@ const { prefix } = settings;
  */
 const renderExpando = ({ children, handleClick }: { children: string | TemplateResult; handleClick: EventListener }) => html`
   <button type="button" class="${prefix}--snippet-btn--expand" @click="${handleClick}">
-    <span id="button-text" class="${prefix}--snippet-btn--text">
-      ${children}
-    </span>
+    <span id="button-text" class="${prefix}--snippet-btn--text"> ${children} </span>
     ${ChevronDown16({
       'aria-labeledby': 'button-text',
       class: `${prefix}--icon-chevron--down ${prefix}--snippet__icon`,

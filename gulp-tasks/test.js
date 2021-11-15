@@ -14,17 +14,8 @@ const { Server } = require('karma');
 const config = require('./config');
 
 const { cloptions, testsDir } = config;
-const {
-  browsers,
-  debug,
-  specs,
-  keepalive,
-  noPruneSnapshot,
-  random,
-  updateSnapshot,
-  useExperimentalFeatures,
-  verbose,
-} = cloptions;
+const { browsers, debug, specs, keepalive, noPruneSnapshot, random, updateSnapshot, useExperimentalFeatures, verbose } =
+  cloptions;
 
 function unit(done) {
   new Server(

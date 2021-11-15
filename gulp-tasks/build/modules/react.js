@@ -67,10 +67,7 @@ const buildModulesReact = ({ banner, targetEnv = 'browser' }) => {
     node: `${config.cjsDestDir}/components-react-node`,
   }[targetEnv];
 
-  return stream
-    .pipe(prettier())
-    .pipe(header(banner))
-    .pipe(gulp.dest(destDir));
+  return stream.pipe(prettier()).pipe(header(banner)).pipe(gulp.dest(destDir));
 };
 
 /**

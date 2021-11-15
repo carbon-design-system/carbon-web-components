@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,17 +19,17 @@ const template = (props?) =>
     'bx-pagination': props,
   });
 
-describe('bx-pagination', function() {
+describe('bx-pagination', function () {
   const events = new EventManager();
 
-  describe('Misc attributes', function() {
-    it('should render <bx-pagination> with minimum attributes', async function() {
+  describe('Misc attributes', function () {
+    it('should render <bx-pagination> with minimum attributes', async function () {
       render(template(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-pagination')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('should render <bx-pagination> with various attributes', async function() {
+    it('should render <bx-pagination> with various attributes', async function () {
       render(
         template({
           pageSize: 20,
@@ -42,14 +42,14 @@ describe('bx-pagination', function() {
       expect(document.body.querySelector('bx-pagination')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('should render <bx-page-sizes-select> with minimum attributes', async function() {
+    it('should render <bx-page-sizes-select> with minimum attributes', async function () {
       render(template(), document.body);
       await Promise.resolve(); // Update cycle for `<bx-pagination>`
       await Promise.resolve(); // Update cycle for `<bx-page-sizes-select>`
       expect(document.body.querySelector('bx-page-sizes-select')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('should render <bx-pages-select> with minimum attributes', async function() {
+    it('should render <bx-pages-select> with minimum attributes', async function () {
       render(template({ total: 100 }), document.body);
       await Promise.resolve(); // Update cycle for `<bx-pagination>`
       await Promise.resolve(); // Update cycle for `<bx-pages-select>`
@@ -57,8 +57,8 @@ describe('bx-pagination', function() {
     });
   });
 
-  describe('Rendering status text', function() {
-    it('should handle plural for total row count', async function() {
+  describe('Rendering status text', function () {
+    it('should handle plural for total row count', async function () {
       render(
         template({
           pageSize: 1,
@@ -72,7 +72,7 @@ describe('bx-pagination', function() {
       expect(textContentNode!.textContent!.trim()).toBe('1–1 of 1 item');
     });
 
-    it('should render page range without total rows for infinite row count', async function() {
+    it('should render page range without total rows for infinite row count', async function () {
       render(
         template({
           pageSize: 20,
@@ -86,7 +86,7 @@ describe('bx-pagination', function() {
       expect(textContentNode!.textContent!.trim()).toBe('Item 11–30');
     });
 
-    it('should render only the start at the last page for infinite row count', async function() {
+    it('should render only the start at the last page for infinite row count', async function () {
       render(
         template({
           atLastPage: true,
@@ -102,8 +102,8 @@ describe('bx-pagination', function() {
     });
   });
 
-  describe('Propagating changes', function() {
-    it('should propagate `pageSize` property to `<bx-page-sizes-select>`', async function() {
+  describe('Propagating changes', function () {
+    it('should propagate `pageSize` property to `<bx-page-sizes-select>`', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const paginationNode = document.body.querySelector('bx-pagination') as BXPagination;
@@ -113,7 +113,7 @@ describe('bx-pagination', function() {
       expect(pageSizesSelectNode.value).toBe(20);
     });
 
-    it('should propagate the current page to `<bx-pages-select>`', async function() {
+    it('should propagate the current page to `<bx-pages-select>`', async function () {
       render(template({ total: 100 }), document.body);
       await Promise.resolve();
       const paginationNode = document.body.querySelector('bx-pagination') as BXPagination;
@@ -124,7 +124,7 @@ describe('bx-pagination', function() {
       expect(pagesSelectNode.value).toBe(4);
     });
 
-    it('should propagate the total pages to `<bx-pages-select>`', async function() {
+    it('should propagate the total pages to `<bx-pages-select>`', async function () {
       render(template({ total: 100 }), document.body);
       await Promise.resolve();
       const paginationNode = document.body.querySelector('bx-pagination') as BXPagination;
@@ -135,7 +135,7 @@ describe('bx-pagination', function() {
       expect(pagesSelectNode.total).toBe(5);
     });
 
-    it('should handle change in page size at non-first page', async function() {
+    it('should handle change in page size at non-first page', async function () {
       // This test case hits the following issue if we don't apply the workaround:
       // https://github.com/Polymer/lit-html/issues/1052
       render(
@@ -156,8 +156,8 @@ describe('bx-pagination', function() {
     });
   });
 
-  describe('Handling user gestures', function() {
-    it('should support prev button', async function() {
+  describe('Handling user gestures', function () {
+    it('should support prev button', async function () {
       let newStart;
       render(
         template({
@@ -176,7 +176,7 @@ describe('bx-pagination', function() {
       expect(newStart).toBe(10);
     });
 
-    it('should ensure the start position will not be negative by hitting prev button', async function() {
+    it('should ensure the start position will not be negative by hitting prev button', async function () {
       let newStart;
       render(
         template({
@@ -195,7 +195,7 @@ describe('bx-pagination', function() {
       expect(newStart).toBe(0);
     });
 
-    it('should ensure prev button will not be in effect at the first page even if it is not disabled', async function() {
+    it('should ensure prev button will not be in effect at the first page even if it is not disabled', async function () {
       render(
         template({
           pageSize: 10,
@@ -215,7 +215,7 @@ describe('bx-pagination', function() {
       expect(spyChanged).not.toHaveBeenCalled();
     });
 
-    it('should support next button', async function() {
+    it('should support next button', async function () {
       let newStart;
       render(
         template({
@@ -234,7 +234,7 @@ describe('bx-pagination', function() {
       expect(newStart).toBe(30);
     });
 
-    it('should ensure the start position will not exceed the total size by hitting next button', async function() {
+    it('should ensure the start position will not exceed the total size by hitting next button', async function () {
       render(
         template({
           pageSize: 10,
@@ -255,7 +255,7 @@ describe('bx-pagination', function() {
       expect(spyChanged).not.toHaveBeenCalled();
     });
 
-    it('should support next button at the last page', async function() {
+    it('should support next button at the last page', async function () {
       render(
         template({
           pageSize: 10,
@@ -276,7 +276,7 @@ describe('bx-pagination', function() {
       expect(spyChanged).not.toHaveBeenCalled();
     });
 
-    it('should support next button for infinite row count', async function() {
+    it('should support next button for infinite row count', async function () {
       let newStart;
       render(
         template({
@@ -296,7 +296,7 @@ describe('bx-pagination', function() {
       expect(newStart).toBe(35);
     });
 
-    it('should support user-initiated change in page size', async function() {
+    it('should support user-initiated change in page size', async function () {
       render(template({ total: 100 }), document.body);
       await Promise.resolve();
       const pagesSelectNode = document.body.querySelector('bx-pages-select') as BXPagesSelect;
@@ -305,7 +305,7 @@ describe('bx-pagination', function() {
       expect(paginationNode.pageSize).toBe(5);
     });
 
-    it('should support user-initiated change in current page', async function() {
+    it('should support user-initiated change in current page', async function () {
       let newStart;
       render(template({ pageSize: 10, total: 100 }), document.body);
       await Promise.resolve();
@@ -320,7 +320,7 @@ describe('bx-pagination', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await render(undefined!, document.body);
     events.reset();
   });

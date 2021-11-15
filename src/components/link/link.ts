@@ -98,9 +98,7 @@ class BXLink extends FocusMixin(LitElement) {
    */
   protected _renderDisabledLink() {
     const { _classes: classes } = this;
-    return html`
-      <p id="link" part="link" class="${classes}">${this._renderInner()}</p>
-    `;
+    return html` <p id="link" part="link" class="${classes}">${this._renderInner()}</p> `;
   }
 
   /**
@@ -121,8 +119,7 @@ class BXLink extends FocusMixin(LitElement) {
         rel="${ifNonNull(rel)}"
         target="${ifNonNull(target)}"
         type="${ifNonNull(type)}"
-        @click="${handleClick}"
-      >
+        @click="${handleClick}">
         ${this._renderInner()}
       </a>
     `;

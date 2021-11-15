@@ -306,11 +306,8 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
         aria-expanded="${String(open)}"
         aria-haspopup="listbox"
         aria-owns="tablist"
-        aria-controls="tablist"
-      >
-        <span id="trigger-label" class="${prefix}--tabs-trigger-text">
-          ${selectedItemContent || triggerContent}
-        </span>
+        aria-controls="tablist">
+        <span id="trigger-label" class="${prefix}--tabs-trigger-text"> ${selectedItemContent || triggerContent} </span>
         ${ChevronDown16({ 'aria-hidden': 'true' })}
       </div>
       <ul id="tablist" role="tablist" class="${listClasses}">

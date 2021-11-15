@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -32,8 +32,7 @@ export const Default = args => {
       size="${ifNonNull(size)}"
       unchecked-text="${ifNonNull(uncheckedText)}"
       value="${ifNonNull(value)}"
-      @bx-toggle-changed="${onChange}"
-    ></bx-toggle>
+      @bx-toggle-changed="${onChange}"></bx-toggle>
   `;
 };
 

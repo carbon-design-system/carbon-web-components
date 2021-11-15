@@ -271,8 +271,7 @@ export default class BXNumberInput extends BXInput {
         aria-atomic="true"
         type="button"
         ?disabled=${this.disabled}
-        @click=${handleUserInitiatedStepUp}
-      >
+        @click=${handleUserInitiatedStepUp}>
         ${CaretUp16()}
       </button>
     `;
@@ -284,8 +283,7 @@ export default class BXNumberInput extends BXInput {
         aria-atomic="true"
         type="button"
         ?disabled=${this.disabled}
-        @click=${handleUserInitiatedStepDown}
-      >
+        @click=${handleUserInitiatedStepDown}>
         ${CaretDown16()}
       </button>
     `;
@@ -309,50 +307,33 @@ export default class BXNumberInput extends BXInput {
         max="${ifNonEmpty(this.max)}"
         step="${ifNonEmpty(this.step)}"
         role="alert"
-        aria-atomic="true"
-      />
+        aria-atomic="true" />
     `;
 
     const defaultLayout = html`
       ${this.invalid ? invalidIcon : null} ${input}
-      <div class="${prefix}--number__controls">
-        ${incrementButton} ${decrementButton}
-      </div>
+      <div class="${prefix}--number__controls">${incrementButton} ${decrementButton}</div>
     `;
 
-    const mobileLayout = html`
-      ${decrementButton} ${input} ${incrementButton}
-    `;
+    const mobileLayout = html` ${decrementButton} ${input} ${incrementButton} `;
 
     return html`
       <div class="${wrapperClasses}" ?data-invalid=${this.invalid}>
         <label class="${labelClasses}" for="input">
-          <slot name="label-text">
-            ${this.labelText}
-          </slot>
+          <slot name="label-text"> ${this.labelText} </slot>
         </label>
-        <div class="${prefix}--number__input-wrapper">
-          ${this.mobile ? mobileLayout : defaultLayout}
-        </div>
+        <div class="${prefix}--number__input-wrapper">${this.mobile ? mobileLayout : defaultLayout}</div>
         <div class="${helperTextClasses}">
-          <slot name="helper-text">
-            ${this.helperText}
-          </slot>
+          <slot name="helper-text"> ${this.helperText} </slot>
         </div>
         <div class="${prefix}--form-requirement" ?hidden="${!isGenericallyInvalid()}">
-          <slot name="validity-message">
-            ${this.validityMessage}
-          </slot>
+          <slot name="validity-message"> ${this.validityMessage} </slot>
         </div>
         <div class="${prefix}--form-requirement" ?hidden="${validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MAXIMUM}">
-          <slot name="validity-message-max">
-            ${this.validityMessageMax}
-          </slot>
+          <slot name="validity-message-max"> ${this.validityMessageMax} </slot>
         </div>
         <div class="${prefix}--form-requirement" ?hidden="${validity !== NUMBER_INPUT_VALIDATION_STATUS.EXCEEDED_MINIMUM}">
-          <slot name="validity-message-min">
-            ${this.validityMessageMin}
-          </slot>
+          <slot name="validity-message-min"> ${this.validityMessageMin} </slot>
         </div>
       </div>
     `;

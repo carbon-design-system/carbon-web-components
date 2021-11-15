@@ -56,8 +56,8 @@
     "build-storybook:vue": "node --max-old-space-size=8192 node_modules/@storybook/vue/bin/build.js -c .storybook/vue -o storybook-static-vue",
     "ci-check": "yarn wca && yarn format:diff && yarn lint:src && yarn typecheck && yarn build && yarn test:unit && yarn lint:dist",
     "clean": "gulp clean",
-    "format": "prettier --write \"**/*.{css,js,md,scss}\"",
-    "format:diff": "prettier --check \"**/*.{css,js,md,scss}\"",
+    "format": "prettier --write \"**/*.{css,js,ts,md,scss}\"",
+    "format:diff": "prettier --check \"**/*.{css,js,ts,md,scss}\"",
     "format:staged": "prettier --write",
     "lint": "yarn lint:src && yarn lint:dist",
     "lint:dist": "yarn lint:license:dist",
@@ -83,8 +83,7 @@
   },
   "resolutions": {
     "babel-plugin-transform-vue-jsx": "^4.0.0",
-    "lit-html": "^1.4.0",
-    "prettier": "^1.19.0"
+    "lit-html": "^1.4.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.16.0",
@@ -173,14 +172,13 @@
     "es6-promise": "^4.2.8",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-carbon-base": "^1.0.1",
-    "eslint-config-prettier": "^7.2.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-node": "~0.3.6",
     "eslint-plugin-babel": "^5.3.1",
-    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-lit": "^1.6.1",
-    "eslint-plugin-prettier": "^3.4.1",
-    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.0",
     "eslint-restricted-globals": "~0.2.0",
     "execa": "^5.1.1",
     "expect-playwright": "~0.8.0",
@@ -197,7 +195,7 @@
     "gulp-header": "^2.0.9",
     "gulp-if": "^3.0.0",
     "gulp-postcss": "^8.0.0",
-    "gulp-prettier": "^2.1.0",
+    "gulp-prettier": "^4.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.0.0",
     "gulp-sourcemaps": "^2.6.0",
@@ -235,7 +233,7 @@
     "postcss": "^8.2.10",
     "postcss-loader": "^3.0.0",
     "postcss-selector-parser": "^6.0.0",
-    "prettier": "^1.19.0",
+    "prettier": "~2.4.1",
     "prop-types": "^15.7.0",
     "puppeteer": "^5.0.0",
     "raw-loader": "^4.0.0",
@@ -316,9 +314,9 @@
     ]
   },
   "prettier": {
-    "jsxBracketSameLine": true,
+    "arrowParens": "avoid",
+    "bracketSameLine": true,
     "printWidth": 130,
-    "singleQuote": true,
-    "trailingComma": "es5"
+    "singleQuote": true
   }
 }

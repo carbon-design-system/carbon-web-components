@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -55,8 +55,7 @@ export const Default = args => {
       validity-message="${ifNonNull(validityMessage)}"
       @input="${onInput}"
       rows="${ifNonNull(rows)}"
-      cols="${ifNonNull(cols)}"
-    >
+      cols="${ifNonNull(cols)}">
     </bx-textarea>
   `;
 };
@@ -81,8 +80,7 @@ export const formItem = args => {
         ?disabled="${disabled}"
         value="${ifNonNull(value)}"
         rows="${ifNonNull(rows)}"
-        cols="${ifNonNull(cols)}"
-      >
+        cols="${ifNonNull(cols)}">
         <span slot="label-text">Label text</span>
         <span slot="helper-text">Optional helper text</span>
         <span slot="validity-message">Something isn't right</span>
@@ -111,8 +109,7 @@ export const withoutFormItemWrapper = args => {
       ?disabled="${disabled}"
       value="${ifNonNull(value)}"
       rows="${ifNonNull(rows)}"
-      cols="${ifNonNull(cols)}"
-    >
+      cols="${ifNonNull(cols)}">
       <span slot="label-text">Label text</span>
       <span slot="helper-text">Optional helper text</span>
       <span slot="validity-message">Something isn't right</span>
@@ -130,10 +127,7 @@ withoutFormItemWrapper.parameters = {
   },
 };
 
-export const skeleton = () =>
-  html`
-    <bx-textarea-skeleton></bx-textarea-skeleton>
-  `;
+export const skeleton = () => html` <bx-textarea-skeleton></bx-textarea-skeleton> `;
 
 skeleton.parameters = {
   percy: {

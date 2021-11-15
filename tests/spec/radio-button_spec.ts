@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -27,15 +27,15 @@ const getValues = (formData: FormData) => {
 
 const template = (props?) => Default(props);
 
-describe('bx-radio-button', function() {
-  describe('Rendering', function() {
-    it('Should render with minimum attributes', async function() {
+describe('bx-radio-button', function () {
+  describe('Rendering', function () {
+    it('Should render with minimum attributes', async function () {
       render(template(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-radio-button[value="staging"]')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('Should render with various attributes', async function() {
+    it('Should render with various attributes', async function () {
       render(
         template({
           'bx-radio-button-group': {
@@ -57,14 +57,14 @@ describe('bx-radio-button', function() {
     });
   });
 
-  describe('Communication between <bx-radio-button-group> and <bx-radio-button>', function() {
-    it('Should propagate disabled', async function() {
+  describe('Communication between <bx-radio-button-group> and <bx-radio-button>', function () {
+    it('Should propagate disabled', async function () {
       render(template({ 'bx-radio-button-group': { disabled: true } }), document.body);
       await Promise.resolve();
       expect(Array.prototype.every.call(document.body.querySelectorAll('bx-radio-button'), radio => radio.disabled)).toBe(true);
     });
 
-    it('Should propagate labelPosition', async function() {
+    it('Should propagate labelPosition', async function () {
       render(
         template({
           'bx-radio-button-group': { labelPosition: RADIO_BUTTON_LABEL_POSITION.LEFT },
@@ -80,7 +80,7 @@ describe('bx-radio-button', function() {
       ).toBe(true);
     });
 
-    it('Should propagate orientation', async function() {
+    it('Should propagate orientation', async function () {
       render(
         template({
           'bx-radio-button-group': { orientation: RADIO_BUTTON_ORIENTATION.VERTICAL },
@@ -96,7 +96,7 @@ describe('bx-radio-button', function() {
       ).toBe(true);
     });
 
-    it('Should propagate name', async function() {
+    it('Should propagate name', async function () {
       render(
         template({
           'bx-radio-button-group': { name: 'name-foo' },
@@ -109,7 +109,7 @@ describe('bx-radio-button', function() {
       ).toBe(true);
     });
 
-    it('Should select <bx-radio-button> that matches the given value', async function() {
+    it('Should select <bx-radio-button> that matches the given value', async function () {
       render(
         template({
           'bx-radio-button-group': { value: 'staging' },
@@ -124,7 +124,7 @@ describe('bx-radio-button', function() {
       ]);
     });
 
-    it('Should update the value upon clicking <bx-radio-button>', async function() {
+    it('Should update the value upon clicking <bx-radio-button>', async function () {
       render(
         template({
           'bx-radio-button-group': { name: 'name-foo' },
@@ -136,7 +136,7 @@ describe('bx-radio-button', function() {
       expect((document.body.querySelector('bx-radio-button-group') as BXRadioButtonGroup).value).toBe('staging');
     });
 
-    it('Should update the value upon space key on <bx-radio-button>', async function() {
+    it('Should update the value upon space key on <bx-radio-button>', async function () {
       render(
         template({
           'bx-radio-button-group': { name: 'name-foo' },
@@ -150,7 +150,7 @@ describe('bx-radio-button', function() {
       expect((document.body.querySelector('bx-radio-button-group') as BXRadioButtonGroup).value).toBe('staging');
     });
 
-    it('Should update the value upon enter key on <bx-radio-button>', async function() {
+    it('Should update the value upon enter key on <bx-radio-button>', async function () {
       render(
         template({
           'bx-radio-button-group': { name: 'name-foo' },
@@ -165,8 +165,8 @@ describe('bx-radio-button', function() {
     });
   });
 
-  describe('Keyboard navigation', function() {
-    it('Should use left/right key for navigation in horizontal mode', async function() {
+  describe('Keyboard navigation', function () {
+    it('Should use left/right key for navigation in horizontal mode', async function () {
       render(
         template({
           'bx-radio-button-group': { orientation: RADIO_BUTTON_ORIENTATION.HORIZONTAL, name: 'name-foo' },
@@ -196,7 +196,7 @@ describe('bx-radio-button', function() {
       ).toEqual([0, -1, -1]);
     });
 
-    it('Should use up/down key for navigation in vertical mode', async function() {
+    it('Should use up/down key for navigation in vertical mode', async function () {
       render(
         template({
           'bx-radio-button-group': { orientation: RADIO_BUTTON_ORIENTATION.VERTICAL, name: 'name-foo' },
@@ -227,8 +227,8 @@ describe('bx-radio-button', function() {
     });
   });
 
-  describe('Event-based form participation', function() {
-    it('Should respond to `formdata` event', async function() {
+  describe('Event-based form participation', function () {
+    it('Should respond to `formdata` event', async function () {
       render(
         html`
           <form>
@@ -251,7 +251,7 @@ describe('bx-radio-button', function() {
       expect(getValues(formData)).toEqual({ 'name-foo': 'staging' });
     });
 
-    it('Should not respond to `formdata` event if form item name is not specified', async function() {
+    it('Should not respond to `formdata` event if form item name is not specified', async function () {
       render(
         html`
           <form>
@@ -273,7 +273,7 @@ describe('bx-radio-button', function() {
       expect(getValues(formData)).toEqual({});
     });
 
-    it('Should not respond to `formdata` event if no item is selected', async function() {
+    it('Should not respond to `formdata` event if no item is selected', async function () {
       render(
         html`
           <form>
@@ -295,7 +295,7 @@ describe('bx-radio-button', function() {
       expect(getValues(formData)).toEqual({});
     });
 
-    it('Should not respond to `formdata` event if disabled', async function() {
+    it('Should not respond to `formdata` event if disabled', async function () {
       render(
         html`
           <form>
@@ -319,7 +319,7 @@ describe('bx-radio-button', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     render(undefined!, document.body);
     await Promise.resolve();
   });

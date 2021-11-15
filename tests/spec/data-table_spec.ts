@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -31,8 +31,7 @@ const headerCellTemplate = (props?) => {
     <bx-table-header-cell
       ?sort-active="${sortActive}"
       sort-cycle="${ifNonNull(sortCycle)}"
-      sort-direction="${ifNonNull(sortDirection)}"
-    >
+      sort-direction="${ifNonNull(sortDirection)}">
       Name
     </bx-table-header-cell>
   `;
@@ -46,8 +45,7 @@ const rowTemplate = (props?) => {
       ?selected="${selected}"
       selection-name="${ifNonNull(selectionName)}"
       selection-label="${ifNonNull(selectionLabel)}"
-      selection-value="${ifNonNull(selectionValue)}"
-    ></bx-table-row>
+      selection-value="${ifNonNull(selectionValue)}"></bx-table-row>
   `;
 };
 
@@ -60,38 +58,33 @@ const expandRowTemplate = (props?) => {
       ?selected="${selected}"
       selection-name="${ifNonNull(selectionName)}"
       selection-label="${ifNonNull(selectionLabel)}"
-      selection-value="${ifNonNull(selectionValue)}"
-    ></bx-table-expand-row>
+      selection-value="${ifNonNull(selectionValue)}"></bx-table-expand-row>
     <bx-table-expanded-row></bx-table-expanded-row>
   `;
 };
 
 const batchActionTemplate = (props?) => {
   const { active, selectedRowsCount } = props ?? {};
-  return html`
-    <bx-table-batch-actions ?active="${active}" selected-rows-count="${selectedRowsCount}"></bx-table-batch-actions>
-  `;
+  return html` <bx-table-batch-actions ?active="${active}" selected-rows-count="${selectedRowsCount}"></bx-table-batch-actions> `;
 };
 
 const toolbarSearchTemplate = (props?) => {
   const { expanded, size } = props ?? {};
-  return html`
-    <bx-table-toolbar-search ?expanded="${expanded}" size="${ifNonNull(size)}"></bx-table-toolbar-search>
-  `;
+  return html` <bx-table-toolbar-search ?expanded="${expanded}" size="${ifNonNull(size)}"></bx-table-toolbar-search> `;
 };
 
-describe('data-table', function() {
+describe('data-table', function () {
   const events = new EventManager();
 
-  describe('bx-table-batch-action', function() {
-    describe('Misc attributes', function() {
-      it('should render with minimum attributes', async function() {
+  describe('bx-table-batch-action', function () {
+    describe('Misc attributes', function () {
+      it('should render with minimum attributes', async function () {
         render(batchActionTemplate(), document.body);
         await Promise.resolve();
         expect(document.body.querySelector('bx-table-batch-actions')).toMatchSnapshot({ mode: 'shadow' });
       });
 
-      it('should render with various attributes', async function() {
+      it('should render with various attributes', async function () {
         render(
           batchActionTemplate({
             active: true,
@@ -103,7 +96,7 @@ describe('data-table', function() {
         expect(document.body.querySelector('bx-table-batch-actions')).toMatchSnapshot({ mode: 'shadow' });
       });
 
-      it('should render non-plural selected rows count', async function() {
+      it('should render non-plural selected rows count', async function () {
         render(
           batchActionTemplate({
             active: true,
@@ -116,16 +109,16 @@ describe('data-table', function() {
       });
     });
 
-    describe('Handling cancel button', function() {
+    describe('Handling cancel button', function () {
       let elem: Element;
 
-      beforeEach(async function() {
+      beforeEach(async function () {
         render(batchActionTemplate({ active: true }), document.body);
         await Promise.resolve();
         elem = document.body.querySelector('bx-table-batch-actions')!;
       });
 
-      it('should fire a custom event', async function() {
+      it('should fire a custom event', async function () {
         const spyCancel = jasmine.createSpy('cancel');
         events.on(elem!, 'bx-table-batch-actions-cancel-clicked', spyCancel);
         const cancelButton = elem.shadowRoot!.querySelector('.bx--batch-summary__cancel');
@@ -136,8 +129,8 @@ describe('data-table', function() {
     });
   });
 
-  describe('bx-table-body', function() {
-    it('should support setting zebra stripe to rows', async function() {
+  describe('bx-table-body', function () {
+    it('should support setting zebra stripe to rows', async function () {
       render(template({ colorScheme: TABLE_COLOR_SCHEME.ZEBRA }), document.body);
       await Promise.resolve();
       const result = Array.prototype.every.call(
@@ -147,7 +140,7 @@ describe('data-table', function() {
       expect(result).toBe(true);
     });
 
-    it('should support unsetting zebra stripe to rows', async function() {
+    it('should support unsetting zebra stripe to rows', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const result = Array.prototype.every.call(
@@ -158,15 +151,15 @@ describe('data-table', function() {
     });
   });
 
-  describe('bx-table-header-cell', function() {
-    describe('Misc attributes', function() {
-      it('should render with minimum attributes', async function() {
+  describe('bx-table-header-cell', function () {
+    describe('Misc attributes', function () {
+      it('should render with minimum attributes', async function () {
         render(headerCellTemplate(), document.body);
         await Promise.resolve();
         expect(document.body.querySelector('bx-table-header-cell')).toMatchSnapshot({ mode: 'shadow' });
       });
 
-      it('should render with various attributes', async function() {
+      it('should render with various attributes', async function () {
         render(
           headerCellTemplate({
             sortActive: true,
@@ -180,8 +173,8 @@ describe('data-table', function() {
       });
     });
 
-    describe('Changing sort direction', function() {
-      it('should support ascending -> descending cycle', async function() {
+    describe('Changing sort direction', function () {
+      it('should support ascending -> descending cycle', async function () {
         render(
           headerCellTemplate({
             sortActive: true,
@@ -204,7 +197,7 @@ describe('data-table', function() {
         expect(elem.sortDirection).toBe(TABLE_SORT_DIRECTION.ASCENDING);
       });
 
-      it('should support descending -> ascending cycle', async function() {
+      it('should support descending -> ascending cycle', async function () {
         render(
           headerCellTemplate({
             sortActive: true,
@@ -227,7 +220,7 @@ describe('data-table', function() {
         expect(elem.sortDirection).toBe(TABLE_SORT_DIRECTION.DESCENDING);
       });
 
-      it('should support none -> ascending -> descending cycle', async function() {
+      it('should support none -> ascending -> descending cycle', async function () {
         render(
           headerCellTemplate({
             sortActive: true,
@@ -250,7 +243,7 @@ describe('data-table', function() {
         expect(elem.sortDirection).toBe(TABLE_SORT_DIRECTION.NONE);
       });
 
-      it('should support none -> descending -> ascending cycle', async function() {
+      it('should support none -> descending -> ascending cycle', async function () {
         render(
           headerCellTemplate({
             sortActive: true,
@@ -273,7 +266,7 @@ describe('data-table', function() {
         expect(elem.sortDirection).toBe(TABLE_SORT_DIRECTION.NONE);
       });
 
-      it('should support preventing sort order from being changed upon user gesture', async function() {
+      it('should support preventing sort order from being changed upon user gesture', async function () {
         render(
           headerCellTemplate({
             sortActive: true,
@@ -295,15 +288,15 @@ describe('data-table', function() {
     });
   });
 
-  describe('bx-table-row', function() {
-    describe('Misc attributes', function() {
-      it('should render with minimum attributes', async function() {
+  describe('bx-table-row', function () {
+    describe('Misc attributes', function () {
+      it('should render with minimum attributes', async function () {
         render(rowTemplate(), document.body);
         await Promise.resolve();
         expect(document.body.querySelector('bx-table-row')).toMatchSnapshot({ mode: 'shadow' });
       });
 
-      it('should render with various attributes', async function() {
+      it('should render with various attributes', async function () {
         render(
           rowTemplate({
             disabled: true,
@@ -319,8 +312,8 @@ describe('data-table', function() {
       });
     });
 
-    describe('Handling selection', function() {
-      it('should fire bx-table-row-change-selection event upon selecting', async function() {
+    describe('Handling selection', function () {
+      it('should fire bx-table-row-change-selection event upon selecting', async function () {
         const spyBeforeChange = jasmine.createSpy('before toggle');
         render(
           rowTemplate({
@@ -338,7 +331,7 @@ describe('data-table', function() {
         expect((row as BXTableRow).selected).toBe(true);
       });
 
-      it('should fire bx-table-row-change-selection event upon unselecting', async function() {
+      it('should fire bx-table-row-change-selection event upon unselecting', async function () {
         const spyBeforeChange = jasmine.createSpy('before toggle');
         render(
           rowTemplate({
@@ -357,7 +350,7 @@ describe('data-table', function() {
         expect((row as BXTableRow).selected).toBe(false);
       });
 
-      it('should support preventing table row selection from being toggled upon user gesture', async function() {
+      it('should support preventing table row selection from being toggled upon user gesture', async function () {
         render(
           rowTemplate({
             selectionName: 'selection-name-foo',
@@ -376,15 +369,15 @@ describe('data-table', function() {
     });
   });
 
-  describe('bx-table-expand-row', function() {
-    describe('Misc attributes', function() {
-      it('should render with minimum attributes', async function() {
+  describe('bx-table-expand-row', function () {
+    describe('Misc attributes', function () {
+      it('should render with minimum attributes', async function () {
         render(expandRowTemplate(), document.body);
         await Promise.resolve();
         expect(document.body.querySelector('bx-table-expand-row')).toMatchSnapshot({ mode: 'shadow' });
       });
 
-      it('should render with various attributes', async function() {
+      it('should render with various attributes', async function () {
         render(
           expandRowTemplate({
             disabled: true,
@@ -401,8 +394,8 @@ describe('data-table', function() {
       });
     });
 
-    describe('Toggling', function() {
-      it('should expand and collapse', async function() {
+    describe('Toggling', function () {
+      it('should expand and collapse', async function () {
         render(expandRowTemplate(), document.body);
         await Promise.resolve();
 
@@ -422,7 +415,7 @@ describe('data-table', function() {
         expect((expandedRow as BXTableExpandedRow).expanded).toBe(false);
       });
 
-      it('should fire bx-table-row-expando-beingtoggled/bx-table-row-expando-toggled events upon expanding', async function() {
+      it('should fire bx-table-row-expando-beingtoggled/bx-table-row-expando-toggled events upon expanding', async function () {
         const spyBeforeToggle = jasmine.createSpy('before toggle');
         const spyAfterToggle = jasmine.createSpy('after toggle');
         render(expandRowTemplate(), document.body);
@@ -438,7 +431,7 @@ describe('data-table', function() {
         expect(spyAfterToggle.calls.argsFor(0)[0].detail.expanded).toBe(true);
       });
 
-      it('should fire bx-table-row-expando-beingtoggled/bx-table-row-expando-toggled events upon collapsing', async function() {
+      it('should fire bx-table-row-expando-beingtoggled/bx-table-row-expando-toggled events upon collapsing', async function () {
         const spyBeforeToggle = jasmine.createSpy('before toggle');
         const spyAfterToggle = jasmine.createSpy('after toggle');
         render(expandRowTemplate({ expanded: true }), document.body);
@@ -454,7 +447,7 @@ describe('data-table', function() {
         expect(spyAfterToggle.calls.argsFor(0)[0].detail.expanded).toBe(false);
       });
 
-      it('should support preventing table row from being toggled upon user gesture', async function() {
+      it('should support preventing table row from being toggled upon user gesture', async function () {
         const spyAfterToggle = jasmine.createSpy('after toggle');
         render(expandRowTemplate(), document.body);
         await Promise.resolve();
@@ -469,8 +462,8 @@ describe('data-table', function() {
       });
     });
 
-    describe('Hovering over', function() {
-      it('should toggle the highlight of the expanded content', async function() {
+    describe('Hovering over', function () {
+      it('should toggle the highlight of the expanded content', async function () {
         render(expandRowTemplate(), document.body);
         await Promise.resolve();
 
@@ -486,15 +479,15 @@ describe('data-table', function() {
     });
   });
 
-  describe('bx-table-toolbar-search', function() {
-    describe('Misc attributes', function() {
-      it('should render with minimum attributes', async function() {
+  describe('bx-table-toolbar-search', function () {
+    describe('Misc attributes', function () {
+      it('should render with minimum attributes', async function () {
         render(toolbarSearchTemplate(), document.body);
         await Promise.resolve();
         expect(document.body.querySelector('bx-table-toolbar-search')).toMatchSnapshot({ mode: 'shadow' });
       });
 
-      it('should render with various attributes', async function() {
+      it('should render with various attributes', async function () {
         render(
           toolbarSearchTemplate({
             expanded: true,
@@ -507,8 +500,8 @@ describe('data-table', function() {
       });
     });
 
-    describe('Expanding/collapsing', function() {
-      it('should expand and focus on the search box upon getting focus on the root', async function() {
+    describe('Expanding/collapsing', function () {
+      it('should expand and focus on the search box upon getting focus on the root', async function () {
         render(toolbarSearchTemplate(), document.body);
         await Promise.resolve();
         const toolbarSearch = document.body.querySelector('bx-table-toolbar-search');
@@ -521,7 +514,7 @@ describe('data-table', function() {
         expect(input!.focus).toHaveBeenCalled();
       });
 
-      it('should collapse upon losing focus on the root', async function() {
+      it('should collapse upon losing focus on the root', async function () {
         render(toolbarSearchTemplate({ expanded: true }), document.body);
         await Promise.resolve();
         const toolbarSearch = document.body.querySelector('bx-table-toolbar-search');
@@ -531,7 +524,7 @@ describe('data-table', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await render(undefined!, document.body);
     events.reset();
   });
