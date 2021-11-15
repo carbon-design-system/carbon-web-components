@@ -1,5 +1,9 @@
 {
   "extends": [
-    "config:base"
-  ]
+    "config:base",
+    ":separateMultipleMajorReleases",
+    ":separatePatchReleases",
+    ":maintainLockFilesWeekly"
+  ],
+  "rangeStrategy": "bump"
 }
