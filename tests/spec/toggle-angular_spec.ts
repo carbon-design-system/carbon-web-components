@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -30,24 +30,24 @@ class ToggleAngularTest {
 }
 
 describe('Angular directive for bx-toggle', () => {
-  beforeAll(function() {
+  beforeAll(function () {
     TestBed.resetTestEnvironment();
     TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     TestBed.configureTestingModule({
       declarations: [BXToggleDirective, ToggleAngularTest],
       imports: [FormsModule],
     });
   });
 
-  it('should send the value to model upon `bx-toggle-changed` event', async function() {
+  it('should send the value to model upon `bx-toggle-changed` event', async function () {
     const fixture = TestBed.createComponent(ToggleAngularTest);
     fixture.detectChanges(); // Ensures event handlers are set up
     await Promise.resolve(); // Ensures event handlers are set up
     const debugElement = fixture.debugElement.query(By.css('bx-toggle'));
-    ((debugElement as unknown) as BXToggle).checked = true;
+    (debugElement as unknown as BXToggle).checked = true;
     debugElement.triggerEventHandler('bx-toggle-changed', { target: debugElement });
     fixture.detectChanges();
     expect(fixture.componentInstance.model.checked).toBe(true);

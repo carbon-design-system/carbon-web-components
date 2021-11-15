@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -191,9 +191,7 @@ export default class BXTextarea extends ValidityMixin(FormMixin(LitElement)) {
 
     return html`
       <label class="${labelClasses}" for="input">
-        <slot name="label-text">
-          ${this.labelText}
-        </slot>
+        <slot name="label-text"> ${this.labelText} </slot>
       </label>
       <div class="${prefix}--text-area__wrapper" ?data-invalid="${this.invalid}">
         ${this.invalid ? invalidIcon : null}
@@ -212,18 +210,13 @@ export default class BXTextarea extends ValidityMixin(FormMixin(LitElement)) {
           ?required="${this.required}"
           rows="${ifNonNull(this.rows)}"
           .value="${this.value}"
-          @input="${this._handleInput}"
-        ></textarea>
+          @input="${this._handleInput}"></textarea>
       </div>
       <div class="${helperTextClasses}">
-        <slot name="helper-text">
-          ${this.helperText}
-        </slot>
+        <slot name="helper-text"> ${this.helperText} </slot>
       </div>
       <div class="${prefix}--form-requirement">
-        <slot name="validity-message">
-          ${this.validityMessage}
-        </slot>
+        <slot name="validity-message"> ${this.validityMessage} </slot>
       </div>
     `;
   }

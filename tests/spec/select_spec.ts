@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -33,17 +33,17 @@ const template = (props?) =>
     'bx-select': props,
   });
 
-describe('bx-select', function() {
+describe('bx-select', function () {
   const events = new EventManager();
 
-  describe('Misc attributes', function() {
-    it('should render with minimum attributes', async function() {
+  describe('Misc attributes', function () {
+    it('should render with minimum attributes', async function () {
       render(template(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-select')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('should render with various attributes', async function() {
+    it('should render with various attributes', async function () {
       render(
         template({
           autofocus: true,
@@ -62,7 +62,7 @@ describe('bx-select', function() {
       expect(document.body.querySelector('bx-select')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('should render invalid state', async function() {
+    it('should render invalid state', async function () {
       render(
         template({
           helperText: 'helper-text-foo', // `validityMessage` should take precedence
@@ -76,8 +76,8 @@ describe('bx-select', function() {
     });
   });
 
-  describe('Changing child `<option>`s', function() {
-    it('should support adding an option', async function() {
+  describe('Changing child `<option>`s', function () {
+    it('should support adding an option', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-select');
@@ -95,7 +95,7 @@ describe('bx-select', function() {
       expect(option.selected).toBe(true);
     });
 
-    it('should support changing a property of an option', async function() {
+    it('should support changing a property of an option', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const item = document.body.querySelector('bx-select-item[value="staging"]');
@@ -107,7 +107,7 @@ describe('bx-select', function() {
       expect(option.disabled).toBe(true);
     });
 
-    it('should support removing an option', async function() {
+    it('should support removing an option', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const item = document.body.querySelector('bx-select-item[value="staging"]');
@@ -118,7 +118,7 @@ describe('bx-select', function() {
       expect(elem!.shadowRoot!.querySelector('option[value="staging"]')).toBeNull();
     });
 
-    it('should support adding an option group', async function() {
+    it('should support adding an option group', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-select');
@@ -133,7 +133,7 @@ describe('bx-select', function() {
       expect(option.label).toBe('label-foo');
     });
 
-    it('should support changing a property of an option group', async function() {
+    it('should support changing a property of an option group', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const itemGroup = document.body.querySelector('bx-select-item-group[label="Category 2"]');
@@ -145,7 +145,7 @@ describe('bx-select', function() {
       expect(option.disabled).toBe(true);
     });
 
-    it('should support removing an option group', async function() {
+    it('should support removing an option group', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const itemGroup = document.body.querySelector('bx-select-item-group[label="Category 2"]');
@@ -157,8 +157,8 @@ describe('bx-select', function() {
     });
   });
 
-  describe('Properties', function() {
-    it('should support querying the `<option>`', async function() {
+  describe('Properties', function () {
+    it('should support querying the `<option>`', async function () {
       render(
         template({
           children: html`
@@ -173,7 +173,7 @@ describe('bx-select', function() {
       expect(Array.prototype.map.call(options, option => option.value)).toEqual(['all', 'cloudFoundry']);
     });
 
-    it('should support querying the length of `<option>`', async function() {
+    it('should support querying the length of `<option>`', async function () {
       render(
         template({
           children: html`
@@ -187,20 +187,20 @@ describe('bx-select', function() {
       expect((document.body.querySelector('bx-select') as BXSelect).length).toBe(2);
     });
 
-    it('should support querying the type', async function() {
+    it('should support querying the type', async function () {
       render(template(), document.body);
       await Promise.resolve();
       expect((document.body.querySelector('bx-select') as BXSelect).type).toBe('select-one');
     });
 
-    it('should unsupport multiple selection', async function() {
+    it('should unsupport multiple selection', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-select');
       const { _attributeToProperty: origAttributeToProperty } = elem as any;
       let caught;
       await new Promise(resolve => {
-        spyOn(BXSelect.prototype as any, '_attributeToProperty').and.callFake(function() {
+        spyOn(BXSelect.prototype as any, '_attributeToProperty').and.callFake(function () {
           try {
             // TODO: See if we can get around TS2683
             // @ts-ignore
@@ -216,13 +216,13 @@ describe('bx-select', function() {
       expect((elem as BXSelect).multiple).toBe(false);
     });
 
-    it('should support querying the selected index', async function() {
+    it('should support querying the selected index', async function () {
       render(template({ value: 'staging' }), document.body);
       await Promise.resolve();
       expect((document.body.querySelector('bx-select') as BXSelect).selectedIndex).toBe(2);
     });
 
-    it('should support setting the selected index', async function() {
+    it('should support setting the selected index', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const select = document.body.querySelector('bx-select') as BXSelect;
@@ -231,8 +231,8 @@ describe('bx-select', function() {
     });
   });
 
-  describe('Event-based form participation', function() {
-    it('Should respond to `formdata` event', async function() {
+  describe('Event-based form participation', function () {
+    it('Should respond to `formdata` event', async function () {
       render(
         html`
           <form>
@@ -253,7 +253,7 @@ describe('bx-select', function() {
       expect(getValues(formData)).toEqual({ 'name-foo': 'staging' });
     });
 
-    it('Should not respond to `formdata` event if disabled', async function() {
+    it('Should not respond to `formdata` event if disabled', async function () {
       render(
         html`
           <form>
@@ -276,16 +276,16 @@ describe('bx-select', function() {
     });
   });
 
-  describe('Form validation', function() {
+  describe('Form validation', function () {
     let elem: Element;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       render(template(), document.body);
       await Promise.resolve();
       elem = document.body.querySelector('bx-select')!;
     });
 
-    it('should support checking if required value exists', async function() {
+    it('should support checking if required value exists', async function () {
       const select = elem as BXSelect;
       select.required = true;
       const spyInvalid = jasmine.createSpy('invalid');
@@ -300,7 +300,7 @@ describe('bx-select', function() {
       expect(select.validityMessage).toBe('');
     });
 
-    it('should support canceling required check', async function() {
+    it('should support canceling required check', async function () {
       const select = elem as BXSelect;
       select.required = true;
       events.on(select, 'invalid', event => {
@@ -311,14 +311,14 @@ describe('bx-select', function() {
       expect(select.validityMessage).toBe('');
     });
 
-    it('should treat empty custom validity message as not invalid', async function() {
+    it('should treat empty custom validity message as not invalid', async function () {
       const select = elem as BXSelect;
       select.setCustomValidity('');
       expect(select.invalid).toBe(false);
       expect(select.validityMessage).toBe('');
     });
 
-    it('should treat non-empty custom validity message as invalid', async function() {
+    it('should treat non-empty custom validity message as invalid', async function () {
       const select = elem as BXSelect;
       select.setCustomValidity('validity-message-foo');
       expect(select.invalid).toBe(true);
@@ -326,7 +326,7 @@ describe('bx-select', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     events.reset();
     await render(undefined!, document.body);
   });

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -52,8 +52,7 @@ class BXButtonSkeleton extends BXButton {
             rel="${ifNonNull(rel)}"
             target="${ifNonNull(target)}"
             type="${ifNonNull(type)}"
-            @click="${this._handleClickLinkSkeleton}"
-          ></a>
+            @click="${this._handleClickLinkSkeleton}"></a>
         `
       : html`
           <button
@@ -61,8 +60,7 @@ class BXButtonSkeleton extends BXButton {
             class="${classes}"
             ?autofocus="${autofocus}"
             ?disabled="${disabled}"
-            type="${ifNonNull(type)}"
-          ></button>
+            type="${ifNonNull(type)}"></button>
         `;
   }
 

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -25,18 +25,13 @@ export const Default = args => {
       start="${ifNonNull(start)}"
       total="${ifNonNull(total)}"
       @bx-pagination-changed-current="${onChangedCurrent}"
-      @bx-page-sizes-select-changed="${onChangedPageSizesSelect}"
-    >
+      @bx-page-sizes-select-changed="${onChangedPageSizesSelect}">
       <bx-page-sizes-select slot="page-sizes-select">
         <option value="10">10</option>
         <option value="20">20</option>
         <option value="30">30</option>
       </bx-page-sizes-select>
-      ${total == null
-        ? undefined
-        : html`
-            <bx-pages-select></bx-pages-select>
-          `}
+      ${total == null ? undefined : html` <bx-pages-select></bx-pages-select> `}
     </bx-pagination>
   `;
 };

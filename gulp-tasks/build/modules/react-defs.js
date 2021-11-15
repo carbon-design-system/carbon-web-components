@@ -66,10 +66,7 @@ const buildModulesReactDefs = ({ banner, targetEnv = 'browser' }) => {
     );
   }
 
-  return stream
-    .pipe(prettier())
-    .pipe(header(banner))
-    .pipe(gulp.dest(destDir));
+  return stream.pipe(prettier()).pipe(header(banner)).pipe(gulp.dest(destDir));
 };
 
 /**

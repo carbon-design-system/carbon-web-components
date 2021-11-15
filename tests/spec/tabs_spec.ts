@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,9 +19,9 @@ const template = (props?) =>
     'bx-tabs': props,
   });
 
-describe('bx-tabs', function() {
-  describe('Toggling', function() {
-    it('should toggle "open" attribute', async function() {
+describe('bx-tabs', function () {
+  describe('Toggling', function () {
+    it('should toggle "open" attribute', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -34,7 +34,7 @@ describe('bx-tabs', function() {
       expect(inner!.classList.contains('bx--tabs-trigger--open')).toBe(false);
     });
 
-    it('should always close dropdown when clicking document', async function() {
+    it('should always close dropdown when clicking document', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -45,7 +45,7 @@ describe('bx-tabs', function() {
       expect(elem!.classList.contains('bx--tabs-trigger--open')).toBe(false);
     });
 
-    it('should close dropdown when clicking on an item', async function() {
+    it('should close dropdown when clicking on an item', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -57,10 +57,10 @@ describe('bx-tabs', function() {
     });
   });
 
-  describe('Selecting an item', function() {
+  describe('Selecting an item', function () {
     const events = new EventManager();
 
-    it('should add/remove "selected" attribute', async function() {
+    it('should add/remove "selected" attribute', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const itemNodes = document.body.querySelectorAll('bx-tab');
@@ -73,7 +73,7 @@ describe('bx-tabs', function() {
       expect(itemNodes[4].hasAttribute('selected')).toBe(false);
     });
 
-    it('should update text', async function() {
+    it('should update text', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -83,7 +83,7 @@ describe('bx-tabs', function() {
       expect(elem!.shadowRoot!.getElementById('trigger-label')!.textContent!.trim()).toBe('Option 3');
     });
 
-    it('should update value', async function() {
+    it('should update value', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const itemNodes = document.body.querySelectorAll('bx-tab');
@@ -92,7 +92,7 @@ describe('bx-tabs', function() {
       expect((document.body.querySelector('bx-tabs') as BXTabs).value).toBe('staging');
     });
 
-    it('should provide a way to switch item with a value', async function() {
+    it('should provide a way to switch item with a value', async function () {
       render(template(), document.body);
       await Promise.resolve();
       (document.body.querySelector('bx-tabs') as BXTabs).value = 'staging';
@@ -106,7 +106,7 @@ describe('bx-tabs', function() {
       expect(itemNodes[4].hasAttribute('selected')).toBe(false);
     });
 
-    it('should provide a way to cancel switching item', async function() {
+    it('should provide a way to cancel switching item', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -127,13 +127,13 @@ describe('bx-tabs', function() {
       expect(elem!.shadowRoot!.getElementById('trigger-label')!.textContent!.trim()).toBe('Option 1');
     });
 
-    afterEach(async function() {
+    afterEach(async function () {
       events.reset();
     });
   });
 
-  describe('Focus style', function() {
-    it('should support setting focus style to child tabs', async function() {
+  describe('Focus style', function () {
+    it('should support setting focus style to child tabs', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -143,7 +143,7 @@ describe('bx-tabs', function() {
       expect(Array.prototype.every.call(itemNodes, item => (item as BXTab).inFocus)).toBe(true);
     });
 
-    it('should support unsetting focus style to child tabs', async function() {
+    it('should support unsetting focus style to child tabs', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -157,8 +157,8 @@ describe('bx-tabs', function() {
     });
   });
 
-  describe('Keyboard navigation', function() {
-    it('should support closing narrow mode dropdown by ESC key', async function() {
+  describe('Keyboard navigation', function () {
+    it('should support closing narrow mode dropdown by ESC key', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -171,7 +171,7 @@ describe('bx-tabs', function() {
       expect((elem as any)._open).toBe(false);
     });
 
-    it('should support left key in non-narrow mode', async function() {
+    it('should support left key in non-narrow mode', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -194,7 +194,7 @@ describe('bx-tabs', function() {
       expect(itemNodes[4].hasAttribute('selected')).toBe(true);
     });
 
-    it('should support right key in non-narrow mode', async function() {
+    it('should support right key in non-narrow mode', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -217,7 +217,7 @@ describe('bx-tabs', function() {
       expect(itemNodes[4].hasAttribute('selected')).toBe(false);
     });
 
-    it('should support up key in narrow mode', async function() {
+    it('should support up key in narrow mode', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -241,7 +241,7 @@ describe('bx-tabs', function() {
       expect(itemNodes[4].hasAttribute('highlighted')).toBe(true);
     });
 
-    it('should support down key in narrow mode', async function() {
+    it('should support down key in narrow mode', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -265,7 +265,7 @@ describe('bx-tabs', function() {
       expect(itemNodes[4].hasAttribute('highlighted')).toBe(false);
     });
 
-    it('should open the dropdown with down key in narrow mode', async function() {
+    it('should open the dropdown with down key in narrow mode', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -289,7 +289,7 @@ describe('bx-tabs', function() {
       expect(itemNodes[4].hasAttribute('highlighted')).toBe(false);
     });
 
-    it('should open the dropdown with up key in narrow mode', async function() {
+    it('should open the dropdown with up key in narrow mode', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -313,7 +313,7 @@ describe('bx-tabs', function() {
       expect(itemNodes[4].hasAttribute('highlighted')).toBe(false);
     });
 
-    it('should open the dropdown with space key in narrow mode', async function() {
+    it('should open the dropdown with space key in narrow mode', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -327,7 +327,7 @@ describe('bx-tabs', function() {
       expect((elem as any)._open).toBe(true);
     });
 
-    it('should select the highlighted item with space key in narrow mode', async function() {
+    it('should select the highlighted item with space key in narrow mode', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -347,7 +347,7 @@ describe('bx-tabs', function() {
       expect((elem as BXTabs).value).toBe('staging');
     });
 
-    it('should simply close the dropdown if user tries to choose the same selection in narrow mode', async function() {
+    it('should simply close the dropdown if user tries to choose the same selection in narrow mode', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -367,7 +367,7 @@ describe('bx-tabs', function() {
       expect((elem as any)._open).toBe(false);
     });
 
-    it('should support closing the dropdown without an highlighted item in narrow mode', async function() {
+    it('should support closing the dropdown without an highlighted item in narrow mode', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const elem = document.body.querySelector('bx-tabs');
@@ -383,7 +383,7 @@ describe('bx-tabs', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await render(undefined!, document.body);
   });
 });

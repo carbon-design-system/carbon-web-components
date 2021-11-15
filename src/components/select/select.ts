@@ -42,9 +42,7 @@ class BXSelect extends ValidityMixin(FormMixin(LitElement)) {
   /**
    * The `value` for placeholder `<option>`.
    */
-  private _placeholderItemValue = `__${prefix}-select-placeholder_${Math.random()
-    .toString(36)
-    .slice(2)}`;
+  private _placeholderItemValue = `__${prefix}-select-placeholder_${Math.random().toString(36).slice(2)}`;
 
   /**
    * The select box.
@@ -106,8 +104,7 @@ class BXSelect extends ValidityMixin(FormMixin(LitElement)) {
                   ?disabled="${disabled}"
                   label="${ifNonNull(label ?? textContent)}"
                   ?selected="${selected}"
-                  value="${ifNonNull(value)}"
-                >
+                  value="${ifNonNull(value)}">
                   ${textContent}
                 </option>
               `
@@ -332,24 +329,18 @@ class BXSelect extends ValidityMixin(FormMixin(LitElement)) {
     const supplementalText = !invalid
       ? html`
           <div class="${helperTextClasses}">
-            <slot name="helper-text">
-              ${helperText}
-            </slot>
+            <slot name="helper-text"> ${helperText} </slot>
           </div>
         `
       : html`
           <div class="${prefix}--form-requirement" id="validity-message">
-            <slot name="validity-message">
-              ${validityMessage}
-            </slot>
+            <slot name="validity-message"> ${validityMessage} </slot>
           </div>
         `;
 
     return html`
       <label class="${labelClasses}" for="input">
-        <slot name="label-text">
-          ${labelText}
-        </slot>
+        <slot name="label-text"> ${labelText} </slot>
       </label>
       <div class="${prefix}--select-input__wrapper" ?data-invalid="${invalid}">
         <select
@@ -358,8 +349,7 @@ class BXSelect extends ValidityMixin(FormMixin(LitElement)) {
           ?disabled="${disabled}"
           aria-invalid="${String(Boolean(invalid))}"
           aria-describedby="${ifDefined(!invalid ? undefined : 'validity-message')}"
-          @input="${handleInput}"
-        >
+          @input="${handleInput}">
           ${!placeholder || value
             ? undefined
             : html`

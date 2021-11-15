@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -35,18 +35,18 @@ const singleSelectableTemplate = (props?) =>
     'bx-radio-tile': props,
   });
 
-describe('bx-tile', function() {
+describe('bx-tile', function () {
   const events = new EventManager();
 
-  describe('bx-clickable-tile', function() {
-    describe('Misc attributes', function() {
-      it('should render with minimum attributes', async function() {
+  describe('bx-clickable-tile', function () {
+    describe('Misc attributes', function () {
+      it('should render with minimum attributes', async function () {
         render(clickableTemplate(), document.body);
         await Promise.resolve();
         expect(document.body.querySelector('bx-clickable-tile')).toMatchSnapshot({ mode: 'shadow' });
       });
 
-      it('should render with various attributes', async function() {
+      it('should render with various attributes', async function () {
         render(
           clickableTemplate({
             colorScheme: TILE_COLOR_SCHEME.LIGHT,
@@ -64,7 +64,7 @@ describe('bx-tile', function() {
         expect(document.body.querySelector('bx-clickable-tile')).toMatchSnapshot({ mode: 'shadow' });
       });
 
-      it('should render disabled state', async function() {
+      it('should render disabled state', async function () {
         render(
           clickableTemplate({
             colorScheme: TILE_COLOR_SCHEME.LIGHT,
@@ -85,15 +85,15 @@ describe('bx-tile', function() {
     });
   });
 
-  describe('bx-expandable-tile', function() {
-    describe('Misc attributes', function() {
-      it('should render with minimum attributes', async function() {
+  describe('bx-expandable-tile', function () {
+    describe('Misc attributes', function () {
+      it('should render with minimum attributes', async function () {
         render(expandableTemplate(), document.body);
         await Promise.resolve();
         expect(document.body.querySelector('bx-expandable-tile')).toMatchSnapshot({ mode: 'shadow' });
       });
 
-      it('should render with various attributes', async function() {
+      it('should render with various attributes', async function () {
         render(
           expandableTemplate({
             colorScheme: TILE_COLOR_SCHEME.LIGHT,
@@ -106,8 +106,8 @@ describe('bx-tile', function() {
       });
     });
 
-    describe('Toggling', function() {
-      it('Should fire bx-expandable-tile-beingtoggled/bx-expandable-tile-toggled events upon expanding', async function() {
+    describe('Toggling', function () {
+      it('Should fire bx-expandable-tile-beingtoggled/bx-expandable-tile-toggled events upon expanding', async function () {
         render(expandableTemplate(), document.body);
         await Promise.resolve();
         const tile = document.querySelector('bx-expandable-tile');
@@ -123,7 +123,7 @@ describe('bx-tile', function() {
         expect(spyAfterToggle.calls.argsFor(0)[0].detail.expanded).toBe(true);
       });
 
-      it('Should fire bx-expandable-tile-beingtoggled/bx-expandable-tile-toggled events upon collapsing', async function() {
+      it('Should fire bx-expandable-tile-beingtoggled/bx-expandable-tile-toggled events upon collapsing', async function () {
         render(expandableTemplate({ expanded: true }), document.body);
         await Promise.resolve();
         const tile = document.querySelector('bx-expandable-tile');
@@ -139,7 +139,7 @@ describe('bx-tile', function() {
         expect(spyAfterToggle.calls.argsFor(0)[0].detail.expanded).toBe(false);
       });
 
-      it('Should support preventing tile from being expanded upon user gesture', async function() {
+      it('Should support preventing tile from being expanded upon user gesture', async function () {
         render(expandableTemplate(), document.body);
         await Promise.resolve();
         const tile = document.querySelector('bx-expandable-tile');
@@ -153,7 +153,7 @@ describe('bx-tile', function() {
         expect(spyAfterToggle).not.toHaveBeenCalled();
       });
 
-      it('Should support preventing tile from being collapsed upon user gesture', async function() {
+      it('Should support preventing tile from being collapsed upon user gesture', async function () {
         render(expandableTemplate({ expanded: true }), document.body);
         await Promise.resolve();
         const tile = document.querySelector('bx-expandable-tile');
@@ -169,15 +169,15 @@ describe('bx-tile', function() {
     });
   });
 
-  describe('bx-radio-tile', function() {
-    describe('Misc attributes', function() {
-      it('should render with minimum attributes', async function() {
+  describe('bx-radio-tile', function () {
+    describe('Misc attributes', function () {
+      it('should render with minimum attributes', async function () {
         render(singleSelectableTemplate(), document.body);
         await Promise.resolve();
         expect(document.body.querySelector('bx-radio-tile')).toMatchSnapshot({ mode: 'shadow' });
       });
 
-      it('should render with various attributes', async function() {
+      it('should render with various attributes', async function () {
         render(
           singleSelectableTemplate({
             checkmarkLabel: 'checkmark-label-foo',
@@ -192,8 +192,8 @@ describe('bx-tile', function() {
       });
     });
 
-    describe('Selection', function() {
-      it('should reflect the selection', async function() {
+    describe('Selection', function () {
+      it('should reflect the selection', async function () {
         render(singleSelectableTemplate({ name: 'name-foo' }), document.body);
         await Promise.resolve();
         const tiles = document.body.querySelectorAll('bx-radio-tile');
@@ -204,15 +204,15 @@ describe('bx-tile', function() {
     });
   });
 
-  describe('bx-selectable-tile', function() {
-    describe('Misc attributes', function() {
-      it('should render with minimum attributes', async function() {
+  describe('bx-selectable-tile', function () {
+    describe('Misc attributes', function () {
+      it('should render with minimum attributes', async function () {
         render(multiSelectableTemplate(), document.body);
         await Promise.resolve();
         expect(document.body.querySelector('bx-selectable-tile')).toMatchSnapshot({ mode: 'shadow' });
       });
 
-      it('should render with various attributes', async function() {
+      it('should render with various attributes', async function () {
         render(
           multiSelectableTemplate({
             checkmarkLabel: 'checkmark-label-foo',
@@ -228,8 +228,8 @@ describe('bx-tile', function() {
       });
     });
 
-    describe('Selection', function() {
-      it('should reflect the selection', async function() {
+    describe('Selection', function () {
+      it('should reflect the selection', async function () {
         render(multiSelectableTemplate(), document.body);
         await Promise.resolve();
         const tile = document.body.querySelector('bx-selectable-tile');
@@ -242,7 +242,7 @@ describe('bx-tile', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await render(undefined!, document.body);
     events.reset();
   });

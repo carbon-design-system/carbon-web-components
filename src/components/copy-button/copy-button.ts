@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -32,9 +32,9 @@ export const _createHandleFeedbackTooltip = (update: (properties: { showFeedback
       timeoutId = undefined;
     }
     update({ showFeedback: true });
-    timeoutId = (setTimeout(() => {
+    timeoutId = setTimeout(() => {
       update({ showFeedback: false });
-    }, timeout) as unknown) as number;
+    }, timeout) as unknown as number;
   };
 };
 
@@ -49,9 +49,7 @@ export const _renderButton = ({
   feedbackText,
   showFeedback = false,
   className = `${prefix}--snippet-button`,
-  children = html`
-    <slot>${Copy16({ class: `${prefix}--snippet__icon` })}</slot>
-  `,
+  children = html` <slot>${Copy16({ class: `${prefix}--snippet__icon` })}</slot> `,
   handleClickButton,
 }: {
   assistiveText: string;

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -28,15 +28,15 @@ const template = (props?) =>
     'bx-slider': props,
   });
 
-describe('bx-slider', function() {
-  describe('Rendering', function() {
-    it('Should render with minimum attributes', async function() {
+describe('bx-slider', function () {
+  describe('Rendering', function () {
+    it('Should render with minimum attributes', async function () {
       render(template(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-slider')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('Should render with various attributes', async function() {
+    it('Should render with various attributes', async function () {
       render(
         template({
           disabled: true,
@@ -54,8 +54,8 @@ describe('bx-slider', function() {
     });
   });
 
-  describe('Event-based form participation', function() {
-    it('Should respond to `formdata` event', async function() {
+  describe('Event-based form participation', function () {
+    it('Should respond to `formdata` event', async function () {
       render(
         html`
           <form>
@@ -76,7 +76,7 @@ describe('bx-slider', function() {
       expect(getValues(formData)).toEqual({ 'name-foo': '5' });
     });
 
-    it('Should not respond to `formdata` event if disabled', async function() {
+    it('Should not respond to `formdata` event if disabled', async function () {
       render(
         html`
           <form>
@@ -99,7 +99,7 @@ describe('bx-slider', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await render(undefined!, document.body);
   });
 });

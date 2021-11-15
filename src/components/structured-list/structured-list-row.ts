@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -201,8 +201,7 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
           class="${prefix}--structured-list-input"
           .checked=${selected}
           name=${selectionName}
-          value=${ifDefined(selectionValue)}
-        />
+          value=${ifDefined(selectionValue)} />
         <div class="${prefix}--structured-list-td ${prefix}--structured-list-cell">
           ${CheckmarkFilled16({
             class: `${prefix}--structured-list-svg`,
@@ -211,9 +210,7 @@ class BXStructuredListRow extends HostListenerMixin(LitElement) {
         </div>
       `;
     }
-    return html`
-      <slot></slot>
-    `;
+    return html`<slot></slot>`;
   }
 
   static styles = styles;

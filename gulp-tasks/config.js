@@ -11,7 +11,11 @@ const path = require('path');
 const commander = require('commander');
 
 const collect = (v, a) => a.add(v);
-const { browser: browsers, spec: specs, ...rest } = commander
+const {
+  browser: browsers,
+  spec: specs,
+  ...rest
+} = commander
   .option('-b, --browser [browser]', 'Browser to test with (ChromeHeadless or Chrome) for Karma testing', collect, new Set())
   .option(
     '-d, --debug',

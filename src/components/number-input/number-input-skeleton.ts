@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -27,10 +27,7 @@ class BXNumberInputSkeleton extends LitElement {
   render() {
     const { hideLabel } = this;
     return html`
-      ${!hideLabel &&
-        html`
-          <span class="${prefix}--label ${prefix}--skeleton"></span>
-        `}
+      ${!hideLabel && html` <span class="${prefix}--label ${prefix}--skeleton"></span> `}
       <div class="${prefix}--number ${prefix}--skeleton"></div>
     `;
   }

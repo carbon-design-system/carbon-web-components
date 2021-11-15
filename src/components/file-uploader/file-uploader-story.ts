@@ -47,9 +47,7 @@ class BXCEDemoFileUploader extends LitElement {
     const newFiles: FileData[] = addedFiles.map(
       item =>
         ({
-          id: Math.random()
-            .toString(36)
-            .slice(2),
+          id: Math.random().toString(36).slice(2),
           file: item,
           state: FILE_UPLOADER_ITEM_STATE.UPLOADING,
         } as FileData)
@@ -177,8 +175,7 @@ class BXCEDemoFileUploader extends LitElement {
           accept="${ifNonNull(accept)}"
           ?disabled="${disabled}"
           ?multiple="${multiple}"
-          @bx-file-drop-container-changed="${handleChange}"
-        >
+          @bx-file-drop-container-changed="${handleChange}">
           Drag and drop files here or click to upload
         </bx-file-drop-container>
         ${files.map(
@@ -189,8 +186,7 @@ class BXCEDemoFileUploader extends LitElement {
               size="${ifNonNull(size)}"
               state="${ifNonNull(state)}"
               validity-message="${ifNonNull(validityMessage)}"
-              @bx-file-uploader-item-deleted="${handleDelete}"
-            >
+              @bx-file-uploader-item-deleted="${handleDelete}">
               ${file.name}
               <span slot="validity-message-supplement">${supplementalValidityMessage}</span>
             </bx-file-uploader-item>
@@ -233,8 +229,7 @@ export const Default = args => {
       ?multiple="${multiple}"
       size="${ifNonNull(size)}"
       @bx-file-uploader-item-beingdeleted="${handleBeforeDelete}"
-      @bx-file-uploader-item-deleted="${onDelete}"
-    >
+      @bx-file-uploader-item-deleted="${onDelete}">
     </bx-ce-demo-file-uploader>
   `;
 };

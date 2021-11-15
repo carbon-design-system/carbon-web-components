@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -16,32 +16,32 @@ const template = (props?) =>
     'bx-structured-list': props,
   });
 
-describe('bx-structured-list', function() {
-  describe('Selection', function() {
+describe('bx-structured-list', function () {
+  describe('Selection', function () {
     let list;
     let rows;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       render(template({ hasSelection: true }), document.body);
       await Promise.resolve();
       list = document.body.querySelector('bx-structured-list');
       rows = document.body.querySelectorAll('bx-structured-list-row');
     });
 
-    it('should reflect the selection settings', async function() {
+    it('should reflect the selection settings', async function () {
       list.setAttribute('selection-name', 'selection-name-foo');
       await Promise.resolve();
       expect(list.shadowRoot!.querySelector('section')!.classList.contains('bx--structured-list--selection')).toBe(true);
       expect(Array.prototype.every.call(rows, row => row.selectionName === 'selection-name-foo')).toBe(true);
     });
 
-    it('should reflect the selection', function() {
+    it('should reflect the selection', function () {
       const input1 = rows[1]!.shadowRoot!.querySelector('input');
       input1!.click();
       expect(Array.prototype.map.call(rows, item => (item as BXStructuredListRow).selected)).toEqual([false, true, false]);
     });
 
-    it('Should navigate by up/down keys', function() {
+    it('Should navigate by up/down keys', function () {
       (rows[0] as HTMLElement).focus();
       const event = new CustomEvent('keydown', { bubbles: true, composed: true });
       rows[0].dispatchEvent(Object.assign(event, { key: 'ArrowDown' }));
@@ -53,7 +53,7 @@ describe('bx-structured-list', function() {
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await render(undefined!, document.body);
   });
 });

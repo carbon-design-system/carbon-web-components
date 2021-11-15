@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -19,9 +19,7 @@ const { prefix } = settings;
 @customElement(`${prefix}-structured-list-header-cell-skeleton`)
 class BXStructuredListHeaderCellSkeleton extends LitElement {
   render() {
-    return html`
-      <span></span>
-    `;
+    return html` <span></span> `;
   }
 
   static styles = styles;

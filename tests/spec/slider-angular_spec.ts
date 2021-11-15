@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -29,19 +29,19 @@ class SliderAngularTest {
 }
 
 describe('Angular directive for bx-slider', () => {
-  beforeAll(function() {
+  beforeAll(function () {
     TestBed.resetTestEnvironment();
     TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     TestBed.configureTestingModule({
       declarations: [BXSliderDirective, SliderAngularTest],
       imports: [FormsModule],
     });
   });
 
-  it('should send the value to model upon `input` event', async function() {
+  it('should send the value to model upon `input` event', async function () {
     const fixture = TestBed.createComponent(SliderAngularTest);
     fixture.detectChanges(); // Ensures event handlers are set up
     await Promise.resolve(); // Ensures event handlers are set up

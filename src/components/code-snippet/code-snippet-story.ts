@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -144,10 +144,7 @@ inline.parameters = {
   knobs: defaultKnobs,
 };
 
-export const skeletonSingleLine = () =>
-  html`
-    <bx-code-snippet-skeleton type="single"></bx-code-snippet-skeleton>
-  `;
+export const skeletonSingleLine = () => html` <bx-code-snippet-skeleton type="single"></bx-code-snippet-skeleton> `;
 
 skeletonSingleLine.storyName = 'Skeleton single line';
 
@@ -157,10 +154,7 @@ skeletonSingleLine.parameters = {
   },
 };
 
-export const skeletonMultiLine = () =>
-  html`
-    <bx-code-snippet-skeleton type="multi"></bx-code-snippet-skeleton>
-  `;
+export const skeletonMultiLine = () => html` <bx-code-snippet-skeleton type="multi"></bx-code-snippet-skeleton> `;
 
 skeletonMultiLine.storyName = 'Skeleton multi line';
 

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -15,15 +15,15 @@ const template = (props?) =>
     'bx-copy-button': props,
   });
 
-describe('bx-copy-button', function() {
-  describe('Rendering', function() {
-    it('Should render with minimum attributes', async function() {
+describe('bx-copy-button', function () {
+  describe('Rendering', function () {
+    it('Should render with minimum attributes', async function () {
       render(template(), document.body);
       await Promise.resolve();
       expect(document.body.querySelector('bx-copy-button')).toMatchSnapshot({ mode: 'shadow' });
     });
 
-    it('Should render with various attributes', async function() {
+    it('Should render with various attributes', async function () {
       render(
         template({
           buttonAssistiveText: 'button-assistive-text-foo',
@@ -37,15 +37,15 @@ describe('bx-copy-button', function() {
     });
   });
 
-  describe('Showing tooltip', function() {
-    beforeEach(function() {
+  describe('Showing tooltip', function () {
+    beforeEach(function () {
       // Workaround for:
       // `Error: Jasmine Clock was unable to install over custom global timer functions. Is the clock already installed?`
       jasmine.clock().uninstall();
       jasmine.clock().install();
     });
 
-    it('Should show the tooltip for 2 seconds by default', async function() {
+    it('Should show the tooltip for 2 seconds by default', async function () {
       render(template(), document.body);
       await Promise.resolve();
       const button = document.body.querySelector('bx-copy-button')!.shadowRoot!.querySelector('button');
@@ -58,7 +58,7 @@ describe('bx-copy-button', function() {
       expect(feedback!.classList.contains('bx--btn--copy__feedback--displayed')).toBe(false);
     });
 
-    it('Should support changing the duration', async function() {
+    it('Should support changing the duration', async function () {
       render(template({ feedbackTimeout: 500 }), document.body);
       await Promise.resolve();
       const button = document.body.querySelector('bx-copy-button')!.shadowRoot!.querySelector('button');
@@ -71,12 +71,12 @@ describe('bx-copy-button', function() {
       expect(feedback!.classList.contains('bx--btn--copy__feedback--displayed')).toBe(false);
     });
 
-    afterEach(function() {
+    afterEach(function () {
       jasmine.clock().uninstall();
     });
   });
 
-  afterEach(async function() {
+  afterEach(async function () {
     await render(undefined!, document.body);
   });
 });

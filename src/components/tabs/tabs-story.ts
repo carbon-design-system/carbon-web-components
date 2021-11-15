@@ -32,8 +32,15 @@ const types = {
 };
 
 export const Default = args => {
-  const { colorScheme, triggerContent, type, value, disableSelection, onBeforeSelect = noop, onSelect = noop } =
-    args?.['bx-tabs'] || {};
+  const {
+    colorScheme,
+    triggerContent,
+    type,
+    value,
+    disableSelection,
+    onBeforeSelect = noop,
+    onSelect = noop,
+  } = args?.['bx-tabs'] || {};
   const handleBeforeSelected = (event: CustomEvent) => {
     onBeforeSelect(event);
     if (disableSelection) {
@@ -50,8 +57,7 @@ export const Default = args => {
       type="${ifNonNull(type)}"
       value="${ifNonNull(value)}"
       @bx-tabs-beingselected="${handleBeforeSelected}"
-      @bx-tabs-selected="${onSelect}"
-    >
+      @bx-tabs-selected="${onSelect}">
       <bx-tab id="tab-all" target="panel-all" value="all">Option 1</bx-tab>
       <bx-tab id="tab-cloudFoundry" target="panel-cloudFoundry" disabled value="cloudFoundry">Option 2</bx-tab>
       <bx-tab id="tab-staging" target="panel-staging" value="staging">Option 3</bx-tab>

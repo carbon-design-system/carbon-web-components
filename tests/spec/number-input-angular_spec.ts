@@ -30,36 +30,36 @@ class NumberInputAngularTest {
 }
 
 describe('Angular directive for bx-number-input', () => {
-  beforeAll(function() {
+  beforeAll(function () {
     TestBed.resetTestEnvironment();
     TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     TestBed.configureTestingModule({
       declarations: [BXNumberInputDirective, NumberInputAngularTest],
       imports: [FormsModule],
     });
   });
 
-  it('should send the value to model upon `change` event', async function() {
+  it('should send the value to model upon `change` event', async function () {
     const fixture = TestBed.createComponent(NumberInputAngularTest);
     fixture.detectChanges(); // Ensures event handlers are set up
     await Promise.resolve(); // Ensures event handlers are set up
     const debugElement = fixture.debugElement.query(By.css('bx-number-input'));
-    ((debugElement as unknown) as BXNumberInput).value = '16';
+    (debugElement as unknown as BXNumberInput).value = '16';
     await Promise.resolve(); // Ensure the `value` is propagated to the `<input>` in shadow DOM
     debugElement.triggerEventHandler('change', { target: debugElement });
     fixture.detectChanges();
     expect(fixture.componentInstance.model.number).toBe(16);
   });
 
-  it('should send the value to model upon `bx-number-input` event', async function() {
+  it('should send the value to model upon `bx-number-input` event', async function () {
     const fixture = TestBed.createComponent(NumberInputAngularTest);
     fixture.detectChanges(); // Ensures event handlers are set up
     await Promise.resolve(); // Ensures event handlers are set up
     const debugElement = fixture.debugElement.query(By.css('bx-number-input'));
-    ((debugElement as unknown) as BXNumberInput).value = '16';
+    (debugElement as unknown as BXNumberInput).value = '16';
     await Promise.resolve(); // Ensure the `value` is propagated to the `<input>` in shadow DOM
     debugElement.triggerEventHandler('bx-number-input', { target: debugElement });
     fixture.detectChanges();
