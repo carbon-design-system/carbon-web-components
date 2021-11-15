@@ -87,7 +87,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.16.3",
-    "carbon-components": "10.47.1",
+    "carbon-components": "10.48.0",
     "lit-element": "^2.5.1",
     "lit-html": "^1.4.1",
     "lodash-es": "^4.17.21"
@@ -117,10 +117,10 @@
     "@babel/template": "~7.12.13",
     "@babel/traverse": "~7.12.17",
     "@carbon/icon-helpers": "^10.25.0",
-    "@carbon/icons": "^10.42.0",
+    "@carbon/icons": "^10.43.0",
     "@carbon/icons-angular": "^10.8.3",
-    "@carbon/icons-react": "^10.42.0",
-    "@carbon/icons-vue": "^10.42.0",
+    "@carbon/icons-react": "^10.43.0",
+    "@carbon/icons-vue": "^10.43.0",
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
     "@open-wc/semantic-dom-diff": "~0.18.0",
