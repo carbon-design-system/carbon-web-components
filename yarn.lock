@@ -6900,18 +6900,6 @@ autoprefixer@9.7.1:
     postcss "^7.0.21"
     postcss-value-parser "^4.0.2"
 
-autoprefixer@^9.4.0:
-  version "9.4.3"
-  resolved "https://registry.npmjs.org/autoprefixer/-/autoprefixer-9.4.3.tgz#c97384a8fd80477b78049163a91bbc725d9c41d9"
-  integrity sha512-/XSnzDepRkAU//xLcXA/lUWxpsBuw0WiriAHOqnxkuCtzLhaz+fL4it4gp20BQ8n5SyLzK/FOc7A0+u/rti2FQ==
-  dependencies:
-    browserslist "^4.3.6"
-    caniuse-lite "^1.0.30000921"
-    normalize-range "^0.1.2"
-    num2fraction "^1.2.2"
-    postcss "^7.0.6"
-    postcss-value-parser "^3.3.1"
-
 autoprefixer@^9.8.6:
   version "9.8.6"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.8.6.tgz#3b73594ca1bf9266320c5acf1588d74dea74210f"
@@ -6922,6 +6910,19 @@ autoprefixer@^9.8.6:
     colorette "^1.2.1"
     normalize-range "^0.1.2"
     num2fraction "^1.2.2"
+    postcss "^7.0.32"
+    postcss-value-parser "^4.1.0"
+
+autoprefixer@^9.8.8:
+  version "9.8.8"
+  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.8.8.tgz#fd4bd4595385fa6f06599de749a4d5f7a474957a"
+  integrity sha512-eM9d/swFopRt5gdJ7jrpCwgvEMIayITpojhkkSMRsFHYuH5bkSQ4p/9qTEHtmNudUZh22Tehu7I6CxAW0IXTKA==
+  dependencies:
+    browserslist "^4.12.0"
+    caniuse-lite "^1.0.30001109"
+    normalize-range "^0.1.2"
+    num2fraction "^1.2.2"
+    picocolors "^0.2.1"
     postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
 
@@ -7677,15 +7678,6 @@ browserslist@^4.16.6, browserslist@^4.17.6, browserslist@^4.9.1:
     node-releases "^2.0.1"
     picocolors "^1.0.0"
 
-browserslist@^4.3.6:
-  version "4.3.6"
-  resolved "https://registry.npmjs.org/browserslist/-/browserslist-4.3.6.tgz#0f9d9081afc66b36f477c6bdf3813f784f42396a"
-  integrity sha512-kMGKs4BTzRWviZ8yru18xBpx+CyHG9eqgRbj9XbE3IMgtczf4aiA0Y1YCpVdvUieKGZ03kolSPXqTcscBCb9qw==
-  dependencies:
-    caniuse-lite "^1.0.30000921"
-    electron-to-chromium "^1.3.92"
-    node-releases "^1.1.1"
-
 browserslist@^4.8.3:
   version "4.8.3"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.8.3.tgz#65802fcd77177c878e015f0e3189f2c4f627ba44"
@@ -8012,7 +8004,7 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000921, caniuse-lite@^1.0.30001006, caniuse-lite@^1.0.30001017, caniuse-lite@^1.0.30001027, caniuse-lite@^1.0.30001043, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001125, caniuse-lite@^1.0.30001164, caniuse-lite@^1.0.30001181:
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001006, caniuse-lite@^1.0.30001017, caniuse-lite@^1.0.30001027, caniuse-lite@^1.0.30001043, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001125, caniuse-lite@^1.0.30001164, caniuse-lite@^1.0.30001181:
   version "1.0.30001275"
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001275.tgz"
   integrity sha512-ihJVvj8RX0kn9GgP43HKhb5q9s2XQn4nEQhdldEJvZhCsuiB2XOq6fAMYQZaN6FPWfsr2qU0cdL0CSbETwbJAg==
@@ -10135,11 +10127,6 @@ electron-to-chromium@^1.3.886:
   version "1.3.889"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.889.tgz#0b7c6f7628559592d5406deda281788f37107790"
   integrity sha512-suEUoPTD1mExjL9TdmH7cvEiWJVM2oEiAi+Y1p0QKxI2HcRlT44qDTP2c1aZmVwRemIPYOpxmV7CxQCOWcm4XQ==
-
-electron-to-chromium@^1.3.92:
-  version "1.3.96"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.96.tgz#25770ec99b8b07706dedf3a5f43fa50cb54c4f9a"
-  integrity sha512-ZUXBUyGLeoJxp4Nt6G/GjBRLnyz8IKQGexZ2ndWaoegThgMGFO1tdDYID5gBV32/1S83osjJHyfzvanE/8HY4Q==
 
 element-resize-detector@^1.2.2:
   version "1.2.2"
@@ -16537,13 +16524,6 @@ node-notifier@^5.4.2:
     shellwords "^0.1.1"
     which "^1.3.0"
 
-node-releases@^1.1.1:
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/node-releases/-/node-releases-1.1.2.tgz#93c17fba5eec8650ad908de5433fa8763baebe4d"
-  integrity sha512-j1gEV/zX821yxdWp/1vBMN0pSUjuH9oGUdLCb4PfUko6ZW7KdRs3Z+QGGwDUhYtSpQvdVVyLd2V0YvLsmdg5jQ==
-  dependencies:
-    semver "^5.3.0"
-
 node-releases@^1.1.44:
   version "1.1.46"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.46.tgz#6b262afef1bdc9a950a96df2e77e0d2290f484bf"
@@ -18191,7 +18171,7 @@ postcss-unique-selectors@^4.0.1:
     postcss "^7.0.0"
     uniqs "^2.0.0"
 
-postcss-value-parser@^3.0.0, postcss-value-parser@^3.2.3, postcss-value-parser@^3.3.1:
+postcss-value-parser@^3.0.0, postcss-value-parser@^3.2.3:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-3.3.1.tgz#9ff822547e2893213cf1c30efa51ac5fd1ba8281"
   integrity sha512-pISE66AbVkp4fDQ7VHBwRNXzAAKJjw4Vw7nWI/+Q3vuly7SNfgYXvm6i5IgFylHGK5sP/xHAbB7N49OS4gWNyQ==
