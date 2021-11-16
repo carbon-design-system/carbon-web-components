@@ -3,5 +3,5 @@
     "config:base",
     ":maintainLockFilesWeekly"
   ],
-  "rangeStrategy": "bump"
+  "rangeStrategy": "replace"
 }
