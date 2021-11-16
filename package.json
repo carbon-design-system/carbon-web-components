@@ -114,7 +114,7 @@
     "@babel/preset-env": "~7.12.0",
     "@babel/preset-modules": "~0.1.5",
     "@babel/preset-react": "~7.12.0",
-    "@babel/template": "~7.12.0",
+    "@babel/template": "^7.16.0",
     "@babel/traverse": "~7.12.0",
     "@carbon/icon-helpers": "^10.25.0",
     "@carbon/icons": "^10.43.0",
