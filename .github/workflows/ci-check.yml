@@ -1,6 +1,10 @@
 name: ci-check
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 concurrency:
   group: ci-check-${{ github.ref }}
