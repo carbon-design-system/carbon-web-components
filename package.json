@@ -82,8 +82,7 @@
     "wca": "web-component-analyzer analyze src --outFile custom-elements.json"
   },
   "resolutions": {
-    "babel-plugin-transform-vue-jsx": "^4.0.0",
-    "lit-html": "^1.4.0"
+    "babel-plugin-transform-vue-jsx": "^4.0.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.16.0",
