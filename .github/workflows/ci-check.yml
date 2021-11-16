@@ -2,9 +2,9 @@ name: ci-check
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 concurrency:
   group: ci-check-${{ github.ref }}
