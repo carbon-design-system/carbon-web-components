@@ -87,6 +87,7 @@
   "dependencies": {
     "@babel/runtime": "^7.16.3",
     "carbon-components": "10.48.0",
+    "flatpickr": "4.6.1",
     "lit-element": "^2.5.1",
     "lit-html": "^1.4.1",
     "lodash-es": "^4.17.21"
@@ -180,7 +181,6 @@
     "expect-playwright": "~0.8.0",
     "expect-puppeteer": "^4.4.0",
     "file-loader": "^6.0.0",
-    "flatpickr": "4.6.1",
     "fs-extra": "^9.1.0",
     "globby": "^10.0.2",
     "gulp": "^4.0.0",
@@ -268,9 +268,6 @@
     "webpack": "^4.46.0",
     "webpack-dev-server": "^3.11.2",
     "zone.js": "~0.8.29"
-  },
-  "peerDependencies": {
-    "flatpickr": "4.6.1"
   },
   "commitlint": {
     "extends": [
