@@ -180,7 +180,6 @@
     "expect-playwright": "~0.8.0",
     "expect-puppeteer": "^4.4.0",
     "file-loader": "^6.0.0",
-    "flatpickr": "4.6.9",
     "fs-extra": "^9.1.0",
     "globby": "^10.0.2",
     "gulp": "^4.0.0",
@@ -268,9 +267,6 @@
     "webpack": "^4.46.0",
     "webpack-dev-server": "^3.11.2",
     "zone.js": "~0.8.29"
-  },
-  "peerDependencies": {
-    "flatpickr": "4.6.9"
   },
   "commitlint": {
     "extends": [
