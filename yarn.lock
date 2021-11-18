@@ -873,33 +873,12 @@
     "@babel/helper-split-export-declaration" "^7.16.0"
     globals "^11.1.0"
 
-"@babel/plugin-transform-computed-properties@^7.10.3":
-  version "7.10.3"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-computed-properties/-/plugin-transform-computed-properties-7.10.3.tgz#d3aa6eef67cb967150f76faff20f0abbf553757b"
-  integrity sha512-GWzhaBOsdbjVFav96drOz7FzrcEW6AP5nax0gLIpstiFaI3LOb2tAg06TimaWU6YKOfUACK3FVrxPJ4GSc5TgA==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.10.3"
-
-"@babel/plugin-transform-computed-properties@^7.12.13":
+"@babel/plugin-transform-computed-properties@^7.10.3", "@babel/plugin-transform-computed-properties@^7.12.13", "@babel/plugin-transform-computed-properties@^7.13.0", "@babel/plugin-transform-computed-properties@^7.7.4":
   version "7.16.0"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-computed-properties/-/plugin-transform-computed-properties-7.16.0.tgz#e0c385507d21e1b0b076d66bed6d5231b85110b7"
   integrity sha512-63l1dRXday6S8V3WFY5mXJwcRAnPYxvFfTlt67bwV1rTyVTM5zrp0DBBb13Kl7+ehkCVwIZPumPpFP/4u70+Tw==
   dependencies:
     "@babel/helper-plugin-utils" "^7.14.5"
-
-"@babel/plugin-transform-computed-properties@^7.13.0":
-  version "7.13.0"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-computed-properties/-/plugin-transform-computed-properties-7.13.0.tgz#845c6e8b9bb55376b1fa0b92ef0bdc8ea06644ed"
-  integrity sha512-RRqTYTeZkZAz8WbieLTvKUEUxZlUTdmL5KGMyZj7FnMfLNKV4+r5549aORG/mgojRmFlQMJDUupwAMiF2Q7OUg==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.13.0"
-
-"@babel/plugin-transform-computed-properties@^7.7.4":
-  version "7.8.3"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-computed-properties/-/plugin-transform-computed-properties-7.8.3.tgz#96d0d28b7f7ce4eb5b120bb2e0e943343c86f81b"
-  integrity sha512-O5hiIpSyOGdrQZRQ2ccwtTVkgUDBBiCuK//4RJ6UfePllUTCENOzKxfh6ulckXKc0DixTFLCfb2HVkNA7aDpzA==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.8.3"
 
 "@babel/plugin-transform-destructuring@^7.10.1":
   version "7.10.1"
