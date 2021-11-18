@@ -86,7 +86,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   private get _rate() {
     const { max, min, value } = this;
     // Copes with out-of-range value coming programmatically or from `<bx-slider-input>`
-    return Math.min(Number(max), Math.max(Number(min), value - Number(min))) / (Number(max) - Number(min));
+    return (Math.min(Number(max), Math.max(Number(min), value)) - Number(min)) / (Number(max) - Number(min));
   }
 
   private set _rate(rate: number) {
