@@ -7,8 +7,6 @@ concurrency:
 
 jobs:
   eslint:
-    # Prevent on forks because they don't have access to the secrets
-    if: github.repository == 'carbon-design-system/carbon-web-components'
     name: runner / eslint
     runs-on: ubuntu-latest
     steps:
