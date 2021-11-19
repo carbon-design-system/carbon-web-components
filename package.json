@@ -93,7 +93,7 @@
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.900.7",
+    "@angular-devkit/build-angular": "~0.1102.0",
     "@angular-devkit/core": "^8.3.29",
     "@angular/common": "^8.2.14",
     "@angular/compiler": "^8.2.14",
@@ -196,7 +196,7 @@
     "gulp-sass": "^4.1.1",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-typescript": "^5.0.1",
-    "http-server": "~0.12.3",
+    "http-server": "~0.13.0",
     "husky": "^4.3.8",
     "is-plain-obj": "^2.1.0",
     "is-port-reachable": "^3.1.0",
