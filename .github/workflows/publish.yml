@@ -7,7 +7,7 @@ on:
 
 jobs:
   publish:
-    # Prevents action from creating a PR on forks
+    # Prevent creating a release on forks
     if: github.repository == 'carbon-design-system/carbon-web-components'
     runs-on: ubuntu-latest
     steps:
