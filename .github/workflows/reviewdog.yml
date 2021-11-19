@@ -19,8 +19,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --offline
       - name: eslint
-        uses: reviewdog/action-eslint@v1.14.0
+        uses: reviewdog/action-eslint@v1
         with:
-          github_token: ${{ secrets.GH_TOKEN }}
           reporter: github-pr-review
           eslint_flags: '**/*.{js,ts,tsx}'
