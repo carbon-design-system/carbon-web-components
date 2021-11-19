@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   percy:
-    # Prevents action from creating a PR on forks
+    # Prevent on forks because they don't have access to the secrets
     if: github.repository == 'carbon-design-system/carbon-web-components'
     runs-on: ubuntu-latest
     strategy:
