@@ -196,7 +196,7 @@
     "gulp-sass": "^4.1.1",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-typescript": "^5.0.1",
-    "http-server": "~0.13.0",
+    "http-server": "~14.0.0",
     "husky": "^4.3.8",
     "is-plain-obj": "^2.1.0",
     "is-port-reachable": "^3.1.0",
