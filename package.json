@@ -194,7 +194,7 @@
     "gulp-prettier": "^4.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.1.1",
-    "gulp-sourcemaps": "^2.6.5",
+    "gulp-sourcemaps": "^3.0.0",
     "gulp-typescript": "^5.0.1",
     "http-server": "~14.0.0",
     "husky": "^4.3.8",
