@@ -181,7 +181,7 @@
     "expect-playwright": "~0.8.0",
     "expect-puppeteer": "^6.0.0",
     "file-loader": "^6.2.0",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "globby": "^10.0.2",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
