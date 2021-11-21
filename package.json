@@ -223,7 +223,7 @@
     "mini-css-extract-plugin": "~2.4.0",
     "mkdirp": "~1.0.0",
     "morgan": "^1.8.0",
-    "null-loader": "^2.0.0",
+    "null-loader": "^4.0.0",
     "playwright": "^1.0.0",
     "polymer-webpack-loader": "^2.0.0",
     "postcss": "^8.2.10",
