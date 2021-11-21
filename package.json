@@ -205,7 +205,7 @@
     "jest": "^24.9.0",
     "jest-dev-server": "^4.4.0",
     "jest-diff": "^24.9.0",
-    "jest-environment-puppeteer": "^4.4.0",
+    "jest-environment-puppeteer": "^6.0.0",
     "jest-playwright-preset": "~0.2.0",
     "karma": "^6.3.9",
     "karma-chrome-launcher": "^3.1.0",
