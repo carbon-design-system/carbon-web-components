@@ -220,7 +220,7 @@
     "karma-webpack": "^5.0.0",
     "lint-staged": "^10.5.4",
     "magic-string": "~0.25.7",
-    "mini-css-extract-plugin": "~0.12.0",
+    "mini-css-extract-plugin": "~2.4.0",
     "mkdirp": "~1.0.0",
     "morgan": "^1.8.0",
     "null-loader": "^2.0.0",
