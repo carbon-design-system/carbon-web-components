@@ -162,7 +162,7 @@
     "core-js": "^3.19.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.0.0",
-    "cssnano": "^4.1.11",
+    "cssnano": "^5.0.0",
     "custom-event": "^1.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "del": "^6.0.0",
