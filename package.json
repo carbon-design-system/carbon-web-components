@@ -203,7 +203,7 @@
     "istanbul-instrumenter-loader": "^3.0.1",
     "jasmine-core": "^3.10.1",
     "jest": "^24.9.0",
-    "jest-dev-server": "^4.4.0",
+    "jest-dev-server": "^6.0.0",
     "jest-diff": "^24.9.0",
     "jest-environment-puppeteer": "^6.0.0",
     "jest-playwright-preset": "~0.2.0",
