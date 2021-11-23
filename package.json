@@ -255,7 +255,7 @@
     "style-loader": "^2.0.0",
     "temp": "~0.9.4",
     "terser-webpack-plugin": "^5.0.0",
-    "through2": "^3.0.0",
+    "through2": "^4.0.0",
     "ts-loader": "^6.0.0",
     "tsickle": "~0.37.1",
     "typescript": "^3.9.10",
