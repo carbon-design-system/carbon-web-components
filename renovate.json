@@ -1,7 +1,9 @@
 {
   "extends": [
     "config:base",
-    ":maintainLockFilesWeekly"
+    ":maintainLockFilesWeekly",
+    ":preserveSemverRanges",
+    "schedule:nonOfficeHours"
   ],
   "rangeStrategy": "replace"
 }
