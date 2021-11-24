@@ -8,7 +8,6 @@
     "moduleResolution": "node",
     "outDir": "./es/directives-angular/esm2015",
     "rootDir": "./src/directives-angular",
-    "skipLibCheck": true,
     "lib": ["dom", "es2015"]
   },
   "files": ["./src/directives-angular/index.ts"],
