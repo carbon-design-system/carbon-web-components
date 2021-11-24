@@ -387,7 +387,7 @@
     browserslist "^4.17.5"
     semver "^6.3.0"
 
-"@babel/helper-create-class-features-plugin@^7.12.17", "@babel/helper-create-class-features-plugin@^7.13.0", "@babel/helper-create-class-features-plugin@^7.16.0":
+"@babel/helper-create-class-features-plugin@^7.13.0", "@babel/helper-create-class-features-plugin@^7.16.0":
   version "7.16.0"
   resolved "https://registry.yarnpkg.com/@babel/helper-create-class-features-plugin/-/helper-create-class-features-plugin-7.16.0.tgz#090d4d166b342a03a9fec37ef4fd5aeb9c7c6a4b"
   integrity sha512-XLwWvqEaq19zFlF5PTgOod4bUA+XbkR4WLQBct1bkzmxJGB0ZEJaoKF4c8cgH9oBtCDuYJ8BP5NB9uFiEgO5QA==
@@ -1481,22 +1481,13 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.14.5"
 
-"@babel/plugin-transform-typescript@^7.13.0", "@babel/plugin-transform-typescript@^7.8.3":
+"@babel/plugin-transform-typescript@^7.13.0", "@babel/plugin-transform-typescript@^7.8.3", "@babel/plugin-transform-typescript@~7.13.0":
   version "7.13.0"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-typescript/-/plugin-transform-typescript-7.13.0.tgz#4a498e1f3600342d2a9e61f60131018f55774853"
   integrity sha512-elQEwluzaU8R8dbVuW2Q2Y8Nznf7hnjM7+DSCd14Lo5fF63C9qNLbwZYbmZrtV9/ySpSUpkRpQXvJb6xyu4hCQ==
   dependencies:
     "@babel/helper-create-class-features-plugin" "^7.13.0"
     "@babel/helper-plugin-utils" "^7.13.0"
-    "@babel/plugin-syntax-typescript" "^7.12.13"
-
-"@babel/plugin-transform-typescript@~7.12.0":
-  version "7.12.17"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-typescript/-/plugin-transform-typescript-7.12.17.tgz#4aa6a5041888dd2e5d316ec39212b0cf855211bb"
-  integrity sha512-1bIYwnhRoetxkFonuZRtDZPFEjl1l5r+3ITkxLC3mlMaFja+GQFo94b/WHEPjqWLU9Bc+W4oFZbvCGe9eYMu1g==
-  dependencies:
-    "@babel/helper-create-class-features-plugin" "^7.12.17"
-    "@babel/helper-plugin-utils" "^7.12.13"
     "@babel/plugin-syntax-typescript" "^7.12.13"
 
 "@babel/plugin-transform-unicode-escapes@^7.10.1", "@babel/plugin-transform-unicode-escapes@^7.12.13":
