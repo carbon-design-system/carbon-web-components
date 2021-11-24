@@ -1,4 +1,4 @@
-name: ci-check
+name: Review
 
 on:
   push:
@@ -14,20 +14,8 @@ env:
   NODE_VERSION: "14.x"
 
 jobs:
-  wca:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile --offline
-      - run: sudo apt-get install xvfb
-      - run: xvfb-run --auto-servernum yarn wca
-
   format:
+    name: Format
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -40,7 +28,8 @@ jobs:
       - run: sudo apt-get install xvfb
       - run: xvfb-run --auto-servernum yarn format:diff
 
-  lint-src:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -53,7 +42,8 @@ jobs:
       - run: sudo apt-get install xvfb
       - run: xvfb-run --auto-servernum yarn lint:src
 
-  typecheck:
+  typechecking:
+    name: Type checking
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -64,9 +54,10 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --offline
       - run: sudo apt-get install xvfb
-      - run: xvfb-run --auto-servernum yarn typecheck
+      - run: xvfb-run --auto-servernum yarn wca && yarn typecheck
 
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -80,6 +71,7 @@ jobs:
       - run: xvfb-run --auto-servernum yarn build && yarn lint:dist
 
   test-unit:
+    name: Test (unit)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
