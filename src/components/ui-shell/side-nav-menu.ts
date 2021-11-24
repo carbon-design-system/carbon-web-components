@@ -8,7 +8,8 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import { html, property, query, customElement, LitElement } from 'lit-element';
+import { html, LitElement } from 'lit';
+import { property, query, customElement } from 'lit/decorators.js';
 import ChevronDown20 from '@carbon/icons/lib/chevron--down/20';
 import { forEach } from '../../globals/internal/collection-helpers';
 import FocusMixin from '../../globals/mixins/focus';

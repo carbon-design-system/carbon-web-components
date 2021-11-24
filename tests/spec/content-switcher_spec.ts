@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { render } from 'lit-html';
+import { render } from 'lit';
 import EventManager from '../utils/event-manager';
 import BXTabs from '../../src/components/tabs/tabs';
 import { Default } from '../../src/components/content-switcher/content-switcher-story';

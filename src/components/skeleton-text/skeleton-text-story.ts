@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html } from 'lit-element';
+import { html } from 'lit';
 import { select } from '@storybook/addon-knobs';
 import ifNonNull from '../../globals/directives/if-non-null';
 import { SKELETON_TEXT_TYPE } from './skeleton-text';

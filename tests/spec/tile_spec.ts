@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { render } from 'lit-html';
+import { render } from 'lit';
 import EventManager from '../utils/event-manager';
 import { TILE_COLOR_SCHEME } from '../../src/components/tile/tile';
 import BXExpandableTile from '../../src/components/tile/expandable-tile';

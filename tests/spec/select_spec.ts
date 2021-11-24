@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render } from 'lit-html';
+import { html, render } from 'lit';
 import EventManager from '../utils/event-manager';
 import { INPUT_SIZE } from '../../src/components/input/input';
 import BXSelect, { SELECT_COLOR_SCHEME } from '../../src/components/select/select';

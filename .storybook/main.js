@@ -156,7 +156,7 @@ module.exports = {
       config.resolve.alias = {};
     }
     // In our development environment (where `carbon-web-components/es/icons` may not have been built yet),
-    // we load icons from `@carbon/icons` and use a WebPack loader to convert the icons to `lit-html` version
+    // we load icons from `@carbon/icons` and use a WebPack loader to convert the icons to Lit version
     config.resolve.alias['carbon-web-components/es/icons'] = '@carbon/icons/lib';
 
     return config;

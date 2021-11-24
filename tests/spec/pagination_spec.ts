@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { render } from 'lit-html';
+import { render } from 'lit';
 import EventManager from '../utils/event-manager';
 import BXPagination from '../../src/components/pagination/pagination';
 import BXPageSizesSelect from '../../src/components/pagination/page-sizes-select';

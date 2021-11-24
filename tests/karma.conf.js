@@ -61,7 +61,7 @@ module.exports = function setupKarma(config) {
       resolve: {
         alias: {
           // In our development environment (where `carbon-web-components/es/icons` may not have been built yet),
-          // we load icons from `@carbon/icons` and use a WebPack loader to convert the icons to `lit-html` version
+          // we load icons from `@carbon/icons` and use a WebPack loader to convert the icons to Lit version
           'carbon-web-components/es/icons': '@carbon/icons/lib',
         },
         extensions: ['.js', '.ts'],
@@ -121,8 +121,7 @@ module.exports = function setupKarma(config) {
             test: /\.js$/,
             include: [
               __dirname,
-              path.dirname(require.resolve('lit-html')),
-              path.dirname(require.resolve('lit-element')),
+              path.dirname(require.resolve('lit')),
               path.dirname(require.resolve('@webcomponents/custom-elements')),
               // `ShadyCSS` NPM package is missing its entry point file
               path.dirname(require.resolve('@webcomponents/shadycss/scoping-shim.min.js')),

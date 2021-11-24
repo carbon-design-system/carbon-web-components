@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { render } from 'lit-html';
+import { render } from 'lit';
 import { Default } from '../../src/components/copy-button/copy-button-story';
 
 const template = (props?) =>

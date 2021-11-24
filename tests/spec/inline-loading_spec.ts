@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { render } from 'lit-html';
+import { render } from 'lit';
 
 import BXInlineLoading, { INLINE_LOADING_STATE } from '../../src/components/inline-loading/inline-loading';
 import { Default } from '../../src/components/inline-loading/inline-loading-story';

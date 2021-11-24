@@ -8,7 +8,7 @@
  */
 
 import { delay } from 'bluebird';
-import { render } from 'lit-html';
+import { render } from 'lit';
 import EventManager from '../utils/event-manager';
 
 import BXComboBox from '../../src/components/combo-box/combo-box';

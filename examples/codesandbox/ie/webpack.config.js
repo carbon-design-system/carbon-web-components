@@ -21,8 +21,7 @@ module.exports = {
         test: /\.js$/,
         include: [
           path.dirname(require.resolve('carbon-web-components/es')),
-          path.dirname(require.resolve('lit-html')),
-          path.dirname(require.resolve('lit-element')),
+          path.dirname(require.resolve('lit')),
           path.dirname(require.resolve('@webcomponents/custom-elements')),
           // `ShadyCSS` NPM package is missing its entry point file
           path.dirname(require.resolve('@webcomponents/shadycss/scoping-shim.min.js')),

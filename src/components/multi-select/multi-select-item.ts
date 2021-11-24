@@ -8,8 +8,9 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import { ifDefined } from 'lit-html/directives/if-defined';
-import { html, property, customElement } from 'lit-element';
+import { html } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import BXDropdownItem from '../dropdown/dropdown-item';
 import styles from './multi-select.scss';
 

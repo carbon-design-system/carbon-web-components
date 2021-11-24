@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { customElement } from 'lit-element';
+import { customElement } from 'lit/decorators.js';
 import settings from 'carbon-components/es/globals/js/settings';
 import BXButton from '../button/button';
 import buttonStyles from '../button/button.scss';

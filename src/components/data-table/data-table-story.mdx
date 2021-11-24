@@ -54,7 +54,7 @@ In the most basic case, you can simply put your table rows/cells in the same way
 </bx-data-table>
 ```
 
-Typically you want to render the table rows/cells from your data. Below is an example of [`lit-html`](https://lit-html.polymer-project.org), but similar stories apply to React, Angular, Vue, Backbone, Knockout and many others:
+Typically you want to render the table rows/cells from your data. Below is an example of [Lit](https://lit.dev), but similar stories apply to React, Angular, Vue, Backbone, Knockout and many others:
 
 ```javascript
 html`
@@ -104,7 +104,7 @@ Both of above events bubble and are cancelable. Canceling those events mean canc
 
 Application code should listen to those events update its internal state of table rows. To do so, it's convenient to add a `data-` attribte to each table rows so the delegated event handler can see which row the events are from.
 
-Here's an example of [`lit-html`](https://lit-html.polymer-project.org). Note that those events are native DOM events, and thus something like `document.addEventListener('bx-table-row-change-selection', event => { ... })` works, too:
+Here's an example of [Lit](https://lit.dev). Note that those events are native DOM events, and thus something like `document.addEventListener('bx-table-row-change-selection', event => { ... })` works, too:
 
 ```javascript
 /**
@@ -191,7 +191,7 @@ When user attempts to change sorting, `bx-table-header-cell-sort` event is fired
 
 Application code should listen to those events update its internal state of sorting. To do so, it's convenient to add a `data-` attribte to each table header cells so the delegated event handler can see which table column the events are from.
 
-Here's an example of [`lit-html`](https://lit-html.polymer-project.org). Note that those events are native DOM events, and thus something like `document.addEventListener('bx-table-header-cell-sort', event => { ... })` works, too:
+Here's an example of [Lit](https://lit.dev). Note that those events are native DOM events, and thus something like `document.addEventListener('bx-table-header-cell-sort', event => { ... })` works, too:
 
 ```javascript
 /**

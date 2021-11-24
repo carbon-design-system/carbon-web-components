@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { render } from 'lit-html';
+import { render } from 'lit';
 import BXInlineNotification, { NOTIFICATION_KIND } from '../../src/components/notification/inline-notification';
 import { inline } from '../../src/components/notification/notification-story';
 

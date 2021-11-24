@@ -43,8 +43,7 @@ function scripts() {
               'template-html-minifier',
               {
                 modules: {
-                  'lit-html': ['html'],
-                  'lit-element': ['html'],
+                  lit: ['html'],
                 },
                 htmlMinifier: {
                   collapseWhitespace: true,

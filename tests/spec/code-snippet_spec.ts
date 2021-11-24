@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { render } from 'lit-html';
+import { render } from 'lit';
 import { singleLine, multiLine, inline } from '../../src/components/code-snippet/code-snippet-story';
 
 const singleLineTemplate = (props?) =>

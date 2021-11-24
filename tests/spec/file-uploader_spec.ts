@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render } from 'lit-html';
+import { html, render } from 'lit';
 import ifNonNull from '../../src/globals/directives/if-non-null';
 import '../../src/components/file-uploader/file-uploader';
 import '../../src/components/file-uploader/drop-container';

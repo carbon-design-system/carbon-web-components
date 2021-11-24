@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { render } from 'lit-html';
+import { render } from 'lit';
 import { BUTTON_KIND } from '../../src/components/button/button';
 import { Default } from '../../src/components/button/button-story';
 

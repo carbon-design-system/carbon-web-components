@@ -8,7 +8,8 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import { html, property, query, customElement, TemplateResult } from 'lit-element';
+import { html, TemplateResult } from 'lit';
+import { property, query, customElement } from 'lit/decorators.js';
 import Close16 from '@carbon/icons/lib/close/16';
 import { filter, forEach, indexOf } from '../../globals/internal/collection-helpers';
 import BXDropdown, { DROPDOWN_KEYBOARD_ACTION } from '../dropdown/dropdown';

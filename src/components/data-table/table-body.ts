@@ -8,7 +8,8 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import { html, property, query, customElement, LitElement } from 'lit-element';
+import { html, LitElement } from 'lit';
+import { property, query, customElement } from 'lit/decorators.js';
 import { TABLE_COLOR_SCHEME } from './defs';
 import BXTableRow from './table-row';
 import styles from './data-table.scss';

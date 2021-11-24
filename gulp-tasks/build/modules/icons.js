@@ -39,7 +39,7 @@ async function icons() {
           const iconsESPath = path.resolve(config.jsDestDir, 'icons', path.relative(config.iconsDir, file.path));
           const spreadModulePath = path.resolve(__dirname, '../../../es/globals/directives/spread');
           file.contents = Buffer.from(`
-                import { svg } from 'lit-html';
+                import { svg } from 'lit';
                 import spread from '${path.relative(path.dirname(iconsESPath), spreadModulePath)}';
                 const svgResultCarbonIcon = ${createSVGResultFromCarbonIcon(descriptor)};
                 export default svgResultCarbonIcon;

@@ -7,8 +7,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { customElement, LitElement, html, property, query } from 'lit-element';
-import { classMap } from 'lit-html/directives/class-map';
+import { LitElement, html } from 'lit';
+import { property, query, customElement } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import ifNonEmpty from '../../globals/directives/if-non-empty';

@@ -7,8 +7,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, property, query, customElement, LitElement } from 'lit-element';
-import { classMap } from 'lit-html/directives/class-map';
+import { html, LitElement } from 'lit';
+import { property, query, customElement } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import settings from 'carbon-components/es/globals/js/settings';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
@@ -170,7 +171,7 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
   set value(value) {
     const oldValue = this._value;
     this._value = value;
-    // make sure that lit-element updates the right properties
+    // make sure that Lit updates the right properties
     this.requestUpdate('value', oldValue);
     // we set the value directly on the input (when available)
     // so that programatic manipulation updates the UI correctly

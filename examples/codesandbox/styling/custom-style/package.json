@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "carbon-web-components": "^1.19.0",
-    "lit-element": "^2.5.1"
+    "lit": "^2.0.2"
   },
   "devDependencies": {
     "html-webpack-plugin": "^4.5.0",

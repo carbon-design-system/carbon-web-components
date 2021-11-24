@@ -7,7 +7,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, property, query, customElement, LitElement } from 'lit-element';
+import { html, LitElement } from 'lit';
+import { property, query, customElement } from 'lit/decorators.js';
 import settings from 'carbon-components/es/globals/js/settings';
 import Close16 from '@carbon/icons/lib/close/16';
 import FocusMixin from '../../globals/mixins/focus';

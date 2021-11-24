@@ -8,7 +8,8 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import { html, property, customElement } from 'lit-element';
+import { html } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 import BXFloatingMenu, { FLOATING_MENU_ALIGNMENT, FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
 import { OVERFLOW_MENU_COLOR_SCHEME } from './defs';
 import styles from './overflow-menu.scss';

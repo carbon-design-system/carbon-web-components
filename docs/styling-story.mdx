@@ -91,7 +91,8 @@ module.exports = {
 You can create a derived class of our component and override [static `styles` property](https://lit-element.polymer-project.org/guide/styles#static-styles), like:
 
 ```javascript
-import { css, customElement } from 'lit-element';
+import { css } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import BXDropdown from 'carbon-web-components/es/components/dropdown/dropdown';
 
 @customElement('my-dropdown')

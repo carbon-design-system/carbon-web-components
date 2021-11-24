@@ -29,7 +29,7 @@ function createMetadataVisitor(api) {
 
   /**
    * @param {Path} path The Babel path what a `@property()` decorator call refers to.
-   * @returns {boolean} `true` if such decorator is imported from `lit-element`.
+   * @returns {boolean} `true` if such decorator is imported from Lit.
    */
   const propertyIsFromLit = path => {
     const { parentPath } = path;
@@ -37,7 +37,7 @@ function createMetadataVisitor(api) {
       path.isImportSpecifier() &&
       path.get('imported').isIdentifier({ name: 'property' }) &&
       parentPath.isImportDeclaration &&
-      parentPath.get('source').isStringLiteral({ value: 'lit-element' })
+      parentPath.get('source').isStringLiteral({ value: 'lit' })
     );
   };
 

@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render } from 'lit-html';
+import { html, render } from 'lit';
 import pick from 'lodash-es/pick';
 import flatpickr from 'flatpickr';
 import EventManager from '../utils/event-manager';

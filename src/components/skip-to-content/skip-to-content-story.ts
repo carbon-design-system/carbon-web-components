@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html } from 'lit-element';
+import { html } from 'lit';
 import './skip-to-content';
 import styles from './skip-to-content-story.scss';
 import storyDocs from './skip-to-content-story.mdx';

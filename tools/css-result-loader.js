@@ -8,12 +8,12 @@
  */
 
 /**
- * A WebPack loader to generate `lit-element`'s `CSSResult` from CSS string.
+ * A WebPack loader to generate Lit's `CSSResult` from CSS string.
  * @returns {string} The massaged module content.
  */
 function cssResultLoader(fileContent) {
   return `
-    import { css } from 'lit-element';
+    import { css } from 'lit';
     export default css([${JSON.stringify(fileContent)}]);
   `;
 }

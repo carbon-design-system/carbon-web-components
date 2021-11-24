@@ -7,9 +7,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { classMap } from 'lit-html/directives/class-map';
-import { TemplateResult } from 'lit-html';
-import { html, property, query, customElement, LitElement } from 'lit-element';
+import { html, LitElement, TemplateResult } from 'lit';
+import { property, query, customElement } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import ChevronDown16 from '@carbon/icons/lib/chevron--down/16';
 import settings from 'carbon-components/es/globals/js/settings';
 import FocusMixin from '../../globals/mixins/focus';

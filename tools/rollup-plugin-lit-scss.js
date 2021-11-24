@@ -17,10 +17,10 @@ const noop = s => s;
 
 /**
  * @param {string} css A CSS.
- * @returns {string} A `lit-html` template of the given CSS.
+ * @returns {string} A Lit template of the given CSS.
  */
 function transformToTemplate(css) {
-  return `import { css } from 'lit-element';export default css([${JSON.stringify(css)}])`;
+  return `import { css } from 'lit';export default css([${JSON.stringify(css)}])`;
 }
 
 /**
@@ -28,7 +28,7 @@ function transformToTemplate(css) {
  * @param {RegExp} [options.include=/\.scss/] The files to include.
  * @param {RegExp} [options.exclude] The files to exclude.
  * @param {Function} [options.preprocessor] The CSS preprocessor to use.
- * @returns {object} The rollup plugin to transform an `.scss` file to a `lit-html` template.
+ * @returns {object} The rollup plugin to transform an `.scss` file to a Lit template.
  */
 function rollupPluginLitSCSS({ include = /\.scss$/i, exclude, preprocessor = noop, ...options } = {}) {
   const filter = createFilter(include, exclude);

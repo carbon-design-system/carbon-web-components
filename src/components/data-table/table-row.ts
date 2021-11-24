@@ -8,7 +8,8 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import { html, property, customElement, LitElement } from 'lit-element';
+import { html, LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './data-table.scss';
 

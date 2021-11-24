@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { render } from 'lit-html';
+import { render } from 'lit';
 import '../../src/components/link/link';
 import { Default } from '../../src/components/link/link-story';
 

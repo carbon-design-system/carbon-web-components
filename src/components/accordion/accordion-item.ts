@@ -8,8 +8,9 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import { classMap } from 'lit-html/directives/class-map';
-import { html, property, customElement, LitElement } from 'lit-element';
+import { html, LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import ChevronRight16 from '@carbon/icons/lib/chevron--right/16';
 import FocusMixin from '../../globals/mixins/focus';
 import Handle from '../../globals/internal/handle';

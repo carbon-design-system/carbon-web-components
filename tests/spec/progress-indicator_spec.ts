@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { render } from 'lit-html';
+import { render } from 'lit';
 import { PROGRESS_STEP_STAT } from '../../src/components/progress-indicator/progress-step';
 import { Default } from '../../src/components/progress-indicator/progress-indicator-story';
 

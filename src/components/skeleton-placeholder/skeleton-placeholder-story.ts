@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html } from 'lit-element';
+import { html } from 'lit';
 import './skeleton-placeholder';
 
 export const Default = () => html` <bx-skeleton-placeholder></bx-skeleton-placeholder> `;

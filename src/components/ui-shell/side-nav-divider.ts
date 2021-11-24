@@ -8,7 +8,8 @@
  */
 
 import settings from 'carbon-components/es/globals/js/settings';
-import { customElement, LitElement } from 'lit-element';
+import { LitElement } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import styles from './side-nav.scss';
 
 const { prefix } = settings;

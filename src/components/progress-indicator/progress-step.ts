@@ -7,8 +7,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { SVGTemplateResult } from 'lit-html';
-import { html, svg, property, customElement, LitElement } from 'lit-element';
+import { html, svg, LitElement, SVGTemplateResult } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 import CheckmarkOutline16 from '@carbon/icons/lib/checkmark--outline/16';
 import Warning16 from '@carbon/icons/lib/warning/16';
 import settings from 'carbon-components/es/globals/js/settings';

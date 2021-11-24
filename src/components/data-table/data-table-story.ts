@@ -8,8 +8,9 @@
  */
 
 import debounce from 'lodash-es/debounce';
-import { html, property, LitElement } from 'lit-element';
-import { repeat } from 'lit-html/directives/repeat';
+import { html, LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
 import { action } from '@storybook/addon-actions';
 import { boolean, select } from '@storybook/addon-knobs';
 // Below path will be there when an application installs `carbon-web-components` package.

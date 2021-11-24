@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, render } from 'lit-html';
+import { html, render } from 'lit';
 import BXRadioButtonGroup, { RADIO_BUTTON_ORIENTATION } from '../../src/components/radio-button/radio-button-group';
 import { RADIO_BUTTON_LABEL_POSITION } from '../../src/components/radio-button/radio-button';
 import { Default } from '../../src/components/radio-button/radio-button-story';

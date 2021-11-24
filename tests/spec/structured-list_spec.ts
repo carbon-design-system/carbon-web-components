@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { render } from 'lit-html';
+import { render } from 'lit';
 import BXStructuredListRow from '../../src/components/structured-list/structured-list-row';
 import { Default } from '../../src/components/structured-list/structured-list-story';
 

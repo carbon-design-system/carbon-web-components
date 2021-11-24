@@ -1,15 +1,16 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 import debounce from 'lodash-es/debounce';
-import { repeat } from 'lit-html/directives/repeat';
-import { html, property, customElement, LitElement } from 'lit-element';
+import { html, LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
 import ifNonNull from 'carbon-web-components/es/globals/directives/if-non-null';
 import Delete16 from 'carbon-web-components/es/icons/delete/16';
 import Download16 from 'carbon-web-components/es/icons/download/16';

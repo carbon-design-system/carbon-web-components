@@ -158,8 +158,7 @@ function getRollupConfig({ mode = 'development', dir = 'ltr', folders = [] } = {
                   'template-html-minifier',
                   {
                     modules: {
-                      'lit-html': ['html'],
-                      'lit-element': ['html'],
+                      lit: ['html'],
                     },
                     htmlMinifier: {
                       collapseWhitespace: true,

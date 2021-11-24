@@ -79,7 +79,8 @@ You can create a derived class of our component and override [static `styles` pr
 [![Edit carbon-web-components with custom style](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/styling/custom-style)
 
 ```javascript
-import { css, customElement } from 'lit-element';
+import { css } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import BXDropdown from 'carbon-web-components/es/components/dropdown/dropdown';
 
 @customElement('my-dropdown')
