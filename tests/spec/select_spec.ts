@@ -199,7 +199,7 @@ describe('bx-select', function () {
       const elem = document.body.querySelector('bx-select');
       const { _attributeToProperty: origAttributeToProperty } = elem as any;
       let caught;
-      await new Promise(resolve => {
+      await new Promise<void>(resolve => {
         spyOn(BXSelect.prototype as any, '_attributeToProperty').and.callFake(function () {
           try {
             // TODO: See if we can get around TS2683
