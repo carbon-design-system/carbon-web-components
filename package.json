@@ -2,6 +2,8 @@
   "name": "carbon-web-components",
   "version": "1.19.0",
   "license": "Apache-2.0",
+  "repository": "https://github.com/carbon-design-system/carbon-web-components",
+  "bugs": "https://github.com/carbon-design-system/carbon-web-components/issues",
   "main": "es/index.js",
   "module": "es/index.js",
   "exports": {
@@ -24,15 +26,49 @@
     "./custom-elements.json": "./custom-elements.json",
     "./package.json": "./package.json"
   },
-  "typings": "es/index.d.ts",
-  "repository": "https://github.com/carbon-design-system/carbon-web-components",
-  "bugs": "https://github.com/carbon-design-system/carbon-web-components/issues",
+  "scripts": {
+    "build": "gulp build && yarn build:ngc && yarn wca",
+    "build-storybook:angular": "node --max-old-space-size=8192 node_modules/@storybook/angular/bin/build.js -c .storybook/angular -o storybook-static-angular",
+    "build-storybook:react": "gulp build:modules:react && node --max-old-space-size=8192 node_modules/@storybook/react/bin/build.js -c .storybook/react -o storybook-static-react",
+    "build-storybook:vue": "node --max-old-space-size=8192 node_modules/@storybook/vue/bin/build.js -c .storybook/vue -o storybook-static-vue",
+    "build:dist": "gulp build:dist",
+    "build:dist:dev": "gulp build:dist:dev",
+    "build:ngc": "yarn build:ngc:esm2015 && yarn build:ngc:esm5",
+    "build:ngc:esm2015": "ngc -p tsconfig-angular-esm2015.json",
+    "build:ngc:esm5": "ngc -p tsconfig-angular-esm5.json",
+    "ci-check": "yarn wca && yarn format:diff && yarn lint:src && yarn typecheck && yarn build && yarn test:unit && yarn lint:dist",
+    "clean": "gulp clean",
+    "format": "prettier --write \"**/*.{css,js,json,md,scss,ts}\"",
+    "format:diff": "prettier --check \"**/*.{css,js,json,md,scss,ts}\"",
+    "format:staged": "prettier --write",
+    "lint": "yarn lint:src && yarn lint:dist",
+    "lint:dist": "yarn lint:license:dist",
+    "lint:license:dist": "gulp lint:license:dist",
+    "lint:license:src": "gulp lint:license:src",
+    "lint:license:staged": "tools/check-license.js -w",
+    "lint:scripts": "eslint --ext .js,.ts,.tsx .",
+    "lint:scripts:staged": "eslint",
+    "lint:src": "yarn lint:license:src && yarn lint:scripts",
+    "reset": "yarn cache clean && yarn clean && rimraf node_modules && yarn install && yarn build",
+    "start": "yarn storybook",
+    "storybook": "start-storybook -p 9000",
+    "storybook:angular": "node node_modules/@storybook/angular/bin/index.js -p 9001 -c .storybook/angular",
+    "storybook:react": "node node_modules/@storybook/react/bin/index.js -p 9002 -c .storybook/react",
+    "storybook:vue": "node node_modules/@storybook/vue/bin/index.js -p 9003 -c .storybook/vue",
+    "test": "gulp test && yarn test:integration",
+    "test:integration": "yarn test:integration:build && yarn test:integration:ui",
+    "test:integration:build": "jest -c tests/integration/build/jest.config.js --runInBand",
+    "test:integration:ui": "jest -c tests/integration/ui/jest.config.js --runInBand",
+    "test:unit": "gulp test:unit",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "wca": "web-component-analyzer analyze src --outFile custom-elements.json"
+  },
   "files": [
+    "custom-elements.json",
+    "dist/**/*",
     "es/**/*",
     "lib/**/*",
-    "scss/**/*",
-    "dist/**/*",
-    "custom-elements.json"
+    "scss/**/*"
   ],
   "keywords": [
     "carbon",
@@ -44,46 +80,6 @@
     "carbon-design-system",
     "web components"
   ],
-  "scripts": {
-    "build": "gulp build && yarn build:ngc && yarn wca",
-    "build:dist": "gulp build:dist",
-    "build:dist:dev": "gulp build:dist:dev",
-    "build:ngc": "yarn build:ngc:esm2015 && yarn build:ngc:esm5",
-    "build:ngc:esm2015": "ngc -p tsconfig-angular-esm2015.json",
-    "build:ngc:esm5": "ngc -p tsconfig-angular-esm5.json",
-    "build-storybook:angular": "node --max-old-space-size=8192 node_modules/@storybook/angular/bin/build.js -c .storybook/angular -o storybook-static-angular",
-    "build-storybook:react": "gulp build:modules:react && node --max-old-space-size=8192 node_modules/@storybook/react/bin/build.js -c .storybook/react -o storybook-static-react",
-    "build-storybook:vue": "node --max-old-space-size=8192 node_modules/@storybook/vue/bin/build.js -c .storybook/vue -o storybook-static-vue",
-    "ci-check": "yarn wca && yarn format:diff && yarn lint:src && yarn typecheck && yarn build && yarn test:unit && yarn lint:dist",
-    "clean": "gulp clean",
-    "format": "prettier --write \"**/*.{css,js,ts,md,scss}\"",
-    "format:diff": "prettier --check \"**/*.{css,js,ts,md,scss}\"",
-    "format:staged": "prettier --write",
-    "lint": "yarn lint:src && yarn lint:dist",
-    "lint:dist": "yarn lint:license:dist",
-    "lint:license:src": "gulp lint:license:src",
-    "lint:license:dist": "gulp lint:license:dist",
-    "lint:license:staged": "tools/check-license.js -w",
-    "lint:scripts": "eslint --ext .js,.ts,.tsx .",
-    "lint:scripts:staged": "eslint",
-    "lint:src": "yarn lint:license:src && yarn lint:scripts",
-    "reset": "yarn cache clean && yarn clean && rimraf node_modules && yarn install && yarn build",
-    "test": "gulp test && yarn test:integration",
-    "test:integration": "yarn test:integration:build && yarn test:integration:ui",
-    "test:integration:build": "jest -c tests/integration/build/jest.config.js --runInBand",
-    "test:integration:ui": "jest -c tests/integration/ui/jest.config.js --runInBand",
-    "test:unit": "gulp test:unit",
-    "typecheck": "tsc --noEmit -p tsconfig.json",
-    "start": "yarn storybook",
-    "storybook": "start-storybook -p 9000",
-    "storybook:angular": "node node_modules/@storybook/angular/bin/index.js -p 9001 -c .storybook/angular",
-    "storybook:react": "node node_modules/@storybook/react/bin/index.js -p 9002 -c .storybook/react",
-    "storybook:vue": "node node_modules/@storybook/vue/bin/index.js -p 9003 -c .storybook/vue",
-    "wca": "web-component-analyzer analyze src --outFile custom-elements.json"
-  },
-  "resolutions": {
-    "babel-plugin-transform-vue-jsx": "^4.0.0"
-  },
   "dependencies": {
     "@babel/runtime": "^7.16.3",
     "carbon-components": "10.48.0",
@@ -271,6 +267,10 @@
     "webpack-dev-server": "^4.0.0",
     "zone.js": "~0.11.0"
   },
+  "resolutions": {
+    "babel-plugin-transform-vue-jsx": "^4.0.0"
+  },
+  "typings": "es/index.d.ts",
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
@@ -295,8 +295,10 @@
     }
   },
   "lint-staged": {
+    "*.{css,js,json,md,scss,ts}": [
+      "yarn format:staged"
+    ],
     "*.{js,ts,tsx}": [
-      "yarn format:staged",
       "yarn lint:license:staged",
       "yarn lint:scripts:staged"
     ],
