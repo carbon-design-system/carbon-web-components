@@ -1,13 +1,13 @@
 {
   "name": "carbon-web-components-getting-started-angular",
   "version": "0.1.0",
+  "private": true,
   "description": "Sample project for getting started with the Web Components from the Carbon Design System with Angular.",
   "scripts": {
+    "build": "ng build",
     "ng": "ng",
-    "start": "ng serve --port 8080",
-    "build": "ng build"
+    "start": "ng serve --port 8080"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^8.0.0",
     "@angular/common": "^8.0.0",
