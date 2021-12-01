@@ -90,11 +90,11 @@ class BXComboBox extends BXDropdown {
         const menuRect = this._itemMenu?.getBoundingClientRect();
         const itemRect = item.getBoundingClientRect();
 
-        const isViewable = menuRect!.top <= itemRect.top && itemRect.bottom <= menuRect!.top + this._itemMenu!.clientHeight;
+        const isViewable = menuRect!.top <= itemRect?.top && itemRect?.bottom <= menuRect?.top + this._itemMenu!.clientHeight;
 
         if (!isViewable) {
-          const scrollTop = itemRect.top - menuRect!.top;
-          const scrollBot = itemRect.bottom - menuRect!.bottom;
+          const scrollTop = itemRect?.top - menuRect?.top;
+          const scrollBot = itemRect?.bottom - menuRect?.bottom;
 
           if (Math.abs(scrollTop) < Math.abs(scrollBot)) {
             this._itemMenu!.scrollTop += scrollTop;
