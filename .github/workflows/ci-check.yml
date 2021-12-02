@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: "14.x"
+  NODE_VERSION: "16.x"
 
 jobs:
   format:
@@ -88,7 +88,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
-        node-version: [14.x]
+        node-version: [16.x]
         browser: [chromium, firefox, webkit]
         exclude:
           - os: ubuntu-latest
