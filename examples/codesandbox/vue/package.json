@@ -3,19 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve"
   },
   "dependencies": {
-    "carbon-components": "~10.34.0",
-    "carbon-web-components": "^1.0.0",
-    "lit-element": "~2.2.0",
-    "lit-html": "^1.2.0",
-    "lodash-es": "^4.17.0",
+    "carbon-web-components": "^1.19.0",
     "vue": "^2.5.0"
   },
   "devDependencies": {
-    "@types/lodash-es": "^4.17.0",
     "@vue/cli-plugin-babel": "3.6.0",
     "@vue/cli-plugin-eslint": "3.6.0",
     "@vue/cli-service": "3.6.0",
@@ -24,11 +19,6 @@
     "eslint-plugin-vue": "^5.0.0",
     "vue-eslint-parser": "^6.0.0",
     "vue-template-compiler": "^2.5.0"
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
   },
   "browserslist": [
     "> 1%",
@@ -40,6 +30,11 @@
     "parserOptions": {
       "ecmaVersion": 6,
       "sourceType": "module"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
     }
   }
 }

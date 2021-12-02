@@ -35,7 +35,6 @@ declare global {
       'bx-date-picker-input': any;
       'bx-dropdown': any;
       'bx-dropdown-item': any;
-      'bx-loading': any;
       'bx-form-item': any;
       'bx-input': any;
       'bx-inline-loading': any;

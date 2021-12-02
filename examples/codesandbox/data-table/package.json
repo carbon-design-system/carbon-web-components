@@ -6,12 +6,11 @@
   "license": "Apache-2",
   "main": "index.html",
   "scripts": {
-    "start": "parcel index.html --no-hmr",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "start": "parcel index.html --no-hmr"
   },
   "dependencies": {
-    "carbon-components": "~10.34.0",
-    "carbon-web-components": "^1.0.0",
+    "carbon-web-components": "^1.19.0",
     "lit-element": "^2.5.1",
     "lit-html": "^1.4.1",
     "lodash-es": "^4.17.0"
