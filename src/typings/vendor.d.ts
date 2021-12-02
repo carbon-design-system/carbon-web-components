@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -31,12 +31,14 @@ declare module 'carbon-components/es/globals/js/misc/on' {
     type: K,
     listener: (this: EventTarget, ev: HTMLElementEventMap[K]) => any,
     options?: boolean | AddEventListenerOptions
+    // @ts-ignore
   ): Handle;
   function on(
     target: EventTarget,
     type: string,
     listener: EventListenerOrEventListenerObject,
     options?: boolean | AddEventListenerOptions
+    // @ts-ignore
   ): Handle;
   export default on;
 }

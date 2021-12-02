@@ -12,19 +12,12 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "experimentalDecorators": true,
-    "skipLibCheck": true,
     "strict": true,
     "noImplicitAny": false,
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "tests/**/*.ts",
-    ".storybook/**/*.ts",
-    ".storybook/**/*.tsx"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "tests/**/*.ts", ".storybook/**/*.ts", ".storybook/**/*.tsx"],
   "exclude": []
 }
