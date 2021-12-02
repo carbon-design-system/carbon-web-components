@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --offline
       - run: sudo apt-get install xvfb
-      - run: xvfb-run --auto-servernum yarn format:diff
+      - run: yarn format:diff
 
   lint:
     name: Lint
@@ -40,7 +40,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --offline
       - run: sudo apt-get install xvfb
-      - run: xvfb-run --auto-servernum yarn lint:src
+      - run: yarn lint:src
 
   typechecking:
     name: Type checking
@@ -54,7 +54,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --offline
       - run: sudo apt-get install xvfb
-      - run: xvfb-run --auto-servernum yarn wca && yarn typecheck
+      - run: yarn wca && yarn typecheck
 
   build:
     name: Build
@@ -68,7 +68,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --offline
       - run: sudo apt-get install xvfb
-      - run: xvfb-run --auto-servernum yarn build && yarn lint:dist
+      - run: yarn build && yarn lint:dist
 
   test-unit:
     name: Test (unit)
