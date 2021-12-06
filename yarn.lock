@@ -6248,10 +6248,10 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
-carbon-components@10.48.0:
-  version "10.48.0"
-  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.48.0.tgz#e1c31b7b5d27cf12299fd86f6c9b8f0546bb6b43"
-  integrity sha512-kz6WlB4sVyOW/fUZLQ+f83cS2AAvcNRXkMi6au1guUHMdoTtIBz62AGKGxq54Xy2hQZK0Ca6aH01NopxOV4wUw==
+carbon-components@10.49.0:
+  version "10.49.0"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.49.0.tgz#1c43ffdc8a48bed5e67b21d5ddd817d950b969a6"
+  integrity sha512-toGvNgXA9YCs9XuNSj3E2UWPCCaSkAS9JoMi0qJFNa70CPXgt0TF/PeHNXLi8swS7eIEsNxNn6bQ6W3Rk+5KsQ==
   dependencies:
     "@carbon/telemetry" "0.0.0-alpha.6"
     flatpickr "4.6.1"
@@ -15726,6 +15726,11 @@ prettier-linter-helpers@^1.0.0:
   integrity sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==
   dependencies:
     fast-diff "^1.1.2"
+
+prettier-plugin-package@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-package/-/prettier-plugin-package-1.3.0.tgz#b42d12eda16b67c9fcf95054d799fe3f542aef54"
+  integrity sha512-KPNHR/Jm2zTevBp1SnjzMnooO1BOQW2bixVbOp8flOJoW+dxdDwEncObfsKZdkjwrv6AIH4oWqm5EO/etDmK9Q==
 
 "prettier@^1.18.2 || ^2.0.0", prettier@^2.0.0:
   version "2.4.1"

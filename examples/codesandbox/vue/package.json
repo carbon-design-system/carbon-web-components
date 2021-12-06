@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve"
   },
   "dependencies": {
     "carbon-web-components": "^1.19.0",
@@ -20,11 +20,6 @@
     "vue-eslint-parser": "^6.0.0",
     "vue-template-compiler": "^2.5.0"
   },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
@@ -35,6 +30,11 @@
     "parserOptions": {
       "ecmaVersion": 6,
       "sourceType": "module"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
     }
   }
 }

@@ -6,8 +6,8 @@
   "license": "Apache-2",
   "main": "index.html",
   "scripts": {
-    "start": "parcel index.html --no-hmr",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "start": "parcel index.html --no-hmr"
   },
   "dependencies": {
     "carbon-web-components": "^1.19.0",
