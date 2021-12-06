@@ -1,4 +1,4 @@
-name: ci-check
+name: Review
 
 on:
   push:
@@ -10,29 +10,85 @@ concurrency:
   group: ci-check-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  NODE_VERSION: "16.x"
+
 jobs:
-  ci-check:
+  format:
+    name: Format
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install --frozen-lockfile --offline
       - run: sudo apt-get install xvfb
-      - name: Run checks
-        run: xvfb-run --auto-servernum yarn ci-check
+      - run: yarn format:diff
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --offline
+      - run: sudo apt-get install xvfb
+      - run: yarn lint:src
+
+  typechecking:
+    name: Type checking
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --offline
+      - run: sudo apt-get install xvfb
+      - run: yarn wca && yarn typecheck
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --offline
+      - run: sudo apt-get install xvfb
+      - run: yarn build && yarn lint:dist
+
+  test-unit:
+    name: Test (unit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --offline
+      - run: sudo apt-get install xvfb
+      - run: xvfb-run --auto-servernum yarn test:unit
+
   test-integration-ui:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
-        node-version: [14.x]
+        node-version: [16.x]
         browser: [chromium, firefox, webkit]
         exclude:
           - os: ubuntu-latest
