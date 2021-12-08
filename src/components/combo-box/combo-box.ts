@@ -42,16 +42,22 @@ class BXComboBox extends BXDropdown {
   protected _shouldTriggerBeFocusable = false;
 
   /**
-   * The selection button.
-   */
-  @query('#selection-button')
-  private _selectionButtonNode!: HTMLElement;
-
-  /**
    * The `<input>` for filtering.
    */
   @query('input')
   private _filterInputNode!: HTMLInputElement;
+
+  /**
+   * The menu containing all selectable items.
+   */
+  @query('#menu-body')
+  private _itemMenu!: HTMLElement;
+
+  /**
+   * The selection button.
+   */
+  @query('#selection-button')
+  private _selectionButtonNode!: HTMLElement;
 
   /**
    * @param item A combo box item.
@@ -80,7 +86,24 @@ class BXComboBox extends BXDropdown {
     const items = this.querySelectorAll((this.constructor as typeof BXComboBox).selectorItem);
     const index = !this._filterInputNode.value ? -1 : findIndex(items, this._testItemWithQueryText, this);
     forEach(items, (item, i) => {
-      if (i === index) item.scrollIntoView();
+      if (i === index) {
+        const menuRect = this._itemMenu?.getBoundingClientRect();
+        const itemRect = item.getBoundingClientRect();
+
+        if (menuRect && itemRect) {
+          const isViewable = menuRect!.top <= itemRect?.top && itemRect?.bottom <= menuRect?.top + this._itemMenu!.clientHeight;
+          if (!isViewable) {
+            const scrollTop = itemRect?.top - menuRect?.top;
+            const scrollBot = itemRect?.bottom - menuRect?.bottom;
+
+            if (Math.abs(scrollTop) < Math.abs(scrollBot)) {
+              this._itemMenu!.scrollTop += scrollTop;
+            } else {
+              this._itemMenu!.scrollTop += scrollBot;
+            }
+          }
+        }
+      }
       (item as BXComboBoxItem).highlighted = i === index;
     });
     const { _filterInputNode: filterInput } = this;
