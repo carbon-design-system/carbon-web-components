@@ -22,7 +22,7 @@ export const Default = args => {
   const { size, type, title, disabled } = args?.['bx-tag'];
   return (
     <BXTag size={size} type={type} title={title} disabled={disabled}>
-      This is not a tag
+      This is a tag
     </BXTag>
   );
 };
@@ -46,8 +46,9 @@ export const filter = args => {
       disabled={disabled}
       onClick={onClick}
       onBeforeClose={handleBeforeClose}
-      onClose={onClose}>
-      This is not a tag
+      onClose={onClose}
+    >
+      This is a tag
     </BXFilterTag>
   );
 };

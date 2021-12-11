@@ -15,10 +15,10 @@ export { default } from './tag-story';
 export const Default = args => ({
   template: `
     <bx-tag :size="size" :type="type" :title="title" :disabled="disabled">
-      This is not a tag
+      This is a tag
     </bx-tag>
   `,
-  ...createVueBindingsFromProps(args?.['bx-tag']),
+  ...createVueBindingsFromProps(args?.['bx-tag'])
 });
 
 Object.assign(Default, baseDefault);
@@ -35,7 +35,7 @@ export const filter = args => ({
       @bx-filter-tag-beingclosed="handleBeforeClose"
       @bx-filter-tag-closed="handleClose"
     >
-      This is not a tag
+      This is a tag
     </bx-filter-tag>
   `,
   ...createVueBindingsFromProps(
@@ -47,9 +47,9 @@ export const filter = args => ({
           event.preventDefault();
         }
       },
-      handleClose: onClose,
+      handleClose: onClose
     }))(args?.['bx-filter-tag'])
-  ),
+  )
 });
 
 Object.assign(filter, baseFilter);

@@ -14,10 +14,10 @@ import baseStory, { Default as baseDefault, filter as baseFilter } from './tag-s
 export const Default = args => ({
   template: `
     <bx-tag [size]="size" [type]="type" [title]="title" [disabled]="disabled">
-      This is not a tag
+      This is a tag
     </bx-tag>
   `,
-  props: args?.['bx-tag'],
+  props: args?.['bx-tag']
 });
 
 Object.assign(Default, baseDefault);
@@ -34,7 +34,7 @@ export const filter = args => ({
       (bx-filter-tag-beingclosed)="handleBeforeClose($event)"
       (bx-filter-tag-closed)="handleClose($event)"
     >
-      This is not a tag
+      This is a tag
     </bx-filter-tag>
   `,
   props: (({ disableClose, onBeforeClose, onClose, ...rest }) => ({
@@ -45,8 +45,8 @@ export const filter = args => ({
         event.preventDefault();
       }
     },
-    handleClose: onClose,
-  }))(args?.['bx-filter-tag']),
+    handleClose: onClose
+  }))(args?.['bx-filter-tag'])
 });
 
 Object.assign(filter, baseFilter);
@@ -54,7 +54,7 @@ Object.assign(filter, baseFilter);
 export default Object.assign(baseStory, {
   decorators: [
     moduleMetadata({
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }),
-  ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    })
+  ]
 });

@@ -20,14 +20,14 @@ const noop = () => {};
 
 const sizes = {
   'Regular size': null,
-  [`Small size (${TAG_SIZE.SMALL})`]: TAG_SIZE.SMALL,
+  [`Small size (${TAG_SIZE.SMALL})`]: TAG_SIZE.SMALL
 };
 
 export const Default = args => {
   const { size, type, title, disabled } = args?.['bx-tag'] ?? {};
   return html`
     <bx-tag size="${ifNonNull(size)}" type="${ifNonNull(type)}" title="${ifNonNull(title)}" ?disabled="${disabled}">
-      This is not a tag
+      This is a tag
     </bx-tag>
   `;
 };
@@ -45,28 +45,19 @@ Default.parameters = {
         Object.values(TAG_TYPE).reduce(
           (acc, type) => ({
             ...acc,
-            [`${type} (${type})`]: type,
+            [`${type} (${type})`]: type
           }),
           {}
         ),
         'gray'
-      ),
-    }),
-  },
+      )
+    })
+  }
 };
 
 export const filter = args => {
-  const {
-    open,
-    size,
-    type,
-    title,
-    disabled,
-    disableClose,
-    onClick,
-    onBeforeClose = noop,
-    onClose = noop,
-  } = args?.['bx-filter-tag'] ?? {};
+  const { open, size, type, title, disabled, disableClose, onClick, onBeforeClose = noop, onClose = noop } =
+    args?.['bx-filter-tag'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
@@ -82,8 +73,9 @@ export const filter = args => {
       ?disabled="${disabled}"
       @click="${onClick}"
       @bx-filter-tag-beingclosed="${handleBeforeClose}"
-      @bx-filter-tag-closed="${onClose}">
-      This is not a tag
+      @bx-filter-tag-closed="${onClose}"
+    >
+      This is a tag
     </bx-filter-tag>
   `;
 };
@@ -99,14 +91,14 @@ filter.parameters = {
       ),
       onClick: action('click'),
       onBeforeClose: action('bx-filter-tag-beingclosed'),
-      onClose: action('bx-filter-tag-closed'),
-    }),
-  },
+      onClose: action('bx-filter-tag-closed')
+    })
+  }
 };
 
 export default {
   parameters: {
-    ...storyDocs.parameters,
+    ...storyDocs.parameters
   },
-  title: 'Components/Tag',
+  title: 'Components/Tag'
 };
