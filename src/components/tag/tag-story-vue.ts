@@ -18,7 +18,7 @@ export const Default = args => ({
       This is a tag
     </bx-tag>
   `,
-  ...createVueBindingsFromProps(args?.['bx-tag'])
+  ...createVueBindingsFromProps(args?.['bx-tag']),
 });
 
 Object.assign(Default, baseDefault);
