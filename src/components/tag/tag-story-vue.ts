@@ -47,7 +47,7 @@ export const filter = args => ({
           event.preventDefault();
         }
       },
-      handleClose: onClose
+      handleClose: onClose,
     }))(args?.['bx-filter-tag'])
   )
 });
