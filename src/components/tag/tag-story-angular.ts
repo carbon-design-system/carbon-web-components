@@ -46,7 +46,7 @@ export const filter = args => ({
       }
     },
     handleClose: onClose,
-  }))(args?.['bx-filter-tag'])
+  }))(args?.['bx-filter-tag']),
 });
 
 Object.assign(filter, baseFilter);
