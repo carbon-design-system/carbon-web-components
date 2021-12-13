@@ -82,8 +82,7 @@ export const filter = args => {
       ?disabled="${disabled}"
       @click="${onClick}"
       @bx-filter-tag-beingclosed="${handleBeforeClose}"
-      @bx-filter-tag-closed="${onClose}"
-    >
+      @bx-filter-tag-closed="${onClose}">
       This is a tag
     </bx-filter-tag>
   `;
