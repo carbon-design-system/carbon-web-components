@@ -93,7 +93,7 @@ filter.parameters = {
       onBeforeClose: action('bx-filter-tag-beingclosed'),
       onClose: action('bx-filter-tag-closed')
     })
-  }
+  },
 };
 
 export default {
