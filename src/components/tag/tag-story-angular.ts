@@ -56,5 +56,5 @@ export default Object.assign(baseStory, {
     moduleMetadata({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }),
-  ]
+  ],
 });
