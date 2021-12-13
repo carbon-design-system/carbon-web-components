@@ -52,7 +52,7 @@ Default.parameters = {
         'gray'
       )
     })
-  }
+  },
 };
 
 export const filter = args => {
