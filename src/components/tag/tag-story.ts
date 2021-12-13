@@ -56,8 +56,17 @@ Default.parameters = {
 };
 
 export const filter = args => {
-  const { open, size, type, title, disabled, disableClose, onClick, onBeforeClose = noop, onClose = noop } =
-    args?.['bx-filter-tag'] ?? {};
+  const {
+    open,
+    size,
+    type,
+    title,
+    disabled,
+    disableClose,
+    onClick,
+    onBeforeClose = noop,
+    onClose = noop,
+  } = args?.['bx-filter-tag'] ?? {};
   const handleBeforeClose = (event: CustomEvent) => {
     onBeforeClose(event);
     if (disableClose) {
