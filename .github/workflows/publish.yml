@@ -49,4 +49,5 @@ jobs:
         with:
           bodyFile: "CHANGELOG.md"
           tag: v${{ steps.publish.outputs.version }}
+          commit: master
           token: ${{ secrets.GITHUB_TOKEN }}
