@@ -98,7 +98,7 @@ filter.parameters = {
 
 export default {
   parameters: {
-    ...storyDocs.parameters
+    ...storyDocs.parameters,
   },
   title: 'Components/Tag',
 };
