@@ -17,7 +17,7 @@ export const Default = args => ({
       This is a tag
     </bx-tag>
   `,
-  props: args?.['bx-tag']
+  props: args?.['bx-tag'],
 });
 
 Object.assign(Default, baseDefault);
