@@ -51,7 +51,7 @@ Default.parameters = {
         ),
         'gray'
       ),
-    })
+    }),
   },
 };
 
