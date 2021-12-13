@@ -46,8 +46,7 @@ export const filter = args => {
       disabled={disabled}
       onClick={onClick}
       onBeforeClose={handleBeforeClose}
-      onClose={onClose}
-    >
+      onClose={onClose}>
       This is a tag
     </BXFilterTag>
   );
