@@ -38,11 +38,8 @@ jobs:
           git push --tags
       - name: Create changelog
         if: steps.publish.outputs.version != steps.publish.outputs['old-version']
-        env:
-          INPUT_TOKEN: ''
         run: |
-          npm install -g conventional-changelog-cli
-          conventional-changelog -r 1 >> CHANGELOG.md
+          node ./tools/get-changelog.js -f v${{ steps.publish.outputs['old-version'] }} >> CHANGELOG.md
       - name: Create Github Release
         if: steps.publish.outputs.version != steps.publish.outputs['old-version']
         uses: ncipollo/release-action@v1
