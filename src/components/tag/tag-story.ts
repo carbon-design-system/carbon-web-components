@@ -100,5 +100,5 @@ export default {
   parameters: {
     ...storyDocs.parameters
   },
-  title: 'Components/Tag'
+  title: 'Components/Tag',
 };
