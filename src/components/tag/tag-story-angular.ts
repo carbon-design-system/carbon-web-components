@@ -54,7 +54,7 @@ Object.assign(filter, baseFilter);
 export default Object.assign(baseStory, {
   decorators: [
     moduleMetadata({
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
   ]
 });
