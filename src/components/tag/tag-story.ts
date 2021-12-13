@@ -45,7 +45,7 @@ Default.parameters = {
         Object.values(TAG_TYPE).reduce(
           (acc, type) => ({
             ...acc,
-            [`${type} (${type})`]: type
+            [`${type} (${type})`]: type,
           }),
           {}
         ),
