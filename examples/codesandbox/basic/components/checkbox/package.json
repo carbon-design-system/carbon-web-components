@@ -6,9 +6,9 @@
   "license": "Apache-2",
   "main": "index.html",
   "scripts": {
+    "build": "parcel build *.html --no-minify --public-url ./",
     "clean": "rimraf node_modules dist .cache",
-    "start": "parcel index.html --port=9000 --no-hmr",
-    "build": "parcel build *.html --no-minify --public-url ./"
+    "start": "parcel index.html --port=9000 --no-hmr"
   },
   "dependencies": {
     "carbon-web-components": "latest"
