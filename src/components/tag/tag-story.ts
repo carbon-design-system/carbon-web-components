@@ -92,7 +92,7 @@ filter.parameters = {
       onClick: action('click'),
       onBeforeClose: action('bx-filter-tag-beingclosed'),
       onClose: action('bx-filter-tag-closed')
-    })
+    }),
   },
 };
 
