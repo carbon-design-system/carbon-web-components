@@ -50,7 +50,7 @@ Default.parameters = {
           {}
         ),
         'gray'
-      )
+      ),
     })
   },
 };
