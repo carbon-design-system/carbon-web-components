@@ -20,7 +20,7 @@ const noop = () => {};
 
 const sizes = {
   'Regular size': null,
-  [`Small size (${TAG_SIZE.SMALL})`]: TAG_SIZE.SMALL
+  [`Small size (${TAG_SIZE.SMALL})`]: TAG_SIZE.SMALL,
 };
 
 export const Default = args => {
