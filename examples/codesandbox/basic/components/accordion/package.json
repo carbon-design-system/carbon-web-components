@@ -8,7 +8,7 @@
   "scripts": {
     "clean": "rimraf node_modules dist .cache",
     "start": "parcel index.html --port=9000 --no-hmr",
-    "build": "parcel build *.html --no-minify --public-url ./",
+    "build": "parcel build *.html --no-minify --public-url ./"
   },
   "dependencies": {
     "carbon-web-components": "latest"
@@ -16,6 +16,6 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-0",
     "parcel-bundler": "1.12.3",
-    "rimraf": "^3.0.2",
-  },
+    "rimraf": "^3.0.2"
+  }
 }
