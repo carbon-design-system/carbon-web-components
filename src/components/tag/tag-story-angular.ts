@@ -55,6 +55,6 @@ export default Object.assign(baseStory, {
   decorators: [
     moduleMetadata({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
+    }),
   ]
 });
