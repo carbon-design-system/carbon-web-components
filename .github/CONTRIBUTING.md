@@ -61,16 +61,16 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue. H
 
 1. Search this repository for an open or closed Pull Request that relates to your submission. You don't want to duplicate effort.
 
-2. Pull the latest master branch from `upstream`:
+2. Pull the latest main branch from `upstream`:
 
    ```
-   $ git pull upstream master
+   $ git pull upstream main
    ```
 
-3. Always work and submit pull requests from a branch. _Do not submit pull requests from the `master` branch of your fork_.
+3. Always work and submit pull requests from a branch. _Do not submit pull requests from the `main` branch of your fork_.
 
    ```
-   $ git checkout -b { YOUR_BRANCH_NAME } master
+   $ git checkout -b { YOUR_BRANCH_NAME } main
    ```
 
 4. Create your patch or feature following our [development guidelines](..//src/coding-conventions.md). Make sure to also follow our [coding standards](#coding-standards).

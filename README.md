@@ -12,7 +12,7 @@ A Carbon Design System variant that's as easy to use as native HTML elements, wi
 > contributors.
 
 <p align="center">
-  <a href="https://github.com/carbon-design-system/carbon-web-components/blob/master/LICENSE">
+  <a href="https://github.com/carbon-design-system/carbon-web-components/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="Carbon is released under the Apache-2.0 license" />
   </a>
 </p>
@@ -162,7 +162,7 @@ added to the page. For example:
 
 Our example at [CodeSandbox](https://codesandbox.io) shows usage with only CDN artifacts:
 
-[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/cdn)
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/cdn)
 
 ### Using ES imports
 
@@ -202,7 +202,7 @@ yarn add carbon-web-components
 
 Our example at [CodeSandbox](https://codesandbox.io) shows the most basic usage:
 
-[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/basic)
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic)
 
 The first thing you need is **setting up a module bundler** to resolve ECMAScript `import`s. The above example uses [Webpack](https://webpack.js.org), but you can use other bundlers like [Rollup](https://rollupjs.org/) too.
 
@@ -246,7 +246,7 @@ turn, this also comes with the benefits of encapsulation within the Shadow DOM:
 
 ### Angular
 
-[![Edit carbon-web-components with Angular](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/angular)
+[![Edit carbon-web-components with Angular](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/angular)
 
 Angular users can use our components in the same manner as native HTML tags, too, once you add [`CUSTOM_ELEMENTS_SCHEMA`](https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA) schema to your Angular module, for example:
 
@@ -272,7 +272,7 @@ The `.d.ts` files in `carbon-web-components` package are compiled with TypeScrip
 
 ### React
 
-[![Edit carbon-web-components with React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/react)
+[![Edit carbon-web-components with React](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/react)
 
 You can use wrapper React components in `carbon-web-components/es/components-react` generated [automatically from the custom elements](./src/globals/wrappers/createReactCustomElementType.ts) which allows you to use our components seamlessly in your React code. Here's an example:
 
@@ -299,15 +299,15 @@ Note: Using the React wrapper requires an additional dependency, [`prop-types`](
 
 To run the wrapper React components in SSR environment requires Node `12.16.3` or above that supports ["conditional mapping" feature](https://github.com/jkrems/proposal-pkg-exports#2-conditional-mapping):
 
-[![Edit carbon-web-components with React SSR](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/react-ssr)
+[![Edit carbon-web-components with React SSR](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/react-ssr)
 
 Same Node version requirement applies to Next.js:
 
-[![Edit carbon-web-components with React SSR](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/next)
+[![Edit carbon-web-components with React SSR](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/next)
 
 ### Vue
 
-[![Edit carbon-web-components with Vue](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/vue)
+[![Edit carbon-web-components with Vue](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/vue)
 
 Vue users can use our components in the same manner as native HTML tags, without any additional steps!
 
@@ -340,11 +340,11 @@ View available web components at: https://web-components.carbondesignsystem.com/
 To support IE, you need a couple additional setups:
 
 - Toolstack to re-transpile our code to ES5 (e.g. by specifying IE11 in [`@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env) configuration)
-- Polyfills, listed [here](https://github.com/carbon-design-system/carbon-web-components/blob/master/src/polyfills/index.ts)
+- Polyfills, listed [here](https://github.com/carbon-design-system/carbon-web-components/blob/main/src/polyfills/index.ts)
 
 Here's an example code that shows such setup:
 
-[![Edit carbon-web-components with IE](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/master/examples/codesandbox/ie)
+[![Edit carbon-web-components with IE](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/ie)
 
 ## Coding conventions
 
