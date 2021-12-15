@@ -3,7 +3,7 @@ name: percy-update-base
 on:
   push:
     branches:
-      - master
+      - main
       - release/*
 
 concurrency:
