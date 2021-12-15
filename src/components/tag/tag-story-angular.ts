@@ -14,7 +14,7 @@ import baseStory, { Default as baseDefault, filter as baseFilter } from './tag-s
 export const Default = args => ({
   template: `
     <bx-tag [size]="size" [type]="type" [title]="title" [disabled]="disabled">
-      This is not a tag
+      This is a tag
     </bx-tag>
   `,
   props: args?.['bx-tag'],
@@ -34,7 +34,7 @@ export const filter = args => ({
       (bx-filter-tag-beingclosed)="handleBeforeClose($event)"
       (bx-filter-tag-closed)="handleClose($event)"
     >
-      This is not a tag
+      This is a tag
     </bx-filter-tag>
   `,
   props: (({ disableClose, onBeforeClose, onClose, ...rest }) => ({
