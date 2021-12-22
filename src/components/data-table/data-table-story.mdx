@@ -1,6 +1,16 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props } from '@storybook/addon-docs/blocks';
 
 # Data table
+
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/data-table)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/data-table)
+
+## Getting started
+
+Here's a quick example to get you started.
 
 Data table in `carbon-web-components` focuses on primitives that constructs table UI, consisting of the following:
 
@@ -15,13 +25,13 @@ Data table in `carbon-web-components` focuses on primitives that constructs tabl
 | `<bx-table-row>`         | The header row  | `<tr>` in `<tbody>`  |
 | `<bx-table-cell>`        | The header cell | `<td>`               |
 
-## Basic usage
+### JS (via import)
 
-<Preview withToolbar>
-  <Story id="components-data-table--default" height="280px" />
-</Preview>
+```javascript
+import 'carbon-web-components/es/components/data-table/index.js';
+```
 
-In the most basic case, you can simply put your table rows/cells in the same way as putting `<tr>`/`<td>` like below, and you'll get Carbon-styled table automatically:
+### HTML
 
 ```html
 <bx-data-table>
@@ -52,35 +62,6 @@ In the most basic case, you can simply put your table rows/cells in the same way
     </bx-table-body>
   </bx-table>
 </bx-data-table>
-```
-
-Typically you want to render the table rows/cells from your data. Below is an example of [`lit-html`](https://lit-html.polymer-project.org), but similar stories apply to React, Angular, Vue, Backbone, Knockout and many others:
-
-```javascript
-html`
-  <bx-data-table>
-    <bx-table>
-      <bx-table-head>
-        <bx-table-header-row>
-          <bx-table-header-cell>Foo</bx-table-header-cell>
-          <bx-table-header-cell>Bar</bx-table-header-cell>
-          <bx-table-header-cell>Baz</bx-table-header-cell>
-        </bx-table-header-row>
-      </bx-table-head>
-      <bx-table-body>
-        ${rows.map(
-          row => html`
-            <bx-table-row>
-              <bx-table-cell>${row.foo}</bx-table-cell>
-              <bx-table-cell>${row.bar}</bx-table-cell>
-              <bx-table-cell>${row.baz}</bx-table-cell>
-            </bx-table-row>
-          `
-        )}
-      </bx-table-body>
-    </bx-table>
-  </bx-data-table>
-`;
 ```
 
 ## Row selection
@@ -173,10 +154,6 @@ html`
 ```
 
 ## Sorting
-
-<Preview withToolbar>
-  <Story id="components-data-table--sortable" height="320px" />
-</Preview>
 
 Adding `sort-direction` attribute to `<bx-table-header-cell>` shows the sorting UI in the table header cell.
 

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -11,6 +11,7 @@ import { html } from 'lit-element';
 import './breadcrumb';
 import './breadcrumb-item';
 import './breadcrumb-link';
+import storyDocs from './breadcrumb-story.mdx';
 
 export const Default = () =>
   html`
@@ -31,4 +32,7 @@ Default.storyName = 'Default';
 
 export default {
   title: 'Components/Breadcrumb',
+  parameters: {
+    ...storyDocs.parameters,
+  },
 };

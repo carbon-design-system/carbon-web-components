@@ -1,12 +1,30 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props } from '@storybook/addon-docs/blocks';
 
 # Slider
 
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/slider)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/slider)
+
 Sliders provide a visual indication of adjustable content, where the user can move the handle along a horizontal track to increase or decrease the value.
 
-<Preview withToolbar>
-  <Story id="components-slider--default" height="160px" />
-</Preview>
+## Getting started
+
+Here's a quick example to get you started.
+
+### JS (via import)
+
+```javascript
+import 'carbon-web-components/es/components/slider/index.js';
+```
+
+### HTML
+
+```html
+<bx-slider label-text="Slider" max="100" min="0" step="1" value="50"></bx-slider>
+```
 
 ## `<bx-slider>` attributes, properties and events
 

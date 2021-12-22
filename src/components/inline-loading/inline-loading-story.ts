@@ -34,9 +34,6 @@ export default {
     percy: {
       skip: true,
     },
-    docs: {
-      page: storyDocs,
-    },
     knobs: {
       'bx-inline-loading': () => ({
         status: select('Loading status (status)', states, INLINE_LOADING_STATE.ACTIVE),

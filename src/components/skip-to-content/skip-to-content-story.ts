@@ -57,8 +57,6 @@ export const Default = () => html`
 export default {
   title: 'Components/Skip to content',
   parameters: {
-    docs: {
-      page: storyDocs,
-    },
+    ...storyDocs.parameters,
   },
 };

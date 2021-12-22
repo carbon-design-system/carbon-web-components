@@ -1,6 +1,12 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props } from '@storybook/addon-docs/blocks';
 
 # Tile
+
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/tile)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/tile)
 
 Tiles are a highly flexible component for displaying a wide variety of content, including informational, getting started, how-to, next steps, and more.
 
@@ -10,25 +16,33 @@ Tiles have no pre-set styles for the content within them. You can customize tile
 When using a call-to-action (CTA) within a tile, use a secondary button.
 Primary buttons should be reserved for the most important action a user can take on the page.
 
+## Getting started
+
+Here's a quick example to get you started.
+
+### JS (via import)
+
+```javascript
+import 'carbon-web-components/es/components/tile/index.js';
+```
+
+### HTML
+
+```html
+<bx-clickable-tile> Clickable tile </bx-clickable-tile>
+```
+
 # Read-only tile
 
 Read-only tiles are used to display information to the user, such as features or services offered.
 Read-only tiles are often seen on marketing pages to promote content.
 These tiles can have internal calls-to-action (CTAs), such as a button or a link.
 
-<Preview withToolbar>
-  <Story id="components-tile--default" height="160px" />
-</Preview>
-
 # Clickable tile
 
 Clickable tiles can be used as navigational items, where the entire tile is a clickable state,
 which redirects the user to a new page.
 Clickable tiles cannot contain separate internal CTAs.
-
-<Preview withToolbar>
-  <Story id="components-tile--clickable" height="160px" />
-</Preview>
 
 ## `<bx-clickable-tile>` attributes and properties
 
