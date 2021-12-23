@@ -15,7 +15,12 @@ import Add16 from 'carbon-web-components/es/icons/add/16';
 
 function App() {
   return (
-    html`${Add16({ class: 'test-class' })}`
+    html`
+    ${Add16({
+     class: 'test-class',
+     'aria-label': 'add',
+     'aria-describedby': 'id-title-1',
+     children: svg`<title id="id-title-1">add</title>`, })}`
   );
 ```
 

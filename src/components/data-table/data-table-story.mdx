@@ -226,6 +226,51 @@ html`
 `;
 ```
 
+## Skeleton
+
+For the skeleton variation, utilize `<bx-table-header-cell-skeleton>`.
+
+```html
+<bx-table size="short">
+  <bx-table-head>
+    <bx-table-header-row>
+      <bx-table-header-cell-skeleton>Name</bx-table-header-cell-skeleton>
+      <bx-table-header-cell-skeleton>Protocol</bx-table-header-cell-skeleton>
+      <bx-table-header-cell-skeleton>Port</bx-table-header-cell-skeleton>
+      <bx-table-header-cell-skeleton>Rule</bx-table-header-cell-skeleton>
+      <bx-table-header-cell-skeleton>Attached Groups</bx-table-header-cell-skeleton>
+      <bx-table-header-cell-skeleton>Status</bx-table-header-cell-skeleton>
+    </bx-table-header-row>
+  </bx-table-head>
+  <bx-table-body color-scheme="zebra">
+    <bx-table-row>
+      <bx-table-cell-skeleton></bx-table-cell-skeleton>
+      <bx-table-cell-skeleton></bx-table-cell-skeleton>
+      <bx-table-cell-skeleton></bx-table-cell-skeleton>
+      <bx-table-cell-skeleton></bx-table-cell-skeleton>
+      <bx-table-cell-skeleton></bx-table-cell-skeleton>
+      <bx-table-cell-skeleton></bx-table-cell-skeleton>
+    </bx-table-row>
+    <bx-table-row>
+      <bx-table-cell></bx-table-cell>
+      <bx-table-cell></bx-table-cell>
+      <bx-table-cell></bx-table-cell>
+      <bx-table-cell></bx-table-cell>
+      <bx-table-cell></bx-table-cell>
+      <bx-table-cell></bx-table-cell>
+    </bx-table-row>
+    <bx-table-row>
+      <bx-table-cell></bx-table-cell>
+      <bx-table-cell></bx-table-cell>
+      <bx-table-cell></bx-table-cell>
+      <bx-table-cell></bx-table-cell>
+      <bx-table-cell></bx-table-cell>
+      <bx-table-cell></bx-table-cell>
+    </bx-table-row>
+  </bx-table-body>
+</bx-table>
+```
+
 ## Attributes, properties and events
 
 Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-table sort>`) and `false` means not setting the attribute (e.g. `<bx-table>` without `sort` attribute).

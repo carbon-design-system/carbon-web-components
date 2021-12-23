@@ -29,34 +29,43 @@ import 'carbon-web-components/es/components/tile/index.js';
 ### HTML
 
 ```html
-<bx-clickable-tile> Clickable tile </bx-clickable-tile>
+<bx-tile>Default tile</bx-tile>
 ```
 
-# Read-only tile
+## Read-only tile (default)
 
 Read-only tiles are used to display information to the user, such as features or services offered.
 Read-only tiles are often seen on marketing pages to promote content.
 These tiles can have internal calls-to-action (CTAs), such as a button or a link.
 
-# Clickable tile
+## Clickable tile
 
 Clickable tiles can be used as navigational items, where the entire tile is a clickable state,
 which redirects the user to a new page.
 Clickable tiles cannot contain separate internal CTAs.
 
+```html
+<bx-clickable-tile> Clickable tile </bx-clickable-tile>
+```
+
 ## `<bx-clickable-tile>` attributes and properties
 
 <Props of="bx-clickable-tile" />
 
-# Selectable tile
+## Selectable tile
 
 Selectable tiles work like a radio button, where the entire tile is a click target.
 Selectable tiles may contain internal CTAs (like links to docs) if the internal CTA is given its own click target.
 Selectable tiles work well for presenting options to a user in a structured manner, such as a set of pricing plans.
 
-<Preview withToolbar>
-  <Story id="components-tile--single-selectable" height="320px" />
-</Preview>
+```html
+<fieldset>
+  <legend>Single-select tiles</legend>
+  <bx-radio-tile name="selectable-tile"> Single-select Tile </bx-radio-tile>
+  <bx-radio-tile name="selectable-tile"> Single-select Tile </bx-radio-tile>
+  <bx-radio-tile name="selectable-tile"> Single-select Tile </bx-radio-tile>
+</fieldset>
+```
 
 ## `<bx-radio-tile>` attributes and properties
 
@@ -64,11 +73,11 @@ Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. 
 
 <Props of="bx-radio-tile" />
 
-# Multi-selectable tile
+## Multi-selectable tile
 
-<Preview withToolbar>
-  <Story id="components-tile--multi-selectable" height="160px" />
-</Preview>
+```html
+<bx-selectable-tile name="selectable-tile"> Multi-select Tile </bx-selectable-tile>
+```
 
 ## `<bx-selectable-tile>` attributes and properties
 
@@ -76,16 +85,21 @@ Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. 
 
 <Props of="bx-selectable-tile" />
 
-# Expandable tile
+## Expandable tile
 
 Expandable tiles are helpful for hiding/showing larger amounts of content to a user.
 They can only be stacked in a single column, and cannot live in a row or horizontal grid.
 When expanded, tiles push content down the page.
 Expandable tiles may contain internal CTAs (like links to docs) if the internal CTA is given its own click target.
 
-<Preview withToolbar>
-  <Story id="components-tile--expandable" />
-</Preview>
+```html
+<bx-expandable-tile>
+  <bx-tile-above-the-fold-content slot="above-the-fold-content" style="height: 200px">
+    Above the fold content here
+  </bx-tile-above-the-fold-content>
+  <bx-tile-below-the-fold-content style="height: 300px"> Below the fold content here </bx-tile-below-the-fold-content>
+</bx-expandable-tile>
+```
 
 ## `<bx-expandable-tile>` attributes, properties and events
 

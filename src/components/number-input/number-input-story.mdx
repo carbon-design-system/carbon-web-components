@@ -23,7 +23,41 @@ import 'carbon-web-components/es/components/number-input/index.js';
 ### HTML
 
 ```html
-<bx-number-input></bx-number-input>
+<bx-number-input value="0" min="0" max="100">
+  <span slot="label-text">Label text</span>
+  <span slot="helper-text">Optional helper text</span>
+  <span slot="validity-message">Something isn't right</span>
+  <span slot="validity-message-max">Try a lower value, something less than 100</span>
+  <span slot="validity-message-min">Value must be larger than 0</span>
+</bx-number-input>
+```
+
+## Form item
+
+If the input is part of a form, make sure to import and wrap the input with `<bx-form-item>`
+
+```javascript
+import 'carbon-web-components/es/components/form/index.js';
+```
+
+```html
+<bx-form-item>
+  <bx-number-input value="0" min="0" max="100">
+    <span slot="label-text">Label text</span>
+    <span slot="helper-text">Optional helper text</span>
+    <span slot="validity-message">Something isn't right</span>
+    <span slot="validity-message-max">Try a lower value, something less than 100</span>
+    <span slot="validity-message-min">Value must be larger than 0</span>
+  </bx-number-input>
+</bx-form-item>
+```
+
+## Skeleton
+
+For the skeleton variation, utilize `<bx-number-input-skeleton>`.
+
+```html
+<bx-number-input-skeleton></bx-number-input-skeleton>
 ```
 
 ## `<bx-number-input>` attributes and properties

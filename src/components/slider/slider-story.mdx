@@ -26,6 +26,24 @@ import 'carbon-web-components/es/components/slider/index.js';
 <bx-slider label-text="Slider" max="100" min="0" step="1" value="50"></bx-slider>
 ```
 
+## With input box
+
+To include an input box, place `<bx-slider-input>` within `<bx-slider>`.
+
+```html
+<bx-slider label-text="Slider" max="100" min="0" step="1" value="50">
+  <bx-slider-input aria-label="Slider value" type="number"></bx-slider-input>
+</bx-slider>
+```
+
+## Skeleton
+
+For the skeleton variation, utilize `<bx-slider-skeleton>`.
+
+```html
+<bx-slider-skeleton></bx-slider-skeleton>
+```
+
 ## `<bx-slider>` attributes, properties and events
 
 Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-slider disabled>`) and `false` means not setting the attribute (e.g. `<bx-slider>` without `disabled` attribute).

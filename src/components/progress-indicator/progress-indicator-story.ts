@@ -53,7 +53,6 @@ export const Default = args => {
 Default.storyName = 'Default';
 
 Default.parameters = {
-  ...storyDocs.parameters,
   knobs: {
     'bx-progress-indicator': () => ({
       vertical: boolean('Vertical (vertical)', false),
@@ -90,4 +89,7 @@ skeleton.parameters = {
 
 export default {
   title: 'Components/Progress indicator',
+  parameters: {
+    ...storyDocs.parameters,
+  },
 };

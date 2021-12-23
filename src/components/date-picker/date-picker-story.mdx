@@ -1,4 +1,4 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props } from '@storybook/addon-docs/blocks';
 
 # Date picker
 
@@ -24,7 +24,7 @@ import 'carbon-web-components/es/components/date-picker/index.js';
 
 ```html
 <bx-date-picker>
-  <bx-date-picker-input kind="single" label-text="Date Picker label" placeholder="mm/dd/yyyy"> </bx-date-picker-input>
+  <bx-date-picker-input label-text="Date Picker label" placeholder="mm/dd/yyyy"> </bx-date-picker-input>
 </bx-date-picker>
 ```
 
@@ -32,17 +32,47 @@ import 'carbon-web-components/es/components/date-picker/index.js';
 
 A single Date Picker consists of an input field and a calendar.
 
-<Preview withToolbar>
-  <Story id="components-date-picker--single-with-calendar" height="480px" />
-</Preview>
+```html
+<bx-date-picker>
+  <bx-date-picker-input kind="single" label-text="Date Picker label" placeholder="mm/dd/yyyy"> </bx-date-picker-input>
+</bx-date-picker>
+```
 
 ## Range date picker
 
 A range Date Picker consists of two input fields and a calendar.
 
-<Preview withToolbar>
-  <Story id="components-date-picker--range-with-calendar" height="480px" />
-</Preview>
+```html
+<bx-date-picker>
+  <bx-date-picker-input kind="from" label-text="Date Picker label" placeholder="mm/dd/yyyy" size="lg"> </bx-date-picker-input>
+  <bx-date-picker-input kind="to" label-text="Date Picker label" placeholder="mm/dd/yyyy" size="lg"> </bx-date-picker-input>
+</bx-date-picker>
+```
+
+## Skeleton
+
+For the skeleton variation, utilize `<bx-date-picker-input-skeleton>`.
+
+### Simple
+
+```html
+<bx-date-picker-input-skeleton kind="simple"></bx-date-picker-input-skeleton>
+```
+
+### Single
+
+```html
+<bx-date-picker-input-skeleton kind="single"></bx-date-picker-input-skeleton>
+```
+
+### Range
+
+```html
+<div>
+  <bx-date-picker-input-skeleton kind="from"></bx-date-picker-input-skeleton>
+  <bx-date-picker-input-skeleton kind="to"></bx-date-picker-input-skeleton>
+</div>
+```
 
 ## `<bx-date-picker>` attributes, properties and events
 
