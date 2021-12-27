@@ -7,12 +7,5 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-module.exports = {
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'index.html',
-    }),
-  ],
-};
+import 'carbon-web-components/es/components/skip-to-content/index.js';
+import 'carbon-web-components/es/components/button/index.js';
