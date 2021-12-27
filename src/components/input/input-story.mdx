@@ -1,4 +1,5 @@
-import { Props } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Input
 
@@ -38,6 +39,10 @@ If the input is part of a form, make sure to import and wrap the input with `<bx
 ```javascript
 import 'carbon-web-components/es/components/form/index.js';
 ```
+
+<Description markdown={`${cdnJs({ components: ['form'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
 
 ```html
 <bx-form-item>

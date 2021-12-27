@@ -1,4 +1,5 @@
-import { Props } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Dropdown
 
@@ -19,6 +20,10 @@ Here's a quick example to get you started.
 ```javascript
 import 'carbon-web-components/es/components/dropdown/index.js';
 ```
+
+<Description markdown={`${cdnJs({ components: ['dropdown'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
 
 ### HTML
 

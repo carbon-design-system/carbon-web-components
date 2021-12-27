@@ -1,4 +1,5 @@
-import { Props } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Accordion
 
@@ -26,6 +27,10 @@ Here's a quick example to get you started.
 ```javascript
 import 'carbon-web-components/es/components/accordion/index.js';
 ```
+
+<Description markdown={`${cdnJs({ components: ['accordion'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
 
 ### HTML
 

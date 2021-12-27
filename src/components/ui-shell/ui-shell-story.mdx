@@ -1,4 +1,5 @@
-import { Props } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # UI Shell
 
@@ -19,6 +20,10 @@ Here's a quick example to get you started.
 ```javascript
 import 'carbon-web-components/es/components/ui-shell/index.js';
 ```
+
+<Description markdown={`${cdnJs({ components: ['ui-shell'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
 
 ### HTML
 

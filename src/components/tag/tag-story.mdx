@@ -1,4 +1,5 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Tag
 
@@ -23,6 +24,10 @@ Here's a quick example to get you started.
 ```javascript
 import 'carbon-web-components/es/components/tag/index.js';
 ```
+
+<Description markdown={`${cdnJs({ components: ['tag'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
 
 ### HTML
 

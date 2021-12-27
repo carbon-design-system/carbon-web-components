@@ -1,4 +1,5 @@
-import { Props } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Progress indicator
 
@@ -21,6 +22,10 @@ Here's a quick example to get you started.
 ```javascript
 import 'carbon-web-components/es/components/progress-indicator/index.js';
 ```
+
+<Description markdown={`${cdnJs({ components: ['progress-indicator'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
 
 ### HTML
 

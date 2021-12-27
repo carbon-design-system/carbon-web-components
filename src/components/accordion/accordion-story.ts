@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -30,6 +30,7 @@ export const Default = args => {
       event.preventDefault();
     }
   };
+
   return html`
     <bx-accordion @bx-accordion-item-beingtoggled="${handleBeforeToggle}" @bx-accordion-item-toggled="${onToggle}" size="${size}">
       <bx-accordion-item ?disabled="${disabled}" ?open="${open}" title-text=${titleText}>

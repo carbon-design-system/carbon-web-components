@@ -1,4 +1,5 @@
-import { Props } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Modal
 
@@ -22,6 +23,10 @@ Here's a quick example to get you started.
 import 'carbon-web-components/es/components/modal/index.js';
 import 'carbon-web-components/es/components/button/index.js';
 ```
+
+<Description markdown={`${cdnJs({ components: ['modal', 'button'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
 
 ### HTML
 
