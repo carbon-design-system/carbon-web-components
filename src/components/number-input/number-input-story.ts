@@ -106,7 +106,6 @@ export const withoutFormItemWrapper = args => {
 withoutFormItemWrapper.storyName = 'Without form item wrapper';
 
 withoutFormItemWrapper.parameters = {
-  ...storyDocs.parameters,
   knobs: {
     'bx-number-input': () => createProps({ ...knobs, textNullable }),
   },
@@ -122,4 +121,7 @@ skeleton.parameters = {
 
 export default {
   title: 'Components/Number Input',
+  parameters: {
+    ...storyDocs.parameters,
+  },
 };

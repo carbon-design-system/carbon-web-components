@@ -48,7 +48,6 @@ export const Default = args => {
 Default.storyName = 'Default';
 
 Default.parameters = {
-  ...storyDocs.parameters,
   knobs: {
     'bx-radio-button-group': () => ({
       disabled: boolean('Disabled (disabled)', false),
@@ -75,4 +74,7 @@ skeleton.parameters = {
 
 export default {
   title: 'Components/Radio button',
+  parameters: {
+    ...storyDocs.parameters,
+  },
 };

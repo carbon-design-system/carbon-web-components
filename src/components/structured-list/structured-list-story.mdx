@@ -1,12 +1,102 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Structured list
 
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/structured-list)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/structured-list)
+
 Structured Lists group content that is similar or related, such as terms or definitions.
 
-<Preview withToolbar>
-  <Story id="components-structured-list--default" />
-</Preview>
+## Getting started
+
+Here's a quick example to get you started.
+
+### JS (via import)
+
+```javascript
+import 'carbon-web-components/es/components/structured-list/index.js';
+```
+
+<Description markdown={`${cdnJs({ components: ['structured-list'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
+
+### HTML
+
+```html
+<bx-structured-list>
+  <bx-structured-list-head>
+    <bx-structured-list-header-row>
+      <bx-structured-list-header-cell>ColumnA</bx-structured-list-header-cell>
+      <bx-structured-list-header-cell>ColumnB</bx-structured-list-header-cell>
+      <bx-structured-list-header-cell>ColumnC</bx-structured-list-header-cell>
+    </bx-structured-list-header-row>
+  </bx-structured-list-head>
+  <bx-structured-list-body>
+    <bx-structured-list-row>
+      <bx-structured-list-cell>Row 1</bx-structured-list-cell>
+      <bx-structured-list-cell>Row 1</bx-structured-list-cell>
+      <bx-structured-list-cell
+        >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dui magna, finibus id tortor sed, aliquet bibendum augue.
+        Aenean posuere sem vel euismod dignissim.</bx-structured-list-cell
+      >
+    </bx-structured-list-row>
+    <bx-structured-list-row>
+      <bx-structured-list-cell>Row 2</bx-structured-list-cell>
+      <bx-structured-list-cell>Row 2</bx-structured-list-cell>
+      <bx-structured-list-cell
+        >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dui magna, finibus id tortor sed, aliquet bibendum augue.
+        Aenean posuere sem vel euismod dignissim.</bx-structured-list-cell
+      >
+    </bx-structured-list-row>
+    <bx-structured-list-row>
+      <bx-structured-list-cell>Row 3</bx-structured-list-cell>
+      <bx-structured-list-cell>Row 3</bx-structured-list-cell>
+      <bx-structured-list-cell
+        >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dui magna, finibus id tortor sed, aliquet bibendum augue.
+        Aenean posuere sem vel euismod dignissim.</bx-structured-list-cell
+      >
+    </bx-structured-list-row>
+  </bx-structured-list-body>
+</bx-structured-list>
+```
+
+## Skeleton
+
+For the skeleton variation, utilize `<bx-structured-list-header-cell-skeleton>`.
+
+```html
+<bx-structured-list>
+  <bx-structured-list-head>
+    <bx-structured-list-header-row>
+      <bx-structured-list-header-cell-skeleton></bx-structured-list-header-cell-skeleton>
+      <bx-structured-list-header-cell-skeleton></bx-structured-list-header-cell-skeleton>
+      <bx-structured-list-header-cell-skeleton></bx-structured-list-header-cell-skeleton>
+    </bx-structured-list-header-row>
+  </bx-structured-list-head>
+  <bx-structured-list-body>
+    <bx-structured-list-row>
+      <bx-structured-list-cell></bx-structured-list-cell>
+      <bx-structured-list-cell></bx-structured-list-cell>
+      <bx-structured-list-cell></bx-structured-list-cell>
+    </bx-structured-list-row>
+    <bx-structured-list-row>
+      <bx-structured-list-cell></bx-structured-list-cell>
+      <bx-structured-list-cell></bx-structured-list-cell>
+      <bx-structured-list-cell></bx-structured-list-cell>
+    </bx-structured-list-row>
+    <bx-structured-list-row>
+      <bx-structured-list-cell></bx-structured-list-cell>
+      <bx-structured-list-cell></bx-structured-list-cell>
+      <bx-structured-list-cell></bx-structured-list-cell>
+    </bx-structured-list-row>
+  </bx-structured-list-body>
+</bx-structured-list>
+```
 
 ## `<bx-structured-list>` attributes and properties
 

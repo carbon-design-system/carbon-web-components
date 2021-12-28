@@ -20,6 +20,8 @@ import Add24 from 'carbon-web-components/es/icons/add/24';
 // @ts-ignore
 import Add32 from 'carbon-web-components/es/icons/add/32';
 
+import storyDocs from './icon-story.mdx';
+
 export const Default = () => html` ${Add16()} ${Add20()} ${Add24()} ${Add32()} `;
 
 Default.storyName = 'Default';
@@ -66,4 +68,7 @@ withTitle.storyName = 'With title';
 
 export default {
   title: 'Components/Icon',
+  parameters: {
+    ...storyDocs.parameters,
+  },
 };

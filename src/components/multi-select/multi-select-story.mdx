@@ -1,6 +1,13 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Multi select
+
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/multi-select)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/multi-select)
 
 Multi select is used when user needs to select multiple options from a dropdown.
 
@@ -8,13 +15,21 @@ The label remains persistent within the dropdown. Once the user chooses an optio
 
 To clear all selected items from a list, hover over the number badge and click the “x” icon next to the value. To help with clarity, a browser tooltip appears when the user hovers over the “x” (or close) icon to indicate the click action results.
 
-<Preview withToolbar>
-  <Story id="components-multi-select--default" height="240px" />
-</Preview>
+## Getting started
 
-## Basic usage
+Here's a quick example to get you started.
 
-In the most basic case, you can simply put `<bx-multi-select>` and `<bx-multi-select-item>` in a similar manner as putting `<select>`/`<option>` like below, and you'll get Carbon-styled multi select automatically. You can specify selected items via `value` attribute in `<bx-multi-select>`, too:
+### JS (via import)
+
+```javascript
+import 'carbon-web-components/es/components/multi-select/index.js';
+```
+
+<Description markdown={`${cdnJs({ components: ['multi-select'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
+
+### HTML
 
 ```html
 <bx-multi-select value="foo,baz">
@@ -36,17 +51,12 @@ If you'd like to have a search bar to filter through the dropdown options, you c
 </bx-multi-select>
 ```
 
-
 Often you want to render the multi select items from your data. Below is an example of [`lit-html`](https://lit-html.polymer-project.org), but similar stories apply to React, Angular, Vue, Backbone, Knockout and many others:
 
 ```javascript
 html`
   <bx-multi-select>
-    ${items.map(
-      item => html`
-        <bx-multi-select-item value="${item.value}">${item.title}</bx-multi-select-item>
-      `
-    )}
+    ${items.map(item => html` <bx-multi-select-item value="${item.value}">${item.title}</bx-multi-select-item> `)}
   </bx-multi-select>
 `;
 ```

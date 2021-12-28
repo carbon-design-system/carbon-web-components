@@ -1,12 +1,47 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Radio button
 
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/radio-button)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/radio-button)
+
 Radio buttons are used when a list of two or more options are mutually exclusive, meaning the user must select only one option.
 
-<Preview withToolbar>
-  <Story id="components-radio-button--default" height="160px" />
-</Preview>
+## Getting started
+
+Here's a quick example to get you started.
+
+### JS (via import)
+
+```javascript
+import 'carbon-web-components/es/components/radio-button/index.js';
+```
+
+<Description markdown={`${cdnJs({ components: ['radio-button'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
+
+### HTML
+
+```html
+<bx-radio-button-group label-position="right" orientation="horizontal" name="radio-group">
+  <bx-radio-button label-text="Radio button" value="all"></bx-radio-button>
+  <bx-radio-button label-text="Radio button" value="cloudFoundry"></bx-radio-button>
+  <bx-radio-button label-text="Radio button" value="staging"></bx-radio-button>
+</bx-radio-button-group>
+```
+
+## Skeleton
+
+For the skeleton variation, utilize `<bx-radio-button-skeleton>`.
+
+```html
+<bx-radio-button-skeleton></bx-radio-button-skeleton>
+```
 
 ## `<bx-radio-button-group>` attributes, properties and events
 

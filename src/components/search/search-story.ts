@@ -49,7 +49,6 @@ export const Default = args => {
 Default.storyName = 'Default';
 
 Default.parameters = {
-  ...storyDocs.parameters,
   knobs: {
     'bx-search': () => ({
       closeButtonAssistiveText: textNullable(
@@ -79,4 +78,7 @@ skeleton.parameters = {
 
 export default {
   title: 'Components/Search',
+  parameters: {
+    ...storyDocs.parameters,
+  },
 };

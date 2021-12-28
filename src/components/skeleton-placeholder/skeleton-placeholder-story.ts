@@ -9,6 +9,7 @@
 
 import { html } from 'lit-element';
 import './skeleton-placeholder';
+import storyDocs from './skeleton-placeholder-story.mdx';
 
 export const Default = () => html` <bx-skeleton-placeholder></bx-skeleton-placeholder> `;
 
@@ -22,4 +23,7 @@ Default.parameters = {
 
 export default {
   title: 'Components/Skeleton placeholder',
+  parameters: {
+    ...storyDocs.parameters,
+  },
 };

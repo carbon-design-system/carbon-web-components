@@ -1,32 +1,83 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Date picker
 
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/date-picker)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/date-picker)
+
 Date and time pickers allow users to select a single or a range of dates and times.
 
-## Simple date picker
+## Getting started
 
-A simple Date Picker consists of an input field and no calendar.
+Here's a quick example to get you started.
 
-<Preview withToolbar>
-  <Story id="components-date-picker--default" height="160px" />
-</Preview>
+### JS (via import)
+
+```javascript
+import 'carbon-web-components/es/components/date-picker/index.js';
+```
+
+<Description markdown={`${cdnJs({ components: ['date-picker'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
+
+### HTML
+
+```html
+<bx-date-picker>
+  <bx-date-picker-input label-text="Date Picker label" placeholder="mm/dd/yyyy"> </bx-date-picker-input>
+</bx-date-picker>
+```
 
 ## Single date picker
 
 A single Date Picker consists of an input field and a calendar.
 
-<Preview withToolbar>
-  <Story id="components-date-picker--single-with-calendar" height="480px" />
-</Preview>
+```html
+<bx-date-picker>
+  <bx-date-picker-input kind="single" label-text="Date Picker label" placeholder="mm/dd/yyyy"> </bx-date-picker-input>
+</bx-date-picker>
+```
 
 ## Range date picker
 
 A range Date Picker consists of two input fields and a calendar.
 
-<Preview withToolbar>
-  <Story id="components-date-picker--range-with-calendar" height="480px" />
-</Preview>
+```html
+<bx-date-picker>
+  <bx-date-picker-input kind="from" label-text="Date Picker label" placeholder="mm/dd/yyyy" size="lg"> </bx-date-picker-input>
+  <bx-date-picker-input kind="to" label-text="Date Picker label" placeholder="mm/dd/yyyy" size="lg"> </bx-date-picker-input>
+</bx-date-picker>
+```
+
+## Skeleton
+
+For the skeleton variation, utilize `<bx-date-picker-input-skeleton>`.
+
+### Simple
+
+```html
+<bx-date-picker-input-skeleton kind="simple"></bx-date-picker-input-skeleton>
+```
+
+### Single
+
+```html
+<bx-date-picker-input-skeleton kind="single"></bx-date-picker-input-skeleton>
+```
+
+### Range
+
+```html
+<div>
+  <bx-date-picker-input-skeleton kind="from"></bx-date-picker-input-skeleton>
+  <bx-date-picker-input-skeleton kind="to"></bx-date-picker-input-skeleton>
+</div>
+```
 
 ## `<bx-date-picker>` attributes, properties and events
 

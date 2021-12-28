@@ -1,8 +1,70 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # UI Shell
 
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/ui-shell)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/ui-shell)
+
 UI Shell in Carbon Design System consists of several component groups.
+
+## Getting started
+
+Here's a quick example to get you started.
+
+### JS (via import)
+
+```javascript
+import 'carbon-web-components/es/components/ui-shell/index.js';
+```
+
+<Description markdown={`${cdnJs({ components: ['ui-shell'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
+
+### HTML
+
+```html
+<bx-header aria-label="IBM Platform Name">
+  <bx-header-menu-button button-label-active="Close menu" button-label-inactive="Open menu"></bx-header-menu-button>
+  <bx-header-name href="javascript:void 0" prefix="IBM">[Platform]</bx-header-name>
+  <bx-header-nav menu-bar-label="IBM [Platform]">
+    <bx-header-nav-item href="javascript:void 0">Link 1</bx-header-nav-item>
+    <bx-header-nav-item href="javascript:void 0">Link 2</bx-header-nav-item>
+    <bx-header-nav-item href="javascript:void 0">Link 3</bx-header-nav-item>
+    <bx-header-menu menu-label="Link 4" trigger-content="Link 4">
+      <bx-header-menu-item href="javascript:void 0">Sub-link 1</bx-header-menu-item>
+      <bx-header-menu-item href="javascript:void 0">Sub-link 2</bx-header-menu-item>
+      <bx-header-menu-item href="javascript:void 0">Sub-link 3</bx-header-menu-item>
+    </bx-header-menu>
+  </bx-header-nav>
+</bx-header>
+<bx-side-nav aria-label="Side navigation" expanded>
+  <bx-side-nav-items>
+    <bx-side-nav-menu title="L0 menu">
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+    </bx-side-nav-menu>
+    <bx-side-nav-menu title="L0 menu">
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+      <bx-side-nav-menu-item active aria-current="page" href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+    </bx-side-nav-menu>
+    <bx-side-nav-menu title="L0 menu">
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+    </bx-side-nav-menu>
+    <bx-side-nav-divider></bx-side-nav-divider>
+    <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
+    <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
+  </bx-side-nav-items>
+</bx-side-nav>
+```
 
 ## Side nav
 
@@ -16,9 +78,30 @@ Side nav in UI Shell consists of the following components:
 | `<side-nav-menu>`      | Nav item, working as a container of sub-items    |
 | `<side-nav-menu-item>` | Nav item, working as as a sub-item and as a link |
 
-<Preview withToolbar>
-  <Story id="components-ui-shell--side-nav" />
-</Preview>
+```html
+<bx-side-nav aria-label="Side navigation" expanded>
+  <bx-side-nav-items>
+    <bx-side-nav-menu title="L0 menu">
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+    </bx-side-nav-menu>
+    <bx-side-nav-menu title="L0 menu">
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+      <bx-side-nav-menu-item active aria-current="page" href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+    </bx-side-nav-menu>
+    <bx-side-nav-menu title="L0 menu">
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+      <bx-side-nav-menu-item href="www.ibm.com"> L0 menu item </bx-side-nav-menu-item>
+    </bx-side-nav-menu>
+    <bx-side-nav-divider></bx-side-nav-divider>
+    <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
+    <bx-side-nav-link href="javascript:void(0)">L0 link</bx-side-nav-link>
+  </bx-side-nav-items>
+</bx-side-nav>
+```
 
 ### Expanding/collapsing
 

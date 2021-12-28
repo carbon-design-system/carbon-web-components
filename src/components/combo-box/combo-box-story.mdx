@@ -1,6 +1,13 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Combo box
+
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/combo-box)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/combo-box)
 
 Combo box realizes a notion of "filterable dropdown".
 By default, the dropdown displays a label when closed. When the user hovers over the label area, a text cursor will appear.
@@ -9,34 +16,33 @@ Once the user begins typing, the close (X) icon will appear to the right of the 
 This will clear any user-inputted text.
 Selecting an item from the dropdown will close the drawer and the selected option will replace the default label.
 
-<Preview withToolbar>
-  <Story id="components-combo-box--default" height="240px" />
-</Preview>
+## Getting started
 
-## Basic usage
+Here's a quick example to get you started.
 
-In the most basic case, you can simply put `<bx-combo-box>` and `<bx-combo-box-item>` in a similar manner as putting `<select>`/`<option>` like below, and you'll get Carbon-styled combo box automatically. You can specify selected items via `value` attribute in `<bx-combo-box>`, too:
-
-```html
-<bx-combo-box value="bar">
-  <bx-combo-box-item value="foo">Foo</bx-combo-box-item>
-  <bx-combo-box-item value="bar">Bar</bx-combo-box-item>
-  <bx-combo-box-item value="baz">Baz</bx-combo-box-item>
-</bx-combo-box>
-```
-
-Often you want to render the combo box items from your data. Below is an example of [`lit-html`](https://lit-html.polymer-project.org), but similar stories apply to React, Angular, Vue, Backbone, Knockout and many others:
+### JS (via import)
 
 ```javascript
-html`
-  <bx-combo-box>
-    ${items.map(
-      item => html`
-        <bx-combo-box-item value="${item.value}">${item.title}</bx-combo-box-item>
-      `
-    )}
-  </bx-combo-box>
-`;
+import 'carbon-web-components/es/components/combo-box/index.js';
+```
+
+<Description markdown={`${cdnJs({ components: ['combo-box'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
+
+### HTML
+
+```html
+<bx-combo-box helper-text="Optional helper text" label-text="Combo box title" trigger-content="Filter...">
+  <bx-combo-box-item value="all">Option 1</bx-combo-box-item>
+  <bx-combo-box-item value="cloudFoundry">Option 2</bx-combo-box-item>
+  <bx-combo-box-item value="staging">Option 3</bx-combo-box-item>
+  <bx-combo-box-item value="dea">Option 4</bx-combo-box-item>
+  <bx-combo-box-item value="router">Option 5</bx-combo-box-item>
+  <bx-combo-box-item value="support">Option 6</bx-combo-box-item>
+  <bx-combo-box-item value="services">Option 7</bx-combo-box-item>
+  <bx-combo-box-item value="products">Option 8</bx-combo-box-item>
+</bx-combo-box>
 ```
 
 ## Selection

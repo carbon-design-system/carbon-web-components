@@ -1,6 +1,13 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Inline loading
+
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/inline-loading)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/inline-loading)
 
 Inline loading spinners are used when performing actions.
 They help notify user’s that their action is being processed.
@@ -11,9 +18,25 @@ It is best practice to use an Inline loading component for any Create, Update, o
 The component provides feedback to the user about the progress of the action they took.
 This could be in a table, after a primary or secondary button click, or even in a modal.
 
-<Preview withToolbar>
-  <Story id="components-inline-loading--default" height="160px" />
-</Preview>
+## Getting started
+
+Here's a quick example to get you started.
+
+### JS (via import)
+
+```javascript
+import 'carbon-web-components/es/components/inline-loading/index.js';
+```
+
+<Description markdown={`${cdnJs({ components: ['inline-loading'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
+
+### HTML
+
+```html
+<bx-inline-loading status="active">Loading data...</bx-inline-loading>
+```
 
 ## `<bx-inline-loading>` attributes and properties
 

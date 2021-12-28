@@ -1,25 +1,34 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Check box
 
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/checkbox)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/checkbox)
+
 Check box in `carbon-web-components` represents a combination of a check box and its label.
 
-<Preview withToolbar>
-  <Story id="components-checkbox--default" height="160px" />
-</Preview>
+## Getting started
 
-## Basic usage
+Here's a quick example to get you started.
 
-Regular checkbox:
+### JS (via import)
 
-```html
-<bx-checkbox checked label-text="Checkbox" />
+```javascript
+import 'carbon-web-components/es/components/checkbox/index.js';
 ```
 
-Indeterminate state:
+<Description markdown={`${cdnJs({ components: ['checkbox'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
+
+### HTML
 
 ```html
-<bx-checkbox indeterminate label-text="Checkbox" />
+<bx-checkbox label-text="Lorem Ipsum"></bx-checkbox>
 ```
 
 ## `<bx-checkbox>` attributes, properties and events

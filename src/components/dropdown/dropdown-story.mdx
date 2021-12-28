@@ -1,16 +1,31 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Dropdown
 
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/dropdown)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/dropdown)
+
 Dropdown presents a list of options that can be used to filter or sort existing content.
 
-<Preview withToolbar>
-  <Story id="components-dropdown--default" height="240px" />
-</Preview>
+## Getting started
 
-## Basic usage
+Here's a quick example to get you started.
 
-In the most basic case, you can simply put `<bx-dropdown>` and `<bx-dropdown-item>` in a similar manner as putting `<select>`/`<option>` like below, and you'll get Carbon-styled dropdown automatically. You can specify selected items via `value` attribute in `<bx-dropdown>`, too:
+### JS (via import)
+
+```javascript
+import 'carbon-web-components/es/components/dropdown/index.js';
+```
+
+<Description markdown={`${cdnJs({ components: ['dropdown'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
+
+### HTML
 
 ```html
 <bx-dropdown value="bar">
@@ -18,20 +33,6 @@ In the most basic case, you can simply put `<bx-dropdown>` and `<bx-dropdown-ite
   <bx-dropdown-item value="bar">Bar</bx-dropdown-item>
   <bx-dropdown-item value="baz">Baz</bx-dropdown-item>
 </bx-dropdown>
-```
-
-Often you want to render the dropdown items from your data. Below is an example of [`lit-html`](https://lit-html.polymer-project.org), but similar stories apply to React, Angular, Vue, Backbone, Knockout and many others:
-
-```javascript
-html`
-  <bx-dropdown>
-    ${items.map(
-      item => html`
-        <bx-dropdown-item value="${item.value}">${item.title}</bx-dropdown-item>
-      `
-    )}
-  </bx-dropdown>
-`;
 ```
 
 ## Selection
@@ -43,6 +44,14 @@ When user attempts to select a dropdown item, `bx-dropdown-beingselected` event 
 | `item`   | The `<bx-dropdown-item>` being selected. |
 
 `bx-dropdown-beingselected` bubbles and is cancelable. Canceling this event means canceling change in selection.
+
+## Skeleton
+
+For the skeleton variation, utilize `<bx-dropdown-skeleton>`.
+
+```html
+<bx-dropdown-skeleton></bx-dropdown-skeleton>
+```
 
 ## `<bx-dropdown>` attributes, properties and events
 

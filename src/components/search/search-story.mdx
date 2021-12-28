@@ -1,13 +1,44 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Search
+
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/search)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/search)
 
 Search enables users to specify a word or a phrase to find particular relevant pieces of content without the use of navigation.
 Search can be used as the primary means of discovering content, or as a filter to aid the user in finding content.
 
-<Preview withToolbar>
-  <Story id="components-search--default" height="160px" />
-</Preview>
+## Getting started
+
+Here's a quick example to get you started.
+
+### JS (via import)
+
+```javascript
+import 'carbon-web-components/es/components/search/index.js';
+```
+
+<Description markdown={`${cdnJs({ components: ['search'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
+
+### HTML
+
+```html
+<bx-search label-text="Search"></bx-search>
+```
+
+## Skeleton
+
+For the skeleton variation, utilize `<bx-search-skeleton>`.
+
+```html
+<bx-search-skeleton></bx-search-skeleton>
+```
 
 ## `<bx-search>` attributes, properties and events
 

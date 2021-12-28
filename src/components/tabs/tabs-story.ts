@@ -107,7 +107,6 @@ export const Default = args => {
 Default.storyName = 'Default';
 
 Default.parameters = {
-  ...storyDocs.parameters,
   knobs: {
     'bx-tabs': () => ({
       colorScheme: select('Color scheme (color-scheme)', colorSchemes, null),
@@ -145,4 +144,7 @@ skeleton.parameters = {
 
 export default {
   title: 'Components/Tabs',
+  parameters: {
+    ...storyDocs.parameters,
+  },
 };

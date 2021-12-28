@@ -1,14 +1,57 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Modal
+
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/modal)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/modal)
 
 Modals interrupt user workflow by design.
 They are most effective when a task must be completed before a user can continue.
 While effective when used correctly, modals should be used sparingly to limit disruption to a user experience.
 
-<Preview withToolbar>
-  <Story id="components-modal--default" height="320px" />
-</Preview>
+## Getting started
+
+Here's a quick example to get you started.
+
+### JS (via import)
+
+```javascript
+import 'carbon-web-components/es/components/modal/index.js';
+import 'carbon-web-components/es/components/button/index.js';
+```
+
+<Description markdown={`${cdnJs({ components: ['modal', 'button'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
+
+### HTML
+
+```html
+<bx-btn id="modal-example-button"> Open Modal </bx-btn>
+
+<bx-modal id="modal-example">
+  <bx-modal-header>
+    <bx-modal-close-button></bx-modal-close-button>
+    <bx-modal-label>Label (Optional)</bx-modal-label>
+    <bx-modal-heading>Modal Title</bx-modal-heading>
+  </bx-modal-header>
+  <bx-modal-body><p>Modal text description</p></bx-modal-body>
+  <bx-modal-footer>
+    <bx-modal-footer-button kind="secondary" data-modal-close>Cancel</bx-modal-footer-button>
+    <bx-modal-footer-button kind="primary">Save</bx-modal-footer-button>
+  </bx-modal-footer>
+</bx-modal>
+
+<script type="text/javascript">
+  document.getElementById('modal-example-button').addEventListener('click', () => {
+    document.getElementById('modal-example').open = true;
+  });
+</script>
+```
 
 ## Focus management
 

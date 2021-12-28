@@ -121,7 +121,6 @@ export const withoutFormItemWrapper = args => {
 withoutFormItemWrapper.storyName = 'Without form item wrapper';
 
 withoutFormItemWrapper.parameters = {
-  ...storyDocs.parameters,
   knobs: {
     'bx-textarea': () => createProps({ ...knobs, textNullable }),
   },
@@ -137,4 +136,7 @@ skeleton.parameters = {
 
 export default {
   title: 'Components/Textarea',
+  parameters: {
+    ...storyDocs.parameters,
+  },
 };

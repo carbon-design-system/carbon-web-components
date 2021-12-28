@@ -1,6 +1,13 @@
-import { Preview, Props, Story } from '@storybook/addon-docs/blocks';
+import { Props, Description } from '@storybook/addon-docs/blocks';
+import { cdnJs, cdnCss } from '../../globals/internal/storybook-cdn';
 
 # Toggle
+
+> 💡 Check our
+> [CodeSandbox](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/toggle)
+> example implementation.
+
+[![Edit carbon-web-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/carbon-design-system/carbon-web-components/tree/main/examples/codesandbox/basic/components/toggle)
 
 Toggle is a control that is used to quickly switch between two possible states.
 Toggles are only used for these binary actions that occur immediately after the user “flips” the toggle switch.
@@ -8,9 +15,25 @@ They are commonly used for “on/off” switches.
 
 Use `small` property/attribute to make it more compact in size, so they can be used in use cases such as data tables.
 
-<Preview withToolbar>
-  <Story id="components-toggle--default" height="160px" />
-</Preview>
+## Getting started
+
+Here's a quick example to get you started.
+
+### JS (via import)
+
+```javascript
+import 'carbon-web-components/es/components/toggle/index.js';
+```
+
+<Description markdown={`${cdnJs({ components: ['toggle'] })}`} />
+
+<Description markdown={`${cdnCss()}`} />
+
+### HTML
+
+```html
+<bx-toggle checked-text="On" label-text="Toggle" unchecked-text="Off"></bx-toggle>
+```
 
 ## `<bx-toggle>` attributes, properties and events
 
