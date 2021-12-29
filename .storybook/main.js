@@ -123,7 +123,7 @@ module.exports = {
               plugins: () => [
                 require('../tools/postcss-fix-host-pseudo')(),
                 require('autoprefixer')({
-                  browsers: ['last 1 version', 'ie >= 11'],
+                  browserslist: ['last 1 version', 'ie >= 11'],
                 }),
                 ...(useRtl ? [rtlcss] : []),
               ],
