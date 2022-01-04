@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2021
+ * Copyright IBM Corp. 2020, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -25,10 +25,10 @@ const { prefix } = settings;
  * @element bx-file-uploader-item
  * @slot validity-message The validity message.
  * @slot validity-message-supplement The supplemental validity message.
- * @fires bx-file uploader-item-beingdeleted
- *   The custom event fired before this file uplodaer item is being deleted upon a user gesture.
+ * @fires bx-file-uploader-item-beingdeleted
+ *   The custom event fired before this file uploader item is being deleted upon a user gesture.
  *   Cancellation of this event stops the user-initiated action of deleting this file uploader item.
- * @fires bx-file uploader-item-deleted - The custom event fired after this file uplodaer item is deleted upon a user gesture.
+ * @fires bx-file-uploader-item-deleted - The custom event fired after this file uploader item is deleted upon a user gesture.
  */
 @customElement(`${prefix}-file-uploader-item`)
 class BXFileUploaderItem extends LitElement {
