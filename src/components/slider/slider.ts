@@ -70,9 +70,9 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   private _stepRatio = '4';
 
   /**
-   * The handle for the throttled listener of `mousemove` event.
+   * The handle for the throttled listener of `pointermove` event.
    */
-  private _throttledHandleMousemoveImpl: (((event: MouseEvent) => void) & Cancelable) | null = null;
+  private _throttledHandlePointermoveImpl: (((event: PointerEvent) => void) & Cancelable) | null = null;
 
   /**
    * `true` if dragging of thumb is in progress.
@@ -125,7 +125,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   /**
    * Handles `keydown` event on the thumb to increase/decrease the value.
    */
-  private _handleKeydownThumb({ key, shiftKey }: KeyboardEvent) {
+  private _handleKeydown({ key, shiftKey }: KeyboardEvent) {
     if (!this.disabled) {
       if (key in THUMB_DIRECTION) {
         const { max: rawMax, min: rawMin, step: rawStep, stepRatio: rawStepRatio, value } = this;
@@ -152,16 +152,17 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   }
 
   /**
-   * Handles `mousedown` event on the thumb to start dragging.
+   * Handles `pointerdown` event on the thumb to start dragging.
    */
-  private _handleMousedownThumb() {
+  private _startDrag() {
     this._dragging = true;
+    this._thumbNode.style.touchAction = 'none';
   }
 
   /**
-   * Handles `mousedown` event on the track to update the thumb position and the value as necessary.
+   * Handles `pointerdown` event on the track to update the thumb position and the value as necessary.
    */
-  private _handleMousedownTrack(event: MouseEvent) {
+  private _handleClick(event: PointerEvent) {
     if (!this.disabled) {
       const { _trackNode: trackNode } = this;
       const isRtl = trackNode.ownerDocument!.defaultView!.getComputedStyle(trackNode).getPropertyValue('direction') === 'rtl';
@@ -181,23 +182,23 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   }
 
   /**
-   * Handles `mousemove` event on the `document` to update the thumb position and the value as necessary.
+   * Handles `pointermove` to update the thumb position and the value as necessary.
    * @param event The event.
    */
-  @HostListener('document:mousemove')
+  @HostListener('document:pointermove')
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
-  private _handleMousemove = (event: MouseEvent) => {
+  private _handlePointermove = (event: PointerEvent) => {
     const { disabled, _dragging: dragging } = this;
     if (!disabled && dragging) {
-      this._throttledHandleMousemoveImpl!(event);
+      this._throttledHandlePointermoveImpl!(event);
     }
   };
 
   /**
-   * Updates thumb position and value upon user's `mousemove` gesture.
+   * Updates thumb position and value upon user's `pointermove` gesture.
    * @param event The event.
    */
-  private _handleMousemoveImpl(event: MouseEvent) {
+  private _handlePointermoveImpl(event: PointerEvent) {
     const { disabled, _dragging: dragging, _trackNode: trackNode } = this;
     if (!disabled && dragging) {
       const isRtl = trackNode.ownerDocument!.defaultView!.getComputedStyle(trackNode).getPropertyValue('direction') === 'rtl';
@@ -218,11 +219,9 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
   }
 
   /**
-   * Handles `mouseup` event on the `document` to finishing dragging.
+   * Handles `pointerup` and `pointerleave` event to finishing dragging.
    */
-  @HostListener('document:mouseup')
-  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
-  private _handleMouseup = () => {
+  private _endDrag = () => {
     if (this._dragging) {
       this.dispatchEvent(
         new CustomEvent((this.constructor as typeof BXSlider).eventChange, {
@@ -234,6 +233,7 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
         })
       );
       this._dragging = false;
+      this._thumbNode.style.touchAction = '';
     }
   };
 
@@ -361,15 +361,15 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
 
   connectedCallback() {
     super.connectedCallback();
-    if (!this._throttledHandleMousemoveImpl) {
-      this._throttledHandleMousemoveImpl = throttle(this._handleMousemoveImpl, 10);
+    if (!this._throttledHandlePointermoveImpl) {
+      this._throttledHandlePointermoveImpl = throttle(this._handlePointermoveImpl, 10);
     }
   }
 
   disconnectedCallback() {
-    if (this._throttledHandleMousemoveImpl) {
-      this._throttledHandleMousemoveImpl.cancel();
-      this._throttledHandleMousemoveImpl = null;
+    if (this._throttledHandlePointermoveImpl) {
+      this._throttledHandlePointermoveImpl.cancel();
+      this._throttledHandlePointermoveImpl = null;
     }
     super.disconnectedCallback();
   }
@@ -406,9 +406,10 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
       value,
       _rate: rate,
       _handleClickLabel: handleClickLabel,
-      _handleKeydownThumb: handleKeydownThumb,
-      _handleMousedownTrack: handleMousedownTrack,
-      _handleMousedownThumb: handleMousedownThumb,
+      _handleKeydown: handleKeydown,
+      _handleClick: handleClick,
+      _startDrag: startDrag,
+      _endDrag: endDrag,
     } = this;
     const labelClasses = classMap({
       [`${prefix}--label`]: true,
@@ -426,7 +427,13 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
         <span class="${prefix}--slider__range-label">
           <slot name="min-text">${formatMinText({ min })}</slot>
         </span>
-        <div class="${sliderClasses}" role="presentation">
+        <div
+          @keydown="${handleKeydown}"
+          @click="${handleClick}"
+          @pointerup="${endDrag}"
+          @pointerleave="${endDrag}"
+          class="${sliderClasses}"
+          role="presentation">
           <div
             id="thumb"
             class="${prefix}--slider__thumb"
@@ -436,9 +443,8 @@ class BXSlider extends HostListenerMixin(FormMixin(FocusMixin(LitElement))) {
             aria-valuemin="${min}"
             aria-valuenow="${value}"
             style="left: ${rate * 100}%"
-            @keydown="${handleKeydownThumb}"
-            @mousedown="${handleMousedownThumb}"></div>
-          <div id="track" class="${prefix}--slider__track" @mousedown="${handleMousedownTrack}"></div>
+            @pointerdown="${startDrag}"></div>
+          <div id="track" class="${prefix}--slider__track"></div>
           <div class="${prefix}-ce--slider__filled-track-container">
             <div class="${prefix}--slider__filled-track" style="transform: translate(0%, -50%) scaleX(${rate})"></div>
           </div>

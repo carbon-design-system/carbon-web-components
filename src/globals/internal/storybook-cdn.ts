@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2021
+ * Copyright IBM Corp. 2021, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -38,34 +38,28 @@ function _renderScript(components, tag, isRTL = false) {
 export const cdnJs = ({ components }) => {
   return `
  ### JS (via CDN)
- 
+
  \`\`\`html
  // SPECIFIC VERSION (available starting v1.6.0)
  ${_renderScript(components, `version/v${packageJson.version}`)}
- 
+
  // LATEST tag
  ${_renderScript(components, 'tag/v1/latest')}
- 
- // NEXT tag
- ${_renderScript(components, 'tag/v1/next')}
  \`\`\`
- 
- > NOTE: The latest/next tags are moving versions. While beneficial to
+
+ > NOTE: The latest tag is a moving version. While beneficial to
  > always stay on the most recent version, it is recommended to choose a specific
  > version and properly test your application when upgrading to a newer version.
- 
+
 
  #### Right-to-left (RTL) versions
- 
+
  \`\`\`html
  // SPECIFIC VERSION (available starting v1.6.0)
  ${_renderScript(components, `version/v${packageJson.version}`, true)}
- 
+
  // LATEST tag
  ${_renderScript(components, 'tag/v1/latest', true)}
- 
- // NEXT tag
- ${_renderScript(components, 'tag/v1/next', true)}
  \`\`\`
    `;
 };
