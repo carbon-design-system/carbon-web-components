@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2021
+ * Copyright IBM Corp. 2020, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -45,7 +45,7 @@ class BXFileDropContainer extends HostListenerMixin(LitElement) {
    */
   private _handleChange(event: Event | DragEvent) {
     const addedFiles = this._getFiles(event);
-    const { eventChange } = this.constructor as typeof BXFileDropContainer;
+    const { eventChange, selectorInput } = this.constructor as typeof BXFileDropContainer;
     this.dispatchEvent(
       new CustomEvent(eventChange, {
         bubbles: true,
@@ -55,6 +55,11 @@ class BXFileDropContainer extends HostListenerMixin(LitElement) {
         },
       })
     );
+
+    const fileInput = this?.shadowRoot?.querySelector(selectorInput);
+    if (fileInput) {
+      (fileInput as HTMLInputElement).value = ''; // carbon-web-components#904
+    }
   }
 
   /**
@@ -159,6 +164,13 @@ class BXFileDropContainer extends HostListenerMixin(LitElement) {
    */
   static get eventChange() {
     return `${prefix}-file-drop-container-changed`;
+  }
+
+  /**
+   * A selector that will return the file `<input>`.
+   */
+  static get selectorInput() {
+    return `.${prefix}--file-input`;
   }
 
   static styles = styles;
