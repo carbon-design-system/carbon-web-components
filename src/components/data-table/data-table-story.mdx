@@ -73,7 +73,7 @@ import 'carbon-web-components/es/components/data-table/index.js';
 
 Adding `selection-name` attribute to `<bx-table-row>`/`<bx-table-header-row>` shows the selection UI in the table row.
 
-When user attempts to change row selection, the following events fire:
+The logic of row selection needs to be handled on by the application code. When user attempts to change row selection, the following events fire:
 
 | Element                 | Event                           | Description                                                   |
 | ----------------------- | ------------------------------- | ------------------------------------------------------------- |
@@ -162,7 +162,7 @@ html`
 
 Adding `sort-direction` attribute to `<bx-table-header-cell>` shows the sorting UI in the table header cell.
 
-When user attempts to change sorting, `bx-table-header-cell-sort` event is fired, with the following properties in the event details:
+The logic of sorting needs to be handled on by the application code. When user attempts to change sorting, `bx-table-header-cell-sort` event is fired, with the following properties in the event details:
 
 | Property           | Description             |
 | ------------------ | ----------------------- |
