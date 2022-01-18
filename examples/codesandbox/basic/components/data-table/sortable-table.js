@@ -12,7 +12,7 @@
 import TABLE_SORT_DIRECTION from './defs.js';
 import { columns, rows } from './data.js';
 
-// event listener for the sorting even
+// event listener for the sorting event
 document.addEventListener('bx-table-header-cell-sort', ({ defaultPrevented, detail, target }) => {
   if (!defaultPrevented) {
     const { columnId } = target.dataset;
