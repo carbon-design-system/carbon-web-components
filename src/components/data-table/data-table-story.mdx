@@ -171,7 +171,7 @@ The logic of sorting needs to be handled on by the application code. When user a
 
 `bx-table-header-cell-sort` event bubbles and is cancelable. Canceling `bx-table-header-cell-sort` event means canceling change in sort direction.
 
-Application code should listen to those events update its internal state of sorting. To do so, it's convenient to add a `data-` attribte to each table header cells so the delegated event handler can see which table column the events are from.
+Application code should listen to those events update its internal state of sorting. An example of the logic needed is available in our codesandbox example above. To do so, it's convenient to add a `data-` attribte to each table header cells so the delegated event handler can see which table column the events are from.
 
 Here's an example of [`lit-html`](https://lit-html.polymer-project.org). Note that those events are native DOM events, and thus something like `document.addEventListener('bx-table-header-cell-sort', event => { ... })` works, too:
 
