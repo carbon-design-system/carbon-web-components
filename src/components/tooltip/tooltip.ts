@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2020
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -48,6 +48,17 @@ class BXTooltip extends HostListenerMixin(LitElement) implements BXFloatingMenuT
       await updateComplete;
       const { _menuBody: menuBody } = this;
       menuBody?.focus();
+    }
+  };
+
+  /**
+   * Handles `keydown` event on this element.
+   */
+  @HostListener('keydown')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleKeydown = async event => {
+    if (event.key === ' ' || event.key === 'Enter') {
+      this._handleClick();
     }
   };
 
