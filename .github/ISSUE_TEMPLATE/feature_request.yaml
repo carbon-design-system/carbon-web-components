@@ -2,6 +2,8 @@ name: Feature Request 💡
 description:
   Suggest a new idea for the project.
 title: '[YOUR TITLE]: Brief description'
+assignees:
+  - jeffchew,ljcarot,oliviaflory,annawen1
 labels: ['Feature request']
 body:
   - type: markdown
