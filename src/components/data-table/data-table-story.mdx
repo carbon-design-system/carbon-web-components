@@ -73,7 +73,7 @@ import 'carbon-web-components/es/components/data-table/index.js';
 
 Adding `selection-name` attribute to `<bx-table-row>`/`<bx-table-header-row>` shows the selection UI in the table row.
 
-When user attempts to change row selection, the following events fire:
+The logic of row selection needs to be handled on by the application code. When user attempts to change row selection, the following events fire:
 
 | Element                 | Event                           | Description                                                   |
 | ----------------------- | ------------------------------- | ------------------------------------------------------------- |
@@ -162,7 +162,7 @@ html`
 
 Adding `sort-direction` attribute to `<bx-table-header-cell>` shows the sorting UI in the table header cell.
 
-When user attempts to change sorting, `bx-table-header-cell-sort` event is fired, with the following properties in the event details:
+The logic of sorting needs to be handled on by the application code. When user attempts to change sorting, `bx-table-header-cell-sort` event is fired, with the following properties in the event details:
 
 | Property           | Description             |
 | ------------------ | ----------------------- |
@@ -171,7 +171,7 @@ When user attempts to change sorting, `bx-table-header-cell-sort` event is fired
 
 `bx-table-header-cell-sort` event bubbles and is cancelable. Canceling `bx-table-header-cell-sort` event means canceling change in sort direction.
 
-Application code should listen to those events update its internal state of sorting. To do so, it's convenient to add a `data-` attribte to each table header cells so the delegated event handler can see which table column the events are from.
+Application code should listen to those events update its internal state of sorting. An example of the logic needed is available in our codesandbox example above. To do so, it's convenient to add a `data-` attribte to each table header cells so the delegated event handler can see which table column the events are from.
 
 Here's an example of [`lit-html`](https://lit-html.polymer-project.org). Note that those events are native DOM events, and thus something like `document.addEventListener('bx-table-header-cell-sort', event => { ... })` works, too:
 
