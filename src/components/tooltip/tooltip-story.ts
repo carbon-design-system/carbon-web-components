@@ -32,7 +32,7 @@ const tooltipBodyDirections = {
   [`Right (${FLOATING_MENU_DIRECTION.RIGHT})`]: FLOATING_MENU_DIRECTION.RIGHT,
 };
 
-const tooltipDefinitionAlignments = {
+const tooltipAlignments = {
   [`Start (${TOOLTIP_ALIGNMENT.START})`]: TOOLTIP_ALIGNMENT.START,
   [`Center (${TOOLTIP_ALIGNMENT.CENTER})`]: TOOLTIP_ALIGNMENT.CENTER,
   [`End (${TOOLTIP_ALIGNMENT.END})`]: TOOLTIP_ALIGNMENT.END,
@@ -47,13 +47,13 @@ const tooltipDefinitionDirections = {
 
 export const Default = args => {
   const { open } = args?.['bx-tooltip'] ?? {};
-  const { direction } = args?.['bx-tooltip-body'] ?? {};
+  const { alignment, direction } = args?.['bx-tooltip-body'] ?? {};
   return html`
     <style>
       ${styles}
     </style>
     <bx-tooltip ?open="${open}">
-      <bx-tooltip-body direction="${ifNonNull(direction)}">
+      <bx-tooltip-body direction="${ifNonNull(direction)}" alignment="${ifNonNull(alignment)}">
         <p>
           This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is needed
           please use a modal instead.
@@ -74,6 +74,7 @@ Default.parameters = {
       open: boolean('Open (open)', false),
     }),
     'bx-tooltip-body': () => ({
+      alignment: select('Tooltip alignment to trigger button (alignment)', tooltipAlignments, TOOLTIP_ALIGNMENT.CENTER),
       direction: select('Direction (direction in <bx-tooltip-body>)', tooltipBodyDirections, FLOATING_MENU_DIRECTION.BOTTOM),
     }),
   },
@@ -96,7 +97,7 @@ definition.storyName = 'Definition tooltip';
 definition.parameters = {
   knobs: {
     'bx-tooltip-definition': () => ({
-      alignment: select('Tooltip alignment to trigger button (alignment)', tooltipDefinitionAlignments, TOOLTIP_ALIGNMENT.CENTER),
+      alignment: select('Tooltip alignment to trigger button (alignment)', tooltipAlignments, TOOLTIP_ALIGNMENT.CENTER),
       bodyText: textNullable('Tooltip content (bodyText)', 'Brief description of the dotted, underlined word above.'),
       direction: select('Tooltip direction (direction)', tooltipDefinitionDirections, TOOLTIP_DIRECTION.BOTTOM),
     }),
