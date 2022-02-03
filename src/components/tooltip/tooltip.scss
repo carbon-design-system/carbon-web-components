@@ -11,6 +11,7 @@ $css--plex: true !default;
 $css--reset: true !default;
 // Caret's original size was 13.75px square
 $caret-size: 6.875px;
+$caret-horizontal-position: calc(#{$caret-size * (-1)} + 1px);
 
 @import 'carbon-components/scss/globals/scss/css--helpers';
 @import 'carbon-components/scss/globals/scss/layout';
@@ -53,7 +54,7 @@ $caret-size: 6.875px;
   .#{$prefix}--tooltip__caret {
     top: 50%;
     right: auto;
-    left: calc(#{$caret-size * (-1)} + 1px);
+    left: $caret-horizontal-position;
     transform: rotate(270deg) translate(25%, -50%); // Adjust for change in Y position as caret rotates
   }
 }
@@ -67,8 +68,7 @@ $caret-size: 6.875px;
   margin-right: $spacing-03;
 
   .#{$prefix}--tooltip__caret {
-    top: 50%;
-    right: calc(#{$caret-size * (-1)} + 1px);
+    right: $caret-horizontal-position;
     left: auto;
     transform: rotate(90deg) translate(-25%, -50%); // Adjust for change in Y position as caret rotates
   }
