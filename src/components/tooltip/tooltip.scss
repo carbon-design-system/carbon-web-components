@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019
+// Copyright IBM Corp. 2019, 2022
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -7,8 +7,10 @@
 
 $css--plex: true !default;
 // `@include reset` with `variable-exists(css--reset) == false or $css--reset == false` breaks the dotted underline
-// TODO: Detemrine how to deal with `$css--reset` across components
+// TODO: Determine how to deal with `$css--reset` across components
 $css--reset: true !default;
+// Caret's original size was 13.75px square
+$caret-size: 6.875px;
 
 @import 'carbon-components/scss/globals/scss/css--helpers';
 @import 'carbon-components/scss/globals/scss/layout';
@@ -24,43 +26,51 @@ $css--reset: true !default;
   ::slotted(#{$prefix}-tooltip-footer) {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     margin-top: 1rem;
   }
-}
 
-:host(#{$prefix}-tooltip-body[direction='left']) {
-  margin-top: 0;
-  margin-right: $spacing-2xs;
-
-  .#{$prefix}--tooltip__caret {
-    left: auto;
-    top: 50%;
-    right: rem(-5px);
-    transform: translateY(2px) rotate(-45deg) translate(50%, -50%); // Adjust for change in Y position as caret rotates
+  ::slotted(p) {
+    @include type-style('body-short-01');
+    text-align: left;
   }
 }
 
 :host(#{$prefix}-tooltip-body[direction='top']) {
   margin-top: 0;
-  margin-bottom: $spacing-2xs;
+  margin-bottom: $spacing-03;
 
   .#{$prefix}--tooltip__caret {
     top: auto;
     bottom: rem(-6px);
-    transform: rotate(45deg);
+    transform: rotate(180deg);
   }
 }
 
 :host(#{$prefix}-tooltip-body[direction='right']) {
-  margin-top: 0;
-  margin-left: $spacing-2xs;
+  margin-left: $spacing-03;
 
   .#{$prefix}--tooltip__caret {
-    left: rem(-5px);
     top: 50%;
     right: auto;
-    transform: translateY(2px) rotate(135deg) translate(-50%, 50%); // Adjust for change in Y position as caret rotates
+    left: calc(#{$caret-size * (-1)} + 1px);
+    transform: rotate(270deg) translate(25%, -50%); // Adjust for change in Y position as caret rotates
+  }
+}
+
+:host(#{$prefix}-tooltip-body[direction='bottom']) {
+  margin-top: $spacing-03;
+}
+
+:host(#{$prefix}-tooltip-body[direction='left']) {
+  margin-top: 0;
+  margin-right: $spacing-03;
+
+  .#{$prefix}--tooltip__caret {
+    top: 50%;
+    right: calc(#{$caret-size * (-1)} + 1px);
+    left: auto;
+    transform: rotate(90deg) translate(-25%, -50%); // Adjust for change in Y position as caret rotates
   }
 }
 
