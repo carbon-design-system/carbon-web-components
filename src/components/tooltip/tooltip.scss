@@ -71,10 +71,38 @@ $caret-horizontal-position: calc(#{$caret-size * (-1)} + 1px);
   }
 }
 
+:host(#{$prefix}-tooltip-body[direction='top']),
+:host(#{$prefix}-tooltip-body[direction='bottom']) {
+  &[alignment='start'] {
+    .#{$prefix}--tooltip__caret {
+      margin-left: rem(17px);
+    }
+  }
+
+  &[alignment='end'] {
+    .#{$prefix}--tooltip__caret {
+      margin-right: rem(17px);
+    }
+  }
+}
+
 :host(#{$prefix}-tooltip-body[direction='left']),
 :host(#{$prefix}-tooltip-body[direction='right']) {
   .#{$prefix}--tooltip__caret {
     top: 50%;
+  }
+
+  &[alignment='start'] {
+    .#{$prefix}--tooltip__caret {
+      top: calc($caret-size + rem(17px));
+    }
+  }
+
+  &[alignment='end'] {
+    .#{$prefix}--tooltip__caret {
+      top: auto;
+      bottom: rem(17px);
+    }
   }
 }
 
