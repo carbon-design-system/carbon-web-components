@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2021
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -58,7 +58,9 @@ export const Default = args => {
           This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is needed
           please use a modal instead.
         </p>
-        <bx-tooltip-footer> <a href="#" class="bx--link">Learn More</a><bx-btn kind="primary">Create</bx-btn> </bx-tooltip-footer>
+        <bx-tooltip-footer>
+          <a href="#" class="bx--link">Learn More</a><bx-btn kind="primary" size="sm">Create</bx-btn>
+        </bx-tooltip-footer>
       </bx-tooltip-body>
     </bx-tooltip>
   `;
