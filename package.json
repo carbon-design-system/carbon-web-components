@@ -115,7 +115,7 @@
     "@babel/traverse": "^7.16.3",
     "@carbon/icon-helpers": "^10.26.0",
     "@carbon/icons": "^10.45.0",
-    "@carbon/icons-angular": "^10.8.3",
+    "@carbon/icons-angular": "^11.0.0",
     "@carbon/icons-react": "^10.45.0",
     "@carbon/icons-vue": "^10.45.0",
     "@commitlint/cli": "^16.0.0",
