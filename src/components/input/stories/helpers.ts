@@ -19,9 +19,9 @@ const inputTypes = Object.entries(INPUT_TYPE).reduce(
 );
 
 const sizes = {
-  Regular: null,
   [`Small size (${INPUT_SIZE.SMALL})`]: INPUT_SIZE.SMALL,
-  [`Extra large size (${INPUT_SIZE.EXTRA_LARGE})`]: INPUT_SIZE.EXTRA_LARGE,
+  Regular: null,
+  [`Large size (${INPUT_SIZE.LARGE})`]: INPUT_SIZE.LARGE,
 };
 
 const colorSchemes = {
