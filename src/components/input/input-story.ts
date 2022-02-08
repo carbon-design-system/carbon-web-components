@@ -30,6 +30,7 @@ export const Default = args => {
     placeholder,
     readonly,
     required,
+    showPasswordVisibilityToggle,
     size,
     type,
     validityMessage,
@@ -50,6 +51,7 @@ export const Default = args => {
       placeholder="${ifNonNull(placeholder)}"
       ?readonly="${readonly}"
       ?required="${required}"
+      ?show-password-visibility-toggle="${showPasswordVisibilityToggle}"
       size="${ifNonNull(size)}"
       type="${ifNonNull(type)}"
       validity-message="${ifNonNull(validityMessage)}"
@@ -61,7 +63,8 @@ export const Default = args => {
 Default.storyName = 'Default';
 
 export const formItem = args => {
-  const { colorScheme, disabled, invalid, placeholder, size, type, value, onInput } = args?.['bx-input'] ?? {};
+  const { colorScheme, disabled, invalid, placeholder, showPasswordVisibilityToggle, size, type, value, onInput } =
+    args?.['bx-input'] ?? {};
   return html`
     <bx-form-item>
       <bx-input
@@ -72,6 +75,7 @@ export const formItem = args => {
         @input="${onInput}"
         ?invalid="${invalid}"
         ?disabled="${disabled}"
+        ?show-password-visibility-toggle="${showPasswordVisibilityToggle}"
         type="${ifNonNull(type)}">
         <span slot="label-text">Label text</span>
         <span slot="helper-text">Optional helper text</span>
@@ -84,7 +88,8 @@ export const formItem = args => {
 formItem.storyName = 'Form item';
 
 export const withoutFormItemWrapper = args => {
-  const { colorScheme, disabled, invalid, placeholder, size, type, value, onInput } = args?.['bx-input'] ?? {};
+  const { colorScheme, disabled, invalid, placeholder, showPasswordVisibilityToggle, size, type, value, onInput } =
+    args?.['bx-input'] ?? {};
   return html`
     <bx-input
       value="${ifNonNull(value)}"
@@ -94,6 +99,7 @@ export const withoutFormItemWrapper = args => {
       @input="${onInput}"
       ?invalid="${invalid}"
       ?disabled="${disabled}"
+      ?show-password-visibility-toggle="${showPasswordVisibilityToggle}"
       type="${ifNonNull(type)}">
       <span slot="label-text">Label text</span>
       <span slot="helper-text">Optional helper text</span>
