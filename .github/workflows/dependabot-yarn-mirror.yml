@@ -1,0 +1,46 @@
+name: dependabot-yarn-mirror
+
+on:
+  push:
+    branches: [ dependabot/**/* ]
+  pull_request:
+    branches: [ dependabot/**/* ]
+
+concurrency:
+  group: dependabot-yarn-mirror-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  yarn-mirror:
+    if: github.repository == 'carbon-design-system/carbon-web-components'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['14.x']
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - name: Get branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: get_branch
+      - name: Install dependencies
+        run: yarn install
+      - name: Push changes
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Mirror is clean, exiting..."
+          else
+            git config --global user.email ${{ secrets.BOT_EMAIL }}
+            git config --global user.name ${{ secrets.BOT_NAME }}
+
+            git add -A
+            git commit -m "chore(yarn): update yarn offline mirror"
+            git push origin ${{ steps.get_branch.outputs.branch }}
+          fi
