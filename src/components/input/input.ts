@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { html, property, query, customElement, LitElement, TemplateResult } from 'lit-element';
+import { html, property, query, customElement, LitElement } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
 import View16 from '@carbon/icons/lib/view/16';
@@ -228,7 +228,19 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
     this.type = this.type === INPUT_TYPE.PASSWORD ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD;
   }
 
-  protected _renderInput(): TemplateResult | string | void {
+  render() {
+    const invalidIcon = WarningFilled16({ class: `${prefix}--text-input__invalid-icon` });
+
+    const labelClasses = classMap({
+      [`${prefix}--label`]: true,
+      [`${prefix}--label--disabled`]: this.disabled,
+    });
+
+    const helperTextClasses = classMap({
+      [`${prefix}--form__helper-text`]: true,
+      [`${prefix}--form__helper-text--disabled`]: this.disabled,
+    });
+
     const { _handleInput: handleInput } = this;
     const passwordIsVisible = this.type !== INPUT_TYPE.PASSWORD;
     const passwordVisibilityIcon = passwordIsVisible
@@ -266,45 +278,30 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
       [`${prefix}--password-input`]: this.type === INPUT_TYPE.PASSWORD,
     });
 
-    return html`<input
-        autocomplete="${this.autocomplete}"
-        ?autofocus="${this.autofocus}"
-        class="${inputClasses}"
-        ?data-invalid="${this.invalid}"
-        ?disabled="${this.disabled}"
-        id="input"
-        name="${ifNonEmpty(this.name)}"
-        pattern="${ifNonEmpty(this.pattern)}"
-        placeholder="${ifNonEmpty(this.placeholder)}"
-        ?readonly="${this.readonly}"
-        ?required="${this.required}"
-        type="${ifNonEmpty(this.type)}"
-        .value="${this._value}"
-        @input="${handleInput}" />
-      ${this.showPasswordVisibilityToggle && (this.type === INPUT_TYPE.PASSWORD || this.type === INPUT_TYPE.TEXT)
-        ? passwordVisibilityButton()
-        : null}`;
-  }
-
-  render() {
-    const invalidIcon = WarningFilled16({ class: `${prefix}--text-input__invalid-icon` });
-
-    const labelClasses = classMap({
-      [`${prefix}--label`]: true,
-      [`${prefix}--label--disabled`]: this.disabled,
-    });
-
-    const helperTextClasses = classMap({
-      [`${prefix}--form__helper-text`]: true,
-      [`${prefix}--form__helper-text--disabled`]: this.disabled,
-    });
-
     return html`
       <label class="${labelClasses}" for="input">
         <slot name="label-text"> ${this.labelText} </slot>
       </label>
       <div class="${prefix}--text-input__field-wrapper" ?data-invalid="${this.invalid}">
-        ${this.invalid ? invalidIcon : null} ${this._renderInput()}
+        ${this.invalid ? invalidIcon : null}
+        <input
+          autocomplete="${this.autocomplete}"
+          ?autofocus="${this.autofocus}"
+          class="${inputClasses}"
+          ?data-invalid="${this.invalid}"
+          ?disabled="${this.disabled}"
+          id="input"
+          name="${ifNonEmpty(this.name)}"
+          pattern="${ifNonEmpty(this.pattern)}"
+          placeholder="${ifNonEmpty(this.placeholder)}"
+          ?readonly="${this.readonly}"
+          ?required="${this.required}"
+          type="${ifNonEmpty(this.type)}"
+          .value="${this._value}"
+          @input="${handleInput}" />
+        ${this.showPasswordVisibilityToggle && (this.type === INPUT_TYPE.PASSWORD || this.type === INPUT_TYPE.TEXT)
+          ? passwordVisibilityButton()
+          : null}
       </div>
       <div class="${helperTextClasses}">
         <slot name="helper-text"> ${this.helperText} </slot>
