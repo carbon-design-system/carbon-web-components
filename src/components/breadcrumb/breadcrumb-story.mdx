@@ -39,6 +39,30 @@ import 'carbon-web-components/es/components/breadcrumb/index.js';
 </bx-breadcrumb>
 ```
 
+### HTML (with overflow-menu)
+
+```html
+<bx-breadcrumb>
+  <bx-breadcrumb-item>
+    <bx-breadcrumb-link href="/#">Breadcrumb 1</bx-breadcrumb-link>
+  </bx-breadcrumb-item>
+  <bx-breadcrumb-item>
+    <bx-breadcrumb-link href="/#">Breadcrumb 2</bx-breadcrumb-link>
+  </bx-breadcrumb-item>
+  <bx-breadcrumb-item>
+    <bx-breadcrumb-overflow-menu>
+      <bx-overflow-menu-body>
+        <bx-overflow-menu-item>Option 1</bx-overflow-menu-item>
+        <bx-overflow-menu-item>Option 2</bx-overflow-menu-item>
+      </bx-overflow-menu-body>
+    </bx-breadcrumb-overflow-menu>
+  </bx-breadcrumb-item>
+  <bx-breadcrumb-item>
+    <bx-breadcrumb-link href="/#" aria-current="page">Breadcrumb 3</bx-breadcrumb-link>
+  </bx-breadcrumb-item>
+</bx-breadcrumb>
+```
+
 ## `<bx-breadcrumb-link>` attributes, properties and events
 
 <Props of="bx-breadcrumb-link" />
