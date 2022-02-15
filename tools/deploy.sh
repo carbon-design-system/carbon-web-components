@@ -2,6 +2,7 @@
 
 set -e
 
+git clean -f
 mv storybook-static ../storybook-static
 cd ../storybook-static
 echo "web-components.carbondesignsystem.com" > CNAME
