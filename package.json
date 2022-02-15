@@ -271,6 +271,11 @@
     "babel-plugin-transform-vue-jsx": "^4.0.0"
   },
   "typings": "es/index.d.ts",
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "ie > 11"
+  ],
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
