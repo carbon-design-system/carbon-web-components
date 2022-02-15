@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2021
+ * Copyright IBM Corp. 2020, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -52,16 +52,7 @@ const buildModulesCSS = ({ banner, dir }) =>
         includePaths: ['node_modules'],
       })
     )
-    .pipe(
-      postcss([
-        fixHostPseudo(),
-        autoprefixer({
-          // TODO: Optimize for modern browsers here
-          browsers: ['last 1 version', 'Firefox ESR', 'ie >= 11'],
-        }),
-        ...(dir === 'rtl' ? [rtlcss] : []),
-      ])
-    )
+    .pipe(postcss([fixHostPseudo(), autoprefixer(), ...(dir === 'rtl' ? [rtlcss] : [])]))
     .pipe(cleanCSS())
     .pipe(
       through2.obj((file, enc, done) => {
