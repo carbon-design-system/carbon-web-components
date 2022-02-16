@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2021
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -220,6 +220,7 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
           class="${inputClasses}"
           ?data-invalid="${this.invalid}"
           ?disabled="${this.disabled}"
+          aria-describedby="helper-text"
           id="input"
           name="${ifNonEmpty(this.name)}"
           pattern="${ifNonEmpty(this.pattern)}"
@@ -230,7 +231,7 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
           .value="${this._value}"
           @input="${handleInput}" />
       </div>
-      <div class="${helperTextClasses}">
+      <div class="${helperTextClasses}" id="helper-text">
         <slot name="helper-text"> ${this.helperText} </slot>
       </div>
       <div class="${prefix}--form-requirement">
