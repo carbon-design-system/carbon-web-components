@@ -174,7 +174,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.0",
     "eslint-restricted-globals": "~0.2.0",
-    "execa": "^6.0.0",
+    "execa": "^5.1.1",
     "expect-playwright": "~0.8.0",
     "expect-puppeteer": "^6.0.0",
     "file-loader": "^6.2.0",
