@@ -7,6 +7,16 @@
 
 @import 'carbon-components/scss/components/link/link';
 
-bx-tooltip-body p {
-  @include type-style('body-short-01');
+bx-tooltip-body {
+  p {
+    @include type-style('body-short-01');
+  }
+
+  .bx--link {
+    color: $inverse-link;
+
+    &:focus {
+      outline-color: $inverse-focus-ui;
+    }
+  }
 }
