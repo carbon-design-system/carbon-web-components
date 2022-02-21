@@ -58,9 +58,6 @@ export const Default = args => {
           This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is needed
           please use a modal instead.
         </p>
-        <bx-tooltip-footer>
-          <a href="#" class="bx--link">Learn More</a><bx-btn kind="primary" size="sm">Create</bx-btn>
-        </bx-tooltip-footer>
       </bx-tooltip-body>
     </bx-tooltip>
   `;
