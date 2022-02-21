@@ -229,7 +229,17 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
   }
 
   render() {
+    const { _handleInput: handleInput } = this;
+
     const invalidIcon = WarningFilled16({ class: `${prefix}--text-input__invalid-icon` });
+
+    const inputClasses = classMap({
+      [`${prefix}--text-input`]: true,
+      [`${prefix}--text-input--${this.colorScheme}`]: this.colorScheme,
+      [`${prefix}--text-input--invalid`]: this.invalid,
+      [`${prefix}--text-input--${this.size}`]: this.size,
+      [`${prefix}--password-input`]: this.type === INPUT_TYPE.PASSWORD,
+    });
 
     const labelClasses = classMap({
       [`${prefix}--label`]: true,
@@ -241,7 +251,6 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
       [`${prefix}--form__helper-text--disabled`]: this.disabled,
     });
 
-    const { _handleInput: handleInput } = this;
     const passwordIsVisible = this.type !== INPUT_TYPE.PASSWORD;
     const passwordVisibilityIcon = passwordIsVisible
       ? ViewOff16({ class: `${prefix}--icon-visibility-off` })
@@ -270,14 +279,6 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
       ${!this.disabled && passwordButtonLabel} ${passwordVisibilityIcon}
     </button>`;
 
-    const inputClasses = classMap({
-      [`${prefix}--text-input`]: true,
-      [`${prefix}--text-input--${this.colorScheme}`]: this.colorScheme,
-      [`${prefix}--text-input--invalid`]: this.invalid,
-      [`${prefix}--text-input--${this.size}`]: this.size,
-      [`${prefix}--password-input`]: this.type === INPUT_TYPE.PASSWORD,
-    });
-
     return html`
       <label class="${labelClasses}" for="input">
         <slot name="label-text"> ${this.labelText} </slot>
@@ -285,7 +286,7 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
       <div class="${prefix}--text-input__field-wrapper" ?data-invalid="${this.invalid}">
         ${this.invalid ? invalidIcon : null}
         <input
-          autocomplete="${this.autocomplete}"
+          ?autocomplete="${this.autocomplete}"
           ?autofocus="${this.autofocus}"
           class="${inputClasses}"
           ?data-invalid="${this.invalid}"
