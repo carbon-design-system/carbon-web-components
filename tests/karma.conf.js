@@ -48,7 +48,7 @@ module.exports = function setupKarma(config) {
     ].concat(specs.length > 0 ? specs : ['tests/karma-test-shim.js']),
 
     preprocessors: {
-      'src/**/*.[jt]s': ['webpack', 'sourcemap'], // For generatoring coverage report for untested files
+      'src/**/*.[jt]s': ['webpack', 'sourcemap'], // For generating coverage report for untested files
       'tests/karma-test-shim.js': ['webpack', 'sourcemap'],
       'tests/spec/**/*.ts': ['webpack', 'sourcemap'],
       'tests/utils/**/*.js': ['webpack', 'sourcemap'],
@@ -61,7 +61,7 @@ module.exports = function setupKarma(config) {
       resolve: {
         alias: {
           // In our development environment (where `carbon-web-components/es/icons` may not have been built yet),
-          // we load icons from `@carbon/icons` and use a WebPack loader to convert the icons to `lit-html` version
+          // we load icons from `@carbon/icons` and use a Webpack loader to convert the icons to `lit-html` version
           'carbon-web-components/es/icons': '@carbon/icons/lib',
         },
         extensions: ['.js', '.ts'],
@@ -146,7 +146,7 @@ module.exports = function setupKarma(config) {
                 options: {
                   plugins: () => [
                     require('autoprefixer')({
-                      browsers: ['last 1 version', 'ie >= 11'],
+                      overrideBrowserslist: ['last 1 version', 'ie >= 11'],
                     }),
                   ],
                 },

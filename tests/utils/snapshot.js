@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -38,7 +38,7 @@ beforeEach(function () {
          * @param {HTMLElement} actualElem The DOM element to match the snapshot with.
          * @param {Object} [options={}] The options.
          * @param {string} [options.mode]
-         *   `shadow` to use the `actualaElem.shadowRoot.innerHTML`. Otherwise `actualElem.outerHTML` is used.
+         *   `shadow` to use the `actualElem.shadowRoot.innerHTML`. Otherwise `actualElem.outerHTML` is used.
          * @returns {boolean}
          *   `true` if the given DOM element's content matches the snapshot or the snapshot does not exist. Otherwise throws.
          */
