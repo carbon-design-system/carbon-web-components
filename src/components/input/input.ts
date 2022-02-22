@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2021
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,7 +10,10 @@
 import { html, property, query, customElement, LitElement } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import settings from 'carbon-components/es/globals/js/settings';
+import View16 from '@carbon/icons/lib/view/16';
+import ViewOff16 from '@carbon/icons/lib/view--off/16';
 import WarningFilled16 from '@carbon/icons/lib/warning--filled/16';
+import { FLOATING_MENU_ALIGNMENT, FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
 import FormMixin from '../../globals/mixins/form';
 import ValidityMixin from '../../globals/mixins/validity';
@@ -136,10 +139,42 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
   requiredValidityMessage = 'Please fill out this field.';
 
   /**
+   * "Hide password" tooltip text on password visibility toggle
+   */
+  @property()
+  hidePasswordLabel = 'Hide password';
+
+  /**
+   * "Show password" tooltip text on password visibility toggle
+   */
+  @property()
+  showPasswordLabel = 'Show password';
+
+  /**
+   * Boolean property to render password visibility toggle
+   */
+  @property({ type: Boolean, attribute: 'show-password-visibility-toggle', reflect: true })
+  showPasswordVisibilityToggle = false;
+
+  /**
    * The input box size.
    */
   @property({ reflect: true })
   size = INPUT_SIZE.REGULAR;
+
+  /**
+   * Specify the alignment of the tooltip to the icon-only button.
+   * Can be one of: start, center, or end.
+   */
+  @property()
+  tooltipAlignment = FLOATING_MENU_ALIGNMENT.CENTER;
+
+  /**
+   * Specify the direction of the tooltip for icon-only buttons.
+   * Can be either top, right, bottom, or left.
+   */
+  @property()
+  tooltipDirection = FLOATING_MENU_DIRECTION.BOTTOM;
 
   /**
    * The type of the input. Can be one of the types listed in the INPUT_TYPE enum
@@ -186,6 +221,13 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
     });
   }
 
+  /**
+   * Handles password visibility toggle button click
+   */
+  private handleTogglePasswordVisibility() {
+    this.type = this.type === INPUT_TYPE.PASSWORD ? INPUT_TYPE.TEXT : INPUT_TYPE.PASSWORD;
+  }
+
   render() {
     const { _handleInput: handleInput } = this;
 
@@ -196,6 +238,7 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
       [`${prefix}--text-input--${this.colorScheme}`]: this.colorScheme,
       [`${prefix}--text-input--invalid`]: this.invalid,
       [`${prefix}--text-input--${this.size}`]: this.size,
+      [`${prefix}--password-input`]: this.type === INPUT_TYPE.PASSWORD,
     });
 
     const labelClasses = classMap({
@@ -207,6 +250,34 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
       [`${prefix}--form__helper-text`]: true,
       [`${prefix}--form__helper-text--disabled`]: this.disabled,
     });
+
+    const passwordIsVisible = this.type !== INPUT_TYPE.PASSWORD;
+    const passwordVisibilityIcon = passwordIsVisible
+      ? ViewOff16({ class: `${prefix}--icon-visibility-off` })
+      : View16({ class: `${prefix}--icon-visibility-on` });
+
+    const passwordVisibilityToggleClasses = classMap({
+      [`${prefix}--text-input--password__visibility__toggle`]: true,
+      [`${prefix}--btn`]: true,
+      [`${prefix}--btn--icon-only`]: true,
+      [`${prefix}--tooltip__trigger`]: true,
+      [`${prefix}--tooltip--a11y`]: true,
+      [`${prefix}--btn--disabled`]: this.disabled,
+      [`${prefix}--tooltip--${this.tooltipDirection}`]: this.tooltipDirection,
+      [`${prefix}--tooltip--align-${this.tooltipAlignment}`]: this.tooltipAlignment,
+    });
+
+    const passwordButtonLabel = html`<span class="${prefix}--assistive-text">
+      ${passwordIsVisible ? this.hidePasswordLabel : this.showPasswordLabel}
+    </span>`;
+
+    const passwordVisibilityButton = () => html`<button
+      type="button"
+      class="${passwordVisibilityToggleClasses}"
+      ?disabled="${this.disabled}"
+      @click="${this.handleTogglePasswordVisibility}">
+      ${!this.disabled && passwordButtonLabel} ${passwordVisibilityIcon}
+    </button>`;
 
     return html`
       <label class="${labelClasses}" for="input">
@@ -229,6 +300,9 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
           type="${ifNonEmpty(this.type)}"
           .value="${this._value}"
           @input="${handleInput}" />
+        ${this.showPasswordVisibilityToggle && (this.type === INPUT_TYPE.PASSWORD || this.type === INPUT_TYPE.TEXT)
+          ? passwordVisibilityButton()
+          : null}
       </div>
       <div class="${helperTextClasses}">
         <slot name="helper-text"> ${this.helperText} </slot>

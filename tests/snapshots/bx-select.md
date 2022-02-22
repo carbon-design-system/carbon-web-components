@@ -15,7 +15,7 @@
 <div class="bx--select-input__wrapper">
   <select
     aria-invalid="false"
-    class="bx--select-input bx--select-input--lg"
+    class="bx--select-input bx--select-input--md"
     id="input"
   >
     <optgroup
@@ -162,7 +162,7 @@
   <select
     aria-describedby="validity-message"
     aria-invalid="true"
-    class="bx--select-input bx--select-input--lg"
+    class="bx--select-input bx--select-input--md"
     id="input"
   >
     <optgroup
