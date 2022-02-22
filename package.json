@@ -60,6 +60,7 @@
     "test:integration:build": "jest -c tests/integration/build/jest.config.js --runInBand",
     "test:integration:ui": "jest -c tests/integration/ui/jest.config.js --runInBand",
     "test:unit": "gulp test:unit",
+    "test:unit:updateSnapshot": "gulp test:unit --update-snapshot",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "wca": "web-component-analyzer analyze src --outFile custom-elements.json"
   },
