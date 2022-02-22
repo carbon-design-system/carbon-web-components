@@ -30,7 +30,7 @@ module.exports = function setupKarma(config) {
   config.set({
     basePath: '..',
 
-    overrideBrowserslist: (browsers.length > 0 ? browsers : ['ChromeHeadless']).map(normalizeBrowser),
+    browsers: (browsers.length > 0 ? browsers : ['ChromeHeadless']).map(normalizeBrowser),
 
     frameworks: ['jasmine', 'snapshot'],
 
