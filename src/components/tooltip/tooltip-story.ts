@@ -26,41 +26,38 @@ import styles from './tooltip-story.scss';
 import storyDocs from './tooltip-story.mdx';
 
 const tooltipBodyDirections = {
-  [`Bottom (${FLOATING_MENU_DIRECTION.BOTTOM})`]: FLOATING_MENU_DIRECTION.BOTTOM,
-  [`Left (${FLOATING_MENU_DIRECTION.LEFT})`]: FLOATING_MENU_DIRECTION.LEFT,
   [`Top (${FLOATING_MENU_DIRECTION.TOP})`]: FLOATING_MENU_DIRECTION.TOP,
   [`Right (${FLOATING_MENU_DIRECTION.RIGHT})`]: FLOATING_MENU_DIRECTION.RIGHT,
+  [`Bottom (${FLOATING_MENU_DIRECTION.BOTTOM})`]: FLOATING_MENU_DIRECTION.BOTTOM,
+  [`Left (${FLOATING_MENU_DIRECTION.LEFT})`]: FLOATING_MENU_DIRECTION.LEFT,
 };
 
-const tooltipDefinitionAlignments = {
+const tooltipAlignments = {
   [`Start (${TOOLTIP_ALIGNMENT.START})`]: TOOLTIP_ALIGNMENT.START,
   [`Center (${TOOLTIP_ALIGNMENT.CENTER})`]: TOOLTIP_ALIGNMENT.CENTER,
   [`End (${TOOLTIP_ALIGNMENT.END})`]: TOOLTIP_ALIGNMENT.END,
 };
 
 const tooltipDefinitionDirections = {
-  [`Bottom (${TOOLTIP_DIRECTION.BOTTOM})`]: TOOLTIP_DIRECTION.BOTTOM,
-  [`Left (${TOOLTIP_DIRECTION.LEFT})`]: TOOLTIP_DIRECTION.LEFT,
   [`Top (${TOOLTIP_DIRECTION.TOP})`]: TOOLTIP_DIRECTION.TOP,
   [`Right (${TOOLTIP_DIRECTION.RIGHT})`]: TOOLTIP_DIRECTION.RIGHT,
+  [`Bottom (${TOOLTIP_DIRECTION.BOTTOM})`]: TOOLTIP_DIRECTION.BOTTOM,
+  [`Left (${TOOLTIP_DIRECTION.LEFT})`]: TOOLTIP_DIRECTION.LEFT,
 };
 
 export const Default = args => {
   const { open } = args?.['bx-tooltip'] ?? {};
-  const { direction } = args?.['bx-tooltip-body'] ?? {};
+  const { alignment, direction } = args?.['bx-tooltip-body'] ?? {};
   return html`
     <style>
       ${styles}
     </style>
     <bx-tooltip ?open="${open}">
-      <bx-tooltip-body direction="${ifNonNull(direction)}">
+      <bx-tooltip-body direction="${ifNonNull(direction)}" alignment="${ifNonNull(alignment)}">
         <p>
           This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is needed
           please use a modal instead.
         </p>
-        <bx-tooltip-footer>
-          <a href="#" class="bx--link">Learn More</a><bx-btn kind="primary" size="sm">Create</bx-btn>
-        </bx-tooltip-footer>
       </bx-tooltip-body>
     </bx-tooltip>
   `;
@@ -74,6 +71,7 @@ Default.parameters = {
       open: boolean('Open (open)', false),
     }),
     'bx-tooltip-body': () => ({
+      alignment: select('Tooltip alignment to trigger button (alignment)', tooltipAlignments, TOOLTIP_ALIGNMENT.CENTER),
       direction: select('Direction (direction in <bx-tooltip-body>)', tooltipBodyDirections, FLOATING_MENU_DIRECTION.BOTTOM),
     }),
   },
@@ -96,7 +94,7 @@ definition.storyName = 'Definition tooltip';
 definition.parameters = {
   knobs: {
     'bx-tooltip-definition': () => ({
-      alignment: select('Tooltip alignment to trigger button (alignment)', tooltipDefinitionAlignments, TOOLTIP_ALIGNMENT.CENTER),
+      alignment: select('Tooltip alignment to trigger button (alignment)', tooltipAlignments, TOOLTIP_ALIGNMENT.CENTER),
       bodyText: textNullable('Tooltip content (bodyText)', 'Brief description of the dotted, underlined word above.'),
       direction: select('Tooltip direction (direction)', tooltipDefinitionDirections, TOOLTIP_DIRECTION.BOTTOM),
     }),
