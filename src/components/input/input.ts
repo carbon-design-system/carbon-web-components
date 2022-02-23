@@ -291,6 +291,7 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
           class="${inputClasses}"
           ?data-invalid="${this.invalid}"
           ?disabled="${this.disabled}"
+          aria-describedby="helper-text"
           id="input"
           name="${ifNonEmpty(this.name)}"
           pattern="${ifNonEmpty(this.pattern)}"
@@ -304,7 +305,7 @@ export default class BXInput extends ValidityMixin(FormMixin(LitElement)) {
           ? passwordVisibilityButton()
           : null}
       </div>
-      <div class="${helperTextClasses}">
+      <div class="${helperTextClasses}" id="helper-text">
         <slot name="helper-text"> ${this.helperText} </slot>
       </div>
       <div class="${prefix}--form-requirement">
