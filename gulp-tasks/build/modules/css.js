@@ -52,16 +52,7 @@ const buildModulesCSS = ({ banner, dir }) =>
         includePaths: ['node_modules'],
       })
     )
-    .pipe(
-      postcss([
-        fixHostPseudo(),
-        autoprefixer({
-          // TODO: Optimize for modern browsers here
-          overrideBrowserslist: ['last 1 version', 'Firefox ESR', 'ie >= 11'],
-        }),
-        ...(dir === 'rtl' ? [rtlcss] : []),
-      ])
-    )
+    .pipe(postcss([fixHostPseudo(), autoprefixer(), ...(dir === 'rtl' ? [rtlcss] : [])]))
     .pipe(cleanCSS())
     .pipe(
       through2.obj((file, enc, done) => {
