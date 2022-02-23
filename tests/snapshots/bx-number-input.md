@@ -5,7 +5,7 @@
 ####   `Should render with various attributes`
 
 ```
-<div class="bx--number bx--number--lg">
+<div class="bx--number bx--number--md">
   <label
     class="bx--label bx--label--disabled"
     for="input"

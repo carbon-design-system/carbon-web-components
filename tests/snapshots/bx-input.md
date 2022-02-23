@@ -15,6 +15,7 @@
 </label>
 <div class="bx--text-input__field-wrapper">
   <input
+    aria-describedby="helper-text"
     autocomplete=""
     autofocus=""
     class="bx--text-input bx--text-input--light bx--text-input--xl"
@@ -28,7 +29,10 @@
     type="text"
   >
 </div>
-<div class="bx--form__helper-text bx--form__helper-text--disabled">
+<div
+  class="bx--form__helper-text bx--form__helper-text--disabled"
+  id="helper-text"
+>
   <slot name="helper-text">
     helper-text-foo
   </slot>
