@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2021
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -43,12 +43,15 @@ describe('bx-input', function () {
           colorScheme: INPUT_COLOR_SCHEME.LIGHT,
           disabled: true,
           helperText: 'helper-text-foo',
+          hidePasswordLabel: 'Hide password',
           labelText: 'label-text-foo',
           name: 'name-foo',
           pattern: 'pattern-foo',
           placeholder: 'placeholder-foo',
           readonly: true,
           required: true,
+          showPasswordLabel: 'Show password',
+          showPasswordVisibilityToggle: false,
           size: 'xl',
           type: INPUT_TYPE.TEXT,
           validityMessage: 'validity-message-foo',
