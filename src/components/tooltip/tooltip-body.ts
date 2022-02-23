@@ -57,9 +57,29 @@ class BXTooltipBody extends BXFloatingMenu {
    * The position of this tooltip body.
    */
   get position() {
-    const { direction } = this;
+    const { alignment, direction } = this;
     const position = super.position;
     const { direction: positionDirection, start, top } = position;
+
+    if (direction === FLOATING_MENU_DIRECTION.TOP || direction === FLOATING_MENU_DIRECTION.BOTTOM) {
+      if (alignment === FLOATING_MENU_ALIGNMENT.START) {
+        position.start -= 16;
+      }
+
+      if (alignment === FLOATING_MENU_ALIGNMENT.END) {
+        position.start += 16;
+      }
+    }
+
+    if (direction === FLOATING_MENU_DIRECTION.RIGHT || direction === FLOATING_MENU_DIRECTION.LEFT) {
+      if (alignment === FLOATING_MENU_ALIGNMENT.START) {
+        position.top -= 16;
+      }
+
+      if (alignment === FLOATING_MENU_ALIGNMENT.END) {
+        position.top += 16;
+      }
+    }
 
     if (direction === FLOATING_MENU_DIRECTION.LEFT) {
       const style = this.ownerDocument!.defaultView!.getComputedStyle(this);
