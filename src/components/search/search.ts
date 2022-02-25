@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2021
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -15,6 +15,7 @@ import Search16 from '@carbon/icons/lib/search/16';
 import settings from 'carbon-components/es/globals/js/settings';
 import ifNonEmpty from '../../globals/directives/if-non-empty';
 import FocusMixin from '../../globals/mixins/focus';
+import FormMixin from '../../globals/mixins/form';
 import { INPUT_SIZE } from '../input/input';
 import { SEARCH_COLOR_SCHEME } from './defs';
 import styles from './search.scss';
@@ -34,7 +35,7 @@ const { prefix } = settings;
  * @fires bx-search-input - The custom event fired after the search content is changed upon a user gesture.
  */
 @customElement(`${prefix}-search`)
-class BXSearch extends FocusMixin(LitElement) {
+class BXSearch extends FocusMixin(FormMixin(LitElement)) {
   /**
    * Handles `input` event on the `<input>` in the shadow DOM.
    */
@@ -77,6 +78,14 @@ class BXSearch extends FocusMixin(LitElement) {
     }
   }
 
+  _handleFormdata(event: Event) {
+    const { formData } = event as any; // TODO: Wait for `FormDataEvent` being available in `lib.dom.d.ts`
+    const { disabled, name, value } = this;
+    if (!disabled) {
+      formData.append(name, value);
+    }
+  }
+
   /**
    * The assistive text for the close button.
    */
@@ -102,7 +111,7 @@ class BXSearch extends FocusMixin(LitElement) {
   labelText = '';
 
   /**
-   * The form name.
+   * The form name in `FormData`.
    */
   @property()
   name = '';
