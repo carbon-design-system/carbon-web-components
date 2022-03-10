@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2021
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -12,6 +12,7 @@ import { html, property, customElement } from 'lit-element';
 import BXFloatingMenu, { FLOATING_MENU_ALIGNMENT, FLOATING_MENU_DIRECTION } from '../floating-menu/floating-menu';
 import { OVERFLOW_MENU_COLOR_SCHEME } from './defs';
 import styles from './overflow-menu.scss';
+import HostListener from '../../globals/decorators/host-listener';
 
 const { prefix } = settings;
 
@@ -45,6 +46,28 @@ class BXOverflowMenuBody extends BXFloatingMenu {
    */
   @property({ type: Boolean, reflect: true })
   open = false;
+
+  /**
+   * Handles `keydown` event on the menu body.
+   */
+  @HostListener('keydown')
+  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
+  private _handleKeydownTrigger = async event => {
+    const { key } = event;
+    if (this.open) {
+      switch (key) {
+        case 'ArrowDown':
+        case 'ArrowUp':
+          event.preventDefault();
+          break;
+        case 'Escape':
+          this.open = false;
+          break;
+        default:
+          break;
+      }
+    }
+  };
 
   connectedCallback() {
     if (!this.hasAttribute('role')) {
