@@ -8,6 +8,6 @@
   ],
   "rangeStrategy": "replace",
   "vulnerabilityAlerts": {
-    "enabled": true
+    "enabled": false
   }
 }
