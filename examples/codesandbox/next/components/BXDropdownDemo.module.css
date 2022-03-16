@@ -1,8 +1,8 @@
 /**
  * @license
- * 
+ *
  * Copyright IBM Corp. 2020
- * 
+ *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
@@ -13,7 +13,7 @@
   font-family: 'IBM Plex Sans';
   font-style: normal;
   src: local('IBM Plex Sans'), local('IBMPlexSans'),
-    url(https://fonts.gstatic.com/s/ibmplexsans/v6/zYXgKVElMYYaJe8bpLHnCwDKhdHeEw.woff) format('woff');
+    url(https://1www.s81c.com/common/carbon/plex/fonts/IBM-Plex-Sans/fonts/complete/woff/IBMPlexSans-Regular.woff) format('woff');
   font-display: auto;
 }
 
@@ -22,7 +22,7 @@
   font-family: 'IBM Plex Sans';
   font-style: normal;
   src: local('IBM Plex Sans SemiBold'), local('IBMPlexSans-SemiBold'),
-    url(https://fonts.gstatic.com/s/ibmplexsans/v6/zYX9KVElMYYaJe8bpLHnCwDKjQ76AIFscg.woff) format('woff');
+    url(https://1www.s81c.com/common/carbon/plex/fonts/IBM-Plex-Sans/fonts/complete/woff/IBMPlexSans-SemiBold.woff) format('woff');
   font-display: auto;
 }
 
