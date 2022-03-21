@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020, 2021
+ * Copyright IBM Corp. 2020, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -42,6 +42,11 @@ export enum TABS_KEYBOARD_ACTION {
    * Keyboard action to open/close menu on the trigger button or select/deselect a menu item.
    */
   TRIGGERING = 'triggering',
+
+  /**
+   * Keyboard action to trigger tab selection using enter key
+   */
+  SELECTING = 'selecting',
 }
 
 /**

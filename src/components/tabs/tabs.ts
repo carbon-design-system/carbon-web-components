@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2021
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -55,18 +55,6 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
   private _triggerNode!: HTMLDivElement;
 
   /**
-   * Handles `focus` event handler on this element.
-   */
-  @HostListener('focusin')
-  // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
-  private _handleFocusIn() {
-    const { selectorItem } = this.constructor as typeof BXTabs;
-    forEach(this.querySelectorAll(selectorItem), item => {
-      (item as BXTab).inFocus = true;
-    });
-  }
-
-  /**
    * Handles `blur` event handler on this element.
    * @param event The event.
    */
@@ -74,10 +62,6 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
   // @ts-ignore: The decorator refers to this method but TS thinks this method is not referred to
   private _handleFocusOut({ relatedTarget }: FocusEvent) {
     if (!this.contains(relatedTarget as Node)) {
-      const { selectorItem } = this.constructor as typeof BXTabs;
-      forEach(this.querySelectorAll(selectorItem), item => {
-        (item as BXTab).inFocus = false;
-      });
       this._handleUserInitiatedToggle(false);
     }
   }
@@ -170,8 +154,9 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
   }
 
   @HostListener('keydown')
-  protected _handleKeydown({ key }: KeyboardEvent) {
+  protected _handleKeydown(event: KeyboardEvent) {
     const { _open: open, _triggerNode: triggerNode } = this;
+    const { key, target } = event;
     const narrowMode = Boolean(triggerNode.offsetParent);
     const action = (this.constructor as typeof BXTabs).getAction(key, { narrowMode });
     if (!open && narrowMode) {
@@ -192,6 +177,9 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
       switch (action) {
         case TABS_KEYBOARD_ACTION.CLOSING:
           this._handleUserInitiatedToggle(false);
+          break;
+        case TABS_KEYBOARD_ACTION.SELECTING:
+          this._handleUserInitiatedSelectItem(target as BXTab);
           break;
         case TABS_KEYBOARD_ACTION.NAVIGATING:
           {
@@ -378,6 +366,9 @@ class BXTabs extends HostListenerMixin(BXContentSwitcher) {
   static getAction(key: string, { narrowMode }: { narrowMode?: boolean }) {
     if (key === 'Escape') {
       return TABS_KEYBOARD_ACTION.CLOSING;
+    }
+    if (key === 'Enter') {
+      return TABS_KEYBOARD_ACTION.SELECTING;
     }
     if (key in (narrowMode ? NAVIGATION_DIRECTION_NARROW : NAVIGATION_DIRECTION)) {
       return TABS_KEYBOARD_ACTION.NAVIGATING;
