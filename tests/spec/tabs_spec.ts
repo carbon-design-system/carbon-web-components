@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2021
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -9,7 +9,6 @@
 
 import { render } from 'lit-html';
 import EventManager from '../utils/event-manager';
-import { forEach } from '../../src/globals/internal/collection-helpers';
 import BXTabs from '../../src/components/tabs/tabs';
 import BXTab from '../../src/components/tabs/tab';
 import { Default } from '../../src/components/tabs/tabs-story';
@@ -129,31 +128,6 @@ describe('bx-tabs', function () {
 
     afterEach(async function () {
       events.reset();
-    });
-  });
-
-  describe('Focus style', function () {
-    it('should support setting focus style to child tabs', async function () {
-      render(template(), document.body);
-      await Promise.resolve();
-      const elem = document.body.querySelector('bx-tabs');
-      const itemNodes = document.body.querySelectorAll('bx-tab');
-      const event = new CustomEvent('focusin', { bubbles: true });
-      (elem as HTMLElement).dispatchEvent(event);
-      expect(Array.prototype.every.call(itemNodes, item => (item as BXTab).inFocus)).toBe(true);
-    });
-
-    it('should support unsetting focus style to child tabs', async function () {
-      render(template(), document.body);
-      await Promise.resolve();
-      const elem = document.body.querySelector('bx-tabs');
-      const itemNodes = document.body.querySelectorAll('bx-tab');
-      forEach(itemNodes, item => {
-        (item as BXTab).inFocus = true;
-      });
-      const event = new CustomEvent('focusout', { bubbles: true });
-      (elem as HTMLElement).dispatchEvent(event);
-      expect(Array.prototype.every.call(itemNodes, item => (item as BXTab).inFocus)).toBe(false);
     });
   });
 
