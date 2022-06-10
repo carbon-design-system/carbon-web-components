@@ -59,6 +59,24 @@ Toasts are a non-modal, time-based window elements used to display short message
 </bx-toast-notification>
 ```
 
+## Themeing
+
+In order to get the correct token value for the notification background, you will need to apply the following in you `scss` to your themed class. For example:
+
+```css
+@import 'carbon-components/scss/globals/scss/vendor/@carbon/elements/scss/themes/mixins';
+@import 'carbon-components/scss/globals/scss/component-tokens';
+@import 'carbon-components/src/components/notification/inline-notification';
+@import 'carbon-components/src/components/notification/toast-notification';
+
+.dds-theme-zone-g90 {
+  @include carbon--theme($carbon--theme--g90, true) {
+    @include emit-component-tokens($notification-colors);
+  }
+}
+```
+
+
 ## `<bx-inline-notification>` attributes, properties and events
 
 Note: For `boolean` attributes, `true` means simply setting the attribute (e.g. `<bx-inline-notification open>`) and `false` means not setting the attribute (e.g. `<bx-inline-notification>` without `open` attribute).
