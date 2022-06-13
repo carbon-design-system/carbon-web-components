@@ -12,6 +12,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "experimentalDecorators": true,
+    "skipLibCheck": true,
     "strict": true,
     "noImplicitAny": false,
     "jsx": "react",
