@@ -1,5 +1,5 @@
 //
-// Copyright IBM Corp. 2019, 2021
+// Copyright IBM Corp. 2019, 2022
 //
 // This source code is licensed under the Apache-2.0 license found in the
 // LICENSE file in the root directory of this source tree.
@@ -19,5 +19,21 @@ $css--plex: true !default;
 
   .#{$prefix}--link__icon[hidden] {
     display: none;
+  }
+
+  &.#{$prefix}--link-with-icon__icon-left,
+  .#{$prefix}--link-with-icon.#{$prefix}--link-with-icon--inline-icon.#{$prefix}--link-with-icon__icon-left {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+
+    svg,
+    ::slotted(svg[slot='icon']) {
+      align-self: start;
+      position: relative;
+      margin-left: 0;
+      margin-right: $carbon--spacing-03;
+      top: 1px;
+    }
   }
 }
