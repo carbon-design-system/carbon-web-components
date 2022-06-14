@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2021
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -16,13 +16,18 @@ import { boolean, select } from '@storybook/addon-knobs';
 import Download16 from 'carbon-web-components/es/icons/download/16';
 import textNullable from '../../../.storybook/knob-text-nullable';
 import ifNonNull from '../../globals/directives/if-non-null';
-import { LINK_SIZE } from './link';
+import { LINK_SIZE, ICON_PLACEMENT } from './link';
 import storyDocs from './link-story.mdx';
 
 const sizes = {
   'Regular size': null,
   [`Small size (${LINK_SIZE.SMALL})`]: LINK_SIZE.SMALL,
   [`Large size (${LINK_SIZE.LARGE})`]: LINK_SIZE.LARGE,
+};
+
+const placementTypes = {
+  [`${ICON_PLACEMENT.LEFT}`]: ICON_PLACEMENT.LEFT,
+  [`${ICON_PLACEMENT.RIGHT}`]: ICON_PLACEMENT.RIGHT,
 };
 
 export const Default = args => {
@@ -48,13 +53,15 @@ export const Default = args => {
 Default.storyName = 'Default';
 
 export const pairedWithIcon = args => {
-  const { disabled, download, href, hreflang, linkRole, ping, rel, size, target, type, onClick } = args?.['bx-link'] ?? {};
+  const { disabled, download, href, hreflang, iconPlacement, linkRole, ping, rel, size, target, type, onClick } =
+    args?.['bx-link'] ?? {};
   return html`
     <bx-link
       ?disabled="${disabled}"
       download="${ifNonNull(download)}"
       href="${ifNonNull(href)}"
       hreflang="${ifNonNull(hreflang)}"
+      icon-placement="${iconPlacement}"
       link-role="${ifNonNull(linkRole)}"
       ping="${ifNonNull(ping)}"
       rel="${ifNonNull(rel)}"
@@ -75,6 +82,7 @@ export default {
       'bx-link': () => ({
         disabled: boolean('Disabled (disabled)', false),
         href: textNullable('Link href (href)', 'https://github.com/carbon-design-system/carbon-web-components'),
+        iconPlacement: select('Icon Position (icon-placement):', placementTypes, placementTypes[`${ICON_PLACEMENT.RIGHT}`]),
         onClick: action('click'),
         size: select('Link size (size)', sizes, null),
       }),
