@@ -27,6 +27,10 @@ $css--plex: true !default;
     justify-content: flex-end;
     flex-direction: row-reverse;
 
+    .#{$prefix}--link__icon {
+      margin-left: 0;
+    }
+
     svg,
     ::slotted(svg[slot='icon']) {
       align-self: start;
