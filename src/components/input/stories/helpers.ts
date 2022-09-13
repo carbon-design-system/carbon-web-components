@@ -39,9 +39,7 @@ const createProps = ({ boolean, textNonEmpty, select }) => {
     invalid: boolean('Invalid (invalid)', false),
     onInput: action('input'),
     showPasswordVisibilityToggle:
-      type === INPUT_TYPE.TEXT || type === INPUT_TYPE.PASSWORD
-        ? boolean('Show password visibility toggle (show-password-visibility-toggle)', false)
-        : null,
+      type === INPUT_TYPE.PASSWORD ? boolean('Show password visibility toggle (show-password-visibility-toggle)', false) : null,
     size: select('Input size (size)', sizes, INPUT_SIZE.REGULAR),
     type,
   };
