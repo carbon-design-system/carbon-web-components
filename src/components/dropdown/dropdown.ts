@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2021
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -115,7 +115,9 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FormMixin(FocusMixin(Li
     if (this.shadowRoot!.contains(event.target as Node)) {
       this._handleUserInitiatedToggle();
     } else {
-      const item = (event.target as Element).closest((this.constructor as typeof BXDropdown).selectorItem) as BXDropdownItem;
+      const item = (event.target as Element).closest(
+        (this.constructor as typeof BXDropdown).selectorItemEnabled
+      ) as BXDropdownItem;
       if (this.contains(item)) {
         this._handleUserInitiatedSelectItem(item);
       }
@@ -279,7 +281,7 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FormMixin(FocusMixin(Li
    * Clears the selection of dropdown items.
    */
   protected _clearHighlight() {
-    forEach(this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItem), item => {
+    forEach(this.querySelectorAll((this.constructor as typeof BXDropdown).selectorItemEnabled), item => {
       (item as BXDropdownItem).highlighted = false;
     });
   }
@@ -290,7 +292,7 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FormMixin(FocusMixin(Li
    */
   protected _navigate(direction: number) {
     const constructor = this.constructor as typeof BXDropdown;
-    const items = this.querySelectorAll(constructor.selectorItem);
+    const items = this.querySelectorAll(constructor.selectorItemEnabled);
     const highlightedItem = this.querySelector(constructor.selectorItemHighlighted);
     const highlightedIndex = indexOf(items, highlightedItem!);
     let nextIndex = highlightedIndex + direction;
@@ -471,19 +473,19 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FormMixin(FocusMixin(Li
   }
 
   shouldUpdate(changedProperties) {
-    const { selectorItem } = this.constructor as typeof BXDropdown;
+    const { selectorItemEnabled } = this.constructor as typeof BXDropdown;
     if (changedProperties.has('size')) {
-      forEach(this.querySelectorAll(selectorItem), elem => {
+      forEach(this.querySelectorAll(selectorItemEnabled), elem => {
         (elem as BXDropdownItem).size = this.size;
       });
     }
     if (changedProperties.has('value')) {
       // `<bx-multi-select>` updates selection beforehand
       // because our rendering logic for `<bx-multi-select>` looks for selected items via `qSA()`
-      forEach(this.querySelectorAll(selectorItem), elem => {
+      forEach(this.querySelectorAll(selectorItemEnabled), elem => {
         (elem as BXDropdownItem).selected = (elem as BXDropdownItem).value === this.value;
       });
-      const item = find(this.querySelectorAll(selectorItem), elem => (elem as BXDropdownItem).value === this.value);
+      const item = find(this.querySelectorAll(selectorItemEnabled), elem => (elem as BXDropdownItem).value === this.value);
       if (item) {
         const range = this.ownerDocument!.createRange();
         range.selectNodeContents(item);
@@ -498,11 +500,11 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FormMixin(FocusMixin(Li
   updated(changedProperties) {
     const { helperText, type } = this;
     const inline = type === DROPDOWN_TYPE.INLINE;
-    const { selectorItem } = this.constructor as typeof BXDropdown;
-    if (changedProperties.has('disabled')) {
+    const { selectorItemEnabled } = this.constructor as typeof BXDropdown;
+    if (!changedProperties.get('disabled')) {
       const { disabled } = this;
       // Propagate `disabled` attribute to descendants until `:host-context()` gets supported in all major browsers
-      forEach(this.querySelectorAll(selectorItem), elem => {
+      forEach(this.querySelectorAll(selectorItemEnabled), elem => {
         (elem as BXDropdownItem).disabled = disabled;
       });
     }
@@ -632,10 +634,10 @@ class BXDropdown extends ValidityMixin(HostListenerMixin(FormMixin(FocusMixin(Li
   }
 
   /**
-   * A selector that will return dropdown items.
+   * A selector that will return enabled dropdown items.
    */
-  static get selectorItem() {
-    return `${prefix}-dropdown-item`;
+  static get selectorItemEnabled() {
+    return `${prefix}-dropdown-item:not([disabled])`;
   }
 
   /**
