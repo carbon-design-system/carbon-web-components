@@ -1,3 +1,17 @@
+> :exclamation:  This repository has moved!
+>
+> Carbon Web Components is now part of the [Carbon for IBM.com](https://github.com/carbon-design-system/carbon-for-ibm-dotcom) monorepo and will continue to have full official support by that team.
+> In addition, plans for Q4 2022 will include:
+> - Upgrade to Carbon v11
+> - Upgrade to Lit v2
+> - Upgrade to Typescript v4
+> 
+> With these upgrades, this will be a major version release to `Carbon Web Components v2`.
+> Plans to bring Carbon Web Components v2 to feature parity with Carbon React will occur throughout 2023.
+> 
+> If there are any questions, you can [open an issue](https://github.com/carbon-design-system/carbon-for-ibm-dotcom/issues/new/choose), reach out to us on [Discord](https://discord.gg/SYjvP8epkM), or for IBMers can reach us at `#carbon-for-ibm-dotcom`.
+
+
 A Carbon Design System variant that's as easy to use as native HTML elements, with no framework tax, no framework silo.
 
 <p align="center">
