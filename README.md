@@ -1,7 +1,7 @@
 > :exclamation:  This repository has moved!
 >
 > Carbon Web Components is now part of the [Carbon for IBM.com](https://github.com/carbon-design-system/carbon-for-ibm-dotcom) monorepo and will continue to have full official support by that team.
-> In addition, plans for Q4 2022 will include:
+> In addition, plans for January 2023 (first release candidate) will include :
 > - Upgrade to Carbon v11
 > - Upgrade to Lit v2
 > - Upgrade to Typescript v4
