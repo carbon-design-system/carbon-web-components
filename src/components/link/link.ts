@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2019, 2021
+ * Copyright IBM Corp. 2019, 2022
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -10,9 +10,12 @@
 import { classMap } from 'lit-html/directives/class-map';
 import { html, property, customElement, LitElement, query } from 'lit-element';
 import settings from 'carbon-components/es/globals/js/settings';
+import { ICON_PLACEMENT } from '../../globals/defs';
 import ifNonNull from '../../globals/directives/if-non-null';
 import FocusMixin from '../../globals/mixins/focus';
 import styles from './link.scss';
+
+export { ICON_PLACEMENT };
 
 const { prefix } = settings;
 
@@ -150,6 +153,18 @@ class BXLink extends FocusMixin(LitElement) {
   hreflang!: string;
 
   /**
+   * Icon placement(right (default) | left)
+   */
+  @property({ attribute: 'icon-placement', reflect: true })
+  iconPlacement = ICON_PLACEMENT.RIGHT;
+
+  /**
+   * Positions the icon inline with text when `true`
+   */
+  @property({ type: Boolean })
+  iconInline = true;
+
+  /**
    * The a11y role for `<a>`.
    */
   @property({ attribute: 'link-role' })
@@ -190,6 +205,22 @@ class BXLink extends FocusMixin(LitElement) {
       mode: 'open',
       delegatesFocus: Number((/Safari\/(\d+)/.exec(navigator.userAgent) ?? ['', 0])[1]) <= 537,
     });
+  }
+
+  updated() {
+    const { iconInline, iconPlacement, _linkNode: linkNode } = this;
+    if (linkNode) {
+      linkNode.classList.add(`${prefix}--link-with-icon`);
+      linkNode.classList.toggle(`${prefix}--link-with-icon__icon-${ICON_PLACEMENT.LEFT}`, iconPlacement === ICON_PLACEMENT.LEFT);
+      linkNode.classList.toggle(
+        `${prefix}--link-with-icon__icon-${ICON_PLACEMENT.RIGHT}`,
+        iconPlacement === ICON_PLACEMENT.RIGHT
+      );
+
+      if (iconInline && iconPlacement === ICON_PLACEMENT.RIGHT) {
+        linkNode.classList.add(`${prefix}--link-with-icon--inline-icon`);
+      }
+    }
   }
 
   render() {
